@@ -20,10 +20,44 @@
         p {
             font-size: 1.25rem;
         }
+
+        /* Fixed bar at the bottom */
+        .fixed-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 9999;
+        }
+        .fixed-bar a {
+            margin: 0 15px;
+        }
+        .fixed-bar img {
+            width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to the $DEBT Official Site</h1>
     <p>Learn more about our mission and how we're making an impact.</p>
+
+    <div class="fixed-bar">
+        <a href="https://twitter.com" target="_blank">
+            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
+        </a>
+        <a href="https://telegram.org" target="_blank">
+            <img src="https://github.com/debtculture/debt/blob/main/telegram.png?raw=true" alt="Telegram" />
+        </a>
+        <a href="https://dexscreener.com" target="_blank">
+            <img src="https://github.com/debtculture/debt/blob/main/dexscreener.png?raw=true" alt="DexScreener" />
+        </a>
+        <a href="https://pump.fun" target="_blank">
+            <img src="https://github.com/debtculture/debt/blob/main/pumpfun.png?raw=true" alt="PumpFun" />
+        </a>
+    </div>
 </body>
 </html>
