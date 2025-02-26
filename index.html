@@ -21,46 +21,42 @@
             font-size: 1.25rem;
         }
         .fixed-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #121212;
-            padding: 20px 0;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            z-index: 10;
         }
         .fixed-bar a {
-            display: inline-block;
-            background-color: #fff;
-            border-radius: 50%;
-            padding: 15px;
+            margin: 0 25px;
         }
         .fixed-bar img {
-            max-width: 70px; /* Adjusted size of the logo */
-            max-height: 70px;
-            object-fit: contain; /* Maintain aspect ratio */
+            width: 75px; /* Logo size */
+            height: 75px; /* Logo size */
+            border-radius: 50%; /* Circular bubbles */
+            background-color: white; /* White bubble background */
+            padding: 10px; /* Padding to create the bubble effect */
         }
     </style>
 </head>
 <body>
     <h1>Welcome to the $DEBT Official Site</h1>
     <p>Learn more about our mission and how we're making an impact.</p>
-
-    <!-- Footer bar with logo links -->
     <div class="fixed-bar">
         <a href="https://x.com/debtculture" target="_blank">
-            <img src="https://raw.githubusercontent.com/debtculture/debt/main/X.png" alt="X" />
+            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X" />
         </a>
-        <a href="https://t.me/DebtCulture" target="_blank">
-            <img src="https://raw.githubusercontent.com/debtculture/debt/main/Telegram.png" alt="Telegram" />
+        <a href="https://t.me/debtculture" target="_blank">
+            <img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" />
         </a>
         <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqnritjwirsdgzaydd8" target="_blank">
-            <img src="https://raw.githubusercontent.com/debtculture/debt/main/Dexscreener.png" alt="DexScreener" />
+            <img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" />
         </a>
         <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">
-            <img src="https://raw.githubusercontent.com/debtculture/debt/main/Pumpfun.png" alt="PumpFun" />
+            <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="PumpFun" />
         </a>
     </div>
 </body>
