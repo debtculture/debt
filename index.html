@@ -22,26 +22,25 @@
         }
         .fixed-bar {
             position: fixed;
-            bottom: 0;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            justify-content: space-around;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 0;
-            z-index: 10;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
         }
         .fixed-bar img {
-            width: 150px;  /* Increased size of icons */
-            height: 150px; /* Maintain aspect ratio */
-            margin: 0 10px; /* Space out icons */
+            width: 400px;
+            height: 400px;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to the $DEBT Official Site</h1>
     <p>Learn more about our mission and how we're making an impact.</p>
+    
     <div class="fixed-bar">
         <a href="https://twitter.com" target="_blank">
             <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
@@ -58,4 +57,3 @@
     </div>
 </body>
 </html>
-
