@@ -27,13 +27,24 @@
             transform: translateX(-50%);
             display: flex;
             gap: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent bar */
+            padding: 15px 25px;
+            border-radius: 30px;
+            align-items: center;
+        }
+        .fixed-bar a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;  /* Adjusted for better proportions */
+            height: 120px;
+            background-color: #ffffff; /* Ensures visibility for dark logos */
+            border-radius: 50%;
+            text-decoration: none;
         }
         .fixed-bar img {
-            width: 400px;
-            height: 400px;
+            width: 90px; /* Increased icon size */
+            height: 90px;
         }
     </style>
 </head>
