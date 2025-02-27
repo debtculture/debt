@@ -108,8 +108,9 @@
         .mobile-dropdown {
             display: none;
             padding-left: 20px;
-            max-height: 200px;
+            max-height: 300px; /* Increase max-height for smoother scrolling */
             overflow-y: auto;
+            transition: max-height 0.3s ease-out; /* Smooth transition for scroll */
         }
         .mobile-menu .expand {
             cursor: pointer;
