@@ -170,16 +170,16 @@
             }
         }
         .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    z-index: 1000;
-}
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            z-index: 1000;
+        }
 
     </style>
 </head>
@@ -240,9 +240,22 @@
         </div>
     </div>
 
-    <!-- Welcome Message -->
-    <h1>Welcome to the Official $DEBT Site</h1>
-    <p>Currently under construction.</p>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('mobileDropdown');
+            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Debt Culture | 2025</p>
+    </div>
 
     <!-- Bottom Icon Bar -->
     <div class="fixed-bar">
@@ -259,21 +272,6 @@
             <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" />
         </a>
     </div>
-
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
-
-        function toggleDropdown() {
-            var dropdown = document.getElementById("mobileDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }
-    </script>
-    <footer class="footer">
-    © 2025 by debtculture.xyz. All rights reserved.
-</footer>
 
 </body>
 </html>
