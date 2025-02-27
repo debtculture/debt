@@ -213,11 +213,11 @@
 
     <!-- Mobile Hamburger Menu -->
     <div class="hamburger" onclick="toggleMenu()">
-        <div class="bar"</div>
-        <div class="bar"</div>
-        <div class="bar"</div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
-    <div id="mobileMenu" style="display: none;">
+    <div class="mobile-menu" id="mobileMenu">
         <a href="#mission">Mission</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#how-to-buy">How to Buy</a>
@@ -261,10 +261,9 @@
     </div>
 
     <script>
-        const menu = document.getElementById('mobileMenu');
-        // Toggle display: if it's 'none', set it to 'block', if it's 'block', set it to 'none'
-        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-    }
+        function toggleMenu() {
+            var menu = document.getElementById("mobileMenu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
         }
 
         function toggleDropdown() {
