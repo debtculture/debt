@@ -20,6 +20,65 @@
         p {
             font-size: 1.25rem;
         }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1100;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            background-color: #333;
+            width: 200px;
+            text-align: left;
+            border-radius: 5px;
+        }
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .mobile-menu a:hover {
+            background-color: #555;
+        }
+
+        /* Bottom Icon Bar */
         .fixed-bar {
             position: fixed;
             bottom: 0;
@@ -49,12 +108,57 @@
             height: 100%;
             object-fit: contain;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Top Navbar -->
+    <div class="navbar">
+        <a href="#mission">Mission</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#how-to-buy">How to Buy</a>
+        <a href="#hall-of-fame">$DEBT Hall of Fame</a>
+        <a href="#team">Team</a>
+        <a href="forums-link">Forums</a>
+        <a href="merch-link">Merchandise</a>
+        <a href="memes-link">Memes</a>
+        <a href="#disclaimer">Disclaimer</a>
+        <a href="#resources">Resources</a>
+    </div>
+
+    <!-- Mobile Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#mission">Mission</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#how-to-buy">How to Buy</a>
+        <a href="#hall-of-fame">$DEBT Hall of Fame</a>
+        <a href="#team">Team</a>
+        <a href="forums-link">Forums</a>
+        <a href="merch-link">Merchandise</a>
+        <a href="memes-link">Memes</a>
+        <a href="#disclaimer">Disclaimer</a>
+        <a href="#resources">Resources</a>
+    </div>
+
     <h1>Welcome to the $DEBT Official Site</h1>
     <p>Learn more about our mission and how we're making an impact.</p>
 
+    <!-- Bottom Icon Bar -->
     <div class="fixed-bar">
         <a href="https://x.com/debtculture" target="_blank" class="icon">
             <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
@@ -69,5 +173,17 @@
             <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="PumpFun" />
         </a>
     </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("mobileMenu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    </script>
+
 </body>
 </html>
