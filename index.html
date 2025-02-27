@@ -95,6 +95,7 @@
             width: 200px;
             text-align: left;
             border-radius: 5px;
+            z-index: 999;
         }
         .mobile-menu a {
             display: block;
@@ -109,7 +110,7 @@
             display: none;
             padding-left: 20px;
             overflow-y: auto;
-            max-height: 300px; /* Increased to accommodate more options */
+            margin-top: 5px;
         }
         .mobile-menu .expand {
             cursor: pointer;
@@ -163,6 +164,9 @@
             }
             .mobile-menu {
                 display: block;
+                overflow-y: auto;
+                max-height: 80vh; /* Dynamic height to avoid overflow issues */
+                padding-bottom: 20px;
             }
         }
     </style>
