@@ -261,16 +261,23 @@
     </div>
 
     <script>
-        function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
+    // Ensure the mobile menu is hidden by default when the page loads
+    window.onload = function() {
+        var menu = document.getElementById("mobileMenu");
+        menu.style.display = "none"; // Hide the menu by default
+    }
 
-        function toggleDropdown() {
-            var dropdown = document.getElementById("mobileDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }
-    </script>
+    function toggleMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function toggleDropdown() {
+        var dropdown = document.getElementById("mobileDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+</script>
+
     <footer class="footer">
     © 2025 by debtculture.xyz. All rights reserved.
 </footer>
