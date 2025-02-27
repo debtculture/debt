@@ -48,8 +48,6 @@
             position: relative;
             display: flex;
         }
-
-        /* Dropdown Menu */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -59,10 +57,7 @@
             z-index: 1000;
             top: 100%;
             left: 0;
-            max-height: 300px;  /* Set max height for the dropdown */
-            overflow-y: auto;   /* Allow scrolling when content overflows */
         }
-
         .dropdown-content a {
             color: white;
             padding: 10px;
@@ -73,10 +68,58 @@
         .dropdown-content a:hover {
             background-color: #555;
         }
-
-        /* Show dropdown on hover */
         .dropdown:hover .dropdown-content {
             display: block;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1100;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            background-color: #333;
+            width: 200px;
+            text-align: left;
+            border-radius: 5px;
+        }
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .mobile-menu a:hover {
+            background-color: #555;
+        }
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .mobile-menu .expand {
+            cursor: pointer;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+        .mobile-menu .expand:hover {
+            background-color: #555;
         }
 
         /* Bottom Icon Bar */
