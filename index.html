@@ -40,6 +40,7 @@
             position: relative;
             display: flex;
         }
+        /* Remove the scroll option on desktop for the dropdown */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -49,6 +50,7 @@
             z-index: 1000;
             top: 100%;
             left: 0;
+            max-height: none; /* No scroll on desktop */
         }
         .dropdown-content a {
             color: white;
@@ -100,6 +102,8 @@
         .mobile-dropdown {
             display: none;
             padding-left: 20px;
+            overflow-y: auto;  /* Add scrolling if needed */
+            max-height: 200px; /* Set a max height to allow scrolling */
         }
         .mobile-menu .expand {
             cursor: pointer;
