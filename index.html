@@ -3,151 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Debt Culture</title>
+    <title>$DEBT Project</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Basic Reset */
+        * {
             margin: 0;
             padding: 0;
-            text-align: center;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navbar */
         .navbar {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
             width: 100%;
             background-color: #333;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
             z-index: 1000;
+            padding: 15px 0;
         }
-        .navbar a {
+
+        .navbar ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .navbar ul li {
+            position: relative;
+        }
+
+        .navbar ul li a {
             color: white;
             text-decoration: none;
             padding: 10px 15px;
+            display: block;
         }
-        .navbar a:hover {
-            background-color: #555;
+
+        .navbar ul li a:hover {
+            background-color: #575757;
         }
+
+        /* Hamburger Menu (Mobile) */
         .hamburger {
             display: none;
-            flex-direction: column;
+            font-size: 30px;
+            color: white;
             cursor: pointer;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1100;
         }
-        .hamburger div {
-            width: 30px;
-            height: 3px;
-            background-color: white;
-            margin: 5px 0;
-        }
-        .mobile-menu {
+
+        /* Mobile Menu */
+        .menu {
             display: none;
-            position: fixed;
+            position: absolute;
             top: 50px;
-            left: 10px;
+            left: 0;
             background-color: #333;
             width: 200px;
-            text-align: left;
             border-radius: 5px;
         }
-        .mobile-menu a {
+
+        .menu a {
+            padding: 15px;
+            text-align: center;
             display: block;
             color: white;
-            padding: 10px;
             text-decoration: none;
         }
-        .mobile-menu a:hover {
-            background-color: #555;
+
+        .menu a:hover {
+            background-color: #575757;
         }
-        .icon-bar {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .icon-bar a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            text-decoration: none;
-        }
-        .icon-bar img {
-            width: 24px;
-            height: 24px;
-        }
-        @media (max-width: 768px) {
-            .navbar {
+
+        /* Show hamburger on mobile */
+        @media screen and (max-width: 768px) {
+            .navbar ul {
                 display: none;
+                flex-direction: column;
+                align-items: flex-start;
             }
+
             .hamburger {
-                display: flex;
+                display: block;
             }
+
+            .menu.show {
+                display: block;
+            }
+
+            .navbar ul li {
+                width: 100%;
+            }
+
+            .navbar ul li a {
+                padding: 12px;
+                text-align: left;
+            }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 60px 20px;
+            margin: 40px 0;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Scroll-to section highlighting */
+        .active {
+            background-color: #575757;
         }
     </style>
 </head>
 <body>
+
+    <!-- Navbar -->
     <div class="navbar">
-        <a href="#mission">Mission</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#how-to-buy">How to Buy</a>
-        <a href="#hall-of-fame">$DEBT Hall of Fame</a>
-        <a href="#team">Team</a>
-        <a href="forums-link">Forums</a>
-        <a href="merch-link">Merchandise</a>
-        <a href="memes-link">Memes</a>
-        <a href="#disclaimer">Disclaimer</a>
-        <a href="#resources">Resources</a>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#howToBuy">How to Buy</a></li>
+            <li><a href="#hallOfFame">Hall of Fame</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#disclaimer">Disclaimer</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#forums">Forums</a></li>
+            <li><a href="#merchandise">Merchandise</a></li>
+            <li><a href="#memes">Memes</a></li>
+        </ul>
+        <div class="menu" id="mobileMenu">
+            <a href="#mission">Mission</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#howToBuy">How to Buy</a>
+            <a href="#hallOfFame">Hall of Fame</a>
+            <a href="#team">Team</a>
+            <a href="#disclaimer">Disclaimer</a>
+            <a href="#resources">Resources</a>
+            <a href="#forums">Forums</a>
+            <a href="#merchandise">Merchandise</a>
+            <a href="#memes">Memes</a>
+        </div>
     </div>
 
-    <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#mission">Mission</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#how-to-buy">How to Buy</a>
-        <a href="#hall-of-fame">$DEBT Hall of Fame</a>
-        <a href="#team">Team</a>
-        <a href="forums-link">Forums</a>
-        <a href="merch-link">Merchandise</a>
-        <a href="memes-link">Memes</a>
-        <a href="#disclaimer">Disclaimer</a>
-        <a href="#resources">Resources</a>
-    </div>
+    <!-- Sections -->
+    <section id="mission">
+        <h2>Mission</h2>
+        <p>Welcome to $DEBT! Here, we explain our story, vision, and the goals we aim to achieve.</p>
+        <!-- Include debt clock here -->
+        <p>Real-time debt clock will go here!</p>
+    </section>
 
-    <div class="icon-bar">
-        <a href="twitter-link"><img src="twitter-icon.png" alt="Twitter"></a>
-        <a href="telegram-link"><img src="telegram-icon.png" alt="Telegram"></a>
-        <a href="solscan-link"><img src="solscan-icon.png" alt="Solscan"></a>
-        <a href="birdeye-link"><img src="birdeye-icon.png" alt="Birdeye"></a>
-        <a href="gmgn-link"><img src="gmgn-icon.png" alt="GMGN"></a>
-    </div>
+    <section id="roadmap">
+        <h2>Roadmap</h2>
+        <p>Check out our future plans and the vision for the $DEBT token.</p>
+        <!-- Roadmap details here -->
+    </section>
+
+    <section id="howToBuy">
+        <h2>How to Buy $DEBT</h2>
+        <p>Learn how to buy $DEBT with a simple step-by-step guide.</p>
+        <!-- Buying guide here -->
+    </section>
+
+    <section id="hallOfFame">
+        <h2>$DEBT Hall of Fame</h2>
+        <p>Our top holders and contributors who are helping grow the project!</p>
+        <!-- Hall of Fame list here -->
+    </section>
+
+    <section id="team">
+        <h2>Meet the Team</h2>
+        <p>Our team is passionate about making $DEBT successful. Learn about the people behind the project.</p>
+        <!-- Team details here -->
+    </section>
+
+    <section id="disclaimer">
+        <h2>Disclaimer</h2>
+        <p>Please read our legal disclaimers before investing in $DEBT.</p>
+        <!-- Disclaimer details here -->
+    </section>
+
+    <section id="resources">
+        <h2>Resources</h2>
+        <p>Links to important resources: Twitter, Dexscreener, Dextools, GMGN, Rugcheck, and more.</p>
+        <!-- Add resource links here -->
+    </section>
+
+    <section id="forums">
+        <h2>Forums</h2>
+        <p>This section will be linked to an outsourced forums platform.</p>
+    </section>
+
+    <section id="merchandise">
+        <h2>Merchandise</h2>
+        <p>This section will be linked to an outsourced merchandise platform.</p>
+    </section>
+
+    <section id="memes">
+        <h2>Memes</h2>
+        <p>This section will be linked to an outsourced meme platform.</p>
+    </section>
 
     <script>
+        // Toggle mobile menu
         function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
+            const menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("show");
         }
+
+        // Smooth Scroll for Nav Links
+        document.querySelectorAll('.navbar ul li a, .menu a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
