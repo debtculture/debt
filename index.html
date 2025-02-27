@@ -57,6 +57,8 @@
             z-index: 1000;
             top: 100%;
             left: 0;
+            max-height: 300px; /* Added max height */
+            overflow-y: auto; /* Allow scrolling */
         }
         .dropdown-content a {
             color: white;
@@ -108,8 +110,8 @@
         .mobile-dropdown {
             display: none;
             padding-left: 20px;
-            max-height: 200px;
-            overflow-y: auto;
+            max-height: 300px; /* Ensure maximum height */
+            overflow-y: auto; /* Allow scrolling */
         }
         .mobile-menu .expand {
             cursor: pointer;
