@@ -132,19 +132,7 @@
         <a href="forums-link">Forums</a>
         <a href="merch-link">Merchandise</a>
         <a href="memes-link">Memes</a>
-        <div class="dropdown">
-            <a href="#resources" class="dropbtn">Resources ▼</a>
-            <div class="dropdown-content">
-                <a href="dextools-link">DexTools</a>
-                <a href="geckoterminal-link">GeckoTerminal</a>
-                <a href="dexscreener-link">DEX Screener</a>
-                <a href="rugcheck-link">RugCheck</a>
-                <a href="bubblemaps-link">BubbleMaps</a>
-                <a href="photon-link">Photon</a>
-                <a href="birdeye-link">Birdeye</a>
-                <a href="gmgn-link">GMGN</a>
-            </div>
-        </div>
+        <a href="#resources">Resources</a>
     </div>
 
     <!-- Mobile Hamburger Menu -->
@@ -162,17 +150,7 @@
         <a href="forums-link">Forums</a>
         <a href="merch-link">Merchandise</a>
         <a href="memes-link">Memes</a>
-        <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
-        <div class="mobile-dropdown" id="mobileDropdown">
-            <a href="dextools-link">DexTools</a>
-            <a href="geckoterminal-link">GeckoTerminal</a>
-            <a href="dexscreener-link">DEX Screener</a>
-            <a href="rugcheck-link">RugCheck</a>
-            <a href="bubblemaps-link">BubbleMaps</a>
-            <a href="photon-link">Photon</a>
-            <a href="birdeye-link">Birdeye</a>
-            <a href="gmgn-link">GMGN</a>
-        </div>
+        <a href="#resources">Resources</a>
     </div>
 
     <h1>Welcome to the $DEBT Official Site</h1>
@@ -197,11 +175,10 @@
     <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
-        function toggleDropdown() {
-            var dropdown = document.getElementById("mobileDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
             }
         }
     </script>
