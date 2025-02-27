@@ -13,6 +13,15 @@
             color: #fff;
             text-align: center;
         }
+        h1 {
+            font-size: 3rem;
+            margin-top: 20%;
+        }
+        p {
+            font-size: 1.25rem;
+        }
+
+        /* Navbar Styles */
         .navbar {
             position: fixed;
             top: 0;
@@ -22,7 +31,6 @@
             padding: 10px 0;
             display: flex;
             justify-content: center;
-            align-items: center;
             z-index: 1000;
         }
         .navbar a, .dropdown {
@@ -40,7 +48,6 @@
             position: relative;
             display: flex;
         }
-        /* Remove the scroll option on desktop for the dropdown */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -50,7 +57,6 @@
             z-index: 1000;
             top: 100%;
             left: 0;
-            max-height: none; /* No scroll on desktop */
         }
         .dropdown-content a {
             color: white;
@@ -102,8 +108,8 @@
         .mobile-dropdown {
             display: none;
             padding-left: 20px;
-            overflow-y: auto;  /* Add scrolling if needed */
-            max-height: 200px; /* Set a max height to allow scrolling */
+            max-height: 200px;
+            overflow-y: auto;
         }
         .mobile-menu .expand {
             cursor: pointer;
@@ -115,6 +121,39 @@
         .mobile-menu .expand:hover {
             background-color: #555;
         }
+
+        /* Bottom Icon Bar */
+        .fixed-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 0;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .fixed-bar a {
+            margin: 0 5px;
+        }
+        .icon {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .navbar {
                 display: none;
@@ -129,6 +168,8 @@
     </style>
 </head>
 <body>
+
+    <!-- Top Navbar -->
     <div class="navbar">
         <a href="#mission">Mission</a>
         <a href="#roadmap">Roadmap</a>
@@ -153,6 +194,7 @@
         </div>
     </div>
 
+    <!-- Mobile Hamburger Menu -->
     <div class="hamburger" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -180,15 +222,37 @@
         </div>
     </div>
 
+    <!-- Welcome Message -->
+    <h1>Welcome to the $DEBT Official Site</h1>
+    <p>Learn more about our mission and how we're making an impact.</p>
+
+    <!-- Bottom Icon Bar -->
+    <div class="fixed-bar">
+        <a href="https://x.com/debtculture" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
+        </a>
+        <a href="https://t.me/debtculture" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" />
+        </a>
+        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqnritjwirsdgzaydd8" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" />
+        </a>
+        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" />
+        </a>
+    </div>
+
     <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
         }
+
         function toggleDropdown() {
             var dropdown = document.getElementById("mobileDropdown");
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }
     </script>
+
 </body>
 </html>
