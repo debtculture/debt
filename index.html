@@ -3,71 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$DEBT Official Site</title>
+    <title>$DEBT Project</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Basic Reset */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #121212;
-            color: #fff;
-            text-align: center;
+            box-sizing: border-box;
         }
-        h1 {
-            font-size: 3rem;
-            margin-top: 20%;
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
         }
-        p {
-            font-size: 1.25rem;
-        }
-        .fixed-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 0;
-            background-color: #121212;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .fixed-bar a {
-            margin: 0 5px;
-        }
-        .icon {
-            width: 80px;
-            height: 80px;
-            background-color: #fff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        .icon img {
+
+        /* Sticky Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+            background-color: #333;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .navbar ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .navbar ul li {
+            position: relative;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #575757;
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #333;
+            width: 200px;
+            border-radius: 5px;
+        }
+
+        .menu a {
+            padding: 15px;
+            text-align: center;
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+
+        .menu a:hover {
+            background-color: #575757;
+        }
+
+        /* Show hamburger on mobile */
+        @media screen and (max-width: 768px) {
+            .navbar ul {
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .menu.show {
+                display: block;
+            }
+
+            .navbar ul li {
+                width: 100%;
+            }
+
+            .navbar ul li a {
+                padding: 12px;
+                text-align: left;
+            }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 60px 20px;
+            margin: 40px 0;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Scroll-to section highlighting */
+        .active {
+            background-color: #575757;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the $DEBT Official Site</h1>
-    <p>Learn more about our mission and how we're making an impact.</p>
 
-    <div class="fixed-bar">
-        <a href="https://x.com/debtculture" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
-        </a>
-        <a href="https://t.me/debtculture" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" />
-        </a>
-        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqnritjwirsdgzaydd8" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" />
-        </a>
-        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="PumpFun" />
-        </a>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul>
+            <li><a href="#mission">Mission/Story</a></li>
+            <li><a href="#debtClock">Debt Clock</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#howToBuy">How to Buy</a></li>
+            <li><a href="#hallOfFame">Hall of Fame</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#disclaimer">Disclaimer</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ul>
+        <div class="menu" id="mobileMenu">
+            <a href="#mission">Mission/Story</a>
+            <a href="#debtClock">Debt Clock</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#howToBuy">How to Buy</a>
+            <a href="#hallOfFame">Hall of Fame</a>
+            <a href="#team">Team</a>
+            <a href="#disclaimer">Disclaimer</a>
+            <a href="#resources">Resources</a>
+        </div>
     </div>
+
+    <!-- Sections -->
+    <section id="mission">
+        <h2>Mission/Story</h2>
+        <p>Welcome to $DEBT! Here, we explain our story, vision, and the goals we aim to achieve.</p>
+    </section>
+
+    <section id="debtClock">
+        <h2>Debt Clock</h2>
+        <p>Real-time Debt Clock showing the US and World debt. Stay informed about the financial situation.</p>
+        <!-- Embed the debt clock here -->
+    </section>
+
+    <section id="roadmap">
+        <h2>Roadmap</h2>
+        <p>Check out our future plans and the vision for the $DEBT token.</p>
+        <!-- Roadmap details here -->
+    </section>
+
+    <section id="howToBuy">
+        <h2>How to Buy $DEBT</h2>
+        <p>Learn how to buy $DEBT with a simple step-by-step guide.</p>
+        <!-- Buying guide here -->
+    </section>
+
+    <section id="hallOfFame">
+        <h2>$DEBT Hall of Fame</h2>
+        <p>Our top holders and contributors who are helping grow the project!</p>
+        <!-- Hall of Fame list here -->
+    </section>
+
+    <section id="team">
+        <h2>Meet the Team</h2>
+        <p>Our team is passionate about making $DEBT successful. Learn about the people behind the project.</p>
+        <!-- Team details here -->
+    </section>
+
+    <section id="disclaimer">
+        <h2>Disclaimer</h2>
+        <p>Please read our legal disclaimers before investing in $DEBT.</p>
+        <!-- Disclaimer details here -->
+    </section>
+
+    <section id="resources">
+        <h2>Resources</h2>
+        <p>Links to important resources: Twitter, Dexscreener, Dextools, GMGN, Rugcheck, and more.</p>
+        <!-- Add resource links here -->
+    </section>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            const menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("show");
+        }
+
+        // Smooth Scroll for Nav Links
+        document.querySelectorAll('.navbar ul li a, .menu a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
