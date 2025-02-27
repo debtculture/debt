@@ -154,6 +154,20 @@
             object-fit: contain;
         }
 
+        /* Logo Styles (only on desktop) */
+        .logo-left, .logo-right {
+            position: absolute;
+            top: 10px;
+        }
+
+        .logo-left {
+            left: 20px;
+        }
+
+        .logo-right {
+            right: 20px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .navbar {
@@ -175,6 +189,12 @@
 
     <!-- Top Navbar -->
     <div class="navbar">
+        <!-- Left Logo -->
+        <div class="logo-left">
+            <img src="path-to-your-left-logo.png" alt="Left Logo" height="50">
+        </div>
+
+        <!-- Navbar Links -->
         <a href="#mission">Mission</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#how-to-buy">How to Buy</a>
@@ -197,6 +217,11 @@
                 <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
             </div>
         </div>
+
+        <!-- Right Logo -->
+        <div class="logo-right">
+            <img src="path-to-your-right-logo.png" alt="Right Logo" height="50">
+        </div>
     </div>
 
     <!-- Mobile Hamburger Menu -->
@@ -214,8 +239,7 @@
         <a href="https://www.reddit.com/r/DebtCulture/">Forums</a>
         <a href="merch-link">Merchandise</a>
         <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
-        <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
-        <div class="mobile-dropdown" id="mobileDropdown">
+        <div class="mobile-dropdown">
             <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
             <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
             <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
@@ -228,37 +252,38 @@
         </div>
     </div>
 
-    <!-- Welcome Message -->
-    <h1>Welcome to the $DEBT Official Site</h1>
-    <p>Learn more about our mission and how we're making an impact.</p>
-
-    <!-- Bottom Icon Bar -->
-    <div class="fixed-bar">
-        <a href="https://x.com/debtculture" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
-        </a>
-        <a href="https://t.me/debtculture" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" />
-        </a>
-        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqnritjwirsdgzaydd8" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" />
-        </a>
-        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon">
-            <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" />
-        </a>
-    </div>
-
     <script>
         function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
+            const menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
         }
-
-        function toggleDropdown() {
-            var dropdown = document.getElementById("mobileDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }
     </script>
+
+    <!-- Content of the page -->
+    <div class="content">
+        <h1>Welcome to Debt Culture</h1>
+        <p>We are here to build a deflationary token.</p>
+    </div>
+
+    <!-- Bottom Bar with Icons -->
+    <div class="fixed-bar">
+        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump">
+            <div class="icon">
+                <img src="path-to-dextools-logo.png" alt="DexTools">
+            </div>
+        </a>
+        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8">
+            <div class="icon">
+                <img src="path-to-geckoterminal-logo.png" alt="GeckoTerminal">
+            </div>
+        </a>
+        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump">
+            <div class="icon">
+                <img src="path-to-dexscreener-logo.png" alt="DexScreener">
+            </div>
+        </a>
+        <!-- Add more icons as needed -->
+    </div>
 
 </body>
 </html>
