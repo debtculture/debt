@@ -95,7 +95,6 @@
             width: 200px;
             text-align: left;
             border-radius: 5px;
-            z-index: 999;
         }
         .mobile-menu a {
             display: block;
@@ -109,8 +108,8 @@
         .mobile-dropdown {
             display: none;
             padding-left: 20px;
+            max-height: 200px;
             overflow-y: auto;
-            margin-top: 5px;
         }
         .mobile-menu .expand {
             cursor: pointer;
@@ -164,9 +163,6 @@
             }
             .mobile-menu {
                 display: block;
-                overflow-y: auto;
-                max-height: 80vh; /* Dynamic height to avoid overflow issues */
-                padding-bottom: 20px;
             }
         }
     </style>
@@ -186,13 +182,12 @@
         <div class="dropdown">
             <a href="#resources" class="dropbtn">Resources ▼</a>
             <div class="dropdown-content">
-                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
+                <a href="dextools-link">DexTools</a>
+                <a href="dexscreener-link">DEX Screener</a>
+                <a href="geckoterminal-link">GeckoTerminal</a>
+                <a href="gmgn-link">GMGN</a>
+                <a href="photon-link">Photon</a>
+                <a href="rugcheck-link">RugCheck</a>
             </div>
         </div>
     </div>
@@ -214,37 +209,46 @@
         <a href="memes-link">Memes</a>
         <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
         <div class="mobile-dropdown" id="mobileDropdown">
-            <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-            <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-            <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-            <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-            <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-            <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-            <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
+            <a href="dextools-link">DexTools</a>
+            <a href="dexscreener-link">DEX Screener</a>
+            <a href="geckoterminal-link">GeckoTerminal</a>
+            <a href="gmgn-link">GMGN</a>
+            <a href="photon-link">Photon</a>
+            <a href="rugcheck-link">RugCheck</a>
         </div>
     </div>
 
-    <!-- Content -->
-    <h1>Welcome to Debt Culture</h1>
-    <p>Building a better future, one token at a time.</p>
+    <!-- Welcome Message -->
+    <h1>Welcome to the $DEBT Official Site</h1>
+    <p>Learn more about our mission and how we're making an impact.</p>
 
     <!-- Bottom Icon Bar -->
     <div class="fixed-bar">
-        <a href="https://twitter.com/DebtCulture"><div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2021.svg" alt="Twitter"></div></a>
-        <a href="https://t.me/DebtCulture"><div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Telegram_logo.svg/1200px-Telegram_logo.svg.png" alt="Telegram"></div></a>
-        <a href="https://solscan.io/address/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump"><div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Solscan_logo.png" alt="Solscan"></div></a>
+        <a href="https://x.com/debtculture" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
+        </a>
+        <a href="https://t.me/debtculture" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" />
+        </a>
+        <a href="https://www.dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" />
+        </a>
+        <a href="https://www.pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" />
+        </a>
     </div>
 
     <script>
-        // Function to toggle mobile menu visibility
         function toggleMenu() {
-            document.getElementById('mobileMenu').classList.toggle('show');
+            var menu = document.getElementById("mobileMenu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
         }
 
-        // Function to toggle mobile dropdown visibility
         function toggleDropdown() {
-            document.getElementById('mobileDropdown').classList.toggle('show');
+            var dropdown = document.getElementById("mobileDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }
     </script>
+
 </body>
 </html>
