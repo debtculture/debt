@@ -34,11 +34,17 @@
         .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
         .icon img {width: 100%; height: 100%; object-fit: contain;}
         #mobileMenu, #mobileDropdown {display: none;}
+        .banner-container {background-color: #333; width: 100%; padding: 0; margin: 0; display: flex; justify-content: center; align-items: center;}
+        .banner-image {max-width: 100%; height: auto; display: block;}
         @media (max-width: 768px) {
             .navbar {display: none;}
             .hamburger {display: flex;}
             .mobile-menu {display: block; overflow-y: auto; max-height: 80vh; padding-bottom: 20px;}
             .mobile-logo {display: block;}
+            .banner-container {display: none;}
+        }
+        @media (min-width: 769px) {
+            .banner-container {position: relative; top: 60px;}
         }
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
     </style>
@@ -71,6 +77,9 @@
             </div>
             <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
         </div>
+    </div>
+    <div class="banner-container">
+        <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
     </div>
     <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
     <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
