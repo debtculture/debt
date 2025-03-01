@@ -26,6 +26,7 @@
         .mobile-dropdown {display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px;}
         .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
+        .mobile-logo {display: none; position: fixed; top: 10px; right: 10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
         .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; background-color: #121212; display: flex; justify-content: center; align-items: center;}
         .fixed-bar a {margin: 0 5px;}
         .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
@@ -35,6 +36,7 @@
             .navbar {display: none;}
             .hamburger {display: flex;}
             .mobile-menu {display: block; overflow-y: auto; max-height: 80vh; padding-bottom: 20px;}
+            .mobile-logo {display: block;}
         }
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
     </style>
@@ -68,6 +70,7 @@
             <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
         </div>
     </div>
+    <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
     <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
     <div class="mobile-menu" id="mobileMenu">
         <a href="#mission">Mission</a>
@@ -106,4 +109,3 @@
     <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
 </body>
 </html>
-
