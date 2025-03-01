@@ -154,6 +154,298 @@
             object-fit: contain;
         }
 
+        #mobileMenu{
+            display: none;
+        }
+        #mobileDropdown{
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .mobile-menu {
+                display: block;
+                overflow-y: auto;
+                max-height: 80vh; /* Dynamic height to avoid overflow issues */
+                padding-bottom: 20px;
+            }
+        }
+        .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <div class="navbar">
+        <a href="#mission">Mission</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#how-to-buy">How to Buy</a>
+        <a href="#hall-of-fame">Hall of Fame</a>
+        <a href="#team">Team</a>
+        <a href="https://www.reddit.com/r/DebtCulture/">Forums</a>
+        <a href="merch-link">Merchandise</a>
+        <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
+        <div class="dropdown">
+            <a href="#resources" class="dropbtn">Resources ▼</a>
+            <div class="dropdown-content">
+                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
+                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
+                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
+                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
+                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
+                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
+                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Hamburger Menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#mission">Mission</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#how-to-buy">How to Buy</a>
+        <a href="#hall-of-fame">Hall of Fame</a>
+        <a href="#team">Team</a>
+        <a href="https://www.reddit.com/r/DebtCulture/">Forums</a>
+        <a href="merch-link">Merchandise</a>
+        <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
+        <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
+        <div class="mobile-dropdown" id="mobileDropdown">
+            <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
+            <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
+            <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
+            <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
+            <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
+            <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
+            <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
+            <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
+            <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
+        </div>
+    </div>
+
+    <!-- Welcome Message -->
+    <h1>Welcome to the Official $DEBT Site</h1>
+    <p>Currently under construction.</p>
+
+    <!-- Bottom Icon Bar -->
+    <div class="fixed-bar">
+        <a href="https://x.com/debtculture" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" />
+        </a>
+        <a href="https://t.me/debtculture" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" />
+        </a>
+        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqnritjwirsdgzaydd8" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" />
+        </a>
+        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon">
+            <img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" />
+        </a>
+    </div>
+
+    <script>
+    function toggleMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function toggleDropdown() {
+        var dropdown = document.getElementById("mobileDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+</script>
+
+    <footer class="footer">
+    ©️ 2025 by debtculture.xyz. All rights reserved.
+</footer>
+
+</body>
+</html>
+Sent from my iPhone
+
+On Feb 28, 2025, at 8:28 PM, Scottie Long <scottielongypr@gmail.com> wrote:
+
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Culture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-top: 20%;
+        }
+        p {
+            font-size: 1.25rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .navbar a, .dropdown {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #555;
+        }
+        .dropdown {
+            position: relative;
+            display: flex;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #555;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1100;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 50px;
+            left: 10px;
+            background-color: #333;
+            width: 200px;
+            text-align: left;
+            border-radius: 5px;
+            z-index: 999;
+        }
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .mobile-menu a:hover {
+            background-color: #555;
+        }
+        .mobile-dropdown {
+            display: none;
+            padding-left: 20px;
+            overflow-y: auto;
+            margin-top: 5px;
+        }
+        .mobile-menu .expand {
+            cursor: pointer;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+        .mobile-menu .expand:hover {
+            background-color: #555;
+        }
+
+        /* Bottom Icon Bar */
+        .fixed-bar {
+            position: fixed;
+            bottom: 35px;
+            left: 0;
+            right: 0;
+            padding: 10px 0;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .fixed-bar a {
+            margin: 0 5px;
+        }
+        .icon {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .navbar {
