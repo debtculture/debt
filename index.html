@@ -26,6 +26,9 @@
         .mobile-dropdown {display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px;}
         .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
+        .mobile-header {display: none; position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; z-index: 1000; height: 50px; overflow: hidden; display: flex; justify-content: space-between; align-items: center;}
+        .mobile-logo {width: 100px; height: 100px; margin: 0; object-fit: contain;}
+        .mobile-logo-center {width: 100px; height: 100px; margin: 0 auto; object-fit: contain;}
         .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; background-color: #121212; display: flex; justify-content: center; align-items: center;}
         .fixed-bar a {margin: 0 5px;}
         .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
@@ -35,6 +38,7 @@
             .navbar {display: none;}
             .hamburger {display: flex;}
             .mobile-menu {display: block; overflow-y: auto; max-height: 80vh; padding-bottom: 20px;}
+            .mobile-header {display: flex;}
         }
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
     </style>
@@ -67,6 +71,11 @@
             </div>
             <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
         </div>
+    </div>
+    <div class="mobile-header">
+        <div style="width: 100px;"></div> <!-- Placeholder to balance left side with hamburger -->
+        <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo-center">
+        <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
     </div>
     <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
     <div class="mobile-menu" id="mobileMenu">
