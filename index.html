@@ -6,8 +6,6 @@
     <title>Debt Culture</title>
     <style>
         body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center;}
-        h1 {font-size: 3rem; margin-top: 20%;}
-        p {font-size: 1.25rem;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -35,18 +33,26 @@
         .icon img {width: 100%; height: 100%; object-fit: contain;}
         #mobileMenu, #mobileDropdown {display: none;}
         .banner-container {background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: hidden;}
-        .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;} /* Moved 10px more to the right */
+        .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
+        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 60px 20px;}
+        .section.visible {opacity: 1; transform: translateX(0);}
+        #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 60px;}
+        .from-right {transform: translateX(100%);}
+        h1 {font-size: 3rem; margin: 20px 0;}
+        p {font-size: 1.25rem; max-width: 800px; margin: 0 auto;}
+        .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
+        
         @media (max-width: 768px) {
             .navbar {display: none;}
             .hamburger {display: flex;}
             .mobile-menu {display: block; overflow-y: auto; max-height: 80vh; padding-bottom: 20px;}
             .mobile-logo {display: block;}
             .banner-container {display: none;}
+            .section {padding: 20px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
         }
-        .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
     </style>
 </head>
 <body>
@@ -105,17 +111,61 @@
             <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
         </div>
     </div>
-    <h1>Welcome to the Official $DEBT Site</h1>
-    <p>Currently under construction.</p>
+
+    <section id="mission" class="section">
+        <h1>Mission</h1>
+        <p>Our mission is to [insert your mission statement here].</p>
+    </section>
+    
+    <section id="roadmap" class="section from-right">
+        <h1>Roadmap</h1>
+        <p>Here's our plan for the future [insert roadmap details].</p>
+    </section>
+    
+    <section id="how-to-buy" class="section">
+        <h1>How to Buy</h1>
+        <p>Instructions for purchasing $DEBT [insert buying guide].</p>
+    </section>
+    
+    <section id="hall-of-fame" class="section from-right">
+        <h1>Hall of Fame</h1>
+        <p>Celebrating our community's achievements [insert hall of fame content].</p>
+    </section>
+    
+    <section id="team" class="section">
+        <h1>Team</h1>
+        <p>Meet the people behind $DEBT [insert team bios].</p>
+    </section>
+
     <div class="fixed-bar">
         <a href="https://x.com/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" /></a>
         <a href="https://t.me/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" /></a>
         <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" /></a>
         <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
     </div>
+
     <script>
-        function toggleMenu() {var menu = document.getElementById("mobileMenu"); menu.style.display = menu.style.display === "block" ? "none" : "block";}
-        function toggleDropdown() {var dropdown = document.getElementById("mobileDropdown"); dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";}
+        function toggleMenu() {
+            var menu = document.getElementById("mobileMenu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+        function toggleDropdown() {
+            var dropdown = document.getElementById("mobileDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        });
     </script>
     <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
 </body>
