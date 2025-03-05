@@ -64,7 +64,7 @@
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
-        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
+        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
         .buy-step:nth-child(1) {animation-delay: 0.2s;}
@@ -76,6 +76,8 @@
         .step-content {text-align: left;}
         .step-content p {font-size: 1.1rem; margin: 0;}
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
+        .buy-blurb {max-width: 800px; margin: 20px auto 0; padding: 15px; background-color: #1e1e1e; border-radius: 10px; font-size: 1.1rem; text-align: center;}
+        .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 0 auto; animation: wind 3.5s infinite ease-in-out;}
         @keyframes slideFade {
             0% {opacity: 0; transform: translateX(-20px);}
             100% {opacity: 1; transform: translateX(0);}
@@ -89,10 +91,10 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             #mission {margin-top: 60px;}
-            .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
+            .phase, .future-teaser, .buy-container, .buy-blurb {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 1.5rem;}
-            .phase p, .future-teaser p, .step-content p {font-size: 1rem;}
-            .phase-connector {height: 40px;}
+            .phase p, .future-teaser p, .step-content p, .buy-blurb {font-size: 1rem;}
+            .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
         }
         @media (min-width: 769px) {
@@ -233,10 +235,12 @@
             <div class="buy-step">
                 <div class="step-number">5</div>
                 <div class="step-content">
-                    <p>Join the Movement – Your $DEBT will appear in your wallet shortly. Welcome to the financial rebellion.</p>
+                    <p>Join the Movement – Your $DEBT will appear in your wallet shortly.</p>
                 </div>
             </div>
         </div>
+        <div class="buy-blurb">Welcome to the financial rebellion.</div>
+        <div class="buy-connector"></div>
     </section>
     
     <section id="hall-of-fame" class="section from-right">
