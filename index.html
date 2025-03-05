@@ -76,8 +76,9 @@
         .step-content {text-align: left;}
         .step-content p {font-size: 1.1rem; margin: 0;}
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
-        .buy-blurb {max-width: 800px; margin: 20px auto 0; padding: 15px; background-color: #1e1e1e; border-radius: 10px; font-size: 1.1rem; text-align: center;}
-        .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 0 auto; animation: wind 3.5s infinite ease-in-out;}
+        .buy-blurb {margin: 30px auto 0; font-size: 1.5rem; text-align: center;}
+        .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; animation: wind 3.5s infinite ease-in-out;}
+        #hall-of-fame {margin-top: 40px;} /* Adjusted to match roadmap spacing */
         @keyframes slideFade {
             0% {opacity: 0; transform: translateX(-20px);}
             100% {opacity: 1; transform: translateX(0);}
@@ -91,11 +92,13 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             #mission {margin-top: 60px;}
-            .phase, .future-teaser, .buy-container, .buy-blurb {margin: 20px 0; padding: 15px;}
+            .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 1.5rem;}
-            .phase p, .future-teaser p, .step-content p, .buy-blurb {font-size: 1rem;}
+            .phase p, .future-teaser p, .step-content p {font-size: 1rem;}
+            .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
+            #hall-of-fame {margin-top: 20px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
