@@ -65,19 +65,20 @@
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
-        .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0; animation: fadeIn 0.5s ease-in forwards;}
-        .buy-step:nth-child(1) {animation-delay: 0.1s;}
-        .buy-step:nth-child(2) {animation-delay: 0.2s;}
-        .buy-step:nth-child(3) {animation-delay: 0.3s;}
-        .buy-step:nth-child(4) {animation-delay: 0.4s;}
-        .buy-step:nth-child(5) {animation-delay: 0.5s;}
+        .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
+        .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
+        .buy-step:nth-child(1) {animation-delay: 0.2s;}
+        .buy-step:nth-child(2) {animation-delay: 0.4s;}
+        .buy-step:nth-child(3) {animation-delay: 0.6s;}
+        .buy-step:nth-child(4) {animation-delay: 0.8s;}
+        .buy-step:nth-child(5) {animation-delay: 1.0s;}
         .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;}
         .step-content {text-align: left;}
         .step-content p {font-size: 1.1rem; margin: 0;}
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(10px);}
-            to {opacity: 1; transform: translateY(0);}
+        @keyframes slideFade {
+            0% {opacity: 0; transform: translateX(-20px);}
+            100% {opacity: 1; transform: translateX(0);}
         }
         
         @media (max-width: 768px) {
@@ -206,31 +207,31 @@
         <h1>How to Buy</h1>
         <div class="buy-container">
             <div class="buy-step">
-                <div class="step-number">1️⃣</div>
+                <div class="step-number">1</div>
                 <div class="step-content">
                     <p>Set Up a Wallet – Download Phantom (or another Solana wallet) and securely save your recovery phrase.</p>
                 </div>
             </div>
             <div class="buy-step">
-                <div class="step-number">2️⃣</div>
+                <div class="step-number">2</div>
                 <div class="step-content">
                     <p>Fund Your Wallet – Buy SOL on an exchange (Coinbase, Binance, etc.) and send it to your wallet address.</p>
                 </div>
             </div>
             <div class="buy-step">
-                <div class="step-number">3️⃣</div>
+                <div class="step-number">3</div>
                 <div class="step-content">
                     <p>Choose a Platform – Trade for $DEBT on Raydium, Jupiter, or other DEXs. You can find direct links in our Resources tab.</p>
                 </div>
             </div>
             <div class="buy-step">
-                <div class="step-number">4️⃣</div>
+                <div class="step-number">4</div>
                 <div class="step-content">
                     <p>Swap for $DEBT – Paste the $DEBT contract address (<code style="background: #333; padding: 2px 5px; border-radius: 3px;">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</code>) in the swap interface, enter your SOL amount, and confirm the trade.</p>
                 </div>
             </div>
             <div class="buy-step">
-                <div class="step-number">5️⃣</div>
+                <div class="step-number">5</div>
                 <div class="step-content">
                     <p>Join the Movement – Your $DEBT will appear in your wallet shortly. Welcome to the financial rebellion.</p>
                 </div>
@@ -274,6 +275,11 @@
                 
                 if (sectionTop < windowHeight * 0.75) {
                     section.classList.add('visible');
+                    // Trigger step animations when section is visible
+                    if (section.id === 'how-to-buy') {
+                        const steps = section.querySelectorAll('.buy-step');
+                        steps.forEach(step => step.classList.add('visible'));
+                    }
                 }
             });
         });
