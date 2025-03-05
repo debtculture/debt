@@ -45,18 +45,22 @@
         /* Roadmap Specific Styles */
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .roadmap-container {max-width: 800px; position: relative;}
-        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1;}
-        .phase h2 {font-size: 2rem; margin: 0 0 10px; color: #ff5555;}
-        .phase p {font-size: 1.1rem; margin: 5px 0; text-align: left;}
+        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start;}
+        .phase h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
+        .phase p {font-size: 1.1rem; margin: 5px 0; text-align: left; padding-left: 20px;}
         .phase-connector {position: absolute; width: 4px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
         .phase-connector.phase-1-2 {top: 100%; height: 60px; animation: wind 2s infinite ease-in-out;}
         .phase-connector.phase-2-3 {top: 100%; height: 60px; animation: wind 2.5s infinite ease-in-out;}
         .phase-connector.phase-3-4 {top: 100%; height: 60px; animation: wind 3s infinite ease-in-out;}
+        .phase-connector.phase-4-future {top: 100%; height: 60px; animation: wind 3.5s infinite ease-in-out;}
         @keyframes wind {
             0% {transform: translateX(-50%) scaleY(1);}
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
+        .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; opacity: 0.8;}
+        .future-teaser h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
+        .future-teaser p {font-size: 1.1rem; margin: 5px 0; text-align: left; padding-left: 20px; font-style: italic;}
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -66,9 +70,9 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             #mission {margin-top: 60px;}
-            .phase {margin: 20px 0; padding: 15px;}
-            .phase h2 {font-size: 1.5rem;}
-            .phase p {font-size: 1rem;}
+            .phase, .future-teaser {margin: 20px 0; padding: 15px;}
+            .phase h2, .future-teaser h2 {font-size: 1.5rem;}
+            .phase p, .future-teaser p {font-size: 1rem;}
             .phase-connector {height: 40px;}
         }
         @media (min-width: 769px) {
@@ -169,6 +173,12 @@
                 <p>Shredder Events—community burn votes.</p>
                 <p>Debt Council—hodlers steer via X.</p>
                 <p>$DEBT as X tipping token.</p>
+            </div>
+            <div class="phase-connector phase-4-future"></div>
+            <div class="future-teaser">
+                <h2>📍 Future Phases: The Debt Horizon</h2>
+                <p>Bigger burns, wilder moves—stay tuned.</p>
+                <p>The culture’s just getting started...</p>
             </div>
         </div>
     </section>
