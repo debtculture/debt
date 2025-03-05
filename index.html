@@ -62,6 +62,25 @@
         .future-teaser h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
         .future-teaser p {font-size: 1.1rem; margin: 5px 0; text-align: left; padding-left: 20px; font-style: italic;}
         
+        /* How to Buy Specific Styles */
+        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
+        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);}
+        .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0; animation: fadeIn 0.5s ease-in forwards;}
+        .buy-step:nth-child(1) {animation-delay: 0.1s;}
+        .buy-step:nth-child(2) {animation-delay: 0.2s;}
+        .buy-step:nth-child(3) {animation-delay: 0.3s;}
+        .buy-step:nth-child(4) {animation-delay: 0.4s;}
+        .buy-step:nth-child(5) {animation-delay: 0.5s;}
+        .buy-step:nth-child(6) {animation-delay: 0.6s;}
+        .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;}
+        .step-content {text-align: left;}
+        .step-content p {font-size: 1.1rem; margin: 0;}
+        .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
         @media (max-width: 768px) {
             .navbar {display: none;}
             .hamburger {display: flex;}
@@ -70,10 +89,11 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             #mission {margin-top: 60px;}
-            .phase, .future-teaser {margin: 20px 0; padding: 15px;}
+            .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 1.5rem;}
-            .phase p, .future-teaser p {font-size: 1rem;}
+            .phase p, .future-teaser p, .step-content p {font-size: 1rem;}
             .phase-connector {height: 40px;}
+            .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -188,7 +208,44 @@
     
     <section id="how-to-buy" class="section">
         <h1>How to Buy</h1>
-        <p>Instructions for purchasing $DEBT [insert buying guide].</p>
+        <div class="buy-container">
+            <div class="buy-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Get Phantom Wallet: Download from <a href="https://phantom.app" target="_blank" style="color: #ff5555;">phantom.app</a>, create a wallet, and save your 12-word recovery phrase.</p>
+                </div>
+            </div>
+            <div class="buy-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p>Add SOL: Buy SOL on Coinbase or Binance, then send it to your Phantom wallet address (Deposit > SOL).</p>
+                </div>
+            </div>
+            <div class="buy-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p>Connect to Pump.fun: Visit <a href="https://pump.fun" target="_blank" style="color: #ff5555;">pump.fun</a> in a browser, click “Connect Wallet,” and choose Phantom.</p>
+                </div>
+            </div>
+            <div class="buy-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p>Find $DEBT: Search for $DEBT or paste this address: <code style="background: #333; padding: 2px 5px; border-radius: 3px;">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</code>.</p>
+                </div>
+            </div>
+            <div class="buy-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <p>Swap SOL for $DEBT: Enter your SOL amount (e.g., 0.1 SOL), preview the trade, and confirm in Phantom.</p>
+                </div>
+            </div>
+            <div class="buy-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <p>Check Your $DEBT: See your $DEBT in Phantom’s “Tokens” tab after a few seconds.</p>
+                </div>
+            </div>
+        </div>
     </section>
     
     <section id="hall-of-fame" class="section from-right">
