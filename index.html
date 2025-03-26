@@ -6,8 +6,11 @@
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
     <style>
-        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; filter: blur(5px); transition: filter 0.5s ease;} /* Blur added */
-        body.unblurred {filter: none;} /* Class to remove blur */
+        /* Main content container for blurring */
+        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease;}
+        .content-wrapper.unblurred {filter: none;}
+        
+        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -116,7 +119,7 @@
     </style>
 </head>
 <body>
-    <!-- Construction Modal -->
+    <!-- Construction Modal (outside blurred content) -->
     <div class="construction-modal" id="constructionModal">
         <div class="modal-content">
             <h2>SITE UNDER CONSTRUCTION</h2>
@@ -125,9 +128,42 @@
         </div>
     </div>
 
-    <div class="navbar">
-        <div class="navbar-links">
-            <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
+    <!-- Wrap all content in a div for blurring -->
+    <div class="content-wrapper" id="contentWrapper">
+        <div class="navbar">
+            <div class="navbar-links">
+                <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
+                <a href="#mission">Mission</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#how-to-buy">How to Buy</a>
+                <a href="#team">Team</a>
+                <a href="#hall-of-fame">Hall of Fame</a>
+                <a href="https://www.reddit.com/r/DebtCulture/">Forums</a>
+                <!-- <a href="merch-link">Merchandise</a> --> <!-- Placeholder, uncomment and update URL when ready -->
+                <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
+                <div class="dropdown">
+                    <div class="dropbtn">Resources ▼</div>
+                    <div class="dropdown-content">
+                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
+                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
+                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
+                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
+                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
+                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
+                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
+                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
+                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
+                    </div>
+                </div>
+                <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
+            </div>
+        </div>
+        <div class="banner-container">
+            <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
+        </div>
+        <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
+        <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        <div class="mobile-menu" id="mobileMenu">
             <a href="#mission">Mission</a>
             <a href="#roadmap">Roadmap</a>
             <a href="#how-to-buy">How to Buy</a>
@@ -136,146 +172,118 @@
             <a href="https://www.reddit.com/r/DebtCulture/">Forums</a>
             <!-- <a href="merch-link">Merchandise</a> --> <!-- Placeholder, uncomment and update URL when ready -->
             <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
-            <div class="dropdown">
-                <div class="dropbtn">Resources ▼</div>
-                <div class="dropdown-content">
-                    <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-                    <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-                    <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
-                    <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-                    <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-                    <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-                    <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-                    <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
-                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
-                </div>
+            <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
+            <div class="mobile-dropdown" id="mobileDropdown">
+                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
+                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
+                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
+                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
+                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
+                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
+                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
             </div>
-            <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
         </div>
-    </div>
-    <div class="banner-container">
-        <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
-    </div>
-    <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
-    <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#mission">Mission</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#how-to-buy">How to Buy</a>
-        <a href="#team">Team</a>
-        <a href="#hall-of-fame">Hall of Fame</a>
-        <a href="https://www.reddit.com/r/DebtCulture/">Forums</a>
-        <!-- <a href="merch-link">Merchandise</a> --> <!-- Placeholder, uncomment and update URL when ready -->
-        <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
-        <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
-        <div class="mobile-dropdown" id="mobileDropdown">
-            <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-            <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-            <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
-            <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-            <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-            <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-            <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-            <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
-            <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
-        </div>
-    </div>
 
-    <section id="mission" class="section">
-        <h1>Mission</h1>
-        <p>Debt Culture is here to flip the script on a broken financial system—$DEBT fuels a rebellion of memes, burns, and community power.</p>
-    </section>
-    
-    <section id="roadmap" class="section from-right">
-        <h1>Roadmap</h1>
-        <div class="roadmap-container">
-            <div class="phase">
-                <h2>📍 Phase 1: Ignite the Culture</h2>
-                <p>Unleash debt-fueled memes on X—spark the financial uprising.</p>
-                <p>$Debtmas Airdrop—early rebels get rewarded.</p>
-                <p>Saturday Burns kick off—watch $DEBT shrink weekly.</p>
-                <p>X Spaces—rant, recruit, and reveal what $DEBT stands for.</p>
-            </div>
-            <div class="phase-connector phase-1-2"></div>
-            <div class="phase">
-                <h2>📍 Phase 2: Build the Bones</h2>
-                <p>DebtCulture.xyz—roadmap, resources, and the manifesto.</p>
-                <p>Discord hub—memes, games, and strategy 24/7.</p>
-                <p>Social media expansion—reeling in the debt-curious.</p>
-                <p>Verification on key market aggregators—solidifying legitimacy.</p>
-            </div>
-            <div class="phase-connector phase-2-3"></div>
-            <div class="phase">
-                <h2>📍 Phase 3: Strengthen the Holders</h2>
-                <p>Merch launch—wear it, fuel community chaos.</p>
-                <p>Exclusive NFT perks—rewards for the $DEBT elite.</p>
-                <p>Staking live—stack $DEBT, lock in loyalty.</p>
-                <p>Strategic partnerships—aligning with those who get it.</p>
-            </div>
-            <div class="phase-connector phase-3-4"></div>
-            <div class="phase">
-                <h2>📍 Phase 4: Cement the Legacy</h2>
-                <p>Community DAO—real influence for those holding $DEBT.</p>
-                <p>$DEBT utility—tipping, trading, and integrating into real ecosystems.</p>
-                <p>Go mainstream—bring in those sick of the system.</p>
-                <p>Stir the pot—keep the system guessing.</p>
-            </div>
-            <div class="phase-connector phase-4-future"></div>
-            <div class="future-teaser">
-                <h2>📍 Future Phases: $Debt Horizon</h2>
-                <p>Massive burns. Insane moves. Chaos unleashed.</p>
-                <p>The culture isn’t just growing—it’s taking over.</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="how-to-buy" class="section">
-        <h1>How to Buy</h1>
-        <div class="buy-container">
-            <div class="buy-step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <p>Set Up a Wallet – Grab Phantom (or any Solana wallet) and save your recovery phrase.</p>
+        <section id="mission" class="section">
+            <h1>Mission</h1>
+            <p>Debt Culture is here to flip the script on a broken financial system—$DEBT fuels a rebellion of memes, burns, and community power.</p>
+        </section>
+        
+        <section id="roadmap" class="section from-right">
+            <h1>Roadmap</h1>
+            <div class="roadmap-container">
+                <div class="phase">
+                    <h2>📍 Phase 1: Ignite the Culture</h2>
+                    <p>Unleash debt-fueled memes on X—spark the financial uprising.</p>
+                    <p>$Debtmas Airdrop—early rebels get rewarded.</p>
+                    <p>Saturday Burns kick off—watch $DEBT shrink weekly.</p>
+                    <p>X Spaces—rant, recruit, and reveal what $DEBT stands for.</p>
+                </div>
+                <div class="phase-connector phase-1-2"></div>
+                <div class="phase">
+                    <h2>📍 Phase 2: Build the Bones</h2>
+                    <p>DebtCulture.xyz—roadmap, resources, and the manifesto.</p>
+                    <p>Discord hub—memes, games, and strategy 24/7.</p>
+                    <p>Social media expansion—reeling in the debt-curious.</p>
+                    <p>Verification on key market aggregators—solidifying legitimacy.</p>
+                </div>
+                <div class="phase-connector phase-2-3"></div>
+                <div class="phase">
+                    <h2>📍 Phase 3: Strengthen the Holders</h2>
+                    <p>Merch launch—wear it, fuel community chaos.</p>
+                    <p>Exclusive NFT perks—rewards for the $DEBT elite.</p>
+                    <p>Staking live—stack $DEBT, lock in loyalty.</p>
+                    <p>Strategic partnerships—aligning with those who get it.</p>
+                </div>
+                <div class="phase-connector phase-3-4"></div>
+                <div class="phase">
+                    <h2>📍 Phase 4: Cement the Legacy</h2>
+                    <p>Community DAO—real influence for those holding $DEBT.</p>
+                    <p>$DEBT utility—tipping, trading, and integrating into real ecosystems.</p>
+                    <p>Go mainstream—bring in those sick of the system.</p>
+                    <p>Stir the pot—keep the system guessing.</p>
+                </div>
+                <div class="phase-connector phase-4-future"></div>
+                <div class="future-teaser">
+                    <h2>📍 Future Phases: $Debt Horizon</h2>
+                    <p>Massive burns. Insane moves. Chaos unleashed.</p>
+                    <p>The culture isn’t just growing—it’s taking over.</p>
                 </div>
             </div>
-            <div class="buy-step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <p>Fund Your Wallet – Buy SOL on an exchange (Coinbase, Binance) and send it over.</p>
+        </section>
+        
+        <section id="how-to-buy" class="section">
+            <h1>How to Buy</h1>
+            <div class="buy-container">
+                <div class="buy-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <p>Set Up a Wallet – Grab Phantom (or any Solana wallet) and save your recovery phrase.</p>
+                    </div>
+                </div>
+                <div class="buy-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <p>Fund Your Wallet – Buy SOL on an exchange (Coinbase, Binance) and send it over.</p>
+                    </div>
+                </div>
+                <div class="buy-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <p>Swap for $DEBT – Hit up Raydium or Photon (see Resources), paste <code style="background: #333; padding: 2px 5px; border-radius: 3px;">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</code>, trade your SOL.</p>
+                    </div>
+                </div>
+                <div class="buy-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <p>Join the Movement – You are now in $DEBT.</p>
+                    </div>
                 </div>
             </div>
-            <div class="buy-step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <p>Swap for $DEBT – Hit up Raydium or Photon (see Resources), paste <code style="background: #333; padding: 2px 5px; border-radius: 3px;">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</code>, trade your SOL.</p>
-                </div>
-            </div>
-            <div class="buy-step">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <p>Join the Movement – You are now in $DEBT.</p>
-                </div>
-            </div>
-        </div>
-        <div class="buy-blurb">Welcome to the financial rebellion.</div>
-        <div class="buy-connector"></div>
-    </section>
-    
-    <section id="team" class="section">
-        <h1>Team</h1>
-        <p>Coming soon—meet the crew driving the $DEBT uprising.</p>
-    </section>
-    
-    <section id="hall-of-fame" class="section from-right">
-        <h1>Hall of Fame</h1>
-        <p>Coming soon—celebrating the $DEBT rebels who make waves.</p>
-    </section>
+            <div class="buy-blurb">Welcome to the financial rebellion.</div>
+            <div class="buy-connector"></div>
+        </section>
+        
+        <section id="team" class="section">
+            <h1>Team</h1>
+            <p>Coming soon—meet the crew driving the $DEBT uprising.</p>
+        </section>
+        
+        <section id="hall-of-fame" class="section from-right">
+            <h1>Hall of Fame</h1>
+            <p>Coming soon—celebrating the $DEBT rebels who make waves.</p>
+        </section>
 
-    <div class="fixed-bar">
-        <a href="https://x.com/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" /></a>
-        <a href="https://t.me/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" /></a>
-        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" /></a>
-        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
+        <div class="fixed-bar">
+            <a href="https://x.com/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" /></a>
+            <a href="https://t.me/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" /></a>
+            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" /></a>
+            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
+        </div>
+
+        <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 
     <script>
@@ -308,10 +316,9 @@
 
         // Construction Modal Logic
         function acceptConstructionNotice() {
-            document.body.classList.add('unblurred'); // Remove blur
+            document.getElementById('contentWrapper').classList.add('unblurred'); // Remove blur from content
             document.getElementById('constructionModal').style.display = 'none'; // Hide modal
         }
     </script>
-    <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
 </body>
 </html>
