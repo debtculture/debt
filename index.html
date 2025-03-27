@@ -96,6 +96,15 @@
         .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
         .future-phase:hover, .future-phase.active {filter: blur(0); opacity: 1;}
         
+        /* Debt Clock Widget Styles */
+        .debt-clock-container {margin: 20px auto; max-width: 800px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; top: 60px;}
+        .debt-clock-container h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
+        .debt-clock-iframe {width: 100%; height: 300px; border: none; border-radius: 5px;}
+        @media (max-width: 768px) {
+            .debt-clock-container {max-width: 100%; padding: 5px; top: 0;}
+            .debt-clock-iframe {height: 200px;}
+        }
+        
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative;}
@@ -191,6 +200,11 @@
         </div>
         <div class="banner-container">
             <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
+        </div>
+        <!-- U.S. Debt Clock Widget -->
+        <div class="debt-clock-container">
+            <h2>U.S. National Debt Clock</h2>
+            <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock"></iframe>
         </div>
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
         <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
