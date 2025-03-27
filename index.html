@@ -153,9 +153,14 @@
         .hosts-include h3 {font-size: 1.2rem; color: #ff5555; margin: 0 0 10px;}
         .host-bubbles {display: flex; justify-content: center; gap: 20px;}
         .host-bubble {text-align: center;}
-        .host-bubble img.profile-pic {width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
-        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0;}
-        .host-bubble img.twitter-icon {width: 20px; height: 20px; margin-top: 5px;}
+        .host-bubble img.profile-pic {width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
+        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold;}
+        .host-bubble .twitter-link {position: relative; display: inline-block; width: 30px; height: 30px;}
+        .host-bubble .twitter-link::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 30px; height: 30px; background-color: #fff; border-radius: 50%; z-index: 1;
+        }
+        .host-bubble img.twitter-icon {width: 20px; height: 20px; position: relative; z-index: 2; margin-top: 5px;}
         .host-bubble a {text-decoration: none;}
         
         @media (max-width: 768px) {
@@ -173,7 +178,9 @@
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
-            .host-bubble img.profile-pic {width: 50px; height: 50px;} /* Same size on mobile */
+            .host-bubble img.profile-pic {width: 75px; height: 75px;} /* Same size on mobile */
+            .host-bubble .twitter-link {width: 30px; height: 30px;}
+            .host-bubble .twitter-link::before {width: 30px; height: 30px;}
             .host-bubble img.twitter-icon {width: 20px; height: 20px;}
             #hall-of-fame {margin-top: 20px;}
             .you-are-here {left: -100px; font-size: 1.2rem; padding: 8px 15px;}
@@ -265,21 +272,27 @@
                             <a href="https://x.com/catavina47" target="_blank">
                                 <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina" class="profile-pic">
                                 <div class="host-title">Catavina</div>
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                <div class="twitter-link">
+                                    <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                </div>
                             </a>
                         </div>
                         <div class="host-bubble">
                             <a href="https://x.com/0xnerf" target="_blank">
                                 <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf" class="profile-pic">
                                 <div class="host-title">Nerf</div>
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                <div class="twitter-link">
+                                    <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                </div>
                             </a>
                         </div>
                         <div class="host-bubble">
                             <a href="https://x.com/louisedbegin" target="_blank">
                                 <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou" class="profile-pic">
                                 <div class="host-title">Lou</div>
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                <div class="twitter-link">
+                                    <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                </div>
                             </a>
                         </div>
                     </div>
