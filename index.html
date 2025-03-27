@@ -50,11 +50,11 @@
         /* Roadmap Specific Styles */
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .roadmap-container {max-width: 800px; position: relative;}
-        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start;}
-        .phase h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%; position: relative;}
-        .phase ul {margin: 0; padding-left: 40px; text-align: left;}
-        .phase li {font-size: 1.1rem; margin: 5px 0;}
-        .phase-connector {position: absolute; width: 4px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
+        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #ff5555; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
+        .phase ul {margin: 0; padding: 0; text-align: center; list-style: none;}
+        .phase li {font-size: 1.2rem; margin: 10px 0; padding: 5px; background-color: #2a2a2a; border-radius: 5px;}
+        .phase-connector {position: absolute; width: 6px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
         .phase-connector.phase-1-2 {top: 100%; height: 60px; animation: wind 2s infinite ease-in-out;}
         .phase-connector.phase-2-3 {top: 100%; height: 60px; animation: wind 2.5s infinite ease-in-out;}
         .phase-connector.phase-3-4 {top: 100%; height: 60px; animation: wind 3s infinite ease-in-out;}
@@ -64,12 +64,34 @@
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
-        .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; opacity: 0.8;}
-        .future-teaser h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
-        .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
-        .future-teaser li {font-size: 1.1rem; margin: 5px 0; font-style: italic;}
-        .you-are-here {position: absolute; left: -120px; font-size: 1rem; color: #ff5555; font-style: italic; opacity: 0.8;}
-        .completed {position: absolute; right: -100px; font-size: 1rem; color: #55ff55; font-style: italic; opacity: 0.8;}
+        .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; opacity: 0.8; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #ff5555; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
+        .future-teaser ul {margin: 0; padding: 0; text-align: center; list-style: none;}
+        .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic; padding: 5px; background-color: #2a2a2a; border-radius: 5px;}
+        .you-are-here {
+            position: absolute; left: -180px; top: 50%; transform: translateY(-50%);
+            font-size: 1.5rem; color: #ff5555; font-weight: bold; padding: 10px 20px;
+            background-color: #2a2a2a; border: 2px solid #ff5555; border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 85, 85, 0.5); display: flex; align-items: center;
+        }
+        .you-are-here::after {
+            content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #ff5555;
+            animation: pulse 1.5s infinite;
+        }
+        .completed {
+            position: absolute; right: -180px; top: 50%; transform: translateY(-50%);
+            font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px;
+            background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px;
+            box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;
+        }
+        .completed::before {
+            content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;
+        }
+        @keyframes pulse {
+            0% {transform: scale(1);}
+            50% {transform: scale(1.2);}
+            100% {transform: scale(1);}
+        }
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
@@ -110,14 +132,16 @@
             .section {padding: 20px;}
             #mission {margin-top: 60px;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
-            .phase h2, .future-teaser h2 {font-size: 1.5rem;}
+            .phase h2, .future-teaser h2 {font-size: 2rem;}
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
             #hall-of-fame {margin-top: 20px;}
-            .you-are-here {left: -80px; font-size: 0.9rem;}
-            .completed {right: -80px; font-size: 0.9rem;}
+            .you-are-here {left: -100px; font-size: 1.2rem; padding: 8px 15px;}
+            .you-are-here::after {font-size: 1.5rem;}
+            .completed {right: -100px; font-size: 1.2rem; padding: 8px 15px;}
+            .completed::before {font-size: 1.5rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
