@@ -12,12 +12,12 @@
         
         body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px;}
-        .navbar a {color: white; text-decoration: none; padding: 12px 20px; display: flex; align-items: center;}
+        .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
         .navbar-links {display: flex; justify-content: center; align-items: center;}
-        .navbar-logo {width: 80px; height: 80px; margin: 0; object-fit: contain;}
+        .navbar-logo {width: 100px; height: 100px; margin: 0; object-fit: contain;}
         .dropdown {position: relative;}
-        .dropbtn {color: white; padding: 12px 20px; text-decoration: none; display: flex; align-items: center; cursor: pointer;}
+        .dropbtn {color: white; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer;}
         .dropbtn:hover {background-color: #555;}
         .dropdown-content {display: none; position: absolute; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1001; top: 100%; left: 0;}
         .dropdown-content a {color: white; padding: 10px; text-decoration: none; display: block; text-align: left;}
@@ -25,7 +25,7 @@
         .dropdown:hover .dropdown-content {display: block;}
         .hamburger {display: none; flex-direction: column; cursor: pointer; position: fixed; top: 10px; left: 10px; z-index: 1100;}
         .hamburger div {width: 30px; height: 3px; background-color: white; margin: 5px 0;}
-        .mobile-menu {position: fixed; top: 50px; left: 10px; background-color: #333; width: 200px; text-align: left; border-radius: 5px; z-index: 999;}
+        .mobile-menu {display: none; position: fixed; top: 50px; left: 10px; background-color: #333; width: 200px; text-align: left; border-radius: 5px; z-index: 999;}
         .mobile-menu a {display: block; color: white; padding: 10px; text-decoration: none;}
         .mobile-menu a:hover {background-color: #555;}
         .mobile-dropdown {display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px;}
@@ -34,11 +34,12 @@
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
         .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; background-color: #121212; display: flex; justify-content: center; align-items: center;}
         .fixed-bar a {margin: 0 5px;}
-        .icon {width: 60px; height: 60px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
+        .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
         .icon img {width: 100%; height: 100%; object-fit: contain;}
-        .banner-container {background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; overflow: hidden;}
-        .banner-image {width: 100%; height: auto; display: block; margin-left: 0;}
-        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 40px 20px;}
+        #mobileMenu, #mobileDropdown {display: none;}
+        .banner-container {background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: hidden;}
+        .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
+        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
         .section.visible {opacity: 1; transform: translateX(0);}
         #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 270px;}
         .from-right {transform: translateX(100%);}
@@ -68,7 +69,7 @@
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
-        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative;}
+        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
         .buy-step:nth-child(1) {animation-delay: 0.2s;}
@@ -82,7 +83,7 @@
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
         .buy-blurb {margin: 30px auto 0; font-size: 1.5rem; text-align: center;}
         .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; animation: wind 3.5s infinite ease-in-out;}
-        #hall-of-fame {margin-top: 40px;}
+        #hall-of-fame {margin-top: 40px;} /* Adjusted to match roadmap spacing */
         @keyframes slideFade {
             0% {opacity: 0; transform: translateX(-20px);}
             100% {opacity: 1; transform: translateX(0);}
@@ -90,7 +91,7 @@
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 2000; display: flex; justify-content: center; align-items: center;}
-        .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 15px rgba(0,0,0,0.2);}
+        .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
         .modal-content h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 20px;}
         .modal-content p {font-size: 1rem; margin: 0 0 20px;}
         .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
@@ -152,6 +153,7 @@
                         <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
                     </div>
                 </div>
+                <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
             </div>
         </div>
         <div class="banner-container">
@@ -299,6 +301,7 @@
                 
                 if (sectionTop < windowHeight * 0.75) {
                     section.classList.add('visible');
+                    // Trigger step animations when section is visible
                     if (section.id === 'how-to-buy') {
                         const steps = section.querySelectorAll('.buy-step');
                         steps.forEach(step => step.classList.add('visible'));
@@ -307,9 +310,10 @@
             });
         });
 
+        // Construction Modal Logic
         function acceptConstructionNotice() {
-            document.getElementById('contentWrapper').classList.add('unblurred');
-            document.getElementById('constructionModal').style.display = 'none';
+            document.getElementById('contentWrapper').classList.add('unblurred'); // Remove blur from content
+            document.getElementById('constructionModal').style.display = 'none'; // Hide modal
         }
     </script>
 </body>
