@@ -100,11 +100,11 @@
         .debt-clock-container {margin: 20px auto; max-width: 300px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; top: 60px; overflow: hidden;}
         .debt-clock-container h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .debt-clock-iframe-wrapper {height: 150px; overflow: hidden;}
-        .debt-clock-iframe {width: 100%; height: 250px; border: none; border-radius: 5px; margin-top: -100px;}
+        .debt-clock-iframe {width: 400px; height: 250px; border: none; border-radius: 5px; margin-top: -100px; margin-left: -100px;}
         @media (max-width: 768px) {
             .debt-clock-container {max-width: 100%; padding: 5px; top: 0;}
             .debt-clock-iframe-wrapper {height: 100px;}
-            .debt-clock-iframe {height: 200px; margin-top: -100px;}
+            .debt-clock-iframe {width: 400px; height: 200px; margin-top: -100px; margin-left: -100px;}
         }
         
         /* How to Buy Specific Styles */
@@ -207,7 +207,7 @@
         <div class="debt-clock-container">
             <h2>U.S. National Debt Clock</h2>
             <div class="debt-clock-iframe-wrapper">
-                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock"></iframe>
+                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
         </div>
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
