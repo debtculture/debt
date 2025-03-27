@@ -52,7 +52,8 @@
         .roadmap-container {max-width: 800px; position: relative;}
         .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start;}
         .phase h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
-        .phase p {font-size: 1.1rem; margin: 5px 0; text-align: left; padding-left: 20px;}
+        .phase ul {margin: 0; padding-left: 40px; text-align: left;}
+        .phase li {font-size: 1.1rem; margin: 5px 0;}
         .phase-connector {position: absolute; width: 4px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
         .phase-connector.phase-1-2 {top: 100%; height: 60px; animation: wind 2s infinite ease-in-out;}
         .phase-connector.phase-2-3 {top: 100%; height: 60px; animation: wind 2.5s infinite ease-in-out;}
@@ -65,7 +66,8 @@
         }
         .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; opacity: 0.8;}
         .future-teaser h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
-        .future-teaser p {font-size: 1.1rem; margin: 5px 0; text-align: left; padding-left: 20px; font-style: italic;}
+        .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
+        .future-teaser li {font-size: 1.1rem; margin: 5px 0; font-style: italic;}
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
@@ -107,7 +109,7 @@
             #mission {margin-top: 60px;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 1.5rem;}
-            .phase p, .future-teaser p, .step-content p {font-size: 1rem;}
+            .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
@@ -169,7 +171,7 @@
             <a href="#hall-of-fame">Hall of Fame</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
             <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
-            <div class="mobile-dropdown" id="mobileDropdown">
+            <分别是 class="mobile-dropdown" id="mobileDropdown">
                 <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
                 <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
                 <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
@@ -191,41 +193,51 @@
             <h1>Roadmap</h1>
             <div class="roadmap-container">
                 <div class="phase">
-                    <h2>📍 Phase 1: Ignite the Culture</h2>
-                    <p>Unleash debt-fueled memes on X—spark the financial uprising.</p>
-                    <p>$Debtmas Airdrop—early rebels get rewarded.</p>
-                    <p>Saturday Burns kick off—watch $DEBT shrink weekly.</p>
-                    <p>X Spaces—rant, recruit, and reveal what $DEBT stands for.</p>
+                    <h2>📍 <s>Phase 1: Ignite the Culture</s></h2>
+                    <ul>
+                        <li><s>Unleash debt-fueled memes on X—spark the financial uprising.</s></li>
+                        <li><s>$Debtmas Airdrop—early rebels get rewarded.</s></li>
+                        <li><s>Saturday Burns kick off—watch $DEBT shrink weekly.</s></li>
+                        <li><s>X Spaces—rant, recruit, and reveal what $DEBT stands for.</s></li>
+                    </ul>
                 </div>
                 <div class="phase-connector phase-1-2"></div>
                 <div class="phase">
                     <h2>📍 Phase 2: Build the Bones</h2>
-                    <p>DebtCulture.xyz—roadmap, resources, and the manifesto.</p>
-                    <p>Discord hub—memes, games, and strategy 24/7.</p>
-                    <p>Social media expansion—reeling in the debt-curious.</p>
-                    <p>Verification on key market aggregators—solidifying legitimacy.</p>
+                    <ul>
+                        <li>DebtCulture.xyz—roadmap, resources, and the manifesto.</li>
+                        <li>Discord hub—memes, games, and strategy 24/7.</li>
+                        <li>Social media expansion—reeling in the debt-curious.</li>
+                        <li>Verification on key market aggregators—solidifying legitimacy.</li>
+                    </ul>
                 </div>
                 <div class="phase-connector phase-2-3"></div>
                 <div class="phase">
                     <h2>📍 Phase 3: Strengthen the Holders</h2>
-                    <p>Merch launch—wear it, fuel community chaos.</p>
-                    <p>Exclusive NFT perks—rewards for the $DEBT elite.</p>
-                    <p>Staking live—stack $DEBT, lock in loyalty.</p>
-                    <p>Strategic partnerships—aligning with those who get it.</p>
+                    <ul>
+                        <li>Merch launch—wear it, fuel community chaos.</li>
+                        <li>Exclusive NFT perks—rewards for the $DEBT elite.</li>
+                        <li>Staking live—stack $DEBT, lock in loyalty.</li>
+                        <li>Strategic partnerships—aligning with those who get it.</li>
+                    </ul>
                 </div>
                 <div class="phase-connector phase-3-4"></div>
                 <div class="phase">
                     <h2>📍 Phase 4: Cement the Legacy</h2>
-                    <p>Community DAO—real influence for those holding $DEBT.</p>
-                    <p>$DEBT utility—tipping, trading, and integrating into real ecosystems.</p>
-                    <p>Go mainstream—bring in those sick of the system.</p>
-                    <p>Stir the pot—keep the system guessing.</p>
+                    <ul>
+                        <li>Community DAO—real influence for those holding $DEBT.</li>
+                        <li>$DEBT utility—tipping, trading, and integrating into real ecosystems.</li>
+                        <li>Go mainstream—bring in those sick of the system.</li>
+                        <li>Stir the pot—keep the system guessing.</li>
+                    </ul>
                 </div>
                 <div class="phase-connector phase-4-future"></div>
                 <div class="future-teaser">
                     <h2>📍 Future Phases: $DEBT Horizon</h2>
-                    <p>Massive burns. Insane moves. Chaos unleashed.</p>
-                    <p>The culture isn’t just growing—it’s taking over.</p>
+                    <ul>
+                        <li>Massive burns. Insane moves. Chaos unleashed.</li>
+                        <li>The culture isn’t just growing—it’s taking over.</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -235,6 +247,7 @@
             <div class="buy-container">
                 <div class="buy-step">
                     <div class="step-number">1</div>
+                    <div class="step prospettiva: center; align-items: center; flex-direction: column; margin-top: 270px;}
                     <div class="step-content">
                         <p>Set Up a Wallet – Grab Phantom (or any Solana wallet) and save your recovery phrase.</p>
                     </div>
