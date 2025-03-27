@@ -51,7 +51,7 @@
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .roadmap-container {max-width: 800px; position: relative;}
         .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start;}
-        .phase h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
+        .phase h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%; position: relative;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
         .phase li {font-size: 1.1rem; margin: 5px 0;}
         .phase-connector {position: absolute; width: 4px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
@@ -68,6 +68,8 @@
         .future-teaser h2 {font-size: 2rem; margin: 0 0 15px; color: #ff5555; text-align: left; width: 100%;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.1rem; margin: 5px 0; font-style: italic;}
+        .you-are-here {position: absolute; left: -120px; font-size: 1rem; color: #ff5555; font-style: italic; opacity: 0.8;}
+        .completed {position: absolute; right: -100px; font-size: 1rem; color: #55ff55; font-style: italic; opacity: 0.8;}
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
@@ -85,7 +87,7 @@
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
         .buy-blurb {margin: 30px auto 0; font-size: 1.5rem; text-align: center;}
         .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; animation: wind 3.5s infinite ease-in-out;}
-        #hall-of-fame {margin-top: 40px;} /* Adjusted to match roadmap spacing */
+        #hall-of-fame {margin-top: 40px;}
         @keyframes slideFade {
             0% {opacity: 0; transform: translateX(-20px);}
             100% {opacity: 1; transform: translateX(0);}
@@ -114,6 +116,8 @@
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
             #hall-of-fame {margin-top: 20px;}
+            .you-are-here {left: -80px; font-size: 0.9rem;}
+            .completed {right: -80px; font-size: 0.9rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -171,7 +175,7 @@
             <a href="#hall-of-fame">Hall of Fame</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt">Memes</a>
             <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
-            <分别是 class="mobile-dropdown" id="mobileDropdown">
+            <div class="mobile-dropdown" id="mobileDropdown">
                 <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
                 <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
                 <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
@@ -193,7 +197,7 @@
             <h1>Roadmap</h1>
             <div class="roadmap-container">
                 <div class="phase">
-                    <h2>📍 <s>Phase 1: Ignite the Culture</s></h2>
+                    <h2>📍 <s>Phase 1: Ignite the Culture</s> <span class="completed">Completed</span></h2>
                     <ul>
                         <li><s>Unleash debt-fueled memes on X—spark the financial uprising.</s></li>
                         <li><s>$Debtmas Airdrop—early rebels get rewarded.</s></li>
@@ -203,7 +207,7 @@
                 </div>
                 <div class="phase-connector phase-1-2"></div>
                 <div class="phase">
-                    <h2>📍 Phase 2: Build the Bones</h2>
+                    <h2><span class="you-are-here">You Are Here</span> 📍 Phase 2: Build the Bones</h2>
                     <ul>
                         <li>DebtCulture.xyz—roadmap, resources, and the manifesto.</li>
                         <li>Discord hub—memes, games, and strategy 24/7.</li>
@@ -247,7 +251,6 @@
             <div class="buy-container">
                 <div class="buy-step">
                     <div class="step-number">1</div>
-                    <div class="step prospettiva: center; align-items: center; flex-direction: column; margin-top: 270px;}
                     <div class="step-content">
                         <p>Set Up a Wallet – Grab Phantom (or any Solana wallet) and save your recovery phrase.</p>
                     </div>
@@ -314,7 +317,6 @@
                 
                 if (sectionTop < windowHeight * 0.75) {
                     section.classList.add('visible');
-                    // Trigger step animations when section is visible
                     if (section.id === 'how-to-buy') {
                         const steps = section.querySelectorAll('.buy-step');
                         steps.forEach(step => step.classList.add('visible'));
@@ -323,10 +325,9 @@
             });
         });
 
-        // Construction Modal Logic
         function acceptConstructionNotice() {
-            document.getElementById('contentWrapper').classList.add('unblurred'); // Remove blur from content
-            document.getElementById('constructionModal').style.display = 'none'; // Hide modal
+            document.getElementById('contentWrapper').classList.add('unblurred');
+            document.getElementById('constructionModal').style.display = 'none';
         }
     </script>
 </body>
