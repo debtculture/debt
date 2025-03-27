@@ -140,19 +140,22 @@
         
         /* Overview Section Styles */
         #overview {padding: 40px 20px;}
+        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
+        .tokenomics p {font-size: 1.1rem; margin: 0;}
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
         .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px;}
         .x-space-schedule ul {list-style: none; padding: 0; margin: 0; text-align: left;}
         .x-space-schedule li {font-size: 1.1rem; margin: 10px 0;}
         .x-space-schedule li::before {content: "📅 "; margin-right: 5px;}
-        .hosted-by h3 {font-size: 1.2rem; color: #ff5555; margin: 15px 0 5px;}
-        .hosted-by p {font-size: 1rem; margin: 0;}
-        .hosted-by a {color: #ff7777; text-decoration: none;}
-        .hosted-by a:hover {text-decoration: underline; color: #ff5555;}
-        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
-        .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .tokenomics p {font-size: 1.1rem; margin: 0;}
+        .hosts-include {margin-top: 15px;}
+        .hosts-include h3 {font-size: 1.2rem; color: #ff5555; margin: 0 0 10px;}
+        .host-bubbles {display: flex; justify-content: center; gap: 15px;}
+        .host-bubble {text-align: center;}
+        .host-bubble img.profile-pic {width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
+        .host-bubble img.twitter-icon {width: 20px; height: 20px; margin-top: 5px;}
+        .host-bubble a {text-decoration: none;}
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -169,12 +172,14 @@
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
+            .host-bubble img.profile-pic {width: 30px; height: 30px;}
+            .host-bubble img.twitter-icon {width: 15px; height: 15px;}
             #hall-of-fame {margin-top: 20px;}
             .you-are-here {left: -100px; font-size: 1.2rem; padding: 8px 15px;}
             .you-are-here::after {font-size: 1.5rem;}
             .completed {right: -100px; font-size: 1.2rem; padding: 8px 15px;}
             .completed::before {font-size: 1.5rem;}
-            .x-space-schedule, .tokenomics {max-width: 100%; padding: 15px;}
+            .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -237,6 +242,12 @@
                 </div>
             </div>
             
+            <!-- Tokenomics Section -->
+            <div class="tokenomics">
+                <h2>Tokenomics</h2>
+                <p>As the U.S. National Debt climbs endlessly upward, $DEBT’s supply shrinks through weekly burns 🔥—a defiant counterpoint to a system built on excess. More details coming soon.</p>
+            </div>
+            
             <!-- X Space Schedule -->
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
@@ -246,16 +257,29 @@
                     <li>Thursday – 9 PM EST</li>
                     <li>Saturday – 9 PM EST 🔥 (Weekly Burn)</li>
                 </ul>
-                <div class="hosted-by">
-                    <h3>Hosted By:</h3>
-                    <p><a href="https://x.com/debtculture" target="_blank">@DebtCulture</a> – More hosts coming soon!</p>
+                <div class="hosts-include">
+                    <h3>Hosts Include:</h3>
+                    <div class="host-bubbles">
+                        <div class="host-bubble">
+                            <a href="https://x.com/catavina47" target="_blank">
+                                <img src="PLACEHOLDER_PFP_1" alt="@catavina47" class="profile-pic">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                            </a>
+                        </div>
+                        <div class="host-bubble">
+                            <a href="https://x.com/0xnerf" target="_blank">
+                                <img src="PLACEHOLDER_PFP_2" alt="@0xnerf" class="profile-pic">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                            </a>
+                        </div>
+                        <div class="host-bubble">
+                            <a href="https://x.com/louisedbegin" target="_blank">
+                                <img src="PLACEHOLDER_PFP_3" alt="@louisedbegin" class="profile-pic">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Tokenomics Section -->
-            <div class="tokenomics">
-                <h2>Tokenomics</h2>
-                <p>As the U.S. National Debt climbs endlessly upward, $DEBT’s supply shrinks through weekly burns 🔥—a defiant counterpoint to a system built on excess. More details coming soon.</p>
             </div>
         </section>
 
