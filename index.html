@@ -41,7 +41,8 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 195px;}
+        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 220px;}
+        #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 100px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto;}
@@ -97,12 +98,12 @@
         .future-phase:hover, .future-phase.active {filter: blur(0); opacity: 1;}
         
         /* Debt Clock Widget Styles */
-        .debt-clock-container {margin: 20px auto; max-width: 280px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; top: 60px; overflow: hidden;}
+        .debt-clock-container {margin: 20px auto; max-width: 280px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
         .debt-clock-container h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .debt-clock-iframe-wrapper {height: 75px; overflow: hidden;}
         .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
         @media (max-width: 768px) {
-            .debt-clock-container {max-width: 100%; padding: 5px; top: 0;}
+            .debt-clock-container {max-width: 100%; padding: 5px;}
             .debt-clock-iframe-wrapper {height: 50px;}
             .debt-clock-iframe {width: 400px; height: 200px; margin-top: -150px; margin-left: -40px;}
         }
@@ -137,6 +138,22 @@
         .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
         .modal-content button:hover {background-color: #ff7777;}
         
+        /* Overview Section Styles */
+        #overview {padding: 40px 20px;}
+        .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
+        .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px;}
+        .x-space-schedule ul {list-style: none; padding: 0; margin: 0; text-align: left;}
+        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0;}
+        .x-space-schedule li::before {content: "📅 "; margin-right: 5px;}
+        .hosted-by h3 {font-size: 1.2rem; color: #ff5555; margin: 15px 0 5px;}
+        .hosted-by p {font-size: 1rem; margin: 0;}
+        .hosted-by a {color: #ff7777; text-decoration: none;}
+        .hosted-by a:hover {text-decoration: underline; color: #ff5555;}
+        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
+        .tokenomics p {font-size: 1.1rem; margin: 0;}
+        
         @media (max-width: 768px) {
             .navbar {display: none;}
             .hamburger {display: flex;}
@@ -144,6 +161,7 @@
             .mobile-logo {display: block;}
             .banner-container {display: none;}
             .section {padding: 20px;}
+            #overview {margin-top: 60px;}
             #mission {margin-top: 60px;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 2rem;}
@@ -156,6 +174,7 @@
             .you-are-here::after {font-size: 1.5rem;}
             .completed {right: -100px; font-size: 1.2rem; padding: 8px 15px;}
             .completed::before {font-size: 1.5rem;}
+            .x-space-schedule, .tokenomics {max-width: 100%; padding: 15px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -177,6 +196,7 @@
         <div class="navbar">
             <div class="navbar-links">
                 <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
+                <a href="#overview">About</a>
                 <a href="#mission">Mission</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#how-to-buy">How to Buy</a>
@@ -203,16 +223,46 @@
         <div class="banner-container">
             <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
         </div>
-        <!-- U.S. Debt Clock Widget -->
-        <div class="debt-clock-container">
-            <h2>U.S. Debt Clock</h2>
-            <div class="debt-clock-iframe-wrapper">
-                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
+        
+        <!-- About/Overview Section -->
+        <section id="overview" class="section">
+            <h1>About Debt Culture</h1>
+            <p>Debt Culture is a movement to expose and disrupt the broken financial system. Fueled by $DEBT, we’re here to spark rebellion through memes, community power, and weekly burns—starting with the ever-growing U.S. National Debt.</p>
+            
+            <!-- U.S. Debt Clock Widget -->
+            <div class="debt-clock-container">
+                <h2>U.S. National Debt</h2>
+                <div class="debt-clock-iframe-wrapper">
+                    <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
+                </div>
             </div>
-        </div>
+            
+            <!-- X Space Schedule -->
+            <div class="x-space-schedule">
+                <h2>X Space Schedule</h2>
+                <p>Join us for rants, recruitment, and $DEBT reveals:</p>
+                <ul>
+                    <li>Monday – 9 PM EST</li>
+                    <li>Thursday – 9 PM EST</li>
+                    <li>Saturday – 9 PM EST 🔥 (Weekly Burn)</li>
+                </ul>
+                <div class="hosted-by">
+                    <h3>Hosted By:</h3>
+                    <p><a href="https://x.com/debtculture" target="_blank">@DebtCulture</a> – More hosts coming soon!</p>
+                </div>
+            </div>
+            
+            <!-- Tokenomics Section -->
+            <div class="tokenomics">
+                <h2>Tokenomics</h2>
+                <p>As the U.S. National Debt climbs endlessly upward, $DEBT’s supply shrinks through weekly burns 🔥—a defiant counterpoint to a system built on excess. More details coming soon.</p>
+            </div>
+        </section>
+
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
         <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <div class="mobile-menu" id="mobileMenu">
+            <a href="#overview">About</a>
             <a href="#mission">Mission</a>
             <a href="#roadmap">Roadmap</a>
             <a href="#how-to-buy">How to Buy</a>
