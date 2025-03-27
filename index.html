@@ -50,7 +50,7 @@
         /* Roadmap Specific Styles */
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .roadmap-container {max-width: 800px; position: relative;}
-        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: filter 0.3s ease, opacity 0.3s ease;}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
         .phase li {font-size: 1.2rem; margin: 10px 0;}
@@ -64,7 +64,7 @@
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
-        .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; opacity: 0.8; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: filter 0.3s ease, opacity 0.3s ease;}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
@@ -92,6 +92,9 @@
             50% {transform: scale(1.2);}
             100% {transform: scale(1);}
         }
+        /* Foggy Effect for Future Phases */
+        .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
+        .future-phase:hover, .future-phase.active {filter: blur(0); opacity: 1;}
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
@@ -240,7 +243,7 @@
                     </ul>
                 </div>
                 <div class="phase-connector phase-2-3"></div>
-                <div class="phase">
+                <div class="phase future-phase" onclick="this.classList.toggle('active')">
                     <h2>📍 Phase 3: Strengthen the Holders</h2>
                     <ul>
                         <li>Merch launch—wear it proudly, fuel community chaos.</li>
@@ -250,7 +253,7 @@
                     </ul>
                 </div>
                 <div class="phase-connector phase-3-4"></div>
-                <div class="phase">
+                <div class="phase future-phase" onclick="this.classList.toggle('active')">
                     <h2>📍 Phase 4: Cement the Legacy</h2>
                     <ul>
                         <li>Community DAO—real influence for those holding $DEBT.</li>
@@ -260,7 +263,7 @@
                     </ul>
                 </div>
                 <div class="phase-connector phase-4-future"></div>
-                <div class="future-teaser">
+                <div class="future-teaser future-phase" onclick="this.classList.toggle('active')">
                     <h2>📍 Future Phases: $DEBT Horizon</h2>
                     <ul>
                         <li>Massive burns. Insane moves. Chaos unleashed.</li>
