@@ -41,7 +41,7 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 220px;} /* Adjusted from 270px */
+        #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 220px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto;}
@@ -97,12 +97,14 @@
         .future-phase:hover, .future-phase.active {filter: blur(0); opacity: 1;}
         
         /* Debt Clock Widget Styles */
-        .debt-clock-container {margin: 20px auto; max-width: 266px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; top: 60px;}
+        .debt-clock-container {margin: 20px auto; max-width: 300px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; top: 60px; overflow: hidden;}
         .debt-clock-container h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .debt-clock-iframe {width: 100%; height: 150px; border: none; border-radius: 5px;}
+        .debt-clock-iframe-wrapper {height: 150px; overflow: hidden;}
+        .debt-clock-iframe {width: 100%; height: 250px; border: none; border-radius: 5px; margin-top: -100px;}
         @media (max-width: 768px) {
             .debt-clock-container {max-width: 100%; padding: 5px; top: 0;}
-            .debt-clock-iframe {height: 100px;}
+            .debt-clock-iframe-wrapper {height: 100px;}
+            .debt-clock-iframe {height: 200px; margin-top: -100px;}
         }
         
         /* How to Buy Specific Styles */
@@ -204,7 +206,9 @@
         <!-- U.S. Debt Clock Widget -->
         <div class="debt-clock-container">
             <h2>U.S. National Debt Clock</h2>
-            <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock"></iframe>
+            <div class="debt-clock-iframe-wrapper">
+                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock"></iframe>
+            </div>
         </div>
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
         <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
@@ -293,7 +297,7 @@
                 <div class="buy-step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <p>SetToBuy Up a Wallet – Grab Phantom (or any Solana wallet) and save your recovery phrase.</p>
+                        <p>Set Up a Wallet – Grab Phantom (or any Solana wallet) and save your recovery phrase.</p>
                     </div>
                 </div>
                 <div class="buy-step">
