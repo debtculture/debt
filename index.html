@@ -51,14 +51,8 @@
         /* Roadmap Specific Styles */
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .roadmap-container {max-width: 800px; position: relative;}
-        .phase {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: opacity 1.2s ease-out, transform 1.2s ease-out;} /* Increased transition duration */
-        .phase.visible {opacity: 1; transform: translateX(0);} /* Added .visible class for roadmap phases */
-        .phase:nth-child(1) {transition-delay: 0s;} /* Staggered delays for each phase */
-        .phase:nth-child(3) {transition-delay: 0.3s;}
-        .phase:nth-child(5) {transition-delay: 0.6s;}
-        .phase:nth-child(7) {transition-delay: 0.9s;}
-        .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: opacity 1.2s ease-out, transform 1.2s ease-out; transition-delay: 1.2s;}
-        .future-teaser.visible {opacity: 1; transform: translateX(0);} /* Added .visible for future-teaser */
+        .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
+        .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
         .phase li {font-size: 1.2rem; margin: 10px 0;}
@@ -77,12 +71,12 @@
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
         .you-are-here {
             position: absolute; left: -180px; top: 50%; transform: translateY(-50%);
-            font-size: 1.5rem; color: #ffff55; font-weight: bold; padding: 10px 20px; /* Changed to yellow */
+            font-size: 1.5rem; color: #ffff55; font-weight: bold; padding: 10px 20px;
             background-color: #2a2a2a; border: 2px solid #ffff55; border-radius: 8px;
             box-shadow: 0 0 10px rgba(255, 255, 85, 0.5); display: flex; align-items: center;
         }
         .you-are-here::after {
-            content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #ffff55; /* Changed to yellow */
+            content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #ffff55;
             animation: pulse 1.5s infinite;
         }
         .completed {
@@ -119,11 +113,10 @@
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
-        .buy-step:nth-child(1) {animation-delay: 0.2s;}
-        .buy-step:nth-child(2) {animation-delay: 0.4s;}
-        .buy-step:nth-child(3) {animation-delay: 0.6s;}
-        .buy-step:nth-child(4) {animation-delay: 0.8s;}
-        .buy-step:nth-child(5) {animation-delay: 1.0s;}
+        .buy-step:nth-child(1) {animation-delay: 0s;} /* Adjusted delays to be 3-5x slower */
+        .buy-step:nth-child(2) {animation-delay: 1.5s;}
+        .buy-step:nth-child(3) {animation-delay: 3s;}
+        .buy-step:nth-child(4) {animation-delay: 4.5s;}
         .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;}
         .step-content {text-align: left;}
         .step-content p {font-size: 1.1rem; margin: 0;}
@@ -484,13 +477,19 @@
             
             sections.forEach(section => {
                 const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
                 const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight * 0.75) {
+
+                if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
                     section.classList.add('visible');
                     if (section.id === 'roadmap') {
                         const phases = section.querySelectorAll('.phase, .future-teaser');
-                        phases.forEach(phase => phase.classList.add('visible'));
+                        phases.forEach(phase => {
+                            const phaseTop = phase.getBoundingClientRect().top;
+                            if (phaseTop < windowHeight * 0.85) {
+                                phase.classList.add('visible');
+                            }
+                        });
                     }
                     if (section.id === 'how-to-buy') {
                         const steps = section.querySelectorAll('.buy-step');
