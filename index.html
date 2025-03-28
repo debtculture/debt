@@ -162,6 +162,28 @@
         }
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: relative; z-index: 2; margin-top: 5px;}
         
+        /* Disclaimer Styles */
+        .disclaimer {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+        .disclaimer h3 {
+            font-size: 1.5rem;
+            color: #ff5555;
+            margin: 0 0 15px;
+            text-align: center;
+        }
+        .disclaimer p {
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        
         @media (max-width: 768px) {
             .navbar {display: none;}
             .hamburger {display: flex;}
@@ -187,6 +209,9 @@
             .completed {right: -100px; font-size: 1.2rem; padding: 8px 15px;}
             .completed::before {font-size: 1.5rem;}
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
+            .disclaimer {margin: 20px; padding: 15px;}
+            .disclaimer h3 {font-size: 1.2rem;}
+            .disclaimer p {font-size: 0.9rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -425,6 +450,14 @@
             <a href="https://t.me/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" /></a>
             <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" /></a>
             <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
+        </div>
+
+        <!-- Disclaimer Section -->
+        <div class="disclaimer">
+            <h3>Disclaimer</h3>
+            <p>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is not financial, investment, or legal advice. Participation involves significant risks, including market volatility and potential loss of funds—engage at your own risk.</p>
+            <p>We make no guarantees about $DEBT’s value, functionality, or legal status. Always do your own research and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</p>
+            <p>Roadmap goals are forward-looking and subject to change—no promises here. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</p>
         </div>
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
