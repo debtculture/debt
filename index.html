@@ -137,7 +137,7 @@
             transition: background 0.3s ease;
         }
         .copyable-address:hover {background: #444;}
-        .copyable-address.copied {background: #55ff55; color: #000;} /* Green feedback when copied */
+        .copyable-address.copied {background: #55ff55; color: #000;}
         .copyable-address::after {
             content: 'Copied!';
             position: absolute;
@@ -196,18 +196,18 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             text-align: left;
             position: relative;
-            border: 2px solid transparent;
-            animation: neonPulse 3s infinite ease-in-out;
+            border: 4px solid transparent; /* Thicker border */
+            animation: neonPulse 2s infinite ease-in-out; /* Faster animation */
         }
         .disclaimer::before {
             content: '';
             position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 12px;
-            background: linear-gradient(45deg, rgba(255, 85, 85, 0.3), rgba(255, 85, 85, 0));
-            filter: blur(8px);
+            top: -10px; left: -10px; right: -10px; bottom: -10px; /* Larger glow area */
+            border-radius: 14px;
+            background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); /* Stronger opacity */
+            filter: blur(12px); /* Wider blur */
             z-index: -1;
-            animation: glowShift 3s infinite ease-in-out;
+            animation: glowShift 2s infinite ease-in-out;
         }
         .disclaimer h3 {
             font-size: 1.5rem;
@@ -217,21 +217,17 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        .disclaimer p {
-            font-size: 1rem;
-            margin: 10px 0;
-            line-height: 1.5;
-            color: #ddd;
-        }
+        .disclaimer ol {padding-left: 20px; margin: 0;}
+        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd;}
         @keyframes neonPulse {
-            0% { border-color: #ff5555; }
-            50% { border-color: #ff7777; }
-            100% { border-color: #ff5555; }
+            0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
+            50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } /* Brighter, wider glow */
+            100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
         }
         @keyframes glowShift {
-            0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.3), rgba(255, 85, 85, 0)); }
-            50% { background: linear-gradient(45deg, rgba(255, 119, 119, 0.3), rgba(255, 85, 85, 0)); }
-            100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.3), rgba(255, 85, 85, 0)); }
+            0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }
+            50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); }
+            100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }
         }
         
         @media (max-width: 768px) {
@@ -262,7 +258,7 @@
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
             .disclaimer {margin: 20px; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
-            .disclaimer p {font-size: 0.9rem;}
+            .disclaimer li {font-size: 0.9rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -506,9 +502,11 @@
         <!-- Disclaimer Section -->
         <div class="disclaimer">
             <h3>Disclaimer</h3>
-            <p>⚠️ This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</p>
-            <p>💀 We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</p>
-            <p>🔥 Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</p>
+            <ol>
+                <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
+                <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
+                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
+            </ol>
         </div>
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
@@ -562,7 +560,7 @@
                 element.classList.add('copied');
                 setTimeout(() => {
                     element.classList.remove('copied');
-                }, 2000); // Remove 'copied' class after 2 seconds
+                }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
             });
