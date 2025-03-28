@@ -32,7 +32,7 @@
         .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
-        .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; background-color: #121212; display: flex; justify-content: center; align-items: center;}
+        .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1001;} /* No background, higher z-index */
         .fixed-bar a {margin: 0 5px;}
         .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
         .icon img {width: 100%; height: 100%; object-fit: contain;}
@@ -178,11 +178,11 @@
         .host-bubbles {display: flex; justify-content: center; gap: 20px;}
         .host-bubble {text-align: center;}
         .host-bubble img.profile-pic {width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
-        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold;}
+        .host-bubble .host-title {font-size: 1rem; color: #ff5555; margin: 5px 0; font-weight: bold;} /* Changed to red */
         .host-bubble .twitter-link {position: relative; display: inline-block; width: 30px; height: 30px;}
         .host-bubble .twitter-link::before {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 30px; height: 30px; background-color: #fff; border-radius: 50%; z-index: 1;
+            width: 30px; height: 30px; background-color: #333; border-radius: 50%; z-index: 1; /* Changed to dark gray */
         }
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: relative; z-index: 2; margin-top: 5px;}
         
@@ -196,16 +196,17 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             text-align: left;
             position: relative;
-            border: 4px solid transparent; /* Thicker border */
-            animation: neonPulse 2s infinite ease-in-out; /* Faster animation */
+            border: 4px solid transparent;
+            animation: neonPulse 2s infinite ease-in-out;
+            z-index: 1; /* Lower than fixed-bar */
         }
         .disclaimer::before {
             content: '';
             position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px; /* Larger glow area */
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
             border-radius: 14px;
-            background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); /* Stronger opacity */
-            filter: blur(12px); /* Wider blur */
+            background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0));
+            filter: blur(12px);
             z-index: -1;
             animation: glowShift 2s infinite ease-in-out;
         }
@@ -221,7 +222,7 @@
         .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd;}
         @keyframes neonPulse {
             0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
-            50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } /* Brighter, wider glow */
+            50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; }
             100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
         }
         @keyframes glowShift {
