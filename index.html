@@ -32,7 +32,7 @@
         .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
-        .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center;}
+        .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center;} /* Removed background-color */
         .fixed-bar a {margin: 0 5px;}
         .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
         .icon img {width: 100%; height: 100%; object-fit: contain;}
@@ -188,20 +188,16 @@
         
         /* Disclaimer Styles */
         .disclaimer {
-            position: fixed; /* Made fixed */
-            bottom: 30px; /* Positioned above footer and below fixed-bar */
-            left: 50%;
-            transform: translateX(-50%);
             max-width: 800px;
-            margin: 0; /* Removed auto margin to prevent centering conflict */
+            margin: 40px auto;
             padding: 20px;
             background-color: #1e1e1e;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             text-align: left;
+            position: relative;
             border: 4px solid transparent;
             animation: neonPulse 2s infinite ease-in-out;
-            z-index: 999; /* Below fixed-bar (no z-index) and footer (1000) */
         }
         .disclaimer::before {
             content: '';
