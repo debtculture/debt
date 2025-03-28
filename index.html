@@ -113,7 +113,7 @@
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
-        .buy-step:nth-child(1) {animation-delay: 0s;} /* Adjusted delays to be 3-5x slower */
+        .buy-step:nth-child(1) {animation-delay: 0s;}
         .buy-step:nth-child(2) {animation-delay: 1.5s;}
         .buy-step:nth-child(3) {animation-delay: 3s;}
         .buy-step:nth-child(4) {animation-delay: 4.5s;}
@@ -170,17 +170,43 @@
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             text-align: left;
+            position: relative;
+            border: 2px solid transparent; /* Base border for animation */
+            animation: neonPulse 3s infinite ease-in-out;
+        }
+        .disclaimer::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, rgba(255, 85, 85, 0.3), rgba(255, 85, 85, 0));
+            filter: blur(8px);
+            z-index: -1;
+            animation: glowShift 3s infinite ease-in-out;
         }
         .disclaimer h3 {
             font-size: 1.5rem;
             color: #ff5555;
             margin: 0 0 15px;
             text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         .disclaimer p {
             font-size: 1rem;
             margin: 10px 0;
             line-height: 1.5;
+            color: #ddd; /* Slightly lighter for contrast */
+        }
+        @keyframes neonPulse {
+            0% { border-color: #ff5555; }
+            50% { border-color: #ff7777; }
+            100% { border-color: #ff5555; }
+        }
+        @keyframes glowShift {
+            0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.3), rgba(255, 85, 85, 0)); }
+            50% { background: linear-gradient(45deg, rgba(255, 119, 119, 0.3), rgba(255, 85, 85, 0)); }
+            100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.3), rgba(255, 85, 85, 0)); }
         }
         
         @media (max-width: 768px) {
