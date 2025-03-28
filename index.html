@@ -32,7 +32,7 @@
         .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
-        .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1001;} /* No background, higher z-index */
+        .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center;} /* Removed background-color */
         .fixed-bar a {margin: 0 5px;}
         .icon {width: 80px; height: 80px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
         .icon img {width: 100%; height: 100%; object-fit: contain;}
@@ -178,11 +178,11 @@
         .host-bubbles {display: flex; justify-content: center; gap: 20px;}
         .host-bubble {text-align: center;}
         .host-bubble img.profile-pic {width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
-        .host-bubble .host-title {font-size: 1rem; color: #ff5555; margin: 5px 0; font-weight: bold;} /* Changed to red */
+        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold;}
         .host-bubble .twitter-link {position: relative; display: inline-block; width: 30px; height: 30px;}
         .host-bubble .twitter-link::before {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 30px; height: 30px; background-color: #333; border-radius: 50%; z-index: 1; /* Changed to dark gray */
+            width: 30px; height: 30px; background-color: #fff; border-radius: 50%; z-index: 1;
         }
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: relative; z-index: 2; margin-top: 5px;}
         
@@ -198,7 +198,6 @@
             position: relative;
             border: 4px solid transparent;
             animation: neonPulse 2s infinite ease-in-out;
-            z-index: 1; /* Lower than fixed-bar */
         }
         .disclaimer::before {
             content: '';
