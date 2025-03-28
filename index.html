@@ -128,9 +128,34 @@
             0% {opacity: 0; transform: translateX(-20px);}
             100% {opacity: 1; transform: translateX(0);}
         }
+        .copyable-address {
+            cursor: pointer;
+            background: #333;
+            padding: 2px 5px;
+            border-radius: 3px;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+        .copyable-address:hover {background: #444;}
+        .copyable-address.copied {background: #55ff55; color: #000;} /* Green feedback when copied */
+        .copyable-address::after {
+            content: 'Copied!';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #55ff55;
+            color: #000;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .copyable-address.copied::after {opacity: 1;}
         
         /* Construction Modal Styles */
-        .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 2000; display: flex; justify-content: center; align-items: center;}
+        .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center;}
         .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
         .modal-content h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 20px;}
         .modal-content p {font-size: 1rem; margin: 0 0 20px;}
@@ -171,7 +196,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             text-align: left;
             position: relative;
-            border: 2px solid transparent; /* Base border for animation */
+            border: 2px solid transparent;
             animation: neonPulse 3s infinite ease-in-out;
         }
         .disclaimer::before {
@@ -196,7 +221,7 @@
             font-size: 1rem;
             margin: 10px 0;
             line-height: 1.5;
-            color: #ddd; /* Slightly lighter for contrast */
+            color: #ddd;
         }
         @keyframes neonPulse {
             0% { border-color: #ff5555; }
@@ -216,6 +241,7 @@
             .mobile-logo {display: block;}
             .banner-container {display: none;}
             .section {padding: 20px;}
+            .copyable-address::after {font-size: 0.7rem; top: -20px;}
             #overview {margin-top: 60px;}
             #mission {margin-top: 60px;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
@@ -446,7 +472,7 @@
                 <div class="buy-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <p>Swap for $DEBT – Hit up Raydium or Photon (see Resources), paste <code style="background: #333; padding: 2px 5px; border-radius: 3px;">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</code>, trade your SOL.</p>
+                        <p>Swap for $DEBT – Hit up Raydium or Photon (see Resources), paste <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>, trade your SOL.</p>
                     </div>
                 </div>
                 <div class="buy-step">
@@ -480,9 +506,9 @@
         <!-- Disclaimer Section -->
         <div class="disclaimer">
             <h3>Disclaimer</h3>
-            <p>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is not financial, investment, or legal advice. Participation involves significant risks, including market volatility and potential loss of funds—engage at your own risk.</p>
-            <p>We make no guarantees about $DEBT’s value, functionality, or legal status. Always do your own research and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</p>
-            <p>Roadmap goals are forward-looking and subject to change—no promises here. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</p>
+            <p>⚠️ This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</p>
+            <p>💀 We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</p>
+            <p>🔥 Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</p>
         </div>
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
@@ -528,6 +554,18 @@
         function acceptConstructionNotice() {
             document.getElementById('contentWrapper').classList.add('unblurred');
             document.getElementById('constructionModal').style.display = 'none';
+        }
+
+        function copyAddress(element) {
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                element.classList.add('copied');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 2000); // Remove 'copied' class after 2 seconds
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
         }
     </script>
 </body>
