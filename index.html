@@ -5,32 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Creepster&display=swap" rel="stylesheet">
     <style>
         /* Main content container for blurring */
         .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px;}
         .content-wrapper.unblurred {filter: none;}
         
-        body {font-family: 'Orbitron', sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center;}
+        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px;}
-        .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
-        .navbar a:hover {background-color: #555; text-shadow: 0 0 5px #ff5555;}
+        .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
+        .navbar a:hover {background-color: #555;}
         .navbar-links {display: flex; justify-content: center; align-items: center;}
         .navbar-logo {width: 100px; height: 100px; margin: 0; object-fit: contain;}
         .dropdown {position: relative;}
-        .dropbtn {color: white; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer; font-weight: 700; text-transform: uppercase;}
-        .dropbtn:hover {background-color: #555; text-shadow: 0 0 5px #ff5555;}
+        .dropbtn {color: white; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer;}
+        .dropbtn:hover {background-color: #555;}
         .dropdown-content {display: none; position: absolute; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1001; top: 100%; left: 0;}
-        .dropdown-content a {color: white; padding: 10px; text-decoration: none; display: block; text-align: left; font-weight: 400;}
+        .dropdown-content a {color: white; padding: 10px; text-decoration: none; display: block; text-align: left;}
         .dropdown-content a:hover {background-color: #555;}
         .dropdown:hover .dropdown-content {display: block;}
         .hamburger {display: none; flex-direction: column; cursor: pointer; position: fixed; top: 10px; left: 10px; z-index: 1100;}
         .hamburger div {width: 30px; height: 3px; background-color: white; margin: 5px 0;}
         .mobile-menu {display: none; position: fixed; top: 50px; left: 10px; background-color: #333; width: 200px; text-align: left; border-radius: 5px; z-index: 999;}
-        .mobile-menu a {display: block; color: white; padding: 10px; text-decoration: none; font-weight: 400;}
+        .mobile-menu a {display: block; color: white; padding: 10px; text-decoration: none;}
         .mobile-menu a:hover {background-color: #555;}
         .mobile-dropdown {display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px;}
-        .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block; font-weight: 700;}
+        .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
         .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 2000;}
@@ -45,18 +44,18 @@
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 220px;}
         #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 100px;}
         .from-right {transform: translateX(100%);}
-        h1 {font-family: 'Creepster', cursive; font-size: 3.5rem; margin: 20px 0; color: #ff5555; text-shadow: 2px 2px 4px #000, 0 0 10px #ff5555; transform: skewX(-5deg);}
-        p {font-size: 1.25rem; max-width: 800px; margin: 0 auto; font-weight: 400; letter-spacing: 0.5px;}
-        .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000; font-weight: 700; text-transform: uppercase;}
+        h1 {font-size: 3rem; margin: 20px 0;}
+        p {font-size: 1.25rem; max-width: 800px; margin: 0 auto;}
+        .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
         
         /* Roadmap Specific Styles */
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
         .roadmap-container {max-width: 800px; position: relative;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
-        .phase h2 {font-family: 'Creepster', cursive; font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px; text-shadow: 1px 1px 3px #000; transform: skewX(-3deg);}
+        .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
-        .phase li {font-size: 1.2rem; margin: 10px 0; font-weight: 400;}
+        .phase li {font-size: 1.2rem; margin: 10px 0;}
         .phase-connector {position: absolute; width: 6px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
         .phase-connector.phase-1-2 {top: 100%; height: 60px; animation: wind 2s infinite ease-in-out;}
         .phase-connector.phase-2-3 {top: 100%; height: 60px; animation: wind 2.5s infinite ease-in-out;}
@@ -67,15 +66,14 @@
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
-        .future-teaser h2 {font-family: 'Creepster', cursive; font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px; text-shadow: 1px 1px 3px #000; transform: skewX(-3deg);}
+        .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
-        .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic; font-weight: 400;}
+        .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
         .you-are-here {
             position: absolute; left: -180px; top: 50%; transform: translateY(-50%);
-            font-size: 1.5rem; color: #cccccc; font-weight: 700; padding: 10px 20px;
+            font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px;
             background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px;
             box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;
-            text-transform: uppercase; letter-spacing: 1px;
         }
         .you-are-here::after {
             content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc;
@@ -83,10 +81,9 @@
         }
         .completed {
             position: absolute; right: -180px; top: 50%; transform: translateY(-50%);
-            font-size: 1.5rem; color: #55ff55; font-weight: 700; padding: 10px 20px;
+            font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px;
             background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px;
             box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;
-            text-transform: uppercase; letter-spacing: 1px;
         }
         .completed::before {
             content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;
@@ -102,7 +99,7 @@
         
         /* Debt Clock Widget Styles */
         .debt-clock-container {margin: 20px auto; max-width: 280px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
-        .debt-clock-container h2 {font-family: 'Creepster', cursive; font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; text-shadow: 1px 1px 3px #000;}
+        .debt-clock-container h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .debt-clock-iframe-wrapper {height: 75px; overflow: hidden;}
         .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
         @media (max-width: 768px) {
@@ -120,11 +117,11 @@
         .buy-step:nth-child(2) {animation-delay: 1.5s;}
         .buy-step:nth-child(3) {animation-delay: 3s;}
         .buy-step:nth-child(4) {animation-delay: 4.5s;}
-        .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: 700;}
+        .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;}
         .step-content {text-align: left;}
-        .step-content p {font-size: 1.1rem; margin: 0; font-weight: 400;}
+        .step-content p {font-size: 1.1rem; margin: 0;}
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
-        .buy-blurb {margin: 30px auto 0; font-size: 1.5rem; text-align: center; font-family: 'Creepster', cursive; color: #ff5555; text-shadow: 1px 1px 3px #000;}
+        .buy-blurb {margin: 30px auto 0; font-size: 1.5rem; text-align: center;}
         .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; animation: wind 3.5s infinite ease-in-out;}
         #hall-of-fame {margin-top: 40px;}
         @keyframes slideFade {
@@ -138,7 +135,6 @@
             border-radius: 3px;
             position: relative;
             transition: background 0.3s ease;
-            font-weight: 400;
         }
         .copyable-address:hover {background: #444;}
         .copyable-address.copied {background: #55ff55; color: #000;}
@@ -155,39 +151,38 @@
             font-size: 0.8rem;
             opacity: 0;
             transition: opacity 0.3s ease;
-            font-family: 'Orbitron', sans-serif;
         }
         .copyable-address.copied::after {opacity: 1;}
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center;}
         .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
-        .modal-content h2 {font-family: 'Creepster', cursive; font-size: 1.5rem; color: #ff5555; margin: 0 0 20px; text-shadow: 1px 1px 3px #000;}
-        .modal-content p {font-size: 1rem; margin: 0 0 20px; font-weight: 400;}
-        .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s; font-family: 'Orbitron', sans-serif; font-weight: 700; text-transform: uppercase;}
-        .modal-content button:hover {background-color: #ff7777; box-shadow: 0 0 10px #ff5555;}
+        .modal-content h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 20px;}
+        .modal-content p {font-size: 1rem; margin: 0 0 20px;}
+        .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
+        .modal-content button:hover {background-color: #ff7777;}
         
         /* Overview Section Styles */
         #overview {padding: 40px 20px;}
         .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
-        .tokenomics h2 {font-family: 'Creepster', cursive; font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; text-shadow: 1px 1px 3px #000;}
-        .tokenomics p {font-size: 1.1rem; margin: 5px 0; font-weight: 400;}
+        .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
+        .tokenomics p {font-size: 1.1rem; margin: 5px 0;}
         .tokenomics-table {width: 100%; border-collapse: collapse; margin-top: 10px;}
-        .tokenomics-table th, .tokenomics-table td {padding: 8px; text-align: left; border-bottom: 1px solid #333; font-weight: 400;}
-        .tokenomics-table th {color: #ff5555; font-weight: 700;}
+        .tokenomics-table th, .tokenomics-table td {padding: 8px; text-align: left; border-bottom: 1px solid #333;}
+        .tokenomics-table th {color: #ff5555; font-weight: bold;}
         .tokenomics-table td {color: #ddd;}
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
-        .x-space-schedule h2 {font-family: 'Creepster', cursive; font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; text-shadow: 1px 1px 3px #000;}
-        .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px; font-weight: 400;}
+        .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
+        .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px;}
         .x-space-schedule ul {list-style: none; padding: 0; margin: 0; text-align: left;}
-        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; font-weight: 400;}
+        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0;}
         .x-space-schedule li::before {content: "📅 "; margin-right: 5px;}
         .hosts-include {margin-top: 15px;}
-        .hosts-include h3 {font-family: 'Creepster', cursive; font-size: 1.2rem; color: #ff5555; margin: 0 0 10px; text-shadow: 1px 1px 3px #000;}
+        .hosts-include h3 {font-size: 1.2rem; color: #ff5555; margin: 0 0 10px;}
         .host-bubbles {display: flex; justify-content: center; gap: 20px;}
         .host-bubble {text-align: center;}
         .host-bubble img.profile-pic {width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
-        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: 700; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555;}
+        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555;}
         .host-bubble .twitter-link {position: relative; display: inline-block; width: 30px; height: 30px;}
         .host-bubble .twitter-link::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1;
@@ -218,17 +213,15 @@
             animation: glowShift 2s infinite ease-in-out;
         }
         .disclaimer h3 {
-            font-family: 'Creepster', cursive;
             font-size: 1.5rem;
             color: #ff5555;
             margin: 0 0 15px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 1px 1px 3px #000;
         }
         .disclaimer ol {padding-left: 20px; margin: 0;}
-        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd; font-weight: 400;}
+        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd;}
         @keyframes neonPulse {
             0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
             50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; }
