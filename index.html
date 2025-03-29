@@ -98,13 +98,10 @@
         .future-phase:hover, .future-phase.active {filter: blur(0); opacity: 1;}
         
         /* Debt Clock Widget Styles */
-        .debt-clock-container {margin: 20px auto; max-width: 280px; padding: 10px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
-        .debt-clock-container h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .debt-clock-iframe-wrapper {height: 75px; overflow: hidden;}
+        .debt-clock-container {margin: 20px auto; width: 320px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
         .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
         @media (max-width: 768px) {
-            .debt-clock-container {max-width: 100%; padding: 5px;}
-            .debt-clock-iframe-wrapper {height: 50px;}
+            .debt-clock-container {width: 280px; height: 50px;}
             .debt-clock-iframe {width: 400px; height: 200px; margin-top: -150px; margin-left: -40px;}
         }
         
@@ -318,10 +315,7 @@
             
             <!-- U.S. Debt Clock Widget -->
             <div class="debt-clock-container">
-                <h2>U.S. National Debt</h2>
-                <div class="debt-clock-iframe-wrapper">
-                    <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
-                </div>
+                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
             
             <!-- Tokenomics Section -->
