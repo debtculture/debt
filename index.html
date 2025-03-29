@@ -39,21 +39,37 @@
         #mobileMenu, #mobileDropdown {display: none;}
         .banner-container {background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: hidden;}
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
-        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
-        .section.visible {opacity: 1; transform: translateX(0);}
-        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 220px;}
-        #mission {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 100px;}
-        .from-right {transform: translateX(100%);}
+        .section {padding: 40px 20px; opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out;}
+        .section.visible {opacity: 1; transform: translateY(0);}
         h1 {font-size: 3rem; margin: 20px 0;}
+        h2 {font-size: 2rem; color: #ff5555; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto;}
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
         
+        /* Hero Section Styles */
+        #hero {background: linear-gradient(180deg, #1e1e1e, #121212); padding: 100px 20px 60px; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+        .hero-logo {width: 150px; height: 150px; margin-bottom: 20px;}
+        .tagline {font-size: 2rem; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 10px #ff5555;}
+        .token-stats {display: flex; gap: 20px; margin-bottom: 20px;}
+        .stat {background: #1e1e1e; padding: 10px 20px; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
+        .cta-buttons {display: flex; gap: 15px;}
+        .cta-button {background: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background 0.3s;}
+        .cta-button:hover {background: #ff7777;}
+        
+        /* About Section Styles */
+        #about {background: #1e1e1e; border-radius: 10px; max-width: 900px; margin: 0 auto;}
+        .core-values {display: flex; justify-content: space-around; gap: 20px; margin: 20px 0;}
+        .value {flex: 1; padding: 15px; background: #333; border-radius: 5px;}
+        
+        /* Tokenomics Section Styles */
+        #tokenomics {background: #1e1e1e; border-radius: 10px; max-width: 900px; margin: 20px auto;}
+        
         /* Roadmap Specific Styles */
-        #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
+        #roadmap {display: flex; flex-direction: column; align-items: center;}
         .roadmap-container {max-width: 800px; position: relative;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
-        .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff cybercriminals7777); border-radius: 5px;}
+        .phase h2, .future-teaser h2 {font-size: 2rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
         .phase li {font-size: 1.2rem; margin: 10px 0; position: relative;}
         .phase-connector {position: absolute; width: 6px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
@@ -66,189 +82,70 @@
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
-        .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
-        .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
-        .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
-        .you-are-here {
-            position: absolute; left: -180px; top: 50%; transform: translateY(-50%);
-            font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px;
-            background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px;
-            box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;
-        }
-        .you-are-here::after {
-            content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc;
-            animation: pulse 1.5s infinite;
-        }
-        .completed {
-            position: absolute; right: -180px; top: 50%; transform: translateY(-50%);
-            font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px;
-            background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px;
-            box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;
-        }
-        .completed::before {
-            content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;
-        }
-        @keyframes pulse {
-            0% {transform: scale(1);}
-            50% {transform: scale(1.2);}
-            100% {transform: scale(1);}
-        }
-        /* Foggy Effect for Future Phases */
         .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
         .future-phase:hover, .future-phase.active {filter: blur(0); opacity: 1;}
-        /* Phase 1 Checkmarks */
         .phase-1 ul {list-style: none; padding-left: 40px;}
         .phase-1 li::before {content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem;}
+        .you-are-here {position: absolute; left: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;}
+        .you-are-here::after {content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc; animation: pulse 1.5s infinite;}
+        .completed {position: absolute; right: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;}
+        .completed::before {content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;}
+        @keyframes pulse {0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);}}
         
+        /* How to Buy Specific Styles */
+        #how-to-buy {background: #1e1e1e; border-radius: 10px; max-width: 900px; margin: 20px auto;}
+        .buy-container {padding: 20px;}
+        .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
+        .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
+        .buy-step:nth-child(1) {animation-delay: 0s;}
+        .buy-step:nth-child(2) {animation-delay: 0.3s;}
+        .buy-step:nth-child(3) {animation-delay: 0.6s;}
+        .buy-step:nth-child(4) {animation-delay: 0.9s;}
+        .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;}
+        .step-content {text-align: left;}
+        .step-content p {font-size: 1.1rem; margin: 0;}
+        .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
+        .buy-now {margin-top: 20px;}
+        @keyframes slideFade {0% {opacity: 0; transform: translateX(-20px);} 100% {opacity: 1; transform: translateX(0);}}
+        .copyable-address {cursor: pointer; background: #333; padding: 2px 5px; border-radius: 3px; position: relative; transition: background 0.3s ease;}
+        .copyable-address:hover {background: #444;}
+        .copyable-address.copied {background: #55ff55; color: #000;}
+        .copyable-address::after {content: 'Copied!'; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #55ff55; color: #000; padding: 2px 5px; border-radius: 3px; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease;}
+        .copyable-address.copied::after {opacity: 1;}
+        #phantomLink {color: #ff5555; text-decoration: none;}
+        #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
+        
+        /* Hall of Fame Styles */
+        #hall-of-fame {background: #1e1e1e; border-radius: 10px; max-width: 900px; margin: 20px auto;}
+        
+        /* Resources Styles */
+        #resources {background: #1e1e1e; border-radius: 10px; max-width: 900px; margin: 20px auto;}
+        .resources-grid {display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;}
+        .resource-item {background: #333; padding: 15px; border-radius: 5px; width: 200px;}
+        .resource-item a {color: #fff; text-decoration: none;}
+        .resource-item a:hover {color: #ff5555;}
+        
+        /* Final CTA Styles */
+        #final-cta {padding: 60px 20px; background: linear-gradient(180deg, #121212, #1e1e1e);}
+        .closing-statement {font-size: 2rem; font-weight: bold; margin-bottom: 20px; text-shadow: 0 0 10px #ff5555;}
+        
+        /* Disclaimer Styles */
+        .disclaimer {max-width: 900px; margin: 40px auto; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .disclaimer::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
+        .disclaimer h3 {font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
+        .disclaimer ol {padding-left: 20px; margin: 0;}
+        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd;}
+        @keyframes neonPulse {0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } 50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } 100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }}
+        @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
+
         /* Debt Clock Widget Styles */
         .debt-clock-container {margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
         .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
         
         /* Burn Tracker Styles */
-        .burn-tracker {margin: 20px auto; font-size: 3rem;}
-        .burn-tracker a {color: #ff5555; text-decoration: none;}
+        .burn-tracker {margin: 20px auto;}
+        .burn-tracker a {color: #ff5555; text-decoration: none; font-size: 1.5rem;}
         .burn-tracker a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
-        
-        @media (max-width: 768px) {
-            .debt-clock-container {width: 240px; height: 50px;}
-            .debt-clock-iframe {width: 400px; height: 200px; margin-top: -150px; margin-left: -40px;}
-            .burn-tracker {font-size: 2rem;}
-        }
-        
-        /* How to Buy Specific Styles */
-        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px;}
-        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative;}
-        .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
-        .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
-        .buy-step:nth-child(1) {animation-delay: 0s;}
-        .buy-step:nth-child(2) {animation-delay: 1.5s;}
-        .buy-step:nth-child(3) {animation-delay: 3s;}
-        .buy-step:nth-child(4) {animation-delay: 4.5s;}
-        .step-number {min-width: 30px; height: 30px; background-color: #ff5555; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;}
-        .step-content {text-align: left;}
-        .step-content p {font-size: 1.1rem; margin: 0;}
-        .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
-        .buy-blurb {margin: 30px auto 0; font-size: 1.5rem; text-align: center;}
-        .buy-connector {position: relative; width: 4px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; animation: wind 3.5s infinite ease-in-out;}
-        #hall-of-fame {margin-top: 40px;}
-        @keyframes slideFade {
-            0% {opacity: 0; transform: translateX(-20px);}
-            100% {opacity: 1; transform: translateX(0);}
-        }
-        .copyable-address {
-            cursor: pointer;
-            background: #333;
-            padding: 2px 5px;
-            border-radius: 3px;
-            position: relative;
-            transition: background 0.3s ease;
-        }
-        .copyable-address:hover {background: #444;}
-        .copyable-address.copied {background: #55ff55; color: #000;}
-        .copyable-address::after {
-            content: 'Copied!';
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #55ff55;
-            color: #000;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .copyable-address.copied::after {opacity: 1;}
-        #phantomLink {
-            color: #ff5555;
-            text-decoration: none;
-        }
-        #phantomLink:hover {
-            color: #ff7777;
-            text-shadow: 0 0 5px #ff5555;
-        }
-        
-        /* Construction Modal Styles */
-        .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center;}
-        .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
-        .modal-content h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 20px;}
-        .modal-content p {font-size: 1rem; margin: 0 0 20px;}
-        .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
-        .modal-content button:hover {background-color: #ff7777;}
-        
-        /* Overview Section Styles */
-        #overview {padding: 40px 20px;}
-        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
-        .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .tokenomics p {font-size: 1.1rem; margin: 5px 0;}
-        .tokenomics-table {width: 100%; border-collapse: collapse; margin-top: 10px;}
-        .tokenomics-table th, .tokenomics-table td {padding: 8px; text-align: left; border-bottom: 1px solid #333;}
-        .tokenomics-table th {color: #ff5555; font-weight: bold;}
-        .tokenomics-table td {color: #ddd;}
-        .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
-        .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px;}
-        .x-space-schedule ul {list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: left;}
-        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px;}
-        .x-space-schedule li::before {content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%);}
-        .x-space-schedule a {color: #fff; text-decoration: none; margin-left: 5px;}
-        .x-space-schedule a:hover {color: #ff5555;}
-        .hosts-include {margin-top: 15px;}
-        .hosts-include h3 {font-size: 1.2rem; color: #ff5555; margin: 0 0 10px;}
-        .host-bubbles {display: flex; justify-content: center; gap: 20px;}
-        .host-bubble {text-align: center;}
-        .host-bubble img.profile-pic {width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
-        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555;}
-        .host-bubble .twitter-link {position: relative; display: inline-block; width: 30px; height: 30px;}
-        .host-bubble .twitter-link::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1;
-        }
-        .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
-        
-        /* Disclaimer Styles */
-        .disclaimer {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            text-align: left;
-            position: relative;
-            border: 4px solid transparent;
-            animation: neonPulse 2s infinite ease-in-out;
-        }
-        .disclaimer::before {
-            content: '';
-            position: absolute;
-            top: -10px; left: -10px; right: -10px; bottom: -10px;
-            border-radius: 14px;
-            background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0));
-            filter: blur(12px);
-            z-index: -1;
-            animation: glowShift 2s infinite ease-in-out;
-        }
-        .disclaimer h3 {
-            font-size: 1.5rem;
-            color: #ff5555;
-            margin: 0 0 15px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .disclaimer ol {padding-left: 20px; margin: 0;}
-        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd;}
-        @keyframes neonPulse {
-            0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
-            50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; }
-            100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }
-        }
-        @keyframes glowShift {
-            0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }
-            50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); }
-            100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }
-        }
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -258,27 +155,27 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #overview {margin-top: 60px;}
-            #mission {margin-top: 60px;}
-            .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
-            .phase h2, .future-teaser h2 {font-size: 2rem;}
+            #hero {padding: 60px 20px;}
+            .hero-logo {width: 100px; height: 100px;}
+            .tagline {font-size: 1.5rem;}
+            .token-stats {flex-direction: column; gap: 10px;}
+            .cta-buttons {flex-direction: column; gap: 10px;}
+            .core-values {flex-direction: column;}
+            .phase h2, .future-teaser h2 {font-size: 1.8rem;}
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
-            .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
-            .phase-connector, .buy-connector {height: 40px;}
+            .phase-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
-            .host-bubble img.profile-pic {width: 75px; height: 75px;}
-            .host-bubble .twitter-link {width: 30px; height: 30px;}
-            .host-bubble .twitter-link::before {width: 30px; height: 30px;}
-            .host-bubble img.twitter-icon {width: 20px; height: 20px;}
-            #hall-of-fame {margin-top: 20px;}
             .you-are-here {left: -100px; font-size: 1.2rem; padding: 8px 15px;}
             .you-are-here::after {font-size: 1.5rem;}
             .completed {right: -100px; font-size: 1.2rem; padding: 8px 15px;}
             .completed::before {font-size: 1.5rem;}
-            .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
+            .debt-clock-container {width: 240px; height: 50px;}
+            .debt-clock-iframe {width: 400px; height: 200px; margin-top: -150px; margin-left: -40px;}
+            .burn-tracker a {font-size: 1.2rem;}
             .disclaimer {margin: 20px; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
+            .closing-statement {font-size: 1.5rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -286,7 +183,7 @@
     </style>
 </head>
 <body>
-    <!-- Construction Modal (outside blurred content) -->
+    <!-- Construction Modal -->
     <div class="construction-modal" id="constructionModal">
         <div class="modal-content">
             <h2>SITE UNDER CONSTRUCTION</h2>
@@ -295,30 +192,23 @@
         </div>
     </div>
 
-    <!-- Wrap all content in a div for blurring -->
+    <!-- Main Content -->
     <div class="content-wrapper" id="contentWrapper">
         <div class="navbar">
             <div class="navbar-links">
                 <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
-                <a href="#overview">About</a>
-                <a href="#mission">Mission</a>
+                <a href="#hero">Home</a>
+                <a href="#about">About</a>
+                <a href="#tokenomics">Tokenomics</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#how-to-buy">How to Buy</a>
-                <a href="#team">Team</a>
                 <a href="#hall-of-fame">Hall of Fame</a>
-                <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank">Memes</a>
+                <a href="#resources">Resources</a>
                 <div class="dropdown">
-                    <div class="dropbtn">Resources ▼</div>
+                    <div class="dropbtn">More ▼</div>
                     <div class="dropdown-content">
-                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
-                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
-                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
+                        <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank">Memes</a>
+                        <a href="#team">Team</a>
                     </div>
                 </div>
                 <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
@@ -327,116 +217,60 @@
         <div class="banner-container">
             <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
         </div>
-        
-        <!-- About/Overview Section -->
-        <section id="overview" class="section">
-            <h1>About Debt Culture</h1>
-            <p>Debt Culture is a movement to expose and disrupt the broken financial system. Fueled by $DEBT, we’re here to spark rebellion through memes, community power, and weekly burns—starting with the ever-growing U.S. National Debt.</p>
-            
-            <!-- U.S. Debt Clock Widget -->
+
+        <!-- Hero Section -->
+        <section id="hero" class="section">
+            <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="hero-logo">
+            <div class="tagline">The Only Debt You’ll Ever Want. Deflationary. Decentralized. Relentless.</div>
+            <div class="token-stats">
+                <div class="stat">Market Cap: TBD</div>
+                <div class="stat">Circulating Supply: 955,543,637.18 $DEBT</div>
+                <div class="stat">Price: Check DexScreener</div>
+            </div>
+            <div class="cta-buttons">
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="cta-button">Buy on Raydium</a>
+                <a href="https://t.me/debtculture" target="_blank" class="cta-button">Join the Community</a>
+                <a href="#roadmap" class="cta-button">Read the Roadmap</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h1>About $DEBT</h1>
+            <p>$DEBT is a community-driven token on Solana, born to mock the absurdity of endless debt while shrinking its own supply through weekly burns. It’s defiance in code—fueled by memes, powered by rebels, and aimed at a broken financial system.</p>
+            <p><strong>Why It Matters:</strong> Unlike fiat debt that balloons forever, $DEBT’s deflationary mechanics mean less supply, more scarcity, and a middle finger to centralized control.</p>
+            <div class="core-values">
+                <div class="value"><strong>Transparency</strong><br>No hidden fees, no BS—just open defiance.</div>
+                <div class="value"><strong>Humor</strong><br>Memes are our weapon; laughter is our fuel.</div>
+                <div class="value"><strong>Chaos</strong><br>We’re here to shake things up, not play nice.</div>
+            </div>
             <div class="debt-clock-container">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
-            
-            <!-- Burn Tracker -->
+            <p>While real debt rises, $DEBT shrinks—join the rebellion.</p>
+        </section>
+
+        <!-- Tokenomics Section -->
+        <section id="tokenomics" class="section">
+            <h1>Tokenomics & Burns</h1>
+            <p>No taxes, no nonsense—just pure $DEBT. Launched on Pump.fun, LP tokens are burnt, and the contract is renounced for true decentralization. Mint authority? Frozen. Supply? Locked forever.</p>
+            <div class="tokenomics">
+                <h2>Supply Breakdown</h2>
+                <table class="tokenomics-table">
+                    <tr><th>Metric</th><th>Value</th></tr>
+                    <tr><td>Initial Supply</td><td>1,000,000,000 $DEBT</td></tr>
+                    <tr><td>Current Supply</td><td>955,543,637.18 $DEBT</td></tr>
+                    <tr><td>Change in Supply (%)</td><td>-4.45%</td></tr>
+                </table>
+            </div>
             <div class="burn-tracker">
                 <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
             </div>
-            
-            <!-- Tokenomics Section -->
-            <div class="tokenomics">
-                <h2>Tokenomics</h2>
-                <p>No taxes, no nonsense—just pure $DEBT.</p>
-                <p>Launched on Pump.fun, the LP tokens are burnt, and the contract is renounced for true decentralization.</p>
-                <p>Mint authority frozen—supply is locked forever.</p>
-                <table class="tokenomics-table">
-                    <tr>
-                        <th>Metric</th>
-                        <th>Value</th>
-                    </tr>
-                    <tr>
-                        <td>Starting Supply</td>
-                        <td>1,000,000,000 $DEBT</td>
-                    </tr>
-                    <tr>
-                        <td>Current Supply</td>
-                        <td>955,543,637.18 $DEBT</td>
-                    </tr>
-                    <tr>
-                        <td>Change in Supply (%)</td>
-                        <td>-4.45%</td>
-                    </tr>
-                </table>
-            </div>
-            
-            <!-- X Space Schedule -->
-            <div class="x-space-schedule">
-                <h2>X Space Schedule</h2>
-                <p>Join us for rants, recruitment, and $DEBT reveals:</p>
-                <ul>
-                    <li>Monday – 9 PM EST</li>
-                    <li>Thursday – 9 PM EST</li>
-                    <li>Saturday – 9 PM EST <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥</a></li>
-                </ul>
-                <div class="hosts-include">
-                    <h3>Hosts Include:</h3>
-                    <div class="host-bubbles">
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina" class="profile-pic">
-                            <div class="host-title">Catavina</div>
-                            <a href="https://x.com/catavina47" target="_blank" class="twitter-link">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
-                            </a>
-                        </div>
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf" class="profile-pic">
-                            <div class="host-title">Nerf</div>
-                            <a href="https://x.com/0xnerf" target="_blank" class="twitter-link">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
-                            </a>
-                        </div>
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou" class="profile-pic">
-                            <div class="host-title">Lou</div>
-                            <a href="https://x.com/louisedbegin" target="_blank" class="twitter-link">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p><strong>How It Works:</strong> Weekly burns reduce $DEBT supply, driven by community chaos and a hatred for inflation. Check the tracker for proof.</p>
         </section>
 
-        <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
-        <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#overview">About</a>
-            <a href="#mission">Mission</a>
-            <a href="#roadmap">Roadmap</a>
-            <a href="#how-to-buy">How to Buy</a>
-            <a href="#team">Team</a>
-            <a href="#hall-of-fame">Hall of Fame</a>
-            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank">Memes</a>
-            <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
-            <div class="mobile-dropdown" id="mobileDropdown">
-                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
-                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
-                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
-            </div>
-        </div>
-
-        <section id="mission" class="section">
-            <h1>Mission</h1>
-            <p>Debt Culture is here to flip the script on a broken financial system—$DEBT fuels a rebellion of memes, burns, and community power.</p>
-        </section>
-        
-        <section id="roadmap" class="section from-right">
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="section">
             <h1>Roadmap</h1>
             <div class="roadmap-container">
                 <div class="phase phase-1">
@@ -488,9 +322,10 @@
                 </div>
             </div>
         </section>
-        
+
+        <!-- How to Buy Section -->
         <section id="how-to-buy" class="section">
-            <h1>How to Buy</h1>
+            <h1>How to Buy $DEBT</h1>
             <div class="buy-container">
                 <div class="buy-step">
                     <div class="step-number">1</div>
@@ -507,36 +342,54 @@
                 <div class="buy-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <p>Swap for $DEBT – Hit up Raydium or Photon (see Resources), paste <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>, trade your SOL.</p>
+                        <p>Swap for $DEBT – Hit up Raydium or Photon, paste <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>, trade your SOL.</p>
                     </div>
                 </div>
                 <div class="buy-step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <p>Join the Movement – You are now in $DEBT.</p>
+                        <p>Join the Movement – You’re now in $DEBT.</p>
                     </div>
                 </div>
             </div>
-            <div class="buy-blurb">Welcome to the financial rebellion.</div>
-            <div class="buy-connector"></div>
-        </section>
-        
-        <section id="team" class="section">
-            <h1>Team</h1>
-            <p>Coming soon—meet the crew driving the $DEBT uprising.</p>
-        </section>
-        
-        <section id="hall-of-fame" class="section from-right">
-            <h1>Hall of Fame</h1>
-            <p>Coming soon—celebrating the $DEBT rebels who make waves.</p>
+            <div class="buy-now">
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="cta-button">Buy Now</a>
+            </div>
         </section>
 
-        <div class="fixed-bar">
-            <a href="https://x.com/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" /></a>
-            <a href="https://t.me/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" /></a>
-            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" /></a>
-            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
-        </div>
+        <!-- Hall of Fame Section -->
+        <section id="hall-of-fame" class="section">
+            <h1>$DEBT Hall of Fame</h1>
+            <p>Coming soon—shoutouts to the top rebels, meme lords, and $DEBT holders making waves.</p>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section">
+            <h1>Resources & Tools</h1>
+            <div class="resources-grid">
+                <div class="resource-item"><a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a></div>
+                <div class="resource-item"><a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a></div>
+                <div class="resource-item"><a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a></div>
+                <div class="resource-item"><a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a></div>
+                <div class="resource-item"><a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a></div>
+                <div class="resource-item"><a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a></div>
+                <div class="resource-item"><a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a></div>
+                <div class="resource-item"><a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a></div>
+                <div class="resource-item"><a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a></div>
+                <div class="resource-item"><a href="https://x.com/debtculture" target="_blank">X</a></div>
+                <div class="resource-item"><a href="https://t.me/debtculture" target="_blank">Telegram</a></div>
+                <div class="resource-item"><a href="https://discord.gg/debtculture" target="_blank">Discord (TBD)</a></div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="final-cta" class="section">
+            <div class="closing-statement">$DEBT isn’t just a token—it’s a movement. Ride the wave or watch from the sidelines.</div>
+            <div class="cta-buttons">
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="cta-button">Buy $DEBT</a>
+                <a href="https://t.me/debtculture" target="_blank" class="cta-button">Join the Community</a>
+            </div>
+        </section>
 
         <!-- Disclaimer Section -->
         <div class="disclaimer">
@@ -563,13 +416,10 @@
 
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('.section');
-            
             sections.forEach(section => {
                 const sectionTop = section.getBoundingClientRect().top;
-                const sectionBottom = section.getBoundingClientRect().bottom;
                 const windowHeight = window.innerHeight;
-
-                if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+                if (sectionTop < windowHeight * 0.75) {
                     section.classList.add('visible');
                     if (section.id === 'roadmap') {
                         const phases = section.querySelectorAll('.phase, .future-teaser');
@@ -597,28 +447,17 @@
             const text = element.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 element.classList.add('copied');
-                setTimeout(() => {
-                    element.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
+                setTimeout(() => element.classList.remove('copied'), 2000);
+            }).catch(err => console.error('Failed to copy: ', err));
         }
 
-        // Detect device and set Phantom link
         function setPhantomLink() {
             const phantomLink = document.getElementById('phantomLink');
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-            if (isMobile) {
-                phantomLink.href = 'https://phantom.app/download'; // Mobile app download (redirects in same window)
-            } else {
-                phantomLink.href = 'https://phantom.app/download'; // Desktop browser extension download
-                phantomLink.target = '_blank'; // Opens in new window on desktop
-            }
+            phantomLink.href = 'https://phantom.app/download';
+            if (!isMobile) phantomLink.target = '_blank';
         }
 
-        // Run the function when the page loads
         window.addEventListener('load', setPhantomLink);
     </script>
 </body>
