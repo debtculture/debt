@@ -176,17 +176,18 @@
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
             .host-bubble img.twitter-icon {width: 20px; height: 20px;}
             #hall-of-fame {margin-top: 20px;}
-            .you-are-here {left: -100px; font-size: 1.2rem; padding: 8px 15px;}
-            .you-are-here::after {font-size: 1.5rem;}
-            .completed {right: -100px; font-size: 1.2rem; padding: 8px 15px;}
-            .completed::before {font-size: 1.5rem;}
+            .you-are-here {left: 10px; top: -10px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
+            .you-are-here::after {font-size: 1.2rem; margin-left: 5px;}
+            .completed {right: 10px; top: -10px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
+            .completed::before {font-size: 1.2rem; margin-right: 5px;}
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
-            .disclaimer {margin: 35px auto; padding: 15px;} /* Adjusted from 25px to 35px on mobile */
+            .disclaimer {margin: 35px auto; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
-            .debt-clock-container {width: 250px; height: 60px;} /* Adjusted container size on mobile */
-            .debt-clock-iframe {width: 420px; height: 235px; margin-top: -150px; margin-left: -40px;} /* Adjusted iframe size on mobile */
+            .debt-clock-container {width: 250px; height: 60px;}
+            .debt-clock-iframe {width: 440px; height: 245px; margin-top: -150px; margin-left: -40px;} /* Adjusted iframe size on mobile */
             .burn-tracker {font-size: 2rem;}
+            .phase-1 li::before {color: #55ff55; background-color: #333; padding: 2px; border-radius: 50%; width: 1rem; height: 1rem; display: flex; align-items: center; justify-content: center; left: -25px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
