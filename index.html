@@ -71,7 +71,7 @@
         .you-are-here {position: absolute; left: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;}
         .you-are-here::after {content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc; animation: pulse 1.5s infinite;}
         .completed {position: absolute; right: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;}
-        .phase-1 .completed {right: -140px;} /* Adjusted for desktop */
+        .phase-1 .completed {right: -140px;}
         .completed::before {content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;}
         @keyframes pulse {0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);}}
         .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
@@ -186,9 +186,9 @@
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
             .debt-clock-container {width: 250px; height: 60px;}
-            .debt-clock-iframe {width: 460px; height: 255px; margin-top: -150px; margin-left: -40px;}
+            .debt-clock-iframe {width: 480px; height: 265px; margin-top: -150px; margin-left: -40px;} /* Expanded 20px right, 10px down */
             .burn-tracker {font-size: 2rem;}
-            .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;} /* Shifted left 3px more */
+            .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%;}
         }
         @media (min-width: 769px) {
