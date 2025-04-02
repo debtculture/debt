@@ -28,7 +28,7 @@
         .mobile-menu {display: none; position: fixed; top: 50px; left: 10px; background-color: #333; width: 200px; text-align: left; border-radius: 5px; z-index: 999;}
         .mobile-menu a {display: block; color: white; padding: 10px; text-decoration: none;}
         .mobile-menu a:hover {background-color: #555;}
-        .mobile-dropdown {多元: none; padding-left: 20px; overflow-y: auto; margin-top: 5px;}
+        .mobile-dropdown {display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px;}
         .mobile-menu .expand {cursor: pointer; color: white; padding: 10px; text-decoration: none; display: block;}
         .mobile-menu .expand:hover {background-color: #555;}
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
@@ -149,9 +149,7 @@
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
         
         /* Disclaimer Styles */
-        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10 
-   
-px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
         .disclaimer::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .disclaimer h3 {font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         .disclaimer ol {padding-left: 20px; margin: 0;}
@@ -160,9 +158,10 @@ px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative
         @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
 
         /* Contract Address Styles */
-        .contract-address {margin: 20px 0;}
-        .contract-address h3 {font-size: 2.5rem; color: #ff5555; margin: 0; text-transform: uppercase; letter-spacing: 2px; display: inline;}
-        .contract-address .copyable-address {font-size: 1.5rem; color: #fff; -webkit-text-stroke: 2px #ff5555; text-stroke: 2px #ff5555; margin-left: 10px; word-break: break-all; display: inline-block;}
+        .contract-address {max-width: 800px; margin: 60px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
+        .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
+        .contract-address p {font-size: 1.5rem; margin: 0; color: #ddd; word-break: break-all;}
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -197,8 +196,9 @@ px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative
             .burn-tracker {font-size: 2rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%;}
+            .contract-address {margin: 60px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
-            .contract-address .copyable-address {font-size: 1rem; -webkit-text-stroke: 1px #ff5555; text-stroke: 1px #ff5555;}
+            .contract-address p {font-size: 1rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -247,10 +247,10 @@ px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative
             <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
         </div>
 
-        <!-- Contract Address Section -->
+        <!-- Contract Address Section (Reverted Version) -->
         <div class="contract-address">
-            <h3>CA:</h3>
-            <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
+            <h3>CA</h3>
+            <p>9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</p>
         </div>
 
         <!-- Overview Section (Combined About & Mission) -->
@@ -262,13 +262,15 @@ px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative
             <div class="debt-clock-container">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
-            <p><strong>Their Debt:</strong> Watch the U.S. National Debt soar—endless, bloated, and out of control.</p>
+            <p><strong>Their Debt</strong></p>
+            <p>Watch the U.S. National Debt soar—endless, bloated, and out of control.</p>
             
             <!-- Burn Tracker -->
             <div class="burn-tracker">
                 <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
             </div>
-            <p><strong>Our Debt:</strong> $DEBT burns every week—deflationary, decentralized, and in your hands.</p>
+            <p><strong>Our Debt</strong></p>
+            <p>$DEBT burns every week—deflationary, decentralized, and in your hands.</p>
             
             <!-- Tokenomics Section -->
             <div class="tokenomics">
