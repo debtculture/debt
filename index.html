@@ -282,15 +282,15 @@
                 <table class="tokenomics-table">
                     <tr><th>Metric</th><th>Value</th></tr>
                     <tr><td>Starting Supply</td><td>1,000,000,000 $DEBT</td></tr>
-                    <tr><td>Current Supply</td><td>954,543,637.18 $DEBT</td></tr>
-                    <tr><td>Change in Supply (%)</td><td>-4.45%</td></tr>
+                    <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
+                    <tr><td>Change in Supply (%)</td><td id="supply-change">Calculating...</td></tr>
                 </table>
             </div>
             
             <!-- X Space Schedule -->
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
-                <p>Join us for rants, recruitment, and reveals:</p>
+                <p>Join us for rants, recruitment, and $DEBT reveals:</p>
                 <ul>
                     <li>Monday – 9 PM EST</li>
                     <li>Thursday – 9 PM EST</li>
@@ -518,7 +518,24 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        window.addEventListener('load', setPhantomLink);
+        // Tokenomics Automation
+        function updateTokenomics() {
+            const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
+            const currentSupply = 955543637.18; // Placeholder: Update this value after each burn
+
+            // Format current supply with commas
+            const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
+
+            // Calculate and format percentage change
+            const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
+            document.getElementById('supply-change').textContent = `${changePercent}%`;
+        }
+
+        window.addEventListener('load', () => {
+            setPhantomLink();
+            updateTokenomics(); // Run tokenomics update on page load
+        });
     </script>
 </body>
 </html>
