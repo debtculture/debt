@@ -149,13 +149,19 @@
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
         
         /* Disclaimer Styles */
-        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
         .disclaimer::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .disclaimer h3 {font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         .disclaimer ol {padding-left: 20px; margin: 0;}
         .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #ddd;}
         @keyframes neonPulse {0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } 50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } 100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }}
         @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
+
+        /* Contract Address Styles */
+        .contract-address {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
+        .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
+        .contract-address p {font-size: 1.5rem; margin: 0; color: #ddd; word-break: break-all;}
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -190,6 +196,9 @@
             .burn-tracker {font-size: 2rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%;}
+            .contract-address {margin: 20px auto; padding: 15px;}
+            .contract-address h3 {font-size: 1.5rem;}
+            .contract-address p {font-size: 1rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -303,6 +312,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Contract Address Section -->
+            <div class="contract-address">
+                <h3>CA</h3>
+                <p>9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</p>
             </div>
         </section>
 
