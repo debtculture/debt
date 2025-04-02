@@ -41,7 +41,7 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 120px;}
+        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 60px;} /* Adjusted from 120px to 60px */
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
@@ -123,7 +123,8 @@
         
         /* Overview Section Styles */
         #overview {padding: 40px 20px;}
-        #overview .debt-title {font-size: 1.75rem; margin: 10px auto; font-weight: bold;}
+        #overview .debt-title {font-size: 1.75rem; margin: 5px auto; font-weight: bold;} /* Adjusted from 10px to 5px */
+        #overview .debt-subtitle {margin-top: -5px;} /* Added to pull sub-sentence up */
         .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0;}
@@ -265,14 +266,14 @@
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
             <p class="debt-title"><strong>Their Debt</strong></p>
-            <p>Watch the U.S. National Debt soar—endless, bloated, and out of control.</p>
+            <p class="debt-subtitle">Watch the U.S. National Debt soar—endless, bloated, and out of control.</p>
             
             <!-- Burn Tracker -->
             <div class="burn-tracker">
                 <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
             </div>
             <p class="debt-title"><strong>Our Debt</strong></p>
-            <p>$DEBT burns every week—deflationary, decentralized, and in your hands.</p>
+            <p class="debt-subtitle">$DEBT burns every week—deflationary, decentralized, and in your hands.</p>
             
             <!-- Tokenomics Section -->
             <div class="tokenomics">
@@ -290,7 +291,7 @@
             <!-- X Space Schedule -->
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
-                <p>Join us for rants, recruitment, and $DEBT reveals:</p>
+                <p>Join us for rants, recruitment, consumerism culture, and $DEBT reveals:</p>
                 <ul>
                     <li>Monday – 9 PM EST</li>
                     <li>Thursday – 9 PM EST</li>
@@ -500,7 +501,7 @@
 
         function acceptConstructionNotice() {
             document.getElementById('contentWrapper').classList.add('unblurred');
-            document.getElementById('constructionModal').style.display = 'none';
+            document.get VOLUME OF THE CA CONTAINERconstructionModal').style.display = 'none';
         }
 
         function copyAddress(element) {
