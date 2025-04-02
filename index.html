@@ -41,7 +41,7 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 40px;} /* Adjusted from 60px to 40px */
+        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 40px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
@@ -125,7 +125,7 @@
         #overview {padding: 40px 20px;}
         #overview .debt-title {font-size: 1.75rem; margin: 5px auto; font-weight: bold;}
         #overview .debt-subtitle {margin-top: -5px;}
-        #overview .debt-section {margin-top: -10px;} /* Added for "Their Debt" and "Our Debt" shift */
+        #overview .debt-section {margin-top: -10px;}
         .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0;}
@@ -136,9 +136,9 @@
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px;}
-        .x-space-schedule ul {list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: center;} /* Changed to center text */
-        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left;} /* Centered with inline-block */
-        .x-space-schedule li::before {content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%);} /* Calendar stays left */
+        .x-space-schedule ul {list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: center;}
+        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left;}
+        .x-space-schedule li::before {content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%);}
         .x-space-schedule a {color: #fff; text-decoration: none; margin-left: 5px;}
         .x-space-schedule a:hover {color: #ff5555;}
         .hosts-include {margin-top: 15px;}
@@ -524,23 +524,36 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        // Tokenomics Automation
-        function updateTokenomics() {
+        // Tokenomics Automation with Solscan API
+        async function updateTokenomics() {
             const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
-            const currentSupply = 954543637.18; // Placeholder: Update this value after each burn
 
-            // Format current supply with commas
-            const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
+            try {
+                const response = await fetch('https://public-api.solscan.io/token/meta?tokenAddress=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump', {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                    }
+                });
+                const data = await response.json();
+                const currentSupply = data.supply / Math.pow(10, data.decimals); // Adjust for decimals
 
-            // Calculate and format percentage change
-            const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
-            document.getElementById('supply-change').textContent = `${changePercent}%`;
+                // Format current supply with commas
+                const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
+
+                // Calculate and format percentage change
+                const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
+                document.getElementById('supply-change').textContent = `${changePercent}%`;
+            } catch (error) {
+                console.error('Failed to fetch supply from Solscan:', error);
+                document.getElementById('current-supply').textContent = 'Error loading supply';
+                document.getElementById('supply-change').textContent = 'N/A';
+            }
         }
 
         window.addEventListener('load', () => {
             setPhantomLink();
-            updateTokenomics(); // Run tokenomics update on page load
+            updateTokenomics(); // Fetch and update tokenomics on page load
         });
     </script>
 </body>
