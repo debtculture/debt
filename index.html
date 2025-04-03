@@ -59,6 +59,7 @@
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: 40px auto;}
+        .section-connector.buy-to-team {margin: 20px auto;} /* Adjusted for 20px spacing */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);}
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);}
@@ -114,7 +115,7 @@
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Team Section Styles */
-        #team {margin-top: -80px;} /* Moved up 80px on desktop */
+        #team {margin-top: 0;} /* Adjusted for connector spacing */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -197,9 +198,6 @@
             left: 50%;
             transform-origin: center center;
             transition: all 0.8s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .bubble {
@@ -229,7 +227,7 @@
             background: linear-gradient(45deg, #ff5555, #ff7777);
             border: 4px solid #fff;
             box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
-            padding-top: 10px; /* Reduced padding to move pfp up */
+            padding-top: 10px;
         }
 
         .inner-bubble {
@@ -244,7 +242,7 @@
         }
 
         .team-member.featured .inner-bubble {
-            width: 140px; /* Enlarged from 120px */
+            width: 140px;
             height: 140px;
         }
 
@@ -262,18 +260,21 @@
             display: none;
             word-wrap: break-word;
             max-width: 90%;
+            position: absolute;
+            bottom: -25px; /* Position below bubble */
+            text-align: center;
         }
 
         .team-member:not(.featured) .member-name {
             display: block;
-            font-size: 0.9rem; /* Smaller for non-featured */
-            margin-top: 5px; /* Space below bubble */
+            font-size: 0.9rem;
             text-shadow: 0 0 3px #ff5555;
         }
 
         .team-member.featured .member-name {
             display: block;
             text-shadow: 0 0 5px #ff5555;
+            position: static; /* Inside bubble for featured */
         }
 
         .member-role {
@@ -360,7 +361,7 @@
             #roadmap h1 {margin-top: -15px;}
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
-            #team {margin-top: -40px;} /* Moved up 40px on mobile */
+            #team {margin-top: -40px;} /* Mobile spacing */
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
             .team-cylinder {
@@ -379,7 +380,7 @@
                 height: 160px;
             }
             .team-member.featured .inner-bubble {
-                width: 110px; /* Enlarged from 100px */
+                width: 110px;
                 height: 110px;
             }
             .member-name {
@@ -673,18 +674,18 @@
                     <div class="team-member" data-index="3">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://placehold.co/100x100" alt="Rebel">
+                                <img src="https://placehold.co/100x100" alt="Autopsy">
                             </div>
-                            <div class="member-name">Rebel</div>
+                            <div class="member-name">Autopsy</div>
                             <div class="member-role">Chaos Coordinator</div>
                         </div>
                     </div>
                     <div class="team-member" data-index="4">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://placehold.co/100x100" alt="Ghost">
+                                <img src="https://placehold.co/100x100" alt="JPEG">
                             </div>
-                            <div class="member-name">Ghost</div>
+                            <div class="member-name">JPEG</div>
                             <div class="member-role">Shadow Strategist</div>
                         </div>
                     </div>
@@ -802,7 +803,7 @@
         }
 
         // Team Cylinder Rotation
-        let currentIndex = 0;
+        let currentIndex = 3; // Start on Autopsy (index 3)
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
         const radius = 150; // Increased for more spacing on desktop
@@ -810,7 +811,7 @@
 
         function updateCylinder() {
             teamMembers.forEach((member, index) => {
-                const angle = (index * angleStep - currentIndex * angleStep + 90) % 360; // Shift by 90° to make top center featured
+                const angle = (index * angleStep - currentIndex * angleStep + 90) % 360; // Shift by 90° for top center
                 const rad = angle * Math.PI / 180;
                 const x = radius * Math.cos(rad);
                 const y = radius * Math.sin(rad);
