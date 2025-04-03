@@ -180,7 +180,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1000px;
         }
 
         .cylinder-container {
@@ -195,6 +194,8 @@
             position: absolute;
             width: 100px;
             height: 100px;
+            top: 50%;
+            left: 50%;
             transform-origin: center center;
             transition: all 0.8s ease;
         }
@@ -791,19 +792,20 @@
         let currentIndex = 0;
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
+        const radius = 100; // Radius of the revolver cylinder circle
+        const angleStep = 360 / totalMembers;
 
         function updateCylinder() {
-            const angleStep = 360 / totalMembers;
-            const radius = 150; // Radius of the cylinder circle
             teamMembers.forEach((member, index) => {
-                const angle = (index - currentIndex) * angleStep;
+                const angle = (index * angleStep - currentIndex * angleStep) % 360;
                 const rad = angle * Math.PI / 180;
-                const x = radius * Math.sin(rad);
-                const z = radius * Math.cos(rad);
-                member.style.transform = `translateX(${x}px) translateZ(${z}px)`;
+                const x = radius * Math.cos(rad);
+                const y = radius * Math.sin(rad);
+                member.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
                 
-                // Determine featured member (top center when z is max)
-                if (Math.abs(angle % 360) < angleStep / 2 || Math.abs(angle % 360 - 360) < angleStep / 2) {
+                // Highlight the top center member (angle closest to 0°)
+                const normalizedAngle = Math.abs((angle + 360) % 360);
+                if (normalizedAngle < angleStep / 2 || normalizedAngle > 360 - angleStep / 2) {
                     member.classList.add('featured');
                 } else {
                     member.classList.remove('featured');
