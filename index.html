@@ -19,7 +19,7 @@
         .dropdown {position: relative; z-index: 1100;}
         .dropbtn {color: white; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer;}
         .dropbtn:hover {background-color: #555;}
-        .dropdown-content {display: none; position: absolute; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1101; top: 100%; left: 10px;}
+        .dropdown-content {display: none; position: absolute; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1101; top: 100%; left: 5px;}
         .dropdown-content a {color: white; padding: 10px; text-decoration: none; display: block; text-align: left;}
         .dropdown-content a:hover {background-color: #555;}
         .dropdown:hover .dropdown-content {display: block;}
@@ -59,7 +59,7 @@
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: 40px auto;}
-        .section-connector.how-to-buy-to-team {margin: 40px auto;} /* New connector styling */
+        .section-connector.how-to-buy-to-team {margin: -60px auto;} /* Adjusted to move up 100+px on desktop */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);}
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);}
@@ -353,7 +353,7 @@
             #team {margin-top: -40px;}
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .section-connector.how-to-buy-to-team {display: none;} /* Hide on mobile */
+            .section-connector.how-to-buy-to-team {margin: 20px auto;} /* Show and center on mobile */
             .team-cylinder {height: 400px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 100px; height: 100px;}
