@@ -10,7 +10,7 @@
         .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden;}
         .content-wrapper.unblurred {filter: none;}
         
-        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;} /* No horizontal scroll */
+        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow-x: hidden;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -61,7 +61,7 @@
         .phase-connector.phase-3-4 {top: 100%; height: 60px; animation: wind 3s infinite ease-in-out;}
         .phase-connector.phase-4-future {top: 100%; height: 60px; animation: wind 3.5s infinite ease-in-out;}
         @keyframes wind {
-            0% {transform: translateX(-50%) scaleY(1);}
+ la            0% {transform: translateX(-50%) scaleY(1);}
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
@@ -158,7 +158,7 @@
         @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
 
         /* Contract Address Styles */
-        .contract-address {max-width: 800px; margin: 120px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;} /* Removed overflow-x: hidden */
+        .contract-address {max-width: 800px; margin: 120px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
         .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
         .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
@@ -206,9 +206,13 @@
             .contract-address {margin: 120px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
-            .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;} /* Adjusted from 125px to 128px */
-            .modal-content button {background-color: #ff5555; color: #fff;} /* Ensure readability on mobile */
-            .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;} /* Contain CA in step 3 */
+            .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
+            .modal-content button {background-color: #ff5555; color: #fff;}
+            .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
+            #roadmap {overflow-y: visible; min-height: auto;} /* Remove vertical scrollbar */
+            .roadmap-container {max-height: none; overflow-y: visible;} /* Ensure content flows naturally */
+            .phase, .future-teaser {position: static; margin: 20px 0;} /* Adjust positioning for mobile */
+            .phase-connector {display: none;} /* Hide connectors on mobile to simplify layout */
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -461,7 +465,7 @@
             <ol>
                 <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
                 <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
-                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaimers liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
+                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
             </ol>
         </div>
 
