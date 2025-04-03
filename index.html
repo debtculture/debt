@@ -126,11 +126,11 @@
         #overview .debt-title {font-size: 1.75rem; margin: 5px auto; font-weight: bold;}
         #overview .debt-subtitle {margin-top: -5px;}
         #overview .debt-section {margin-top: -10px;}
-        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
+        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0;}
-        .tokenomics-table {width: 100%; border-collapse: collapse; margin-top: 10px;}
-        .tokenomics-table th, .tokenomics-table td {padding: 8px; text-align: left; border-bottom: 1px solid #333;}
+        .tokenomics-table {width: 100%; max-width: 350px; border-collapse: collapse; margin: 10px auto; text-align: left;}
+        .tokenomics-table th, .tokenomics-table td {padding: 8px; border-bottom: 1px solid #333;}
         .tokenomics-table th {color: #ff5555; font-weight: bold;}
         .tokenomics-table td {color: #ddd;}
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
@@ -524,10 +524,10 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        // Tokenomics Automation with Solscan API via AllOrigins Proxy
+        // Tokenomics Automation with Birdeye API
         async function updateTokenomics() {
             const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
-            const apiUrl = 'https://public-api.solscan.io/token/meta?tokenAddress=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
+            const apiUrl = 'https://public-api.birdeye.so/defi/token_overview?address=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
             const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
 
             try {
@@ -541,19 +541,17 @@
                     throw new Error(`HTTP error! Status: ${response.status}, Status Text: ${response.statusText}`);
                 }
 
-                // Log raw text response before parsing
                 const rawText = await response.text();
                 console.log('Raw Response Text:', rawText);
 
-                // Attempt to parse as JSON
                 const data = JSON.parse(rawText);
                 console.log('Parsed JSON Data:', data);
 
-                if (!data.supply || !data.decimals) {
-                    throw new Error('Invalid API response: missing supply or decimals');
+                if (!data.data || !data.data.supply) {
+                    throw new Error('Invalid API response: missing supply data');
                 }
 
-                const currentSupply = data.supply / Math.pow(10, data.decimals); // Adjust for decimals
+                const currentSupply = data.data.supply; // Birdeye's "Circ Supply" is already adjusted for decimals
 
                 // Format current supply with commas
                 const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -563,10 +561,14 @@
                 const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
                 document.getElementById('supply-change').textContent = `${changePercent}%`;
             } catch (error) {
-                console.error('Failed to fetch supply from Solscan:', error.message);
+                console.error('Failed to fetch supply from Birdeye:', error.message);
                 console.error('Error details:', error);
-                document.getElementById('current-supply').textContent = 'Error loading supply';
-                document.getElementById('supply-change').textContent = 'N/A';
+                // Fallback to manual supply (update this value after each burn)
+                const manualSupply = 955543.64; // Example: replace with latest burn value
+                const formattedManualSupply = manualSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('current-supply').textContent = `${formattedManualSupply} $DEBT`;
+                const changePercent = ((manualSupply - startingSupply) / startingSupply * 100).toFixed(2);
+                document.getElementById('supply-change').textContent = `${changePercent}%`;
             }
         }
 
