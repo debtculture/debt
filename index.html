@@ -57,8 +57,8 @@
         .phase li {font-size: 1.2rem; margin: 10px 0; position: relative;}
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
-        .section-connector.overview-to-roadmap {margin: 20px auto;}
-        .section-connector.roadmap-to-buy {margin: 0 auto -33px auto;} /* Moved up 3px more, now -33px */
+        .section-connector.overview-to-roadmap {margin: 40px auto;} /* Adjusted for equidistance */
+        .section-connector.roadmap-to-buy {margin: 40px auto;} /* Adjusted for equidistance */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);} /* Adjusted to match initial state */
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} /* Adjusted for visible state */
@@ -114,7 +114,7 @@
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Team Section Styles */
-        #team {margin-top: -20px;} /* Moved up to align with connectors */
+        #team {margin-top: 0;} /* Reset default, adjusted below */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -185,7 +185,7 @@
             .phase h2, .future-teaser h2 {font-size: 2rem;}
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
-            .buy-connector {height: 40px;}
+            .buy-connector {height: 40px; margin: 10px auto;} /* Adjusted for mobile */
             .section-connector.buy-to-team {display: none;} /* Hide only the Buy-to-Team connector on mobile */
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
             .step-content {max-width: calc(100% - 40px);}
@@ -209,19 +209,22 @@
             .buy-container {max-width: 90%; overflow-x: hidden;}
             .contract-address {margin: 120px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
- Browsing Session: Debt Culture Website Adjustments - April 02, 2025 - Grok 3 (xAI)
-
             .contract-address .copyable-address {font-size: 1rem;}
             .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
             .modal-content button {background-color: #ff5555; color: #fff;}
             .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
             #roadmap {overflow: visible; min-height: auto;}
-            #roadmap h1 {margin-top: -11px;} /* Moved up 3px more, now -11px total */
+            #roadmap h1 {margin-top: -15px;} /* Moved up to avoid overlap */
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
+            #team {margin-top: -50px;} /* Moved up 50px on mobile */
+            .section-connector.overview-to-roadmap {margin: 30px auto;} /* Adjusted for mobile equidistance */
+            .section-connector.roadmap-to-buy {margin: 30px auto;} /* Adjusted for mobile equidistance */
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
+            #team {margin-top: 20px;} /* Closer to buy-connector on desktop */
+            .section-connector.buy-to-team {display: none;} /* Remove extra connector on desktop */
         }
     </style>
 </head>
@@ -446,7 +449,7 @@
             <div class="buy-connector"></div>
         </section>
 
-        <!-- Connector between How to Buy and Team -->
+        <!-- Connector between How to Buy and Team (Removed on Desktop) -->
         <div class="section-connector buy-to-team"></div>
 
         <section id="team" class="section">
