@@ -115,21 +115,19 @@
         
         /* Team Section Styles */
         #team {margin-top: 0; padding: 40px 20px; min-height: auto;}
-        .team-container {position: relative; width: 500px; height: 500px; margin: 0 auto; perspective: 1000px;}
-        .team-ring {position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; animation: rotateRing 20s infinite linear;}
-        .team-member {position: absolute; width: 100px; height: 100px; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: transform 0.3s ease, box-shadow 0.3s ease;}
-        .team-member.featured {width: 150px; height: 150px; border: 3px solid #ff5555; box-shadow: 0 0 20px #ff5555;}
-        .team-member img {width: 60px; height: 60px; border-radius: 50%; object-fit: cover;}
-        .team-member.featured img {width: 100px; height: 100px;}
-        .team-member .title {font-size: 1rem; margin: 5px 0; color: #fff;}
-        .team-member.featured .title {font-size: 1.2rem;}
-        .team-member .bio {font-size: 0.8rem; color: #eee; max-width: 90%; display: none;}
-        .team-member.featured .bio {display: block; font-size: 1rem;}
-        @keyframes rotateRing {
-            0% {transform: rotateY(0deg);}
-            100% {transform: rotateY(360deg);}
-        }
-        .team-member:hover {transform: scale(1.1); box-shadow: 0 0 20px #ff7777;}
+        .team-container {position: relative; width: 400px; height: 400px; margin: 40px auto; perspective: 1000px;}
+        .team-cylinder {position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 1s ease;}
+        .team-member {position: absolute; width: 80px; height: 80px; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.5s ease; transform-origin: center center;}
+        .team-member.active {width: 120px; height: 120px; border: 3px solid #ff5555; box-shadow: 0 0 20px #ff5555; z-index: 10;}
+        .team-member img {width: 50px; height: 50px; border-radius: 50%; object-fit: cover;}
+        .team-member.active img {width: 80px; height: 80px;}
+        .team-member .title {font-size: 0.9rem; margin: 5px 0; color: #fff;}
+        .team-member.active .title {font-size: 1.2rem;}
+        .team-member .bio {font-size: 0.7rem; color: #eee; max-width: 90%; display: none;}
+        .team-member.active .bio {display: block; font-size: 0.9rem;}
+        .team-member:hover {cursor: pointer; transform: scale(1.1); box-shadow: 0 0 20px #ff7777;}
+        .team-next-btn {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; transition: background-color 0.3s;}
+        .team-next-btn:hover {background-color: #ff7777;}
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -236,14 +234,14 @@
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
             .team-container {width: 300px; height: 300px;}
-            .team-member {width: 80px; height: 80px;}
-            .team-member.featured {width: 120px; height: 120px;}
-            .team-member img {width: 50px; height: 50px;}
-            .team-member.featured img {width: 80px; height: 80px;}
-            .team-member .title {font-size: 0.9rem;}
-            .team-member.featured .title {font-size: 1rem;}
-            .team-member .bio {font-size: 0.7rem;}
-            .team-member.featured .bio {font-size: 0.9rem;}
+            .team-member {width: 60px; height: 60px;}
+            .team-member.active {width: 100px; height: 100px;}
+            .team-member img {width: 40px; height: 40px;}
+            .team-member.active img {width: 60px; height: 60px;}
+            .team-member .title {font-size: 0.8rem;}
+            .team-member.active .title {font-size: 1rem;}
+            .team-member .bio {font-size: 0.6rem;}
+            .team-member.active .bio {font-size: 0.8rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -307,6 +305,8 @@
             <!-- U.S. Debt Clock Widget -->
             <div class="debt-clock-container">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
+            </div>
+            for U.S. Debt Clock" scrolling="no"></iframe>
             </div>
             <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
             
@@ -476,34 +476,40 @@
         <section id="team" class="section">
             <h1>Team</h1>
             <div class="team-container">
-                <div class="team-ring">
-                    <div class="team-member featured" style="transform: translate(-50%, -50%) rotateY(0deg) translateZ(200px); top: 0; left: 50%;">
+                <div class="team-cylinder" id="teamCylinder">
+                    <div class="team-member active" style="transform: translate(-50%, -50%) rotate(0deg) translateY(-150px); top: 50%; left: 50%;">
                         <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Leader">
                         <div class="title">Leader</div>
                         <div class="bio">The visionary sparking the $DEBT uprising.</div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotateY(72deg) translateZ(200px); top: 50%; left: 50%;">
+                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(60deg) translateY(-150px); top: 50%; left: 50%;">
                         <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Member 1">
                         <div class="title">Member 1</div>
                         <div class="bio">Meme master.</div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotateY(144deg) translateZ(200px); top: 50%; left: 50%;">
+                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(120deg) translateY(-150px); top: 50%; left: 50%;">
                         <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Member 2">
                         <div class="title">Member 2</div>
                         <div class="bio">Community wrangler.</div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotateY(216deg) translateZ(200px); top: 50%; left: 50%;">
+                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(180deg) translateY(-150px); top: 50%; left: 50%;">
                         <img src="https://via.placeholder.com/60" alt="Member 3">
                         <div class="title">Member 3</div>
                         <div class="bio">Tech guru.</div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotateY(288deg) translateZ(200px); top: 50%; left: 50%;">
+                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(240deg) translateY(-150px); top: 50%; left: 50%;">
                         <img src="https://via.placeholder.com/60" alt="Member 4">
                         <div class="title">Member 4</div>
                         <div class="bio">Strategy ace.</div>
                     </div>
+                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(300deg) translateY(-150px); top: 50%; left: 50%;">
+                        <img src="https://via.placeholder.com/60" alt="Member 5">
+                        <div class="title">Member 5</div>
+                        <div class="bio">Burn boss.</div>
+                    </div>
                 </div>
             </div>
+            <button class="team-next-btn" onclick="rotateCylinder()">Next</button>
         </section>
 
         <section id="hall-of-fame" class="section from-right">
@@ -533,6 +539,32 @@
     </div>
 
     <script>
+        let currentRotation = 0;
+        let rotationInterval;
+
+        function rotateCylinder(manual = false) {
+            const cylinder = document.getElementById('teamCylinder');
+            const members = document.querySelectorAll('.team-member');
+            currentRotation -= 60; // Move to next chamber (clockwise)
+            cylinder.style.transform = `rotate(${currentRotation}deg)`;
+
+            // Update active member
+            const activeIndex = Math.abs(currentRotation / 60) % members.length;
+            members.forEach((member, index) => {
+                member.classList.toggle('active', index === activeIndex);
+            });
+
+            // Pause auto-rotation for 5 seconds on manual click
+            if (manual) {
+                clearInterval(rotationInterval);
+                setTimeout(startAutoRotation, 5000);
+            }
+        }
+
+        function startAutoRotation() {
+            rotationInterval = setInterval(() => rotateCylinder(false), 20000); // Rotate every 20 seconds
+        }
+
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -616,6 +648,7 @@
             setPhantomLink();
             updateTokenomics();
             window.dispatchEvent(new Event('scroll'));
+            startAutoRotation(); // Start auto-rotation on load
         });
     </script>
 </body>
