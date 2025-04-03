@@ -225,7 +225,7 @@
             background: linear-gradient(45deg, #ff5555, #ff7777);
             border: 4px solid #fff;
             box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
-            padding-top: 6px; /* Further reduced for space */
+            padding-top: 10px;
         }
 
         .inner-bubble {
@@ -240,8 +240,8 @@
         }
 
         .team-member.featured .inner-bubble {
-            width: 170px;
-            height: 170px;
+            width: 160px; /* Reduced slightly to fit text */
+            height: 160px;
         }
 
         .inner-bubble img {
@@ -253,11 +253,11 @@
         .member-name {
             font-size: 1.2rem;
             color: #fff;
-            margin: 2px 0; /* Tightened spacing */
+            margin: 5px 0;
             font-weight: bold;
             word-wrap: break-word;
             max-width: 90%;
-            display: none; /* Controlled explicitly below */
+            display: none; /* Controlled explicitly */
         }
 
         .team-member:not(.featured) .member-name {
@@ -276,9 +276,9 @@
         }
 
         .member-role {
-            font-size: 1rem;
+            font-size: 0.9rem; /* Reduced to fit */
             color: #fff;
-            margin-bottom: 6px; /* Tightened spacing */
+            margin-bottom: 5px;
             display: none;
             word-wrap: break-word;
             max-width: 90%;
@@ -385,13 +385,13 @@
                 font-size: 0.8rem;
             }
             .team-member.featured .member-name {
-                font-size: 1.2rem;
+                font-size: 1rem; /* Slightly smaller for mobile */
             }
             .member-role {
                 font-size: 0.8rem;
             }
             .team-member.featured .member-role {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             .arrow {
                 font-size: 1.5rem;
@@ -804,37 +804,33 @@
         let currentIndex = 3; // Start on Autopsy (index 3)
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
-        const radius = 175; // Adjusted for circle fit
+        const radius = 150; // Perfect circle size
 
         function updateCylinder() {
-            const containerWidth = document.querySelector('.cylinder-container').offsetWidth;
-            const centerX = containerWidth / 2;
             const angleStep = 360 / totalMembers;
 
             teamMembers.forEach((member, index) => {
-                const baseAngle = index * angleStep;
-                const angleOffset = -currentIndex * angleStep + 90; // 90° to put featured at top
-                const angle = (baseAngle + angleOffset) % 360;
+                const angle = index * angleStep - currentIndex * angleStep;
                 const rad = angle * Math.PI / 180;
                 const x = radius * Math.cos(rad);
                 const y = radius * Math.sin(rad);
 
                 if (index === currentIndex) {
-                    // Featured member: center under "Team" title
+                    // Featured member: dead center
                     member.classList.add('featured');
-                    member.style.left = `${centerX}px`;
-                    member.style.top = '40px'; // Fixed offset from h1 (adjusted for alignment)
-                    member.style.transform = 'translateX(-50%)';
+                    member.style.left = '50%';
+                    member.style.top = '50%';
+                    member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         const xLink = member.getAttribute('data-x-link');
                         if (xLink) window.open(xLink, '_blank');
                     };
                 } else {
-                    // Non-featured members: position around cylinder
+                    // Non-featured members: form circle
                     member.classList.remove('featured');
-                    member.style.left = `${centerX + x}px`;
-                    member.style.top = `${175 + y}px`; // Center of cylinder at 175px
+                    member.style.left = `calc(50% + ${x}px)`;
+                    member.style.top = `calc(50% + ${y}px)`;
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -874,9 +870,6 @@
             updateCylinder();
             window.dispatchEvent(new Event('scroll'));
         });
-
-        // Ensure cylinder updates on resize for centering
-        window.addEventListener('resize', updateCylinder);
     </script>
 </body>
 </html>
