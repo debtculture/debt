@@ -48,7 +48,7 @@
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
         
         /* Roadmap Specific Styles */
-        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto;}
+        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -25px;} /* Moved up 25px */
         .roadmap-container {max-width: 800px; margin: 0 auto; overflow: visible; height: auto;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
@@ -58,7 +58,7 @@
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 20px auto;}
-        .section-connector.roadmap-to-buy {margin: 0 auto -20px auto;}
+        .section-connector.roadmap-to-buy {margin: 0 auto -25px auto;} /* Moved up 5px more, now -25px */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);} /* Adjusted to match initial state */
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} /* Adjusted for visible state */
