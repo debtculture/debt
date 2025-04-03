@@ -11,15 +11,15 @@
         .content-wrapper.unblurred {filter: none;}
         
         body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
-        .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: hidden;}
+        .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible;} /* Changed overflow to visible */
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
         .navbar-links {display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap;}
         .navbar-logo {width: 100px; height: 100px; margin: 0; object-fit: contain; flex-shrink: 0;}
-        .dropdown {position: relative; z-index: 1100;} /* Increased z-index for priority */
+        .dropdown {position: relative; z-index: 1100;} /* High z-index for priority */
         .dropbtn {color: white; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer;}
         .dropbtn:hover {background-color: #555;}
-        .dropdown-content {display: none; position: fixed; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1101; top: 60px; left: auto; right: 10px; transform: none;} /* Changed to fixed positioning, adjusted z-index and positioning */
+        .dropdown-content {display: none; position: absolute; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1101; top: 100%; left: 0; transform: translateX(-50%); transform-origin: top center;} /* Aligned under Resources */
         .dropdown-content a {color: white; padding: 10px; text-decoration: none; display: block; text-align: left;}
         .dropdown-content a:hover {background-color: #555;}
         .dropdown:hover .dropdown-content {display: block;}
