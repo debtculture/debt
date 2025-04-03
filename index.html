@@ -48,18 +48,17 @@
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
         
         /* Roadmap Specific Styles */
-        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto;} /* Allow content to extend */
-        .roadmap-container {max-width: 800px; margin: 0 auto; overflow: visible; height: auto;} /* No clipping, content-driven height */
+        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto;}
+        .roadmap-container {max-width: 800px; margin: 0 auto; overflow: visible; height: auto;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
         .phase li {font-size: 1.2rem; margin: 10px 0; position: relative;}
-        .phase-connector {position: absolute; width: 6px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%);}
-        .phase-connector.phase-1-2 {top: 100%; height: 60px; animation: wind 2s infinite ease-in-out;}
-        .phase-connector.phase-2-3 {top: 100%; height: 60px; animation: wind 2.5s infinite ease-in-out;}
-        .phase-connector.phase-3-4 {top: 100%; height: 60px; animation: wind 3s infinite ease-in-out;}
-        .phase-connector.phase-4-future {top: 100%; height: 60px; animation: wind 3.5s infinite ease-in-out;}
+        .phase-connector {position: relative; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%); margin: 20px auto; animation: wind 2s infinite ease-in-out;}
+        .phase-connector.section-transition {position: relative; top: 0; margin: 0 auto;}
+        .phase-connector.overview-to-roadmap {margin: 20px auto;}
+        .phase-connector.roadmap-to-buy {margin-top: -20px;} /* Move up 20px */
         @keyframes wind {
             0% {transform: translateX(-50%) scaleY(1);}
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
@@ -183,6 +182,7 @@
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
+            .phase-connector.section-transition {display: none;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
             .step-content {max-width: calc(100% - 40px);}
             .host-bubble img.profile-pic {width: 75px; height: 75px;}
@@ -329,6 +329,8 @@
                     </div>
                 </div>
             </div>
+            <!-- Connector between X Space Schedule and Roadmap -->
+            <div class="phase-connector overview-to-roadmap"></div>
         </section>
 
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
@@ -407,6 +409,9 @@
             </div>
         </section>
 
+        <!-- Connector between Roadmap and How to Buy -->
+        <div class="phase-connector section-transition roadmap-to-buy"></div>
+
         <section id="how-to-buy" class="section">
             <h1>How to Buy</h1>
             <div class="buy-container">
@@ -438,6 +443,9 @@
             <div class="buy-blurb">Welcome to the financial rebellion.</div>
             <div class="buy-connector"></div>
         </section>
+
+        <!-- Connector between How to Buy and Team -->
+        <div class="phase-connector section-transition"></div>
 
         <section id="team" class="section">
             <h1>Team</h1>
