@@ -194,9 +194,6 @@
             position: absolute;
             width: 120px;
             height: 120px;
-            top: 50%;
-            left: 50%;
-            transform-origin: center center;
             transition: all 0.8s ease;
         }
 
@@ -213,7 +210,7 @@
             overflow: hidden;
             position: relative;
             border: 2px solid #555;
-            cursor: pointer; /* Clickable for all */
+            cursor: pointer;
         }
 
         .team-member:not(.featured) .bubble {
@@ -223,12 +220,16 @@
         }
 
         .team-member.featured .bubble {
-            width: 220px;
-            height: 220px;
+            width: 250px; /* Increased for subtitle fit */
+            height: 250px;
             background: linear-gradient(45deg, #ff5555, #ff7777);
             border: 4px solid #fff;
             box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
             padding-top: 10px;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
         }
 
         .inner-bubble {
@@ -243,8 +244,8 @@
         }
 
         .team-member.featured .inner-bubble {
-            width: 150px;
-            height: 150px;
+            width: 170px; /* Adjusted for larger bubble */
+            height: 170px;
         }
 
         .inner-bubble img {
@@ -377,12 +378,12 @@
                 height: 100px;
             }
             .team-member.featured .bubble {
-                width: 180px;
-                height: 180px;
+                width: 200px; /* Adjusted for mobile */
+                height: 200px;
             }
             .team-member.featured .inner-bubble {
-                width: 120px;
-                height: 120px;
+                width: 130px; /* Adjusted for mobile */
+                height: 130px;
             }
             .member-name {
                 font-size: 0.8rem;
@@ -812,26 +813,29 @@
 
         function updateCylinder() {
             teamMembers.forEach((member, index) => {
-                const baseAngle = index * angleStep; // Base position of each member
-                const angleOffset = -currentIndex * angleStep + 90; // Offset to align featured at top (90°)
-                const angle = (baseAngle + angleOffset) % 360; // Final angle
-                const rad = angle * Math.PI / 180;
-                const x = radius * Math.cos(rad);
-                const y = radius * Math.sin(rad);
-                member.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-                
-                // Highlight the top center member (closest to 90°)
-                const normalizedAngle = (angle + 360) % 360;
-                const angleDiff = Math.abs(normalizedAngle - 90);
-                if (angleDiff < angleStep / 2) { // Within half step of 90°
+                if (index === currentIndex) {
+                    // Featured member: center it
                     member.classList.add('featured');
+                    member.style.left = '50%';
+                    member.style.top = '0';
+                    member.style.transform = 'translateX(-50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         const xLink = member.getAttribute('data-x-link');
                         if (xLink) window.open(xLink, '_blank');
                     };
                 } else {
+                    // Non-featured members: position around cylinder
                     member.classList.remove('featured');
+                    const baseAngle = index * angleStep;
+                    const angleOffset = -currentIndex * angleStep + 90;
+                    const angle = (baseAngle + angleOffset) % 360;
+                    const rad = angle * Math.PI / 180;
+                    const x = radius * Math.cos(rad);
+                    const y = radius * Math.sin(rad) + 125; // Offset down to avoid overlap
+                    member.style.left = '50%';
+                    member.style.top = '50%';
+                    member.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         currentIndex = parseInt(member.getAttribute('data-index'));
