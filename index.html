@@ -57,12 +57,12 @@
         .phase li {font-size: 1.2rem; margin: 10px 0; position: relative;}
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
-        .section-connector.overview-to-roadmap {margin: 40px auto;}
-        .section-connector.roadmap-to-buy {margin: 40px auto;}
+        .section-connector.overview-to-roadmap {margin: 40px auto;} /* Adjusted for equidistance */
+        .section-connector.roadmap-to-buy {margin: 40px auto;} /* Adjusted for equidistance */
         @keyframes wind {
-            0% {transform: translateY(20px) scaleY(1);} 
-            50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 
-            100% {transform: translateY(0) scaleY(1);} 
+            0% {transform: translateY(20px) scaleY(1);} /* Adjusted to match initial state */
+            50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} /* Adjusted for visible state */
+            100% {transform: translateY(0) scaleY(1);} /* Adjusted for visible state */
         }
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
@@ -114,20 +114,7 @@
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Team Section Styles */
-        #team {margin-top: 0; padding: 40px 20px; min-height: auto;}
-        .team-container {position: relative; width: 400px; height: 400px; margin: 40px auto; perspective: 1000px;}
-        .team-cylinder {position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 1s ease;}
-        .team-member {position: absolute; width: 80px; height: 80px; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.5s ease; transform-origin: center center;}
-        .team-member.active {width: 120px; height: 120px; border: 3px solid #ff5555; box-shadow: 0 0 20px #ff5555; z-index: 10;}
-        .team-member img {width: 50px; height: 50px; border-radius: 50%; object-fit: cover;}
-        .team-member.active img {width: 80px; height: 80px;}
-        .team-member .title {font-size: 0.9rem; margin: 5px 0; color: #fff;}
-        .team-member.active .title {font-size: 1.2rem;}
-        .team-member .bio {font-size: 0.7rem; color: #eee; max-width: 90%; display: none;}
-        .team-member.active .bio {display: block; font-size: 0.9rem;}
-        .team-member:hover {cursor: pointer; transform: scale(1.1); box-shadow: 0 0 20px #ff7777;}
-        .team-next-btn {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px; transition: background-color 0.3s;}
-        .team-next-btn:hover {background-color: #ff7777;}
+        #team {margin-top: 0;} /* Reset default, adjusted below */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -183,6 +170,128 @@
         .join-rebellion {position: fixed; bottom: 120px; right: 20px; background-color: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 1rem; z-index: 2100; animation: pulseGlow 2s infinite ease-in-out;}
         .join-rebellion:hover {background-color: #ff7777;}
         @keyframes pulseGlow {0% {box-shadow: 0 0 5px #ff5555;} 50% {box-shadow: 0 0 15px #ff5555;} 100% {box-shadow: 0 0 5px #ff5555;}}
+
+        /* Team Cylinder Styles */
+        .team-cylinder {
+            position: relative;
+            max-width: 600px;
+            margin: 40px auto;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .cylinder-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+        }
+
+        .team-member {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            transform-origin: center center;
+            transition: all 0.8s ease;
+        }
+
+        .bubble {
+            width: 100%;
+            height: 100%;
+            background-color: #1e1e1e;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #555;
+        }
+
+        .team-member.featured .bubble {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(45deg, #ff5555, #ff7777);
+            border: 4px solid #fff;
+            box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
+        }
+
+        .inner-bubble {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-member.featured .inner-bubble {
+            width: 100px;
+            height: 100px;
+        }
+
+        .inner-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-size: 1rem;
+            color: #fff;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        .team-member.featured .member-name {
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px #ff5555;
+        }
+
+        .member-role {
+            font-size: 0.8rem;
+            color: #eee;
+            margin-bottom: 10px;
+        }
+
+        .team-member.featured .member-role {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #ff5555;
+            cursor: pointer;
+            user-select: none;
+            z-index: 10;
+            transition: color 0.3s ease;
+        }
+
+        .arrow:hover {
+            color: #ff7777;
+        }
+
+        .left-arrow {
+            left: 20px;
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .right-arrow {
+            right: 20px;
+        }
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -198,8 +307,8 @@
             .phase h2, .future-teaser h2 {font-size: 2rem;}
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
-            .buy-connector {height: 40px; margin: 10px auto;}
-            .section-connector.buy-to-team {display: none;}
+            .buy-connector {height: 40px; margin: 10px auto;} /* Adjusted for mobile */
+            .section-connector.buy-to-team {display: none;} /* Hide only the Buy-to-Team connector on mobile */
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
             .step-content {max-width: calc(100% - 40px);}
             .host-bubble img.profile-pic {width: 75px; height: 75px;}
@@ -227,26 +336,62 @@
             .modal-content button {background-color: #ff5555; color: #fff;}
             .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
             #roadmap {overflow: visible; min-height: auto;}
-            #roadmap h1 {margin-top: -15px;}
+            #roadmap h1 {margin-top: -15px;} /* Moved up to avoid overlap */
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
-            #team {margin-top: -50px;}
-            .section-connector.overview-to-roadmap {margin: 30px auto;}
-            .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .team-container {width: 300px; height: 300px;}
-            .team-member {width: 60px; height: 60px;}
-            .team-member.active {width: 100px; height: 100px;}
-            .team-member img {width: 40px; height: 40px;}
-            .team-member.active img {width: 60px; height: 60px;}
-            .team-member .title {font-size: 0.8rem;}
-            .team-member.active .title {font-size: 1rem;}
-            .team-member .bio {font-size: 0.6rem;}
-            .team-member.active .bio {font-size: 0.8rem;}
+            #team {margin-top: -50px;} /* Moved up 50px on mobile */
+            .section-connector.overview-to-roadmap {margin: 30px auto;} /* Adjusted for mobile equidistance */
+            .section-connector.roadmap-to-buy {margin: 30px auto;} /* Adjusted for mobile equidistance */
+            /* Team Cylinder Mobile Adjustments */
+            .team-cylinder {
+                height: 350px;
+            }
+            .cylinder-container {
+                width: 250px;
+                height: 250px;
+            }
+            .team-member {
+                width: 80px;
+                height: 80px;
+            }
+            .team-member.featured .bubble {
+                width: 140px;
+                height: 140px;
+            }
+            .inner-bubble {
+                width: 50px;
+                height: 50px;
+            }
+            .team-member.featured .inner-bubble {
+                width: 80px;
+                height: 80px;
+            }
+            .member-name {
+                font-size: 0.9rem;
+            }
+            .team-member.featured .member-name {
+                font-size: 1.2rem;
+            }
+            .member-role {
+                font-size: 0.7rem;
+            }
+            .team-member.featured .member-role {
+                font-size: 1rem;
+            }
+            .arrow {
+                font-size: 1.5rem;
+            }
+            .left-arrow {
+                left: 10px;
+            }
+            .right-arrow {
+                right: 10px;
+            }
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
-            #team {margin-top: 20px;}
-            .section-connector.buy-to-team {display: none;}
+            #team {margin-top: 20px;} /* Closer to buy-connector on desktop */
+            .section-connector.buy-to-team {display: none;} /* Remove extra connector on desktop */
         }
     </style>
 </head>
@@ -306,8 +451,6 @@
             <div class="debt-clock-container">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
-            for U.S. Debt Clock" scrolling="no"></iframe>
-            </div>
             <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
             
             <!-- Tokenomics Section with Burn Tracker -->
@@ -362,6 +505,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Connector between X Space Schedule and Roadmap -->
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
@@ -437,6 +581,7 @@
             </div>
         </section>
 
+        <!-- Connector between Roadmap and How to Buy -->
         <div class="section-connector roadmap-to-buy"></div>
 
         <section id="how-to-buy" class="section">
@@ -471,45 +616,62 @@
             <div class="buy-connector"></div>
         </section>
 
+        <!-- Connector between How to Buy and Team (Removed on Desktop) -->
         <div class="section-connector buy-to-team"></div>
 
         <section id="team" class="section">
             <h1>Team</h1>
-            <div class="team-container">
-                <div class="team-cylinder" id="teamCylinder">
-                    <div class="team-member active" style="transform: translate(-50%, -50%) rotate(0deg) translateY(-150px); top: 50%; left: 50%;">
-                        <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Leader">
-                        <div class="title">Leader</div>
-                        <div class="bio">The visionary sparking the $DEBT uprising.</div>
+            <div class="team-cylinder">
+                <div class="arrow left-arrow" onclick="rotateCylinder('left')">➜</div>
+                <div class="cylinder-container">
+                    <div class="team-member" data-index="0">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina">
+                            </div>
+                            <div class="member-name">Catavina</div>
+                            <div class="member-role">Meme Lord</div>
+                        </div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(60deg) translateY(-150px); top: 50%; left: 50%;">
-                        <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Member 1">
-                        <div class="title">Member 1</div>
-                        <div class="bio">Meme master.</div>
+                    <div class="team-member" data-index="1">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf">
+                            </div>
+                            <div class="member-name">Nerf</div>
+                            <div class="member-role">Tech Wizard</div>
+                        </div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(120deg) translateY(-150px); top: 50%; left: 50%;">
-                        <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Member 2">
-                        <div class="title">Member 2</div>
-                        <div class="bio">Community wrangler.</div>
+                    <div class="team-member" data-index="2">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou">
+                            </div>
+                            <div class="member-name">Lou</div>
+                            <div class="member-role">Community Boss</div>
+                        </div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(180deg) translateY(-150px); top: 50%; left: 50%;">
-                        <img src="https://via.placeholder.com/60" alt="Member 3">
-                        <div class="title">Member 3</div>
-                        <div class="bio">Tech guru.</div>
+                    <div class="team-member" data-index="3">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://placehold.co/100x100" alt="Rebel">
+                            </div>
+                            <div class="member-name">Rebel</div>
+                            <div class="member-role">Chaos Coordinator</div>
+                        </div>
                     </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(240deg) translateY(-150px); top: 50%; left: 50%;">
-                        <img src="https://via.placeholder.com/60" alt="Member 4">
-                        <div class="title">Member 4</div>
-                        <div class="bio">Strategy ace.</div>
-                    </div>
-                    <div class="team-member" style="transform: translate(-50%, -50%) rotate(300deg) translateY(-150px); top: 50%; left: 50%;">
-                        <img src="https://via.placeholder.com/60" alt="Member 5">
-                        <div class="title">Member 5</div>
-                        <div class="bio">Burn boss.</div>
+                    <div class="team-member" data-index="4">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://placehold.co/100x100" alt="Ghost">
+                            </div>
+                            <div class="member-name">Ghost</div>
+                            <div class="member-role">Shadow Strategist</div>
+                        </div>
                     </div>
                 </div>
+                <div class="arrow right-arrow" onclick="rotateCylinder('right')">➜</div>
             </div>
-            <button class="team-next-btn" onclick="rotateCylinder()">Next</button>
         </section>
 
         <section id="hall-of-fame" class="section from-right">
@@ -524,8 +686,10 @@
             <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
         </div>
 
+        <!-- Join Rebellion Button -->
         <a href="https://t.me/debtculture" target="_blank" class="join-rebellion">Join the Rebellion</a>
 
+        <!-- Disclaimer Section -->
         <div class="disclaimer">
             <h3>Disclaimer</h3>
             <ol>
@@ -539,32 +703,6 @@
     </div>
 
     <script>
-        let currentRotation = 0;
-        let rotationInterval;
-
-        function rotateCylinder(manual = false) {
-            const cylinder = document.getElementById('teamCylinder');
-            const members = document.querySelectorAll('.team-member');
-            currentRotation -= 60; // Move to next chamber (clockwise)
-            cylinder.style.transform = `rotate(${currentRotation}deg)`;
-
-            // Update active member
-            const activeIndex = Math.abs(currentRotation / 60) % members.length;
-            members.forEach((member, index) => {
-                member.classList.toggle('active', index === activeIndex);
-            });
-
-            // Pause auto-rotation for 5 seconds on manual click
-            if (manual) {
-                clearInterval(rotationInterval);
-                setTimeout(startAutoRotation, 5000);
-            }
-        }
-
-        function startAutoRotation() {
-            rotationInterval = setInterval(() => rotateCylinder(false), 20000); // Rotate every 20 seconds
-        }
-
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -585,6 +723,7 @@
             const connectors = document.querySelectorAll('.section-connector, .buy-connector');
             const windowHeight = window.innerHeight;
 
+            // Section visibility
             sections.forEach(section => {
                 const sectionTop = section.getBoundingClientRect().top;
                 const sectionBottom = section.getBoundingClientRect().bottom;
@@ -606,6 +745,7 @@
                 }
             });
 
+            // Connector visibility
             connectors.forEach(connector => {
                 const connectorTop = connector.getBoundingClientRect().top;
                 const connectorBottom = connector.getBoundingClientRect().bottom;
@@ -635,20 +775,69 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
+        // Tokenomics Update
         function updateTokenomics() {
-            const startingSupply = 1000000000;
-            const currentSupply = 954543637.18;
+            const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
+            const currentSupply = 954543637.18; // Manual update after each burn
+
+            // Update Tokenomics
             const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
             const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
             document.getElementById('supply-change').textContent = `${changePercent}%`;
         }
 
+        // Team Cylinder Rotation
+        let currentIndex = 0;
+        const teamMembers = document.querySelectorAll('.team-member');
+        const totalMembers = teamMembers.length;
+
+        function updateCylinder() {
+            const angleStep = 360 / totalMembers;
+            const radius = 150; // Radius of the cylinder circle
+            teamMembers.forEach((member, index) => {
+                const angle = (index - currentIndex) * angleStep;
+                const rad = angle * Math.PI / 180;
+                const x = radius * Math.sin(rad);
+                const z = radius * Math.cos(rad);
+                member.style.transform = `translateX(${x}px) translateZ(${z}px)`;
+                
+                // Determine featured member (top center when z is max)
+                if (Math.abs(angle % 360) < angleStep / 2 || Math.abs(angle % 360 - 360) < angleStep / 2) {
+                    member.classList.add('featured');
+                } else {
+                    member.classList.remove('featured');
+                }
+            });
+        }
+
+        function rotateCylinder(direction) {
+            if (direction === 'right') {
+                currentIndex = (currentIndex + 1) % totalMembers;
+            } else if (direction === 'left') {
+                currentIndex = (currentIndex - 1 + totalMembers) % totalMembers;
+            }
+            updateCylinder();
+            resetAutoRotate(); // Reset timer on manual rotation
+        }
+
+        function autoRotate() {
+            currentIndex = (currentIndex + 1) % totalMembers;
+            updateCylinder();
+        }
+
+        let autoRotateInterval = setInterval(autoRotate, 20000); // 20 seconds
+
+        function resetAutoRotate() {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = setInterval(autoRotate, 20000);
+        }
+
         window.addEventListener('load', () => {
             setPhantomLink();
             updateTokenomics();
-            window.dispatchEvent(new Event('scroll'));
-            startAutoRotation(); // Start auto-rotation on load
+            updateCylinder(); // Initialize team cylinder
+            window.dispatchEvent(new Event('scroll')); // Trigger scroll event on load
         });
     </script>
 </body>
