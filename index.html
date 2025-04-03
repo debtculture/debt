@@ -55,13 +55,13 @@
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
         .phase li {font-size: 1.2rem; margin: 10px 0; position: relative;}
-        .section-connector {position: relative; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); z-index: 0; left: 50%; transform: translateX(-50%); margin: 20px auto; animation: wind 2s infinite ease-in-out;}
+        .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; animation: wind 2s infinite ease-in-out;}
         .section-connector.overview-to-roadmap {margin: 20px auto;}
         .section-connector.roadmap-to-buy {margin: 0 auto -20px auto;} /* Back to default, then up 20px */
         @keyframes wind {
-            0% {transform: translateX(-50%) scaleY(1);}
-            50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
-            100% {transform: translateX(-50%) scaleY(1);}
+            0% {transform: scaleY(1);}
+            50% {transform: scaleY(1.1) skewX(5deg);}
+            100% {transform: scaleY(1);}
         }
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
@@ -125,7 +125,7 @@
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0; color: #eee;}
         .tokenomics-table {width: 100%; max-width: 350px; border-collapse: collapse; margin: 10px auto; text-align: left;}
-        .tokenomics-table th, .tokenomics-table td {padding: 8px; border-bottom: 1px solida #333;}
+        .tokenomics-table th, .tokenomics-table td {padding: 8px; border-bottom: 1px solid #333;}
         .tokenomics-table th {color: #ff5555; font-weight: bold;}
         .tokenomics-table td {color: #eee;}
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
@@ -286,7 +286,7 @@
                     <tr><td>Change in Supply (%)</td><td id="supply-change">Calculating...</td></tr>
                 </table>
                 <div class="burn-tracker">
-                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
+                    <a href="https://solscan.io磐token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
                 </div>
                 <p>Our debt shrinks weekly—over 45 million $DEBT burned and counting.</p>
             </div>
