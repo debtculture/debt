@@ -528,16 +528,26 @@
         async function updateTokenomics() {
             const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
             const apiUrl = 'https://public-api.solscan.io/token/meta?tokenAddress=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
-            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`; // Using AllOrigins proxy
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
 
             try {
-                console.log('Fetching supply from:', proxyUrl); // Log the URL being fetched
-                const response = await fetch(proxyUrl);
+                console.log('Fetching supply from:', proxyUrl);
+                const response = await fetch(proxyUrl, {
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                    }
+                });
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}, Status Text: ${response.statusText}`);
                 }
-                const data = await response.json();
-                console.log('API Response:', data); // Log the raw response for debugging
+
+                // Log raw text response before parsing
+                const rawText = await response.text();
+                console.log('Raw Response Text:', rawText);
+
+                // Attempt to parse as JSON
+                const data = JSON.parse(rawText);
+                console.log('Parsed JSON Data:', data);
 
                 if (!data.supply || !data.decimals) {
                     throw new Error('Invalid API response: missing supply or decimals');
