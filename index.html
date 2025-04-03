@@ -41,7 +41,7 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;} /* Adjusted from 10px to 0px */
+        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
@@ -49,7 +49,7 @@
         
         /* Roadmap Specific Styles */
         #roadmap {display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-x: hidden;}
-        .roadmap-container {max-width: 800px; position: relative;} /* Reverted to original */
+        .roadmap-container {max-width: 800px; position: relative;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
@@ -65,7 +65,7 @@
             50% {transform: translateX(-50%) scaleY(1.1) skewX(5deg);}
             100% {transform: translateX(-50%) scaleY(1);}
         }
-        .future-teaser h2 {font-size:A 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
+        .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
         .you-are-here {position: absolute; left: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;}
@@ -118,7 +118,7 @@
         .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5); overflow-x: hidden;}
         .modal-content h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 20px;}
         .modal-content p {font-size: 1rem; margin: 0 0 20px;}
-        .modal-content button {background-color: #ffA5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
+        .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
         .modal-content button:hover {background-color: #ff7777;}
         
         /* Overview Section Styles */
@@ -149,7 +149,7 @@
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
         
         /* Disclaimer Styles */
-        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;} /* Reverted to original */
+        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
         .disclaimer::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .disclaimer h3 {font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         .disclaimer ol {padding-left: 20px; margin: 0;}
@@ -158,7 +158,7 @@
         @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
 
         /* Contract Address Styles */
-        .contract-address {max-width: 800px; margin: 120px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; overflow-x: hidden;}
+        .contract-address {max-width: 800px; margin: 120px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;} /* Removed overflow-x: hidden */
         .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
         .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
@@ -176,15 +176,15 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #overview {margin-top: -10px;} /* Adjusted from 0px to -10px */
-            h1 {font-size: 2.5rem;} /* Slightly smaller for mobile */
+            #overview {margin-top: -10px;}
+            h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 2rem;}
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
-            .step-content {max-width: calc(100% - 40px);} /* Keeps text in container */
+            .step-content {max-width: calc(100% - 40px);}
             .host-bubble img.profile-pic {width: 75px; height: 75px;}
             .host-bubble .twitter-link {width: 30px; height: 30px;}
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
@@ -202,11 +202,13 @@
             .debt-clock-iframe {width: 530px; height: 295px; margin-top: -150px; margin-left: -40px;}
             .burn-tracker {font-size: 1.5rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
-            .buy-container {max-width: 90%; overflow-x: hidden;} /* No horizontal scroll */
+            .buy-container {max-width: 90%; overflow-x: hidden;}
             .contract-address {margin: 120px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
-            .join-rebellion {bottom: 125px; right: 10px; font-size: 0.9rem; padding: 8px 15px;} /* Adjusted from 115px to 125px */
+            .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;} /* Adjusted from 125px to 128px */
+            .modal-content button {background-color: #ff5555; color: #fff;} /* Ensure readability on mobile */
+            .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;} /* Contain CA in step 3 */
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -459,7 +461,7 @@
             <ol>
                 <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
                 <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
-                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
+                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaimers liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
             </ol>
         </div>
 
