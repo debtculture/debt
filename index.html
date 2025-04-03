@@ -48,7 +48,7 @@
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
         
         /* Roadmap Specific Styles */
-        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -25px;} /* Moved up 25px */
+        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -45px;} /* Moved up 20px more, now -45px total */
         .roadmap-container {max-width: 800px; margin: 0 auto; overflow: visible; height: auto;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
@@ -58,7 +58,7 @@
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 20px auto;}
-        .section-connector.roadmap-to-buy {margin: 0 auto -25px auto;} /* Moved up 5px more, now -25px */
+        .section-connector.roadmap-to-buy {margin: 0 auto -25px auto;} /* Already adjusted up 5px */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);} /* Adjusted to match initial state */
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} /* Adjusted for visible state */
@@ -89,7 +89,7 @@
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-x: hidden;}
-        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative; overflow-x: hidden;}
+        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
         .buy-step:nth-child(1) {animation-delay: 0s;}
@@ -176,7 +176,7 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #overview {margin-top: -10px;}
+            #overview {margin-top: -30px;} /* Moved up 20px more, now -30px total */
             h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 2rem;}
@@ -193,8 +193,8 @@
             #hall-of-fame {margin-top: 20px;}
             .you-are-here {left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .you-are-here::after {content: "↓"; font-size: 1.2rem; margin-left: 5px;}
-            .phase .completed {right: 10px; top: -35px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
-            .phase-1 .completed {right: 10px; top: -35px;}
+            .phase .completed {right: 10px; top: -37px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;} /* Moved up 2px, now -37px */
+            .phase-1 .completed {right: 10px; top: -37px;}
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
             .disclaimer {margin: 35px auto; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
@@ -211,6 +211,7 @@
             .modal-content button {background-color: #ff5555; color: #fff;}
             .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
             #roadmap {overflow: visible; min-height: auto;}
+            #roadmap h1 {margin-top: -5px;} /* Moved up 5px on mobile */
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
         }
@@ -263,13 +264,13 @@
 
         <!-- Contract Address Section -->
         <div class="contract-address">
-            <h3>CA</h3>
+            <h3>Contract Address</h3> <!-- Changed from CA -->
             <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
         </div>
 
         <!-- Overview Section -->
         <section id="overview" class="section">
-            <h1>Debt Culture Overview</h1>
+            <h1>Overview</h1> <!-- Changed from Debt Culture Overview -->
             <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
             <!-- U.S. Debt Clock Widget -->
             <div class="debt-clock-container">
@@ -296,7 +297,7 @@
             <!-- X Space Schedule -->
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
-                <p>Join us for rants, recruitment, consumerism culture, and $DEBT reveals:</p>
+                <p>Join us for rants and recruitment:</p> <!-- Removed "consumerism culture, and $DEBT reveals" -->
                 <ul>
                     <li>Monday – 9 PM EST</li>
                     <li>Thursday – 9 PM EST</li>
@@ -443,7 +444,7 @@
         <!-- Connector between How to Buy and Team -->
         <div class="section-connector buy-to-team"></div>
 
-        <section id="team" class="section">
+        <section id="team" class="section Distance between Roadmap and How to Buy connector">
             <h1>Team</h1>
             <p>Coming soon—meet the crew driving the $DEBT uprising.</p>
         </section>
