@@ -769,33 +769,34 @@
         let currentIndex = 3; // Start on Autopsy (index 3)
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
-        const radius = 150; // Circle radius for non-featured
+        const radius = 175; // Adjusted for star layout
 
         function updateCylinder() {
-            const angleStep = 360 / (totalMembers - 1); // 4 slots below
+            const angles = [0, 72, 144, 216, 288]; // 5-point star positions
 
             teamMembers.forEach((member, index) => {
+                const angleIndex = (index - currentIndex + totalMembers) % totalMembers;
+                const angle = angles[angleIndex];
+                const rad = angle * Math.PI / 180;
+                const x = radius * Math.cos(rad);
+                const y = radius * Math.sin(rad);
+
                 if (index === currentIndex) {
-                    // Featured member: top center
+                    // Featured member: top center (0°)
                     member.classList.add('featured');
                     member.style.left = '50%';
-                    member.style.top = '0';
-                    member.style.transform = 'translateX(-50%)';
+                    member.style.top = '50%';
+                    member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         const xLink = member.getAttribute('data-x-link');
                         if (xLink) window.open(xLink, '_blank');
                     };
                 } else {
-                    // Non-featured members: circle below
+                    // Non-featured members: star points (72°, 144°, 216°, 288°)
                     member.classList.remove('featured');
-                    const adjustedIndex = index < currentIndex ? index : index - 1;
-                    const angle = adjustedIndex * angleStep - 90; // Start left, center below
-                    const rad = angle * Math.PI / 180;
-                    const x = radius * Math.cos(rad);
-                    const y = radius * Math.sin(rad) + 200; // Offset below featured
                     member.style.left = `calc(50% + ${x}px)`;
-                    member.style.top = `${y}px`;
+                    member.style.top = `calc(50% + ${y}px)`;
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
