@@ -197,6 +197,9 @@
             left: 50%;
             transform-origin: center center;
             transition: all 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .bubble {
@@ -226,7 +229,7 @@
             background: linear-gradient(45deg, #ff5555, #ff7777);
             border: 4px solid #fff;
             box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
-            padding-top: 20px; /* Added padding to shift content down */
+            padding-top: 10px; /* Reduced padding to move pfp up */
         }
 
         .inner-bubble {
@@ -241,9 +244,8 @@
         }
 
         .team-member.featured .inner-bubble {
-            width: 120px; /* Slightly enlarged from 100px */
-            height: 120px;
-            margin-top: 0; /* Reset margin to center vertically */
+            width: 140px; /* Enlarged from 120px */
+            height: 140px;
         }
 
         .inner-bubble img {
@@ -260,6 +262,13 @@
             display: none;
             word-wrap: break-word;
             max-width: 90%;
+        }
+
+        .team-member:not(.featured) .member-name {
+            display: block;
+            font-size: 0.9rem; /* Smaller for non-featured */
+            margin-top: 5px; /* Space below bubble */
+            text-shadow: 0 0 3px #ff5555;
         }
 
         .team-member.featured .member-name {
@@ -370,11 +379,11 @@
                 height: 160px;
             }
             .team-member.featured .inner-bubble {
-                width: 100px; /* Slightly enlarged from 80px */
-                height: 100px;
+                width: 110px; /* Enlarged from 100px */
+                height: 110px;
             }
             .member-name {
-                font-size: 1rem;
+                font-size: 0.8rem; /* Smaller for non-featured on mobile */
             }
             .team-member.featured .member-name {
                 font-size: 1.2rem;
@@ -397,9 +406,9 @@
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
-            .section-connector.buy-to-team {display: block;} /* Keep connector visible on desktop */
+            .section-connector.buy-to-team {display: block;}
             .cylinder-container {
-                width: 450px; /* Increased for more spacing */
+                width: 450px;
                 height: 450px;
             }
         }
@@ -801,15 +810,15 @@
 
         function updateCylinder() {
             teamMembers.forEach((member, index) => {
-                const angle = (index * angleStep - currentIndex * angleStep) % 360;
+                const angle = (index * angleStep - currentIndex * angleStep + 90) % 360; // Shift by 90° to make top center featured
                 const rad = angle * Math.PI / 180;
                 const x = radius * Math.cos(rad);
                 const y = radius * Math.sin(rad);
                 member.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
                 
-                // Highlight the top center member (angle closest to 0°)
-                const normalizedAngle = Math.abs((angle + 360) % 360);
-                if (normalizedAngle < angleStep / 2 || normalizedAngle > 360 - angleStep / 2) {
+                // Highlight the top center member (angle closest to 90°)
+                const normalizedAngle = (angle + 360) % 360;
+                if (normalizedAngle > 45 && normalizedAngle < 135) { // 90° ± 45° range for top
                     member.classList.add('featured');
                 } else {
                     member.classList.remove('featured');
