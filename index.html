@@ -213,6 +213,7 @@
             overflow: hidden;
             position: relative;
             border: 2px solid #555;
+            cursor: pointer; /* Clickable for all */
         }
 
         .team-member:not(.featured) .bubble {
@@ -222,13 +223,12 @@
         }
 
         .team-member.featured .bubble {
-            width: 220px; /* Increased for title visibility */
+            width: 220px;
             height: 220px;
             background: linear-gradient(45deg, #ff5555, #ff7777);
             border: 4px solid #fff;
             box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
             padding-top: 10px;
-            cursor: pointer; /* Clickable */
         }
 
         .inner-bubble {
@@ -243,7 +243,7 @@
         }
 
         .team-member.featured .inner-bubble {
-            width: 150px; /* Adjusted for larger bubble */
+            width: 150px;
             height: 150px;
         }
 
@@ -377,11 +377,11 @@
                 height: 100px;
             }
             .team-member.featured .bubble {
-                width: 180px; /* Adjusted for mobile */
+                width: 180px;
                 height: 180px;
             }
             .team-member.featured .inner-bubble {
-                width: 120px; /* Adjusted for mobile */
+                width: 120px;
                 height: 120px;
             }
             .member-name {
@@ -812,15 +812,18 @@
 
         function updateCylinder() {
             teamMembers.forEach((member, index) => {
-                const angle = (index * angleStep - currentIndex * angleStep + 90) % 360; // Shift by 90° for top center
+                const baseAngle = index * angleStep; // Base position of each member
+                const angleOffset = -currentIndex * angleStep + 90; // Offset to align featured at top (90°)
+                const angle = (baseAngle + angleOffset) % 360; // Final angle
                 const rad = angle * Math.PI / 180;
                 const x = radius * Math.cos(rad);
                 const y = radius * Math.sin(rad);
                 member.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
                 
-                // Highlight the top center member (angle closest to 90°)
+                // Highlight the top center member (closest to 90°)
                 const normalizedAngle = (angle + 360) % 360;
-                if (normalizedAngle > 60 && normalizedAngle < 120) { // Tightened to 90° ± 30° for precise centering
+                const angleDiff = Math.abs(normalizedAngle - 90);
+                if (angleDiff < angleStep / 2) { // Within half step of 90°
                     member.classList.add('featured');
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -830,7 +833,11 @@
                 } else {
                     member.classList.remove('featured');
                     const bubble = member.querySelector('.bubble');
-                    bubble.onclick = null; // Remove click handler for non-featured
+                    bubble.onclick = () => {
+                        currentIndex = parseInt(member.getAttribute('data-index'));
+                        updateCylinder();
+                        resetAutoRotate();
+                    };
                 }
             });
         }
