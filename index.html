@@ -59,7 +59,7 @@
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: 40px auto;}
-        .section-connector.how-to-buy-to-team {margin: -60px auto;} /* Adjusted to move up 100+px on desktop */
+        .section-connector.how-to-buy-to-team {margin: -110px auto;} /* Adjusted to reduce gap to ~20px on desktop */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);}
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);}
@@ -89,7 +89,7 @@
         .burn-tracker a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* How to Buy Specific Styles */
-        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px; overflow-x: hidden;}
+        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px 20px;} /* Reduced bottom padding */
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
@@ -353,7 +353,7 @@
             #team {margin-top: -40px;}
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .section-connector.how-to-buy-to-team {margin: 20px auto;} /* Show and center on mobile */
+            .section-connector.how-to-buy-to-team {margin: -20px auto;} /* Moved up 40px on mobile */
             .team-cylinder {height: 400px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 100px; height: 100px;}
