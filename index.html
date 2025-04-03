@@ -84,7 +84,7 @@
         .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
         
         /* Burn Tracker Styles */
-        .burn-tracker {margin: 20px auto; font-size: 3rem;}
+        .burn-tracker {font-size: 2rem; margin: 10px 0;} /* Moved into tokenomics */
         .burn-tracker a {color: #ff5555; text-decoration: none;}
         .burn-tracker a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
@@ -128,26 +128,16 @@
         #overview .debt-section {margin-top: -10px;}
         .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .tokenomics p {font-size: 1.1rem; margin: 5px 0; color: #eee;} /* [6] Improved contrast */
+        .tokenomics p {font-size: 1.1rem; margin: 5px 0; color: #eee;}
         .tokenomics-table {width: 100%; max-width: 350px; border-collapse: collapse; margin: 10px auto; text-align: left;}
         .tokenomics-table th, .tokenomics-table td {padding: 8px; border-bottom: 1px solid #333;}
         .tokenomics-table th {color: #ff5555; font-weight: bold;}
-        .tokenomics-table td {color: #eee;} /* [6] Improved contrast */
-        .burn-history {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);} /* [2] */
-        .burn-history h3 {font-size: 1.3rem; color: #ff5555; margin: 0 0 10px;}
-        .burn-history ul {list-style: none; padding: 0; text-align: left;}
-        .burn-history li {font-size: 1rem; margin: 10px 0; color: #eee;} /* [6] */
-        .debt-contrast {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; justify-content: space-between;} /* [3] */
-        .debt-contrast div {flex: 1; text-align: center;}
-        .debt-contrast h3 {font-size: 1.3rem; color: #ff5555; margin: 0 0 10px;}
-        .debt-contrast p {font-size: 1.1rem; margin: 0; color: #eee;} /* [6] */
-        .x-feed {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);} /* [4] */
-        .x-feed h3 {font-size: 1.3rem; color: #ff5555; margin: 0 0 10px;}
+        .tokenomics-table td {color: #eee;}
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
-        .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px; color: #eee;} /* [6] */
+        .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px; color: #eee;}
         .x-space-schedule ul {list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: center;}
-        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left; color: #eee;} /* [6] */
+        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left; color: #eee;}
         .x-space-schedule li::before {content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%);}
         .x-space-schedule a {color: #fff; text-decoration: none; margin-left: 5px;}
         .x-space-schedule a:hover {color: #ff5555;}
@@ -166,7 +156,7 @@
         .disclaimer::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .disclaimer h3 {font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         .disclaimer ol {padding-left: 20px; margin: 0;}
-        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #eee;} /* [6] */
+        .disclaimer li {font-size: 1rem; margin: 10px 0; line-height: 1.5; color: #eee;}
         @keyframes neonPulse {0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } 50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } 100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; }}
         @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
 
@@ -174,9 +164,9 @@
         .contract-address {max-width: 800px; margin: 120px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
         .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
-        .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;} /* [6] */
+        .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
 
-        /* Join Rebellion Button [7] */
+        /* Join Rebellion Button */
         .join-rebellion {position: fixed; bottom: 120px; right: 20px; background-color: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 1rem; z-index: 2100; animation: pulseGlow 2s infinite ease-in-out;}
         .join-rebellion:hover {background-color: #ff7777;}
         @keyframes pulseGlow {0% {box-shadow: 0 0 5px #ff5555;} 50% {box-shadow: 0 0 15px #ff5555;} 100% {box-shadow: 0 0 5px #ff5555;}}
@@ -205,20 +195,20 @@
             .you-are-here::after {content: "↓"; font-size: 1.2rem; margin-left: 5px;}
             .phase .completed {right: 10px; top: -35px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .phase-1 .completed {right: 10px; top: -35px;}
-            .tokenomics, .burn-history, .debt-contrast, .x-feed, .x-space-schedule {max-width: 100%; padding: 15px;} /* [2][3][4] */
+            .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
             .disclaimer {margin: 35px auto; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
             .debt-clock-container {width: 270px; height: 70px;}
             .debt-clock-iframe {width: 530px; height: 295px; margin-top: -150px; margin-left: -40px;}
-            .burn-tracker {font-size: 2rem;}
+            .burn-tracker {font-size: 1.5rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%;}
             .contract-address {margin: 120px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
             #overview .debt-title {font-size: 1.5rem;}
-            .join-rebellion {bottom: 100px; right: 10px; font-size: 0.9rem; padding: 8px 15px;} /* [7] */
+            .join-rebellion {bottom: 100px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -276,7 +266,7 @@
         <!-- Overview Section -->
         <section id="overview" class="section">
             <h1>Debt Culture Overview</h1>
-            <p>Debt Culture is a rebellion against a broken financial system. Fueled by $DEBT, we’re flipping the script with memes, community power, and weekly burns. Their debt keeps climbing—ours keeps shrinking. That’s the game we’re playing.</p>
+            <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
             
             <!-- U.S. Debt Clock Widget -->
             <div class="debt-clock-container">
@@ -284,59 +274,23 @@
             </div>
             <div class="debt-section">
                 <p class="debt-title"><strong>Their Debt</strong></p>
-                <p class="debt-subtitle">Watch the U.S. National Debt soar—endless, bloated, and out of control.</p>
+                <p class="debt-subtitle">The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
             </div>
             
-            <!-- Burn Tracker -->
-            <div class="burn-tracker">
-                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
-            </div>
-            <div class="debt-section">
-                <p class="debt-title"><strong>Our Debt</strong></p>
-                <p class="debt-subtitle">$DEBT burns every week—deflationary, decentralized, and in your hands.</p>
-            </div>
-            
-            <!-- Debt Contrast [3] -->
-            <div class="debt-contrast">
-                <div>
-                    <h3>Their Debt</h3>
-                    <p id="us-debt">Loading...</p>
-                </div>
-                <div>
-                    <h3>Our Burn</h3>
-                    <p id="debt-burned">Loading...</p>
-                </div>
-            </div>
-            
-            <!-- Tokenomics Section -->
+            <!-- Tokenomics Section with Burn Tracker -->
             <div class="tokenomics">
                 <h2>Tokenomics</h2>
-                <p>No taxes, no nonsense—just pure $DEBT.</p>
-                <p>Launched on Pump.fun, LP tokens are burnt, contract renounced—true freedom, locked supply.</p>
+                <p>No taxes, no nonsense—just pure $DEBT. Launched on Pump.fun, LP tokens burnt, contract renounced—locked and deflationary.</p>
                 <table class="tokenomics-table">
                     <tr><th>Metric</th><th>Value</th></tr>
                     <tr><td>Starting Supply</td><td>1,000,000,000 $DEBT</td></tr>
                     <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
                     <tr><td>Change in Supply (%)</td><td id="supply-change">Calculating...</td></tr>
                 </table>
-            </div>
-
-            <!-- Burn History [2] -->
-            <div class="burn-history">
-                <h3>Recent Burns</h3>
-                <ul id="burn-list">
-                    <li>March 29, 2025: 500,000 $DEBT <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥</a></li>
-                    <li>March 22, 2025: 250,000 $DEBT <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥</a></li>
-                    <li>March 15, 2025: 100,000 $DEBT <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥</a></li>
-                </ul>
-            </div>
-            
-            <!-- X Feed [4] -->
-            <div class="x-feed">
-                <h3>Live X Buzz</h3>
-                <div id="x-feed-content">
-                    <p>Tweets loading... (Placeholder until API integration)</p>
+                <div class="burn-tracker">
+                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
                 </div>
+                <p>Our debt shrinks weekly—over 45 million $DEBT burned and counting.</p>
             </div>
             
             <!-- X Space Schedule -->
@@ -502,7 +456,7 @@
             <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
         </div>
 
-        <!-- Join Rebellion Button [7] -->
+        <!-- Join Rebellion Button -->
         <a href="https://t.me/debtculture" target="_blank" class="join-rebellion">Join the Rebellion</a>
 
         <!-- Disclaimer Section -->
@@ -573,39 +527,21 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        // Tokenomics and Debt Contrast [1][3]
-        function updateTokenomicsAndContrast() {
+        // Tokenomics Update
+        function updateTokenomics() {
             const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
             const currentSupply = 954543637.18; // Manual update after each burn
-            const burnedAmount = startingSupply - currentSupply;
 
             // Update Tokenomics
             const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
             const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
             document.getElementById('supply-change').textContent = `${changePercent}%`;
-
-            // Update Debt Contrast [3]
-            const formattedBurned = burnedAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('debt-burned').textContent = `${formattedBurned} $DEBT`;
-            document.getElementById('us-debt').textContent = "$36.2T (est.)"; // Placeholder, no live API yet
-        }
-
-        // Placeholder for X Feed [4]
-        function updateXFeed() {
-            // This is a placeholder; real X integration needs API keys and server-side logic
-            const feedContent = document.getElementById('x-feed-content');
-            feedContent.innerHTML = `
-                <p>"$DEBT is the future!" - @user1</p>
-                <p>"Burn baby burn!" - @user2</p>
-                <p>"Join the rebellion!" - @user3</p>
-            `;
         }
 
         window.addEventListener('load', () => {
             setPhantomLink();
-            updateTokenomicsAndContrast(); // [1][3]
-            updateXFeed(); // [4]
+            updateTokenomics();
         });
     </script>
 </body>
