@@ -524,20 +524,25 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        // Tokenomics Automation with Solscan API via CORS Proxy
+        // Tokenomics Automation with Solscan API via AllOrigins Proxy
         async function updateTokenomics() {
             const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
             const apiUrl = 'https://public-api.solscan.io/token/meta?tokenAddress=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/' + apiUrl; // Using CORS proxy
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`; // Using AllOrigins proxy
 
             try {
-                const response = await fetch(proxyUrl, {
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                    }
-                });
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                console.log('Fetching supply from:', proxyUrl); // Log the URL being fetched
+                const response = await fetch(proxyUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}, Status Text: ${response.statusText}`);
+                }
                 const data = await response.json();
+                console.log('API Response:', data); // Log the raw response for debugging
+
+                if (!data.supply || !data.decimals) {
+                    throw new Error('Invalid API response: missing supply or decimals');
+                }
+
                 const currentSupply = data.supply / Math.pow(10, data.decimals); // Adjust for decimals
 
                 // Format current supply with commas
@@ -548,7 +553,8 @@
                 const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
                 document.getElementById('supply-change').textContent = `${changePercent}%`;
             } catch (error) {
-                console.error('Failed to fetch supply from Solscan:', error);
+                console.error('Failed to fetch supply from Solscan:', error.message);
+                console.error('Error details:', error);
                 document.getElementById('current-supply').textContent = 'Error loading supply';
                 document.getElementById('supply-change').textContent = 'N/A';
             }
