@@ -58,7 +58,7 @@
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 20px auto;}
-        .section-connector.roadmap-to-buy {margin: 0 auto -30px auto;} /* Moved up 5px more, now -30px */
+        .section-connector.roadmap-to-buy {margin: 0 auto -33px auto;} /* Moved up 3px more, now -33px */
         @keyframes wind {
             0% {transform: translateY(20px) scaleY(1);} /* Adjusted to match initial state */
             50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} /* Adjusted for visible state */
@@ -112,6 +112,9 @@
         .copyable-address.copied::after {opacity: 1;}
         #phantomLink {color: #ff5555; text-decoration: none;}
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
+        
+        /* Team Section Styles */
+        #team {margin-top: -20px;} /* Moved up to align with connectors */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -206,12 +209,14 @@
             .buy-container {max-width: 90%; overflow-x: hidden;}
             .contract-address {margin: 120px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
+ Browsing Session: Debt Culture Website Adjustments - April 02, 2025 - Grok 3 (xAI)
+
             .contract-address .copyable-address {font-size: 1rem;}
             .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
             .modal-content button {background-color: #ff5555; color: #fff;}
             .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
             #roadmap {overflow: visible; min-height: auto;}
-            #roadmap h1 {margin-top: -8px;} /* Moved up 3px more, now -8px total */
+            #roadmap h1 {margin-top: -11px;} /* Moved up 3px more, now -11px total */
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
         }
@@ -286,7 +291,7 @@
                     <tr><th>Metric</th><th>Value</th></tr>
                     <tr><td>Starting Supply</td><td>1,000,000,000 $DEBT</td></tr>
                     <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
-                    <tr><td>Change (%)</td><td id="supply-change">Calculating...</td></tr> <!-- Changed to Change (%) -->
+                    <tr><td>Change (%)</td><td id="supply-change">Calculating...</td></tr>
                 </table>
                 <div class="burn-tracker">
                     <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
@@ -297,7 +302,7 @@
             <!-- X Space Schedule -->
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
-                <p>Join us for rants, reveals, and recruitment:</p> <!-- Updated text -->
+                <p>Join us for rants, reveals, and recruitment:</p>
                 <ul>
                     <li>Monday – 9 PM EST</li>
                     <li>Thursday – 9 PM EST</li>
@@ -337,23 +342,23 @@
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
         <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#overview">Overview</a>
-            <a href="#roadmap">Roadmap</a>
-            <a href="#how-to-buy">How to Buy</a>
-            <a href="#team">Team</a>
-            <a href="#hall-of-fame">Hall of Fame</a>
-            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank">Memes</a>
+            <a href="#overview" onclick="closeMenu()">Overview</a>
+            <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
+            <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
+            <a href="#team" onclick="closeMenu()">Team</a>
+            <a href="#hall-of-fame" onclick="closeMenu()">Hall of Fame</a>
+            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" onclick="closeMenu()">Memes</a>
             <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
             <div class="mobile-dropdown" id="mobileDropdown">
-                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexTools</a>
-                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">GeckoTerminal</a>
-                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">DexScreener</a>
-                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">RugCheck</a>
-                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank">Photon</a>
-                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank">Birdeye</a>
-                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">GMGN</a>
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Raydium</a>
-                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">Solscan</a>
+                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">DexTools</a>
+                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" onclick="closeMenu()">GeckoTerminal</a>
+                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">DexScreener</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">RugCheck</a>
+                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" onclick="closeMenu()">Photon</a>
+                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" onclick="closeMenu()">Birdeye</a>
+                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">GMGN</a>
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">Raydium</a>
+                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">Solscan</a>
             </div>
         </div>
 
@@ -482,6 +487,12 @@
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
         }
+
+        function closeMenu() {
+            var menu = document.getElementById("mobileMenu");
+            menu.style.display = "none";
+        }
+
         function toggleDropdown() {
             var dropdown = document.getElementById("mobileDropdown");
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
