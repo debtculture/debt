@@ -10,7 +10,7 @@
         .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px;}
         .content-wrapper.unblurred {filter: none;}
         
-        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
+        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;} /* No horizontal scroll */
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -84,7 +84,7 @@
         .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
         
         /* Burn Tracker Styles */
-        .burn-tracker {font-size: 2rem; margin: 10px 0;} /* Moved into tokenomics */
+        .burn-tracker {font-size: 2rem; margin: 10px 0;}
         .burn-tracker a {color: #ff5555; text-decoration: none;}
         .burn-tracker a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
@@ -123,9 +123,6 @@
         
         /* Overview Section Styles */
         #overview {padding: 40px 20px;}
-        #overview .debt-title {font-size: 1.75rem; margin: 5px auto; font-weight: bold;}
-        #overview .debt-subtitle {margin-top: -5px;}
-        #overview .debt-section {margin-top: -10px;}
         .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0; color: #eee;}
@@ -179,13 +176,15 @@
             .banner-container {display: none;}
             .section {padding: 20px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #overview {margin-top: 60px;}
+            #overview {margin-top: 30px;} /* Moved up 30px */
+            h1 {font-size: 2.5rem;} /* Slightly smaller for mobile */
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 2rem;}
             .phase li, .future-teaser li, .step-content p {font-size: 1rem;}
             .buy-blurb {font-size: 1.2rem; margin: 20px auto 0;}
             .phase-connector, .buy-connector {height: 40px;}
             .step-number {min-width: 25px; height: 25px; font-size: 0.9rem;}
+            .step-content {max-width: calc(100% - 40px);} /* Keeps text in container */
             .host-bubble img.profile-pic {width: 75px; height: 75px;}
             .host-bubble .twitter-link {width: 30px; height: 30px;}
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
@@ -203,12 +202,11 @@
             .debt-clock-iframe {width: 530px; height: 295px; margin-top: -150px; margin-left: -40px;}
             .burn-tracker {font-size: 1.5rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
-            .buy-container {max-width: 90%;}
+            .buy-container {max-width: 90%; overflow-x: hidden;} /* No horizontal scroll */
             .contract-address {margin: 120px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
-            #overview .debt-title {font-size: 1.5rem;}
-            .join-rebellion {bottom: 100px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
+            .join-rebellion {bottom: 85px; right: 10px; font-size: 0.9rem; padding: 8px 15px;} /* Moved up 15px */
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -267,14 +265,10 @@
         <section id="overview" class="section">
             <h1>Debt Culture Overview</h1>
             <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
-            
+            <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
             <!-- U.S. Debt Clock Widget -->
             <div class="debt-clock-container">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
-            </div>
-            <div class="debt-section">
-                <p class="debt-title"><strong>Their Debt</strong></p>
-                <p class="debt-subtitle">The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
             </div>
             
             <!-- Tokenomics Section with Burn Tracker -->
