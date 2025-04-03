@@ -187,7 +187,6 @@
             position: relative;
             width: 350px;
             height: 350px;
-            transition: transform 0.8s ease;
         }
 
         .team-member {
@@ -208,7 +207,6 @@
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             overflow: hidden;
-            position: relative;
             border: 2px solid #555;
             cursor: pointer;
         }
@@ -240,7 +238,7 @@
         }
 
         .team-member.featured .inner-bubble {
-            width: 160px; /* Reduced slightly to fit text */
+            width: 160px;
             height: 160px;
         }
 
@@ -257,26 +255,23 @@
             font-weight: bold;
             word-wrap: break-word;
             max-width: 90%;
-            display: none; /* Controlled explicitly */
         }
 
         .team-member:not(.featured) .member-name {
-            display: block;
             position: absolute;
             bottom: -25px;
-            text-align: center;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 0.9rem;
             text-shadow: 0 0 3px #ff5555;
         }
 
         .team-member.featured .member-name {
-            display: block;
-            position: static;
             text-shadow: 0 0 5px #ff5555;
         }
 
         .member-role {
-            font-size: 0.9rem; /* Reduced to fit */
+            font-size: 0.9rem;
             color: #fff;
             margin-bottom: 5px;
             display: none;
@@ -362,54 +357,24 @@
             #team {margin-top: -40px;}
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .team-cylinder {
-                height: 350px;
-            }
-            .cylinder-container {
-                width: 250px;
-                height: 250px;
-            }
-            .team-member {
-                width: 100px;
-                height: 100px;
-            }
-            .team-member.featured .bubble {
-                width: 200px;
-                height: 200px;
-            }
-            .team-member.featured .inner-bubble {
-                width: 130px;
-                height: 130px;
-            }
-            .member-name {
-                font-size: 0.8rem;
-            }
-            .team-member.featured .member-name {
-                font-size: 1rem; /* Slightly smaller for mobile */
-            }
-            .member-role {
-                font-size: 0.8rem;
-            }
-            .team-member.featured .member-role {
-                font-size: 0.9rem;
-            }
-            .arrow {
-                font-size: 1.5rem;
-            }
-            .left-arrow {
-                left: 10px;
-            }
-            .right-arrow {
-                right: 10px;
-            }
+            .team-cylinder {height: 400px;}
+            .cylinder-container {width: 250px; height: 300px;}
+            .team-member {width: 100px; height: 100px;}
+            .team-member.featured .bubble {width: 200px; height: 200px;}
+            .team-member.featured .inner-bubble {width: 130px; height: 130px;}
+            .member-name {font-size: 0.8rem;}
+            .team-member:not(.featured) .member-name {font-size: 0.8rem;}
+            .team-member.featured .member-name {font-size: 1rem;}
+            .member-role {font-size: 0.8rem;}
+            .team-member.featured .member-role {font-size: 0.9rem;}
+            .arrow {font-size: 1.5rem;}
+            .left-arrow {left: 10px;}
+            .right-arrow {right: 10px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
             .section-connector.buy-to-team {display: block;}
-            .cylinder-container {
-                width: 450px;
-                height: 450px;
-            }
+            .cylinder-container {width: 450px; height: 450px;}
         }
     </style>
 </head>
@@ -804,33 +769,33 @@
         let currentIndex = 3; // Start on Autopsy (index 3)
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
-        const radius = 150; // Perfect circle size
+        const radius = 150; // Circle radius for non-featured
 
         function updateCylinder() {
-            const angleStep = 360 / totalMembers;
+            const angleStep = 360 / (totalMembers - 1); // 4 slots below
 
             teamMembers.forEach((member, index) => {
-                const angle = index * angleStep - currentIndex * angleStep;
-                const rad = angle * Math.PI / 180;
-                const x = radius * Math.cos(rad);
-                const y = radius * Math.sin(rad);
-
                 if (index === currentIndex) {
-                    // Featured member: dead center
+                    // Featured member: top center
                     member.classList.add('featured');
                     member.style.left = '50%';
-                    member.style.top = '50%';
-                    member.style.transform = 'translate(-50%, -50%)';
+                    member.style.top = '0';
+                    member.style.transform = 'translateX(-50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         const xLink = member.getAttribute('data-x-link');
                         if (xLink) window.open(xLink, '_blank');
                     };
                 } else {
-                    // Non-featured members: form circle
+                    // Non-featured members: circle below
                     member.classList.remove('featured');
+                    const adjustedIndex = index < currentIndex ? index : index - 1;
+                    const angle = adjustedIndex * angleStep - 90; // Start left, center below
+                    const rad = angle * Math.PI / 180;
+                    const x = radius * Math.cos(rad);
+                    const y = radius * Math.sin(rad) + 200; // Offset below featured
                     member.style.left = `calc(50% + ${x}px)`;
-                    member.style.top = `calc(50% + ${y}px)`;
+                    member.style.top = `${y}px`;
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
