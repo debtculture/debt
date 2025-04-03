@@ -41,7 +41,7 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 40px;}
+        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 40px;} /* Adjusted from 60px to 40px */
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
@@ -125,20 +125,20 @@
         #overview {padding: 40px 20px;}
         #overview .debt-title {font-size: 1.75rem; margin: 5px auto; font-weight: bold;}
         #overview .debt-subtitle {margin-top: -5px;}
-        #overview .debt-section {margin-top: -10px;}
-        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
+        #overview .debt-section {margin-top: -10px;} /* Added for "Their Debt" and "Our Debt" shift */
+        .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0;}
-        .tokenomics-table {width: 100%; max-width: 350px; border-collapse: collapse; margin: 10px auto; text-align: left;}
-        .tokenomics-table th, .tokenomics-table td {padding: 8px; border-bottom: 1px solid #333;}
+        .tokenomics-table {width: 100%; border-collapse: collapse; margin-top: 10px;}
+        .tokenomics-table th, .tokenomics-table td {padding: 8px; text-align: left; border-bottom: 1px solid #333;}
         .tokenomics-table th {color: #ff5555; font-weight: bold;}
         .tokenomics-table td {color: #ddd;}
         .x-space-schedule {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .x-space-schedule h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .x-space-schedule p {font-size: 1.1rem; margin: 0 0 10px;}
-        .x-space-schedule ul {list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: center;}
-        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left;}
-        .x-space-schedule li::before {content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%);}
+        .x-space-schedule ul {list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: center;} /* Changed to center text */
+        .x-space-schedule li {font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left;} /* Centered with inline-block */
+        .x-space-schedule li::before {content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%);} /* Calendar stays left */
         .x-space-schedule a {color: #fff; text-decoration: none; margin-left: 5px;}
         .x-space-schedule a:hover {color: #ff5555;}
         .hosts-include {margin-top: 15px;}
@@ -524,57 +524,23 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        // Tokenomics Automation with Birdeye API
-        async function updateTokenomics() {
+        // Tokenomics Automation
+        function updateTokenomics() {
             const startingSupply = 1000000000; // Starting Supply: 1,000,000,000 $DEBT
-            const apiUrl = 'https://public-api.birdeye.so/defi/token_overview?address=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
-            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+            const currentSupply = 954543637.18; // Placeholder: Update this value after each burn
 
-            try {
-                console.log('Fetching supply from:', proxyUrl);
-                const response = await fetch(proxyUrl, {
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-                    }
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}, Status Text: ${response.statusText}`);
-                }
+            // Format current supply with commas
+            const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
 
-                const rawText = await response.text();
-                console.log('Raw Response Text:', rawText);
-
-                const data = JSON.parse(rawText);
-                console.log('Parsed JSON Data:', data);
-
-                if (!data.data || !data.data.supply) {
-                    throw new Error('Invalid API response: missing supply data');
-                }
-
-                const currentSupply = data.data.supply; // Birdeye's "Circ Supply" is already adjusted for decimals
-
-                // Format current supply with commas
-                const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
-
-                // Calculate and format percentage change
-                const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
-                document.getElementById('supply-change').textContent = `${changePercent}%`;
-            } catch (error) {
-                console.error('Failed to fetch supply from Birdeye:', error.message);
-                console.error('Error details:', error);
-                // Fallback to manual supply (update this value after each burn)
-                const manualSupply = 955543.64; // Example: replace with latest burn value
-                const formattedManualSupply = manualSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                document.getElementById('current-supply').textContent = `${formattedManualSupply} $DEBT`;
-                const changePercent = ((manualSupply - startingSupply) / startingSupply * 100).toFixed(2);
-                document.getElementById('supply-change').textContent = `${changePercent}%`;
-            }
+            // Calculate and format percentage change
+            const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
+            document.getElementById('supply-change').textContent = `${changePercent}%`;
         }
 
         window.addEventListener('load', () => {
             setPhantomLink();
-            updateTokenomics(); // Fetch and update tokenomics on page load
+            updateTokenomics(); // Run tokenomics update on page load
         });
     </script>
 </body>
