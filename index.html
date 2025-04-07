@@ -66,6 +66,8 @@
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: 40px auto;}
         .section-connector.welcome-to-team {margin: 20px auto;}
+        .section-connector.team-to-hof {margin: 20px auto;}
+        .section-connector.hof-to-disclaimer {margin: 20px auto;}
         @keyframes wind {0% {transform: translateY(20px) scaleY(1);} 50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 100% {transform: translateY(0) scaleY(1);}}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
@@ -82,8 +84,8 @@
         .phase-1 li::before {content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem;}
         
         /* Debt Clock Widget Styles */
-        .debt-clock-container {margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative;}
-        .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; cursor: pointer;}
+        .debt-clock-container {margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; cursor: pointer;}
+        .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; pointer-events: none;} /* Disable iframe interaction */
         
         /* Burn Tracker Styles */
         .burn-tracker {font-size: 2rem; margin: 10px 0;}
@@ -104,7 +106,7 @@
         .step-content p {font-size: 1.1rem; margin: 0;}
         .buy-step:hover {transform: translateY(-3px); transition: transform 0.3s ease;}
         .buy-blurb {margin: 10px auto 0; font-size: 1.5rem; text-align: center;}
-        #hall-of-fame {margin-top: 40px;}
+        #hall-of-fame {margin-top: -100px;} /* Desktop default moved up 100px */
         @keyframes slideFade {0% {opacity: 0; transform: translateX(-20px);} 100% {opacity: 1; transform: translateX(0);}}
         .copyable-address {cursor: pointer; background: #333; padding: 2px 5px; border-radius: 3px; position: relative; transition: background 0.3s ease;}
         .copyable-address:hover {background: #444;}
@@ -140,24 +142,25 @@
         .team-blurb a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Hall of Fame Carousel Styles */
-        #hall-of-fame {margin-top: 40px; padding-bottom: 60px;}
+        #hall-of-fame {padding-bottom: 60px;}
         .hof-carousel {position: relative; max-width: 600px; margin: 0 auto; height: 400px; display: flex; align-items: center; justify-content: center;}
         .hof-container {position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center;}
         .hof-featured {position: relative; width: 200px; height: 200px; z-index: 10; margin-bottom: 20px;}
         .hof-featured .hof-bubble {width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;}
         .hof-featured .hof-inner-bubble {width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
         .hof-row {display: flex; justify-content: center; gap: 20px; margin-top: 20px;}
-        .hof-tbd-row {display: flex; justify-content: center; gap: 20px; margin-top: 30px;} /* Increased from 20px to 30px */
+        .hof-tbd-row {display: flex; justify-content: center; gap: 20px; margin-top: 30px;}
         .hof-member, .hof-tbd {position: relative; width: 100px; height: 100px; transition: all 0.8s ease;}
         .hof-bubble, .hof-tbd-bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
         .hof-tbd-bubble {background-color: #333; opacity: 0.7;}
         .hof-inner-bubble, .hof-tbd-inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
-        .hof-inner-bubble img, .hof-tbd-inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
+        .hof-inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
+        .hof-tbd-inner-bubble {font-size: 4rem; color: #fff; font-weight: bold; text-shadow: 0 0 5px #ff5555;} /* "?" styling */
         .hof-name, .hof-tbd-name {font-size: 0.8rem; color: #fff; margin-top: 5px; font-weight: bold; text-shadow: 0 0 3px #ff5555; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);}
         .hof-featured .hof-name {position: static; transform: none; font-size: 1rem; text-shadow: 0 0 5px #ff5555;}
         .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none;}
         .hof-featured .hof-title {display: block;}
-        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 60px auto 20px; color: #eee;} /* Increased from 20px to 60px */
+        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 75px auto 20px; color: #eee;} /* Desktop default moved down 15px from 60px */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -195,7 +198,7 @@
         .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
         
         /* Disclaimer Styles */
-        .disclaimer {max-width: 800px; margin: 40px auto; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .disclaimer {max-width: 800px; margin: -60px auto 40px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;} /* Desktop moved up 100px */
         .disclaimer::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .disclaimer h3 {font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px;}
         .disclaimer ol {padding-left: 20px; margin: 0;}
@@ -235,13 +238,13 @@
             .host-bubble .twitter-link {width: 30px; height: 30px;}
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
             .host-bubble img.twitter-icon {width: 20px; height: 20px;}
-            #hall-of-fame {margin-top: 20px; text-align: center;}
+            #hall-of-fame {margin-top: -50px; text-align: center;} /* Mobile moved up 50px */
             .you-are-here {left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .you-are-here::after {content: "↓"; font-size: 1.2rem; margin-left: 5px;}
             .phase .completed {right: 10px; top: -37px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .phase-1 .completed {right: 10px; top: -37px;}
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
-            .disclaimer {margin: 35px auto; padding: 15px;}
+            .disclaimer {margin: 35px auto; padding: 15px;} /* Mobile unchanged */
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
             .debt-clock-container {width: 270px; height: 70px;}
@@ -284,6 +287,8 @@
             .hof-title {font-size: 0.7rem;}
             .hof-featured .hof-title {font-size: 0.8rem;}
             .hof-row, .hof-tbd-row {gap: 10px;}
+            .hof-blurb {margin: 63px auto 20px;} /* Mobile moved down 3px from 60px */
+            .hof-tbd-inner-bubble {font-size: 3rem;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -570,6 +575,7 @@
                 <div class="arrow right-arrow" onclick="rotateCylinder('right')">➜</div>
             </div>
             <p class="team-blurb">Our crew’s hungry for more rebels with grit and vision. Got what it takes? Slide into <a href="https://x.com/DebtCulture" target="_blank">@DebtCulture</a>’s DMs on X.</p>
+            <div class="section-connector team-to-hof"></div>
         </section>
 
         <section id="hall-of-fame" class="section from-right">
@@ -622,33 +628,25 @@
                     <div class="hof-tbd-row">
                         <div class="hof-tbd">
                             <div class="hof-tbd-bubble">
-                                <div class="hof-tbd-inner-bubble">
-                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
-                                </div>
+                                <div class="hof-tbd-inner-bubble">?</div>
                                 <div class="hof-tbd-name">TBD</div>
                             </div>
                         </div>
                         <div class="hof-tbd">
                             <div class="hof-tbd-bubble">
-                                <div class="hof-tbd-inner-bubble">
-                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
-                                </div>
+                                <div class="hof-tbd-inner-bubble">?</div>
                                 <div class="hof-tbd-name">TBD</div>
                             </div>
                         </div>
                         <div class="hof-tbd">
                             <div class="hof-tbd-bubble">
-                                <div class="hof-tbd-inner-bubble">
-                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
-                                </div>
+                                <div class="hof-tbd-inner-bubble">?</div>
                                 <div class="hof-tbd-name">TBD</div>
                             </div>
                         </div>
                         <div class="hof-tbd">
                             <div class="hof-tbd-bubble">
-                                <div class="hof-tbd-inner-bubble">
-                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
-                                </div>
+                                <div class="hof-tbd-inner-bubble">?</div>
                                 <div class="hof-tbd-name">TBD</div>
                             </div>
                         </div>
@@ -656,6 +654,7 @@
                 </div>
             </div>
             <p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
+            <div class="section-connector hof-to-disclaimer"></div>
         </section>
 
         <div class="fixed-bar">
@@ -679,7 +678,7 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 
-            <script>
+                <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
