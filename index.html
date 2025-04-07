@@ -82,8 +82,8 @@
         .phase-1 li::before {content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem;}
         
         /* Debt Clock Widget Styles */
-        .debt-clock-container {margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
-        .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
+        .debt-clock-container {margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative;}
+        .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; cursor: pointer;}
         
         /* Burn Tracker Styles */
         .burn-tracker {font-size: 2rem; margin: 10px 0;}
@@ -135,23 +135,26 @@
         .arrow:hover {color: #ff7777;}
         .left-arrow {left: 20px; transform: translateY(-50%) rotate(180deg);}
         .right-arrow {right: 20px;}
+        .team-blurb {font-size: 1.1rem; max-width: 600px; margin: 20px auto; color: #eee;}
         
         /* Hall of Fame Carousel Styles */
         #hall-of-fame {margin-top: 40px; padding-bottom: 60px;}
-        .hof-carousel {position: relative; max-width: 600px; margin: 0 auto; height: 300px; display: flex; align-items: center; justify-content: center;}
+        .hof-carousel {position: relative; max-width: 600px; margin: 0 auto; height: 400px; display: flex; align-items: center; justify-content: center;}
         .hof-container {position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center;}
         .hof-featured {position: relative; width: 200px; height: 200px; z-index: 10; margin-bottom: 20px;}
         .hof-featured .hof-bubble {width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;}
         .hof-featured .hof-inner-bubble {width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
-        .hof-row {display: flex; justify-content: center; gap: 20px;}
-        .hof-member {position: relative; width: 100px; height: 100px; transition: all 0.8s ease;}
-        .hof-bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
-        .hof-inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
-        .hof-inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
-        .hof-name {font-size: 0.8rem; color: #fff; margin-top: 5px; font-weight: bold; text-shadow: 0 0 3px #ff5555; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);}
+        .hof-row, .hof-tbd-row {display: flex; justify-content: center; gap: 20px; margin-top: 20px;}
+        .hof-member, .hof-tbd {position: relative; width: 100px; height: 100px; transition: all 0.8s ease;}
+        .hof-bubble, .hof-tbd-bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
+        .hof-tbd-bubble {background-color: #333; opacity: 0.7;}
+        .hof-inner-bubble, .hof-tbd-inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+        .hof-inner-bubble img, .hof-tbd-inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
+        .hof-name, .hof-tbd-name {font-size: 0.8rem; color: #fff; margin-top: 5px; font-weight: bold; text-shadow: 0 0 3px #ff5555; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);}
         .hof-featured .hof-name {position: static; transform: none; font-size: 1rem; text-shadow: 0 0 5px #ff5555;}
         .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none;}
         .hof-featured .hof-title {display: block;}
+        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 20px auto; color: #eee;}
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -199,7 +202,7 @@
 
         /* Contract Address Styles */
         .contract-address {max-width: 800px; margin: 10px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
-        .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7בי), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
+        .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
         .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
 
@@ -268,16 +271,16 @@
             .arrow {font-size: 1.5rem;}
             .left-arrow {left: 10px;}
             .right-arrow {right: 10px;}
-            .hof-carousel {height: 250px; max-width: 400px;}
+            .hof-carousel {height: 350px; max-width: 400px;}
             .hof-featured {width: 160px; height: 160px;}
             .hof-featured .hof-bubble {width: 100%; height: 100%;}
             .hof-featured .hof-inner-bubble {width: 100px; height: 100px;}
-            .hof-member {width: 80px; height: 80px;}
-            .hof-name {font-size: 0.7rem;}
+            .hof-member, .hof-tbd {width: 80px; height: 80px;}
+            .hof-name, .hof-tbd-name {font-size: 0.7rem;}
             .hof-featured .hof-name {font-size: 0.9rem;}
             .hof-title {font-size: 0.7rem;}
             .hof-featured .hof-title {font-size: 0.8rem;}
-            .hof-row {gap: 10px;}
+            .hof-row, .hof-tbd-row {gap: 10px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -324,7 +327,7 @@
             </div>
         </div>
         <div class="banner-container">
-            <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
+            <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Culture Banner" class="banner-image">
         </div>
 
         <!-- Hero Section -->
@@ -344,7 +347,7 @@
         <section id="overview" class="section">
             <h1>Overview</h1>
             <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
-            <div class="debt-clock-container">
+            <div class="debt-clock-container" onclick="window.open('https://www.usdebtclock.org/', '_blank')">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
             <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
@@ -376,24 +379,24 @@
                     <h3>Hosts Include:</h3>
                     <div class="host-bubbles">
                         <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina" class="profile-pic">
+                            <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina Profile Picture" class="profile-pic">
                             <div class="host-title">Catavina</div>
                             <a href="https://x.com/catavina17" target="_blank" class="twitter-link">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter Icon" class="twitter-icon">
                             </a>
                         </div>
                         <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf" class="profile-pic">
+                            <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf Profile Picture" class="profile-pic">
                             <div class="host-title">Nerf</div>
                             <a href="https://x.com/0xnerf" target="_blank" class="twitter-link">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter Icon" class="twitter-icon">
                             </a>
                         </div>
                         <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou" class="profile-pic">
+                            <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou Profile Picture" class="profile-pic">
                             <div class="host-title">Lou</div>
                             <a href="https://x.com/louisedbegin" target="_blank" class="twitter-link">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" class="twitter-icon">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter Icon" class="twitter-icon">
                             </a>
                         </div>
                     </div>
@@ -403,7 +406,9 @@
         </section>
 
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
-        <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle menu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()">
+            <div></div><div></div><div></div>
+        </div>
         <div class="mobile-menu" id="mobileMenu">
             <a href="#overview" onclick="closeMenu()">Overview</a>
             <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
@@ -411,7 +416,7 @@
             <a href="#team" onclick="closeMenu()">Team</a>
             <a href="#hall-of-fame" onclick="closeMenu()">Hall of Fame</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" onclick="closeMenu()">Memes</a>
-            <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
+            <span class="expand" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()">Resources ▼</span>
             <div class="mobile-dropdown" id="mobileDropdown">
                 <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">DexTools</a>
                 <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" onclick="closeMenu()">GeckoTerminal</a>
@@ -516,7 +521,7 @@
                     <div class="team-member" data-index="0" data-x-link="https://x.com/catavina17">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina">
+                                <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina Profile Picture">
                             </div>
                             <div class="member-name">Catavina</div>
                             <div class="member-role">Community Manager</div>
@@ -525,7 +530,7 @@
                     <div class="team-member" data-index="1" data-x-link="https://x.com/0xnerf">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf">
+                                <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf Profile Picture">
                             </div>
                             <div class="member-name">Nerf</div>
                             <div class="member-role">Market Analyst</div>
@@ -534,7 +539,7 @@
                     <div class="team-member" data-index="2" data-x-link="https://x.com/louisedbegin">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou">
+                                <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou Profile Picture">
                             </div>
                             <div class="member-name">Lou</div>
                             <div class="member-role">Social Media Manager</div>
@@ -543,7 +548,7 @@
                     <div class="team-member" data-index="3" data-x-link="https://x.com/AutopsyT2">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Autopsy">
+                                <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Autopsy Profile Picture">
                             </div>
                             <div class="member-name">Autopsy</div>
                             <div class="member-role">Founder</div>
@@ -552,7 +557,7 @@
                     <div class="team-member" data-index="4" data-x-link="https://x.com/jpegfein">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/jpeg.jpg?raw=true" alt="JPEG">
+                                <img src="https://github.com/debtculture/debt/blob/main/jpeg.jpg?raw=true" alt="JPEG Profile Picture">
                             </div>
                             <div class="member-name">JPEG</div>
                             <div class="member-role">Content Creator</div>
@@ -561,6 +566,7 @@
                 </div>
                 <div class="arrow right-arrow" onclick="rotateCylinder('right')">➜</div>
             </div>
+            <p class="team-blurb">We’re always looking to expand and bring on the right individuals. DM <a href="https://x.com/DebtCulture" target="_blank">@DebtCulture</a> on X for inquiries.</p>
         </section>
 
         <section id="hall-of-fame" class="section from-right">
@@ -570,7 +576,7 @@
                     <div class="hof-featured" id="hof-featured">
                         <div class="hof-bubble">
                             <div class="hof-inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1">
+                                <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1 Profile Picture">
                             </div>
                             <div class="hof-name">Rebel1</div>
                             <div class="hof-title">Top Holder</div>
@@ -580,7 +586,7 @@
                         <div class="hof-member" data-index="0" data-x-link="https://x.com/example1" data-title="Top Holder">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
-                                    <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1">
+                                    <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1 Profile Picture">
                                 </div>
                                 <div class="hof-name">Rebel1</div>
                             </div>
@@ -588,7 +594,7 @@
                         <div class="hof-member" data-index="1" data-x-link="https://x.com/example2" data-title="Meme Lord">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
-                                    <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Rebel2">
+                                    <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Rebel2 Profile Picture">
                                 </div>
                                 <div class="hof-name">Rebel2</div>
                             </div>
@@ -596,7 +602,7 @@
                         <div class="hof-member" data-index="2" data-x-link="https://x.com/example3" data-title="Community Star">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
-                                    <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Rebel3">
+                                    <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Rebel3 Profile Picture">
                                 </div>
                                 <div class="hof-name">Rebel3</div>
                             </div>
@@ -604,21 +610,58 @@
                         <div class="hof-member" data-index="3" data-x-link="https://x.com/example4" data-title="Burn Master">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
-                                    <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Rebel4">
+                                    <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Rebel4 Profile Picture">
                                 </div>
                                 <div class="hof-name">Rebel4</div>
                             </div>
                         </div>
                     </div>
+                    <div class="hof-tbd-row">
+                        <div class="hof-tbd">
+                            <div class="hof-tbd-bubble">
+                                <div class="hof-tbd-inner-bubble">
+                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
+                                </div>
+                                <div class="hof-tbd-name">TBD</div>
+                            </div>
+                        </div>
+                        <div class="hof-tbd">
+                            <div class="hof-tbd-bubble">
+                                <div class="hof-tbd-inner-bubble">
+                                    <div class="hof-tbd-inner-bubble">
+                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
+                                </div>
+                                </div>
+                                <div class="hof-tbd-name">TBD</div>
+                            </div>
+                        </div>
+                        <div class="hof-tbd">
+                            <div class="hof-tbd-bubble">
+                                <div class="hof-tbd-inner-bubble">
+                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
+                                </div>
+                                <div class="hof-tbd-name">TBD</div>
+                            </div>
+                        </div>
+                        <div class="hof-tbd">
+                            <div class="hof-tbd-bubble">
+                                <div class="hof-tbd-inner-bubble">
+                                    <img src="https://via.placeholder.com/100?text=?" alt="TBD Placeholder">
+                                </div>
+                                <div class="hof-tbd-name">TBD</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
         </section>
 
         <div class="fixed-bar">
-            <a href="https://x.com/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter" /></a>
-            <a href="https://t.me/debtculture" target="_blank" class="icon" id="telegram-icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram" /></a>
-            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener" /></a>
-            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
+            <a href="https://x.com/debtculture" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="Twitter Icon" /></a>
+            <a href="https://t.me/debtculture" target="_blank" class="icon" id="telegram-icon"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram Icon" /></a>
+            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener Icon" /></a>
+            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun Icon" /></a>
         </div>
 
         <a href="https://t.me/debtculture" target="_blank" class="join-rebellion">Join the Rebellion</a>
@@ -635,7 +678,7 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 
-    <script>
+        <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -700,7 +743,10 @@
             navigator.clipboard.writeText(text).then(() => {
                 element.classList.add('copied');
                 setTimeout(() => element.classList.remove('copied'), 2000);
-            }).catch(err => console.error('Failed to copy: ', err));
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Clipboard not supported. Copy manually: ' + text);
+            });
         }
 
         function setPhantomLink() {
@@ -712,7 +758,7 @@
 
         function updateTokenomics() {
             const startingSupply = 1000000000;
-            const currentSupply = 953543637.18;
+            const currentSupply = 953543637.18; // Replace with dynamic fetch if needed
             const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
             const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
@@ -723,7 +769,6 @@
         let currentTeamIndex = 3;
         const teamMembers = document.querySelectorAll('.team-member');
         const totalTeamMembers = teamMembers.length;
-        const cylinderContainer = document.querySelector('.cylinder-container');
         const desktopRadius = 150;
         const mobileRadius = 100;
 
@@ -734,7 +779,7 @@
             const centerX = containerWidth / 2;
             const centerY = containerHeight / 2;
             const radius = isMobile ? mobileRadius : desktopRadius;
-            const featuredOffsetY = isMobile ? 70 : 70; // Adjusted for mobile/desktop consistency
+            const featuredOffsetY = isMobile ? 70 : 70;
             const starAngles = [0, 72, 144, 216, 288];
 
             teamMembers.forEach((member, index) => {
@@ -745,7 +790,7 @@
                 if (index === currentTeamIndex) {
                     member.classList.add('featured');
                     member.style.left = `${centerX}px`;
-                    member.style.top = `${centerY - featuredOffsetY}px`; // Moved 30px lower on desktop
+                    member.style.top = `${centerY - featuredOffsetY}px`;
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -791,7 +836,7 @@
             teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
         }
 
-        // Hall of Fame Carousel (Row Layout)
+        // Hall of Fame Carousel (9 items: 1 featured + 2 rows of 4)
         let currentHofIndex = 0;
         const hofMembers = document.querySelectorAll('.hof-member');
         const totalHofMembers = hofMembers.length;
