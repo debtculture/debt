@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
+    <script src="https://unpkg.com/@solana/web3.js@1.66.2/dist/index.iife.min.js"></script>
     <style>
         /* Main content container for blurring */
         .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden;}
         .content-wrapper.unblurred {filter: none;}
         
         body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
+        #bg-video {position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; z-index: -1; opacity: 0.2;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -41,11 +43,15 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
+        #hero, #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
+        .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3s steps(40, end);}
+        @keyframes typing {from { width: 0; } to { width: 100%; }}
+        .glitch:hover {animation: glitch 0.3s infinite;}
+        @keyframes glitch {0% { transform: translate(2px, -2px); } 50% { transform: translate(-2px, 2px); } 100% { transform: translate(0, 0); }}
         
         /* Roadmap Specific Styles */
         #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -45px;}
@@ -59,12 +65,8 @@
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: 40px auto;}
-        .section-connector.welcome-to-team {margin: 20px auto;} /* New connector */
-        @keyframes wind {
-            0% {transform: translateY(20px) scaleY(1);}
-            50% {transform: translateY(0) scaleY(1.1) skewX(5deg);}
-            100% {transform: translateY(0) scaleY(1);}
-        }
+        .section-connector.welcome-to-team {margin: 20px auto;}
+        @keyframes wind {0% {transform: translateY(20px) scaleY(1);} 50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 100% {transform: translateY(0) scaleY(1);}}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
@@ -80,8 +82,7 @@
         .phase-1 li::before {content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem;}
         
         /* Debt Clock Widget Styles */
-        .debt-clock-container {margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;}
-        .debt-clock-iframe {width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px;}
+        #debt-clock {font-size: 2rem; margin: 20px auto; color: #ff5555;}
         
         /* Burn Tracker Styles */
         .burn-tracker {font-size: 2rem; margin: 10px 0;}
@@ -113,7 +114,7 @@
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Team Section Styles */
-        #team {margin-top: -250px;} /* Moved up 250px */
+        #team {margin-top: -250px;}
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -170,141 +171,32 @@
         .join-rebellion:hover {background-color: #ff7777;}
         @keyframes pulseGlow {0% {box-shadow: 0 0 5px #ff5555;} 50% {box-shadow: 0 0 15px #ff5555;} 100% {box-shadow: 0 0 5px #ff5555;}}
 
+        /* Meme Generator Styles */
+        #meme-generator {padding: 20px;}
+        #memeCanvas {background: #1e1e1e; border: 2px solid #ff5555; margin: 10px auto; display: block;}
+        #memeText {padding: 5px; margin: 10px; background: #333; color: #fff; border: 1px solid #ff5555;}
+        #generateMemeBtn {background: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;}
+        #generateMemeBtn:hover {background: #ff7777;}
+
         /* Team Cylinder Styles */
-        .team-cylinder {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-            height: 500px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        .cylinder-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
-
-        .team-member {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            transition: all 0.8s ease;
-        }
-
-        .bubble {
-            width: 100%;
-            height: 100%;
-            background-color: #1e1e1e;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            overflow: hidden;
-            border: 2px solid #555;
-            cursor: pointer;
-        }
-
-        .team-member:not(.featured) .bubble {
-            background: none;
-            border: none;
-            box-shadow: none;
-        }
-
-        .team-member.featured .bubble {
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(45deg, #ff5555, #ff7777);
-            border: 4px solid #fff;
-            box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
-            padding-top: 10px;
-        }
-
-        .inner-bubble {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.8s ease;
-        }
-
-        .team-member.featured .inner-bubble {
-            width: 160px;
-            height: 160px;
-        }
-
-        .inner-bubble img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .member-name {
-            font-size: 1.2rem;
-            color: #fff;
-            margin: 5px 0;
-            font-weight: bold;
-            word-wrap: break-word;
-            max-width: 90%;
-        }
-
-        .team-member:not(.featured) .member-name {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-            text-shadow: 0 0 3px #ff5555;
-        }
-
-        .team-member.featured .member-name {
-            text-shadow: 0 0 5px #ff5555;
-        }
-
-        .member-role {
-            font-size: 0.9rem;
-            color: #fff;
-            margin-bottom: 5px;
-            display: none;
-            word-wrap: break-word;
-            max-width: 90%;
-        }
-
-        .team-member.featured .member-role {
-            display: block;
-        }
-
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: #ff5555;
-            cursor: pointer;
-            user-select: none;
-            z-index: 10;
-            transition: color 0.3s ease;
-        }
-
-        .arrow:hover {
-            color: #ff7777;
-        }
-
-        .left-arrow {
-            left: 20px;
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        .right-arrow {
-            right: 20px;
-        }
+        .team-cylinder {position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: flex-start; justify-content: center;}
+        .cylinder-container {position: relative; width: 400px; height: 400px;}
+        .team-member {position: absolute; width: 120px; height: 120px; transition: all 0.8s ease;}
+        .bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
+        .team-member:not(.featured) .bubble {background: none; border: none; box-shadow: none;}
+        .team-member.featured .bubble {width: 250px; height: 250px; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px;}
+        .inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease;}
+        .team-member.featured .inner-bubble {width: 160px; height: 160px;}
+        .inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
+        .member-name {font-size: 1.2rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%;}
+        .team-member:not(.featured) .member-name {position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.9rem; text-shadow: 0 0 3px #ff5555;}
+        .team-member.featured .member-name {text-shadow: 0 0 5px #ff5555;}
+        .member-role {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none; word-wrap: break-word; max-width: 90%;}
+        .team-member.featured .member-role {display: block;}
+        .arrow {position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease;}
+        .arrow:hover {color: #ff7777;}
+        .left-arrow {left: 20px; transform: translateY(-50%) rotate(180deg);}
+        .right-arrow {right: 20px;}
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -314,7 +206,7 @@
             .banner-container {display: none;}
             .section {padding: 20px; padding-top: 60px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #overview {margin-top: -30px;}
+            #hero, #overview {margin-top: -30px;}
             h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
             .phase h2, .future-teaser h2 {font-size: 2rem;}
@@ -335,8 +227,6 @@
             .disclaimer {margin: 35px auto; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
-            .debt-clock-container {width: 270px; height: 70px;}
-            .debt-clock-iframe {width: 530px; height: 295px; margin-top: -150px; margin-left: -40px;}
             .burn-tracker {font-size: 1.5rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%; overflow-x: hidden;}
@@ -350,10 +240,10 @@
             #roadmap h1 {margin-top: -15px;}
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
-            #team {margin-top: -125px;} /* Half of desktop for mobile */
+            #team {margin-top: -125px;}
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .section-connector.welcome-to-team {margin: 10px auto;} /* Adjusted for mobile */
+            .section-connector.welcome-to-team {margin: 10px auto;}
             .team-cylinder {height: 400px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 100px; height: 100px;}
@@ -367,6 +257,7 @@
             .arrow {font-size: 1.5rem;}
             .left-arrow {left: 10px;}
             .right-arrow {right: 10px;}
+            #memeCanvas {width: 300px; height: 300px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -375,6 +266,11 @@
     </style>
 </head>
 <body>
+    <!-- Background Video -->
+    <video autoplay muted loop id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-matrix-code-abstract-background-43360-large.mp4" type="video/mp4">
+    </video>
+
     <!-- Construction Modal -->
     <div class="construction-modal" id="constructionModal">
         <div class="modal-content">
@@ -389,11 +285,13 @@
         <div class="navbar">
             <div class="navbar-links">
                 <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="navbar-logo">
+                <a href="#hero">Home</a>
                 <a href="#overview">Overview</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#how-to-buy">How to Buy</a>
                 <a href="#team">Team</a>
                 <a href="#hall-of-fame">Hall of Fame</a>
+                <a href="#meme-generator">Meme Generator</a>
                 <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank">Memes</a>
                 <div class="dropdown">
                     <div class="dropbtn">Resources ▼</div>
@@ -416,8 +314,15 @@
             <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
         </div>
 
+        <!-- Hero Section -->
+        <section id="hero" class="section">
+            <h1 class="glitch">$DEBT: Don’t Ever Believe Them</h1>
+            <p class="typewriter">A token for the 99% to break the chains of debt and lies. The elite control everything—until now.</p>
+            <button onclick="scrollToSection('#how-to-buy')" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Join the Fight</button>
+        </section>
+
         <!-- Contract Address Section -->
-        <div class="contract-address">
+        <div class="contract-address glitch">
             <h3>Contract Address</h3>
             <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
         </div>
@@ -426,11 +331,8 @@
         <section id="overview" class="section">
             <h1>Overview</h1>
             <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
-            <!-- U.S. Debt Clock Widget -->
-            <div class="debt-clock-container">
-                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
-            </div>
-            <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
+            <div id="debt-clock">U.S. Debt: Loading...</div>
+            <p>Their system’s debt climbs endlessly—ours fights back.</p>
             
             <!-- Tokenomics Section with Burn Tracker -->
             <div class="tokenomics">
@@ -446,6 +348,7 @@
                     <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank">🔥 Burn Tracker</a>
                 </div>
                 <p>Our debt shrinks weekly—over 45 million $DEBT burned and counting.</p>
+                <button onclick="connectWallet()" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Connect Phantom</button>
             </div>
             
             <!-- X Space Schedule -->
@@ -484,18 +387,19 @@
                     </div>
                 </div>
             </div>
-            <!-- Connector between X Space Schedule and Roadmap -->
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
         <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Logo" class="mobile-logo">
         <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
         <div class="mobile-menu" id="mobileMenu">
+            <a href="#hero" onclick="closeMenu()">Home</a>
             <a href="#overview" onclick="closeMenu()">Overview</a>
             <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
             <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
             <a href="#team" onclick="closeMenu()">Team</a>
             <a href="#hall-of-fame" onclick="closeMenu()">Hall of Fame</a>
+            <a href="#meme-generator" onclick="closeMenu()">Meme Generator</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" onclick="closeMenu()">Memes</a>
             <span class="expand" onclick="toggleDropdown()">Resources ▼</span>
             <div class="mobile-dropdown" id="mobileDropdown">
@@ -560,7 +464,6 @@
             </div>
         </section>
 
-        <!-- Connector between Roadmap and How to Buy -->
         <div class="section-connector roadmap-to-buy"></div>
 
         <section id="how-to-buy" class="section">
@@ -592,7 +495,6 @@
                 </div>
             </div>
             <div class="buy-blurb">Welcome to the financial rebellion.</div>
-            <!-- New Connector between Welcome and Team -->
             <div class="section-connector welcome-to-team"></div>
         </section>
 
@@ -652,8 +554,18 @@
         </section>
 
         <section id="hall-of-fame" class="section from-right">
-            <h1>Hall of Fame</h1>
-            <p>Coming soon—celebrating the $DEBT rebels who make waves.</p>
+            <h1>Debt Rebels</h1>
+            <ul style="list-style: none; padding: 0;">
+                <li>Wallet_1...xYZ - 10M $DEBT burned</li>
+                <li>Wallet_2...aBC - 5M $DEBT held</li>
+            </ul>
+        </section>
+
+        <section id="meme-generator" class="section from-right">
+            <h1>Meme Generator</h1>
+            <canvas id="memeCanvas" width="500" height="500"></canvas>
+            <input type="text" id="memeText" placeholder="Enter meme text">
+            <button id="generateMemeBtn" onclick="generateMeme()">Create Meme</button>
         </section>
 
         <div class="fixed-bar">
@@ -663,10 +575,8 @@
             <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
         </div>
 
-        <!-- Join Rebellion Button -->
         <a href="https://t.me/debtculture" target="_blank" class="join-rebellion">Join the Rebellion</a>
 
-        <!-- Disclaimer Section -->
         <div class="disclaimer">
             <h3>Disclaimer</h3>
             <ol>
@@ -743,6 +653,10 @@
             }).catch(err => console.error('Failed to copy: ', err));
         }
 
+        function scrollToSection(selector) {
+            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+        }
+
         function setPhantomLink() {
             const phantomLink = document.getElementById('phantomLink');
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -750,24 +664,70 @@
             if (!isMobile) phantomLink.target = '_blank';
         }
 
-        function updateTokenomics() {
-            const startingSupply = 1000000000;
-            const currentSupply = 953543637.18;
-            const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
-            const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
-            document.getElementById('supply-change').textContent = `${changePercent}%`;
+        async function connectWallet() {
+            if (window.solana && window.solana.isPhantom) {
+                try {
+                    await window.solana.connect();
+                    alert('Wallet connected: ' + window.solana.publicKey.toString());
+                } catch (err) {
+                    console.error('Failed to connect wallet:', err);
+                }
+            } else {
+                window.open('https://phantom.app', '_blank');
+            }
         }
 
-        // Team Cylinder Rotation
-        let currentIndex = 3; // Start on Autopsy (index 3)
+        async function updateTokenomicsLive() {
+            try {
+                const connection = new Solana.Connection('https://api.mainnet-beta.solana.com');
+                const tokenMint = new Solana.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+                const supply = await connection.getTokenSupply(tokenMint);
+                const currentSupply = supply.value.uiAmount;
+                document.getElementById('current-supply').textContent = `${currentSupply.toLocaleString()} $DEBT`;
+                const change = ((currentSupply - 1000000000) / 1000000000 * 100).toFixed(2);
+                document.getElementById('supply-change').textContent = `${change}%`;
+            } catch (err) {
+                console.error('Failed to fetch token supply:', err);
+                document.getElementById('current-supply').textContent = 'Error';
+                document.getElementById('supply-change').textContent = 'N/A';
+            }
+        }
+
+        async function updateDebtClock() {
+            // Placeholder: Replace with real API if available
+            const debt = 36000000000000; // Static for now
+            document.getElementById('debt-clock').textContent = `U.S. Debt: $${debt.toLocaleString()}`;
+            setTimeout(updateDebtClock, 1000); // Simulate live update
+        }
+
+        function generateMeme() {
+            const canvas = document.getElementById('memeCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.src = 'https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true';
+            img.crossOrigin = "Anonymous";
+            img.onload = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                ctx.font = '30px Arial';
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.fillText(document.getElementById('memeText').value, canvas.width / 2, canvas.height - 20);
+                const link = document.createElement('a');
+                link.download = 'debt_meme.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+        }
+
+        let currentIndex = 3;
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
-        const radius = 150; // Adjusted for star layout
+        const radius = 150;
 
         function updateCylinder() {
-            const angles = [0, 72, 144, 216, 288]; // 5-point star positions
-            const centerY = 200; // Center point for star (adjusted for featured bubble height)
+            const angles = [0, 72, 144, 216, 288];
+            const centerY = 200;
 
             teamMembers.forEach((member, index) => {
                 const angleIndex = (index - currentIndex + totalMembers) % totalMembers;
@@ -777,10 +737,9 @@
                 const y = radius * Math.sin(rad);
 
                 if (index === currentIndex) {
-                    // Featured member: top center (0°)
                     member.classList.add('featured');
                     member.style.left = '50%';
-                    member.style.top = '0'; // Top of container
+                    member.style.top = '0';
                     member.style.transform = 'translateX(-50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -788,10 +747,9 @@
                         if (xLink) window.open(xLink, '_blank');
                     };
                 } else {
-                    // Non-featured members: star points (72°, 144°, 216°, 288°)
                     member.classList.remove('featured');
                     member.style.left = `calc(50% + ${x}px)`;
-                    member.style.top = `calc(${centerY}px + ${y}px)`; // Centered below featured
+                    member.style.top = `calc(${centerY}px + ${y}px)`;
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -827,7 +785,8 @@
 
         window.addEventListener('load', () => {
             setPhantomLink();
-            updateTokenomics();
+            updateTokenomicsLive();
+            updateDebtClock();
             updateCylinder();
             window.dispatchEvent(new Event('scroll'));
         });
