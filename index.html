@@ -752,7 +752,7 @@
 
         function updateTokenomics() {
             const startingSupply = 1000000000;
-            const currentSupply = 954543637.18;
+            const currentSupply = 953543637.18;
             const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
             const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
