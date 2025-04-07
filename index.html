@@ -41,14 +41,13 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #hero {min-height: auto; padding: 20px; margin: 25px 0 10px;} /* Moved down another 5px */
+        #hero {min-height: auto; padding: 20px; margin: 25px 0 10px;}
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
         .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3s steps(40, end); max-width: 100%;}
-
         @media (max-width: 768px) {
             .typewriter {white-space: normal; animation: none; font-size: 1rem; line-height: 1.4;}
         }
@@ -145,11 +144,11 @@
         .hof-featured .hof-bubble {width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;}
         .hof-featured .hof-inner-bubble {width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
         .hof-row {display: flex; justify-content: center; gap: 20px;}
-        .hof-member {width: 100px; height: 100px; transition: all 0.8s ease;}
+        .hof-member {position: relative; width: 100px; height: 100px; transition: all 0.8s ease;}
         .hof-bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
         .hof-inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
         .hof-inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
-        .hof-name {font-size: 0.8rem; color: #fff; margin: 5px 0; font-weight: bold; text-shadow: 0 0 3px #ff5555; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);}
+        .hof-name {font-size: 0.8rem; color: #fff; margin-top: 5px; font-weight: bold; text-shadow: 0 0 3px #ff5555; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);}
         .hof-featured .hof-name {position: static; transform: none; font-size: 1rem; text-shadow: 0 0 5px #ff5555;}
         .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none;}
         .hof-featured .hof-title {display: block;}
@@ -200,7 +199,7 @@
 
         /* Contract Address Styles */
         .contract-address {max-width: 800px; margin: 10px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
-        .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
+        .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7בי), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
         .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
 
@@ -217,7 +216,7 @@
             .banner-container {display: none;}
             .section {padding: 20px; padding-top: 60px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #hero {min-height: auto; padding: 10px; margin: 20px 0 5px;} /* Moved down another 5px */
+            #hero {min-height: auto; padding: 10px; margin: 20px 0 5px;}
             #overview {margin-top: -30px;}
             h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
@@ -578,7 +577,7 @@
                         </div>
                     </div>
                     <div class="hof-row">
-                        <div class="hof-member" data-index="0" data-x-link="https://x.com/example1">
+                        <div class="hof-member" data-index="0" data-x-link="https://x.com/example1" data-title="Top Holder">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1">
@@ -586,7 +585,7 @@
                                 <div class="hof-name">Rebel1</div>
                             </div>
                         </div>
-                        <div class="hof-member" data-index="1" data-x-link="https://x.com/example2">
+                        <div class="hof-member" data-index="1" data-x-link="https://x.com/example2" data-title="Meme Lord">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Rebel2">
@@ -594,7 +593,7 @@
                                 <div class="hof-name">Rebel2</div>
                             </div>
                         </div>
-                        <div class="hof-member" data-index="2" data-x-link="https://x.com/example3">
+                        <div class="hof-member" data-index="2" data-x-link="https://x.com/example3" data-title="Community Star">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Rebel3">
@@ -602,7 +601,7 @@
                                 <div class="hof-name">Rebel3</div>
                             </div>
                         </div>
-                        <div class="hof-member" data-index="3" data-x-link="https://x.com/example4">
+                        <div class="hof-member" data-index="3" data-x-link="https://x.com/example4" data-title="Burn Master">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Rebel4">
@@ -724,13 +723,19 @@
         let currentTeamIndex = 3;
         const teamMembers = document.querySelectorAll('.team-member');
         const totalTeamMembers = teamMembers.length;
-        const teamRadius = 150;
+        const cylinderContainer = document.querySelector('.cylinder-container');
+        const desktopRadius = 150;
+        const mobileRadius = 100;
 
         function updateTeamCylinder() {
-            const centerX = 200; // Half of cylinder-container width (400px)
-            const centerY = 225; // Half of cylinder-container height (400px) + adjustment
-            const offsetY = 100; // Space for featured bubble above
-            const starAngles = [0, 72, 144, 216, 288]; // 5-point star angles
+            const isMobile = window.innerWidth <= 768;
+            const containerWidth = isMobile ? 300 : 400;
+            const containerHeight = isMobile ? 300 : 400;
+            const centerX = containerWidth / 2;
+            const centerY = containerHeight / 2;
+            const radius = isMobile ? mobileRadius : desktopRadius;
+            const featuredOffsetY = isMobile ? 70 : 70; // Adjusted for mobile/desktop consistency
+            const starAngles = [0, 72, 144, 216, 288];
 
             teamMembers.forEach((member, index) => {
                 const angleIndex = (index - currentTeamIndex + totalTeamMembers) % totalTeamMembers;
@@ -740,7 +745,7 @@
                 if (index === currentTeamIndex) {
                     member.classList.add('featured');
                     member.style.left = `${centerX}px`;
-                    member.style.top = `${centerY - offsetY - 100}px`; // Fixed top position
+                    member.style.top = `${centerY - featuredOffsetY}px`; // Moved 30px lower on desktop
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -749,8 +754,8 @@
                     };
                 } else {
                     member.classList.remove('featured');
-                    const x = centerX + teamRadius * Math.cos(rad);
-                    const y = centerY + teamRadius * Math.sin(rad);
+                    const x = centerX + radius * Math.cos(rad);
+                    const y = centerY + radius * Math.sin(rad);
                     member.style.left = `${x}px`;
                     member.style.top = `${y}px`;
                     member.style.transform = 'translate(-50%, -50%)';
@@ -835,6 +840,8 @@
             updateHofCarousel();
             window.dispatchEvent(new Event('scroll'));
         });
+
+        window.addEventListener('resize', updateTeamCylinder);
     </script>
 </body>
 </html>
