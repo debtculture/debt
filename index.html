@@ -41,11 +41,14 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
+        #hero {min-height: auto; padding: 20px; margin: 10px 0;}
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
+        .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3s steps(40, end);}
+        @keyframes typing {from { width: 0; } to { width: 100%; }}
         
         /* Roadmap Specific Styles */
         #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -45px;}
@@ -59,12 +62,8 @@
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: 40px auto;}
-        .section-connector.welcome-to-team {margin: 20px auto;} /* New connector */
-        @keyframes wind {
-            0% {transform: translateY(20px) scaleY(1);}
-            50% {transform: translateY(0) scaleY(1.1) skewX(5deg);}
-            100% {transform: translateY(0) scaleY(1);}
-        }
+        .section-connector.welcome-to-team {margin: 20px auto;}
+        @keyframes wind {0% {transform: translateY(20px) scaleY(1);} 50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 100% {transform: translateY(0) scaleY(1);}}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
@@ -113,7 +112,7 @@
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Team Section Styles */
-        #team {margin-top: -250px;} /* Moved up 250px */
+        #team {margin-top: -250px;}
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -160,7 +159,7 @@
         @keyframes glowShift {0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); }}
 
         /* Contract Address Styles */
-        .contract-address {max-width: 800px; margin: 120px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
+        .contract-address {max-width: 800px; margin: 10px auto 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
         .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
         .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
@@ -171,140 +170,24 @@
         @keyframes pulseGlow {0% {box-shadow: 0 0 5px #ff5555;} 50% {box-shadow: 0 0 15px #ff5555;} 100% {box-shadow: 0 0 5px #ff5555;}}
 
         /* Team Cylinder Styles */
-        .team-cylinder {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-            height: 500px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-        }
-
-        .cylinder-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-        }
-
-        .team-member {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            transition: all 0.8s ease;
-        }
-
-        .bubble {
-            width: 100%;
-            height: 100%;
-            background-color: #1e1e1e;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            overflow: hidden;
-            border: 2px solid #555;
-            cursor: pointer;
-        }
-
-        .team-member:not(.featured) .bubble {
-            background: none;
-            border: none;
-            box-shadow: none;
-        }
-
-        .team-member.featured .bubble {
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(45deg, #ff5555, #ff7777);
-            border: 4px solid #fff;
-            box-shadow: 0 0 20px rgba(255, 85, 85, 0.8);
-            padding-top: 10px;
-        }
-
-        .inner-bubble {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.8s ease;
-        }
-
-        .team-member.featured .inner-bubble {
-            width: 160px;
-            height: 160px;
-        }
-
-        .inner-bubble img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .member-name {
-            font-size: 1.2rem;
-            color: #fff;
-            margin: 5px 0;
-            font-weight: bold;
-            word-wrap: break-word;
-            max-width: 90%;
-        }
-
-        .team-member:not(.featured) .member-name {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-            text-shadow: 0 0 3px #ff5555;
-        }
-
-        .team-member.featured .member-name {
-            text-shadow: 0 0 5px #ff5555;
-        }
-
-        .member-role {
-            font-size: 0.9rem;
-            color: #fff;
-            margin-bottom: 5px;
-            display: none;
-            word-wrap: break-word;
-            max-width: 90%;
-        }
-
-        .team-member.featured .member-role {
-            display: block;
-        }
-
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: #ff5555;
-            cursor: pointer;
-            user-select: none;
-            z-index: 10;
-            transition: color 0.3s ease;
-        }
-
-        .arrow:hover {
-            color: #ff7777;
-        }
-
-        .left-arrow {
-            left: 20px;
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        .right-arrow {
-            right: 20px;
-        }
+        .team-cylinder {position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: flex-start; justify-content: center;}
+        .cylinder-container {position: relative; width: 400px; height: 400px;}
+        .team-member {position: absolute; width: 120px; height: 120px; transition: all 0.8s ease;}
+        .bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
+        .team-member:not(.featured) .bubble {background: none; border: none; box-shadow: none;}
+        .team-member.featured .bubble {width: 250px; height: 250px; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px;}
+        .inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease;}
+        .team-member.featured .inner-bubble {width: 160px; height: 160px;}
+        .inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
+        .member-name {font-size: 1.2rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%;}
+        .team-member:not(.featured) .member-name {position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.9rem; text-shadow: 0 0 3px #ff5555;}
+        .team-member.featured .member-name {text-shadow: 0 0 5px #ff5555;}
+        .member-role {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none; word-wrap: break-word; max-width: 90%;}
+        .team-member.featured .member-role {display: block;}
+        .arrow {position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease;}
+        .arrow:hover {color: #ff7777;}
+        .left-arrow {left: 20px; transform: translateY(-50%) rotate(180deg);}
+        .right-arrow {right: 20px;}
         
         @media (max-width: 768px) {
             .navbar {display: none;}
@@ -314,6 +197,7 @@
             .banner-container {display: none;}
             .section {padding: 20px; padding-top: 60px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
+            #hero {min-height: auto; padding: 10px; margin: 5px 0;}
             #overview {margin-top: -30px;}
             h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
@@ -340,7 +224,7 @@
             .burn-tracker {font-size: 1.5rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%; overflow-x: hidden;}
-            .contract-address {margin: 120px auto 0; padding: 15px;}
+            .contract-address {margin: 5px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
             .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
@@ -350,10 +234,10 @@
             #roadmap h1 {margin-top: -15px;}
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
-            #team {margin-top: -125px;} /* Half of desktop for mobile */
+            #team {margin-top: -125px;}
             .section-connector.overview-to-roadmap {margin: 30px auto;}
             .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .section-connector.welcome-to-team {margin: 10px auto;} /* Adjusted for mobile */
+            .section-connector.welcome-to-team {margin: 10px auto;}
             .team-cylinder {height: 400px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 100px; height: 100px;}
@@ -416,6 +300,13 @@
             <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Banner" class="banner-image">
         </div>
 
+        <!-- Hero Section -->
+        <section id="hero" class="section">
+            <h1>$DEBT: Don’t Ever Believe Them</h1>
+            <p class="typewriter">A token for the 99% to break the chains of debt and lies. The elite control everything—until now.</p>
+            <button onclick="scrollToSection('#how-to-buy')" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Join the Fight</button>
+        </section>
+
         <!-- Contract Address Section -->
         <div class="contract-address">
             <h3>Contract Address</h3>
@@ -426,13 +317,11 @@
         <section id="overview" class="section">
             <h1>Overview</h1>
             <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
-            <!-- U.S. Debt Clock Widget -->
             <div class="debt-clock-container">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no"></iframe>
             </div>
             <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
             
-            <!-- Tokenomics Section with Burn Tracker -->
             <div class="tokenomics">
                 <h2>Tokenomics</h2>
                 <p>No taxes, no nonsense—just pure $DEBT. Launched on Pump.fun, LP tokens burnt, contract renounced—locked and deflationary.</p>
@@ -448,7 +337,6 @@
                 <p>Our debt shrinks weekly—over 45 million $DEBT burned and counting.</p>
             </div>
             
-            <!-- X Space Schedule -->
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
                 <p>Join us for rants, reveals, and recruitment:</p>
@@ -484,7 +372,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Connector between X Space Schedule and Roadmap -->
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
@@ -560,7 +447,6 @@
             </div>
         </section>
 
-        <!-- Connector between Roadmap and How to Buy -->
         <div class="section-connector roadmap-to-buy"></div>
 
         <section id="how-to-buy" class="section">
@@ -592,7 +478,6 @@
                 </div>
             </div>
             <div class="buy-blurb">Welcome to the financial rebellion.</div>
-            <!-- New Connector between Welcome and Team -->
             <div class="section-connector welcome-to-team"></div>
         </section>
 
@@ -663,10 +548,8 @@
             <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun" /></a>
         </div>
 
-        <!-- Join Rebellion Button -->
         <a href="https://t.me/debtculture" target="_blank" class="join-rebellion">Join the Rebellion</a>
 
-        <!-- Disclaimer Section -->
         <div class="disclaimer">
             <h3>Disclaimer</h3>
             <ol>
@@ -693,6 +576,10 @@
         function toggleDropdown() {
             var dropdown = document.getElementById("mobileDropdown");
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        function scrollToSection(selector) {
+            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
         }
 
         window.addEventListener('scroll', () => {
@@ -759,15 +646,14 @@
             document.getElementById('supply-change').textContent = `${changePercent}%`;
         }
 
-        // Team Cylinder Rotation
-        let currentIndex = 3; // Start on Autopsy (index 3)
+        let currentIndex = 3;
         const teamMembers = document.querySelectorAll('.team-member');
         const totalMembers = teamMembers.length;
-        const radius = 150; // Adjusted for star layout
+        const radius = 150;
 
         function updateCylinder() {
-            const angles = [0, 72, 144, 216, 288]; // 5-point star positions
-            const centerY = 200; // Center point for star (adjusted for featured bubble height)
+            const angles = [0, 72, 144, 216, 288];
+            const centerY = 200;
 
             teamMembers.forEach((member, index) => {
                 const angleIndex = (index - currentIndex + totalMembers) % totalMembers;
@@ -777,10 +663,9 @@
                 const y = radius * Math.sin(rad);
 
                 if (index === currentIndex) {
-                    // Featured member: top center (0°)
                     member.classList.add('featured');
                     member.style.left = '50%';
-                    member.style.top = '0'; // Top of container
+                    member.style.top = '0';
                     member.style.transform = 'translateX(-50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -788,10 +673,9 @@
                         if (xLink) window.open(xLink, '_blank');
                     };
                 } else {
-                    // Non-featured members: star points (72°, 144°, 216°, 288°)
                     member.classList.remove('featured');
                     member.style.left = `calc(50% + ${x}px)`;
-                    member.style.top = `calc(${centerY}px + ${y}px)`; // Centered below featured
+                    member.style.top = `calc(${centerY}px + ${y}px)`;
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
