@@ -41,13 +41,17 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #hero {min-height: auto; padding: 20px; margin: 20px 0 10px;} /* Adjusted margin-top from 10px to 20px */
+        #hero {min-height: auto; padding: 20px; margin: 25px 0 10px;} /* Moved down another 5px */
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
         p {font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px;}
         .footer {position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px 0; z-index: 1000;}
-        .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3s steps(40, end);}
+        .typewriter {overflow: hidden; white-space: nowrap; animation: typing 3s steps(40, end); max-width: 100%;}
+
+        @media (max-width: 768px) {
+            .typewriter {white-space: normal; animation: none; font-size: 1rem; line-height: 1.4;}
+        }
         @keyframes typing {from { width: 0; } to { width: 100%; }}
         
         /* Roadmap Specific Styles */
@@ -135,21 +139,20 @@
         
         /* Hall of Fame Carousel Styles */
         #hall-of-fame {margin-top: 40px; padding-bottom: 60px;}
-        .hof-carousel {position: relative; max-width: 800px; margin: 0 auto; height: 300px; overflow: hidden;}
-        .hof-container {position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
-        .hof-member {position: absolute; width: 100px; height: 100px; transition: all 0.8s ease;}
+        .hof-carousel {position: relative; max-width: 600px; margin: 0 auto; height: 300px; display: flex; align-items: center; justify-content: center;}
+        .hof-container {position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center;}
+        .hof-featured {position: relative; width: 200px; height: 200px; z-index: 10; margin-bottom: 20px;}
+        .hof-featured .hof-bubble {width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;}
+        .hof-featured .hof-inner-bubble {width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
+        .hof-row {display: flex; justify-content: center; gap: 20px;}
+        .hof-member {width: 100px; height: 100px; transition: all 0.8s ease;}
         .hof-bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
-        .hof-member:not(.featured) .hof-bubble {background: none; border: none; box-shadow: none;}
-        .hof-member.featured {width: 200px; height: 200px; z-index: 10;}
-        .hof-member.featured .hof-bubble {width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px;}
-        .hof-inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease;}
-        .hof-member.featured .hof-inner-bubble {width: 130px; height: 130px;}
+        .hof-inner-bubble {width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;}
         .hof-inner-bubble img {width: 100%; height: 100%; object-fit: cover;}
-        .hof-name {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%;}
-        .hof-member:not(.featured) .hof-name {position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; text-shadow: 0 0 3px #ff5555;}
-        .hof-member.featured .hof-name {text-shadow: 0 0 5px #ff5555;}
-        .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none; word-wrap: break-word; max-width: 90%;}
-        .hof-member.featured .hof-title {display: block;}
+        .hof-name {font-size: 0.8rem; color: #fff; margin: 5px 0; font-weight: bold; text-shadow: 0 0 3px #ff5555; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%);}
+        .hof-featured .hof-name {position: static; transform: none; font-size: 1rem; text-shadow: 0 0 5px #ff5555;}
+        .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none;}
+        .hof-featured .hof-title {display: block;}
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -214,7 +217,7 @@
             .banner-container {display: none;}
             .section {padding: 20px; padding-top: 60px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #hero {min-height: auto; padding: 10px; margin: 15px 0 5px;} /* Adjusted margin-top from 5px to 15px */
+            #hero {min-height: auto; padding: 10px; margin: 20px 0 5px;} /* Moved down another 5px */
             #overview {margin-top: -30px;}
             h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
@@ -252,9 +255,6 @@
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
             #team {margin-top: -125px;}
-            .section-connector.overview-to-roadmap {margin: 30px auto;}
-            .section-connector.roadmap-to-buy {margin: 30px auto;}
-            .section-connector.welcome-to-team {margin: 10px auto;}
             .team-cylinder {height: 350px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 80px; height: 80px;}
@@ -269,22 +269,20 @@
             .arrow {font-size: 1.5rem;}
             .left-arrow {left: 10px;}
             .right-arrow {right: 10px;}
-            .hof-carousel {height: 250px;}
-            .hof-container {width: 100%;}
+            .hof-carousel {height: 250px; max-width: 400px;}
+            .hof-featured {width: 160px; height: 160px;}
+            .hof-featured .hof-bubble {width: 100%; height: 100%;}
+            .hof-featured .hof-inner-bubble {width: 100px; height: 100px;}
             .hof-member {width: 80px; height: 80px;}
-            .hof-member.featured {width: 160px; height: 160px;}
-            .hof-member.featured .hof-bubble {width: 100%; height: 100%;}
-            .hof-member.featured .hof-inner-bubble {width: 100px; height: 100px;}
-            .hof-name {font-size: 0.8rem;}
-            .hof-member:not(.featured) .hof-name {font-size: 0.7rem;}
-            .hof-member.featured .hof-name {font-size: 0.9rem;}
+            .hof-name {font-size: 0.7rem;}
+            .hof-featured .hof-name {font-size: 0.9rem;}
             .hof-title {font-size: 0.7rem;}
-            .hof-member.featured .hof-title {font-size: 0.8rem;}
+            .hof-featured .hof-title {font-size: 0.8rem;}
+            .hof-row {gap: 10px;}
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
             .cylinder-container {width: 400px; height: 400px;}
-            .hof-container {width: 800px;}
         }
     </style>
 </head>
@@ -570,7 +568,7 @@
             <h1>Hall of Fame</h1>
             <div class="hof-carousel">
                 <div class="hof-container">
-                    <div class="hof-member" data-index="0" data-x-link="https://x.com/example1">
+                    <div class="hof-featured" id="hof-featured">
                         <div class="hof-bubble">
                             <div class="hof-inner-bubble">
                                 <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1">
@@ -579,22 +577,38 @@
                             <div class="hof-title">Top Holder</div>
                         </div>
                     </div>
-                    <div class="hof-member" data-index="1" data-x-link="https://x.com/example2">
-                        <div class="hof-bubble">
-                            <div class="hof-inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Rebel2">
+                    <div class="hof-row">
+                        <div class="hof-member" data-index="0" data-x-link="https://x.com/example1">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Rebel1">
+                                </div>
+                                <div class="hof-name">Rebel1</div>
                             </div>
-                            <div class="hof-name">Rebel2</div>
-                            <div class="hof-title">Meme Lord</div>
                         </div>
-                    </div>
-                    <div class="hof-member" data-index="2" data-x-link="https://x.com/example3">
-                        <div class="hof-bubble">
-                            <div class="hof-inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Rebel3">
+                        <div class="hof-member" data-index="1" data-x-link="https://x.com/example2">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Rebel2">
+                                </div>
+                                <div class="hof-name">Rebel2</div>
                             </div>
-                            <div class="hof-name">Rebel3</div>
-                            <div class="hof-title">Community Star</div>
+                        </div>
+                        <div class="hof-member" data-index="2" data-x-link="https://x.com/example3">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Rebel3">
+                                </div>
+                                <div class="hof-name">Rebel3</div>
+                            </div>
+                        </div>
+                        <div class="hof-member" data-index="3" data-x-link="https://x.com/example4">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Rebel4">
+                                </div>
+                                <div class="hof-name">Rebel4</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -706,26 +720,27 @@
             document.getElementById('supply-change').textContent = `${changePercent}%`;
         }
 
-        // Team Cylinder Rotation
+        // Team Cylinder Rotation (5-point star)
         let currentTeamIndex = 3;
         const teamMembers = document.querySelectorAll('.team-member');
         const totalTeamMembers = teamMembers.length;
         const teamRadius = 150;
 
         function updateTeamCylinder() {
-            const centerX = 200;
-            const centerY = 225;
+            const centerX = 200; // Half of cylinder-container width (400px)
+            const centerY = 225; // Half of cylinder-container height (400px) + adjustment
             const offsetY = 100; // Space for featured bubble above
+            const starAngles = [0, 72, 144, 216, 288]; // 5-point star angles
 
             teamMembers.forEach((member, index) => {
                 const angleIndex = (index - currentTeamIndex + totalTeamMembers) % totalTeamMembers;
-                const angle = (angleIndex / totalTeamMembers) * 360;
+                const angle = starAngles[angleIndex];
                 const rad = angle * Math.PI / 180;
 
                 if (index === currentTeamIndex) {
                     member.classList.add('featured');
                     member.style.left = `${centerX}px`;
-                    member.style.top = `${centerY - offsetY - 100}px`; // Center above others
+                    member.style.top = `${centerY - offsetY - 100}px`; // Fixed top position
                     member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
@@ -771,41 +786,33 @@
             teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
         }
 
-        // Hall of Fame Carousel
+        // Hall of Fame Carousel (Row Layout)
         let currentHofIndex = 0;
         const hofMembers = document.querySelectorAll('.hof-member');
         const totalHofMembers = hofMembers.length;
 
         function updateHofCarousel() {
-            const centerY = 150;
-            const spacing = 150;
+            const featured = document.getElementById('hof-featured');
+            const currentMember = hofMembers[currentHofIndex];
+            const img = currentMember.querySelector('img').src;
+            const name = currentMember.querySelector('.hof-name').textContent;
+            const xLink = currentMember.getAttribute('data-x-link');
+            const title = currentMember.getAttribute('data-title') || 'Rebel';
+
+            featured.querySelector('img').src = img;
+            featured.querySelector('.hof-name').textContent = name;
+            featured.querySelector('.hof-title').textContent = title;
+            featured.querySelector('.hof-bubble').onclick = () => {
+                if (xLink) window.open(xLink, '_blank');
+            };
 
             hofMembers.forEach((member, index) => {
-                const offsetIndex = (index - currentHofIndex + totalHofMembers) % totalHofMembers;
-                const x = (offsetIndex - Math.floor(totalHofMembers / 2)) * spacing;
-
-                if (index === currentHofIndex) {
-                    member.classList.add('featured');
-                    member.style.left = '50%';
-                    member.style.top = `${centerY}px`;
-                    member.style.transform = 'translate(-50%, -50%)';
-                    const bubble = member.querySelector('.hof-bubble');
-                    bubble.onclick = () => {
-                        const xLink = member.getAttribute('data-x-link');
-                        if (xLink) window.open(xLink, '_blank');
-                    };
-                } else {
-                    member.classList.remove('featured');
-                    member.style.left = `calc(50% + ${x}px)`;
-                    member.style.top = `${centerY}px`;
-                    member.style.transform = 'translate(-50%, -50%)';
-                    const bubble = member.querySelector('.hof-bubble');
-                    bubble.onclick = () => {
-                        currentHofIndex = parseInt(member.getAttribute('data-index'));
-                        updateHofCarousel();
-                        resetHofAutoRotate();
-                    };
-                }
+                const bubble = member.querySelector('.hof-bubble');
+                bubble.onclick = () => {
+                    currentHofIndex = parseInt(member.getAttribute('data-index'));
+                    updateHofCarousel();
+                    resetHofAutoRotate();
+                };
             });
         }
 
