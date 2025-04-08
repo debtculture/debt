@@ -684,7 +684,7 @@
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
-                                            <script>
+                                                <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -809,9 +809,7 @@
                     const y = centerY + radius * Math.sin(rad);
                     member.style.left = `${x}px`;
                     member.style.top = `${y}px`;
-                    member.style.transform = 'translate
-
-(-50%, -50%)';
+                    member.style.transform = 'translate(-50%, -50%)'; // Fixed the truncated line
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         currentTeamIndex = parseInt(member.getAttribute('data-index'));
