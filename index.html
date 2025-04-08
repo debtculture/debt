@@ -41,7 +41,7 @@
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
         .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
-        #hero {min-height: auto; padding: 20px; margin: 35px 0 10px; opacity: 1; transform: none; transition: none;} /* Desktop moved down 10px */
+        #hero {min-height: auto; padding: 20px; margin: 45px 0 10px; opacity: 1; transform: none; transition: none;} /* Desktop moved down 10px */
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
         .from-right {transform: translateX(100%);}
         h1 {font-size: 3rem; margin: 20px 0;}
@@ -54,7 +54,7 @@
         @keyframes typing {from { width: 0; } to { width: 100%; }}
         
         /* Roadmap Specific Styles */
-        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -65px;} /* Desktop moved up 20px */
+        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -75px;} /* Desktop moved up 10px */
         .roadmap-container {max-width: 800px; margin: 0 auto; overflow: visible; height: auto;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
@@ -64,10 +64,10 @@
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
-        .section-connector.roadmap-to-buy {margin: 20px auto;} /* Desktop moved up 20px */
-        .section-connector.welcome-to-team {margin: 35px auto;} /* Desktop moved down 15px */
-        .section-connector.team-to-hof {margin: 30px auto;} /* Desktop moved down 10px */
-        .section-connector.hof-to-disclaimer {margin: 30px auto;} /* Desktop moved down 10px */
+        .section-connector.roadmap-to-buy {margin: 8px auto;} /* Desktop moved up 12px */
+        .section-connector.welcome-to-team {margin: 41px auto;} /* Desktop moved down 6px */
+        .section-connector.team-to-hof {margin: 36px auto;} /* Desktop moved down 6px */
+        .section-connector.hof-to-disclaimer {margin: 33px auto;} /* Desktop moved down 3px */
         @keyframes wind {0% {transform: translateY(20px) scaleY(1);} 50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 100% {transform: translateY(0) scaleY(1);}}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
@@ -93,7 +93,7 @@
         .burn-tracker a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* How to Buy Specific Styles */
-        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -40px;} /* Desktop moved up 40px */
+        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -40px;}
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
@@ -160,7 +160,7 @@
         .hof-featured .hof-name {position: static; transform: none; font-size: 1rem; text-shadow: 0 0 5px #ff5555;}
         .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none;}
         .hof-featured .hof-title {display: block;}
-        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 90px auto 20px; color: #eee;}
+        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 95px auto 20px; color: #eee;} /* Desktop moved down 5px */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -225,7 +225,7 @@
             .banner-container {display: none;}
             .section {padding: 20px; padding-top: 60px;}
             .copyable-address::after {font-size: 0.7rem; top: -20px;}
-            #hero {min-height: auto; padding: 10px; margin: 25px 0 5px;} /* Mobile moved down 5px */
+            #hero {min-height: auto; padding: 10px; margin: 35px 0 5px;} /* Mobile moved down 10px */
             #overview {margin-top: -30px;}
             h1 {font-size: 2.5rem;}
             .phase, .future-teaser, .buy-container {margin: 20px 0; padding: 15px;}
@@ -238,13 +238,13 @@
             .host-bubble .twitter-link {width: 30px; height: 30px;}
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
             .host-bubble img.twitter-icon {width: 20px; height: 20px;}
-            #hall-of-fame {margin-top: -70px; text-align: center;} /* Mobile moved up 20px */
+            #hall-of-fame {margin-top: -100px; text-align: center;} /* Mobile moved up 30px */
             .you-are-here {left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .you-are-here::after {content: "↓"; font-size: 1.2rem; margin-left: 5px;}
             .phase .completed {right: 10px; top: -37px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .phase-1 .completed {right: 10px; top: -37px;}
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
-            .disclaimer {margin: -5px auto; padding: 15px;} /* Mobile moved up 10px */
+            .disclaimer {margin: -10px auto; padding: 15px;} /* Mobile moved up 5px */
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
             .debt-clock-container {width: 270px; height: 70px;}
@@ -252,7 +252,7 @@
             .burn-tracker {font-size: 1.5rem;}
             .phase-1 li::before {color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212;}
             .buy-container {max-width: 90%; overflow-x: hidden;}
-            .contract-address {margin: 5px auto 0; padding: 15px;}
+            .contract-address {margin: 10px auto 0; padding: 15px;} /* Mobile moved down 5px */
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
             .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
@@ -262,8 +262,8 @@
             #roadmap h1 {margin-top: -15px;}
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
-            #how-to-buy {margin-top: -20px;} /* Mobile moved up 20px */
-            #team {margin-top: -125px;}
+            #how-to-buy {margin-top: -30px;} /* Mobile moved up 10px */
+            #team {margin-top: -135px;} /* Mobile moved up 10px */
             .team-cylinder {height: 350px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 80px; height: 80px;}
@@ -288,11 +288,12 @@
             .hof-title {font-size: 0.7rem;}
             .hof-featured .hof-title {font-size: 0.8rem;}
             .hof-row, .hof-tbd-row {gap: 10px;}
-            .hof-blurb {margin: 74px auto 20px;} /* Mobile moved down 5px */
+            .hof-blurb {margin: 74px auto 20px;}
             .hof-tbd-inner-bubble {font-size: 3rem;}
-            .section-connector.roadmap-to-buy {margin: 30px auto;} /* Mobile moved up 10px */
-            .section-connector.welcome-to-team {margin: 45px auto;} /* Mobile moved down 30px */
-            .section-connector.team-to-hof {margin: 30px auto;} /* Mobile moved down 15px */
+            .section-connector.overview-to-roadmap {margin: 35px auto;} /* Mobile moved up 5px */
+            .section-connector.roadmap-to-buy {margin: 25px auto;} /* Mobile moved up 5px */
+            .section-connector.welcome-to-team {margin: 45px auto;}
+            .section-connector.team-to-hof {margin: 30px auto;}
             .section-connector.hof-to-disclaimer {margin: 30px auto;}
         }
         @media (min-width: 769px) {
@@ -683,7 +684,7 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 
-                            <script>
+                                <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
