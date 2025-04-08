@@ -6,12 +6,12 @@
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
     <style>
-        /* Reinforce no horizontal scroll */
-        html {overflow-x: hidden;}
-        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden; overflow-y: auto;}
+        /* Reinforce no horizontal scroll and remove inner vertical scroll */
+        html, body {overflow-x: hidden; height: 100%; margin: 0; padding: 0;}
+        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden; overflow-y: visible;}
         .content-wrapper.unblurred {filter: none;}
         
-        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
+        body {font-family: Arial, sans-serif; background-color: #121212; color: #fff; text-align: center;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -56,7 +56,7 @@
         
         /* Roadmap Specific Styles */
         #roadmap {display: block; padding: 40px 20px; overflow-x: hidden !important; min-height: 0; height: auto; margin-top: -65px;}
-        .roadmap-container {max-width: 800px; margin: 0 auto; overflow-x: hidden !important; height: auto;}
+        .roadmap-container {max-width: 800px; margin: 0 auto; height: auto;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
@@ -67,16 +67,16 @@
         .section-connector.overview-to-roadmap {margin: 40px auto;}
         .section-connector.roadmap-to-buy {margin: -17px auto;}
         .section-connector.welcome-to-team {margin: 43px auto;}
-        .section-connector.team-to-hof {margin: 37px auto;}
-        .section-connector.hof-to-disclaimer {margin: 33px auto;}
+        .section-connector.team-to-hof {margin: 42px auto;}
+        .section-connector.hof-to-disclaimer {margin: 36px auto;}
         @keyframes wind {0% {transform: translateY(20px) scaleY(1);} 50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 100% {transform: translateY(0) scaleY(1);}}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
-        .you-are-here {position: absolute; left: -160px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center; z-index: 3;}
+        .you-are-here {position: absolute; left: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center; z-index: 3;}
         .you-are-here::after {content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc; animation: pulse 1.5s infinite;}
-        .completed {position: absolute; right: -160px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center; z-index: 3;}
-        .phase-1 .completed {right: -140px;}
+        .completed {position: absolute; right: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center; z-index: 3;}
+        .phase-1 .completed {right: -160px;}
         .completed::before {content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;}
         @keyframes pulse {0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);}}
         .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
@@ -94,7 +94,7 @@
         .burn-tracker a:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* How to Buy Specific Styles */
-        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -30px;}
+        #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -15px;}
         .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden !important;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
@@ -118,7 +118,7 @@
         #phantomLink:hover {color: #ff7777; text-shadow: 0 0 5px #ff5555;}
         
         /* Team Section Styles */
-        #team {margin-top: -810px;}
+        #team {margin-top: -825px;}
         .team-cylinder {position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center;}
         .cylinder-container {position: relative; width: 400px; height: 400px;}
         .team-member {position: absolute; width: 100px; height: 100px; transition: all 0.8s ease;}
@@ -239,13 +239,13 @@
             .host-bubble .twitter-link {width: 30px; height: 30px;}
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
             .host-bubble img.twitter-icon {width: 20px; height: 20px;}
-            #hall-of-fame {margin-top: -120px; text-align: center;}
+            #hall-of-fame {margin-top: -130px; text-align: center;}
             .you-are-here {left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3;}
             .you-are-here::after {content: "↓"; font-size: 1.2rem; margin-left: 5px;}
             .phase .completed {right: 10px; top: -40px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3;}
             .phase-1 .completed {right: 10px; top: -40px;}
             .tokenomics, .x-space-schedule {max-width: 100%; padding: 15px;}
-            .disclaimer {margin: -15px auto; padding: 15px;}
+            .disclaimer {margin: -18px auto; padding: 15px;}
             .disclaimer h3 {font-size: 1.2rem;}
             .disclaimer li {font-size: 0.9rem;}
             .debt-clock-container {width: 270px; height: 70px;}
@@ -256,15 +256,15 @@
             .contract-address {margin: 10px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
-            .join-rebellion {bottom: 120px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
+            .join-rebellion {bottom: 130px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
             .modal-content button {background-color: #ff5555; color: #fff;}
             .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
-            #roadmap {overflow: visible; min-height: auto;}
+            #roadmap {overflow: visible; min-height: auto; margin-top: -55px;}
             #roadmap h1 {margin-top: -15px;}
             .roadmap-container {max-height: none; overflow: visible;}
             .phase, .future-teaser {position: static; margin: 20px 0;}
             #how-to-buy {margin-top: -30px;}
-            #team {margin-top: -140px;}
+            #team {margin-top: -150px;}
             .team-cylinder {height: 350px;}
             .cylinder-container {width: 300px; height: 300px;}
             .team-member {width: 80px; height: 80px;}
@@ -292,7 +292,7 @@
             .hof-blurb {margin: 74px auto 20px;}
             .hof-tbd-inner-bubble {font-size: 3rem;}
             .section-connector.overview-to-roadmap {margin: 20px auto;}
-            .section-connector.roadmap-to-buy {margin: 13px auto;}
+            .section-connector.roadmap-to-buy {margin: 8px auto;}
             .section-connector.welcome-to-team {margin: 51px auto;}
             .section-connector.team-to-hof {margin: 43px auto;}
             .section-connector.hof-to-disclaimer {margin: 34px auto;}
@@ -684,7 +684,7 @@
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
-                                                <script>
+                                                    <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -809,7 +809,7 @@
                     const y = centerY + radius * Math.sin(rad);
                     member.style.left = `${x}px`;
                     member.style.top = `${y}px`;
-                    member.style.transform = 'translate(-50%, -50%)'; // Fixed the truncated line
+                    member.style.transform = 'translate(-50%, -50%)';
                     const bubble = member.querySelector('.bubble');
                     bubble.onclick = () => {
                         currentTeamIndex = parseInt(member.getAttribute('data-index'));
