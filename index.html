@@ -6,8 +6,9 @@
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
     <style>
-        /* Main content container for blurring */
-        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden;}
+        /* Reinforce no horizontal scroll */
+        html {overflow-x: hidden;}
+        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden !important;}
         .content-wrapper.unblurred {filter: none;}
         
         body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
@@ -34,12 +35,12 @@
         .mobile-logo {display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000;}
         .fixed-bar {position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 2000;}
         .fixed-bar a {margin: 0 5px;}
-        .icon {width: 60px; height: 60px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;} /* Resized to 0.75x (80px -> 60px) */
+        .icon {width: 60px; height: 60px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden;}
         .icon img {width: 100%; height: 100%; object-fit: contain;}
         #mobileMenu, #mobileDropdown {display: none;}
         .banner-container {background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: hidden;}
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
-        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden; padding-top: 70px;}
+        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden !important; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
         #hero {min-height: auto; padding: 20px; margin: 45px 0 10px; opacity: 1; transform: none; transition: none;}
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
@@ -54,8 +55,8 @@
         @keyframes typing {from { width: 0; } to { width: 100%; }}
         
         /* Roadmap Specific Styles */
-        #roadmap {display: block; padding: 40px 20px; overflow: visible; min-height: 0; height: auto; margin-top: -75px;}
-        .roadmap-container {max-width: 800px; margin: 0 auto; overflow-x: hidden; height: auto;} /* Reinforced overflow-x: hidden */
+        #roadmap {display: block; padding: 40px 20px; overflow-x: hidden !important; min-height: 0; height: auto; margin-top: -75px;}
+        .roadmap-container {max-width: 800px; margin: 0 auto; overflow-x: hidden !important; height: auto;}
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
@@ -64,17 +65,17 @@
         .section-connector {display: block; width: 6px; height: 60px; background: linear-gradient(to bottom, #ff5555, #555); margin: 20px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out;}
         .section-connector.visible {opacity: 1; transform: translateY(0);}
         .section-connector.overview-to-roadmap {margin: 40px auto;}
-        .section-connector.roadmap-to-buy {margin: -2px auto;} /* Desktop moved up 10px */
-        .section-connector.welcome-to-team {margin: 43px auto;} /* Desktop moved down 2px */
-        .section-connector.team-to-hof {margin: 37px auto;} /* Desktop moved down 1px */
+        .section-connector.roadmap-to-buy {margin: -17px auto;} /* Desktop moved up 15px */
+        .section-connector.welcome-to-team {margin: 43px auto;}
+        .section-connector.team-to-hof {margin: 37px auto;}
         .section-connector.hof-to-disclaimer {margin: 33px auto;}
         @keyframes wind {0% {transform: translateY(20px) scaleY(1);} 50% {transform: translateY(0) scaleY(1.1) skewX(5deg);} 100% {transform: translateY(0) scaleY(1);}}
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
-        .you-are-here {position: absolute; left: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;}
+        .you-are-here {position: absolute; left: -160px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center;} /* Adjusted for visibility */
         .you-are-here::after {content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc; animation: pulse 1.5s infinite;}
-        .completed {position: absolute; right: -180px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;}
+        .completed {position: absolute; right: -160px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center;} /* Adjusted for visibility */
         .phase-1 .completed {right: -140px;}
         .completed::before {content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;}
         @keyframes pulse {0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);}}
@@ -94,7 +95,7 @@
         
         /* How to Buy Specific Styles */
         #how-to-buy {display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -40px;}
-        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden;} /* Reinforced overflow-x: hidden */
+        .buy-container {max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden !important;}
         .buy-step {display: flex; align-items: flex-start; margin: 15px 0; opacity: 0;}
         .buy-step.visible {animation: slideFade 0.6s ease-out forwards;}
         .buy-step:nth-child(1) {animation-delay: 0s;}
@@ -160,7 +161,7 @@
         .hof-featured .hof-name {position: static; transform: none; font-size: 1rem; text-shadow: 0 0 5px #ff5555;}
         .hof-title {font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none;}
         .hof-featured .hof-title {display: block;}
-        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 95px auto 20px; color: #eee;}
+        .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 100px auto 20px; color: #eee;} /* Desktop moved down 5px */
         
         /* Construction Modal Styles */
         .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
@@ -192,10 +193,10 @@
         .host-bubbles {display: flex; justify-content: center; gap: 20px;}
         .host-bubble {text-align: center;}
         .host-bubble img.profile-pic {width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555;}
-        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555;}
+        .host-bubble .host-title {font-size: 1rem; color: #fff; margin: 6px 0; font-weight: bold; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555;} /* Moved down 1px */
         .host-bubble .twitter-link {position: relative; display: inline-block; width: 30px; height: 30px;}
         .host-bubble .twitter-link::before {content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1;}
-        .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;}
+        .host-bubble img.twitter-icon {width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2;} /* Moved down 2px */
         
         /* Disclaimer Styles */
         .disclaimer {max-width: 800px; margin: -460px auto 40px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out;}
@@ -238,7 +239,7 @@
             .host-bubble .twitter-link {width: 30px; height: 30px;}
             .host-bubble .twitter-link::before {width: 30px; height: 30px;}
             .host-bubble img.twitter-icon {width: 20px; height: 20px;}
-            #hall-of-fame {margin-top: -110px; text-align: center;} /* Mobile moved up 10px */
+            #hall-of-fame {margin-top: -110px; text-align: center;}
             .you-are-here {left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
             .you-are-here::after {content: "↓"; font-size: 1.2rem; margin-left: 5px;}
             .phase .completed {right: 10px; top: -37px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 2;}
@@ -255,7 +256,7 @@
             .contract-address {margin: 10px auto 0; padding: 15px;}
             .contract-address h3 {font-size: 1.5rem;}
             .contract-address .copyable-address {font-size: 1rem;}
-            .join-rebellion {bottom: 128px; right: 10px; font-size: 0.9rem; padding: 8px 15px;}
+            .join-rebellion {bottom: 120px; right: 10px; font-size: 0.9rem; padding: 8px 15px;} /* Mobile moved down 8px */
             .modal-content button {background-color: #ff5555; color: #fff;}
             .buy-step:nth-child(3) .copyable-address {font-size: 0.9rem; word-wrap: break-word; max-width: 100%;}
             #roadmap {overflow: visible; min-height: auto;}
@@ -290,11 +291,11 @@
             .hof-row, .hof-tbd-row {gap: 10px;}
             .hof-blurb {margin: 74px auto 20px;}
             .hof-tbd-inner-bubble {font-size: 3rem;}
-            .section-connector.overview-to-roadmap {margin: 30px auto;} /* Mobile moved up 5px */
-            .section-connector.roadmap-to-buy {margin: 23px auto;} /* Mobile moved up 2px */
-            .section-connector.welcome-to-team {margin: 48px auto;} /* Mobile moved down 3px */
-            .section-connector.team-to-hof {margin: 33px auto;} /* Mobile moved down 3px */
-            .section-connector.hof-to-disclaimer {margin: 32px auto;} /* Mobile moved down 2px */
+            .section-connector.overview-to-roadmap {margin: 20px auto;} /* Mobile moved up 10px */
+            .section-connector.roadmap-to-buy {margin: 18px auto;} /* Mobile moved up 5px */
+            .section-connector.welcome-to-team {margin: 51px auto;} /* Mobile moved down 3px */
+            .section-connector.team-to-hof {margin: 43px auto;} /* Mobile moved down 10px */
+            .section-connector.hof-to-disclaimer {margin: 34px auto;} /* Mobile moved down 2px */
         }
         @media (min-width: 769px) {
             .banner-container {position: relative; top: 60px;}
@@ -435,7 +436,7 @@
                 <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">DexTools</a>
                 <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" onclick="closeMenu()">GeckoTerminal</a>
                 <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">DexScreener</a>
-                <a href="https:// rugsheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">RugCheck</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">RugCheck</a>
                 <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" onclick="closeMenu()">Photon</a>
                 <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" onclick="closeMenu()">Birdeye</a>
                 <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" onclick="closeMenu()">GMGN</a>
@@ -683,7 +684,7 @@
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
-                                    <script>
+                                        <script>
         function toggleMenu() {
             var menu = document.getElementById("mobileMenu");
             menu.style.display = menu.style.display === "block" ? "none" : "block";
