@@ -6,12 +6,19 @@
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
     <style>
-        /* Reinforce no horizontal scroll */
-        html {overflow-x: hidden;}
-        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; overflow-x: hidden; overflow-y: auto;}
+        /* Remove restrictive overflow on desktop */
+        @media (min-width: 769px) {
+            html, body, .content-wrapper, #roadmap {overflow: visible;}
+        }
+        /* Fallback for mobile to prevent unwanted scrolling */
+        @media (max-width: 768px) {
+            html {overflow-x: hidden;}
+            .content-wrapper {overflow-x: hidden; overflow-y: auto;}
+        }
+        .content-wrapper {filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px;}
         .content-wrapper.unblurred {filter: none;}
         
-        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center; overflow-x: hidden;}
+        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #fff; text-align: center;}
         .navbar {position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible;}
         .navbar a {color: white; text-decoration: none; padding: 10px 15px; display: flex; align-items: center;}
         .navbar a:hover {background-color: #555;}
@@ -40,7 +47,7 @@
         #mobileMenu, #mobileDropdown {display: none;}
         .banner-container {background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: hidden;}
         .banner-image {width: 250%; height: auto; display: block; margin-left: 50px;}
-        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; overflow-x: hidden !important; padding-top: 70px;}
+        .section {min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; padding-top: 70px;}
         .section.visible {opacity: 1; transform: translateX(0);}
         #hero {min-height: auto; padding: 20px; margin: 45px 0 10px; opacity: 1; transform: none; transition: none;}
         #overview {transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px;}
@@ -55,12 +62,12 @@
         @keyframes typing {from { width: 0; } to { width: 100%; }}
         
         /* Roadmap Specific Styles */
-        #roadmap {display: block; padding: 40px 20px; overflow-x: hidden !important; min-height: 0; height: auto; margin-top: -65px;}
-        .roadmap-container {max-width: 800px; margin: 0 auto; overflow-x: hidden !important; height: auto;}
+        #roadmap {display: block; padding: 40px 20px; min-height: 0; height: auto; margin-top: -65px;}
+        .roadmap-container {max-width: 800px; margin: 0 auto; height: auto;}
         @media (min-width: 769px) {
             .roadmap-container {overflow: visible;}
         }
-        .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
+        .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .phase ul {margin: 0; padding-left: 40px; text-align: left;}
@@ -167,15 +174,15 @@
         .hof-blurb {font-size: 1.1rem; max-width: 600px; margin: 100px auto 20px; color: #eee;}
         
         /* Construction Modal Styles */
-        .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; overflow-x: hidden;}
-        .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5); overflow-x: hidden;}
+        .construction-modal {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center;}
+        .modal-content {background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
         .modal-content h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 20px;}
         .modal-content p {font-size: 1rem; margin: 0 0 20px;}
         .modal-content button {background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;}
         .modal-content button:hover {background-color: #ff7777;}
         
         /* Overview Section Styles */
-        #overview {padding: 40px 20px; overflow-x: hidden;}
+        #overview {padding: 40px 20px;}
         .tokenomics {margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center;}
         .tokenomics h2 {font-size: 1.5rem; color: #ff5555; margin: 0 0 10px;}
         .tokenomics p {font-size: 1.1rem; margin: 5px 0; color: #eee;}
