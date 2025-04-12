@@ -73,10 +73,10 @@
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
-        .you-are-here {position: absolute; left: -160px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center; z-index: 3;}
+        .you-are-here {position: absolute; left: -140px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center; z-index: 3;}
         .you-are-here::after {content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc; animation: pulse 1.5s infinite;}
-        .completed {position: absolute; right: -160px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center; z-index: 3;}
-        .phase-1 .completed {right: -140px;}
+        .completed {position: absolute; right: -140px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center; z-index: 3;}
+        .phase-1 .completed {right: -120px;}
         .completed::before {content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;}
         @keyframes pulse {0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);}}
         .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
@@ -121,7 +121,7 @@
         #team {margin-top: -810px;}
         .team-cylinder {position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center;}
         .cylinder-container {position: relative; width: 400px; height: 400px;}
-        .team-member {position: absolute; width: 100px; height: 100px; transition: all 0.8s ease;}
+        .team-member {position: absolute; width: 100px; height: 100px; transition: all: 0.8s ease;}
         .bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
         .team-member:not(.featured) .bubble {background: none; border: none; box-shadow: none;}
         .team-member.featured {width: 200px; height: 200px; z-index: 10;}
@@ -212,12 +212,12 @@
         .contract-address::before {content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out;}
         .contract-address h3 {font-size: 2rem; color: #ff5555; margin: 0 0 15px; text-transform: uppercase; letter-spacing: 2px;}
         .contract-address .copyable-address {font-size: 1.5rem; margin: 0; color: #eee; word-break: break-all;}
-
+        
         /* Join Rebellion Button */
         .join-rebellion {position: fixed; bottom: 120px; right: 20px; background-color: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 1rem; z-index: 2100; animation: pulseGlow 2s infinite ease-in-out;}
         .join-rebellion:hover {background-color: #ff7777;}
         @keyframes pulseGlow {0% {box-shadow: 0 0 5px #ff5555;} 50% {box-shadow: 0 0 15px #ff5555;} 100% {box-shadow: 0 0 5px #ff5555;}}
-
+        
         @media (max-width: 768px) {
             .navbar {display: none;}
             .hamburger {display: flex;}
@@ -685,214 +685,214 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
                                                 <script>
-        function toggleMenu() {
-            var menu = document.getElementById("mobileMenu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
+function toggleMenu() {
+    var menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
 
-        function closeMenu() {
-            var menu = document.getElementById("mobileMenu");
-            menu.style.display = "none";
-        }
+function closeMenu() {
+    var menu = document.getElementById("mobileMenu");
+    menu.style.display = "none";
+}
 
-        function toggleDropdown() {
-            var dropdown = document.getElementById("mobileDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }
+function toggleDropdown() {
+    var dropdown = document.getElementById("mobileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
 
-        function scrollToSection(selector) {
-            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
-        }
+function scrollToSection(selector) {
+    document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+}
 
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('.section');
-            const connectors = document.querySelectorAll('.section-connector');
-            const windowHeight = window.innerHeight;
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.section');
+    const connectors = document.querySelectorAll('.section-connector');
+    const windowHeight = window.innerHeight;
 
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const sectionBottom = section.getBoundingClientRect().bottom;
-                if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
-                    section.classList.add('visible');
-                    if (section.id === 'roadmap') {
-                        const phases = section.querySelectorAll('.phase, .future-teaser');
-                        phases.forEach(phase => {
-                            const phaseTop = phase.getBoundingClientRect().top;
-                            if (phaseTop < windowHeight * 0.85) {
-                                phase.classList.add('visible');
-                            }
-                        });
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const sectionBottom = section.getBoundingClientRect().bottom;
+        if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+            section.classList.add('visible');
+            if (section.id === 'roadmap') {
+                const phases = section.querySelectorAll('.phase, .future-teaser');
+                phases.forEach(phase => {
+                    const phaseTop = phase.getBoundingClientRect().top;
+                    if (phaseTop < windowHeight * 0.85) {
+                        phase.classList.add('visible');
                     }
-                    if (section.id === 'how-to-buy') {
-                        const steps = section.querySelectorAll('.buy-step');
-                        steps.forEach(step => step.classList.add('visible'));
-                    }
-                }
-            });
-
-            connectors.forEach(connector => {
-                const connectorTop = connector.getBoundingClientRect().top;
-                const connectorBottom = connector.getBoundingClientRect().bottom;
-                if (connectorTop < windowHeight * 0.85 && connectorBottom > 0) {
-                    connector.classList.add('visible');
-                }
-            });
-        });
-
-        function acceptConstructionNotice() {
-            document.getElementById('contentWrapper').classList.add('unblurred');
-            document.getElementById('constructionModal').style.display = 'none';
-        }
-
-        function copyAddress(element) {
-            const text = element.textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                element.classList.add('copied');
-                setTimeout(() => element.classList.remove('copied'), 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Clipboard not supported. Copy manually: ' + text);
-            });
-        }
-
-        function setPhantomLink() {
-            const phantomLink = document.getElementById('phantomLink');
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            phantomLink.href = 'https://phantom.app/download';
-            if (!isMobile) phantomLink.target = '_blank';
-        }
-
-        function updateTokenomics() {
-            const startingSupply = 1000000000;
-            const currentSupply = 953543637.18; // Replace with dynamic fetch if needed
-            const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
-            const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
-            document.getElementById('supply-change').textContent = `${changePercent}%`;
-        }
-
-        // Team Cylinder Rotation (5-point star)
-        let currentTeamIndex = 3;
-        const teamMembers = document.querySelectorAll('.team-member');
-        const totalTeamMembers = teamMembers.length;
-        const desktopRadius = 150;
-        const mobileRadius = 100;
-
-        function updateTeamCylinder() {
-            const isMobile = window.innerWidth <= 768;
-            const containerWidth = isMobile ? 300 : 400;
-            const containerHeight = isMobile ? 300 : 400;
-            const centerX = containerWidth / 2;
-            const centerY = containerHeight / 2;
-            const radius = isMobile ? mobileRadius : desktopRadius;
-            const featuredOffsetY = isMobile ? 70 : 70;
-            const starAngles = [0, 72, 144, 216, 288];
-
-            teamMembers.forEach((member, index) => {
-                const angleIndex = (index - currentTeamIndex + totalTeamMembers) % totalTeamMembers;
-                const angle = starAngles[angleIndex];
-                const rad = angle * Math.PI / 180;
-
-                if (index === currentTeamIndex) {
-                    member.classList.add('featured');
-                    member.style.left = `${centerX}px`;
-                    member.style.top = `${centerY - featuredOffsetY}px`;
-                    member.style.transform = 'translate(-50%, -50%)';
-                    const bubble = member.querySelector('.bubble');
-                    bubble.onclick = () => {
-                        const xLink = member.getAttribute('data-x-link');
-                        if (xLink) window.open(xLink, '_blank');
-                    };
-                } else {
-                    member.classList.remove('featured');
-                    const x = centerX + radius * Math.cos(rad);
-                    const y = centerY + radius * Math.sin(rad);
-                    member.style.left = `${x}px`;
-                    member.style.top = `${y}px`;
-                    member.style.transform = 'translate(-50%, -50%)'; // Fixed the truncated line
-                    const bubble = member.querySelector('.bubble');
-                    bubble.onclick = () => {
-                        currentTeamIndex = parseInt(member.getAttribute('data-index'));
-                        updateTeamCylinder();
-                        resetTeamAutoRotate();
-                    };
-                }
-            });
-        }
-
-        function rotateCylinder(direction) {
-            if (direction === 'right') {
-                currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
-            } else if (direction === 'left') {
-                currentTeamIndex = (currentTeamIndex - 1 + totalTeamMembers) % totalTeamMembers;
+                });
             }
-            updateTeamCylinder();
-            resetTeamAutoRotate();
+            if (section.id === 'how-to-buy') {
+                const steps = section.querySelectorAll('.buy-step');
+                steps.forEach(step => step.classList.add('visible'));
+            }
         }
+    });
 
-        function autoRotateTeam() {
-            currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
-            updateTeamCylinder();
+    connectors.forEach(connector => {
+        const connectorTop = connector.getBoundingClientRect().top;
+        const connectorBottom = connector.getBoundingClientRect().bottom;
+        if (connectorTop < windowHeight * 0.85 && connectorBottom > 0) {
+            connector.classList.add('visible');
         }
+    });
+});
 
-        let teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
+function acceptConstructionNotice() {
+    document.getElementById('contentWrapper').classList.add('unblurred');
+    document.getElementById('constructionModal').style.display = 'none';
+}
 
-        function resetTeamAutoRotate() {
-            clearInterval(teamAutoRotateInterval);
-            teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
-        }
+function copyAddress(element) {
+    const text = element.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        element.classList.add('copied');
+        setTimeout(() => element.classList.remove('copied'), 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Clipboard not supported. Copy manually: ' + text);
+    });
+}
 
-        // Hall of Fame Carousel (9 items: 1 featured + 2 rows of 4)
-        let currentHofIndex = 0;
-        const hofMembers = document.querySelectorAll('.hof-member');
-        const totalHofMembers = hofMembers.length;
+function setPhantomLink() {
+    const phantomLink = document.getElementById('phantomLink');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    phantomLink.href = 'https://phantom.app/download';
+    if (!isMobile) phantomLink.target = '_blank';
+}
 
-        function updateHofCarousel() {
-            const featured = document.getElementById('hof-featured');
-            const currentMember = hofMembers[currentHofIndex];
-            const img = currentMember.querySelector('img').src;
-            const name = currentMember.querySelector('.hof-name').textContent;
-            const xLink = currentMember.getAttribute('data-x-link');
-            const title = currentMember.getAttribute('data-title') || 'Rebel';
+function updateTokenomics() {
+    const startingSupply = 1000000000;
+    const currentSupply = 953543637.18; // Replace with dynamic fetch if needed
+    const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
+    const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
+    document.getElementById('supply-change').textContent = `${changePercent}%`;
+}
 
-            featured.querySelector('img').src = img;
-            featured.querySelector('.hof-name').textContent = name;
-            featured.querySelector('.hof-title').textContent = title;
-            featured.querySelector('.hof-bubble').onclick = () => {
+// Team Cylinder Rotation (5-point star)
+let currentTeamIndex = 3;
+const teamMembers = document.querySelectorAll('.team-member');
+const totalTeamMembers = teamMembers.length;
+const desktopRadius = 150;
+const mobileRadius = 100;
+
+function updateTeamCylinder() {
+    const isMobile = window.innerWidth <= 768;
+    const containerWidth = isMobile ? 300 : 400;
+    const containerHeight = isMobile ? 300 : 400;
+    const centerX = containerWidth / 2;
+    const centerY = containerHeight / 2;
+    const radius = isMobile ? mobileRadius : desktopRadius;
+    const featuredOffsetY = isMobile ? 70 : 70;
+    const starAngles = [0, 72, 144, 216, 288];
+
+    teamMembers.forEach((member, index) => {
+        const angleIndex = (index - currentTeamIndex + totalTeamMembers) % totalTeamMembers;
+        const angle = starAngles[angleIndex];
+        const rad = angle * Math.PI / 180;
+
+        if (index === currentTeamIndex) {
+            member.classList.add('featured');
+            member.style.left = `${centerX}px`;
+            member.style.top = `${centerY - featuredOffsetY}px`;
+            member.style.transform = 'translate(-50%, -50%)';
+            const bubble = member.querySelector('.bubble');
+            bubble.onclick = () => {
+                const xLink = member.getAttribute('data-x-link');
                 if (xLink) window.open(xLink, '_blank');
             };
-
-            hofMembers.forEach((member, index) => {
-                const bubble = member.querySelector('.hof-bubble');
-                bubble.onclick = () => {
-                    currentHofIndex = parseInt(member.getAttribute('data-index'));
-                    updateHofCarousel();
-                    resetHofAutoRotate();
-                };
-            });
+        } else {
+            member.classList.remove('featured');
+            const x = centerX + radius * Math.cos(rad);
+            const y = centerY + radius * Math.sin(rad);
+            member.style.left = `${x}px`;
+            member.style.top = `${y}px`;
+            member.style.transform = 'translate(-50%, -50%)';
+            const bubble = member.querySelector('.bubble');
+            bubble.onclick = () => {
+                currentTeamIndex = parseInt(member.getAttribute('data-index'));
+                updateTeamCylinder();
+                resetTeamAutoRotate();
+            };
         }
+    });
+}
 
-        function autoRotateHof() {
-            currentHofIndex = (currentHofIndex + 1) % totalHofMembers;
+function rotateCylinder(direction) {
+    if (direction === 'right') {
+        currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
+    } else if (direction === 'left') {
+        currentTeamIndex = (currentTeamIndex - 1 + totalTeamMembers) % totalTeamMembers;
+    }
+    updateTeamCylinder();
+    resetTeamAutoRotate();
+}
+
+function autoRotateTeam() {
+    currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
+    updateTeamCylinder();
+}
+
+let teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
+
+function resetTeamAutoRotate() {
+    clearInterval(teamAutoRotateInterval);
+    teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
+}
+
+// Hall of Fame Carousel (9 items: 1 featured + 2 rows of 4)
+let currentHofIndex = 0;
+const hofMembers = document.querySelectorAll('.hof-member');
+const totalHofMembers = hofMembers.length;
+
+function updateHofCarousel() {
+    const featured = document.getElementById('hof-featured');
+    const currentMember = hofMembers[currentHofIndex];
+    const img = currentMember.querySelector('img').src;
+    const name = currentMember.querySelector('.hof-name').textContent;
+    const xLink = currentMember.getAttribute('data-x-link');
+    const title = currentMember.getAttribute('data-title') || 'Rebel';
+
+    featured.querySelector('img').src = img;
+    featured.querySelector('.hof-name').textContent = name;
+    featured.querySelector('.hof-title').textContent = title;
+    featured.querySelector('.hof-bubble').onclick = () => {
+        if (xLink) window.open(xLink, '_blank');
+    };
+
+    hofMembers.forEach((member, index) => {
+        const bubble = member.querySelector('.hof-bubble');
+        bubble.onclick = () => {
+            currentHofIndex = parseInt(member.getAttribute('data-index'));
             updateHofCarousel();
-        }
+            resetHofAutoRotate();
+        };
+    });
+}
 
-        let hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
+function autoRotateHof() {
+    currentHofIndex = (currentHofIndex + 1) % totalHofMembers;
+    updateHofCarousel();
+}
 
-        function resetHofAutoRotate() {
-            clearInterval(hofAutoRotateInterval);
-            hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
-        }
+let hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
 
-        window.addEventListener('load', () => {
-            setPhantomLink();
-            updateTokenomics();
-            updateTeamCylinder();
-            updateHofCarousel();
-            window.dispatchEvent(new Event('scroll'));
-        });
+function resetHofAutoRotate() {
+    clearInterval(hofAutoRotateInterval);
+    hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
+}
 
-        window.addEventListener('resize', updateTeamCylinder);
-    </script>
+window.addEventListener('load', () => {
+    setPhantomLink();
+    updateTokenomics();
+    updateTeamCylinder();
+    updateHofCarousel();
+    window.dispatchEvent(new Event('scroll'));
+});
+
+window.addEventListener('resize', updateTeamCylinder);
+</script>
 </body>
 </html>
