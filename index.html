@@ -57,6 +57,9 @@
         /* Roadmap Specific Styles */
         #roadmap {display: block; padding: 40px 20px; overflow-x: hidden !important; min-height: 0; height: auto; margin-top: -65px;}
         .roadmap-container {max-width: 800px; margin: 0 auto; overflow-x: hidden !important; height: auto;}
+        @media (min-width: 769px) {
+            .roadmap-container {overflow: visible;}
+        }
         .phase, .future-teaser {margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out;}
         .phase.visible, .future-teaser.visible {opacity: 1; transform: translateX(0);}
         .phase h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; position: relative; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
@@ -73,10 +76,10 @@
         .future-teaser h2 {font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px;}
         .future-teaser ul {margin: 0; padding-left: 40px; text-align: left;}
         .future-teaser li {font-size: 1.2rem; margin: 10px 0; font-style: italic;}
-        .you-are-here {position: absolute; left: -140px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center; z-index: 3;}
+        .you-are-here {position: absolute; left: -120px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #cccccc; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #cccccc; border-radius: 8px; box-shadow: 0 0 10px rgba(204, 204, 204, 0.5); display: flex; align-items: center; z-index: 3;}
         .you-are-here::after {content: "➜"; font-size: 1.8rem; margin-left: 10px; color: #cccccc; animation: pulse 1.5s infinite;}
-        .completed {position: absolute; right: -140px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center; z-index: 3;}
-        .phase-1 .completed {right: -120px;}
+        .completed {position: absolute; right: -120px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #55ff55; font-weight: bold; padding: 10px 20px; background-color: #2a2a2a; border: 2px solid #55ff55; border-radius: 8px; box-shadow: 0 0 10px rgba(85, 255, 85, 0.5); display: flex; align-items: center; z-index: 3;}
+        .phase-1 .completed {right: -100px;}
         .completed::before {content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55;}
         @keyframes pulse {0% {transform: scale(1);} 50% {transform: scale(1.2);} 100% {transform: scale(1);}}
         .future-phase {filter: blur(3px); opacity: 0.6; cursor: pointer;}
@@ -121,7 +124,7 @@
         #team {margin-top: -810px;}
         .team-cylinder {position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center;}
         .cylinder-container {position: relative; width: 400px; height: 400px;}
-        .team-member {position: absolute; width: 100px; height: 100px; transition: all: 0.8s ease;}
+        .team-member {position: absolute; width: 100px; height: 100px; transition: all 0.8s ease;}
         .bubble {width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer;}
         .team-member:not(.featured) .bubble {background: none; border: none; box-shadow: none;}
         .team-member.featured {width: 200px; height: 200px; z-index: 10;}
