@@ -479,7 +479,7 @@
                     </ul>
                 </div>
                 <div class="phase">
-                    <h2><span class="you-are-here">You Are Here</span> 📍 Phase 2: Build the Bones</h2>
+                    <h2><span class="we-are-here">We Are Here</span> 📍 Phase 2: Build the Bones</h2>
                     <ul>
                         <li>DebtCulture.xyz—roadmap, resources, and the manifesto.</li>
                         <li>Discord hub—memes, games, and strategy 24/7.</li>
@@ -617,7 +617,7 @@
                                 <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">
                             </div>
                             <div class="hof-name">Lunic</div>
-                            <div class="hof-title">Lunic</div>
+                            <div class="hof-title">The Rebel</div>
                             <div class="holder-tag">Holder of the Week</div>
                         </div>
                     </div>
@@ -631,11 +631,13 @@
                             <div class="holder-tag">Holder of the Week</div>
                             <div class="hof-title">Lunic</div>
                         </div>
-                        <div class="hof-member" data-index="1" data-title="TBA">
+                        <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
                             <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
+                                <div class="hof-inner-bubble">
+                                    <img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+                                </div>
                             </div>
-                            <div class="hof-title">TBA</div>
+                            <div class="hof-title">Tormund</div>
                         </div>
                         <div class="hof-member" data-index="2" data-title="TBA">
                             <div class="hof-bubble">
@@ -703,6 +705,7 @@
 
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
+</body>
                                                 <script>
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
@@ -913,12 +916,16 @@ function updateHofCarousel() {
     // Update image or placeholder
     if (currentHofIndex === 0) { // Lunic
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-title').textContent = 'The Rebel';
+    } else if (currentHofIndex === 1) { // Tormund
+        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-title').textContent = 'The Oracle';
     } else {
         featuredInnerBubble.textContent = '?';
+        featured.querySelector('.hof-title').textContent = 'TBA';
     }
 
     featured.querySelector('.hof-name').textContent = title;
-    featured.querySelector('.hof-title').textContent = title;
 
     // Update holder tag
     let tagElement = featured.querySelector('.holder-tag');
