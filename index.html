@@ -50,8 +50,8 @@
         .icon { width: 60px; height: 60px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         .icon img { width: 100%; height: 100%; object-fit: contain; }
         #mobileMenu, #mobileDropdown { display: none; }
-        .banner-container { background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: hidden; position: relative; }
-        .banner-image { width: 250%; height: auto; position: absolute; left: 50%; vertical-align: middle; transform: translateX(-50%); }
+        .banner-container { background-color: #333; width: 500px; height: 180px; padding: 10px; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-bottom-left-radius: 15px !important; border-bottom-right-radius: 15px !important; overflow: visible; }
+        .banner-image { width: 250%; height: auto; display: block; margin: 0 auto; }
         .section { min-height: 100vh; opacity: 0; transform: translateX(-100%); transition: all 0.8s ease-out; padding: 20px; padding-top: 70px; }
         .section.visible { opacity: 1; transform: translateX(0); }
         #hero { min-height: auto; padding: 20px; margin: 45px 0 10px; opacity: 1; transform: none; transition: none; }
@@ -204,7 +204,7 @@
         .host-bubbles { display: flex; justify-content: center; gap: 20px; }
         .host-bubble { text-align: center; }
         .host-bubble img.profile-pic { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555; }
-        .host-bubble .host-title { font-size: 1rem; color: #fff; margin: 6px 0; font-weight: bold; text-shadow: -0.5px - Zero Trust Security Model 0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555; }
+        .host-bubble .host-title { font-size: 1rem; color: #fff; margin: 6px 0; font-weight: bold; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555; }
         .host-bubble .twitter-link { position: relative; display: inline-block; width: 30px; height: 30px; }
         .host-bubble .twitter-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1; }
         .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
