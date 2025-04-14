@@ -887,7 +887,7 @@ teamCylinder.addEventListener('touchend', (e) => {
 teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
 teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
 
-// Hall of Fame Carousel (9 items: 1 featured + 2 rows of 4)
+// Hall of Fame Carousel (9 items)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
 const totalHofMembers = hofMembers.length;
@@ -895,18 +895,16 @@ const totalHofMembers = hofMembers.length;
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
     const currentMember = hofMembers[currentHofIndex];
-    const img = currentMember.querySelector('img').src;
     const name = currentMember.querySelector('.hof-name').textContent;
-    const xLink = currentMember.getAttribute('data-x-link');
     const title = currentMember.getAttribute('data-title') || 'Rebel';
 
-    featured.querySelector('img').src = img;
+    featured.querySelector('.hof-inner-bubble').textContent = '?';
     featured.querySelector('.hof-name').textContent = name;
     featured.querySelector('.hof-title').textContent = title;
     featured.querySelector('.hof-bubble').onclick = () => {
-        if (xLink) window.open(xLink, '_blank');
+        // No X link yet
     };
-    featured.querySelector('.hof-bubble').setAttribute('aria-label', `Visit ${name}'s X profile`);
+    featured.querySelector('.hof-bubble').setAttribute('aria-label', `Select ${name}`);
 
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
@@ -917,6 +915,16 @@ function updateHofCarousel() {
         };
         bubble.setAttribute('aria-label', `Select ${member.querySelector('.hof-name').textContent}`);
     });
+}
+
+function rotateHof(direction) {
+    if (direction === 'right') {
+        currentHofIndex = (currentHofIndex + 1) % totalHofMembers;
+    } else if (direction === 'left') {
+        currentHofIndex = (currentHofIndex - 1 + totalHofMembers) % totalHofMembers;
+    }
+    updateHofCarousel();
+    resetHofAutoRotate();
 }
 
 function autoRotateHof() {
@@ -939,16 +947,8 @@ hofCarousel.addEventListener('touchstart', (e) => {
 });
 hofCarousel.addEventListener('touchend', (e) => {
     const touchEndX = e.changedTouches[0].clientX;
-    if (hofTouchStartX - touchEndX > 50) {
-        currentHofIndex = (currentHofIndex + 1) % totalHofMembers;
-        updateHofCarousel();
-        resetHofAutoRotate();
-    }
-    if (touchEndX - hofTouchStartX > 50) {
-        currentHofIndex = (currentHofIndex - 1 + totalHofMembers) % totalHofMembers;
-        updateHofCarousel();
-        resetHofAutoRotate();
-    }
+    if (hofTouchStartX - touchEndX > 50) rotateHof('right');
+    if (touchEndX - hofTouchStartX > 50) rotateHof('left');
 });
 hofCarousel.addEventListener('mouseenter', () => clearInterval(hofAutoRotateInterval));
 hofCarousel.addEventListener('mouseleave', () => hofAutoRotateInterval = setInterval(autoRotateHof, 20000));
