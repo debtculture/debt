@@ -71,7 +71,10 @@
         #roadmap { display: block; padding: 40px 20px; min-height: 0; height: auto; margin-top: -75px; }
         .roadmap-container { max-width: 800px; margin: 0 auto; height: auto; }
         @media (min-width: 769px) {
-            .roadmap-container { overflow: visible; }
+            .roadmap-container { overflow: visible; margin-bottom: -12px; }
+        }
+        @media (max-width: 768px) {
+            .roadmap-container { margin-bottom: -8px; }
         }
         .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
         .phase.visible, .future-teaser.visible { opacity: 1; transform: translateX(0); }
@@ -129,7 +132,12 @@
         #phantomLink:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
         
         /* Team Section Styles */
-        #team { margin-top: -830px; }
+        @media (min-width: 769px) {
+            #team { margin-top: -850px; }
+        }
+        @media (max-width: 768px) {
+            #team { margin-top: -168px; }
+        }
         .team-cylinder { position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center; }
         .cylinder-container { position: relative; width: 400px; height: 400px; }
         .team-member { position: absolute; width: 100px; height: 100px; transition: all 0.8s ease; }
@@ -138,7 +146,7 @@
         .team-member.featured { width: 200px; height: 200px; z-index: 10; }
         .team-member.featured .bubble { width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; }
         .inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
-        .team-member.featured .inner-bubble { width: 130px; height: 130px; }
+        .team-member.featured .inner-bubble { width: 130px; height: 130px; border: 2px solid #000; }
         .inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
         .member-name { font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%; }
         .team-member:not(.featured) .member-name { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; text-shadow: 0 0 3px #ff5555; }
@@ -154,12 +162,18 @@
         .team-blurb a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
         
         /* Hall of Fame Carousel Styles */
+        @media (min-width: 769px) {
+            #hall-of-fame { margin-top: -633px; }
+        }
+        @media (max-width: 768px) {
+            #hall-of-fame { margin-top: -162px; }
+        }
         #hall-of-fame { padding-bottom: 60px; }
         .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 400px; display: flex; align-items: center; justify-content: center; }
         .hof-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
         .hof-featured { position: relative; width: 200px; height: 200px; z-index: 10; margin-bottom: 20px; }
         .hof-featured .hof-bubble { width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; }
-        .hof-featured .hof-inner-bubble { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .hof-featured .hof-inner-bubble { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border: 2px solid #000; }
         .hof-featured .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
         .hof-featured .hof-inner-bubble::after { content: "★"; position: absolute; bottom: 5px; right: 5px; font-size: 1.2rem; color: gold; text-shadow: 0 0 5px #ff5555; animation: starPulse 2s infinite ease-in-out; }
         @keyframes starPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
@@ -178,9 +192,6 @@
         .hof-arrow:hover { color: #ff7777; }
         .hof-left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
         .hof-right-arrow { right: 20px; }
-        .holder-tag { position: absolute; top: -20px; right: -20px; background: transparent; color: #fff; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; padding: 5px 10px; text-align: center; transform: rotate(15deg); text-shadow: 0 0 5px #ff5555; animation: tagPulse 2s infinite ease-in-out; z-index: 11; }
-        .hof-featured .holder-tag { top: -25px; right: -30px; font-size: 1rem; }
-        @keyframes tagPulse { 0% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } 100% { transform: rotate(15deg) scale(1); } }
         
         /* Construction Modal Styles */
         .construction-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; }
@@ -218,7 +229,13 @@
         .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
         
         /* Disclaimer Styles */
-        .disclaimer { max-width: 800px; margin: -475px auto 40px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
+        @media (min-width: 769px) {
+            .disclaimer { margin: -483px auto 40px; }
+        }
+        @media (max-width: 768px) {
+            .disclaimer { margin: -25px auto 15px; }
+        }
+        .disclaimer { max-width: 800px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
         .disclaimer::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
         .disclaimer h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
         .disclaimer ol { padding-left: 20px; margin: 0; }
@@ -257,15 +274,11 @@
             .host-bubble .twitter-link { width: 30px; height: 30px; }
             .host-bubble .twitter-link::before { width: 30px; height: 30px; }
             .host-bubble img.twitter-icon { width: 20px; height: 20px; }
-            #hall-of-fame { margin-top: -152px; text-align: center; }
             .we-are-here { left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
             .we-are-here::after { content: "↓"; font-size: 1.2rem; margin-left: 5px; }
             .phase .completed { right: 10px; top: -45px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
             .phase-1 .completed { right: 10px; top: -41px; }
             .tokenomics, .x-space-schedule { max-width: 100%; padding: 15px; }
-            .disclaimer { margin: -25px auto 15px; padding: 15px; }
-            .disclaimer h3 { font-size: 1.2rem; }
-            .disclaimer li { font-size: 1rem; }
             .debt-clock-container { width: 270px; height: 70px; }
             .debt-clock-iframe { width: 530px; height: 295px; margin-top: -150px; margin-left: -40px; }
             .burn-tracker { font-size: 1.5rem; }
@@ -282,7 +295,6 @@
             .roadmap-container { max-height: none; overflow: visible; }
             .phase, .future-teaser { position: static; margin: 20px 0; }
             #how-to-buy { margin-top: -25px; }
-            #team { margin-top: -158px; }
             .team-cylinder { height: 350px; }
             .cylinder-container { width: 300px; height: 300px; }
             .team-member { width: 80px; height: 80px; }
@@ -311,8 +323,6 @@
             .hof-arrow { font-size: 1.5rem; }
             .hof-left-arrow { left: 10px; }
             .hof-right-arrow { right: 10px; }
-            .holder-tag { top: -15px; right: -15px; font-size: 0.6rem; }
-            .hof-featured .holder-tag { top: -20px; right: -25px; font-size: 0.8rem; }
             .hof-featured .hof-inner-bubble::after { font-size: 1rem; }
         }
         @media (min-width: 769px) {
@@ -617,18 +627,16 @@
                                 <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">
                             </div>
                             <div class="hof-name">Lunic</div>
-                            <div class="hof-title">The Rebel</div>
-                            <div class="holder-tag">Holder of the Week</div>
+                            <div class="hof-title">The Spark</div>
                         </div>
                     </div>
                     <div class="hof-row">
-                        <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677" data-holder-tag="Holder of the Week">
+                        <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="100" height="100" loading="lazy">
                                 </div>
                             </div>
-                            <div class="holder-tag">Holder of the Week</div>
                             <div class="hof-title">Lunic</div>
                         </div>
                         <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
@@ -908,7 +916,6 @@ function updateHofCarousel() {
     const currentMember = hofMembers[currentHofIndex];
     const title = currentMember.getAttribute('data-title') || 'TBA';
     const xLink = currentMember.getAttribute('data-x-link');
-    const holderTag = currentMember.getAttribute('data-holder-tag');
 
     const featuredBubble = featured.querySelector('.hof-bubble');
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
@@ -916,7 +923,7 @@ function updateHofCarousel() {
     // Update image or placeholder
     if (currentHofIndex === 0) { // Lunic
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-title').textContent = 'The Rebel';
+        featured.querySelector('.hof-title').textContent = 'The Spark';
     } else if (currentHofIndex === 1) { // Tormund
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-title').textContent = 'The Oracle';
@@ -926,19 +933,6 @@ function updateHofCarousel() {
     }
 
     featured.querySelector('.hof-name').textContent = title;
-
-    // Update holder tag
-    let tagElement = featured.querySelector('.holder-tag');
-    if (holderTag) {
-        if (!tagElement) {
-            tagElement = document.createElement('div');
-            tagElement.className = 'holder-tag';
-            featured.appendChild(tagElement);
-        }
-        tagElement.textContent = holderTag;
-    } else if (tagElement) {
-        tagElement.remove();
-    }
 
     // Update click behavior
     featuredBubble.onclick = () => {
