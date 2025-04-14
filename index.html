@@ -910,14 +910,40 @@ function updateHofCarousel() {
     const currentMember = hofMembers[currentHofIndex];
     const name = currentMember.querySelector('.hof-name').textContent;
     const title = currentMember.getAttribute('data-title') || 'Rebel';
+    const xLink = currentMember.getAttribute('data-x-link');
+    const holderTag = currentMember.getAttribute('data-holder-tag');
 
-    featured.querySelector('.hof-inner-bubble').textContent = '?';
+    const featuredBubble = featured.querySelector('.hof-bubble');
+    const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
+
+    // Update image or placeholder
+    if (currentHofIndex === 0) { // Lunic
+        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="${name} profile picture" width="130" height="130" loading="lazy">`;
+    } else {
+        featuredInnerBubble.textContent = '?';
+    }
+
     featured.querySelector('.hof-name').textContent = name;
     featured.querySelector('.hof-title').textContent = title;
-    featured.querySelector('.hof-bubble').onclick = () => {
-        // No X link yet
+
+    // Update holder tag
+    let tagElement = featured.querySelector('.holder-tag');
+    if (holderTag) {
+        if (!tagElement) {
+            tagElement = document.createElement('div');
+            tagElement.className = 'holder-tag';
+            featuredBubble.appendChild(tagElement);
+        }
+        tagElement.textContent = holderTag;
+    } else if (tagElement) {
+        tagElement.remove();
+    }
+
+    // Update click behavior
+    featuredBubble.onclick = () => {
+        if (xLink) window.open(xLink, '_blank');
     };
-    featured.querySelector('.hof-bubble').setAttribute('aria-label', `Select ${name}`);
+    featuredBubble.setAttribute('aria-label', xLink ? `Visit ${name}'s X profile` : `Select ${name}`);
 
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
