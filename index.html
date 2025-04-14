@@ -900,8 +900,7 @@ const totalHofMembers = hofMembers.length;
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
     const currentMember = hofMembers[currentHofIndex];
-    const name = currentMember.querySelector('.hof-name').textContent;
-    const title = currentMember.getAttribute('data-title') || 'Rebel';
+    const title = currentMember.getAttribute('data-title') || 'TBA';
     const xLink = currentMember.getAttribute('data-x-link');
     const holderTag = currentMember.getAttribute('data-holder-tag');
 
@@ -910,12 +909,12 @@ function updateHofCarousel() {
 
     // Update image or placeholder
     if (currentHofIndex === 0) { // Lunic
-        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="${name} profile picture" width="130" height="130" loading="lazy">`;
+        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
     } else {
         featuredInnerBubble.textContent = '?';
     }
 
-    featured.querySelector('.hof-name').textContent = name;
+    featured.querySelector('.hof-name').textContent = title;
     featured.querySelector('.hof-title').textContent = title;
 
     // Update holder tag
@@ -924,7 +923,7 @@ function updateHofCarousel() {
         if (!tagElement) {
             tagElement = document.createElement('div');
             tagElement.className = 'holder-tag';
-            featuredBubble.appendChild(tagElement);
+            featured.appendChild(tagElement);
         }
         tagElement.textContent = holderTag;
     } else if (tagElement) {
@@ -935,7 +934,7 @@ function updateHofCarousel() {
     featuredBubble.onclick = () => {
         if (xLink) window.open(xLink, '_blank');
     };
-    featuredBubble.setAttribute('aria-label', xLink ? `Visit ${name}'s X profile` : `Select ${name}`);
+    featuredBubble.setAttribute('aria-label', xLink ? `Visit ${title}'s X profile` : `Select ${title}`);
 
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
@@ -944,7 +943,7 @@ function updateHofCarousel() {
             updateHofCarousel();
             resetHofAutoRotate();
         };
-        bubble.setAttribute('aria-label', `Select ${member.querySelector('.hof-name').textContent}`);
+        bubble.setAttribute('aria-label', `Select ${member.getAttribute('data-title')}`);
     });
 }
 
