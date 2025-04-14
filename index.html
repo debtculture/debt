@@ -80,7 +80,6 @@
         .phase li { font-size: 1.2rem; margin: 10px 0; position: relative; }
         .section-connector { display: block; width: 6px; height: 50px; background: linear-gradient(to bottom, #ff5555, #555); margin: 30px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out; }
         .section-connector.visible { opacity: 1; transform: translateY(0); }
-        .roadmap-to-buy { margin-top: 18px; }
         @keyframes wind { 0% { transform: translateY(20px) scaleY(1); } 50% { transform: translateY(0) scaleY(1.1) skewX(5deg); } 100% { transform: translateY(20px) scaleY(1); } }
         .future-teaser h2 { font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px; }
         .future-teaser ul { margin: 0; padding-left: 40px; text-align: left; }
@@ -119,7 +118,7 @@
         .step-content p { font-size: 1.1rem; margin: 0; }
         .buy-step:hover { transform: translateY(-3px); transition: transform 0.3s ease; }
         .buy-blurb { margin: 10px auto 0; font-size: 1.5rem; text-align: center; }
-        #hall-of-fame { margin-top: -633px; }
+        #hall-of-fame { margin-top: -618px; }
         @keyframes slideFade { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
         .copyable-address { cursor: pointer; background: #333; padding: 2px 5px; border-radius: 3px; position: relative; transition: background 0.3s ease; }
         .copyable-address:hover { background: #444; }
@@ -130,7 +129,7 @@
         #phantomLink:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
         
         /* Team Section Styles */
-        #team { margin-top: -850px; }
+        #team { margin-top: -830px; }
         .team-cylinder { position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center; }
         .cylinder-container { position: relative; width: 400px; height: 400px; }
         .team-member { position: absolute; width: 100px; height: 100px; transition: all 0.8s ease; }
@@ -160,20 +159,26 @@
         .hof-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
         .hof-featured { position: relative; width: 200px; height: 200px; z-index: 10; margin-bottom: 20px; }
         .hof-featured .hof-bubble { width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; }
-        .hof-featured .hof-inner-bubble { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border: 2px solid #000; }
+        .hof-featured .hof-inner-bubble { width: 130px; height: 130px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
         .hof-featured .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
         .hof-featured .hof-inner-bubble::after { content: "★"; position: absolute; bottom: 5px; right: 5px; font-size: 1.2rem; color: gold; text-shadow: 0 0 5px #ff5555; animation: starPulse 2s infinite ease-in-out; }
         @keyframes starPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
         .hof-row { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
         .hof-tbd-row { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-        .hof-member { position: relative; width: 100px; height: 100px; transition: all 0.8s ease; }
+        .hof-member { position: relative; width: 100px; height: 100px; transition: all: all 0.8s ease; }
         .hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
         .hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #fff; font-weight: bold; text-shadow: 0 0 5px #ff5555; background-color: #333; opacity: 0.7; }
         .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
         .hof-name { font-size: 1rem; color: #fff; font-weight: bold; text-shadow: 0 0 5px #ff5555; margin-top: 5px; }
         .hof-featured .hof-name { font-size: 1rem; }
         .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); }
-        .hof-featured .hof-title { position: static; transform: none; font-size: 5px 10px; text-align: center; transform: rotate(15deg); text-shadow: 0 0 5px #ff5555; animation: tagPulse 2s infinite ease-in-out; z-index: 11; }
+        .hof-featured .hof-title { position: static; transform: none; font-size: 0.9rem; margin-bottom: 5px; }
+        .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 100px auto 20px; color: #eee; }
+        .hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
+        .hof-arrow:hover { color: #ff7777; }
+        .hof-left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
+        .hof-right-arrow { right: 20px; }
+        .holder-tag { position: absolute; top: -20px; right: -20px; background: transparent; color: #fff; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; padding: 5px 10px; text-align: center; transform: rotate(15deg); text-shadow: 0 0 5px #ff5555; animation: tagPulse 2s infinite ease-in-out; z-index: 11; }
         .hof-featured .holder-tag { top: -25px; right: -30px; font-size: 1rem; }
         @keyframes tagPulse { 0% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } 100% { transform: rotate(15deg) scale(1); } }
         
@@ -213,7 +218,7 @@
         .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
         
         /* Disclaimer Styles */
-        .disclaimer { max-width: 800px; margin: -483px auto 40px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
+        .disclaimer { max-width: 800px; margin: -475px auto 40px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
         .disclaimer::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
         .disclaimer h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
         .disclaimer ol { padding-left: 20px; margin: 0; }
@@ -252,7 +257,7 @@
             .host-bubble .twitter-link { width: 30px; height: 30px; }
             .host-bubble .twitter-link::before { width: 30px; height: 30px; }
             .host-bubble img.twitter-icon { width: 20px; height: 20px; }
-            #hall-of-fame { margin-top: -162px; text-align: center; }
+            #hall-of-fame { margin-top: -152px; text-align: center; }
             .we-are-here { left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
             .we-are-here::after { content: "↓"; font-size: 1.2rem; margin-left: 5px; }
             .phase .completed { right: 10px; top: -45px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
@@ -276,9 +281,8 @@
             #roadmap h1 { margin-top: -40px; }
             .roadmap-container { max-height: none; overflow: visible; }
             .phase, .future-teaser { position: static; margin: 20px 0; }
-            .roadmap-to-buy { margin-top: 22px; }
             #how-to-buy { margin-top: -25px; }
-            #team { margin-top: -168px; }
+            #team { margin-top: -158px; }
             .team-cylinder { height: 350px; }
             .cylinder-container { width: 300px; height: 300px; }
             .team-member { width: 80px; height: 80px; }
@@ -307,6 +311,8 @@
             .hof-arrow { font-size: 1.5rem; }
             .hof-left-arrow { left: 10px; }
             .hof-right-arrow { right: 10px; }
+            .holder-tag { top: -15px; right: -15px; font-size: 0.6rem; }
+            .hof-featured .holder-tag { top: -20px; right: -25px; font-size: 0.8rem; }
             .hof-featured .hof-inner-bubble::after { font-size: 1rem; }
         }
         @media (min-width: 769px) {
