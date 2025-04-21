@@ -392,7 +392,7 @@
         <!-- Contract Address Section -->
         <div class="contract-address">
             <h3>Contract Address</h3>
-            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
+            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="pol indicate">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
         </div>
 
         <!-- Overview Section -->
@@ -447,7 +447,7 @@
                         <div class="host-bubble">
                             <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy">
                             <div class="host-title">Lou</div>
-                            <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="-dot-combinator" class="twitter-link" aria-label="Lou's X profile">
+                            <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
                                 <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
                             </a>
                         </div>
@@ -716,7 +716,7 @@
             <h3>Disclaimer</h3>
             <ol>
                 <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
-                <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals noon investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
+                <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
                 <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
             </ol>
         </div>
@@ -724,7 +724,7 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 </body>
-                                                <script>
+                                               <script>
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -916,10 +916,10 @@ teamCylinder.addEventListener('touchend', (e) => {
 teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
 teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
 
-// Hall of Fame Carousel (8 items)
+// Hall of Fame Carousel (4 named items cycle in featured)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
-const totalHofMembers = hofMembers.length;
+const totalNamedHofMembers = 4; // Only Lunic, Tormund, Renee, STAYHIGH (indices 0–3)
 
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
@@ -930,16 +930,19 @@ function updateHofCarousel() {
     const featuredBubble = featured.querySelector('.hof-bubble');
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
 
-    // Update image or placeholder
+    // Update image and subtitle based on index
     if (currentHofIndex === 0) { // Lunic
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-title').textContent = 'The Spark';
     } else if (currentHofIndex === 1) { // Tormund
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-title').textContent = 'The Oracle';
-    } else {
-        featuredInnerBubble.textContent = '?';
-        featured.querySelector('.hof-title').textContent = 'TBA';
+    } else if (currentHofIndex === 2) { // Renee
+        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-title').textContent = 'The Believer';
+    } else if (currentHofIndex === 3) { // STAYHIGH
+        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-title').textContent = 'The Unfiltered';
     }
 
     featured.querySelector('.hof-name').textContent = title;
@@ -953,9 +956,12 @@ function updateHofCarousel() {
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
-            currentHofIndex = parseInt(member.getAttribute('data-index'));
-            updateHofCarousel();
-            resetHofAutoRotate();
+            // Only allow clicking on named members (indices 0–3)
+            if (index < totalNamedHofMembers) {
+                currentHofIndex = parseInt(member.getAttribute('data-index'));
+                updateHofCarousel();
+                resetHofAutoRotate();
+            }
         };
         bubble.setAttribute('aria-label', `Select ${member.getAttribute('data-title')}`);
     });
@@ -963,16 +969,16 @@ function updateHofCarousel() {
 
 function rotateHof(direction) {
     if (direction === 'right') {
-        currentHofIndex = (currentHofIndex + 1) % totalHofMembers;
+        currentHofIndex = (currentHofIndex + 1) % totalNamedHofMembers;
     } else if (direction === 'left') {
-        currentHofIndex = (currentHofIndex - 1 + totalHofMembers) % totalHofMembers;
+        currentHofIndex = (currentHofIndex - 1 + totalNamedHofMembers) % totalNamedHofMembers;
     }
     updateHofCarousel();
     resetHofAutoRotate();
 }
 
 function autoRotateHof() {
-    currentHofIndex = (currentHofIndex + 1) % totalHofMembers;
+    currentHofIndex = (currentHofIndex + 1) % totalNamedHofMembers;
     updateHofCarousel();
 }
 
