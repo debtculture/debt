@@ -107,8 +107,8 @@
     .phase-1 ul { list-style: none; padding-left: 40px; }
     .phase-1 li::before { content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem; }
     @media (max-width: 768px) {
-        .future-phase { transform: translateX(0); opacity: 0.6; }
-        .future-phase.visible { opacity: 0.6; transform: translateX(0); }
+        .future-phase.visible { filter: blur(3px); opacity: 0.6; transform: translateX(0); }
+        .future-phase.active { filter: blur(0); opacity: 1; }
     }
     
     /* Debt Clock Widget Styles */
