@@ -724,7 +724,7 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 </body>
-                                               <script>
+                                              <script>
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -750,6 +750,7 @@ window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.section');
     const connectors = document.querySelectorAll('.section-connector');
     const windowHeight = window.innerHeight;
+    const isMobile = window.innerWidth <= 768;
 
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
@@ -761,7 +762,10 @@ window.addEventListener('scroll', () => {
                 phases.forEach(phase => {
                     const phaseTop = phase.getBoundingClientRect().top;
                     if (phaseTop < windowHeight * 0.85) {
-                        phase.classList.add('visible');
+                        // Only add 'visible' to non-future phases or on desktop
+                        if (!phase.classList.contains('future-phase') || !isMobile) {
+                            phase.classList.add('visible');
+                        }
                     }
                 });
             }
@@ -1005,13 +1009,28 @@ hofCarousel.addEventListener('mouseleave', () => hofAutoRotateInterval = setInte
 
 // Persist Roadmap Phase State
 function initializeRoadmapPhases() {
+    const isMobile = window.innerWidth <= 768;
     document.querySelectorAll('.future-phase').forEach(phase => {
+        // On mobile, clear localStorage to ensure phases start blurry
+        if (isMobile) {
+            localStorage.removeItem(`phase-${phase.querySelector('h2').textContent}`);
+            phase.classList.remove('active');
+        }
+        // Add click event listener for both mobile and desktop
         phase.addEventListener('click', () => {
             const isActive = phase.classList.toggle('active');
-            localStorage.setItem(`phase-${phase.querySelector('h2').textContent}`, isActive);
+            // Only store state for desktop or if explicitly clicked on mobile
+            if (!isMobile || isActive) {
+                localStorage.setItem(`phase-${phase.querySelector('h2').textContent}`, isActive);
+            }
         });
-        const savedState = localStorage.getItem(`phase-${phase.querySelector('h2').textContent}`);
-        if (savedState === 'true') phase.classList.add('active');
+        // On desktop, apply saved state from localStorage
+        if (!isMobile) {
+            const savedState = localStorage.getItem(`phase-${phase.querySelector('h2').textContent}`);
+            if (savedState === 'true') {
+                phase.classList.add('active');
+            }
+        }
     });
 }
 
