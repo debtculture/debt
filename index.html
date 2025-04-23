@@ -25,7 +25,7 @@
     
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; }
     .navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible; }
-    .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; }
+    .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; position: relative; }
     .navbar a:hover { background-color: #555; }
     .navbar-links { display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
     .navbar-logo { width: 100px; height: 100px; margin: 0; object-fit: contain; flex-shrink: 0; }
@@ -39,7 +39,7 @@
     .hamburger { display: none; flex-direction: column; cursor: pointer; position: fixed; top: 10px; left: 10px; z-index: 1100; }
     .hamburger div { width: 30px; height: 3px; background-color: #eee; margin: 5px 0; }
     .mobile-menu { display: none; position: fixed; top: 50px; left: 10px; background-color: #333; width: 200px; text-align: left; border-radius: 5px; z-index: 999; overflow-x: hidden; }
-    .mobile-menu a { display: block; color: #eee; padding: 10px; text-decoration: none; }
+    .mobile-menu a { display: block; color: #eee; padding: 10px; text-decoration: none; position: relative; }
     .mobile-menu a:hover { background-color: #555; }
     .mobile-dropdown { display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px; overflow-x: hidden; }
     .mobile-menu .expand { cursor: pointer; color: #eee; padding: 10px; text-decoration: none; display: block; }
@@ -168,7 +168,7 @@
     .team-member.featured .member-role { display: block; }
     .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
     .arrow:hover { color: #ff7777; }
-    .left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
+    .left-arrow { left: 20px; transform: {: translateY(-50%) rotate(180deg); }
     .right-arrow { right: 20px; }
     .team-blurb { font-size: 1.1rem; max-width: 600px; margin: 20px auto; color: #eee; }
     .team-blurb a { color: #ff5555; text-decoration: none; }
@@ -190,7 +190,7 @@
     .hof-featured .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
     .hof-row { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
     .hof-tbd-row { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-    .hof-member { position: relative; width: 100px; height: 100px; transition: all: all 0.8s ease; }
+    .hof-member { position: relative; width: 100px; height: 100px; transition: all 0.8s ease; }
     .hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
     .hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #fff; font-weight: bold; text-shadow: 0 0 5px #ff5555; background-color: #333; opacity: 0.7; }
     .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
@@ -221,23 +221,22 @@
     .tokenomics-table th, .tokenomics-table td { padding: 8px; border-bottom: 1px solid #333; }
     .tokenomics-table th { color: #ff5555; font-weight: bold; }
     .tokenomics-table td { color: #eee; }
-    .x-space-schedule { margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; }
-    .x-space-schedule h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; }
-    .x-space-schedule p { font-size: 1.1rem; margin: 0 0 10px; color: #eee; }
-    .x-space-schedule ul { list-style: none; padding: 0; margin: 0 auto; max-width: 300px; text-align: center; }
-    .x-space-schedule li { font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: inline-block; text-align: left; color: #eee; }
-    .x-space-schedule li::before { content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
-    .x-space-schedule a { color: #fff; text-decoration: none; margin-left: 5px; }
-    .x-space-schedule a:hover { color: #ff5555; }
-    .hosts-include { margin-top: 15px; }
-    .hosts-include h3 { font-size: 1.2rem; color: #ff5555; margin: 0 0 10px; }
-    .host-bubbles { display: flex; justify-content: center; gap: 20px; }
-    .host-bubble { text-align: center; }
-    .host-bubble img.profile-pic { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555; }
-    .host-bubble .host-title { font-size: 1rem; color: #fff; margin: 6px 0; font-weight: bold; text-shadow: -0.5px -0.5px 0 #ff5555, 0.5px -0.5px 0 #ff5555, -0.5px 0.5px 0 #ff5555, 0.5px 0.5px 0 #ff5555; }
-    .host-bubble .twitter-link { position: relative; display: inline-block; width: 30px; height: 30px; }
-    .host-bubble .twitter-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1; }
-    .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
+    .upcoming-events { margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shock: 0 4px 15px rgba(0,0,0,0.5); text-align: center; }
+    .upcoming-events h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; }
+    .upcoming-events p { font-size: 1.1rem; margin: 0 0 10px; color: #eee; }
+    .upcoming-events ul { list-style: none; padding: 0; margin: 0 auto; max-width: 350px; text-align: left; }
+    .upcoming-events li { font-size: 1.1rem; margin: 10px 0; position: relative; padding-left: 25px; display: flex; align-items: center; color: #eee; }
+    .upcoming-events li::before { content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+    .upcoming-events a { color: #fff; text-decoration: none; margin-left: 5px; }
+    .upcoming-events a:hover { color: #ff5555; }
+    .event-host-pfp { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5555; margin-left: 10px; cursor: pointer; }
+    .highlight-event { border: 2px solid #ff5555; background: linear-gradient(45deg, #ff5555, #ff7777); padding: 10px; border-radius: 5px; animation: pulseGlow 2s infinite ease-in-out; }
+    
+    /* Notification Bubble Styles */
+    .notification-bubble { position: absolute; top: -5px; right: -5px; width: 15px; height: 15px; background-color: #ff5555; border-radius: 50%; animation: pulseGlow 2s infinite ease-in-out; }
+    @media (max-width: 768px) {
+        .notification-bubble { top: 5px; right: 5px; width: 12px; height: 12px; }
+    }
     
     /* Disclaimer Styles */
     @media (min-width: 769px) {
@@ -281,15 +280,11 @@
         .buy-blurb { font-size: 1.2rem; margin: 5px auto 0; }
         .step-number { min-width: 25px; height: 25px; font-size: 0.9rem; }
         .step-content { max-width: calc(100% - 40px); }
-        .host-bubble img.profile-pic { width: 75px; height: 75px; }
-        .host-bubble .twitter-link { width: 30px; height: 30px; }
-        .host-bubble .twitter-link::before { width: 30px; height: 30px; }
-        .host-bubble img.twitter-icon { width: 20px; height: 20px; }
         .we-are-here { left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
         .we-are-here::after { content: "↓"; font-size: 1.2rem; margin-left: 5px; }
         .phase .completed { right: 10px; top: -45px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
         .phase-1 .completed { right: 10px; top: -41px; }
-        .tokenomics, .x-space-schedule { max-width: 100%; padding: 15px; }
+        .tokenomics, .upcoming-events { max-width: 100%; padding: 15px; }
         .debt-clock-container { width: 270px; height: 70px; }
         .debt-clock-iframe { width: 530px; height: 295px; margin-top: -150px; margin-left: -40px; }
         .burn-tracker { font-size: 1.5rem; }
@@ -334,6 +329,7 @@
         .hof-arrow { font-size: 1.5rem; }
         .hof-left-arrow { left: 10px; }
         .hof-right-arrow { right: 10px; }
+        .event-host-pfp { width: 25px; height: 25px; }
     }
     @media (min-width: 769px) {
         .banner-container { position: relative; top: 60px; }
@@ -356,7 +352,7 @@
         <div class="navbar">
             <div class="navbar-links">
                 <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100">
-                <a href="#overview">Overview</a>
+                <a href="#overview">Overview <span class="notification-bubble" onclick="scrollToEvents()"></span></a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#how-to-buy">How to Buy</a>
                 <a href="#team">Team</a>
@@ -396,7 +392,7 @@
         <!-- Contract Address Section -->
         <div class="contract-address">
             <h3>Contract Address</h3>
-            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="pol indicate">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
+            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
         </div>
 
         <!-- Overview Section -->
@@ -423,40 +419,10 @@
                 <p>Our debt shrinks weekly—over 45 million $DEBT burned and counting.</p>
             </div>
             
-            <div class="x-space-schedule">
-                <h2>X Space Schedule</h2>
-                <p>Join us for rants, reveals, and recruitment:</p>
-                <ul>
-                    <li>Monday – 9 PM EST</li>
-                    <li>Thursday – 9 PM EST</li>
-                    <li>Saturday – 9 PM EST <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥</a></li>
-                </ul>
-                <div class="hosts-include">
-                    <h3>Hosts Include:</h3>
-                    <div class="host-bubbles">
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy">
-                            <div class="host-title">Catavina</div>
-                            <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-                            </a>
-                        </div>
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf profile picture" class="profile-pic" width="75" height="75" loading="lazy">
-                            <div class="host-title">Nerf</div>
-                            <a href="https://x.com/0xnerf" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Nerf's X profile">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-                            </a>
-                        </div>
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy">
-                            <div class="host-title">Lou</div>
-                            <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="upcoming-events">
+                <h2>Upcoming Events</h2>
+                <p>Join us for rants, reveals, recruitment, and more:</p>
+                <ul id="events-list"></ul>
             </div>
             <div class="section-connector overview-to-roadmap"></div>
         </section>
@@ -466,7 +432,7 @@
             <div></div><div></div><div></div>
         </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#overview" onclick="closeMenu()">Overview</a>
+            <a href="#overview" onclick="closeMenu()">Overview <span class="notification-bubble" onclick="scrollToEvents()"></span></a>
             <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
             <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
             <a href="#team" onclick="closeMenu()">Team</a>
@@ -750,6 +716,15 @@ function scrollToSection(selector) {
     document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
 }
 
+function scrollToEvents() {
+    scrollToSection('#overview');
+    const pokerEvent = document.querySelector('[data-event-type="poker"]');
+    if (pokerEvent) {
+        pokerEvent.classList.add('highlight-event');
+        setTimeout(() => pokerEvent.classList.remove('highlight-event'), 3000);
+    }
+}
+
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.section');
     const connectors = document.querySelectorAll('.section-connector');
@@ -885,11 +860,15 @@ function updateTeamCylinder() {
     });
 }
 
-function rotateCylinder(direction) {
-    if (direction === 'right') {
-        currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
-    } else if (direction === 'left') {
-        currentTeamIndex = (currentTeamIndex - 1 + totalTeamMembers) % totalTeamMembers;
+function rotateCylinder(directionOrIndex) {
+    if (typeof directionOrIndex === 'string') {
+        if (directionOrIndex === 'right') {
+            currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
+        } else if (directionOrIndex === 'left') {
+            currentTeamIndex = (currentTeamIndex - 1 + totalTeamMembers) % totalTeamMembers;
+        }
+    } else if (typeof directionOrIndex === 'number') {
+        currentTeamIndex = directionOrIndex % totalTeamMembers;
     }
     updateTeamCylinder();
     resetTeamAutoRotate();
@@ -1035,12 +1014,79 @@ function initializeRoadmapPhases() {
     });
 }
 
+// Upcoming Events Logic
+function updateEvents() {
+    const eventsList = document.getElementById('events-list');
+    const now = new Date();
+    const pokerTournamentDate = new Date('2025-04-26T21:00:00-04:00'); // April 26, 2025, 9 PM EST
+    const showPokerTournament = now < pokerTournamentDate;
+
+    const hosts = [
+        { day: 'Monday', name: 'Catavina', title: 'Community Manager', xLink: 'https://x.com/catavina17', pfp: 'https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true', teamIndex: 0 },
+        { day: 'Thursday', name: 'Nerf', title: 'Market Analyst', xLink: 'https://x.com/0xnerf', pfp: 'https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true', teamIndex: 1 },
+        { day: 'Saturday', name: 'Lou', title: 'Social Media Manager', xLink: 'https://x.com/louisedbegin', pfp: 'https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true', teamIndex: 2 }
+    ];
+
+    const events = [];
+    hosts.forEach(host => {
+        if (host.day === 'Saturday' && showPokerTournament) {
+            events.push({
+                date: pokerTournamentDate,
+                text: `$DEBT Poker Tournament at 9 PM EST with <a href="${host.xLink}" target="_blank" rel="noopener noreferrer">${host.name}</a> (${host.title}) <img src="${host.pfp}" alt="${host.name} profile picture" class="event-host-pfp" onclick="featureTeamMember(${host.teamIndex})">`,
+                type: 'poker'
+            });
+        } else {
+            const nextDate = getNextDate(host.day, 21); // 9 PM EST
+            events.push({
+                date: nextDate,
+                text: `${host.day}, ${nextDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} – 9 PM EST on X with <a href="${host.xLink}" target="_blank" rel="noopener noreferrer">${host.name}</a> (${host.title}) <img src="${host.pfp}" alt="${host.name} profile picture" class="event-host-pfp" onclick="featureTeamMember(${host.teamIndex})">`,
+                type: 'space'
+            });
+        }
+    });
+
+    // Sort events by date
+    events.sort((a, b) => a.date - b.date);
+
+    // Populate the events list
+    eventsList.innerHTML = events.map(event => `<li data-event-type="${event.type}">${event.text}</li>`).join('');
+
+    // Hide notification bubble after poker tournament date
+    const notificationBubbles = document.querySelectorAll('.notification-bubble');
+    if (!showPokerTournament) {
+        notificationBubbles.forEach(bubble => bubble.style.display = 'none');
+    }
+}
+
+function getNextDate(dayOfWeek, hour) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const targetDayIndex = days.indexOf(dayOfWeek);
+    const now = new Date();
+    const currentDayIndex = now.getDay();
+    let daysUntilNext = (targetDayIndex - currentDayIndex + 7) % 7;
+    if (daysUntilNext === 0 && (now.getHours() > hour || (now.getHours() === hour && now.getMinutes() >= 0))) {
+        daysUntilNext = 7; // If today is the day but past 9 PM EST, schedule for next week
+    }
+    const nextDate = new Date(now);
+    nextDate.setDate(now.getDate() + daysUntilNext);
+    nextDate.setHours(hour, 0, 0, 0);
+    // Adjust for EST (UTC-4)
+    nextDate.setHours(nextDate.getHours() - 4);
+    return nextDate;
+}
+
+function featureTeamMember(index) {
+    rotateCylinder(index);
+    scrollToSection('#team');
+}
+
 window.addEventListener('load', () => {
     setPhantomLink();
     updateTokenomics();
     updateTeamCylinder();
     updateHofCarousel();
     initializeRoadmapPhases();
+    updateEvents();
     window.dispatchEvent(new Event('scroll'));
 });
 
