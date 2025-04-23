@@ -424,11 +424,39 @@
             </div>
             
             <div class="x-space-schedule">
-                <h2>Upcoming Events</h2>
+                <h2>X Space Schedule</h2>
                 <p>Join us for rants, reveals, and recruitment:</p>
-                <ul id="event-schedule">
-                    <li>Loading events...</li>
+                <ul>
+                    <li>Monday – 9 PM EST</li>
+                    <li>Thursday – 9 PM EST</li>
+                    <li>Saturday – 9 PM EST <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥</a></li>
                 </ul>
+                <div class="hosts-include">
+                    <h3>Hosts Include:</h3>
+                    <div class="host-bubbles">
+                        <div class="host-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy">
+                            <div class="host-title">Catavina</div>
+                            <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="host-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf profile picture" class="profile-pic" width="75" height="75" loading="lazy">
+                            <div class="host-title">Nerf</div>
+                            <a href="https://x.com/0xnerf" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Nerf's X profile">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="host-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy">
+                            <div class="host-title">Lou</div>
+                            <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
+                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="section-connector overview-to-roadmap"></div>
         </section>
@@ -806,60 +834,6 @@ async function updateTokenomics() {
     document.getElementById('supply-change').textContent = `${changePercent}%`;
 }
 
-function updateEventSchedule() {
-    const scheduleList = document.getElementById('event-schedule');
-    const now = new Date();
-    const estOffset = -5 * 60; // EST is UTC-5
-    const nowEST = new Date(now.getTime() + estOffset * 60 * 1000);
-
-    // Define the weekly schedule
-    const days = [
-        { day: 1, name: 'Monday' },    // Monday
-        { day: 4, name: 'Thursday' },  // Thursday
-        { day: 6, name: 'Saturday' }   // Saturday
-    ];
-
-    const events = [];
-    const today = nowEST.getTime();
-    const oneDay = 24 * 60 * 60 * 1000;
-
-    // Generate events for the next 7 days
-    for (let i = 0; i < 7; i++) {
-        const date = new Date(today + i * oneDay);
-        const dayOfWeek = date.getDay();
-        const eventDay = days.find(d => d.day === dayOfWeek);
-        if (eventDay) {
-            // Set event time to 9 PM EST
-            date.setHours(21, 0, 0, 0); // 9 PM
-            const expiry = new Date(date.getTime() + oneDay + 3 * 60 * 60 * 1000); // 12 AM next day
-            if (expiry > nowEST) { // Only include events that haven't expired
-                events.push({ date, name: eventDay.name });
-            }
-        }
-    }
-
-    // Sort events by date
-    events.sort((a, b) => a.date - b.date);
-
-    // Format and display the next three events
-    scheduleList.innerHTML = '';
-    const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-    for (let i = 0; i < Math.min(3, events.length); i++) {
-        const event = events[i];
-        const formattedDate = event.date.toLocaleDateString('en-US', options);
-        const li = document.createElement('li');
-        li.textContent = `${formattedDate}, 9 PM EST`;
-        if (event.name === 'Saturday') {
-            li.innerHTML += ` <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥</a>`;
-        }
-        scheduleList.appendChild(li);
-    }
-
-    if (events.length === 0) {
-        scheduleList.innerHTML = '<li>No upcoming events this week.</li>';
-    }
-}
-
 // Team Cylinder Rotation (5-point star)
 let currentTeamIndex = 3;
 const teamMembers = document.querySelectorAll('.team-member');
@@ -985,7 +959,7 @@ function updateHofCarousel() {
     featuredBubble.setAttribute('aria-label', xLink ? `Visit ${title}'s X profile` : `Select ${title}`);
 
     hofMembers.forEach((member, index) => {
-        const bubble = member.queryシングルバブル('hof-bubble');
+        const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
             // Only allow clicking on named members (indices 0–3)
             if (index < totalNamedHofMembers) {
@@ -1067,8 +1041,6 @@ window.addEventListener('load', () => {
     updateTeamCylinder();
     updateHofCarousel();
     initializeRoadmapPhases();
-    updateEventSchedule();
-    setInterval(updateEventSchedule, 60000); // Update every minute
     window.dispatchEvent(new Event('scroll'));
 });
 
