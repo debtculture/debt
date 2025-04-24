@@ -239,6 +239,26 @@
     .host-bubble .twitter-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1; }
     .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
     
+    /* FAQ Section Styles */
+    #faq { padding: 40px 20px; min-height: auto; margin-top: -25px; }
+    .faq-container { max-width: 800px; margin: 0 auto; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
+    .accordion-item { margin: 10px 0; }
+    .accordion-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: left; position: relative; transition: background 0.3s ease; }
+    .accordion-header:hover { background: linear-gradient(90deg, #ff7777, #ff9999); }
+    .accordion-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
+    .accordion-header.active::after { transform: rotate(180deg); }
+    .accordion-content { max-height: 0; overflow: hidden; background-color: #2a2a2a; border-radius: 0 0 5px 5px; padding: 0 15px; transition: max-height 0.3s ease, padding 0.3s ease; }
+    .accordion-content p { font-size: 1.1rem; color: #eee; padding: 15px 0; margin: 0; }
+    .accordion-content.active { max-height: 200px; padding: 15px; }
+    @media (max-width: 768px) {
+        #faq { margin-top: -25px; padding: 20px; }
+        .faq-container { max-width: 90%; padding: 15px; }
+        .accordion-header { font-size: 1.1rem; padding: 10px; }
+        .accordion-header::after { font-size: 0.9rem; right: 10px; }
+        .accordion-content p { font-size: 1rem; }
+        .accordion-content.active { max-height: 300px; padding: 10px; }
+    }
+    
     /* Disclaimer Styles */
     @media (min-width: 769px) {
         .disclaimer { margin: -483px auto 40px; }
@@ -396,7 +416,7 @@
         <!-- Contract Address Section -->
         <div class="contract-address">
             <h3>Contract Address</h3>
-            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="pol indicate">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
+            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
         </div>
 
         <!-- Overview Section -->
@@ -705,7 +725,63 @@
                 <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
             </div>
             <p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
-            <div class="section-connector hof-to-disclaimer"></div>
+            <div class="section-connector hof-to-faq"></div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section">
+            <h1>FAQ</h1>
+            <div class="faq-container">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle FAQ question 1">
+                        Question 1
+                    </div>
+                    <div class="accordion-content">
+                        <p>Answer 1 placeholder. This will be replaced with the actual answer once provided.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle FAQ question 2">
+                        Question 2
+                    </div>
+                    <div class="accordion-content">
+                        <p>Answer 2 placeholder. This will be replaced with the actual answer once provided.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle FAQ question 3">
+                        Question 3
+                    </div>
+                    <div class="accordion-content">
+                        <p>Answer 3 placeholder. This will be replaced with the actual answer once provided.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle FAQ question 4">
+                        Question 4
+                    </div>
+                    <div class="accordion-content">
+                        <p>Answer 4 placeholder. This will be replaced with the actual answer once provided.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle FAQ question 5">
+                        Question 5
+                    </div>
+                    <div class="accordion-content">
+                        <p>Answer 5 placeholder. This will be replaced with the actual answer once provided.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle FAQ question 6">
+                        Question 6
+                    </div>
+                    <div class="accordion-content">
+                        <p>Answer 6 placeholder. This will be replaced with the actual answer once provided.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-connector faq-to-disclaimer"></div>
         </section>
 
         <div class="fixed-bar">
@@ -751,6 +827,29 @@ function scrollToSection(selector) {
     document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
 }
 
+function toggleAccordion(header) {
+    const content = header.nextElementSibling;
+    const isActive = content.classList.contains('active');
+    
+    // Close all other accordions
+    document.querySelectorAll('.accordion-content').forEach(item => {
+        item.classList.remove('active');
+        item.style.maxHeight = '0';
+        item.style.padding = '0 15px';
+        item.previousElementSibling.classList.remove('active');
+        item.previousElementSibling.setAttribute('aria-expanded', 'false');
+    });
+    
+    // Toggle the clicked accordion
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+    }
+}
+
 window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.section');
     const connectors = document.querySelectorAll('.section-connector');
@@ -774,6 +873,9 @@ window.addEventListener('scroll', () => {
             if (section.id === 'how-to-buy') {
                 const steps = section.querySelectorAll('.buy-step');
                 steps.forEach(step => step.classList.add('visible'));
+            }
+            if (section.id === 'faq') {
+                section.classList.add('visible');
             }
         }
     });
