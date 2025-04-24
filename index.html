@@ -11,9 +11,11 @@
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
     <style>
-    /* Remove restrictive overflow on desktop */
+    * { box-sizing: border-box; }
+    /* Remove horizontal scrollbar on desktop */
     @media (min-width: 769px) {
-        html, body, .content-wrapper, #roadmap { overflow: visible; }
+        html, body, .content-wrapper, #roadmap { overflow-x: hidden; overflow-y: auto; }
+        .disclaimer, .faq-container, .banner-container { overflow-x: hidden; }
     }
     /* Fallback for mobile to prevent unwanted scrolling */
     @media (max-width: 768px) {
@@ -76,7 +78,9 @@
         .welcome-to-team { margin-bottom: 43px; }
         .team-to-hof { margin-bottom: 41px; }
         .hof-to-faq { margin-bottom: 37px; }
-        .faq-to-disclaimer { margin-bottom: 37px; }
+        .faq-to-disclaimer { margin-top: 30px; margin-bottom: 37px; }
+        #faq.section { position: relative; top: -359px; z-index: 10; margin-top: -225px; transition: none; }
+        .disclaimer { margin: -396px auto 40px; }
     }
     @media (max-width: 768px) {
         #roadmap { margin-top: -113px; }
@@ -263,7 +267,7 @@
     
     /* Disclaimer Styles */
     @media (min-width: 769px) {
-        .disclaimer { margin: -483px auto 40px; }
+        .disclaimer { margin: -396px auto 40px; }
     }
     @media (max-width: 768px) {
         .disclaimer { margin: 1px auto 15px; }
