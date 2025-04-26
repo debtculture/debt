@@ -111,7 +111,7 @@
     .phase-1 li::before { content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem; }
     @media (max-width: 768px) {
         .future-phase.visible { filter: blur(3px); opacity: 0.6; transform: translateX(0); }
-        .future-phase.active { filter: blur(0); opacity: 1; }
+        .future-phase活躍 { filter: blur(0); opacity: 1; }
     }
     
     .debt-clock-container { margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; cursor: pointer; }
@@ -842,7 +842,7 @@
             if (!isActive) {
                 header.classList.add('active');
                 content.classList.add('active');
-                content.style.maxHeight = content.scrollHeight + 30 + 'px'; // 15px top + 15px bottom padding
+                content.style.maxHeight = content.scrollHeight + 30 + 'px';
             } else {
                 header.classList.remove('active');
                 content.classList.remove('active');
@@ -875,7 +875,7 @@
             teamMembers.forEach((member, index) => {
                 member.classList.remove('featured');
                 const angle = (index - currentTeamIndex) * (360 / teamMembers.length);
-                const radius = 150;
+                const radius = window.innerWidth <= 768 ? 100 : 150;
                 const x = radius * Math.cos((angle * Math.PI) / 180);
                 const y = radius * Math.sin((angle * Math.PI) / 180);
                 member.style.transform = `translate(${x}px, ${y}px)`;
@@ -909,7 +909,7 @@
             featuredMember.classList.add('hof-featured');
             featuredMember.style.opacity = '1';
             hofFeatured.innerHTML = '';
-            hofFeatured.appendChild(featuredMember);
+            hofFeatured.appendChild(featuredMember.querySelector('.hof-bubble'));
         };
 
         document.querySelector('.hof-left-arrow').addEventListener('click', () => {
@@ -964,6 +964,150 @@
                         });
                     }
                 }
+            });
+        });
+
+        // Debt clock interaction
+        const debtClockContainer = document.querySelector('.debt-clock-container');
+        if (debtClockContainer) {
+            debtClockContainer.addEventListener('click', () => {
+                window.open('https://www.usdebtclock.org/', '_blank');
+            });
+        }
+
+        // Resize handling for team cylinder
+        window.addEventListener('resize', () => {
+            updateTeamDisplay();
+        });
+
+        // Typewriter effect for hero
+        const typewriter = document.querySelector('.typewriter');
+        if (typewriter) {
+            const text = typewriter.textContent;
+            typewriter.textContent = '';
+            let i = 0;
+            const speed = 100;
+            const type = () => {
+                if (i < text.length) {
+                    typewriter.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            };
+            setTimeout(type, 500);
+        }
+
+        // Auto-rotate team cylinder
+        let autoRotate = setInterval(() => {
+            currentTeamIndex = (currentTeamIndex + 1) % teamMembers.length;
+            updateTeamDisplay();
+        }, 5000);
+
+        document.querySelector('.team-cylinder').addEventListener('mouseenter', () => {
+            clearInterval(autoRotate);
+        });
+
+        document.querySelector('.team-cylinder').addEventListener('mouseleave', () => {
+            autoRotate = setInterval(() => {
+                currentTeamIndex = (currentTeamIndex + 1) % teamMembers.length;
+                updateTeamDisplay();
+            }, 5000);
+        });
+
+        // Auto-rotate hall of fame
+        let hofAutoRotate = setInterval(() => {
+            hofIndex = (hofIndex + 1) % hofMembers.length;
+            updateHofDisplay();
+        }, 5000);
+
+        document.querySelector('.hof-carousel').addEventListener('mouseenter', () => {
+            clearInterval(hofAutoRotate);
+        });
+
+        document.querySelector('.hof-carousel').addEventListener('mouseleave', () => {
+            hofAutoRotate = setInterval(() => {
+                hofIndex = (hofIndex + 1) % hofMembers.length;
+                updateHofDisplay();
+            }, 5000);
+        });
+
+        // Lazy load images
+        const images = document.querySelectorAll('img[data-src]');
+        const imgObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        images.forEach(img => imgObserver.observe(img));
+
+        // Back to top button
+        const backToTop = document.createElement('button');
+        backToTop.textContent = '↑';
+        backToTop.style.position = 'fixed';
+        backToTop.style.bottom = '20px';
+        backToTop.style.right = '20px';
+        backToTop.style.backgroundColor = '#ff5555';
+        backToTop.style.color = '#fff';
+        backToTop.style.border = 'none';
+        backToTop.style.borderRadius = '50%';
+        backToTop.style.width = '40px';
+        backToTop.style.height = '40px';
+        backToTop.style.cursor = 'pointer';
+        backToTop.style.display = 'none';
+        backToTop.style.zIndex = '1000';
+        document.body.appendChild(backToTop);
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+
+        // Keyboard navigation for accordion
+        document.querySelectorAll('.accordion-header').forEach((header, index) => {
+            header.setAttribute('tabindex', '0');
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleAccordion(header);
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const nextHeader = document.querySelectorAll('.accordion-header')[index + 1];
+                    if (nextHeader) nextHeader.focus();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prevHeader = document.querySelectorAll('.accordion-header')[index - 1];
+                    if (prevHeader) prevHeader.focus();
+                }
+            });
+        });
+
+        // Analytics tracking (placeholder)
+        const trackEvent = (event, properties) => {
+            console.log('Analytics event:', event, properties);
+        };
+
+        document.querySelectorAll('.navbar a, .mobile-menu a, .join-rebellion').forEach(link => {
+            link.addEventListener('click', () => {
+                trackEvent('Link Click', { href: link.getAttribute('href') });
+            });
+        });
+
+        // Form submission (if applicable)
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                trackEvent('Form Submit', { formId: form.id });
+                console.log('Form submitted:', form.id);
             });
         });
     });
