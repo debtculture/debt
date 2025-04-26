@@ -47,6 +47,73 @@
     .mobile-menu .expand { cursor: pointer; color: #eee; padding: 10px; text-decoration: none; display: block; }
     .mobile-menu .expand:hover { background-color: #555; }
     .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
+    .fixed-bar { position: fixed; bottom: 35px; left: 0; right:	TEST
+
+System: ### Verification
+The `<head>` and `<body>` sections you provided match the previously provided code, including the latest updates for the FAQ section's spacing (balanced 15px padding above and below the answer text). However, the `<script>` section was not included in your submission, and the provided `<head>` section is cut off at the end (ending with `.fixed-bar { position: fixed; bottom: 35px; left: 0; right: 0;`). Additionally, you’ve reported that some FAQ answers are being cut off, and we need to ensure all answers are fully visible with equidistant spacing (top of answer to top of container equals bottom of answer to bottom of container).
+
+### Issue with FAQ Cutoff
+The cutoff of FAQ answers is likely due to the static `max-height: 200px` (desktop) and `max-height: 300px` (mobile) on `.accordion-content.active`, which restricts the container height for longer answers. The previous update attempted to balance spacing but didn’t address the dynamic height requirement. We need to:
+1. Remove the static `max-height` from the CSS.
+2. Update the JavaScript `toggleAccordion` function to dynamically set `max-height` to `content.scrollHeight + 30px` (accounting for 15px top and bottom padding) when active.
+3. Ensure the spacing remains balanced (15px above and below) by keeping `.accordion-content.active { padding: 15px; }` and `.accordion-content p { padding: 0; }`.
+
+### Updated Code
+Since the `<head>` you provided is incomplete, I’ll provide the corrected `<head>` section with the FAQ styles updated to remove static `max-height` and maintain balanced spacing. The `<body>` section remains unchanged, as the FAQ content is correct, and the issue is stylistic/functional. I’ll also include the updated `<script>` section to handle dynamic `max-height`. The `<body>` will be summarized to confirm it’s unchanged, but I can provide the full `<body>` if needed.
+
+#### Updated `<head>` Section
+The `<head>` section is updated to remove `max-height` from `.accordion-content.active` and ensure consistent padding for balanced spacing. Other styles are unchanged from your provided version.
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Debt Culture: Join the $DEBT rebellion against the financial system with memes, burns, and community power.">
+    <meta name="keywords" content="DEBT, cryptocurrency, Solana, token, rebellion, finance">
+    <meta property="og:title" content="Debt Culture - $DEBT Token">
+    <meta property="og:description" content="Break the chains of debt with $DEBT, a deflationary token for the 99%.">
+    <meta property="og:image" content="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true">
+    <meta property="og:url" content="https://debtculture.xyz">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Debt Culture</title>
+    <link rel="icon" type="image/png" href="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true">
+    <style>
+    * { box-sizing: border-box; }
+    /* Remove horizontal scrollbar on desktop */
+    @media (min-width: 769px) {
+        html, body, .content-wrapper, #roadmap { overflow-x: hidden; overflow-y: auto; }
+        .disclaimer, .faq-container, .banner-container { overflow-x: hidden; }
+    }
+    /* Fallback for mobile to prevent unwanted scrolling */
+    @media (max-width: 768px) {
+        html { overflow-x: hidden; }
+        .content-wrapper { overflow-x: hidden; overflow-y: auto; }
+    }
+    .content-wrapper { filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; }
+    .content-wrapper.unblurred { filter: none; }
+    
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; }
+    .navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible; }
+    .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; }
+    .navbar a:hover { background-color: #555; }
+    .navbar-links { display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
+    .navbar-logo { width: 100px; height: 100px; margin: 0; object-fit: contain; flex-shrink: 0; }
+    .dropdown { position: relative; z-index: 1100; }
+    .dropbtn { color: #eee; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer; }
+    .dropbtn:hover { background-color: #555; }
+    .dropdown-content { display: none; position: absolute; background-color: #333; min-width: 160px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); z-index: 1101; top: 100%; left: 5px; }
+    .dropdown-content a { color: #eee; padding: 10px; text-decoration: none; display: block; text-align: left; }
+    .dropdown-content a:hover { background-color: #555; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .hamburger { display: none; flex-direction: column; cursor: pointer; position: fixed; top: 10px; left: 10px; z-index: 1100; }
+    .hamburger div { width: 30px; height: 3px; background-color: #eee; margin: 5px 0; }
+    .mobile-menu { display: none; position: fixed; top: 50px; left: 10px; background-color: #333; width: 200px; text-align: left; border-radius: 5px; z-index: 999; overflow-x: hidden; }
+    .mobile-menu a { display: block; color: #eee; padding: 10px; text-decoration: none; }
+    .mobile-menu a:hover { background-color: #555; }
+    .mobile-dropdown { display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px; overflow-x: hidden; }
+    .mobile-menu .expand { cursor: pointer; color: #eee; padding: 10px; text-decoration: none; display: block; }
+    .mobile-menu .expand:hover { background-color: #555; }
+    .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
     .fixed-bar { position: fixed; bottom: 35px; left: 0; right: 0; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 2000; }
     .fixed-bar a { margin: 0 5px; }
     .icon { width: 60px; height: 60px; background-color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; overflow: hidden; }
@@ -257,14 +324,14 @@
     .accordion-content p { font-size: 1.1rem; color: #eee; padding: 0; margin: 0; }
     .accordion-content a { color: #ff5555; text-decoration: none; }
     .accordion-content a:hover { color: #ff7777; }
-    .accordion-content.active { max-height: 200px; padding: 15px; }
+    .accordion-content.active { padding: 15px; }
     @media (max-width: 768px) {
         #faq { margin-top: -83px; padding: 20px; }
         .faq-container { max-width: 90%; padding: 15px; }
         .accordion-header { font-size: 1.1rem; padding: 10px; }
         .accordion-header::after { font-size: 0.9rem; right: 10px; }
         .accordion-content p { font-size: 1rem; padding: 0; }
-        .accordion-content.active { max-height: 300px; padding: 15px; }
+        .accordion-content.active { padding: 15px; }
     }
     
     /* Disclaimer Styles */
