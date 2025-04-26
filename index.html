@@ -254,16 +254,16 @@
     .accordion-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
     .accordion-header.active::after { transform: rotate(180deg); }
     .accordion-content { max-height: 0; overflow: hidden; background-color: #2a2a2a; border-radius: 0 0 5px 5px; padding: 0 15px; transition: max-height 0.3s ease, padding 0.3s ease; }
-    .accordion-content p { font-size: 1.1rem; color: #eee; padding: 20px 0; margin: 0; }
+    .accordion-content p { font-size: 1.1rem; color: #eee; padding: 0; margin: 0; }
     .accordion-content a { color: #ff5555; text-decoration: none; }
     .accordion-content a:hover { color: #ff7777; }
-    .accordion-content.active { max-height: 200px; padding: 20px 15px; }
+    .accordion-content.active { max-height: 200px; padding: 15px; }
     @media (max-width: 768px) {
         #faq { margin-top: -83px; padding: 20px; }
         .faq-container { max-width: 90%; padding: 15px; }
         .accordion-header { font-size: 1.1rem; padding: 10px; }
         .accordion-header::after { font-size: 0.9rem; right: 10px; }
-        .accordion-content p { font-size: 1rem; padding: 15px 0; }
+        .accordion-content p { font-size: 1rem; padding: 0; }
         .accordion-content.active { max-height: 300px; padding: 15px; }
     }
     
