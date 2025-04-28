@@ -362,447 +362,399 @@
     </style>
 </head>
 <body>
-    <!-- Construction Modal -->
-    <div class="construction-modal" id="constructionModal" role="dialog" aria-labelledby="modal-title">
+    <div id="constructionModal" class="construction-modal">
         <div class="modal-content">
-            <h2 id="modal-title">SITE UNDER CONSTRUCTION</h2>
-            <p>This site is currently being built. Content may be incomplete or subject to change. Proceed anyway?</p>
-            <button onclick="acceptConstructionNotice()" tabindex="0" aria-label="Accept and proceed">Accept</button>
+            <h2>Under Construction</h2>
+            <p>This site is a work in progress. Some features may not be fully functional yet. Join the rebellion and bear with us!</p>
+            <button onclick="acceptConstructionNotice()">Join the Rebellion</button>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="content-wrapper" id="contentWrapper">
+    <div id="contentWrapper" class="content-wrapper">
         <div class="navbar">
+            <img src="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true" alt="Debt Culture Logo" class="navbar-logo">
             <div class="navbar-links">
-                <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100">
-                <a href="#overview">Overview</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#how-to-buy">How to Buy</a>
-                <a href="#team">Team</a>
-                <a href="#hall-of-fame">Hall of Fame</a>
-                <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer">Memes</a>
+                <a href="#hero" onclick="scrollToSection('#hero')">Home</a>
+                <a href="#overview" onclick="scrollToSection('#overview')">Overview</a>
+                <a href="#roadmap" onclick="scrollToSection('#roadmap')">Roadmap</a>
+                <a href="#how-to-buy" onclick="scrollToSection('#how-to-buy')">How to Buy</a>
+                <a href="#team" onclick="scrollToSection('#team')">Team</a>
+                <a href="#hall-of-fame" onclick="scrollToSection('#hall-of-fame')">Hall of Fame</a>
+                <a href="#faq" onclick="scrollToSection('#faq')">FAQ</a>
                 <div class="dropdown">
-                    <div class="dropbtn" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
+                    <a class="dropbtn">Community</a>
                     <div class="dropdown-content">
-                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexTools</a>
-                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">GeckoTerminal</a>
-                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexScreener</a>
-                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">RugCheck</a>
-                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">Photon</a>
-                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer">Birdeye</a>
-                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">GMGN</a>
-                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Raydium</a>
-                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Solscan</a>
+                        <a href="https://x.com/debtculturexyz" target="_blank">X</a>
+                        <a href="https://t.me/debtculture" target="_blank">Telegram</a>
+                        <a href="https://discord.gg/debtculture" target="_blank">Discord</a>
                     </div>
                 </div>
-                <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100">
             </div>
         </div>
-        <div class="banner-container">
-            <picture>
-                <source srcset="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" type="image/png">
-                <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Culture banner with rebellious design" class="banner-image" width="500" height="180">
-            </picture>
+
+        <div class="hamburger" onclick="toggleMenu()" aria-expanded="false" aria-label="Toggle mobile menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <img src="https://github.com/debtculture/debt/blob/main/$DEBT%20w%20bg.png?raw=true" alt="Debt Culture Logo" class="mobile-logo">
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="#hero" onclick="scrollToSection('#hero'); closeMenu()">Home</a>
+            <a href="#overview" onclick="scrollToSection('#overview'); closeMenu()">Overview</a>
+            <a href="#roadmap" onclick="scrollToSection('#roadmap'); closeMenu()">Roadmap</a>
+            <a href="#how-to-buy" onclick="scrollToSection('#how-to-buy'); closeMenu()">How to Buy</a>
+            <a href="#team" onclick="scrollToSection('#team'); closeMenu()">Team</a>
+            <a href="#hall-of-fame" onclick="scrollToSection('#hall-of-fame'); closeMenu()">Hall of Fame</a>
+            <a href="#faq" onclick="scrollToSection('#faq'); closeMenu()">FAQ</a>
+            <a class="expand" onclick="toggleDropdown()">Community</a>
+            <div id="mobileDropdown" class="mobile-dropdown">
+                <a href="https://x.com/debtculturexyz" target="_blank" onclick="closeMenu()">X</a>
+                <a href="https://t.me/debtculture" target="_blank" onclick="closeMenu()">Telegram</a>
+                <a href="https://discord.gg/debtculture" target="_blank" onclick="closeMenu()">Discord</a>
+            </div>
         </div>
 
-        <!-- Hero Section -->
+        <div class="banner-container">
+            <img src="https://github.com/debtculture/debt/blob/main/debtbanner.png?raw=true" alt="Debt Culture Banner" class="banner-image">
+        </div>
+
         <section id="hero" class="section">
-            <h1>$DEBT: Don’t Ever Believe Them</h1>
-            <p class="typewriter">A token for the 99% to break the chains of debt and lies. The elite control everything—until now.</p>
-            <button onclick="scrollToSection('#how-to-buy')" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" aria-label="Scroll to How to Buy section">Ignite the Revolt</button>
+            <h1 class="typewriter">Break the Chains of Debt</h1>
+            <p>Join the $DEBT rebellion to flip the script on the financial system with memes, burns, and community power.</p>
+            <div class="fixed-bar">
+                <a href="https://x.com/debtculturexyz" target="_blank" class="icon" aria-label="Visit Debt Culture on X"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_X_%28formerly_Twitter%29.svg" alt="X Logo"></a>
+                <a href="https://t.me/debtculture" target="_blank" class="icon" aria-label="Join Debt Culture on Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo"></a>
+                <a href="https://discord.gg/debtculture" target="_blank" class="icon" aria-label="Join Debt Culture on Discord"><img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Discord_logo.svg" alt="Discord Logo"></a>
+                <a href="https://pump.fun/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" class="icon" aria-label="Trade $DEBT on pump.fun"><img src="https://pump.fun/favicon.ico" alt="pump.fun Logo"></a>
+            </div>
         </section>
 
-        <!-- Contract Address Section -->
-        <div class="contract-address">
-            <h3>Contract Address</h3>
-            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
-        </div>
-
-        <!-- Overview Section -->
         <section id="overview" class="section">
-            <h1>Overview</h1>
-            <p>Debt Culture is a rebellion against a broken financial system. While their debt spirals upward—bloated, inflationary, and unstoppable—ours shrinks with every burn. $DEBT flips the script with memes, community power, and a deflationary edge.</p>
-            <div class="debt-clock-container" onclick="window.open('https://www.usdebtclock.org/', '_blank')" role="button" aria-label="Visit U.S. Debt Clock">
-                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no" sandbox="allow-same-origin allow-scripts"></iframe>
-            </div>
-            <p>The U.S. National Debt climbs endlessly—over $36 trillion and counting.</p>
-            
+            <h1>Why $DEBT?</h1>
+            <p>$DEBT is a deflationary token on Solana for the 99%. We're here to meme our way out of the debt trap and burn the supply while we’re at it. No suits, no promises—just vibes and a community that’s had enough.</p>
             <div class="tokenomics">
                 <h2>Tokenomics</h2>
-                <p>No taxes, no nonsense—just pure $DEBT. Launched on Pump.fun, LP tokens burnt, contract renounced—locked and deflationary.</p>
                 <table class="tokenomics-table">
-                    <tr><th>Metric</th><th>Value</th></tr>
-                    <tr><td>Starting Supply</td><td>1,000,000,000 $DEBT</td></tr>
-                    <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
-                    <tr><td>Change (%)</td><td id="supply-change">Calculating...</td></tr>
+                    <tr><th>Total Supply</th><td>1,000,000,000 $DEBT</td></tr>
+                    <tr><th>Current Supply</th><td id="current-supply">Loading...</td></tr>
+                    <tr><th>Change</th><td id="supply-change">Loading...</td></tr>
                 </table>
-                <div class="burn-tracker">
-                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
-                </div>
-                <p>Unlike theirs, ours burns.</p>
-                <p>45M+ $DEBT gone—and counting.</p>
             </div>
-            
+            <div class="debt-clock-container" onclick="window.open('https://www.usdebtclock.org', '_blank')" aria-label="Visit US Debt Clock">
+                <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org"></iframe>
+            </div>
+            <div class="burn-tracker">
+                Track the burn: <a href="https://solscan.io/account/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump#splTransfers" target="_blank">Solscan</a>
+            </div>
             <div class="x-space-schedule">
                 <h2>X Space Schedule</h2>
-                <p>Join us for rants, reveals, and recruitment:</p>
+                <p>Join our weekly X Spaces to vibe with the community and talk $DEBT.</p>
                 <ul>
-                    <li>Monday – 9 PM EST</li>
-                    <li>Thursday – 9 PM EST</li>
-                    <li>Saturday – 9 PM EST <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥</a></li>
+                    <li>Every Thursday at 8 PM EST <a href="https://x.com/debtculturexyz" target="_blank">(@debtculturexyz)</a></li>
                 </ul>
                 <div class="hosts-include">
-                    <h3>Hosts Include:</h3>
+                    <h3>Hosts Include</h3>
                     <div class="host-bubbles">
                         <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy">
-                            <div class="host-title">Catavina</div>
-                            <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+                            <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" class="profile-pic" width="75" height="75" loading="lazy">
+                            <div class="host-title">Lunic</div>
+                            <a href="https://x.com/LunicXBT" target="_blank" class="twitter-link" aria-label="Visit Lunic's X profile">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_X_%28formerly_Twitter%29.svg" alt="X Logo" class="twitter-icon" width="20" height="20">
                             </a>
                         </div>
                         <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf profile picture" class="profile-pic" width="75" height="75" loading="lazy">
-                            <div class="host-title">Nerf</div>
-                            <a href="https://x.com/0xnerf" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Nerf's X profile">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-                            </a>
-                        </div>
-                        <div class="host-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy">
-                            <div class="host-title">Lou</div>
-                            <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
-                                <img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+                            <img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" class="profile-pic" width="75" height="75" loading="lazy">
+                            <div class="host-title">STAYHIGH</div>
+                            <a href="https://x.com/STAYHIGH69X" target="_blank" class="twitter-link" aria-label="Visit STAYHIGH's X profile">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_X_%28formerly_Twitter%29.svg" alt="X Logo" class="twitter-icon" width="20" height="20">
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="section-connector overview-to-roadmap"></div>
         </section>
 
-        <img src="https://github.com/debtculture/debt/blob/main/debt%20png.png?raw=true" alt="Debt Culture logo with red text" class="mobile-logo" width="100" height="100">
-        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()">
-            <div></div><div></div><div></div>
-        </div>
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#overview" onclick="closeMenu()">Overview</a>
-            <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
-            <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
-            <a href="#team" onclick="closeMenu()">Team</a>
-            <a href="#hall-of-fame" onclick="closeMenu()">Hall of Fame</a>
-            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Memes</a>
-            <span class="expand" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()">Resources ▼</span>
-            <div class="mobile-dropdown" id="mobileDropdown">
-                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">DexTools</a>
-                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">GeckoTerminal</a>
-                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">DexScreener</a>
-                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">RugCheck</a>
-                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Photon</a>
-                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Birdeye</a>
-                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">GMGN</a>
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Raydium</a>
-                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Solscan</a>
-            </div>
-        </div>
-
-        <section id="roadmap" class="section from-right">
+        <section id="roadmap" class="section">
             <h1>Roadmap</h1>
             <div class="roadmap-container">
                 <div class="phase phase-1">
-                    <h2>📍 Phase 1: Ignite the Culture <span class="completed">Completed</span></h2>
+                    <h2>Phase 1</h2>
                     <ul>
-                        <li>Unleash debt-fueled memes on X—spark the financial uprising.</li>
-                        <li>$Debtmas Airdrop—early rebels get rewarded.</li>
-                        <li>Saturday Burns kick off—watch $DEBT shrink weekly.</li>
-                        <li>X Spaces—rant, recruit, and reveal what $DEBT stands for.</li>
+                        <li>Token Launch on pump.fun</li>
+                        <li>X, Telegram, Discord Communities</li>
+                        <li>First Burn Event</li>
+                        <li>Website v1</li>
+                    </ul>
+                    <div class="completed">Completed</div>
+                </div>
+                <div class="phase phase-2">
+                    <h2>Phase 2</h2>
+                    <ul>
+                        <li>DEX Listings</li>
+                        <li>Community Burn Events</li>
+                        <li>Meme Contests</li>
+                        <li>DeFi Collabs</li>
+                    </ul>
+                    <div class="we-are-here">We Are Here</div>
+                </div>
+                <div class="future-teaser future-phase">
+                    <h2>Phase 3</h2>
+                    <ul>
+                        <li>Click to reveal</li>
+                        <li>Major burns</li>
+                        <li>DAO setup</li>
                     </ul>
                 </div>
-                <div class="phase">
-                    <h2><span class="we-are-here">We Are Here</span> 📍 Phase 2: Build the Bones</h2>
+                <div class="future-teaser future-phase">
+                    <h2>Phase 4</h2>
                     <ul>
-                        <li>DebtCulture.xyz—roadmap, resources, and the manifesto.</li>
-                        <li>Discord hub—memes, games, and strategy 24/7.</li>
-                        <li>Social media expansion—reeling in the debt-curious.</li>
-                        <li>Verification on key market aggregators—solidifying legitimacy.</li>
-                    </ul>
-                </div>
-                <div class="phase future-phase" title="Click to reveal future plans">
-                    <h2>📍 Phase 3: Strengthen the Holders</h2>
-                    <ul>
-                        <li>Merch launch—wear it proudly, fuel community chaos.</li>
-                        <li>Exclusive NFT perks—special rewards for the $DEBT elite.</li>
-                        <li>Staking live—stack $DEBT, lock in loyalty.</li>
-                        <li>Strategic partnerships—aligning with bold visionaries who truly get it.</li>
-                    </ul>
-                </div>
-                <div class="phase future-phase" title="Click to reveal future plans">
-                    <h2>📍 Phase 4: Cement the Legacy</h2>
-                    <ul>
-                        <li>Community DAO—real influence for those holding $DEBT.</li>
-                        <li>$DEBT utility—tipping, trading, and integrating into real ecosystems.</li>
-                        <li>Go mainstream—bring in those sick of the system.</li>
-                        <li>Stir the pot—keep the system guessing.</li>
-                    </ul>
-                </div>
-                <div class="future-teaser future-phase" title="Click to reveal future plans">
-                    <h2>📍 Future Phases: $DEBT Horizon</h2>
-                    <ul>
-                        <li>Massive burns. Insane moves. Chaos unleashed.</li>
-                        <li>The culture isn’t just growing—it’s taking over.</li>
+                        <li>Click to reveal</li>
+                        <li>Debt system takedown</li>
+                        <li>$DEBT moon</li>
                     </ul>
                 </div>
             </div>
         </section>
-
         <div class="section-connector roadmap-to-buy"></div>
 
         <section id="how-to-buy" class="section">
-            <h1>How to Buy</h1>
+            <h1>How to Buy $DEBT</h1>
             <div class="buy-container">
+                <p class="buy-blurb">Ready to join the rebellion? Follow these steps to get your $DEBT tokens.</p>
                 <div class="buy-step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <p>Set Up a Wallet – Grab <a href="#" id="phantomLink" rel="noopener noreferrer">Phantom</a> (or any Solana wallet) and save your recovery phrase.</p>
+                        <p>Download and set up a Solana-compatible wallet like <a id="phantomLink">Phantom</a>.</p>
                     </div>
                 </div>
                 <div class="buy-step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <p>Fund Your Wallet – Buy SOL on an exchange (Coinbase, Binance) and send it over.</p>
+                        <p>Fund your wallet with SOL. You can buy SOL on exchanges like Coinbase, Binance, or Kraken.</p>
                     </div>
                 </div>
                 <div class="buy-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <p>Swap for $DEBT – Hit up Raydium or Photon (see Resources), paste <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>, trade your SOL.</p>
+                        <p>Go to <a href="https://pump.fun/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">pump.fun</a> and connect your wallet. Search for $DEBT using the contract address: <span class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span></p>
                     </div>
                 </div>
                 <div class="buy-step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <p>Join the Movement – You are now in $DEBT.</p>
+                        <p>Swap your SOL for $DEBT. Confirm the transaction in your wallet, and you're in!</p>
                     </div>
                 </div>
             </div>
-            <div class="buy-blurb">Welcome to the financial rebellion.</div>
-            <div class="section-connector welcome-to-team"></div>
         </section>
+        <div class="section-connector welcome-to-team"></div>
 
         <section id="team" class="section">
-            <h1>Team</h1>
+            <h1>Meet the Team</h1>
+            <p class="team-blurb">The $DEBT rebellion is led by a crew of degens who are sick of the system. We're not your typical crypto bros—meet the faces behind the memes.</p>
             <div class="team-cylinder">
-                <div class="arrow left-arrow" onclick="rotateCylinder('left')" tabindex="0" role="button" aria-label="Previous team member" onkeydown="if(event.key === 'Enter') rotateCylinder('left')">➜</div>
                 <div class="cylinder-container">
-                    <div class="team-member" data-index="0" data-x-link="https://x.com/catavina17">
+                    <div class="team-member" data-index="0" data-x-link="https://x.com/LunicXBT">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/catavina.jpg?raw=true" alt="Catavina profile picture" width="100" height="100" loading="lazy">
+                                <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="member-name">Catavina</div>
-                            <div class="member-role">Community Manager</div>
+                            <div class="member-name">Lunic</div>
+                            <div class="member-role">The Spark</div>
                         </div>
                     </div>
-                    <div class="team-member" data-index="1" data-x-link="https://x.com/0xnerf">
+                    <div class="team-member" data-index="1" data-x-link="https://x.com/0xTormund">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/nerf.jpg?raw=true" alt="Nerf profile picture" width="100" height="100" loading="lazy">
+                                <img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="member-name">Nerf</div>
-                            <div class="member-role">Market Analyst</div>
+                            <div class="member-name">Tormund</div>
+                            <div class="member-role">The Oracle</div>
                         </div>
                     </div>
-                    <div class="team-member" data-index="2" data-x-link="https://x.com/louisedbegin">
+                    <div class="team-member" data-index="2" data-x-link="https://x.com/reneeXBT">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/lou.jpg?raw=true" alt="Lou profile picture" width="100" height="100" loading="lazy">
+                                <img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="member-name">Lou</div>
-                            <div class="member-role">Social Media Manager</div>
+                            <div class="member-name">Renee</div>
+                            <div class="member-role">The Believer</div>
                         </div>
                     </div>
-                    <div class="team-member" data-index="3" data-x-link="https://x.com/AutopsyT2">
+                    <div class="team-member" data-index="3" data-x-link="https://x.com/STAYHIGH69X">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/Autopsy.jpg?raw=true" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
+                                <img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="member-name">Autopsy</div>
-                            <div class="member-role">Founder</div>
+                            <div class="member-name">STAYHIGH</div>
+                            <div class="member-role">The Unfiltered</div>
                         </div>
                     </div>
-                    <div class="team-member" data-index="4" data-x-link="https://x.com/jpegfein">
+                    <div class="team-member" data-index="4" data-x-link="https://x.com/blu_chek">
                         <div class="bubble">
                             <div class="inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/jpeg.jpg?raw=true" alt="JPEG profile picture" width="100" height="100" loading="lazy">
+                                <img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="member-name">JPEG</div>
-                            <div class="member-role">Content Creator</div>
+                            <div class="member-name">blu</div>
+                            <div class="member-role">The Wise</div>
                         </div>
                     </div>
                 </div>
-                <div class="arrow right-arrow" onclick="rotateCylinder('right')" tabindex="0" role="button" aria-label="Next team member" onkeydown="if(event.key === 'Enter') rotateCylinder('right')">➜</div>
+                <div class="arrow left-arrow" onclick="rotateCylinder('left')" aria-label="Previous team member">➜</div>
+                <div class="arrow right-arrow" onclick="rotateCylinder('right')" aria-label="Next team member">➜</div>
             </div>
-            <p class="team-blurb">Our crew’s hungry for more rebels with grit and vision. Got what it takes? Slide into <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">@DebtCulture</a>’s DMs on X.</p>
-            <div class="section-connector team-to-hof"></div>
+            <p class="team-blurb">Got skills? Want to join the rebellion? DM us on <a href="https://x.com/debtculturexyz" target="_blank">X</a> or hop into our <a href="https://discord.gg/debtculture" target="_blank">Discord</a>.</p>
         </section>
+        <div class="section-connector team-to-hof"></div>
 
-        <section id="hall-of-fame" class="section from-right">
+        <section id="hall-of-fame" class="section">
             <h1>Hall of Fame</h1>
+            <p class="hof-blurb">These legends have gone above and beyond for the $DEBT community. Their contributions fuel the rebellion.</p>
             <div class="hof-carousel">
-                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('left')">➜</div>
                 <div class="hof-container">
-                    <div class="hof-featured" id="hof-featured">
+                    <div id="hof-featured" class="hof-featured">
                         <div class="hof-bubble">
-                            <div class="hof-inner-bubble">
-                                <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">
-                            </div>
-                            <div class="hof-name">Lunic</div>
-                            <div class="hof-title">The Spark</div>
+                            <div class="hof-inner-bubble"></div>
+                            <div class="hof-name"></div>
+                            <div class="hof-title"></div>
                         </div>
                     </div>
                     <div class="hof-row">
-                        <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
+                        <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/LunicXBT">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="100" height="100" loading="lazy">
                                 </div>
+                                <div class="hof-name">Lunic</div>
+                                <div class="hof-title">The Spark</div>
                             </div>
-                            <div class="hof-title">Lunic</div>
                         </div>
-                        <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
+                        <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/0xTormund">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="100" height="100" loading="lazy">
                                 </div>
+                                <div class="hof-name">Tormund</div>
+                                <div class="hof-title">The Oracle</div>
                             </div>
-                            <div class="hof-title">Tormund</div>
                         </div>
-                        <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
+                        <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/reneeXBT">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="100" height="100" loading="lazy">
                                 </div>
+                                <div class="hof-name">Renee</div>
+                                <div class="hof-title">The Believer</div>
                             </div>
-                            <div class="hof-title">Renee</div>
                         </div>
-                        <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
+                        <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/STAYHIGH69X">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
                                     <img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
                                 </div>
+                                <div class="hof-name">STAYHIGH</div>
+                                <div class="hof-title">The Unfiltered</div>
                             </div>
-                            <div class="hof-title">STAYHIGH</div>
+                        </div>
+                        <div class="hof-member" data-index="4" data-title="blu" data-x-link="https://x.com/blu_chek">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                                <div class="hof-name">blu</div>
+                                <div class="hof-title">The Wise</div>
+                            </div>
                         </div>
                     </div>
                     <div class="hof-tbd-row">
-                        <div class="hof-member" data-index="4" data-title="TBA">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
-                            </div>
-                            <div class="hof-title">TBA</div>
-                        </div>
                         <div class="hof-member" data-index="5" data-title="TBA">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">?</div>
+                                <div class="hof-name">TBA</div>
+                                <div class="hof-title">Coming Soon</div>
                             </div>
-                            <div class="hof-title">TBA</div>
                         </div>
                         <div class="hof-member" data-index="6" data-title="TBA">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">?</div>
+                                <div class="hof-name">TBA</div>
+                                <div class="hof-title">Coming Soon</div>
                             </div>
-                            <div class="hof-title">TBA</div>
                         </div>
                         <div class="hof-member" data-index="7" data-title="TBA">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">?</div>
+                                <div class="hof-name">TBA</div>
+                                <div class="hof-title">Coming Soon</div>
                             </div>
-                            <div class="hof-title">TBA</div>
                         </div>
                     </div>
+                    <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" aria-label="Previous Hall of Fame member">➜</div>
+                    <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" aria-label="Next Hall of Fame member">➜</div>
                 </div>
-                <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
             </div>
-            <p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
-            <div class="section-connector hof-to-faq"></div>
         </section>
+        <div class="section-connector hof-to-faq"></div>
 
-        <!-- FAQ Section -->
         <section id="faq" class="section">
             <h1>FAQ</h1>
             <div class="faq-container">
                 <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is $DEBT?">
-                        What is $DEBT?
-                    </div>
+                    <div class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">What is $DEBT?</div>
                     <div class="accordion-content">
-                        <p>$DEBT is a Solana-based memecoin built as a rebellion against the elite-controlled financial system. Short for "Don't Ever Believe Them," $DEBT is a deflationary token for the 99%, powered by community strength, weekly burns, and a mission to expose systemic lies and corruption.</p>
+                        <p>$DEBT is a community-driven, deflationary token on Solana. It’s a middle finger to the financial system, powered by memes, burns, and a rebellion against debt culture. No suits, just vibes.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle When did $DEBT launch?">
-                        When did $DEBT launch?
-                    </div>
+                    <div class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">Why should I join the $DEBT rebellion?</div>
                     <div class="accordion-content">
-                        <p>$DEBT officially launched on July 21, 2024, via a fair launch on Pump.fun. From day one, LP tokens were burned and the contract was renounced, locking in full decentralization and trust with no chance of manipulation.</p>
+                        <p>If you’re tired of the system screwing the 99%, $DEBT is your tribe. We’re burning tokens, building community, and having fun while sticking it to the man. Plus, Solana’s low fees mean you can join without selling your kidney.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What makes $DEBT different from other tokens?">
-                        What makes $DEBT different from other tokens?
-                    </div>
+                    <div class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">How do I buy $DEBT?</div>
                     <div class="accordion-content">
-                        <p>$DEBT has no taxes, no team wallets, and no hidden agendas. Its liquidity pool was burned, and the contract is fully renounced for true decentralization. Supply shrinks through ongoing weekly burns, and the project is fueled by a community genuinely rallying against financial oppression — not just chasing hype.</p>
+                        <p>Check out the <a href="#how-to-buy" onclick="scrollToSection('#how-to-buy')">How to Buy</a> section. In short: get a Solana wallet like Phantom, fund it with SOL, hit up <a href="https://pump.fun/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank">pump.fun</a>, and swap for $DEBT.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the mission or purpose behind $DEBT?">
-                        What is the mission or purpose behind $DEBT?
-                    </div>
+                    <div class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">What’s the deal with burns?</div>
                     <div class="accordion-content">
-                        <p>$DEBT exists to empower the 99% by challenging the elites' control over finance. Through relentless community action, viral memes, and a transparent burn system, $DEBT is building a movement that exposes the broken debt-based system and fights for financial freedom and truth.</p>
+                        <p>We burn $DEBT tokens to reduce supply and flip off the debt system. Community-driven burn events are announced on <a href="https://x.com/debtculturexyz" target="_blank">X</a>, <a href="https://t.me/debtculture" target="_blank">Telegram</a>, and <a href="https://discord.gg/debtculture" target="_blank">Discord</a>. Track burns on <a href="https://solscan.io/account/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump#splTransfers" target="_blank">Solscan</a>.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle How can I get involved with the $DEBT community?">
-                        How can I get involved with the $DEBT community?
-                    </div>
+                    <div class="accordion-header" onclick="toggleAccordion(this)" aria-expanded="false">Is $DEBT a safe investment?</div>
                     <div class="accordion-content">
-                        <p>Join the rebellion on <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer">Telegram (@debtculture)</a>, follow us on <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">X (@DebtCulture)</a>, and catch our X Spaces every Monday, Thursday, and Saturday at 9 PM EST. Buy and hold $DEBT, spread the message through memes, recruit new rebels, or DM the team to contribute your skills to the cause.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the long-term vision for $DEBT?">
-                        What is the long-term vision for $DEBT?
-                    </div>
-                    <div class="accordion-content">
-                        <p>$DEBT is building a lasting legacy through a community-led DAO, real-world utility like tipping and trading, and massive future burns. Plans include NFT integrations, staking opportunities, and strategic partnerships — all aimed at disrupting the broken financial system while empowering $DEBT holders every step of the way.</p>
+                        <p>Crypto’s a wild ride, and $DEBT is no exception. We’re a meme-driven rebellion, not a financial advisor. DYOR, check our <a href="#disclaimer">disclaimer</a>, and only throw in what you can afford to lose.</p>
                     </div>
                 </div>
             </div>
-            <div class="section-connector faq-to-disclaimer"></div>
         </section>
-
-        <div class="fixed-bar">
-            <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://github.com/debtculture/debt/blob/main/X.png?raw=true" alt="X icon" width="60" height="60" loading="lazy"></a>
-            <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://github.com/debtculture/debt/blob/main/Telegram.png?raw=true" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
-            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://github.com/debtculture/debt/blob/main/Dexscreener.png?raw=true" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
-            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://github.com/debtculture/debt/blob/main/Pumpfun.png?raw=true" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
-        </div>
-
-        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="join-rebellion" aria-label="Join Debt Culture Telegram">Join the Rebellion</a>
+        <div class="section-connector faq-to-disclaimer"></div>
 
         <div class="disclaimer">
             <h3>Disclaimer</h3>
             <ol>
-                <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
-                <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
-                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
+                <li>$DEBT is a meme token for entertainment and community purposes. It’s not a financial instrument or investment advice.</li>
+                <li>Cryptocurrency is volatile. You could lose everything. Only use funds you can afford to lose.</li>
+                <li>We’re not responsible for your financial decisions. Do your own research (DYOR).</li>
+                <li>Token burns and community events are for vibes, not guaranteed value increases.</li>
+                <li>External links (e.g., pump.fun, Solscan) are not under our control. Use at your own risk.</li>
+                <li>Join the rebellion for the memes, stay for the community, but don’t expect miracles.</li>
             </ol>
         </div>
 
-        <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
+        <div class="contract-address">
+            <h3>Contract Address</h3>
+            <p class="copyable-address" onclick="copyAddress(this)">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</p>
+        </div>
+
+        <a href="https://t.me/debtculture" target="_blank" class="join-rebellion" aria-label="Join Debt Culture on Telegram">Join the Rebellion</a>
+
+        <div class="footer">
+            <p>© 2025 Debt Culture. All rights reserved. Built by the community, for the community.</p>
+        </div>
     </div>
 </body>
                                               <script>
