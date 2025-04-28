@@ -203,7 +203,7 @@
     .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); }
     .hof-featured .hof-title { position: static; transform: none; font-size: 0.9rem; margin-bottom: 5px; }
     .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 100px auto 20px; color: #eee; }
-    .hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color: 0.3s ease; }
+    .hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: he 0.3s ease; }
     .hof-arrow:hover { color: #ff7777; }
     .hof-left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
     .hof-right-arrow { right: 20px; }
@@ -252,17 +252,17 @@
     .accordion-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
     .accordion-header.active::after { transform: rotate(180deg); }
     .accordion-content { max-height: 0; overflow: hidden; background-color: #2a2a2a; border-radius: 0 0 5px 5px; padding: 0 15px; transition: max-height 0.3s ease, padding 0.3s ease; }
-    .accordion-content p { font-size: 1.1rem; color: #eee; padding: 10px 0; margin: 0; }
+    .accordion-content p { font-size: 1.1rem; color: #eee; padding: 10px 0; margin: 0; line-height: 1.5; }
     .accordion-content a { color: #ff5555; text-decoration: none; }
     .accordion-content a:hover { color: #ff7777; }
-    .accordion-content.active { max-height: 400px; padding: 15px; }
+    .accordion-content.active { padding: 15px; }
     @media (max-width: 768px) {
         #faq { margin-top: -83px; padding: 20px; }
         .faq-container { max-width: 90%; padding: 15px; }
         .accordion-header { font-size: 1.1rem; padding: 10px; }
         .accordion-header::after { font-size: 0.9rem; right: 10px; }
-        .accordion-content p { font-size: 1rem; padding: 10px 0; }
-        .accordion-content.active { max-height: 400px; padding: 15px; }
+        .accordion-content p { font-size: 1rem; padding: 10px 0; line-height: 1.5; }
+        .accordion-content.active { padding: 15px; }
     }
     
     /* Disclaimer Styles */
@@ -846,7 +846,7 @@ function toggleAccordion(header) {
     // Toggle the clicked accordion
     if (!isActive) {
         content.classList.add('active');
-        content.style.maxHeight = content.scrollHeight + 'px';
+        content.style.maxHeight = `${content.scrollHeight + 30}px`; // Add 30px for padding (15px top + 15px bottom)
         content.style.padding = '15px';
         header.classList.add('active');
         header.setAttribute('aria-expanded', 'true');
