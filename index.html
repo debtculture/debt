@@ -1024,10 +1024,10 @@ teamCylinder.addEventListener('touchend', (e) => {
 teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
 teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
 
-// Hall of Fame Carousel (4 named items cycle in featured)
+// Hall of Fame Carousel (5 named items cycle in featured)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
-const totalNamedHofMembers = 4; // Only Lunic, Tormund, Renee, STAYHIGH (indices 0–3)
+const totalNamedHofMembers = 5; // Lunic, Tormund, Renee, STAYHIGH, blu (indices 0–4)
 
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
@@ -1051,6 +1051,9 @@ function updateHofCarousel() {
     } else if (currentHofIndex === 3) { // STAYHIGH
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-title').textContent = 'The Unfiltered';
+    } else if (currentHofIndex === 4) { // blu
+        featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-title').textContent = 'The Wise';
     }
 
     featured.querySelector('.hof-name').textContent = title;
@@ -1064,7 +1067,7 @@ function updateHofCarousel() {
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
-            // Only allow clicking on named members (indices 0–3)
+            // Only allow clicking on named members (indices 0–4)
             if (index < totalNamedHofMembers) {
                 currentHofIndex = parseInt(member.getAttribute('data-index'));
                 updateHofCarousel();
