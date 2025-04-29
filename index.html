@@ -83,33 +83,13 @@
     .disclaimer { margin: 0 auto 40px; }
     .buy-container { overflow-x: hidden; }
     .buy-step { overflow-x: hidden; }
-    .buy-step .step-content { overflow-y: hidden; max-height: 60px; }
+    .buy-step .step-content { overflow-y: hidden; }
     .copyable-address { display: inline-block; max-height: 2.2rem; overflow-y: hidden; }
-    .copyable-address::after { z-index: 10; }
-    .copyable-address.copied::after { opacity: 1; }
-    #team { margin-top: -200px; min-height: auto; }
+    #team { margin-top: -720px; min-height: auto; }
     .team-cylinder { width: 600px; height: 450px; max-width: none; position: relative; }
     .cylinder-container { position: relative; left: 0; top: 0; }
     #hall-of-fame { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
     .hof-carousel { max-width: 600px; height: 400px; }
-    .hof-bubble[data-year]::before {
-        content: "'" attr(data-year);
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        background: #ff5555;
-        color: #fff;
-        font-size: 0.8rem;
-        font-weight: bold;
-        padding: 2px 5px;
-        border-radius: 3px;
-        z-index: 15;
-        box-shadow: 0 0 5px rgba(255, 85, 85, 0.8);
-    }
-    .hof-featured .hof-bubble[data-year]::before {
-        font-size: 1rem;
-        padding: 3px 6px;
-    }
     .faq-container { max-width: 800px; }
 }
     @media (max-width: 768px) {
@@ -120,24 +100,6 @@
         .team-to-hof { margin-bottom: 47px; }
         .hof-to-faq { margin-bottom: 34px; }
         .faq-to-disclaimer { margin-bottom: 34px; }
-        .hof-bubble[data-year]::before {
-    content: "'" attr(data-year);
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    background: #ff5555;
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: bold;
-    padding: 2px 4px;
-    border-radius: 3px;
-    z-index: 15;
-    box-shadow: 0 0 5px rgba(255, 85, 85, 0.8);
-}
-.hof-featured .hof-bubble[data-year]::before {
-    font-size: 0.8rem;
-    padding: 2px 5px;
-}
     }
     .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
     .phase.visible, .future-teaser.visible { opacity: 1; transform: translateX(0); }
@@ -708,67 +670,67 @@
                 </div>
             </div>
             <div class="hof-row">
-    <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677" data-year="24">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">
-                <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="100" height="100" loading="lazy">
+                <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="100" height="100" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="hof-title">Lunic</div>
+                </div>
+                <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="hof-title">Tormund</div>
+                </div>
+                <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="100" height="100" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="hof-title">Renee</div>
+                </div>
+                <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="hof-title">STAYHIGH</div>
+                </div>
             </div>
-        </div>
-        <div class="hof-title">Lunic</div>
-    </div>
-    <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17" data-year="24">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">
-                <img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+            <div class="hof-tbd-row">
+                <div class="hof-member" data-index="4" data-title="blu" data-x-link="https://x.com/blu_chek">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">
+                            <img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="100" height="100" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="hof-title">blu</div>
+                </div>
+                <div class="hof-member" data-index="5" data-title="TBA">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">?</div>
+                    </div>
+                    <div class="hof-title">TBA</div>
+                </div>
+                <div class="hof-member" data-index="6" data-title="TBA">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">?</div>
+                    </div>
+                    <div class="hof-title">TBA</div>
+                </div>
+                <div class="hof-member" data-index="7" data-title="TBA">
+                    <div class="hof-bubble">
+                        <div class="hof-inner-bubble">?</div>
+                    </div>
+                    <div class="hof-title">TBA</div>
+                </div>
             </div>
-        </div>
-        <div class="hof-title">Tormund</div>
-    </div>
-    <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/ReneeBush96829" data-year="24">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">
-                <img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="100" height="100" loading="lazy">
-            </div>
-        </div>
-        <div class="hof-title">Renee</div>
-    </div>
-    <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH" data-year="24">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">
-                <img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
-            </div>
-        </div>
-        <div class="hof-title">STAYHIGH</div>
-    </div>
-</div>
-<div class="hof-tbd-row">
-    <div class="hof-member" data-index="4" data-title="blu" data-x-link="https://x.com/blu_chek" data-year="25">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">
-                <img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="100" height="100" loading="lazy">
-            </div>
-        </div>
-        <div class="hof-title">blu</div>
-    </div>
-    <div class="hof-member" data-index="5" data-title="TBA">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">?</div>
-        </div>
-        <div class="hof-title">TBA</div>
-    </div>
-    <div class="hof-member" data-index="6" data-title="TBA">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">?</div>
-        </div>
-        <div class="hof-title">TBA</div>
-    </div>
-    <div class="hof-member" data-index="7" data-title="TBA">
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">?</div>
-        </div>
-        <div class="hof-title">TBA</div>
-    </div>
-</div>
         </div>
         <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
     </div>
@@ -1081,40 +1043,34 @@ function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
     const currentMember = hofMembers[currentHofIndex];
     const xLink = currentMember.getAttribute('data-x-link');
-    const year = currentMember.getAttribute('data-year');
 
     const featuredBubble = featured.querySelector('.hof-bubble');
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
 
-    if (currentHofIndex === 0) {
+    // Update image, name, and subtitle based on index
+    if (currentHofIndex === 0) { // Lunic
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Lunic';
         featured.querySelector('.hof-title').textContent = 'The Spark';
-        featuredBubble.setAttribute('data-year', '24');
-    } else if (currentHofIndex === 1) {
+    } else if (currentHofIndex === 1) { // Tormund
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Tormund';
         featured.querySelector('.hof-title').textContent = 'The Oracle';
-        featuredBubble.setAttribute('data-year', '24');
-    } else if (currentHofIndex === 2) {
+    } else if (currentHofIndex === 2) { // Renee
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Renee';
         featured.querySelector('.hof-title').textContent = 'The Believer';
-        featuredBubble.setAttribute('data-year', '24');
-    } else if (currentHofIndex === 3) {
+    } else if (currentHofIndex === 3) { // STAYHIGH
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'STAYHIGH';
         featured.querySelector('.hof-title').textContent = 'The Unfiltered';
-        featuredBubble.setAttribute('data-year', '24');
-    } else if (currentHofIndex === 4) {
+    } else if (currentHofIndex === 4) { // blu
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'blu';
         featured.querySelector('.hof-title').textContent = 'The Wise';
-        featuredBubble.setAttribute('data-year', '25');
-    } else {
-        featuredBubble.removeAttribute('data-year');
     }
 
+    // Update click behavior
     featuredBubble.onclick = () => {
         if (xLink) window.open(xLink, '_blank');
     };
@@ -1123,6 +1079,7 @@ function updateHofCarousel() {
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
+            // Only allow clicking on named members (indices 0–4)
             if (index < totalNamedHofMembers) {
                 currentHofIndex = parseInt(member.getAttribute('data-index'));
                 updateHofCarousel();
