@@ -667,13 +667,14 @@
                     </div>
                     <div class="hof-name">Lunic</div>
                     <div class="hof-title">The Spark</div>
+                    <div class="hof-description">Placeholder description for Lunic.</div>
                 </div>
             </div>
             <div class="hof-row">
                 <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
                     <div class="hof-bubble">
                         <div class="hof-inner-bubble">
-                            <img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="100" height="100" loading="lazy">
+                            <img src="https://github.com/debtculturespring 2025 /debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="100" height="100" loading="lazy">
                         </div>
                     </div>
                     <div class="hof-title">Lunic</div>
@@ -815,7 +816,7 @@
         <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
 </body>
-                                              <script>
+                                             <script>
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -1047,27 +1048,32 @@ function updateHofCarousel() {
     const featuredBubble = featured.querySelector('.hof-bubble');
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
 
-    // Update image, name, and subtitle based on index
+    // Update image, name, title, and description based on index
     if (currentHofIndex === 0) { // Lunic
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Lunic.jpg?raw=true" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Lunic';
         featured.querySelector('.hof-title').textContent = 'The Spark';
+        featured.querySelector('.hof-description').textContent = 'Placeholder description for Lunic.';
     } else if (currentHofIndex === 1) { // Tormund
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Tormund.jpg?raw=true" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Tormund';
         featured.querySelector('.hof-title').textContent = 'The Oracle';
+        featured.querySelector('.hof-description').textContent = 'Placeholder description for Tormund.';
     } else if (currentHofIndex === 2) { // Renee
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/Renee.jpg?raw=true" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Renee';
         featured.querySelector('.hof-title').textContent = 'The Believer';
+        featured.querySelector('.hof-description').textContent = 'Placeholder description for Renee.';
     } else if (currentHofIndex === 3) { // STAYHIGH
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/STAYHIGH.jpg?raw=true" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'STAYHIGH';
         featured.querySelector('.hof-title').textContent = 'The Unfiltered';
+        featured.querySelector('.hof-description').textContent = 'Placeholder description for STAYHIGH.';
     } else if (currentHofIndex === 4) { // blu
         featuredInnerBubble.innerHTML = `<img src="https://github.com/debtculture/debt/blob/main/blu.jpg?raw=true" alt="blu profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'blu';
         featured.querySelector('.hof-title').textContent = 'The Wise';
+        featured.querySelector('.hof-description').textContent = 'Placeholder description for blu.';
     }
 
     // Update click behavior
