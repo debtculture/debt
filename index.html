@@ -725,12 +725,14 @@
             </div>
             <div class="hof-title">blu</div>
         </div>
-        <div class="hof-member" data-index="5" data-title="TBA">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">?</div>
-            </div>
-            <div class="hof-title">TBA</div>
+        <div class="hof-member" data-index="5" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
+    <div class="hof-bubble">
+        <div class="hof-inner-bubble">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
         </div>
+    </div>
+    <div class="hof-title">Scrappy</div>
+</div>
         <div class="hof-member" data-index="6" data-title="TBA">
             <div class="hof-bubble">
                 <div class="hof-inner-bubble">?</div>
@@ -1055,10 +1057,10 @@ teamCylinder.addEventListener('touchend', (e) => {
 teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
 teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
 
-// Hall of Fame Carousel (5 named items cycle in featured)
+// Hall of Fame Carousel (6 named items cycle in featured)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
-const totalNamedHofMembers = 5; // Lunic, Tormund, Renee, STAYHIGH, blu (indices 0–4)
+const totalNamedHofMembers = 6; // Lunic, Tormund, Renee, STAYHIGH, blu, Scrappy (indices 0–5)
 
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
@@ -1095,6 +1097,11 @@ function updateHofCarousel() {
         featured.querySelector('.hof-name').textContent = 'blu';
         featured.querySelector('.hof-title').textContent = 'The Wise';
         description.textContent = 'Placeholder description for blu.';
+    } else if (currentHofIndex === 5) { // Scrappy
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Scrappy';
+        featured.querySelector('.hof-title').textContent = 'The Goofball';
+        description.textContent = 'Placeholder description for Scrappy.';
     }
 
     // Update click behavior
@@ -1106,7 +1113,7 @@ function updateHofCarousel() {
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
-            // Only allow clicking on named members (indices 0–4)
+            // Only allow clicking on named members (indices 0–5)
             if (index < totalNamedHofMembers) {
                 currentHofIndex = parseInt(member.getAttribute('data-index'));
                 updateHofCarousel();
