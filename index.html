@@ -675,13 +675,13 @@
                     <div class="hof-featured" id="hof-featured">
                         <div class="hof-bubble">
                             <div class="hof-inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="130" height="130" loading="lazy">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="hof-name">Lunic</div>
-                            <div class="hof-title">The Spark</div>
+                            <div class="hof-name">Autopsy</div>
+                            <div class="hof-title">The Visionary</div>
                         </div>
                     </div>
-                    <div class="hof-description" id="hof-description">Placeholder description for Lunic.</div>
+                    <div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
                     <div class="hof-row">
                         <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2">
                             <div class="hof-bubble">
@@ -1119,10 +1119,10 @@ teamCylinder.addEventListener('touchend', (e) => {
 teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
 teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
 
-// Hall of Fame Carousel (6 named items cycle in featured)
+// Hall of Fame Carousel (11 named items cycle in featured)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
-const totalNamedHofMembers = 6; // Lunic, Tormund, Renee, STAYHIGH, blu, Scrappy (indices 0–5)
+const totalNamedHofMembers = 11; // Autopsy, Catavina, Lou, Nerf, JPEG, Lunic, Tormund, STAYHIGH, Renee, blu, Scrappy (indices 0–10)
 
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
@@ -1134,32 +1134,57 @@ function updateHofCarousel() {
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
 
     // Update image, name, title, and description based on index
-    if (currentHofIndex === 0) { // Lunic
+    if (currentHofIndex === 0) { // Autopsy
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Autopsy';
+        featured.querySelector('.hof-title').textContent = 'The Visionary';
+        description.textContent = 'Placeholder description for Autopsy.';
+    } else if (currentHofIndex === 1) { // Catavina
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Catavina';
+        featured.querySelector('.hof-title').textContent = 'The Rally';
+        description.textContent = 'Placeholder description for Catavina.';
+    } else if (currentHofIndex === 2) { // Lou
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Lou';
+        featured.querySelector('.hof-title').textContent = 'The Voice';
+        description.textContent = 'Placeholder description for Lou.';
+    } else if (currentHofIndex === 3) { // Nerf
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Nerf';
+        featured.querySelector('.hof-title').textContent = 'The Analyst';
+        description.textContent = 'Placeholder description for Nerf.';
+    } else if (currentHofIndex === 4) { // JPEG
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'JPEG';
+        featured.querySelector('.hof-title').textContent = 'The Creator';
+        description.textContent = 'Placeholder description for JPEG.';
+    } else if (currentHofIndex === 5) { // Lunic
         featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Lunic';
         featured.querySelector('.hof-title').textContent = 'The Spark';
         description.textContent = 'Placeholder description for Lunic.';
-    } else if (currentHofIndex === 1) { // Tormund
+    } else if (currentHofIndex === 6) { // Tormund
         featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Tormund';
         featured.querySelector('.hof-title').textContent = 'The Oracle';
         description.textContent = 'Placeholder description for Tormund.';
-    } else if (currentHofIndex === 2) { // Renee
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Renee';
-        featured.querySelector('.hof-title').textContent = 'The Believer';
-        description.textContent = 'Placeholder description for Renee.';
-    } else if (currentHofIndex === 3) { // STAYHIGH
+    } else if (currentHofIndex === 7) { // STAYHIGH
         featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'STAYHIGH';
         featured.querySelector('.hof-title').textContent = 'The Unfiltered';
         description.textContent = 'Placeholder description for STAYHIGH.';
-    } else if (currentHofIndex === 4) { // blu
+    } else if (currentHofIndex === 8) { // Renee
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Renee';
+        featured.querySelector('.hof-title').textContent = 'The Believer';
+        description.textContent = 'Placeholder description for Renee.';
+    } else if (currentHofIndex === 9) { // blu
         featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'blu';
         featured.querySelector('.hof-title').textContent = 'The Warden';
         description.textContent = 'Placeholder description for blu.';
-    } else if (currentHofIndex === 5) { // Scrappy
+    } else if (currentHofIndex === 10) { // Scrappy
         featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'Scrappy';
         featured.querySelector('.hof-title').textContent = 'The Goofball';
@@ -1175,8 +1200,8 @@ function updateHofCarousel() {
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
-            // Only allow clicking on named members (indices 0–5)
-            if (index < totalNamedHofMembers) {
+            // Only allow clicking on named members (indices 0–10)
+            if (index <= 10) {
                 currentHofIndex = parseInt(member.getAttribute('data-index'));
                 updateHofCarousel();
                 resetHofAutoRotate();
@@ -1204,9 +1229,7 @@ function autoRotateHof() {
 let hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
 
 function resetHofAutoRotate() {
-    clear
-
-Interval(hofAutoRotateInterval);
+    clearInterval(hofAutoRotateInterval);
     hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
 }
 
