@@ -12,12 +12,10 @@
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
     <style>
     * { box-sizing: border-box; }
-    /* Remove horizontal scrollbar on desktop */
     @media (min-width: 769px) {
         html, body, .content-wrapper, #roadmap { overflow-x: hidden; overflow-y: auto; }
         .disclaimer, .faq-container, .banner-container { overflow-x: hidden; overflow-y: hidden; }
     }
-    /* Fallback for mobile to prevent unwanted scrolling */
     @media (max-width: 768px) {
         html { overflow-x: hidden; }
         .content-wrapper { overflow-x: hidden; overflow-y: auto; }
@@ -70,15 +68,13 @@
     }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     
-    /* Roadmap Specific Styles */
     #roadmap { display: block; padding: 40px 20px; min-height: 0; height: auto; margin-top: -75px; }
     .roadmap-container { max-width: 800px; margin: 0 auto; height: auto; }
     @media (min-width: 769px) {
         .roadmap-container { overflow: visible; margin-bottom: -60px; }
         .roadmap-to-buy { margin-top: -43px; }
-        .welcome-to-team { height: 50px; margin: 30px auto; }
-        .team-to-hof { margin: 30px auto; }
-        .hof-to-faq { margin: 30px auto; }
+        .welcome-to-community { height: 50px; margin: 30px auto; }
+        .community-to-faq { margin: 30px auto; }
         .faq-to-disclaimer { margin: 30px auto; }
         #faq.section { position: relative; z-index: 10; margin-top: -105px; min-height: auto; }
         .disclaimer { margin: 0 auto 40px; }
@@ -86,10 +82,7 @@
         .buy-step { overflow-x: hidden; }
         .buy-step .step-content { overflow-y: hidden; }
         .copyable-address { display: inline-block; max-height: 2.2rem; overflow-y: hidden; }
-        #team { margin-top: -720px; min-height: auto; }
-        .team-cylinder { width: 600px; height: 450px; max-width: none; position: relative; }
-        .cylinder-container { position: relative; left: 0; top: 0; }
-        #hall-of-fame { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
+        #community { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
         .hof-carousel { max-width: 600px; height: 450px; }
         .faq-container { max-width: 800px; }
     }
@@ -97,10 +90,10 @@
         #roadmap { margin-top: -113px; }
         .roadmap-container { margin-bottom: -55px; }
         .roadmap-to-buy { margin-top: -40px; }
-        .welcome-to-team { margin-bottom: 41px; }
-        .team-to-hof { margin-bottom: 47px; }
-        .hof-to-faq { margin-bottom: 34px; }
+        .welcome-to-community { margin-bottom: 41px; }
+        .community-to-faq { margin-bottom: 34px; }
         .faq-to-disclaimer { margin-bottom: 34px; }
+        #community { margin-top: -110px; }
     }
     .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
     .phase.visible, .future-teaser.visible { opacity: 1; transform: translateX(0); }
@@ -128,16 +121,13 @@
         .future-phase.active { filter: blur(0); opacity: 1; }
     }
 
-    /* Debt Clock Widget Styles */
     .debt-clock-container { margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; cursor: pointer; }
     .debt-clock-iframe { width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; pointer-events: none; }
 
-    /* Burn Tracker Styles */
     .burn-tracker { font-size: 2rem; margin: 10px 0; }
     .burn-tracker a { color: #ff5555; text-decoration: none; }
     .burn-tracker a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
 
-    /* How to Buy Specific Styles */
     #how-to-buy { display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -45px; }
     .buy-container { max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden !important; }
     .buy-step { display: flex; align-items: flex-start; margin: 15px 0; opacity: 0; }
@@ -155,43 +145,12 @@
     .copyable-address { cursor: pointer; background: #333; padding: 2px 5px; border-radius: 3px; position: relative; transition: background 0.3s ease; }
     .copyable-address:hover { background: #444; }
     .copyable-address.copied { background: #55ff55; color: #000; }
-    .copyable-address::after { content: 'Copied!'; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #55ff55; color: #000; padding: 5px 10px; border-radius: 3px; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease; z-index: 2000; pointer-events: none; } /* Increased z-index to 2000, added pointer-events */
+    .copyable-address::after { content: 'Copied!'; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #55ff55; color: #000; padding: 5px 10px; border-radius: 3px; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease; z-index: 2000; pointer-events: none; }
     .copyable-address.copied::after { opacity: 1; }
     #phantomLink { color: #ff5555; text-decoration: none; }
     #phantomLink:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
 
-    /* Team Section Styles */
-    @media (max-width: 768px) {
-        #team { margin-top: -90px; }
-    }
-    .team-cylinder { position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center; }
-    .cylinder-container { position: relative; width: 400px; height: 400px; }
-    .team-member { position: absolute; width: 100px; height: 100px; transition: all 0.8s ease; }
-    .bubble { width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; }
-    .team-member:not(.featured) .bubble { background: none; border: none; box-shadow: none; }
-    .team-member.featured { width: 286px; height: 286px; z-index: 10; }
-    .team-member.featured .bubble { width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; }
-    .inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
-    .team-member.featured .inner-bubble { width: 186px; height: 186px; border: 2px solid #000; }
-    .inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
-    .member-name { font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%; }
-    .team-member:not(.featured) .member-name { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; text-shadow: 0 0 3px #ff5555; }
-    .team-member.featured .member-name { text-shadow: 0 0 5px #ff5555; }
-    .member-role { font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none; word-wrap: break-word; max-width: 90%; }
-    .team-member.featured .member-role { display: block; }
-    .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
-    .arrow:hover { color: #ff7777; }
-    .left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
-    .right-arrow { right: 20px; }
-    .team-blurb { font-size: 1.1rem; max-width: 600px; margin: 20px auto; color: #eee; }
-    .team-blurb a { color: #ff5555; text-decoration: none; }
-    .team-blurb a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
-
-    /* Hall of Fame Carousel Styles */
-    @media (max-width: 768px) {
-        #hall-of-fame { margin-top: -110px; }
-    }
-    #hall-of-fame { padding-bottom: 60px; }
+    #community { padding-bottom: 60px; }
     .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: center; justify-content: center; }
     .hof-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
     .hof-featured { position: relative; width: 286px; height: 286px; z-index: 10; margin-bottom: 20px; }
@@ -209,13 +168,12 @@
     .hof-featured .hof-name { font-size: 1rem; }
     .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); }
     .hof-featured .hof-title { position: static; transform: none; font-size: 0.9rem; margin-bottom: 5px; }
-    .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 115px auto 20px; color: #eee; } /* Increased from 110px to 115px */
+    .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 115px auto 20px; color: #eee; }
     .hof-arrow { position: absolute; top: 100px; font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
     .hof-arrow:hover { color: #ff7777; }
     .hof-left-arrow { left: 20px; transform: rotate(180deg); }
     .hof-right-arrow { right: 20px; }
 
-    /* Construction Modal Styles */
     .construction-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; }
     .modal-content { background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     .modal-content h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 20px; }
@@ -223,7 +181,6 @@
     .modal-content button { background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s; }
     .modal-content button:hover { background-color: #ff7777; }
 
-    /* Overview Section Styles */
     #overview { padding: 40px 20px; }
     .tokenomics { margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; }
     .tokenomics h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; }
@@ -250,7 +207,6 @@
     .host-bubble .twitter-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1; }
     .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
 
-    /* FAQ Section Styles */
     #faq { padding: 40px 20px; min-height: auto; margin-top: -225px; }
     .faq-container { max-width: 800px; margin: 0 auto; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
     .accordion-item { margin: 10px 0; }
@@ -272,7 +228,6 @@
         .accordion-content.active { padding: 15px; }
     }
 
-    /* Disclaimer Styles */
     @media (max-width: 768px) {
         .disclaimer { margin: 1px auto 15px; }
     }
@@ -284,13 +239,11 @@
     @keyframes neonPulse { 0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } 50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } 100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } }
     @keyframes glowShift { 0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } }
 
-    /* Contract Address Styles */
     .contract-address { max-width: 800px; margin: 20px auto 0; padding: 15px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
     .contract-address::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
     .contract-address h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 2px; }
     .contract-address .copyable-address { font-size: 1.2rem; margin: 0; color: #eee; word-break: break-all; }
 
-    /* Join Rebellion Button */
     .join-rebellion { position: fixed; bottom: 120px; right: 20px; background-color: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 1rem; z-index: 2100; animation: pulseGlow 2s infinite ease-in-out; }
     .join-rebellion:hover { background-color: #ff7777; }
     @keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
@@ -336,20 +289,6 @@
         .roadmap-container { max-height: none; overflow: visible; }
         .phase, .future-teaser { position: static; margin: 20px 0; }
         #how-to-buy { margin-top: -42px; }
-        .team-cylinder { height: 350px; }
-        .cylinder-container { width: 300px; height: 300px; }
-        .team-member { width: 80px; height: 80px; }
-        .team-member.featured { width: 252px; height: 252px; } /* Increased from 229px to 252px (1.1x) */
-        .team-member.featured .bubble { width: 100%; height: 100%; }
-        .team-member.featured .inner-bubble { width: 157px; height: 157px; } /* Increased from 143px to 157px (1.1x) */
-        .member-name { font-size: 0.8rem; }
-        .team-member:not(.featured) .member-name { font-size: 0.7rem; }
-        .team-member.featured .member-name { font-size: 0.9rem; }
-        .member-role { font-size: 0.7rem; }
-        .team-member.featured .member-role { font-size: 0.8rem; }
-        .arrow { font-size: 1.5rem; }
-        .left-arrow { left: 10px; }
-        .right-arrow { right: 10px; }
         .hof-carousel { height: 400px; max-width: 400px; }
         .hof-featured { width: 229px; height: 229px; }
         .hof-featured .hof-bubble { width: 100%; height: 100%; }
@@ -360,7 +299,7 @@
         .hof-title { font-size: 0.7rem; }
         .hof-featured .hof-title { font-size: 0.8rem; }
         .hof-row, .hof-tbd-row { gap: 10px; }
-        .hof-blurb { margin: 144px auto 20px; } /* Increased from 94px to 144px */
+        .hof-blurb { margin: 144px auto 20px; }
         .hof-arrow { font-size: 1.5rem; top: 80px; }
         .hof-left-arrow { left: 10px; }
         .hof-right-arrow { right: 10px; }
@@ -368,9 +307,8 @@
     }
     @media (min-width: 769px) {
         .banner-container { position: relative; top: 50px; }
-        .cylinder-container { width: 400px; height: 400px; }
     }
-        </style>
+    </style>
     <!-- Solana Wallet Adapter and Dependencies -->
     <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
     <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
@@ -399,8 +337,7 @@
                 <a href="#overview">Overview</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#how-to-buy">How to Buy</a>
-                <a href="#team">Team</a>
-                <a href="#hall-of-fame">Hall of Fame</a>
+                <a href="#community">Community</a>
                 <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer">Memes</a>
                 <div class="dropdown">
                     <div class="dropbtn" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
@@ -510,8 +447,7 @@
             <a href="#overview" onclick="closeMenu()">Overview</a>
             <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
             <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
-            <a href="#team" onclick="closeMenu()">Team</a>
-            <a href="#hall-of-fame" onclick="closeMenu()">Hall of Fame</a>
+            <a href="#community" onclick="closeMenu()">Community</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Memes</a>
             <span class="expand" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()">Resources ▼</span>
             <div class="mobile-dropdown" id="mobileDropdown">
@@ -607,70 +543,13 @@
                 </div>
             </div>
             <div class="buy-blurb">Welcome to the financial rebellion.</div>
-            <div class="section-connector welcome-to-team"></div>
+            <div class="section-connector welcome-to-community"></div>
         </section>
 
-        <section id="team" class="section">
-            <h1>Team</h1>
-            <div class="team-cylinder">
-                <div class="arrow left-arrow" onclick="rotateCylinder('left')" tabindex="0" role="button" aria-label="Previous team member" onkeydown="if(event.key === 'Enter') rotateCylinder('left')">➜</div>
-                <div class="cylinder-container">
-                    <div class="team-member" data-index="0" data-x-link="https://x.com/catavina17">
-                        <div class="bubble">
-                            <div class="inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy">
-                            </div>
-                            <div class="member-name">Catavina</div>
-                            <div class="member-role">Community Manager</div>
-                        </div>
-                    </div>
-                    <div class="team-member" data-index="1" data-x-link="https://x.com/0xnerf">
-                        <div class="bubble">
-                            <div class="inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy">
-                            </div>
-                            <div class="member-name">Nerf</div>
-                            <div class="member-role">Market Analyst</div>
-                        </div>
-                    </div>
-                    <div class="team-member" data-index="2" data-x-link="https://x.com/louisedbegin">
-                        <div class="bubble">
-                            <div class="inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy">
-                            </div>
-                            <div class="member-name">Lou</div>
-                            <div class="member-role">Social Media Manager</div>
-                        </div>
-                    </div>
-                    <div class="team-member" data-index="3" data-x-link="https://x.com/AutopsyT2">
-                        <div class="bubble">
-                            <div class="inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
-                            </div>
-                            <div class="member-name">Autopsy</div>
-                            <div class="member-role">Founder</div>
-                        </div>
-                    </div>
-                    <div class="team-member" data-index="4" data-x-link="https://x.com/jpegfein">
-                        <div class="bubble">
-                            <div class="inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy">
-                            </div>
-                            <div class="member-name">JPEG</div>
-                            <div class="member-role">Content Creator</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="arrow right-arrow" onclick="rotateCylinder('right')" tabindex="0" role="button" aria-label="Next team member" onkeydown="if(event.key === 'Enter') rotateCylinder('right')">➜</div>
-            </div>
-            <p class="team-blurb">Our crew’s hungry for more rebels with grit and vision. Got what it takes? Slide into <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">@DebtCulture</a>’s DMs on X.</p>
-            <div class="section-connector team-to-hof"></div>
-        </section>
-
-        <section id="hall-of-fame" class="section from-right">
-            <h1>Hall of Fame</h1>
+        <section id="community" class="section from-right">
+            <h1>Community</h1>
             <div class="hof-carousel">
-                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('left')">➜</div>
+                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')">➜</div>
                 <div class="hof-container">
                     <div class="hof-featured" id="hof-featured">
                         <div class="hof-bubble">
@@ -686,157 +565,157 @@
                         <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
-<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="100" height="100" loading="lazy">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Lunic</div>
+                        </div>
+                        <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Tormund</div>
+                        </div>
+                        <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Renee</div>
+                        </div>
+                        <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">STAYHIGH</div>
+                        </div>
+                    </div>
+                    <div class="hof-tbd-row">
+                        <div class="hof-member" data-index="4" data-title="blu" data-x-link="https://x.com/blu_chek">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">blu</div>
+                        </div>
+                        <div class="hof-member" data-index="5" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Scrappy</div>
+                        </div>
+                        <div class="hof-member" data-index="6" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="7" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Community member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
+            </div>
+            <p class="hof-blurb">Want to join the $DEBT Community? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
+            <div class="section-connector community-to-faq"></div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="section">
+            <h1>FAQ</h1>
+            <div class="faq-container">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is $DEBT?">
+                        What is $DEBT?
+                    </div>
+                    <div class="accordion-content">
+                        <p>$DEBT is a Solana-based memecoin built as a rebellion against the elite-controlled financial system. Short for "Don't Ever Believe Them," $DEBT is a deflationary token for the 99%, powered by community strength, weekly burns, and a mission to expose systemic lies and corruption.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What makes $DEBT different from other tokens?">
+                        What makes $DEBT different from other tokens?
+                    </div>
+                    <div class="accordion-content">
+                        <p>$DEBT has no taxes, no team wallets, and no hidden agendas. Launched fairly on Pump.fun with liquidity pool tokens burned and contract renounced, it’s fully decentralized. Weekly burns shrink the supply, and the community drives the rebellion against financial oppression—not just chasing hype.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Why does $DEBT burn tokens?">
+                        Why does $DEBT burn tokens?
+                    </div>
+                    <div class="accordion-content">
+                        <p>$DEBT burns tokens weekly to reduce supply, symbolizing defiance against the endless debt creation of traditional finance. Burns aim to increase scarcity and reflect our commitment to a deflationary rebellion, unlike the inflationary systems we oppose.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the mission or purpose behind $DEBT?">
+                        What is the mission or purpose behind $DEBT?
+                    </div>
+                    <div class="accordion-content">
+                        <p>$DEBT exists to empower the 99% by challenging the elites' control over finance. Through relentless community action, viral memes, and a transparent burn system, $DEBT is building a movement that exposes the broken debt-based system and fights for financial freedom and truth.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What factors might influence $DEBT’s value?">
+                        What factors might influence $DEBT’s value?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Weekly burns reduce $DEBT’s supply, potentially increasing scarcity, while community growth and engagement on X and Telegram boost visibility. Future utility like staking or DAO participation may add value, but crypto markets are volatile—always do your own research and understand the risks.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the long-term vision for $DEBT?">
+                        What is the long-term vision for $DEBT?
+                    </div>
+                    <div class="accordion-content">
+                        <p>$DEBT is building a lasting legacy through a community-led DAO, real-world utility like tipping and trading, and massive future burns. Plans include NFT integrations, staking opportunities, and strategic partnerships—all aimed at disrupting the broken financial system while empowering $DEBT holders.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle How can I get involved with the $DEBT community?">
+                        How can I get involved with the $DEBT community?
+                    </div>
+                    <div class="accordion-content">
+                        <p>Join the rebellion on <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer">Telegram (@debtculture)</a>, follow us on <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">X (@DebtCulture)</a>, and catch our X Spaces every Monday, Thursday, and Saturday at 9 PM EST. Buy and hold $DEBT, share memes, recruit rebels, or pitch your skills to the team!</p>
+                    </div>
                 </div>
             </div>
-            <div class="hof-title">Lunic</div>
+            <div class="section-connector faq-to-disclaimer"></div>
+        </section>
+
+        <div class="fixed-bar">
+            <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
+            <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
+            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
+            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
         </div>
-        <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
-                </div>
-            </div>
-            <div class="hof-title">Tormund</div>
+
+        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="join-rebellion" aria-label="Join Debt Culture Telegram">Join the Rebellion</a>
+
+        <div class="disclaimer">
+            <h3>Disclaimer</h3>
+            <ol>
+                <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
+                <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
+                <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
+            </ol>
         </div>
-        <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
-                </div>
-            </div>
-            <div class="hof-title">Renee</div>
-        </div>
-        <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
-                </div>
-            </div>
-            <div class="hof-title">STAYHIGH</div>
-        </div>
+
+        <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
     </div>
-    <div class="hof-tbd-row">
-        <div class="hof-member" data-index="4" data-title="blu" data-x-link="https://x.com/blu_chek">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
-                </div>
-            </div>
-            <div class="hof-title">blu</div>
-        </div>
-        <div class="hof-member" data-index="5" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
-    <div class="hof-bubble">
-        <div class="hof-inner-bubble">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
-        </div>
-    </div>
-    <div class="hof-title">Scrappy</div>
-</div>
-        <div class="hof-member" data-index="6" data-title="TBA">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">?</div>
-            </div>
-            <div class="hof-title">TBA</div>
-        </div>
-        <div class="hof-member" data-index="7" data-title="TBA">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">?</div>
-            </div>
-            <div class="hof-title">TBA</div>
-        </div>
-    </div>
-</div>
-<div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
-</div>
-<p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
-<div class="section-connector hof-to-faq"></div>
-</section>
-
-<!-- FAQ Section -->
-<section id="faq" class="section">
-    <h1>FAQ</h1>
-    <div class="faq-container">
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is $DEBT?">
-                What is $DEBT?
-            </div>
-            <div class="accordion-content">
-                <p>$DEBT is a Solana-based memecoin built as a rebellion against the elite-controlled financial system. Short for "Don't Ever Believe Them," $DEBT is a deflationary token for the 99%, powered by community strength, weekly burns, and a mission to expose systemic lies and corruption.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What makes $DEBT different from other tokens?">
-                What makes $DEBT different from other tokens?
-            </div>
-            <div class="accordion-content">
-                <p>$DEBT has no taxes, no team wallets, and no hidden agendas. Launched fairly on Pump.fun with liquidity pool tokens burned and contract renounced, it’s fully decentralized. Weekly burns shrink the supply, and the community drives the rebellion against financial oppression—not just chasing hype.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Why does $DEBT burn tokens?">
-                Why does $DEBT burn tokens?
-            </div>
-            <div class="accordion-content">
-                <p>$DEBT burns tokens weekly to reduce supply, symbolizing defiance against the endless debt creation of traditional finance. Burns aim to increase scarcity and reflect our commitment to a deflationary rebellion, unlike the inflationary systems we oppose.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the mission or purpose behind $DEBT?">
-                What is the mission or purpose behind $DEBT?
-            </div>
-            <div class="accordion-content">
-                <p>$DEBT exists to empower the 99% by challenging the elites' control over finance. Through relentless community action, viral memes, and a transparent burn system, $DEBT is building a movement that exposes the broken debt-based system and fights for financial freedom and truth.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What factors might influence $DEBT’s value?">
-                What factors might influence $DEBT’s value?
-            </div>
-            <div class="accordion-content">
-                <p>Weekly burns reduce $DEBT’s supply, potentially increasing scarcity, while community growth and engagement on X and Telegram boost visibility. Future utility like staking or DAO participation may add value, but crypto markets are volatile—always do your own research and understand the risks.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the long-term vision for $DEBT?">
-                What is the long-term vision for $DEBT?
-            </div>
-            <div class="accordion-content">
-                <p>$DEBT is building a lasting legacy through a community-led DAO, real-world utility like tipping and trading, and massive future burns. Plans include NFT integrations, staking opportunities, and strategic partnerships—all aimed at disrupting the broken financial system while empowering $DEBT holders.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle How can I get involved with the $DEBT community?">
-                How can I get involved with the $DEBT community?
-            </div>
-            <div class="accordion-content">
-                <p>Join the rebellion on <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer">Telegram (@debtculture)</a>, follow us on <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">X (@DebtCulture)</a>, and catch our X Spaces every Monday, Thursday, and Saturday at 9 PM EST. Buy and hold $DEBT, share memes, recruit rebels, or pitch your skills to the team!</p>
-            </div>
-        </div>
-    </div>
-    <div class="section-connector faq-to-disclaimer"></div>
-</section>
-
-<div class="fixed-bar">
-    <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
-    <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
-    <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
-    <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
-</div>
-
-<a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="join-rebellion" aria-label="Join Debt Culture Telegram">Join the Rebellion</a>
-
-<div class="disclaimer">
-    <h3>Disclaimer</h3>
-    <ol>
-        <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
-        <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
-        <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
-    </ol>
-</div>
-
-<footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
-</div>
 </body>
 <script>
 function toggleMenu() {
