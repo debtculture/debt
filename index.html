@@ -76,8 +76,6 @@
     @media (min-width: 769px) {
         .roadmap-container { overflow: visible; margin-bottom: -60px; }
         .roadmap-to-buy { margin-top: -43px; }
-        .welcome-to-team { height: 50px; margin: 30px auto; }
-        .team-to-hof { margin: 30px auto; }
         .hof-to-faq { margin: 30px auto; }
         .faq-to-disclaimer { margin: 30px auto; }
         #faq.section { position: relative; z-index: 10; margin-top: -110px; min-height: auto; }
@@ -86,10 +84,7 @@
         .buy-step { overflow-x: hidden; }
         .buy-step .step-content { overflow-y: hidden; }
         .copyable-address { display: inline-block; max-height: 2.2rem; overflow-y: hidden; }
-        #team { margin-top: -720px; min-height: auto; }
-        .team-cylinder { width: 600px; height: 450px; max-width: none; position: relative; }
-        .cylinder-container { position: relative; left: 0; top: 0; }
-        #hall-of-fame { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
+        #community { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
         .hof-carousel { max-width: 600px; height: 450px; }
         .faq-container { max-width: 800px; }
         .hof-blurb { margin: 375px auto 20px; }
@@ -98,12 +93,13 @@
         #roadmap { margin-top: -113px; }
         .roadmap-container { margin-bottom: -55px; }
         .roadmap-to-buy { margin-top: -40px; }
-        .welcome-to-team { margin-bottom: 41px; }
-        .team-to-hof { margin-bottom: 47px; }
         .hof-to-faq { margin-bottom: 34px; }
         .faq-to-disclaimer { margin-bottom: 34px; }
         section#faq { margin-top: -90px; padding: 20px; }
         .hof-blurb { margin: 384px auto 20px; }
+        #community { margin-top: -160px; }
+        .hof-row, .hof-tbd-row { gap: 10px; margin-top: 30px; }
+        .disclaimer { margin: 1px auto 15px; }
     }
     .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
     .phase.visible, .future-teaser.visible { opacity: 1; transform: translateX(0); }
@@ -163,38 +159,8 @@
     #phantomLink { color: #ff5555; text-decoration: none; }
     #phantomLink:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
 
-    /* Team Section Styles */
-    @media (max-width: 768px) {
-        #team { margin-top: -90px; }
-    }
-    .team-cylinder { position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center; }
-    .cylinder-container { position: relative; width: 400px; height: 400px; }
-    .team-member { position: absolute; width: 100px; height: 100px; transition: all 0.8s ease; }
-    .bubble { width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; }
-    .team-member:not(.featured) .bubble { background: none; border: none; box-shadow: none; }
-    .team-member.featured { width: 286px; height: 286px; z-index: 10; }
-    .team-member.featured .bubble { width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; }
-    .inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
-    .team-member.featured .inner-bubble { width: 186px; height: 186px; border: 2px solid #000; }
-    .inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
-    .member-name { font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%; }
-    .team-member:not(.featured) .member-name { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; text-shadow: 0 0 3px #ff5555; }
-    .team-member.featured .member-name { text-shadow: 0 0 5px #ff5555; }
-    .member-role { font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none; word-wrap: break-word; max-width: 90%; }
-    .team-member.featured .member-role { display: block; }
-    .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
-    .arrow:hover { color: #ff7777; }
-    .left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
-    .right-arrow { right: 20px; }
-    .team-blurb { font-size: 1.1rem; max-width: 600px; margin: 20px auto; color: #eee; }
-    .team-blurb a { color: #ff5555; text-decoration: none; }
-    .team-blurb a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
-
-    /* Hall of Fame Carousel Styles */
-    @media (max-width: 768px) {
-        #hall-of-fame { margin-top: -200px; }
-    }
-    #hall-of-fame { padding-bottom: 60px; }
+    /* Community Carousel Styles */
+    #community { padding-bottom: 60px; }
     .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: center; justify-content: center; }
     .hof-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
     .hof-featured { position: relative; width: 286px; height: 286px; z-index: 10; margin-bottom: 20px; }
@@ -274,9 +240,6 @@
     }
 
     /* Disclaimer Styles */
-    @media (max-width: 768px) {
-        .disclaimer { margin: 1px auto 15px; }
-    }
     .disclaimer { max-width: 800px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
     .disclaimer::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
     .disclaimer h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
@@ -337,20 +300,6 @@
         .roadmap-container { max-height: none; overflow: visible; }
         .phase, .future-teaser { position: static; margin: 20px 0; }
         #how-to-buy { margin-top: -42px; }
-        .team-cylinder { height: 350px; }
-        .cylinder-container { width: 300px; height: 300px; }
-        .team-member { width: 80px; height: 80px; }
-        .team-member.featured { width: 252px; height: 252px; } /* Increased from 229px to 252px (1.1x) */
-        .team-member.featured .bubble { width: 100%; height: 100%; }
-        .team-member.featured .inner-bubble { width: 157px; height: 157px; } /* Increased from 143px to 157px (1.1x) */
-        .member-name { font-size: 0.8rem; }
-        .team-member:not(.featured) .member-name { font-size: 0.7rem; }
-        .team-member.featured .member-name { font-size: 0.9rem; }
-        .member-role { font-size: 0.7rem; }
-        .team-member.featured .member-role { font-size: 0.8rem; }
-        .arrow { font-size: 1.5rem; }
-        .left-arrow { left: 10px; }
-        .right-arrow { right: 10px; }
         .hof-carousel { height: 400px; max-width: 400px; }
         .hof-featured { width: 229px; height: 229px; }
         .hof-featured .hof-bubble { width: 100%; height: 100%; }
@@ -368,7 +317,6 @@
     }
     @media (min-width: 769px) {
         .banner-container { position: relative; top: 50px; }
-        .cylinder-container { width: 400px; height: 400px; }
     }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
