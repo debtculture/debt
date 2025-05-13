@@ -370,7 +370,15 @@
         .banner-container { position: relative; top: 50px; }
         .cylinder-container { width: 400px; height: 400px; }
     }
-    </style>
+        </style>
+    <!-- Solana Wallet Adapter and Dependencies -->
+    <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+    <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
+    <script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/index.js"></script>
+    <script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/index.js"></script>
+    <script src="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/dist/index.js"></script>
+    <!-- Wallet Adapter UI Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/dist/styles.css">
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -717,12 +725,14 @@
             </div>
             <div class="hof-title">blu</div>
         </div>
-        <div class="hof-member" data-index="5" data-title="TBA">
-            <div class="hof-bubble">
-                <div class="hof-inner-bubble">?</div>
-            </div>
-            <div class="hof-title">TBA</div>
+        <div class="hof-member" data-index="5" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
+    <div class="hof-bubble">
+        <div class="hof-inner-bubble">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
         </div>
+    </div>
+    <div class="hof-title">Scrappy</div>
+</div>
         <div class="hof-member" data-index="6" data-title="TBA">
             <div class="hof-bubble">
                 <div class="hof-inner-bubble">?</div>
@@ -941,7 +951,7 @@ function setPhantomLink() {
 
 async function updateTokenomics() {
     const startingSupply = 1000000000;
-    let currentSupply = 949543636.68; // Fallback static value
+    let currentSupply = 948543636.68; // Fallback static value
     try {
         // Placeholder API call (replace with actual Solscan or Helius API endpoint)
         const response = await fetch('https://api.solscan.io/token/supply?address=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump', {
@@ -1047,10 +1057,10 @@ teamCylinder.addEventListener('touchend', (e) => {
 teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
 teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
 
-// Hall of Fame Carousel (5 named items cycle in featured)
+// Hall of Fame Carousel (6 named items cycle in featured)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
-const totalNamedHofMembers = 5; // Lunic, Tormund, Renee, STAYHIGH, blu (indices 0–4)
+const totalNamedHofMembers = 6; // Lunic, Tormund, Renee, STAYHIGH, blu, Scrappy (indices 0–5)
 
 function updateHofCarousel() {
     const featured = document.getElementById('hof-featured');
@@ -1085,8 +1095,13 @@ function updateHofCarousel() {
     } else if (currentHofIndex === 4) { // blu
         featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="130" height="130" loading="lazy">`;
         featured.querySelector('.hof-name').textContent = 'blu';
-        featured.querySelector('.hof-title').textContent = 'The Wise';
+        featured.querySelector('.hof-title').textContent = 'The Warden';
         description.textContent = 'Placeholder description for blu.';
+    } else if (currentHofIndex === 5) { // Scrappy
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Scrappy';
+        featured.querySelector('.hof-title').textContent = 'The Goofball';
+        description.textContent = 'Placeholder description for Scrappy.';
     }
 
     // Update click behavior
@@ -1098,7 +1113,7 @@ function updateHofCarousel() {
     hofMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
-            // Only allow clicking on named members (indices 0–4)
+            // Only allow clicking on named members (indices 0–5)
             if (index < totalNamedHofMembers) {
                 currentHofIndex = parseInt(member.getAttribute('data-index'));
                 updateHofCarousel();
