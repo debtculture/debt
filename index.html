@@ -849,94 +849,7 @@ async function updateTokenomics() {
     document.getElementById('supply-change').textContent = `${changePercent}%`;
 }
 
-// Team Cylinder Rotation (5-point star)
-let currentTeamIndex = 3;
-const teamMembers = document.querySelectorAll('.team-member');
-const totalTeamMembers = teamMembers.length;
-const desktopRadius = 150;
-const mobileRadius = 100;
-
-function updateTeamCylinder() {
-    const isMobile = window.innerWidth <= 768;
-    const containerWidth = isMobile ? 300 : 400;
-    const containerHeight = isMobile ? 300 : 400;
-    const centerX = containerWidth / 2;
-    const centerY = containerHeight / 2;
-    const radius = isMobile ? mobileRadius : desktopRadius;
-    const featuredOffsetY = isMobile ? 70 : 70;
-    const starAngles = [0, 72, 144, 216, 288];
-
-    teamMembers.forEach((member, index) => {
-        const angleIndex = (index - currentTeamIndex + totalTeamMembers) % totalTeamMembers;
-        const angle = starAngles[angleIndex];
-        const rad = angle * Math.PI / 180;
-
-        if (index === currentTeamIndex) {
-            member.classList.add('featured');
-            member.style.left = `${centerX}px`;
-            member.style.top = `${centerY - featuredOffsetY}px`;
-            member.style.transform = 'translate(-50%, -50%)';
-            const bubble = member.querySelector('.bubble');
-            bubble.onclick = () => {
-                const xLink = member.getAttribute('data-x-link');
-                if (xLink) window.open(xLink, '_blank');
-            };
-            bubble.setAttribute('aria-label', `Visit ${member.querySelector('.member-name').textContent}'s X profile`);
-        } else {
-            member.classList.remove('featured');
-            const x = centerX + radius * Math.cos(rad);
-            const y = centerY + radius * Math.sin(rad);
-            member.style.left = `${x}px`;
-            member.style.top = `${y}px`;
-            member.style.transform = 'translate(-50%, -50%)';
-            const bubble = member.querySelector('.bubble');
-            bubble.onclick = () => {
-                currentTeamIndex = parseInt(member.getAttribute('data-index'));
-                updateTeamCylinder();
-                resetTeamAutoRotate();
-            };
-            bubble.setAttribute('aria-label', `Select ${member.querySelector('.member-name').textContent}`);
-        }
-    });
-}
-
-function rotateCylinder(direction) {
-    if (direction === 'right') {
-        currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
-    } else if (direction === 'left') {
-        currentTeamIndex = (currentTeamIndex - 1 + totalTeamMembers) % totalTeamMembers;
-    }
-    updateTeamCylinder();
-    resetTeamAutoRotate();
-}
-
-function autoRotateTeam() {
-    currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
-    updateTeamCylinder();
-}
-
-let teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
-
-function resetTeamAutoRotate() {
-    clearInterval(teamAutoRotateInterval);
-    teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
-}
-
-// Team Carousel Touch Support
-const teamCylinder = document.querySelector('.team-cylinder');
-let teamTouchStartX = 0;
-teamCylinder.addEventListener('touchstart', (e) => {
-    teamTouchStartX = e.touches[0].clientX;
-});
-teamCylinder.addEventListener('touchend', (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    if (teamTouchStartX - touchEndX > 50) rotateCylinder('right');
-    if (touchEndX - teamTouchStartX > 50) rotateCylinder('left');
-});
-teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
-teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
-
-// Hall of Fame Carousel (6 named items cycle in featured)
+// Community Carousel (6 named items cycle in featured)
 let currentHofIndex = 0;
 const hofMembers = document.querySelectorAll('.hof-member');
 const totalNamedHofMembers = 6; // Lunic, Tormund, Renee, STAYHIGH, blu, Scrappy (indices 0–5)
@@ -1025,7 +938,7 @@ function resetHofAutoRotate() {
     hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
 }
 
-// HoF Carousel Touch Support
+// Community Carousel Touch Support
 const hofCarousel = document.querySelector('.hof-carousel');
 let hofTouchStartX = 0;
 hofCarousel.addEventListener('touchstart', (e) => {
@@ -1119,12 +1032,9 @@ function initializeMatrix() {
 window.addEventListener('load', () => {
     setPhantomLink();
     updateTokenomics();
-    updateTeamCylinder();
     updateHofCarousel();
     initializeRoadmapPhases();
     initializeMatrix();
     window.dispatchEvent(new Event('scroll'));
 });
-
-window.addEventListener('resize', updateTeamCylinder);
 </script>
