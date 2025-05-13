@@ -12,10 +12,12 @@
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
     <style>
     * { box-sizing: border-box; }
+    /* Remove horizontal scrollbar on desktop */
     @media (min-width: 769px) {
         html, body, .content-wrapper, #roadmap { overflow-x: hidden; overflow-y: auto; }
         .disclaimer, .faq-container, .banner-container { overflow-x: hidden; overflow-y: hidden; }
     }
+    /* Fallback for mobile to prevent unwanted scrolling */
     @media (max-width: 768px) {
         html { overflow-x: hidden; }
         .content-wrapper { overflow-x: hidden; overflow-y: auto; }
@@ -68,13 +70,15 @@
     }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     
+    /* Roadmap Specific Styles */
     #roadmap { display: block; padding: 40px 20px; min-height: 0; height: auto; margin-top: -75px; }
     .roadmap-container { max-width: 800px; margin: 0 auto; height: auto; }
     @media (min-width: 769px) {
         .roadmap-container { overflow: visible; margin-bottom: -60px; }
         .roadmap-to-buy { margin-top: -43px; }
-        .welcome-to-community { height: 50px; margin: 30px auto; }
-        .community-to-faq { margin: 30px auto; }
+        .welcome-to-team { height: 50px; margin: 30px auto; }
+        .team-to-hof { margin: 30px auto; }
+        .hof-to-faq { margin: 30px auto; }
         .faq-to-disclaimer { margin: 30px auto; }
         #faq.section { position: relative; z-index: 10; margin-top: -105px; min-height: auto; }
         .disclaimer { margin: 0 auto 40px; }
@@ -82,7 +86,10 @@
         .buy-step { overflow-x: hidden; }
         .buy-step .step-content { overflow-y: hidden; }
         .copyable-address { display: inline-block; max-height: 2.2rem; overflow-y: hidden; }
-        #community { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
+        #team { margin-top: -720px; min-height: auto; }
+        .team-cylinder { width: 600px; height: 450px; max-width: none; position: relative; }
+        .cylinder-container { position: relative; left: 0; top: 0; }
+        #hall-of-fame { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
         .hof-carousel { max-width: 600px; height: 450px; }
         .faq-container { max-width: 800px; }
     }
@@ -90,10 +97,10 @@
         #roadmap { margin-top: -113px; }
         .roadmap-container { margin-bottom: -55px; }
         .roadmap-to-buy { margin-top: -40px; }
-        .welcome-to-community { margin-bottom: 41px; }
-        .community-to-faq { margin-bottom: 34px; }
+        .welcome-to-team { margin-bottom: 41px; }
+        .team-to-hof { margin-bottom: 47px; }
+        .hof-to-faq { margin-bottom: 34px; }
         .faq-to-disclaimer { margin-bottom: 34px; }
-        #community { margin-top: -110px; }
     }
     .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
     .phase.visible, .future-teaser.visible { opacity: 1; transform: translateX(0); }
@@ -121,13 +128,16 @@
         .future-phase.active { filter: blur(0); opacity: 1; }
     }
 
+    /* Debt Clock Widget Styles */
     .debt-clock-container { margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; cursor: pointer; }
     .debt-clock-iframe { width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; pointer-events: none; }
 
+    /* Burn Tracker Styles */
     .burn-tracker { font-size: 2rem; margin: 10px 0; }
     .burn-tracker a { color: #ff5555; text-decoration: none; }
     .burn-tracker a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
 
+    /* How to Buy Specific Styles */
     #how-to-buy { display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -45px; }
     .buy-container { max-width: 800px; background-color: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; overflow-x: hidden !important; }
     .buy-step { display: flex; align-items: flex-start; margin: 15px 0; opacity: 0; }
@@ -145,12 +155,43 @@
     .copyable-address { cursor: pointer; background: #333; padding: 2px 5px; border-radius: 3px; position: relative; transition: background 0.3s ease; }
     .copyable-address:hover { background: #444; }
     .copyable-address.copied { background: #55ff55; color: #000; }
-    .copyable-address::after { content: 'Copied!'; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #55ff55; color: #000; padding: 5px 10px; border-radius: 3px; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease; z-index: 2000; pointer-events: none; }
+    .copyable-address::after { content: 'Copied!'; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #55ff55; color: #000; padding: 5px 10px; border-radius: 3px; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease; z-index: 2000; pointer-events: none; } /* Increased z-index to 2000, added pointer-events */
     .copyable-address.copied::after { opacity: 1; }
     #phantomLink { color: #ff5555; text-decoration: none; }
     #phantomLink:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
 
-    #community { padding-bottom: 60px; }
+    /* Team Section Styles */
+    @media (max-width: 768px) {
+        #team { margin-top: -90px; }
+    }
+    .team-cylinder { position: relative; max-width: 600px; margin: 0 auto; height: 450px; display: flex; align-items: center; justify-content: center; }
+    .cylinder-container { position: relative; width: 400px; height: 400px; }
+    .team-member { position: absolute; width: 100px; height: 100px; transition: all 0.8s ease; }
+    .bubble { width: 100%; height: 100%; background-color: #1e1e1e; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; }
+    .team-member:not(.featured) .bubble { background: none; border: none; box-shadow: none; }
+    .team-member.featured { width: 286px; height: 286px; z-index: 10; }
+    .team-member.featured .bubble { width: 100%; height: 100%; background: linear-gradient(45deg, #ff5555, #ff7777); border: 4px solid #fff; box-shadow: 0 0 20px rgba(255, 85, 85, 0.8); padding-top: 10px; }
+    .inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: all 0.8s ease; }
+    .team-member.featured .inner-bubble { width: 186px; height: 186px; border: 2px solid #000; }
+    .inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
+    .member-name { font-size: 1rem; color: #fff; margin: 5px 0; font-weight: bold; word-wrap: break-word; max-width: 90%; }
+    .team-member:not(.featured) .member-name { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; text-shadow: 0 0 3px #ff5555; }
+    .team-member.featured .member-name { text-shadow: 0 0 5px #ff5555; }
+    .member-role { font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: none; word-wrap: break-word; max-width: 90%; }
+    .team-member.featured .member-role { display: block; }
+    .arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
+    .arrow:hover { color: #ff7777; }
+    .left-arrow { left: 20px; transform: translateY(-50%) rotate(180deg); }
+    .right-arrow { right: 20px; }
+    .team-blurb { font-size: 1.1rem; max-width: 600px; margin: 20px auto; color: #eee; }
+    .team-blurb a { color: #ff5555; text-decoration: none; }
+    .team-blurb a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
+
+    /* Hall of Fame Carousel Styles */
+    @media (max-width: 768px) {
+        #hall-of-fame { margin-top: -110px; }
+    }
+    #hall-of-fame { padding-bottom: 60px; }
     .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: center; justify-content: center; }
     .hof-container { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; }
     .hof-featured { position: relative; width: 286px; height: 286px; z-index: 10; margin-bottom: 20px; }
@@ -158,8 +199,8 @@
     .hof-featured .hof-inner-bubble { width: 186px; height: 186px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border: 2px solid #000; opacity: 1; }
     .hof-featured .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
     .hof-description { font-size: 1.1rem; color: #eee; max-width: 400px; margin: 20px auto; text-align: center; }
-    .hof-row, .hof-team-row, .hof-tbd-row { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-    .hof-tbd-row { margin-top: 30px; }
+    .hof-row { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+    .hof-tbd-row { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
     .hof-member { position: relative; width: 100px; height: 100px; transition: all 0.8s ease; }
     .hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
     .hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #fff; font-weight: bold; text-shadow: 0 0 5px #ff5555; background-color: #333; opacity: 0.7; }
@@ -168,12 +209,13 @@
     .hof-featured .hof-name { font-size: 1rem; }
     .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); }
     .hof-featured .hof-title { position: static; transform: none; font-size: 0.9rem; margin-bottom: 5px; }
-    .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 115px auto 20px; color: #eee; }
+    .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 115px auto 20px; color: #eee; } /* Increased from 110px to 115px */
     .hof-arrow { position: absolute; top: 100px; font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
     .hof-arrow:hover { color: #ff7777; }
     .hof-left-arrow { left: 20px; transform: rotate(180deg); }
     .hof-right-arrow { right: 20px; }
 
+    /* Construction Modal Styles */
     .construction-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; }
     .modal-content { background-color: #1e1e1e; padding: 30px; border-radius: 10px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     .modal-content h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 20px; }
@@ -181,6 +223,7 @@
     .modal-content button { background-color: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s; }
     .modal-content button:hover { background-color: #ff7777; }
 
+    /* Overview Section Styles */
     #overview { padding: 40px 20px; }
     .tokenomics { margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; }
     .tokenomics h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; }
@@ -207,6 +250,7 @@
     .host-bubble .twitter-link::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; border-radius: 50%; z-index: 1; }
     .host-bubble img.twitter-icon { width: 20px; height: 20px; position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
 
+    /* FAQ Section Styles */
     #faq { padding: 40px 20px; min-height: auto; margin-top: -225px; }
     .faq-container { max-width: 800px; margin: 0 auto; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative; }
     .accordion-item { margin: 10px 0; }
@@ -228,6 +272,7 @@
         .accordion-content.active { padding: 15px; }
     }
 
+    /* Disclaimer Styles */
     @media (max-width: 768px) {
         .disclaimer { margin: 1px auto 15px; }
     }
@@ -239,11 +284,13 @@
     @keyframes neonPulse { 0% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } 50% { border-color: #ff9999; box-shadow: 0 0 20px #ff7777; } 100% { border-color: #ff5555; box-shadow: 0 0 10px #ff5555; } }
     @keyframes glowShift { 0% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } 50% { background: linear-gradient(45deg, rgba(255, 153, 153, 0.7), rgba(255, 85, 85, 0)); } 100% { background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); } }
 
+    /* Contract Address Styles */
     .contract-address { max-width: 800px; margin: 20px auto 0; padding: 15px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
     .contract-address::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
     .contract-address h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 2px; }
     .contract-address .copyable-address { font-size: 1.2rem; margin: 0; color: #eee; word-break: break-all; }
 
+    /* Join Rebellion Button */
     .join-rebellion { position: fixed; bottom: 120px; right: 20px; background-color: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 1rem; z-index: 2100; animation: pulseGlow 2s infinite ease-in-out; }
     .join-rebellion:hover { background-color: #ff7777; }
     @keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
@@ -289,6 +336,20 @@
         .roadmap-container { max-height: none; overflow: visible; }
         .phase, .future-teaser { position: static; margin: 20px 0; }
         #how-to-buy { margin-top: -42px; }
+        .team-cylinder { height: 350px; }
+        .cylinder-container { width: 300px; height: 300px; }
+        .team-member { width: 80px; height: 80px; }
+        .team-member.featured { width: 252px; height: 252px; } /* Increased from 229px to 252px (1.1x) */
+        .team-member.featured .bubble { width: 100%; height: 100%; }
+        .team-member.featured .inner-bubble { width: 157px; height: 157px; } /* Increased from 143px to 157px (1.1x) */
+        .member-name { font-size: 0.8rem; }
+        .team-member:not(.featured) .member-name { font-size: 0.7rem; }
+        .team-member.featured .member-name { font-size: 0.9rem; }
+        .member-role { font-size: 0.7rem; }
+        .team-member.featured .member-role { font-size: 0.8rem; }
+        .arrow { font-size: 1.5rem; }
+        .left-arrow { left: 10px; }
+        .right-arrow { right: 10px; }
         .hof-carousel { height: 400px; max-width: 400px; }
         .hof-featured { width: 229px; height: 229px; }
         .hof-featured .hof-bubble { width: 100%; height: 100%; }
@@ -298,8 +359,8 @@
         .hof-inner-bubble { font-size: 3rem; }
         .hof-title { font-size: 0.7rem; }
         .hof-featured .hof-title { font-size: 0.8rem; }
-        .hof-row, .hof-team-row, .hof-tbd-row { gap: 10px; }
-        .hof-blurb { margin: 144px auto 20px; }
+        .hof-row, .hof-tbd-row { gap: 10px; }
+        .hof-blurb { margin: 144px auto 20px; } /* Increased from 94px to 144px */
         .hof-arrow { font-size: 1.5rem; top: 80px; }
         .hof-left-arrow { left: 10px; }
         .hof-right-arrow { right: 10px; }
@@ -307,16 +368,9 @@
     }
     @media (min-width: 769px) {
         .banner-container { position: relative; top: 50px; }
+        .cylinder-container { width: 400px; height: 400px; }
     }
     </style>
-    <!-- Solana Wallet Adapter and Dependencies -->
-    <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
-    <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
-    <script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/index.js"></script>
-    <script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/index.js"></script>
-    <script src="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/dist/index.js"></script>
-    <!-- Wallet Adapter UI Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/dist/styles.css">
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -337,7 +391,8 @@
                 <a href="#overview">Overview</a>
                 <a href="#roadmap">Roadmap</a>
                 <a href="#how-to-buy">How to Buy</a>
-                <a href="#community">Community</a>
+                <a href="#team">Team</a>
+                <a href="#hall-of-fame">Hall of Fame</a>
                 <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer">Memes</a>
                 <div class="dropdown">
                     <div class="dropbtn" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
@@ -447,7 +502,8 @@
             <a href="#overview" onclick="closeMenu()">Overview</a>
             <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
             <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
-            <a href="#community" onclick="closeMenu()">Community</a>
+            <a href="#team" onclick="closeMenu()">Team</a>
+            <a href="#hall-of-fame" onclick="closeMenu()">Hall of Fame</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Memes</a>
             <span class="expand" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()">Resources ▼</span>
             <div class="mobile-dropdown" id="mobileDropdown">
@@ -543,509 +599,638 @@
                 </div>
             </div>
             <div class="buy-blurb">Welcome to the financial rebellion.</div>
-            <div class="section-connector welcome-to-community"></div>
+            <div class="section-connector welcome-to-team"></div>
         </section>
 
-        <section id="community" class="section from-right">
-            <h1>Community</h1>
+        <section id="team" class="section">
+            <h1>Team</h1>
+            <div class="team-cylinder">
+                <div class="arrow left-arrow" onclick="rotateCylinder('left')" tabindex="0" role="button" aria-label="Previous team member" onkeydown="if(event.key === 'Enter') rotateCylinder('left')">➜</div>
+                <div class="cylinder-container">
+                    <div class="team-member" data-index="0" data-x-link="https://x.com/catavina17">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy">
+                            </div>
+                            <div class="member-name">Catavina</div>
+                            <div class="member-role">Community Manager</div>
+                        </div>
+                    </div>
+                    <div class="team-member" data-index="1" data-x-link="https://x.com/0xnerf">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy">
+                            </div>
+                            <div class="member-name">Nerf</div>
+                            <div class="member-role">Market Analyst</div>
+                        </div>
+                    </div>
+                    <div class="team-member" data-index="2" data-x-link="https://x.com/louisedbegin">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy">
+                            </div>
+                            <div class="member-name">Lou</div>
+                            <div class="member-role">Social Media Manager</div>
+                        </div>
+                    </div>
+                    <div class="team-member" data-index="3" data-x-link="https://x.com/AutopsyT2">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
+                            </div>
+                            <div class="member-name">Autopsy</div>
+                            <div class="member-role">Founder</div>
+                        </div>
+                    </div>
+                    <div class="team-member" data-index="4" data-x-link="https://x.com/jpegfein">
+                        <div class="bubble">
+                            <div class="inner-bubble">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy">
+                            </div>
+                            <div class="member-name">JPEG</div>
+                            <div class="member-role">Content Creator</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arrow right-arrow" onclick="rotateCylinder('right')" tabindex="0" role="button" aria-label="Next team member" onkeydown="if(event.key === 'Enter') rotateCylinder('right')">➜</div>
+            </div>
+            <p class="team-blurb">Our crew’s hungry for more rebels with grit and vision. Got what it takes? Slide into <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">@DebtCulture</a>’s DMs on X.</p>
+            <div class="section-connector team-to-hof"></div>
+        </section>
+
+        <section id="hall-of-fame" class="section from-right">
+            <h1>Hall of Fame</h1>
             <div class="hof-carousel">
-                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')">➜</div>
+                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('left')">➜</div>
                 <div class="hof-container">
                     <div class="hof-featured" id="hof-featured">
                         <div class="hof-bubble">
                             <div class="hof-inner-bubble">
-                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="130" height="130" loading="lazy">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="130" height="130" loading="lazy">
                             </div>
-                            <div class="hof-name">Autopsy</div>
-                            <div class="hof-title">The Founder</div>
+                            <div class="hof-name">Lunic</div>
+                            <div class="hof-title">The Spark</div>
                         </div>
                     </div>
-                    <div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
-                    <div class="hof-team-row">
-                        <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/autopsyT2">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Autopsy</div>
-                        </div>
-                        <div class="hof-member" data-index="1" data-title="Catavina" data-x-link="https://x.com/catavina17">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Catavina</div>
-                        </div>
-                        <div class="hof-member" data-index="2" data-title="Lou" data-x-link="https://x.com/louisedbegin">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Lou</div>
-                        </div>
-                        <div class="hof-member" data-index="3" data-title="Nerf" data-x-link="https://x.com/0xnerf">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Nerf</div>
-                        </div>
-                    </div>
-                    <div class="hof-team-row">
-                        <div class="hof-member" data-index="4" data-title="JPEG" data-x-link="https://x.com/jpegfein">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">JPEG</div>
-                        </div>
-                        <div class="hof-member" data-index="5" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Lunic</div>
-                        </div>
-                        <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Tormund</div>
-                        </div>
-                        <div class="hof-member" data-index="7" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">STAYHIGH</div>
-                        </div>
-                    </div>
+                    <div class="hof-description" id="hof-description">Placeholder description for Lunic.</div>
                     <div class="hof-row">
-                        <div class="hof-member" data-index="8" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
+                        <div class="hof-member" data-index="0" data-title="Lunic" data-x-link="https://x.com/Lunicking178677">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Renee</div>
-                        </div>
-                        <div class="hof-member" data-index="9" data-title="blu" data-x-link="https://x.com/blu_chek">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">blu</div>
-                        </div>
-                        <div class="hof-member" data-index="10" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">
-                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
-                                </div>
-                            </div>
-                            <div class="hof-title">Scrappy</div>
-                        </div>
-                        <div class="hof-member" data-index="11" data-title="TBA">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
-                            </div>
-                            <div class="hof-title">TBA</div>
-                        </div>
-                    </div>
-                    <div class="hof-tbd-row">
-                        <div class="hof-member" data-index="12" data-title="TBA">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
-                            </div>
-                            <div class="hof-title">TBA</div>
-                        </div>
-                        <div class="hof-member" data-index="13" data-title="TBA">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
-                            </div>
-                            <div class="hof-title">TBA</div>
-                        </div>
-                        <div class="hof-member" data-index="14" data-title="TBA">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
-                            </div>
-                            <div class="hof-title">TBA</div>
-                        </div>
-                        <div class="hof-member" data-index="15" data-title="TBA">
-                            <div class="hof-bubble">
-                                <div class="hof-inner-bubble">?</div>
-                            </div>
-                            <div class="hof-title">TBA</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Community member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
-            </div>
-            <p class="hof-blurb">Want to join the $DEBT Community? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
-            <div class="section-connector community-to-faq"></div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="section">
-            <h1>FAQ</h1>
-            <div class="faq-container">
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is $DEBT?">
-                        What is $DEBT?
-                    </div>
-                    <div class="accordion-content">
-                        <p>$DEBT is a Solana-based memecoin built as a rebellion against the elite-controlled financial system. Short for "Don't Ever Believe Them," $DEBT is a deflationary token for the 99%, powered by community strength, weekly burns, and a mission to expose systemic lies and corruption.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What makes $DEBT different from other tokens?">
-                        What makes $DEBT different from other tokens?
-                    </div>
-                    <div class="accordion-content">
-                        <p>$DEBT has no taxes, no team wallets, and no hidden agendas. Launched fairly on Pump.fun with liquidity pool tokens burned and contract renounced, it’s fully decentralized. Weekly burns shrink the supply, and the community drives the rebellion against financial oppression—not just chasing hype.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Why does $DEBT burn tokens?">
-                        Why does $DEBT burn tokens?
-                    </div>
-                    <div class="accordion-content">
-                        <p>$DEBT burns tokens weekly to reduce supply, symbolizing defiance against the endless debt creation of traditional finance. Burns aim to increase scarcity and reflect our commitment to a deflationary rebellion, unlike the inflationary systems we oppose.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the mission or purpose behind $DEBT?">
-                        What is the mission or purpose behind $DEBT?
-                    </div>
-                    <div class="accordion-content">
-                        <p>$DEBT exists to empower appearing on the Solana blockchain, $DEBT is a community-driven project aimed at challenging the traditional financial system through deflationary tokenomics and community engagement. It is not associated with any centralized entity or traditional financial institution.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What factors might influence $DEBT’s value?">
-                        What factors might influence $DEBT’s value?
-                    </div>
-                    <div class="accordion-content">
-                        <p>$DEBT’s value may be influenced by market dynamics, community engagement, token burns, and broader cryptocurrency trends. As with all cryptocurrencies, its value is speculative and volatile. Always conduct your own research before participating.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the long-term vision for $DEBT?">
-                        What is the long-term vision for $DEBT?
-                    </div>
-                    <div class="accordion-content">
-                        <p>The long-term vision for $DEBT includes fostering a robust community, expanding utility through partnerships and integrations, and continuing token burns to enhance scarcity. The roadmap outlines plans for NFTs, staking, and more—check it out above!</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle How can I get involved with the $DEBT community?">
-                        How can I get involved with the $DEBT community?
-                    </div>
-                    <div class="accordion-content">
-                        <p>Join our <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer">Telegram</a>, follow us on <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">X</a>, and participate in our X Spaces (see schedule above). Buy $DEBT, share memes, or contribute ideas to help grow the rebellion!</p>
-                    </div>
+<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="100" height="100" loading="lazy">
                 </div>
             </div>
-            <div class="section-connector faq-to-disclaimer"></div>
-        </section>
-
-        <div class="fixed-bar">
-            <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
-            <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
-            <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
-            <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
+            <div class="hof-title">Lunic</div>
         </div>
-
-        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="join-rebellion" aria-label="Join Debt Culture Telegram">Join the Rebellion</a>
-
-        <div class="disclaimer">
-            <h3>Disclaimer</h3>
-            <ol>
-                <li><b>Not Financial Advice:</b> This website and $DEBT are for informational and entertainment purposes only. They do not constitute financial, investment, or legal advice. Cryptocurrency investments carry significant risks, including total loss of funds. Always conduct your own research and consult professionals before participating.</li>
-                <li><b>No Guarantees:</b> $DEBT is a decentralized, experimental project with no central authority. We make no representations or warranties about its value, functionality, or future performance. Market volatility, regulatory changes, or technical issues may impact $DEBT. Participate at your own risk.</li>
-                <li><b>Community-Driven:</b> $DEBT is driven by its community, with no official team or corporate entity. Roadmap plans are aspirational and subject to change without notice. Third-party links (e.g., Raydium, Solscan) are provided for convenience; we are not responsible for their content or services.</li>
-                <li><b>Legal Responsibility:</b> Users are solely responsible for ensuring compliance with local laws and regulations. By accessing this site or holding $DEBT, you agree to assume all risks and hold Debt Culture, its contributors, and affiliates harmless from any claims or losses.</li>
-            </ol>
-        </div>
-
-        <footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
-    </div>
-</body>
-<script>
-    // Matrix Background Animation
-    const canvas = document.getElementById('matrix-bg');
-    const ctx = canvas.getContext('2d');
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    const chars = '0123456789ABCDEF';
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-    function drawMatrix() {
-        ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#ff5555';
-        ctx.font = fontSize + 'px monospace';
-        drops.forEach((y, i) => {
-            const text = chars.charAt(Math.floor(Math.random() * chars.length));
-            const x = i * fontSize;
-            ctx.fillText(text, x, y * fontSize);
-            if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-        });
-    }
-    setInterval(drawMatrix, 33);
-    window.addEventListener('resize', () => {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-    });
-
-    // Construction Modal Handling
-    function acceptConstructionNotice() {
-        const modal = document.getElementById('constructionModal');
-        const contentWrapper = document.getElementById('contentWrapper');
-        modal.style.display = 'none';
-        contentWrapper.classList.add('unblurred');
-        localStorage.setItem('constructionNoticeAccepted', 'true');
-    }
-    window.onload = () => {
-        if (localStorage.getItem('constructionNoticeAccepted') === 'true') {
-            document.getElementById('constructionModal').style.display = 'none';
-            document.getElementById('contentWrapper').classList.add('unblurred');
-        }
-        updateTokenomics();
-    };
-
-    // Mobile Menu Toggle
-    function toggleMenu() {
-        const menu = document.getElementById('mobileMenu');
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-    function closeMenu() {
-        document.getElementById('mobileMenu').style.display = 'none';
-        document.getElementById('mobileDropdown').style.display = 'none';
-    }
-    function toggleDropdown() {
-        const dropdown = document.getElementById('mobileDropdown');
-        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Scroll Animation for Sections
-    const sections = document.querySelectorAll('.section');
-    const connectors = document.querySelectorAll('.section-connector');
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    sections.forEach(section => observer.observe(section));
-    connectors.forEach(connector => observer.observe(connector));
-
-    // Buy Steps Animation
-    const buySteps = document.querySelectorAll('.buy-step');
-    const buyObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { root: null, rootMargin: '0px', threshold: 0.5 });
-    buySteps.forEach(step => buyObserver.observe(step));
-
-    // Copy Address Functionality
-    function copyAddress(element) {
-        const text = element.textContent;
-        navigator.clipboard.writeText(text).then(() => {
-            element.classList.add('copied');
-            setTimeout(() => element.classList.remove('copied'), 2000);
-        });
-    }
-
-    // FAQ Accordion
-    function toggleAccordion(header) {
-        const content = header.nextElementSibling;
-        const isActive = content.classList.contains('active');
-        document.querySelectorAll('.accordion-content').forEach(item => {
-            item.classList.remove('active');
-            item.style.maxHeight = null;
-            item.previousElementSibling.setAttribute('aria-expanded', 'false');
-        });
-        if (!isActive) {
-            content.classList.add('active');
-            content.style.maxHeight = content.scrollHeight + 'px';
-            header.setAttribute('aria-expanded', 'true');
-        }
-    }
-
-    // Roadmap Future Phase Toggle
-    document.querySelectorAll('.future-phase').forEach(phase => {
-        phase.addEventListener('click', () => {
-            phase.classList.toggle('active');
-        });
-    });
-
-    // Community Carousel
-    let currentHofIndex = 0;
-    const hofMembers = [
-        {
-            name: 'Autopsy', title: 'The Founder',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg',
-            description: 'Placeholder description for Autopsy.',
-            xLink: 'https://x.com/autopsyT2'
-        },
-        {
-            name: 'Catavina', title: 'The Visionary',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg',
-            description: 'Placeholder description for Catavina.',
-            xLink: 'https://x.com/catavina17'
-        },
-        {
-            name: 'Lou', title: 'The Strategist',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg',
-            description: 'Placeholder description for Lou.',
-            xLink: 'https://x.com/louisedbegin'
-        },
-        {
-            name: 'Nerf', title: 'The Maverick',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg',
-            description: 'Placeholder description for Nerf.',
-            xLink: 'https://x.com/0xnerf'
-        },
-        {
-            name: 'JPEG', title: 'The Creator',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg',
-            description: 'Placeholder description for JPEG.',
-            xLink: 'https://x.com/jpegfein'
-        },
-        {
-            name: 'Lunic', title: 'The Spark',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg',
-            description: 'Placeholder description for Lunic.',
-            xLink: 'https://x.com/Lunicking178677'
-        },
-        {
-            name: 'Tormund', title: 'The Oracle',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg',
-            description: 'Placeholder description for Tormund.',
-            xLink: 'https://x.com/Tormund_17'
-        },
-        {
-            name: 'STAYHIGH', title: 'The Unfiltered',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg',
-            description: 'Placeholder description for STAYHIGH.',
-            xLink: 'https://x.com/0xSTAYHIGH'
-        },
-        {
-            name: 'Renee', title: 'The Believer',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg',
-            description: 'Placeholder description for Renee.',
-            xLink: 'https://x.com/ReneeBush96829'
-        },
-        {
-            name: 'blu', title: 'The Warden',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg',
-            description: 'Placeholder description for blu.',
-            xLink: 'https://x.com/blu_chek'
-        },
-        {
-            name: 'Scrappy', title: 'The Goofball',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
-            description: 'Placeholder description for Scrappy.',
-            xLink: 'https://x.com/bigsoup6_7'
-        }
-    ];
-    function updateHofCarousel(index) {
-        const featured = document.getElementById('hof-featured');
-        const description = document.getElementById('hof-description');
-        const member = hofMembers[index];
-        featured.innerHTML = `
+        <div class="hof-member" data-index="1" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
             <div class="hof-bubble">
                 <div class="hof-inner-bubble">
-                    <img src="${member.img}" alt="${member.name} profile picture" width="130" height="130" loading="lazy">
+                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
                 </div>
-                <div class="hof-name">${member.name}</div>
-                <div class="hof-title">${member.title}</div>
             </div>
-        `;
-        description.textContent = member.description;
-        featured.onclick = () => window.open(member.xLink, '_blank');
-        featured.style.cursor = 'pointer';
+            <div class="hof-title">Tormund</div>
+        </div>
+        <div class="hof-member" data-index="2" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
+            <div class="hof-bubble">
+                <div class="hof-inner-bubble">
+                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
+                </div>
+            </div>
+            <div class="hof-title">Renee</div>
+        </div>
+        <div class="hof-member" data-index="3" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
+            <div class="hof-bubble">
+                <div class="hof-inner-bubble">
+                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
+                </div>
+            </div>
+            <div class="hof-title">STAYHIGH</div>
+        </div>
+    </div>
+    <div class="hof-tbd-row">
+        <div class="hof-member" data-index="4" data-title="blu" data-x-link="https://x.com/blu_chek">
+            <div class="hof-bubble">
+                <div class="hof-inner-bubble">
+                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
+                </div>
+            </div>
+            <div class="hof-title">blu</div>
+        </div>
+        <div class="hof-member" data-index="5" data-title="TBA">
+            <div class="hof-bubble">
+                <div class="hof-inner-bubble">?</div>
+            </div>
+            <div class="hof-title">TBA</div>
+        </div>
+        <div class="hof-member" data-index="6" data-title="TBA">
+            <div class="hof-bubble">
+                <div class="hof-inner-bubble">?</div>
+            </div>
+            <div class="hof-title">TBA</div>
+        </div>
+        <div class="hof-member" data-index="7" data-title="TBA">
+            <div class="hof-bubble">
+                <div class="hof-inner-bubble">?</div>
+            </div>
+            <div class="hof-title">TBA</div>
+        </div>
+    </div>
+</div>
+<div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Hall of Fame member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
+</div>
+<p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
+<div class="section-connector hof-to-faq"></div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="section">
+    <h1>FAQ</h1>
+    <div class="faq-container">
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is $DEBT?">
+                What is $DEBT?
+            </div>
+            <div class="accordion-content">
+                <p>$DEBT is a Solana-based memecoin built as a rebellion against the elite-controlled financial system. Short for "Don't Ever Believe Them," $DEBT is a deflationary token for the 99%, powered by community strength, weekly burns, and a mission to expose systemic lies and corruption.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What makes $DEBT different from other tokens?">
+                What makes $DEBT different from other tokens?
+            </div>
+            <div class="accordion-content">
+                <p>$DEBT has no taxes, no team wallets, and no hidden agendas. Launched fairly on Pump.fun with liquidity pool tokens burned and contract renounced, it’s fully decentralized. Weekly burns shrink the supply, and the community drives the rebellion against financial oppression—not just chasing hype.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Why does $DEBT burn tokens?">
+                Why does $DEBT burn tokens?
+            </div>
+            <div class="accordion-content">
+                <p>$DEBT burns tokens weekly to reduce supply, symbolizing defiance against the endless debt creation of traditional finance. Burns aim to increase scarcity and reflect our commitment to a deflationary rebellion, unlike the inflationary systems we oppose.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the mission or purpose behind $DEBT?">
+                What is the mission or purpose behind $DEBT?
+            </div>
+            <div class="accordion-content">
+                <p>$DEBT exists to empower the 99% by challenging the elites' control over finance. Through relentless community action, viral memes, and a transparent burn system, $DEBT is building a movement that exposes the broken debt-based system and fights for financial freedom and truth.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What factors might influence $DEBT’s value?">
+                What factors might influence $DEBT’s value?
+            </div>
+            <div class="accordion-content">
+                <p>Weekly burns reduce $DEBT’s supply, potentially increasing scarcity, while community growth and engagement on X and Telegram boost visibility. Future utility like staking or DAO participation may add value, but crypto markets are volatile—always do your own research and understand the risks.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle What is the long-term vision for $DEBT?">
+                What is the long-term vision for $DEBT?
+            </div>
+            <div class="accordion-content">
+                <p>$DEBT is building a lasting legacy through a community-led DAO, real-world utility like tipping and trading, and massive future burns. Plans include NFT integrations, staking opportunities, and strategic partnerships—all aimed at disrupting the broken financial system while empowering $DEBT holders.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle How can I get involved with the $DEBT community?">
+                How can I get involved with the $DEBT community?
+            </div>
+            <div class="accordion-content">
+                <p>Join the rebellion on <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer">Telegram (@debtculture)</a>, follow us on <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer">X (@DebtCulture)</a>, and catch our X Spaces every Monday, Thursday, and Saturday at 9 PM EST. Buy and hold $DEBT, share memes, recruit rebels, or pitch your skills to the team!</p>
+            </div>
+        </div>
+    </div>
+    <div class="section-connector faq-to-disclaimer"></div>
+</section>
+
+<div class="fixed-bar">
+    <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
+    <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
+    <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
+    <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
+</div>
+
+<a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="join-rebellion" aria-label="Join Debt Culture Telegram">Join the Rebellion</a>
+
+<div class="disclaimer">
+    <h3>Disclaimer</h3>
+    <ol>
+        <li>This website provides general information about Debt Culture and the $DEBT token, an experimental, community-driven project launched on Pump.fun. It is <b>not financial, investment, or legal advice</b>. Participation involves <b>significant risks</b>, including market volatility and potential loss of funds—engage <b>at your own risk</b>.</li>
+        <li>We make <b>no guarantees</b> about $DEBT’s value, functionality, or legal status. <b>Always do your own research</b> and consult professionals before investing. Users are responsible for complying with local laws. Links to third-party sites are for convenience only; we’re not responsible for their content.</li>
+        <li>Roadmap goals are forward-looking and subject to change—<b>no promises here</b>. To the fullest extent allowed by law, Debt Culture and its creators disclaim liability for any loss or damage from using this site or joining the project. By participating, you agree to hold us harmless from any claims.</li>
+    </ol>
+</div>
+
+<footer class="footer">© 2025 by debtculture.xyz. All rights reserved.</footer>
+</div>
+</body>
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+    menu.setAttribute('aria-expanded', menu.style.display === "block");
+}
+
+function closeMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = "none";
+    menu.setAttribute('aria-expanded', 'false');
+}
+
+function toggleDropdown() {
+    const dropdown = document.getElementById("mobileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function scrollToSection(selector) {
+    document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleAccordion(header) {
+    const content = header.nextElementSibling;
+    const isActive = content.classList.contains('active');
+    
+    // Close all other accordions
+    document.querySelectorAll('.accordion-content').forEach(item => {
+        item.classList.remove('active');
+        item.style.maxHeight = '0';
+        item.style.padding = '0 15px';
+        item.previousElementSibling.classList.remove('active');
+        item.previousElementSibling.setAttribute('aria-expanded', 'false');
+    });
+    
+    // Toggle the clicked accordion
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`; // Add 30px for padding (15px top + 15px bottom)
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
     }
-    function rotateHof(direction) {
-        if (direction === 'right') {
-            currentHofIndex = (currentHofIndex + 1) % hofMembers.length;
-        } else {
-            currentHofIndex = (currentHofIndex - 1 + hofMembers.length) % hofMembers.length;
+}
+
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.section');
+    const connectors = document.querySelectorAll('.section-connector');
+    const windowHeight = window.innerHeight;
+    const isMobile = window.innerWidth <= 768;
+
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const sectionBottom = section.getBoundingClientRect().bottom;
+        if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+            section.classList.add('visible');
+            if (section.id === 'roadmap') {
+                const phases = section.querySelectorAll('.phase, .future-teaser');
+                phases.forEach(phase => {
+                    const phaseTop = phase.getBoundingClientRect().top;
+                    if (phaseTop < windowHeight * 0.85) {
+                        phase.classList.add('visible');
+                    }
+                });
+            }
+            if (section.id === 'how-to-buy') {
+                const steps = section.querySelectorAll('.buy-step');
+                steps.forEach(step => step.classList.add('visible'));
+            }
+            if (section.id === 'faq') {
+                section.classList.add('visible');
+            }
         }
-        updateHofCarousel(currentHofIndex);
+    });
+
+    connectors.forEach(connector => {
+        const connectorTop = connector.getBoundingClientRect().top;
+        const connectorBottom = connector.getBoundingClientRect().bottom;
+        if (connectorTop < windowHeight * 0.85 && connectorBottom > 0) {
+            connector.classList.add('visible');
+        }
+    });
+});
+
+function acceptConstructionNotice() {
+    document.getElementById('contentWrapper').classList.add('unblurred');
+    document.getElementById('constructionModal').style.display = 'none';
+}
+
+function copyAddress(element) {
+    const text = element.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        element.classList.add('copied');
+        setTimeout(() => element.classList.remove('copied'), 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Clipboard not supported. Copy manually: ' + text);
+    });
+}
+
+function setPhantomLink() {
+    const phantomLink = document.getElementById('phantomLink');
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
+        ? 'https://play.google.com/store/apps/details?id=app.phantom'
+        : isMobile
+        ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
+        : 'https://phantom.app/download';
+    phantomLink.target = '_blank';
+}
+
+async function updateTokenomics() {
+    const startingSupply = 1000000000;
+    let currentSupply = 949543636.68; // Fallback static value
+    try {
+        // Placeholder API call (replace with actual Solscan or Helius API endpoint)
+        const response = await fetch('https://api.solscan.io/token/supply?address=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump', {
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            currentSupply = data.result.supply || currentSupply;
+        }
+    } catch (error) {
+        console.error('Failed to fetch tokenomics:', error);
     }
-    document.querySelectorAll('.hof-member').forEach(member => {
-        member.addEventListener('click', () => {
-            const index = parseInt(member.getAttribute('data-index'));
-            if (index < hofMembers.length) {
-                currentHofIndex = index;
-                updateHofCarousel(currentHofIndex);
-            } else {
-                window.open('https://t.me/debtculture', '_blank');
+    const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
+    const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
+    document.getElementById('supply-change').textContent = `${changePercent}%`;
+}
+
+// Team Cylinder Rotation (5-point star)
+let currentTeamIndex = 3;
+const teamMembers = document.querySelectorAll('.team-member');
+const totalTeamMembers = teamMembers.length;
+const desktopRadius = 150;
+const mobileRadius = 100;
+
+function updateTeamCylinder() {
+    const isMobile = window.innerWidth <= 768;
+    const containerWidth = isMobile ? 300 : 400;
+    const containerHeight = isMobile ? 300 : 400;
+    const centerX = containerWidth / 2;
+    const centerY = containerHeight / 2;
+    const radius = isMobile ? mobileRadius : desktopRadius;
+    const featuredOffsetY = isMobile ? 70 : 70;
+    const starAngles = [0, 72, 144, 216, 288];
+
+    teamMembers.forEach((member, index) => {
+        const angleIndex = (index - currentTeamIndex + totalTeamMembers) % totalTeamMembers;
+        const angle = starAngles[angleIndex];
+        const rad = angle * Math.PI / 180;
+
+        if (index === currentTeamIndex) {
+            member.classList.add('featured');
+            member.style.left = `${centerX}px`;
+            member.style.top = `${centerY - featuredOffsetY}px`;
+            member.style.transform = 'translate(-50%, -50%)';
+            const bubble = member.querySelector('.bubble');
+            bubble.onclick = () => {
+                const xLink = member.getAttribute('data-x-link');
+                if (xLink) window.open(xLink, '_blank');
+            };
+            bubble.setAttribute('aria-label', `Visit ${member.querySelector('.member-name').textContent}'s X profile`);
+        } else {
+            member.classList.remove('featured');
+            const x = centerX + radius * Math.cos(rad);
+            const y = centerY + radius * Math.sin(rad);
+            member.style.left = `${x}px`;
+            member.style.top = `${y}px`;
+            member.style.transform = 'translate(-50%, -50%)';
+            const bubble = member.querySelector('.bubble');
+            bubble.onclick = () => {
+                currentTeamIndex = parseInt(member.getAttribute('data-index'));
+                updateTeamCylinder();
+                resetTeamAutoRotate();
+            };
+            bubble.setAttribute('aria-label', `Select ${member.querySelector('.member-name').textContent}`);
+        }
+    });
+}
+
+function rotateCylinder(direction) {
+    if (direction === 'right') {
+        currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
+    } else if (direction === 'left') {
+        currentTeamIndex = (currentTeamIndex - 1 + totalTeamMembers) % totalTeamMembers;
+    }
+    updateTeamCylinder();
+    resetTeamAutoRotate();
+}
+
+function autoRotateTeam() {
+    currentTeamIndex = (currentTeamIndex + 1) % totalTeamMembers;
+    updateTeamCylinder();
+}
+
+let teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
+
+function resetTeamAutoRotate() {
+    clearInterval(teamAutoRotateInterval);
+    teamAutoRotateInterval = setInterval(autoRotateTeam, 20000);
+}
+
+// Team Carousel Touch Support
+const teamCylinder = document.querySelector('.team-cylinder');
+let teamTouchStartX = 0;
+teamCylinder.addEventListener('touchstart', (e) => {
+    teamTouchStartX = e.touches[0].clientX;
+});
+teamCylinder.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    if (teamTouchStartX - touchEndX > 50) rotateCylinder('right');
+    if (touchEndX - teamTouchStartX > 50) rotateCylinder('left');
+});
+teamCylinder.addEventListener('mouseenter', () => clearInterval(teamAutoRotateInterval));
+teamCylinder.addEventListener('mouseleave', () => teamAutoRotateInterval = setInterval(autoRotateTeam, 20000));
+
+// Hall of Fame Carousel (5 named items cycle in featured)
+let currentHofIndex = 0;
+const hofMembers = document.querySelectorAll('.hof-member');
+const totalNamedHofMembers = 5; // Lunic, Tormund, Renee, STAYHIGH, blu (indices 0–4)
+
+function updateHofCarousel() {
+    const featured = document.getElementById('hof-featured');
+    const description = document.getElementById('hof-description');
+    const currentMember = hofMembers[currentHofIndex];
+    const xLink = currentMember.getAttribute('data-x-link');
+
+    const featuredBubble = featured.querySelector('.hof-bubble');
+    const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
+
+    // Update image, name, title, and description based on index
+    if (currentHofIndex === 0) { // Lunic
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Lunic';
+        featured.querySelector('.hof-title').textContent = 'The Spark';
+        description.textContent = 'Placeholder description for Lunic.';
+    } else if (currentHofIndex === 1) { // Tormund
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Tormund';
+        featured.querySelector('.hof-title').textContent = 'The Oracle';
+        description.textContent = 'Placeholder description for Tormund.';
+    } else if (currentHofIndex === 2) { // Renee
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'Renee';
+        featured.querySelector('.hof-title').textContent = 'The Believer';
+        description.textContent = 'Placeholder description for Renee.';
+    } else if (currentHofIndex === 3) { // STAYHIGH
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'STAYHIGH';
+        featured.querySelector('.hof-title').textContent = 'The Unfiltered';
+        description.textContent = 'Placeholder description for STAYHIGH.';
+    } else if (currentHofIndex === 4) { // blu
+        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="130" height="130" loading="lazy">`;
+        featured.querySelector('.hof-name').textContent = 'blu';
+        featured.querySelector('.hof-title').textContent = 'The Wise';
+        description.textContent = 'Placeholder description for blu.';
+    }
+
+    // Update click behavior
+    featuredBubble.onclick = () => {
+        if (xLink) window.open(xLink, '_blank');
+    };
+    featuredBubble.setAttribute('aria-label', xLink ? `Visit ${featured.querySelector('.hof-name').textContent}'s X profile` : `Select ${featured.querySelector('.hof-name').textContent}`);
+
+    hofMembers.forEach((member, index) => {
+        const bubble = member.querySelector('.hof-bubble');
+        bubble.onclick = () => {
+            // Only allow clicking on named members (indices 0–4)
+            if (index < totalNamedHofMembers) {
+                currentHofIndex = parseInt(member.getAttribute('data-index'));
+                updateHofCarousel();
+                resetHofAutoRotate();
+            }
+        };
+        bubble.setAttribute('aria-label', `Select ${member.getAttribute('data-title')}`);
+    });
+}
+
+function rotateHof(direction) {
+    if (direction === 'right') {
+        currentHofIndex = (currentHofIndex + 1) % totalNamedHofMembers;
+    } else if (direction === 'left') {
+        currentHofIndex = (currentHofIndex - 1 + totalNamedHofMembers) % totalNamedHofMembers;
+    }
+    updateHofCarousel();
+    resetHofAutoRotate();
+}
+
+function autoRotateHof() {
+    currentHofIndex = (currentHofIndex + 1) % totalNamedHofMembers;
+    updateHofCarousel();
+}
+
+let hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
+
+function resetHofAutoRotate() {
+    clearInterval(hofAutoRotateInterval);
+    hofAutoRotateInterval = setInterval(autoRotateHof, 20000);
+}
+
+// HoF Carousel Touch Support
+const hofCarousel = document.querySelector('.hof-carousel');
+let hofTouchStartX = 0;
+hofCarousel.addEventListener('touchstart', (e) => {
+    hofTouchStartX = e.touches[0].clientX;
+});
+hofCarousel.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    if (hofTouchStartX - touchEndX > 50) rotateHof('right');
+    if (touchEndX - hofTouchStartX > 50) rotateHof('left');
+});
+hofCarousel.addEventListener('mouseenter', () => clearInterval(hofAutoRotateInterval));
+hofCarousel.addEventListener('mouseleave', () => hofAutoRotateInterval = setInterval(autoRotateHof, 20000));
+
+// Persist Roadmap Phase State
+function initializeRoadmapPhases() {
+    const isMobile = window.innerWidth <= 768;
+    document.querySelectorAll('.future-phase').forEach(phase => {
+        // On mobile, clear localStorage to ensure phases start blurry
+        if (isMobile) {
+            localStorage.removeItem(`phase-${phase.querySelector('h2').textContent}`);
+            phase.classList.remove('active');
+        }
+        // Add click event listener for both mobile and desktop
+        phase.addEventListener('click', () => {
+            const isActive = phase.classList.toggle('active');
+            // Only store state for desktop or if explicitly clicked on mobile
+            if (!isMobile || isActive) {
+                localStorage.setItem(`phase-${phase.querySelector('h2').textContent}`, isActive);
             }
         });
-    });
-    updateHofCarousel(currentHofIndex);
-
-    // Scroll to Section
-    function scrollToSection(sectionId) {
-        const section = document.querySelector(sectionId);
-        const navbarHeight = document.querySelector('.navbar').offsetHeight;
-        const sectionTop = section.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-    }
-
-    // Phantom Link
-    document.getElementById('phantomLink').addEventListener('click', (e) => {
-        e.preventDefault();
-        window.open('https://phantom.app/', '_blank');
-    });
-
-    // Tokenomics Update
-    async function updateTokenomics() {
-        const currentSupplyElement = document.getElementById('current-supply');
-        const supplyChangeElement = document.getElementById('supply-change');
-        try {
-            const response = await fetch('https://api.solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
-            const data = await response.json();
-            if (data && data.data && data.data.supply) {
-                const initialSupply = 1000000000;
-                const currentSupply = data.data.supply / Math.pow(10, data.data.decimals);
-                const changePercent = ((initialSupply - currentSupply) / initialSupply * 100).toFixed(2);
-                currentSupplyElement.textContent = `${currentSupply.toLocaleString()} $DEBT`;
-                supplyChangeElement.textContent = `${changePercent}% Burned`;
-            } else {
-                throw new Error('Invalid API response');
+        // On desktop, apply saved state from localStorage
+        if (!isMobile) {
+            const savedState = localStorage.getItem(`phase-${phase.querySelector('h2').textContent}`);
+            if (savedState === 'true') {
+                phase.classList.add('active');
             }
-        } catch (error) {
-            console.error('Error fetching tokenomics:', error);
-            currentSupplyElement.textContent = 'Error';
-            supplyChangeElement.textContent = 'N/A';
-        }
-    }
-
-    // Telegram Icon Accessibility
-    document.getElementById('telegram-icon').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            window.open('https://t.me/debtculture', '_blank');
         }
     });
+}
+
+// Matrix Background Animation
+function initializeMatrix() {
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Characters to display
+    const chars = '01';
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+    
+    function draw() {
+        // Semi-transparent background for fade effect
+        ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Red text
+        ctx.fillStyle = '#ff5555';
+        ctx.font = `${fontSize}px monospace`;
+        
+        // Loop through drops
+        for (let i = 0; i < drops.length; i++) {
+            // Random character
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            
+            // Draw character
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            
+            // Reset drop to top when it reaches bottom
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            
+            // Increment drop position
+            drops[i]++;
+        }
+    }
+    
+    // Run animation
+    setInterval(draw, 33);
+}
+
+window.addEventListener('load', () => {
+    setPhantomLink();
+    updateTokenomics();
+    updateTeamCylinder();
+    updateHofCarousel();
+    initializeRoadmapPhases();
+    initializeMatrix();
+    window.dispatchEvent(new Event('scroll'));
+});
+
+window.addEventListener('resize', updateTeamCylinder);
 </script>
