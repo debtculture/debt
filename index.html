@@ -80,7 +80,7 @@
         .team-to-hof { margin: 30px auto; }
         .hof-to-faq { margin: 30px auto; }
         .faq-to-disclaimer { margin: 30px auto; }
-        #faq.section { position: relative; z-index: 10; margin-top: -105px; min-height: auto; }
+        #faq.section { position: relative; z-index: 10; margin-top: -345px; min-height: auto; }
         .disclaimer { margin: 0 auto 40px; }
         .buy-container { overflow-x: hidden; }
         .buy-step { overflow-x: hidden; }
@@ -92,6 +92,7 @@
         #hall-of-fame { margin-top: -90px; padding-bottom: 60px; min-height: auto; }
         .hof-carousel { max-width: 600px; height: 450px; }
         .faq-container { max-width: 800px; }
+        .hof-blurb { margin: 355px auto 20px; }
     }
     @media (max-width: 768px) {
         #roadmap { margin-top: -113px; }
@@ -101,6 +102,8 @@
         .team-to-hof { margin-bottom: 47px; }
         .hof-to-faq { margin-bottom: 34px; }
         .faq-to-disclaimer { margin-bottom: 34px; }
+        #faq { margin-top: -323px; padding: 20px; }
+        .hof-blurb { margin: 384px auto 20px; }
     }
     .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
     .phase.visible, .future-teaser.visible { opacity: 1; transform: translateX(0); }
@@ -209,7 +212,6 @@
     .hof-featured .hof-name { font-size: 1rem; }
     .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); }
     .hof-featured .hof-title { position: static; transform: none; font-size: 0.9rem; margin-bottom: 5px; }
-    .hof-blurb { font-size: 1.1rem; max-width: 600px; margin: 115px auto 20px; color: #eee; } /* Increased from 110px to 115px */
     .hof-arrow { position: absolute; top: 100px; font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
     .hof-arrow:hover { color: #ff7777; }
     .hof-left-arrow { left: 20px; transform: rotate(180deg); }
@@ -264,7 +266,6 @@
     .accordion-content a:hover { color: #ff7777; }
     .accordion-content.active { padding: 15px; }
     @media (max-width: 768px) {
-        #faq { margin-top: -83px; padding: 20px; }
         .faq-container { max-width: 90%; padding: 15px; }
         .accordion-header { font-size: 1.1rem; padding: 10px; }
         .accordion-header::after { font-size: 0.9rem; right: 10px; }
@@ -360,7 +361,6 @@
         .hof-title { font-size: 0.7rem; }
         .hof-featured .hof-title { font-size: 0.8rem; }
         .hof-row, .hof-tbd-row { gap: 10px; }
-        .hof-blurb { margin: 144px auto 20px; } /* Increased from 94px to 144px */
         .hof-arrow { font-size: 1.5rem; top: 80px; }
         .hof-left-arrow { left: 10px; }
         .hof-right-arrow { right: 10px; }
@@ -370,7 +370,7 @@
         .banner-container { position: relative; top: 50px; }
         .cylinder-container { width: 400px; height: 400px; }
     }
-        </style>
+    </style>
     <!-- Solana Wallet Adapter and Dependencies -->
     <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
     <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
