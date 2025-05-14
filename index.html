@@ -920,7 +920,7 @@ async function updateTokenomics() {
     document.getElementById('supply-change').textContent = `${changePercent}%`;
 }
 
-// Community Carousel (11 named items cycle in featured)
+// Community Carousel
 let currentCommunityIndex = 0;
 const communityMembers = document.querySelectorAll('.hof-member');
 const totalNamedCommunityMembers = 11;
@@ -934,72 +934,90 @@ function updateCommunityCarousel() {
     const featuredBubble = featured.querySelector('.hof-bubble');
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
 
-    if (currentCommunityIndex === 0) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Autopsy';
-        featured.querySelector('.hof-title').textContent = 'The Visionary';
-        description.textContent = 'Placeholder description for Autopsy.';
-    } else if (currentCommunityIndex === 1) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Catavina';
-        featured.querySelector('.hof-title').textContent = 'The Rally';
-        description.textContent = 'Placeholder description for Catavina.';
-    } else if (currentCommunityIndex === 2) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Lou';
-        featured.querySelector('.hof-title').textContent = 'The Voice';
-        description.textContent = 'Placeholder description for Lou.';
-    } else if (currentCommunityIndex === 3) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Nerf';
-        featured.querySelector('.hof-title').textContent = 'The Analyst';
-        description.textContent = 'Placeholder description for Nerf.';
-    } else if (currentCommunityIndex === 4) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'JPEG';
-        featured.querySelector('.hof-title').textContent = 'The Creator';
-        description.textContent = 'Placeholder description for JPEG.';
-    } else if (currentCommunityIndex === 5) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunic profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Lunic';
-        featured.querySelector('.hof-title').textContent = 'The Spark';
-        description.textContent = 'Placeholder description for Lunic.';
-    } else if (currentCommunityIndex === 6) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Tormund';
-        featured.querySelector('.hof-title').textContent = 'The Oracle';
-        description.textContent = 'Placeholder description for Tormund.';
-    } else if (currentCommunityIndex === 7) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'STAYHIGH';
-        featured.querySelector('.hof-title').textContent = 'The Unfiltered';
-        description.textContent = 'Placeholder description for STAYHIGH.';
-    } else if (currentCommunityIndex === 8) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Renee';
-        featured.querySelector('.hof-title').textContent = 'The Believer';
-        description.textContent = 'Placeholder description for Renee.';
-    } else if (currentCommunityIndex === 9) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'blu';
-        featured.querySelector('.hof-title').textContent = 'The Warden';
-        description.textContent = 'Placeholder description for blu.';
-    } else if (currentCommunityIndex === 10) {
-        featuredInnerBubble.innerHTML = `<img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="130" height="130" loading="lazy">`;
-        featured.querySelector('.hof-name').textContent = 'Scrappy';
-        featured.querySelector('.hof-title').textContent = 'The Goofball';
-        description.textContent = 'Placeholder description for Scrappy.';
-    }
+    const members = [
+        {
+            name: 'Autopsy',
+            title: 'The Visionary',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg',
+            desc: 'Autopsy, the visionary behind $DEBT, sparked the rebellion with a bold mission to challenge financial elites.'
+        },
+        {
+            name: 'Catavina',
+            title: 'The Rally',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg',
+            desc: 'Placeholder description for Catavina.'
+        },
+        {
+            name: 'Lou',
+            title: 'The Voice',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg',
+            desc: 'Placeholder description for Lou.'
+        },
+        {
+            name: 'Nerf',
+            title: 'The Analyst',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg',
+            desc: 'Placeholder description for Nerf.'
+        },
+        {
+            name: 'JPEG',
+            title: 'The Creator',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg',
+            desc: 'Placeholder description for JPEG.'
+        },
+        {
+            name: 'Lunic',
+            title: 'The Spark',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg',
+            desc: 'Placeholder description for Lunic.'
+        },
+        {
+            name: 'Tormund',
+            title: 'The Oracle',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg',
+            desc: 'Placeholder description for Tormund.'
+        },
+        {
+            name: 'STAYHIGH',
+            title: 'The Unfiltered',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg',
+            desc: 'Placeholder description for STAYHIGH.'
+        },
+        {
+            name: 'Renee',
+            title: 'The Believer',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg',
+            desc: 'Placeholder description for Renee.'
+        },
+        {
+            name: 'blu',
+            title: 'The Warden',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg',
+            desc: 'Placeholder description for blu.'
+        },
+        {
+            name: 'Scrappy',
+            title: 'The Goofball',
+            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
+            desc: 'Placeholder description for Scrappy.'
+        }
+    ];
+
+    const member = members[currentCommunityIndex];
+    featuredInnerBubble.innerHTML = `<img src="${member.img}" alt="${member.name} profile picture" width="130" height="130" loading="lazy">`;
+    featured.querySelector('.hof-name').textContent = member.name;
+    featured.querySelector('.hof-title').textContent = member.title;
+    description.textContent = member.desc;
 
     featuredBubble.onclick = () => {
         if (xLink) window.open(xLink, '_blank');
     };
-    featuredBubble.setAttribute('aria-label', xLink ? `Visit ${featured.querySelector('.hof-name').textContent}'s X profile` : `Select ${featured.querySelector('.hof-name').textContent}`);
+    featuredBubble.setAttribute('aria-label', xLink ? `Visit ${member.name}'s X profile` : `Select ${member.name}`);
 
     communityMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
         bubble.onclick = () => {
-            if (index <= 10) {
+            if (index < totalNamedCommunityMembers) {
                 currentCommunityIndex = parseInt(member.getAttribute('data-index'));
                 updateCommunityCarousel();
                 resetCommunityAutoRotate();
@@ -1009,7 +1027,7 @@ function updateCommunityCarousel() {
     });
 }
 
-function rotateCommunity(direction) {
+function rotateHof(direction) {
     if (direction === 'right') {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     } else if (direction === 'left') {
@@ -1038,8 +1056,8 @@ communityCarousel.addEventListener('touchstart', (e) => {
 });
 communityCarousel.addEventListener('touchend', (e) => {
     const touchEndX = e.changedTouches[0].clientX;
-    if (communityTouchStartX - touchEndX > 50) rotateCommunity('right');
-    if (touchEndX - communityTouchStartX > 50) rotateCommunity('left');
+    if (communityTouchStartX - touchEndX > 50) rotateHof('right');
+    if (touchEndX - communityTouchStartX > 50) rotateHof('left');
 });
 communityCarousel.addEventListener('mouseenter', () => clearInterval(communityAutoRotateInterval));
 communityCarousel.addEventListener('mouseleave', () => communityAutoRotateInterval = setInterval(autoRotateCommunity, 20000));
