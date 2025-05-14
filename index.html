@@ -54,15 +54,15 @@
 .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .hamburger.active div:nth-child(2) { opacity: 0; }
 .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-.mobile-menu { display: none; position: fixed; top: 60px; left: 15px; width: 250px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); z-index: 999; overflow-x: hidden; padding: 10px 0; max-height: 80vh; overflow-y: auto; }
-.mobile-menu a { display: block; color: #eee; padding: 8px 15px; text-decoration: none; position: relative; transition: color 0.3s ease; background: transparent !important; }
+.mobile-menu { display: none; position: fixed; top: 60px; left: 15px; width: 167px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); z-index: 999; overflow-x: hidden; padding: 10px 0; max-height: 80vh; overflow-y: auto; }
+.mobile-menu a { display: block; color: #eee; padding: 8px 15px; text-decoration: none; position: relative; transition: color 0.3s ease; background: transparent !important; text-align: center; }
 .mobile-menu a:hover { background: transparent !important; color: #ff5555; }
 .mobile-menu a:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
-.mobile-menu .expand { cursor: pointer; color: #eee; padding: 8px 15px; text-decoration: none; display: block; position: relative; transition: color 0.3s ease; background: transparent !important; }
+.mobile-menu .expand { cursor: pointer; color: #eee; padding: 8px 15px; text-decoration: none; display: block; position: relative; transition: color 0.3s ease; background: transparent !important; text-align: center; }
 .mobile-menu .expand:hover { background: transparent !important; color: #ff5555; }
 .mobile-menu .expand:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .mobile-dropdown { display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px; overflow-x: hidden; background: transparent !important; }
-.mobile-dropdown a { padding: 8px 15px; background: transparent !important; }
+.mobile-dropdown a { padding: 8px 15px; background: transparent !important; text-align: center; }
 .mobile-dropdown a:hover { background: transparent !important; color: #ff5555; }
 .mobile-dropdown a:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
