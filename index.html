@@ -26,7 +26,7 @@
     .content-wrapper.unblurred { filter: none; }
     
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
-    #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    #matrix-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
     .navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible; }
     .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; }
     .navbar a:hover { background-color: #555; }
@@ -1086,9 +1086,9 @@ function initializeMatrix() {
     const ctx = canvas.getContext('2d');
     
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+    canvas.width = window.innerWidth;
+    canvas.height = document.documentElement.scrollHeight;
+}
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     
