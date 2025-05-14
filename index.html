@@ -27,7 +27,7 @@
     
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
     #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-    .navbar { position: fixed; top: 0; left: 0; width: 100%; background-color: #333; padding: 10px 0; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; overflow: visible; }
+    .navbar { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 900px; background-color: rgba(30, 30, 30, 0.8); padding: 8px 15px; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 40px; border-radius: 10px; border: 2px solid transparent; animation: neonPulse 2s infinite ease-in-out; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: visible; }
     .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; }
     .navbar a:hover { background-color: #555; }
     .navbar-links { display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
@@ -317,7 +317,7 @@
     }
     @media (min-width: 769px) {
     .banner-container { display: none; }
-    #hero { margin-top: 60px; }
+    #hero { margin-top: 70px; }
     #community { margin-top: -580px; padding-bottom: 60px; min-height: auto; }
 }
     </style>
