@@ -324,11 +324,12 @@
     animation: pulseGlow 2s infinite ease-in-out; 
     transition: transform 0.3s ease; 
     cursor: pointer; 
+    position: relative; 
     z-index: 2101; 
 }
 .join-rebellion:hover { background-color: #ff7777; }
 .join-rebellion.active { transform: scale(0.6); }
-.join-rebellion.active::before { 
+body:has(.social-bubbles.active)::before { 
     content: ''; 
     position: fixed; 
     top: 0; 
@@ -336,7 +337,12 @@
     width: 100%; 
     height: 100%; 
     background: rgba(0, 0, 0, 0.7); 
-    z-index: 2099; 
+    z-index: 2098; 
+    opacity: 1; 
+    transition: opacity 0.3s ease; 
+}
+body:not(:has(.social-bubbles.active))::before { 
+    opacity: 0; 
     transition: opacity 0.3s ease; 
 }
 .social-bubbles.active { 
