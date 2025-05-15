@@ -443,10 +443,7 @@
     box-shadow: 0 0 8px #77ff77; 
 }
 .social-bubbles.active { 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 10px; 
+    display: block; 
     pointer-events: auto; 
 }
 .icon { 
@@ -462,6 +459,7 @@
     transform: scale(0); 
     transition: all 0.3s ease; 
     pointer-events: auto; 
+    position: absolute; 
 }
 .social-bubbles.active .icon { 
     opacity: 1; 
@@ -476,13 +474,19 @@
         bottom: 55px; 
         left: 50%; 
         transform: translateX(-50%); 
+        width: auto; 
+        height: auto; 
+        display: flex; 
         flex-wrap: nowrap; 
         gap: 10px; 
-        display: flex; 
         pointer-events: auto; 
     }
     .social-bubbles.active { display: flex; }
-    .icon { opacity: 1; transform: none; }
+    .icon { 
+        position: relative; 
+        opacity: 1; 
+        transform: none; 
+    }
 }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
