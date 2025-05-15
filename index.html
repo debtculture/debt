@@ -295,7 +295,7 @@
     /* Join Rebellion Button */
     .join-rebellion-container { 
     position: fixed; 
-    bottom: 80px; 
+    bottom: 40px; 
     right: 20px; 
     z-index: 2100; 
 }
@@ -355,7 +355,7 @@
     .contract-address { margin: 10px auto 0; padding: 10px; }
     .contract-address h3 { font-size: 1.2rem; }
     .contract-address .copyable-address { font-size: 0.9rem; }
-    .join-rebellion-container { bottom: 80px; right: 20px; }
+    .join-rebellion-container { bottom: 40px; right: 20px; }
 .social-bubbles { display: none; }
     .modal-content button { background-color: #ff5555; color: #fff; }
     .buy-step:nth-child(3) .copyable-address { font-size: 0.9rem; word-wrap: break-word; max-width: 100%; }
@@ -454,10 +454,10 @@
     transition: all 0.3s ease; 
 }
 .social-bubbles.active .icon { opacity: 1; transform: scale(1); }
-.social-bubbles.active .icon:nth-child(1) { transform: translate(0, -80px) scale(1); transition-delay: 0.1s; }
-.social-bubbles.active .icon:nth-child(2) { transform: translate(-56px, -56px) scale(1); transition-delay: 0.2s; }
-.social-bubbles.active .icon:nth-child(3) { transform: translate(-80px, 0) scale(1); transition-delay: 0.3s; }
-.social-bubbles.active .icon:nth-child(4) { transform: translate(-56px, 56px) scale(1); transition-delay: 0.4s; }
+.social-bubbles.active .icon:nth-child(1) { transform: translate(-76px, -25px) scale(1); transition-delay: 0.1s; } /* 18° */
+.social-bubbles.active .icon:nth-child(2) { transform: translate(-65px, -47px) scale(1); transition-delay: 0.2s; } /* 36° */
+.social-bubbles.active .icon:nth-child(3) { transform: translate(-47px, -65px) scale(1); transition-delay: 0.3s; } /* 54° */
+.social-bubbles.active .icon:nth-child(4) { transform: translate(-25px, -76px) scale(1); transition-delay: 0.4s; } /* 72° */
 @media (min-width: 769px) {
     .social-bubbles { bottom: 55px; left: 50%; transform: translateX(-50%); flex-wrap: nowrap; gap: 10px; }
     .social-bubbles.active { display: flex; }
