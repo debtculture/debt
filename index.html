@@ -515,7 +515,7 @@
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
-        <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
+        <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet (Feature Coming Soon)">Connect Wallet</button>
         <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()">
     <div></div><div></div><div></div>
 </div>
@@ -1194,58 +1194,8 @@ window.addEventListener('load', () => {
     initializeMatrix();
     window.dispatchEvent(new Event('scroll'));
 });
-async function connectWallet() {
-    try {
-        const button = document.getElementById('connectWalletMobile');
-        button.textContent = 'Connecting...';
-        button.disabled = true;
-
-        if (!window.solanaWalletAdapterBase || !window.solanaWalletAdapterWallets) {
-            console.error('Solana Wallet Adapter scripts not loaded');
-            throw new Error('Wallet adapter not available. Please refresh the page.');
-        }
-
-        const { PhantomWalletAdapter } = window.solanaWalletAdapterWallets;
-        const wallet = new PhantomWalletAdapter();
-
-        // Detect if on mobile
-        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-
-        if (isMobile) {
-            // Attempt Phantom deep link
-            const uri = `https://phantom.app/ul/v1/connect?app_url=${encodeURIComponent(window.location.href)}`;
-            console.log('Attempting Phantom deep link:', uri);
-            window.location.href = uri;
-            setTimeout(() => {
-                if (document.visibilityState === 'visible') {
-                    console.warn('Phantom app not detected');
-                    button.textContent = 'Connect Wallet';
-                    button.disabled = false;
-                    alert('Please install Phantom Wallet to connect.');
-                    window.open('https://phantom.app/download', '_blank');
-                }
-            }, 2000);
-            return;
-        }
-
-        await wallet.connect();
-        if (wallet.publicKey) {
-            button.textContent = 'Wallet Connected';
-            button.classList.add('connected');
-            button.disabled = true;
-            localStorage.setItem('walletAddress', wallet.publicKey.toString());
-            console.log('Wallet connected:', wallet.publicKey.toString());
-            button.setAttribute('aria-label', 'Wallet Connected');
-        } else {
-            throw new Error('No public key received from wallet');
-        }
-    } catch (error) {
-        console.error('Wallet connection failed:', error);
-        const button = document.getElementById('connectWalletMobile');
-        button.textContent = 'Connect Wallet';
-        button.disabled = false;
-        alert('Failed to connect wallet: ' + (error.message || 'Unknown error. Please ensure Phantom Wallet is installed.'));
-    }
+function connectWallet() {
+    alert('Wallet Connect Feature Coming Soon!');
 }
 
 // Check if wallet is already connected on page load
