@@ -278,65 +278,117 @@
     @keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
 
     @media (max-width: 768px) {
-        .navbar { display: none; }
-        .hamburger { display: flex; }
-        .mobile-menu { display: block; overflow-y: auto; max-height: 80vh; padding-bottom: 20px; }
-        .mobile-logo { display: block; }
-        .section { padding: 20px; padding-top: 60px; }
-        .copyable-address::after { font-size: 0.7rem; top: -20px; padding: 3px 6px; }
-        #hero { min-height: auto; padding: 10px; margin: 35px 0 5px; }
-        #overview { margin-top: -30px; }
-        h1 { font-size: 2.5rem; }
-        .phase, .future-teaser, .buy-container { margin: 20px 0; padding: 15px; }
-        .phase h2, .future-teaser h2 { font-size: 2rem; }
-        .phase li, .future-teaser li, .step-content p { font-size: 1.1rem; }
-        .buy-blurb { font-size: 1.2rem; margin: 5px auto 0; }
-        .step-number { min-width: 25px; height: 25px; font-size: 0.9rem; }
-        .step-content { max-width: calc(100% - 40px); }
-        .host-bubble img.profile-pic { width: 75px; height: 75px; }
-        .host-bubble .twitter-link { width: 30px; height: 30px; }
-        .host-bubble .twitter-link::before { width: 30px; height: 30px; }
-        .host-bubble img.twitter-icon { width: 20px; height: 20px; }
-        .we-are-here { left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
-        .we-are-here::after { content: "↓"; font-size: 1.2rem; margin-left: 5px; }
-        .phase .completed { right: 10px; top: -45px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
-        .phase-1 .completed { right: 10px; top: -41px; }
-        .tokenomics, .x-space-schedule { max-width: 100%; padding: 15px; }
-        .debt-clock-container { width: 270px; height: 70px; }
-        .debt-clock-iframe { width: 530px; height: 295px; margin-top: -150px; margin-left: -40px; }
-        .burn-tracker { font-size: 1.5rem; }
-        .phase-1 li::before { color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212; }
-        .buy-container { max-width: 90%; overflow-x: hidden; }
-        .contract-address { margin: 10px auto 0; padding: 10px; }
-        .contract-address h3 { font-size: 1.2rem; }
-        .contract-address .copyable-address { font-size: 0.9rem; }
-        .join-rebellion { bottom: 110px; right: 10px; font-size: 0.9rem; padding: 8px 15px; }
-        .modal-content button { background-color: #ff5555; color: #fff; }
-        .buy-step:nth-child(3) .copyable-address { font-size: 0.9rem; word-wrap: break-word; max-width: 100%; }
-        #roadmap { overflow: visible; min-height: auto; margin-top: -3px; }
-        #roadmap h1 { margin-top: -40px; }
-        .roadmap-container { max-height: none; overflow: visible; }
-        .phase, .future-teaser { position: static; margin: 20px 0; }
-        #how-to-buy { margin-top: -42px; }
-        .hof-carousel { height: 400px; max-width: 400px; }
-        .hof-featured { width: 229px; height: 229px; }
-        .hof-featured .hof-bubble { width: 100%; height: 100%; }
-        .hof-featured .hof-inner-bubble { width: 143px; height: 143px; }
-        .hof-member { width: 80px; height: 80px; }
-        .hof-bubble { width: 100%; height: 100%; }
-        .hof-inner-bubble { font-size: 3rem; }
-        .hof-title { font-size: 0.7rem; }
-        .hof-featured .hof-title { font-size: 0.8rem; }
-        .hof-row, .hof-tbd-row { gap: 10px; }
-        .hof-arrow { font-size: 1.5rem; top: 80px; }
-        .hof-left-arrow { left: 10px; }
-        .hof-right-arrow { right: 10px; }
-        .hof-description { font-size: 1rem; max-width: 300px; margin: 15px auto; }
-    }
+    .navbar { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: block; }
+    .mobile-logo { display: none; } /* Hide the logo */
+    .connect-wallet-mobile { display: block; }
+    .section { padding: 20px; padding-top: 60px; }
+    .copyable-address::after { font-size: 0.7rem; top: -20px; padding: 3px 6px; }
+    #hero { min-height: auto; padding: 10px; margin: 35px 0 5px; }
+    #overview { margin-top: -30px; }
+    h1 { font-size: 2.5rem; }
+    .phase, .future-teaser, .buy-container { margin: 20px 0; padding: 15px; }
+    .phase h2, .future-teaser h2 { font-size: 2rem; }
+    .phase li, .future-teaser li, .step-content p { font-size: 1.1rem; }
+    .buy-blurb { font-size: 1.2rem; margin: 5px auto 0; }
+    .step-number { min-width: 25px; height: 25px; font-size: 0.9rem; }
+    .step-content { max-width: calc(100% - 40px); }
+    .host-bubble img.profile-pic { width: 75px; height: 75px; }
+    .host-bubble .twitter-link { width: 30px; height: 30px; }
+    .host-bubble .twitter-link::before { width: 30px; height: 30px; }
+    .host-bubble img.twitter-icon { width: 20px; height: 20px; }
+    .we-are-here { left: 10px; top: -25px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
+    .we-are-here::after { content: "↓"; font-size: 1.2rem; margin-left: 5px; }
+    .phase .completed { right: 10px; top: -45px; transform: none; font-size: 1rem; padding: 5px 10px; z-index: 3; }
+    .phase-1 .completed { right: 10px; top: -41px; }
+    .tokenomics, .x-space-schedule { max-width: 100%; padding: 15px; }
+    .debt-clock-container { width: 270px; height: 70px; }
+    .debt-clock-iframe { width: 530px; height: 295px; margin-top: -150px; margin-left: -40px; }
+    .burn-tracker { font-size: 1.5rem; }
+    .phase-1 li::before { color: #55ff55; background-color: #55ff55; padding: 3px; border-radius: 50%; width: 1.2rem; height: 1.2rem; display: flex; align-items: center; justify-content: center; left: -31px; color: #121212; }
+    .buy-container { max-width: 90%; overflow-x: hidden; }
+    .contract-address { margin: 10px auto 0; padding: 10px; }
+    .contract-address h3 { font-size: 1.2rem; }
+    .contract-address .copyable-address { font-size: 0.9rem; }
+    .join-rebellion { bottom: 110px; right: 10px; font-size: 0.9rem; padding: 8px 15px; }
+    .modal-content button { background-color: #ff5555; color: #fff; }
+    .buy-step:nth-child(3) .copyable-address { font-size: 0.9rem; word-wrap: break-word; max-width: 100%; }
+    #roadmap { overflow: visible; min-height: auto; margin-top: -3px; }
+    #roadmap h1 { margin-top: -40px; }
+    .roadmap-container { max-height: none; overflow: visible; }
+    .phase, .future-teaser { position: static; margin: 20px 0; }
+    #how-to-buy { margin-top: -42px; }
+    .hof-carousel { height: 400px; max-width: 400px; }
+    .hof-featured { width: 229px; height: 229px; }
+    .hof-featured .hof-bubble { width: 100%; height: 100%; }
+    .hof-featured .hof-inner-bubble { width: 143px; height: 143px; }
+    .hof-member { width: 80px; height: 80px; }
+    .hof-bubble { width: 100%; height: 100%; }
+    .hof-inner-bubble { font-size: 3rem; }
+    .hof-title { font-size: 0.7rem; }
+    .hof-featured .hof-title { font-size: 0.8rem; }
+    .hof-row, .hof-tbd-row { gap: 10px; }
+    .hof-arrow { font-size: 1.5rem; top: 80px; }
+    .hof-left-arrow { left: 10px; }
+    .hof-right-arrow { right: 10px; }
+    .hof-description { font-size: 1rem; max-width: 300px; margin: 15px auto; }
+}
     @media (min-width: 769px) {
     .banner-container { display: none; }
     #hero { margin-top: 70px; }
     #community { margin-top: -580px; padding-bottom: 60px; min-height: auto; }
+}
+.connect-wallet-mobile { 
+    display: none; 
+    position: fixed; 
+    top: 15px; 
+    right: 15px; 
+    background-color: rgba(18, 18, 18, 0.5); 
+    backdrop-filter: blur(5px); 
+    color: #eee; 
+    padding: 8px 15px; 
+    border-radius: 8px; 
+    border: 1px solid rgba(255, 85, 85, 0.3); 
+    box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    transition: all 0.3s ease; 
+    z-index: 1000; 
+    cursor: pointer; 
+}
+.connect-wallet-mobile:hover { 
+    color: #ff5555; 
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.5); 
+}
+.connect-wallet-mobile::after { 
+    content: ''; 
+    position: absolute; 
+    bottom: -2px; 
+    left: 15px; 
+    width: calc(100% - 30px); 
+    height: 2px; 
+    background-color: transparent; 
+    transition: background-color 0.3s ease; 
+}
+.connect-wallet-mobile:hover::after { 
+    background-color: #ff5555; 
+    box-shadow: 0 0 8px #ff5555; 
+}
+.connect-wallet-mobile.connected { 
+    background-color: rgba(85, 255, 85, 0.2); 
+    border-color: rgba(85, 255, 85, 0.3); 
+    color: #55ff55; 
+}
+.connect-wallet-mobile.connected:hover { 
+    color: #77ff77; 
+}
+.connect-wallet-mobile.connected::after { 
+    background-color: #55ff55; 
+}
+.connect-wallet-mobile.connected:hover::after { 
+    background-color: #77ff77; 
+    box-shadow: 0 0 8px #77ff77; 
 }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
@@ -465,7 +517,7 @@
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" alt="Debt Culture logo with red text" class="mobile-logo" width="100" height="100">
+        <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
         <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()">
     <div></div><div></div><div></div>
 </div>
@@ -1143,5 +1195,52 @@ window.addEventListener('load', () => {
     initializeRoadmapPhases();
     initializeMatrix();
     window.dispatchEvent(new Event('scroll'));
+});
+async function connectWallet() {
+    try {
+        const { WalletAdapter } = window.solanaWalletAdapterBase;
+        const { PhantomWalletAdapter } = window.solanaWalletAdapterWallets;
+        const wallet = new PhantomWalletAdapter();
+        
+        // Detect if on mobile
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            // Attempt to open Phantom via deep link
+            const uri = `phantom://wc?uri=${encodeURIComponent(window.location.href)}`;
+            window.location.href = uri;
+            setTimeout(() => {
+                // Fallback if Phantom app not installed
+                if (document.visibilityState === 'visible') {
+                    alert('Please install Phantom Wallet to connect.');
+                    window.open('https://phantom.app/download', '_blank');
+                }
+            }, 1000);
+        }
+        
+        await wallet.connect();
+        if (wallet.publicKey) {
+            const button = document.getElementById('connectWalletMobile');
+            button.textContent = 'Wallet Connected';
+            button.classList.add('connected');
+            button.disabled = true; // Disable button after connection
+            // Optionally store wallet address
+            localStorage.setItem('walletAddress', wallet.publicKey.toString());
+        }
+    } catch (error) {
+        console.error('Wallet connection failed:', error);
+        alert('Failed to connect wallet. Please try again.');
+    }
+}
+
+// Check if wallet is already connected on page load
+window.addEventListener('load', async () => {
+    const walletAddress = localStorage.getItem('walletAddress');
+    if (walletAddress) {
+        const button = document.getElementById('connectWalletMobile');
+        button.textContent = 'Wallet Connected';
+        button.classList.add('connected');
+        button.disabled = true;
+    }
 });
 </script>
