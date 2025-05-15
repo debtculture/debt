@@ -327,12 +327,15 @@
 }
 .join-rebellion:hover { background-color: #ff7777; }
 .join-rebellion.active { transform: scale(0.6); }
-body:has(.join-rebellion.active) > :not(.join-rebellion-container):not(.social-bubbles) { 
+body:has(.join-rebellion.active) > :not(.join-rebellion-container, .social-bubbles) { 
     opacity: 0.3; 
     transition: opacity 0.3s ease; 
 }
-@keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
-
+@keyframes pulseGlow { 
+    0% { box-shadow: 0 0 5px #ff5555; } 
+    50% { box-shadow: 0 0 15px #ff5555; } 
+    100% { box-shadow: 0 0 5px #ff5555; } 
+}
     @media (max-width: 768px) {
     .navbar { display: none; }
     .hamburger { display: flex; }
@@ -454,6 +457,7 @@ body:has(.join-rebellion.active) > :not(.join-rebellion-container):not(.social-b
 .social-bubbles.active { 
     display: block; 
     pointer-events: auto; 
+    z-index: 2100; 
 }
 .icon { 
     width: 54px; 
@@ -478,11 +482,17 @@ body:has(.join-rebellion.active) > :not(.join-rebellion-container):not(.social-b
 .social-bubbles.active .icon { 
     opacity: 1; 
     transform: scale(1); 
+    animation: neonGlow 1.5s infinite ease-in-out; 
 }
 .social-bubbles.active .icon:nth-child(1) { transform: translate(-120px, 0px) scale(1); transition-delay: 0.1s; } /* 0° */
 .social-bubbles.active .icon:nth-child(2) { transform: translate(-104px, -60px) scale(1); transition-delay: 0.2s; } /* 30° */
 .social-bubbles.active .icon:nth-child(3) { transform: translate(-60px, -104px) scale(1); transition-delay: 0.3s; } /* 60° */
 .social-bubbles.active .icon:nth-child(4) { transform: translate(0px, -120px) scale(1); transition-delay: 0.4s; } /* 90° */
+@keyframes neonGlow { 
+    0% { box-shadow: 0 0 5px #ff5555; } 
+    50% { box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555; } 
+    100% { box-shadow: 0 0 5px #ff5555; } 
+}
 @media (min-width: 769px) {
     .social-bubbles { 
         position: fixed; 
@@ -503,6 +513,7 @@ body:has(.join-rebellion.active) > :not(.join-rebellion-container):not(.social-b
         height: 60px; 
         opacity: 1; 
         transform: none; 
+        animation: none; 
     }
 }
     </style>
