@@ -354,7 +354,7 @@
     text-decoration: none; 
     font-size: 0.9rem; 
     transition: all 0.3s ease; 
-    z-index: 1000; 
+    z-index: 1100; /* Increased z-index to ensure visibility */
     cursor: pointer; 
 }
 .connect-wallet-mobile:hover { 
@@ -1198,6 +1198,13 @@ window.addEventListener('load', () => {
 });
 async function connectWallet() {
     try {
+        // Verify Solana Wallet Adapter scripts are loaded
+        if (!window.solanaWalletAdapterBase || !window.solanaWalletAdapterWallets) {
+            console.error('Solana Wallet Adapter scripts not loaded');
+            alert('Wallet adapter not available. Please try again later.');
+            return;
+        }
+
         const { WalletAdapter } = window.solanaWalletAdapterBase;
         const { PhantomWalletAdapter } = window.solanaWalletAdapterWallets;
         const wallet = new PhantomWalletAdapter();
@@ -1208,10 +1215,12 @@ async function connectWallet() {
         if (isMobile) {
             // Attempt to open Phantom via deep link
             const uri = `phantom://wc?uri=${encodeURIComponent(window.location.href)}`;
+            console.log('Attempting Phantom deep link:', uri);
             window.location.href = uri;
             setTimeout(() => {
                 // Fallback if Phantom app not installed
                 if (document.visibilityState === 'visible') {
+                    console.warn('Phantom app not detected');
                     alert('Please install Phantom Wallet to connect.');
                     window.open('https://phantom.app/download', '_blank');
                 }
@@ -1224,23 +1233,35 @@ async function connectWallet() {
             button.textContent = 'Wallet Connected';
             button.classList.add('connected');
             button.disabled = true; // Disable button after connection
-            // Optionally store wallet address
+            // Store wallet address
             localStorage.setItem('walletAddress', wallet.publicKey.toString());
+            console.log('Wallet connected:', wallet.publicKey.toString());
+        } else {
+            console.warn('No public key received from wallet');
         }
     } catch (error) {
         console.error('Wallet connection failed:', error);
-        alert('Failed to connect wallet. Please try again.');
+        alert('Failed to connect wallet: ' + error.message);
     }
 }
 
 // Check if wallet is already connected on page load
 window.addEventListener('load', async () => {
-    const walletAddress = localStorage.getItem('walletAddress');
-    if (walletAddress) {
-        const button = document.getElementById('connectWalletMobile');
-        button.textContent = 'Wallet Connected';
-        button.classList.add('connected');
-        button.disabled = true;
+    try {
+        const walletAddress = localStorage.getItem('walletAddress');
+        if (walletAddress) {
+            const button = document.getElementById('connectWalletMobile');
+            if (button) {
+                button.textContent = 'Wallet Connected';
+                button.classList.add('connected');
+                button.disabled = true;
+                console.log('Restored wallet connection:', walletAddress);
+            } else {
+                console.error('Connect Wallet button not found');
+            }
+        }
+    } catch (error) {
+        console.error('Error checking wallet connection:', error);
     }
 });
 </script>
