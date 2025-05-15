@@ -66,14 +66,10 @@
 .mobile-dropdown a:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
     .social-bubbles { 
-    position: fixed; 
-    bottom: 35px; 
-    left: 0; 
-    right: 0; 
-    padding: 10px 0; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+    position: absolute; 
+    bottom: 45px; 
+    right: 45px; 
+    display: none; 
     z-index: 2000; 
 }
     .fixed-bar a { margin: 0 5px; }
@@ -299,13 +295,13 @@
     /* Join Rebellion Button */
     .join-rebellion-container { 
     position: fixed; 
-    bottom: 120px; 
+    bottom: 80px; 
     right: 20px; 
     z-index: 2100; 
 }
 .join-rebellion { 
-    width: 60px; 
-    height: 60px; 
+    width: 90px; 
+    height: 90px; 
     background-color: #ff5555; 
     color: #fff; 
     border-radius: 50%; 
@@ -313,7 +309,7 @@
     justify-content: center; 
     align-items: center; 
     text-decoration: none; 
-    font-size: 0.7rem; 
+    font-size: 0.9rem; 
     text-align: center; 
     line-height: 1.2; 
     padding: 5px; 
@@ -322,7 +318,7 @@
     cursor: pointer; 
 }
     .join-rebellion:hover { background-color: #ff7777; }
-.join-rebellion.active { transform: scale(0.8); }
+.join-rebellion.active { transform: scale(0.7); }
     @keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
 
     @media (max-width: 768px) {
@@ -359,7 +355,7 @@
     .contract-address { margin: 10px auto 0; padding: 10px; }
     .contract-address h3 { font-size: 1.2rem; }
     .contract-address .copyable-address { font-size: 0.9rem; }
-    .join-rebellion-container { bottom: 110px; right: 10px; }
+    .join-rebellion-container { bottom: 80px; right: 20px; }
 .social-bubbles { display: none; }
     .modal-content button { background-color: #ff5555; color: #fff; }
     .buy-step:nth-child(3) .copyable-address { font-size: 0.9rem; word-wrap: break-word; max-width: 100%; }
@@ -458,10 +454,10 @@
     transition: all 0.3s ease; 
 }
 .social-bubbles.active .icon { opacity: 1; transform: scale(1); }
-.social-bubbles.active .icon:nth-child(1) { transform: translateY(-70px) scale(1); transition-delay: 0.1s; }
-.social-bubbles.active .icon:nth-child(2) { transform: translateX(-70px) scale(1); transition-delay: 0.2s; }
-.social-bubbles.active .icon:nth-child(3) { transform: translateX(70px) scale(1); transition-delay: 0.3s; }
-.social-bubbles.active .icon:nth-child(4) { transform: translateY(70px) scale(1); transition-delay: 0.4s; }
+.social-bubbles.active .icon:nth-child(1) { transform: translate(0, -80px) scale(1); transition-delay: 0.1s; }
+.social-bubbles.active .icon:nth-child(2) { transform: translate(-56px, -56px) scale(1); transition-delay: 0.2s; }
+.social-bubbles.active .icon:nth-child(3) { transform: translate(-80px, 0) scale(1); transition-delay: 0.3s; }
+.social-bubbles.active .icon:nth-child(4) { transform: translate(-56px, 56px) scale(1); transition-delay: 0.4s; }
 @media (min-width: 769px) {
     .social-bubbles { bottom: 55px; left: 50%; transform: translateX(-50%); flex-wrap: nowrap; gap: 10px; }
     .social-bubbles.active { display: flex; }
