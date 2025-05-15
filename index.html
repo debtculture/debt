@@ -397,12 +397,12 @@
 }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
-   <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
-<script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
-<script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/lib/index.js"></script>
-<script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/lib/index.js"></script>
-<script src="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/lib/index.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/styles.css">
+<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+<script src="https://unpkg.com/@solana/spl-token@latest/lib/index.iife.min.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-base@latest/lib/index.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-wallets@latest/lib/index.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-webui@latest/lib/index.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-webui@latest/styles.css">
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -1215,42 +1215,68 @@ async function connectWallet() {
         }
         console.log('Solana Wallet Adapter scripts loaded');
         const { WalletAdapter } = window.solanaWalletAdapterBase;
-        const { PhantomWalletAdapter } = window.solanaWalletAdapterWallets;
-        const wallet = new PhantomWalletAdapter();
+        const { PhantomWalletAdapter, SolflareWalletAdapter, BackpackWalletAdapter } = window.solanaWalletAdapterWallets;
+        
+        // Initialize multiple wallet adapters
+        const wallets = [
+            new PhantomWalletAdapter(),
+            new SolflareWalletAdapter(),
+            new BackpackWalletAdapter()
+        ];
         
         // Detect if on mobile
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
         
         if (isMobile) {
-            // Attempt to open Phantom via deep link
-            const uri = `phantom://wc?uri=${encodeURIComponent(window.location.href)}`;
-            console.log('Attempting Phantom deep link:', uri);
+            const button = document.getElementById('connectWalletMobile');
+            button.textContent = 'Connecting...';
+            // Attempt universal deep link for Solana wallets
+            const uri = `solana:${encodeURIComponent(window.location.href)}`;
+            console.log('Attempting Solana deep link:', uri);
             window.location.href = uri;
             setTimeout(() => {
-                // Fallback if Phantom app not installed
+                // Fallback if no wallet app responds
                 if (document.visibilityState === 'visible') {
-                    console.warn('Phantom app not detected');
-                    alert('Please install Phantom Wallet to connect.');
+                    console.warn('No Solana wallet app detected');
+                    button.textContent = 'Connect Wallet';
+                    alert('Please install a Solana wallet like Phantom, Solflare, or Backpack.');
                     window.open('https://phantom.app/download', '_blank');
                 }
-            }, 1000);
+            }, 3000); // Increased timeout for better reliability
+            return; // Exit to allow deep link to process
         }
         
-        await wallet.connect();
-        if (wallet.publicKey) {
+        // For desktop, try connecting to each wallet
+        let connectedWallet = null;
+        for (const wallet of wallets) {
+            try {
+                await wallet.connect();
+                if (wallet.publicKey) {
+                    connectedWallet = wallet;
+                    break;
+                }
+            } catch (err) {
+                console.warn(`Failed to connect with ${wallet.name}:`, err);
+            }
+        }
+        
+        if (connectedWallet && connectedWallet.publicKey) {
             const button = document.getElementById('connectWalletMobile');
             button.textContent = 'Wallet Connected';
             button.classList.add('connected');
-            button.disabled = true; // Disable button after connection
-            // Store wallet address
-            localStorage.setItem('walletAddress', wallet.publicKey.toString());
-            console.log('Wallet connected:', wallet.publicKey.toString());
+            button.disabled = true;
+            localStorage.setItem('walletAddress', connectedWallet.publicKey.toString());
+            console.log('Wallet connected:', connectedWallet.publicKey.toString());
+            button.setAttribute('aria-label', 'Wallet Connected');
         } else {
-            console.warn('No public key received from wallet');
+            console.warn('No wallet connected');
+            alert('No wallet connected. Please ensure a Solana wallet is installed.');
         }
     } catch (error) {
         console.error('Wallet connection failed:', error);
-        alert('Failed to connect wallet: ' + error.message);
+        const button = document.getElementById('connectWalletMobile');
+        button.textContent = 'Connect Wallet';
+        alert('Failed to connect wallet. Please try again or install a Solana wallet.');
     }
 }
 
