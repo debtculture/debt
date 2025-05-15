@@ -320,9 +320,9 @@
     transition: transform 0.3s ease; 
     cursor: pointer; 
 }
-    .join-rebellion:hover { background-color: #ff7777; }
-.join-rebellion.active { transform: scale(0.7); }
-    @keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
+.join-rebellion:hover { background-color: #ff7777; }
+.join-rebellion.active { transform: scale(0.35); }
+@keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
 
     @media (max-width: 768px) {
     .navbar { display: none; }
@@ -465,12 +465,13 @@
     opacity: 1; 
     transform: scale(1); 
 }
-.social-bubbles.active .icon:nth-child(1) { transform: translate(-76px, -25px) scale(1); transition-delay: 0.1s; } /* 18° */
-.social-bubbles.active .icon:nth-child(2) { transform: translate(-65px, -47px) scale(1); transition-delay: 0.2s; } /* 36° */
-.social-bubbles.active .icon:nth-child(3) { transform: translate(-47px, -65px) scale(1); transition-delay: 0.3s; } /* 54° */
-.social-bubbles.active .icon:nth-child(4) { transform: translate(-25px, -76px) scale(1); transition-delay: 0.4s; } /* 72° */
+.social-bubbles.active .icon:nth-child(1) { transform: translate(-95px, -31px) scale(1); transition-delay: 0.1s; } /* 18° */
+.social-bubbles.active .icon:nth-child(2) { transform: translate(-81px, -59px) scale(1); transition-delay: 0.2s; } /* 36° */
+.social-bubbles.active .icon:nth-child(3) { transform: translate(-59px, -81px) scale(1); transition-delay: 0.3s; } /* 54° */
+.social-bubbles.active .icon:nth-child(4) { transform: translate(-31px, -95px) scale(1); transition-delay: 0.4s; } /* 72° */
 @media (min-width: 769px) {
     .social-bubbles { 
+        position: fixed; 
         bottom: 55px; 
         left: 50%; 
         transform: translateX(-50%); 
@@ -481,7 +482,6 @@
         gap: 10px; 
         pointer-events: auto; 
     }
-    .social-bubbles.active { display: flex; }
     .icon { 
         position: relative; 
         opacity: 1; 
@@ -934,7 +934,7 @@
         </section>
 
         <div class="join-rebellion-container">
-    <a class="join-rebellion" onclick="toggleSocialBubbles()" role="button" aria-label="Toggle social media links" aria-expanded="false">Join the Rebellion</a>
+    <a class="join-rebellion" href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false">Join the Rebellion</a>
     <div class="social-bubbles">
         <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
         <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
@@ -1320,6 +1320,10 @@ function toggleSocialBubbles() {
     const container = document.querySelector('.join-rebellion-container');
     const button = document.querySelector('.join-rebellion');
     const bubbles = document.querySelector('.social-bubbles');
+    if (!container || !button || !bubbles) {
+        console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
+        return;
+    }
     const isActive = bubbles.classList.toggle('active');
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
