@@ -324,16 +324,23 @@
     animation: pulseGlow 2s infinite ease-in-out; 
     transition: transform 0.3s ease; 
     cursor: pointer; 
+    z-index: 2101; 
 }
 .join-rebellion:hover { background-color: #ff7777; }
 .join-rebellion.active { transform: scale(0.6); }
-body:has(.join-rebellion.active):not(:has(.social-bubbles.active)) > :not(.join-rebellion-container) { 
-    opacity: 0.3; 
+.join-rebellion.active::before { 
+    content: ''; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 2099; 
     transition: opacity 0.3s ease; 
 }
-body:has(.join-rebellion.active):has(.social-bubbles.active) > :not(.join-rebellion-container, .social-bubbles) { 
-    opacity: 0.3; 
-    transition: opacity 0.3s ease; 
+.social-bubbles.active { 
+    z-index: 2100; 
 }
 @keyframes pulseGlow { 
     0% { box-shadow: 0 0 5px #ff5555; } 
