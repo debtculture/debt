@@ -327,7 +327,11 @@
 }
 .join-rebellion:hover { background-color: #ff7777; }
 .join-rebellion.active { transform: scale(0.6); }
-body:has(.join-rebellion.active) > :not(.join-rebellion-container, .social-bubbles) { 
+body:has(.join-rebellion.active):not(:has(.social-bubbles.active)) > :not(.join-rebellion-container) { 
+    opacity: 0.3; 
+    transition: opacity 0.3s ease; 
+}
+body:has(.join-rebellion.active):has(.social-bubbles.active) > :not(.join-rebellion-container, .social-bubbles) { 
     opacity: 0.3; 
     transition: opacity 0.3s ease; 
 }
