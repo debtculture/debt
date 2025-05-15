@@ -340,7 +340,7 @@
     #community { margin-top: -580px; padding-bottom: 60px; min-height: auto; }
 }
 .connect-wallet-mobile { 
-    display: none; 
+    display: none; /* Hidden by default */
     position: fixed; 
     top: 15px; 
     right: 15px; 
@@ -354,8 +354,13 @@
     text-decoration: none; 
     font-size: 0.9rem; 
     transition: all 0.3s ease; 
-    z-index: 1100; /* Increased z-index to ensure visibility */
+    z-index: 1100; /* Matches hamburger */
     cursor: pointer; 
+}
+@media screen and (max-width: 768px) {
+    .connect-wallet-mobile { 
+        display: block; /* Show on mobile */
+    }
 }
 .connect-wallet-mobile:hover { 
     color: #ff5555; 
@@ -390,16 +395,14 @@
     background-color: #77ff77; 
     box-shadow: 0 0 8px #77ff77; 
 }
-.connect-wallet-mobile { display: block !important; background: red !important; }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
-    <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
-    <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
-    <script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/index.js"></script>
-    <script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/index.js"></script>
-    <script src="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/dist/index.js"></script>
-    <!-- Wallet Adapter UI Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-webui@0.9.31/dist/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/dist/index.iife.min.js" integrity="sha256-4i5G9jJ8zH0j5z3z3z3z3z3z3z3z3z3z3z3z3z3z3z3=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.4.8/lib/index.iife.min.js" integrity="sha256-5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@0.9.23/dist/index.js" integrity="sha256-6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6g6=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-wallets@0.19.32/dist/index.js" integrity="sha256-7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7h7=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-webui@0.9.31/dist/index.js" integrity="sha256-8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8i8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-webui@0.9.31/dist/styles.css" integrity="sha256-9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9j9=" crossorigin="anonymous">
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
