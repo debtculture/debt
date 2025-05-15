@@ -327,8 +327,8 @@
 }
 .join-rebellion:hover { background-color: #ff7777; }
 .join-rebellion.active { transform: scale(0.6); }
-body:has(.join-rebellion.active) > :not(.join-rebellion-container) { 
-    opacity: 0.5; 
+body:has(.join-rebellion.active) > :not(.join-rebellion-container):not(.social-bubbles) { 
+    opacity: 0.3; 
     transition: opacity 0.3s ease; 
 }
 @keyframes pulseGlow { 0% { box-shadow: 0 0 5px #ff5555; } 50% { box-shadow: 0 0 15px #ff5555; } 100% { box-shadow: 0 0 5px #ff5555; } }
