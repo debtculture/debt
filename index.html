@@ -77,7 +77,26 @@
     .from-right { transform: translateX(100%); }
     h1 { font-size: 3rem; margin: 20px 0; }
     p { font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px; }
-    .footer { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #333; color: #eee; text-align: center; padding: 10px 0; z-index: 1000; }
+    .footer { 
+    position: fixed; 
+    bottom: 15px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 85%; 
+    max-width: 930px; 
+    background-color: rgba(18, 18, 18, 0.5); 
+    backdrop-filter: blur(5px); 
+    color: #eee; 
+    text-align: center; 
+    padding: 10px 15px; 
+    z-index: 1000; 
+    border-radius: 8px; 
+    border: 1px solid rgba(255, 85, 85, 0.3); 
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); 
+}
+@media (max-width: 768px) {
+    .footer { display: none; }
+}
     .typewriter { overflow: hidden; white-space: nowrap; animation: typing 3s steps(40, end); max-width: 100%; }
     @media (max-width: 768px) {
         .typewriter { white-space: normal; animation: none; font-size: 1rem; line-height: 1.4; }
