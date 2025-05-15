@@ -1253,4 +1253,24 @@ async function connectWallet() {
         alert('Failed to connect wallet: ' + error.message);
     }
 }
+
+// Check if wallet is already connected on page load
+window.addEventListener('load', async () => {
+    try {
+        const walletAddress = localStorage.getItem('walletAddress');
+        if (walletAddress) {
+            const button = document.getElementById('connectWalletMobile');
+            if (button) {
+                button.textContent = 'Wallet Connected';
+                button.classList.add('connected');
+                button.disabled = true;
+                console.log('Restored wallet connection:', walletAddress);
+            } else {
+                console.error('Connect Wallet button not found');
+            }
+        }
+    } catch (error) {
+        console.error('Error checking wallet connection:', error);
+    }
+});
 </script>
