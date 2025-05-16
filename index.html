@@ -540,6 +540,11 @@ body:not(:has(.social-bubbles.active))::before {
         opacity: 1; 
         transform: none; 
         animation: none; 
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    }
+    .icon:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555;
     }
 }
     </style>
