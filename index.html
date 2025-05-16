@@ -1356,16 +1356,26 @@ function updateCommunityCarousel() {
     featuredBubble.setAttribute('aria-label', xLink ? `Visit ${member.name}'s X profile` : `Select ${member.name}`);
 
     communityMembers.forEach((member, index) => {
-        const bubble = member.querySelector('.hof-bubble');
-        bubble.onclick = () => {
-            if (index < totalNamedCommunityMembers) {
-                currentCommunityIndex = parseInt(member.getAttribute('data-index'));
-                updateCommunityCarousel();
-                resetCommunityAutoRotate();
+    const bubble = member.querySelector('.hof-bubble');
+    bubble.onclick = () => {
+        if (index < totalNamedCommunityMembers) {
+            currentCommunityIndex = parseInt(member.getAttribute('data-index'));
+            updateCommunityCarousel();
+            resetCommunityAutoRotate();
+            // Auto-scroll to featured member on mobile
+            if (window.innerWidth <= 768) {
+                const featured = document.getElementById('hof-featured');
+                const offset = 60; // Account for hamburger and wallet button
+                const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                    top: featuredPosition - offset,
+                    behavior: 'smooth'
+                });
             }
-        };
-        bubble.setAttribute('aria-label', `Select ${member.getAttribute('data-title')}`);
-    });
+        }
+    };
+    bubble.setAttribute('aria-label', `Select ${member.getAttribute('data-title')}`);
+});
 }
 
 function rotateHof(direction) {
