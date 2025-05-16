@@ -1676,11 +1676,13 @@ function initializeMatrix() {
     setInterval(draw, 33);
 }
 
+// Check constructionAccepted immediately
+if (localStorage.getItem('constructionAccepted')) {
+    document.getElementById('contentWrapper').classList.add('unblurred');
+    document.getElementById('constructionModal').style.display = 'none';
+}
+
 window.addEventListener('load', () => {
-    if (localStorage.getItem('constructionAccepted')) {
-        document.getElementById('contentWrapper').classList.add('unblurred');
-        document.getElementById('constructionModal').style.display = 'none';
-    }
     setPhantomLink();
     updateTokenomics();
     updateCommunityCarousel();
