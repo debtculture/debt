@@ -880,7 +880,7 @@ body:not(:has(.social-bubbles.active))::before {
                             </div>
                             <div class="hof-title">TBA</div>
                         </div>
-                    </div>
+                                        </div>
                     <div class="hof-tbd-row hof-tbd-row-2">
                         <div class="hof-member" data-index="12" data-title="TBA">
                             <div class="hof-bubble">
@@ -901,6 +901,58 @@ body:not(:has(.social-bubbles.active))::before {
                             <div class="hof-title">TBA</div>
                         </div>
                         <div class="hof-member" data-index="15" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                    </div>
+                    <div class="hof-tbd-row hof-tbd-row-3">
+                        <div class="hof-member" data-index="16" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="17" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="18" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="19" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                    </div>
+                    <div class="hof-tbd-row hof-tbd-row-4">
+                        <div class="hof-member" data-index="20" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="21" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="22" data-title="TBA">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">?</div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="23" data-title="TBA">
                             <div class="hof-bubble">
                                 <div class="hof-inner-bubble">?</div>
                             </div>
@@ -1134,13 +1186,19 @@ async function updateTokenomics() {
 // Community Carousel
 let currentCommunityIndex = 0;
 const communityMembers = document.querySelectorAll('.hof-member');
-const totalNamedCommunityMembers = 11;
+const totalNamedCommunityMembers = 11; // Only named members, excluding TBA placeholders
+const totalCommunityMembers = 24; // Total including TBA placeholders
 
 function updateCommunityCarousel() {
     const featured = document.getElementById('hof-featured');
     const description = document.getElementById('hof-description');
     const currentMember = communityMembers[currentCommunityIndex];
     const xLink = currentMember.getAttribute('data-x-link');
+
+    // Ensure only named members (not TBA) are featured
+    if (currentCommunityIndex >= totalNamedCommunityMembers) {
+        currentCommunityIndex = 0; // Reset to first named member if index exceeds named members
+    }
 
     const featuredBubble = featured.querySelector('.hof-bubble');
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
@@ -1249,7 +1307,7 @@ function rotateHof(direction) {
 }
 
 function autoRotateCommunity() {
-    currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     updateCommunityCarousel();
 }
 
