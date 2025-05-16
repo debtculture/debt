@@ -1651,15 +1651,23 @@ function initializeMatrix() {
     const ctx = canvas.getContext('2d');
     
     function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Recalculate columns for Matrix effect
+        columns = Math.ceil(canvas.width / fontSize);
+        drops.length = columns;
+        for (let i = 0; i < drops.length; i++) {
+            if (!drops[i]) drops[i] = 1;
+        }
+    }
+    
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-}
-    resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const fontSize = 14;
-    const columns = Math.ceil(canvas.width / fontSize);
+    let columns = Math.ceil(canvas.width / fontSize);
     const drops = Array(columns).fill(1);
     
     function draw() {
@@ -1681,6 +1689,9 @@ function initializeMatrix() {
     setInterval(draw, 33);
 }
 
+// Run Matrix immediately
+initializeMatrix();
+
 // Check constructionAccepted immediately
 if (localStorage.getItem('constructionAccepted')) {
     document.getElementById('contentWrapper').classList.add('unblurred');
@@ -1692,7 +1703,6 @@ window.addEventListener('load', () => {
     updateTokenomics();
     updateCommunityCarousel();
     initializeRoadmapPhases();
-    initializeMatrix();
     window.dispatchEvent(new Event('scroll'));
 });
 function connectWallet() {
