@@ -144,7 +144,7 @@
     section#faq { margin-top: -90px; padding: 20px; }
     .hof-blurb { margin: 640px auto 20px; }
     #community { margin-top: -90px; }
-    .hof-row { gap: 10px; margin-top: 30px; margin-bottom: 10px; flex-wrap: nowrap; }
+    .hof-row-mobile { gap: 10px; margin-top: 30px; margin-bottom: 10px; flex-wrap: nowrap; }
     .disclaimer { margin: 1px auto 15px; }
 }
     .phase, .future-teaser { margin: 40px 0; padding: 20px; background-color: #1e1e1e; border-radius: 10px; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); opacity: 0; transform: translateX(100%); transition: opacity 0.8s ease-out, transform 0.8s ease-out; overflow: visible; }
@@ -217,12 +217,14 @@
 .hof-featured .hof-inner-bubble { width: 186px; height: 186px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border: 2px solid #000; opacity: 1; }
 .hof-featured .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; opacity: 1; filter: none; }
 .hof-description { font-size: 1.1rem; color: #eee; max-width: 400px; margin: 20px auto; text-align: center; min-height: 60px; display: flex; align-items: center; justify-content: center; }
-.hof-row { display: flex; justify-content: center; gap: 20px; margin-top: 20px; margin-bottom: 10px; flex-wrap: nowrap; }
+.hof-row-desktop, .hof-row-mobile { display: flex; justify-content: center; gap: 20px; margin-top: 20px; margin-bottom: 10px; flex-wrap: nowrap; }
 @media (min-width: 769px) {
-    .hof-row { gap: 20px; }
+    .hof-row-desktop { display: flex; gap: 20px; }
+    .hof-row-mobile { display: none; }
 }
 @media (max-width: 768px) {
-    .hof-row { gap: 10px; margin-top: 30px; margin-bottom: 10px; flex-wrap: nowrap; }
+    .hof-row-desktop { display: none; }
+    .hof-row-mobile { display: flex; gap: 10px; margin-top: 30px; margin-bottom: 10px; flex-wrap: nowrap; }
 }
     .hof-member { position: relative; width: 100px; height: 100px; transition: all 0.8s ease; }
     .hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
@@ -413,7 +415,6 @@ body:not(:has(.social-bubbles.active))::before {
     .hof-inner-bubble { font-size: 3rem; }
     .hof-title { font-size: 0.7rem; }
     .hof-featured .hof-title { font-size: 0.8rem; }
-    .hof-row, .hof-tbd-row { gap: 10px; }
     .hof-arrow { font-size: 1.5rem; top: 80px; }
     .hof-left-arrow { left: 10px; }
     .hof-right-arrow { right: 10px; }
@@ -789,7 +790,8 @@ body:not(:has(.social-bubbles.active))::before {
                         </div>
                     </div>
                     <div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
-                    <div class="hof-row">
+                    <!-- Desktop Rows (4 rows of 6) -->
+<div class="hof-row-desktop">
     <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
@@ -839,7 +841,7 @@ body:not(:has(.social-bubbles.active))::before {
         <div class="hof-title">Lunicking</div>
     </div>
 </div>
-<div class="hof-row hof-row-2">
+<div class="hof-row-desktop hof-row-desktop-2">
     <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
@@ -889,7 +891,7 @@ body:not(:has(.social-bubbles.active))::before {
         <div class="hof-title">Mo</div>
     </div>
 </div>
-<div class="hof-row hof-row-3">
+<div class="hof-row-desktop hof-row-desktop-3">
     <div class="hof-member" data-index="12" data-title="Cory B" data-x-link="https://x.com/coryb410">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
@@ -939,7 +941,7 @@ body:not(:has(.social-bubbles.active))::before {
         <div class="hof-title">ZOMBi</div>
     </div>
 </div>
-<div class="hof-row hof-row-4">
+<div class="hof-row-desktop hof-row-desktop-4">
     <div class="hof-member" data-index="18" data-title="Cyanide" data-x-link="https://x.com/ipoopcrypto">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
@@ -956,6 +958,203 @@ body:not(:has(.social-bubbles.active))::before {
         </div>
         <div class="hof-title">George</div>
     </div>
+    <div class="hof-member" data-index="20" data-title="TBA">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">?</div>
+        </div>
+        <div class="hof-title">TBA</div>
+    </div>
+    <div class="hof-member" data-index="21" data-title="TBA">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">?</div>
+        </div>
+        <div class="hof-title">TBA</div>
+    </div>
+    <div class="hof-member" data-index="22" data-title="TBA">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">?</div>
+        </div>
+        <div class="hof-title">TBA</div>
+    </div>
+    <div class="hof-member" data-index="23" data-title="TBA">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">?</div>
+        </div>
+        <div class="hof-title">TBA</div>
+    </div>
+</div>
+<!-- Mobile Rows (6 rows of 4) -->
+<div class="hof-row-mobile">
+    <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Autopsy</div>
+    </div>
+    <div class="hof-member" data-index="1" data-title="Catavina" data-x-link="https://x.com/catavina17">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Catavina</div>
+    </div>
+    <div class="hof-member" data-index="2" data-title="Lou" data-x-link="https://x.com/louisedbegin">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Lou</div>
+    </div>
+    <div class="hof-member" data-index="3" data-title="Nerf" data-x-link="https://x.com/0xnerf">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Nerf</div>
+    </div>
+</div>
+<div class="hof-row-mobile hof-row-mobile-2">
+    <div class="hof-member" data-index="4" data-title="JPEG" data-x-link="https://x.com/jpegfein">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">JPEG</div>
+    </div>
+    <div class="hof-member" data-index="5" data-title="Lunicking" data-x-link="https://x.com/Lunicking178677">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Lunicking</div>
+    </div>
+    <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Tormund</div>
+    </div>
+    <div class="hof-member" data-index="7" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">STAYHIGH</div>
+    </div>
+</div>
+<div class="hof-row-mobile hof-row-mobile-3">
+    <div class="hof-member" data-index="8" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Renee</div>
+    </div>
+    <div class="hof-member" data-index="9" data-title="blu" data-x-link="https://x.com/blu_chek">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">blu</div>
+    </div>
+    <div class="hof-member" data-index="10" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Scrappy</div>
+    </div>
+    <div class="hof-member" data-index="11" data-title="Mo" data-x-link="https://x.com/MoDegen1369">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg" alt="Mo profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Mo</div>
+    </div>
+</div>
+<div class="hof-row-mobile hof-row-mobile-4">
+    <div class="hof-member" data-index="12" data-title="Cory B" data-x-link="https://x.com/coryb410">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Cory B</div>
+    </div>
+    <div class="hof-member" data-index="13" data-title="Dan" data-x-link="https://x.com/DanVibes10">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Dan</div>
+    </div>
+    <div class="hof-member" data-index="14" data-title="Tom" data-x-link="https://x.com/tholson90">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Tom</div>
+    </div>
+    <div class="hof-member" data-index="15" data-title="Marilyn" data-x-link="https://x.com/Marilyn_Moanroe">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Marilyn</div>
+    </div>
+</div>
+<div class="hof-row-mobile hof-row-mobile-5">
+    <div class="hof-member" data-index="16" data-title="Coinbud" data-x-link="https://x.com/madgamer1979">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Coinbud</div>
+    </div>
+    <div class="hof-member" data-index="17" data-title="ZOMBi" data-x-link="https://x.com/HauskenHelge">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">ZOMBi</div>
+    </div>
+    <div class="hof-member" data-index="18" data-title="Cyanide" data-x-link="https://x.com/ipoopcrypto">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">Cyanide</div>
+    </div>
+    <div class="hof-member" data-index="19" data-title="George" data-x-link="https://x.com/GeorgeCdr28874">
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">George</div>
+    </div>
+</div>
+<div class="hof-row-mobile hof-row-mobile-6">
     <div class="hof-member" data-index="20" data-title="TBA">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">?</div>
@@ -1207,7 +1406,9 @@ async function updateTokenomics() {
 
 // Community Carousel
 let currentCommunityIndex = 0;
-const communityMembers = document.querySelectorAll('.hof-member');
+const communityMembers = document.querySelectorAll(
+    window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+);
 const totalNamedCommunityMembers = 20; // Only named members, excluding TBA placeholders
 const totalCommunityMembers = 24; // Total including TBA placeholders
 
