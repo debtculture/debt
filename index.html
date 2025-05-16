@@ -1358,6 +1358,7 @@ window.addEventListener('scroll', () => {
 });
 
 function acceptConstructionNotice() {
+    localStorage.setItem('constructionAccepted', 'true');
     document.getElementById('contentWrapper').classList.add('unblurred');
     document.getElementById('constructionModal').style.display = 'none';
 }
@@ -1676,6 +1677,10 @@ function initializeMatrix() {
 }
 
 window.addEventListener('load', () => {
+    if (localStorage.getItem('constructionAccepted')) {
+        document.getElementById('contentWrapper').classList.add('unblurred');
+        document.getElementById('constructionModal').style.display = 'none';
+    }
     setPhantomLink();
     updateTokenomics();
     updateCommunityCarousel();
