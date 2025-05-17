@@ -243,21 +243,21 @@
 .badge::after {
     content: attr(title);
     position: absolute;
-    bottom: calc(100% + 8px); /* Increased gap for visibility */
+    bottom: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: #1a1a1a;
     color: #eee;
     padding: 6px 12px;
     border-radius: 5px;
-    font-size: 0.9rem; /* Slightly larger for readability */
+    font-size: 0.9rem;
     white-space: normal;
     max-width: 160px;
     text-align: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 100; /* High z-index to ensure it’s above other elements */
+    z-index: 100;
     border: 1px solid #ff5555;
     box-shadow: 0 0 10px #ff5555;
 }
@@ -280,21 +280,36 @@
     }
 
     .badge:hover::after {
-        opacity: 0;
-        visibility: hidden;
+        display: none; /* Disable pseudo-element on mobile */
     }
 
     .badge.active-tooltip {
         transform: scale(1.2);
         box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
-        z-index: 50; /* Ensure badge is above others when active */
+        z-index: 50;
     }
 
-    .badge.active-tooltip::after {
-        display: block; /* Force display */
-        opacity: 1;
-        visibility: visible;
-        z-index: 100; /* Ensure tooltip is on top */
+    .badge-tooltip {
+        display: none; /* Hidden by default */
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1a1a1a;
+        color: #eee;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        white-space: normal;
+        max-width: 160px;
+        text-align: center;
+        z-index: 100;
+        border: 1px solid #ff5555;
+        box-shadow: 0 0 10px #ff5555;
+    }
+
+    .badge.active-tooltip .badge-tooltip {
+        display: block; /* Show on tap */
     }
 
     /* Adjust badge size for better tap target */
@@ -1779,7 +1794,15 @@ if (member.badges && member.badges.length > 0) {
         badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
         badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
         badgeEl.title = `${badge.name}: ${getBadgeDescription(badge.name)}`;
-        // Ensure title attribute is set for tooltip
+        // Create tooltip element for mobile
+if (window.innerWidth <= 768) {
+    const tooltipEl = document.createElement('span');
+    tooltipEl.className = 'badge-tooltip';
+    tooltipEl.textContent = `${badge.name}: ${getBadgeDescription(badge.name)}`;
+    badgeEl.appendChild(tooltipEl);
+}
+
+// Ensure title attribute is set for desktop tooltip
 badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
 badgesContainer.appendChild(badgeEl);
 
