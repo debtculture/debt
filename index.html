@@ -261,6 +261,11 @@
     box-shadow: 0 0 10px #ff5555;
 }
 
+.badge:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
+}
+
 .badge:hover::after {
     opacity: 1;
     visibility: visible;
@@ -268,15 +273,24 @@
 
 /* Mobile-specific tooltip toggle */
 @media (max-width: 768px) {
+    .badge:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
     .badge:hover::after {
-        opacity: 0 !important;
-        visibility: hidden !important;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .badge.active-tooltip {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
     }
 
     .badge.active-tooltip::after {
-        opacity: 1 !important;
-        visibility: visible !important;
-        bottom: calc(100% + 5px); /* Ensure consistent positioning */
+        opacity: 1;
+        visibility: visible;
     }
 
     /* Adjust badge size for better tap target */
@@ -1769,6 +1783,7 @@ badgesContainer.appendChild(badgeEl);
 if (window.innerWidth <= 768) {
     badgeEl.addEventListener('click', (e) => {
         e.preventDefault();
+        console.log('Badge tapped:', badgeEl.getAttribute('title'), 'Active:', badgeEl.classList.contains('active-tooltip'));
         // Close other open tooltips
         document.querySelectorAll('.badge.active-tooltip').forEach(el => {
             if (el !== badgeEl) el.classList.remove('active-tooltip');
