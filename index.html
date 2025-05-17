@@ -242,7 +242,7 @@
 .badge::after {
     content: attr(title);
     position: absolute;
-    bottom: 100%;
+    bottom: calc(100% + 5px); /* Small gap above badge */
     left: 50%;
     transform: translateX(-50%);
     background: #1a1a1a;
@@ -250,7 +250,9 @@
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 0.8rem;
-    white-space: nowrap;
+    white-space: normal; /* Allow wrapping for longer descriptions */
+    max-width: 150px; /* Prevent overly wide tooltips on mobile */
+    text-align: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -267,13 +269,14 @@
 /* Mobile-specific tooltip toggle */
 @media (max-width: 768px) {
     .badge:hover::after {
-        opacity: 0;
-        visibility: hidden;
+        opacity: 0 !important;
+        visibility: hidden !important;
     }
 
     .badge.active-tooltip::after {
-        opacity: 1;
-        visibility: visible;
+        opacity: 1 !important;
+        visibility: visible !important;
+        bottom: calc(100% + 5px); /* Ensure consistent positioning */
     }
 
     /* Adjust badge size for better tap target */
@@ -1758,7 +1761,9 @@ if (member.badges && member.badges.length > 0) {
         badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
         badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
         badgeEl.title = `${badge.name}: ${getBadgeDescription(badge.name)}`;
-        badgesContainer.appendChild(badgeEl);
+        // Ensure title attribute is set for tooltip
+badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+badgesContainer.appendChild(badgeEl);
 
 // Add tap-to-toggle for mobile
 if (window.innerWidth <= 768) {
