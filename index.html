@@ -614,6 +614,96 @@ body:not(:has(.social-bubbles.active))::before {
     .hof-right-arrow { right: 10px; }
     .hof-description { font-size: 1rem; max-width: 300px; margin: 15px auto; }
 }
+/* Badge Glossary Styles */
+.badge-glossary-container {
+    max-width: 600px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.badge-glossary-header {
+    background: linear-gradient(90deg, #ff5555, #ff7777);
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.badge-glossary-header:hover {
+    background: linear-gradient(90deg, #ff7777, #ff9999);
+}
+
+.badge-glossary-header::after {
+    content: '▼';
+    position: absolute;
+    right: 15px;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.badge-glossary-header.active::after {
+    transform: rotate(180deg);
+}
+
+.badge-glossary-content {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #2a2a2a;
+    border-radius: 0 0 5px 5px;
+    padding: 0 15px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.badge-glossary-content.active {
+    padding: 15px;
+}
+
+.badge-item {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.badge-item h3 {
+    font-size: 1.1rem;
+    color: #ff5555;
+    margin: 0 0 5px;
+}
+
+.badge-item p {
+    font-size: 1rem;
+    color: #eee;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .badge-glossary-container {
+        max-width: 95%;
+    }
+
+    .badge-glossary-header {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+
+    .badge-glossary-header::after {
+        font-size: 0.9rem;
+        right: 10px;
+    }
+
+    .badge-item h3 {
+        font-size: 1rem;
+    }
+
+    .badge-item p {
+        font-size: 0.9rem;
+    }
+}
     @media (min-width: 769px) {
     #hero { margin-top: 70px; }
     #community { margin-top: -580px; padding-bottom: 60px; min-height: auto; }
