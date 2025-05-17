@@ -683,6 +683,7 @@ body:not(:has(.social-bubbles.active))::before {
     align-items: center;
     gap: 5px;
     min-width: 100px;
+    height: 90px; /* Fixed height to ensure consistent badge alignment */
 }
 
 .badge-name {
@@ -691,6 +692,69 @@ body:not(:has(.social-bubbles.active))::before {
     text-align: center;
     max-width: 100px;
     word-wrap: break-word;
+    margin-top: auto; /* Push the name to the bottom of the wrapper */
+}
+
+/* Ensure the badge itself has a fixed height area */
+.badge-glossary-content .badge {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .badge-glossary-container {
+        max-width: 100%;
+        padding: 0 5px;
+    }
+
+    .badge-glossary-header {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+
+    .badge-glossary-header::after {
+        font-size: 0.9rem;
+        right: 10px;
+    }
+
+    .badge-glossary-content.active {
+        padding: 10px 5px;
+    }
+
+    .badge-row {
+        gap: 2px;
+    }
+
+    .badge-wrapper {
+        min-width: 70px;
+        height: 80px; /* Slightly smaller height on mobile */
+    }
+
+    .badge-name {
+        font-size: 0.8rem;
+        max-width: 70px;
+    }
+
+    .badge-arrow {
+        font-size: 1rem;
+        margin: 0 0px;
+        width: 20px;
+    }
+
+    .invisible-arrow {
+        margin: 0 0px;
+        width: 20px;
+    }
+
+    .badge-glossary-content .badge {
+        width: 44px;
+        height: 44px;
+    }
 }
 
 .badge-arrow {
