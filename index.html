@@ -1614,6 +1614,15 @@ const totalNamedCommunityMembers = 20; // Only named members, excluding TBA plac
 const totalCommunityMembers = 24; // Total including TBA placeholders
 
 function updateCommunityCarousel() {
+    // Hide shared tooltip and reset active badges on carousel update
+    const sharedTooltip = document.getElementById('shared-tooltip');
+    if (sharedTooltip) {
+        sharedTooltip.style.display = 'none';
+    }
+    document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+        el.classList.remove('active-tooltip');
+    });
+
     const featured = document.getElementById('hof-featured');
     const description = document.getElementById('hof-description');
     const currentMember = communityMembers[currentCommunityIndex];
@@ -1791,16 +1800,11 @@ if (member.badges && member.badges.length > 0) {
         badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
         badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
         badgeEl.title = `${badge.name}: ${getBadgeDescription(badge.name)}`;
-        // Create tooltip element for mobile
-if (window.innerWidth <= 768) {
-    const tooltipEl = document.createElement('span');
-    tooltipEl.className = 'badge-tooltip';
-    tooltipEl.textContent = `${badge.name}: ${getBadgeDescription(badge.name)}`;
-    badgeEl.appendChild(tooltipEl);
-}
 
-// Ensure title attribute is set for desktop tooltip
-badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+// Set title attribute for desktop tooltip only (not mobile)
+if (window.innerWidth > 1024) {
+    badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+}
 
 // Create or get shared tooltip for mobile
 let sharedTooltip = document.getElementById('shared-tooltip');
