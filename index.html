@@ -616,7 +616,7 @@ body:not(:has(.social-bubbles.active))::before {
 }
 /* Badge Glossary Styles */
 .badge-glossary-container {
-    max-width: 900px; /* Increased from 800px to 900px to reduce effective margins by 50px on each side */
+    max-width: 800px; /* Revert to original width */
     margin: 20px auto;
     position: relative;
 }
@@ -746,12 +746,17 @@ body:not(:has(.social-bubbles.active))::before {
         height: 90px; /* Consistent height with desktop for alignment */
     }
 
-    .badge-name {
+        .badge-name {
         font-size: 0.8rem;
         max-width: 80px;
-        white-space: normal; /* Allow wrapping */
-        overflow-wrap: break-word; /* Wrap whole words */
-        line-height: 1.2; /* Control line spacing */
+        white-space: normal;
+        overflow-wrap: break-word;
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Limit to 2 lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .badge-arrow {
