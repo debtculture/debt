@@ -1384,6 +1384,57 @@ body:not(:has(.social-bubbles.active))::before {
                 <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Community member" onkeydown="if(event.key === 'Enter') rotateHof('right')">➜</div>
             </div>
             <p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
+            <div class="badge-glossary-container">
+    <div class="badge-glossary-header" onclick="toggleBadgeGlossary()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Badge Glossary">
+        Badge Glossary ▼
+    </div>
+    <div class="badge-glossary-content" id="badgeGlossary">
+        <div class="badge-item">
+            <h3>Zero Gravity (Bronze, Spaces)</h3>
+            <p>Constantly joins X Spaces regularly.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Orbit Breaker (Silver, Spaces)</h3>
+            <p>Actively participates in Spaces conversations.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Star Commander (Gold, Spaces)</h3>
+            <p>Leads discussions or hosts Spaces.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Arsonist (Bronze, Burn)</h3>
+            <p>Burned 100,000 $DEBT.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Pyromaniac (Silver, Burn)</h3>
+            <p>Burned 1,000,000 $DEBT.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Inferno (Gold, Burn)</h3>
+            <p>Burned 10,000,000+ $DEBT or multiple massive burns.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Iron Grip (Bronze, Holding)</h3>
+            <p>Held $DEBT for 3 months.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Steel Resolve (Silver, Holding)</h3>
+            <p>Held $DEBT for 6 months, solid stack.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Diamond Hands (Gold, Holding)</h3>
+            <p>Held $DEBT for 1 year+, unshakeable holder.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Cold Blooded Shiller (Single, Shiller)</h3>
+            <p>Hardcore $DEBT promoter on social media.</p>
+        </div>
+        <div class="badge-item">
+            <h3>Meme Machine (Single, Meme)</h3>
+            <p>Creates dank $DEBT memes.</p>
+        </div>
+    </div>
+</div>
             <div class="section-connector community-to-faq"></div>
         </section>
 
@@ -1452,7 +1503,7 @@ body:not(:has(.social-bubbles.active))::before {
         What are badges?
     </div>
     <div class="accordion-content">
-        <p>Badges are special achievements awarded to $DEBT community members for their contributions and loyalty. They come in tiers—bronze, silver, gold, and single—and types like Spaces, Burn, Holding, Shiller, and Meme. For example, <strong>Star Commander</strong> (gold) is for leading discussions or hosting Spaces, while <strong>Inferno</strong> (gold) is for burning 10M+ $DEBT. On desktop, hover over a badge to see its description; on mobile, tap to reveal it. Check out the Community section to see badges in action!</p>
+        <p>Badges are special achievements awarded to $DEBT community members for their contributions and loyalty. They recognize actions like participating in discussions, holding $DEBT, promoting the project, creating memes, or burning tokens. On desktop, hover over a badge to see its description; on mobile, tap to reveal it. Want to see all badges? Check out the <a href="#community" onclick="openBadgeGlossary()">Badge Glossary in the Community section</a>!</p>
     </div>
 </div>
             </div>
@@ -1924,6 +1975,37 @@ window.addEventListener('scroll', () => {
         });
     }
 });
+function toggleBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    const isActive = content.classList.contains('active');
+
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+    } else {
+        content.classList.remove('active');
+        content.style.maxHeight = '0';
+        content.style.padding = '0 15px';
+        header.classList.remove('active');
+        header.setAttribute('aria-expanded', 'false');
+    }
+}
+
+function openBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    if (!content.classList.contains('active')) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+    }
+}
 function autoRotateCommunity() {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     updateCommunityCarousel();
