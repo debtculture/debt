@@ -673,7 +673,7 @@ body:not(:has(.social-bubbles.active))::before {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 10px; /* Base gap for consistent spacing */
     flex-wrap: wrap;
 }
 
@@ -697,6 +697,15 @@ body:not(:has(.social-bubbles.active))::before {
     font-size: 1.2rem;
     color: #ff5555;
     margin: 0 5px;
+    width: 20px; /* Fixed width to ensure consistent spacing */
+    text-align: center;
+}
+
+/* Invisible arrow placeholder for single-tier row to match spacing */
+.badge-row .invisible-arrow {
+    width: 20px; /* Match .badge-arrow width */
+    margin: 0 5px;
+    visibility: hidden;
 }
 
 /* Reuse and update badge styles for glossary */
@@ -1666,19 +1675,21 @@ body:not(:has(.social-bubbles.active))::before {
                     <span class="badge-name">Diamond Hands</span>
                 </div>
             </div>
-            <!-- Shiller, Meme, and New Badge (Single Tier, No Arrows) -->
+            <!-- Shiller, Meme, and Coming Soon (Single Tier, Invisible Arrows for Spacing) -->
             <div class="badge-row">
                 <div class="badge-wrapper">
                     <div class="badge badge-shiller badge-single" title="Cold Blooded Shiller: Hardcore $DEBT promoter on social media."></div>
                     <span class="badge-name">Cold Blooded Shiller</span>
                 </div>
+                <span class="invisible-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge badge-meme badge-single" title="Meme Machine: Creates dank $DEBT memes."></div>
                     <span class="badge-name">Meme Machine</span>
                 </div>
+                <span class="invisible-arrow">➔</span>
                 <div class="badge-wrapper">
-                    <div class="badge badge-new badge-single" title="New Badge: Placeholder for a future badge."></div>
-                    <span class="badge-name">New Badge</span>
+                    <div class="badge badge-new badge-single" title="Coming Soon: Placeholder for a future badge."></div>
+                    <span class="badge-name">Coming Soon</span>
                 </div>
             </div>
         </div>
