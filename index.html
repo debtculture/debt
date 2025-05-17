@@ -234,7 +234,7 @@
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
 
-/* Tooltip styles for desktop hover and mobile tap */
+/* Tooltip styles for desktop hover */
 .badge {
     position: relative; /* Ensure positioning context for tooltip */
     z-index: 1; /* Base z-index for badge */
@@ -272,8 +272,28 @@
     visibility: visible;
 }
 
-/* Mobile-specific tooltip toggle */
-@media (max-width: 768px) {
+/* Shared tooltip for mobile */
+.shared-tooltip {
+    display: none;
+    position: fixed;
+    background: #1a1a1a;
+    color: #eee;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: normal;
+    max-width: 160px;
+    text-align: center;
+    z-index: 1000;
+    border: 1px solid #ff5555;
+    box-shadow: 0 0 10px #ff5555;
+    transform: translateX(-50%);
+    line-height: 1.2;
+    pointer-events: none;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 1024px) {
     .badge:hover {
         transform: none;
         box-shadow: none;
@@ -288,29 +308,6 @@
         box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
         z-index: 50;
     }
-
-    .badge-tooltip {
-        display: none; /* Hidden by default */
-        position: absolute;
-        bottom: calc(100% + 8px);
-        left: 50%;
-        transform: translateX(-50%);
-        background: #1a1a1a;
-        color: #eee;
-        padding: 6px 12px;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        white-space: normal;
-        max-width: 160px;
-        text-align: center;
-        z-index: 100;
-        border: 1px solid #ff5555;
-        box-shadow: 0 0 10px #ff5555;
-    }
-
-    .badge.active-tooltip .badge-tooltip {
-    display: block !important; /* Show on tap, override conflicts */
-}
 
     /* Adjust badge size for better tap target */
     .badge {
@@ -1804,10 +1801,20 @@ if (window.innerWidth <= 768) {
 
 // Ensure title attribute is set for desktop tooltip
 badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+
+// Create or get shared tooltip for mobile
+let sharedTooltip = document.getElementById('shared-tooltip');
+if (!sharedTooltip) {
+    sharedTooltip = document.createElement('div');
+    sharedTooltip.id = 'shared-tooltip';
+    sharedTooltip.className = 'shared-tooltip';
+    document.body.appendChild(sharedTooltip);
+}
+
 badgesContainer.appendChild(badgeEl);
 
 // Add tap-to-toggle for mobile
-if (window.innerWidth <= 768) {
+if (window.innerWidth <= 1024) {
     badgeEl.addEventListener('click', (e) => {
         e.preventDefault();
         console.log('Badge tapped:', badgeEl.getAttribute('title'), 'Classes:', badgeEl.className, 'Active:', badgeEl.classList.contains('active-tooltip'));
@@ -1817,6 +1824,17 @@ if (window.innerWidth <= 768) {
         });
         // Toggle tooltip on this badge
         badgeEl.classList.toggle('active-tooltip');
+
+        // Position and show shared tooltip
+        if (badgeEl.classList.contains('active-tooltip')) {
+            sharedTooltip.textContent = badgeEl.getAttribute('title');
+            const rect = badgeEl.getBoundingClientRect();
+            sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
+            sharedTooltip.style.top = `${rect.top - 40}px`; // Position above badge
+            sharedTooltip.style.display = 'block';
+        } else {
+            sharedTooltip.style.display = 'none';
+        }
     });
 }
     });
