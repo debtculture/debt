@@ -817,7 +817,8 @@ body:not(:has(.social-bubbles.active))::before {
 
 @media (max-width: 768px) {
     .badge-glossary-container {
-        max-width: 95%;
+        max-width: 100%; /* Stretch to full width like the disclaimer */
+        padding: 0 5px; /* Reduce padding to maximize space */
     }
 
     .badge-glossary-header {
@@ -830,26 +831,32 @@ body:not(:has(.social-bubbles.active))::before {
         right: 10px;
     }
 
+    .badge-glossary-content.active {
+        padding: 10px 5px; /* Reduce padding to match container */
+    }
+
     .badge-row {
-        gap: 3px; /* Reduced from 5px to 3px */
+        gap: 2px; /* Reduced from 3px to 2px */
     }
 
     .badge-wrapper {
-        min-width: 80px;
+        min-width: 70px; /* Reduced from 80px to 70px */
     }
 
     .badge-name {
         font-size: 0.8rem;
-        max-width: 80px;
+        max-width: 70px; /* Match the reduced min-width */
     }
 
     .badge-arrow {
         font-size: 1rem;
-        margin: 0 0px; /* Reduced from 0 2px to 0 0px */
+        margin: 0 0px;
+        width: 20px;
     }
 
     .invisible-arrow {
-        margin: 0 0px; /* Ensure invisible arrows match the reduced spacing */
+        margin: 0 0px;
+        width: 20px;
     }
 }
     @media (min-width: 769px) {
