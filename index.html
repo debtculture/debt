@@ -616,7 +616,7 @@ body:not(:has(.social-bubbles.active))::before {
 }
 /* Badge Glossary Styles */
 .badge-glossary-container {
-    max-width: 800px; /* Revert to original width */
+    max-width: 600px; /* Match FAQ container width */
     margin: 20px auto;
     position: relative;
 }
@@ -629,7 +629,7 @@ body:not(:has(.social-bubbles.active))::before {
     cursor: pointer;
     font-size: 1.2rem;
     font-weight: bold;
-    text-align: left;
+    text-align: center; /* Center the text */
     position: relative;
     transition: background 0.3s ease;
 }
@@ -720,7 +720,7 @@ body:not(:has(.social-bubbles.active))::before {
 @media (max-width: 768px) {
     .badge-glossary-container {
         max-width: 100%;
-        padding: 0 5px;
+        padding: 0; /* Remove padding to maximize space */
     }
 
     .badge-glossary-header {
@@ -734,7 +734,7 @@ body:not(:has(.social-bubbles.active))::before {
     }
 
     .badge-glossary-content.active {
-        padding: 10px 5px;
+        padding: 10px 0; /* Remove horizontal padding */
     }
 
     .badge-row {
@@ -742,18 +742,18 @@ body:not(:has(.social-bubbles.active))::before {
     }
 
     .badge-wrapper {
-        min-width: 80px; /* Slightly increased to ensure space */
-        height: 90px; /* Consistent height with desktop for alignment */
+        min-width: 100px; /* Increased to match badge-name */
+        height: 90px;
     }
 
-        .badge-name {
+    .badge-name {
         font-size: 0.8rem;
-        max-width: 80px;
+        max-width: 100px; /* Increased to use available space */
         white-space: normal;
         overflow-wrap: break-word;
         line-height: 1.2;
         display: -webkit-box;
-        -webkit-line-clamp: 2; /* Limit to 2 lines */
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -771,7 +771,7 @@ body:not(:has(.social-bubbles.active))::before {
     }
 
     .badge-glossary-content .badge {
-        width: 40px; /* Consistent size with desktop */
+        width: 40px;
         height: 40px;
     }
 
