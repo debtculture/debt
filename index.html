@@ -616,7 +616,7 @@ body:not(:has(.social-bubbles.active))::before {
 }
 /* Badge Glossary Styles */
 .badge-glossary-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 20px auto;
     position: relative;
 }
@@ -663,22 +663,130 @@ body:not(:has(.social-bubbles.active))::before {
     padding: 15px;
 }
 
-.badge-item {
-    margin: 10px 0;
-    text-align: left;
+.badge-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.badge-item h3 {
-    font-size: 1.1rem;
-    color: #ff5555;
-    margin: 0 0 5px;
+.badge-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    min-width: 120px;
 }
 
-.badge-item p {
-    font-size: 1rem;
+.badge-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.badge-name {
+    font-size: 0.9rem;
     color: #eee;
-    margin: 0;
-    line-height: 1.5;
+    text-align: center;
+    max-width: 100px;
+    word-wrap: break-word;
+}
+
+/* Reuse existing badge styles for glossary */
+.badge-glossary-content .badge {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.3));
+    border: 1px solid rgba(255, 85, 85, 0.5);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Tooltip styles for desktop hover (reusing existing badge tooltip styles) */
+.badge-glossary-content .badge::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #eee;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: normal;
+    max-width: 160px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 100;
+    border: 1px solid #ff5555;
+    box-shadow: 0 0 10px #ff5555;
+}
+
+.badge-glossary-content .badge:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
+}
+
+.badge-glossary-content .badge:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile-specific styles (reusing existing badge mobile behavior) */
+@media (max-width: 1024px) {
+    .badge-glossary-content .badge:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .badge-glossary-content .badge:hover::after {
+        display: none; /* Disable pseudo-element on mobile */
+    }
+
+    .badge-glossary-content .badge.active-tooltip {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
+        z-index: 50;
+    }
+
+    /* Adjust badge size for better tap target */
+    .badge-glossary-content .badge {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 768px) {
+    .badge-glossary-container {
+        max-width: 95%;
+    }
+
+    .badge-glossary-header {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+
+    .badge-glossary-header::after {
+        font-size: 0.9rem;
+        right: 10px;
+    }
+
+    .badge-column {
+        min-width: 100px;
+        gap: 10px;
+    }
+
+    .badge-name {
+        font-size: 0.8rem;
+        max-width: 80px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1476,52 +1584,66 @@ body:not(:has(.social-bubbles.active))::before {
             <p class="hof-blurb">Want to join the $DEBT Hall of Fame? Be a standout rebel by staying super active and loyal—show up and participate in X Spaces, hold and support by buying $DEBT, promote us on X, recruit new members, and bring big energy. Whales, meme lords, and community champs all have a shot—make your mark!</p>
             <div class="badge-glossary-container">
     <div class="badge-glossary-header" onclick="toggleBadgeGlossary()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Badge Glossary">
-        Badge Glossary ▼
+        Badge Glossary
     </div>
     <div class="badge-glossary-content" id="badgeGlossary">
-        <div class="badge-item">
-            <h3>Zero Gravity (Bronze, Spaces)</h3>
-            <p>Constantly joins X Spaces regularly.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Orbit Breaker (Silver, Spaces)</h3>
-            <p>Actively participates in Spaces conversations.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Star Commander (Gold, Spaces)</h3>
-            <p>Leads discussions or hosts Spaces.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Arsonist (Bronze, Burn)</h3>
-            <p>Burned 100,000 $DEBT.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Pyromaniac (Silver, Burn)</h3>
-            <p>Burned 1,000,000 $DEBT.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Inferno (Gold, Burn)</h3>
-            <p>Burned 10,000,000+ $DEBT or multiple massive burns.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Iron Grip (Bronze, Holding)</h3>
-            <p>Held $DEBT for 3 months.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Steel Resolve (Silver, Holding)</h3>
-            <p>Held $DEBT for 6 months, solid stack.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Diamond Hands (Gold, Holding)</h3>
-            <p>Held $DEBT for 1 year+, unshakeable holder.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Cold Blooded Shiller (Single, Shiller)</h3>
-            <p>Hardcore $DEBT promoter on social media.</p>
-        </div>
-        <div class="badge-item">
-            <h3>Meme Machine (Single, Meme)</h3>
-            <p>Creates dank $DEBT memes.</p>
+        <div class="badge-grid">
+            <!-- Spaces Badges (Bronze, Silver, Gold) -->
+            <div class="badge-column">
+                <div class="badge-wrapper">
+                    <div class="badge badge-spaces badge-bronze" title="Zero Gravity: Constantly joins X Spaces regularly."></div>
+                    <span class="badge-name">Zero Gravity</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-spaces badge-silver" title="Orbit Breaker: Actively participates in Spaces conversations."></div>
+                    <span class="badge-name">Orbit Breaker</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-spaces badge-gold" title="Star Commander: Leads discussions or hosts Spaces."></div>
+                    <span class="badge-name">Star Commander</span>
+                </div>
+            </div>
+            <!-- Burn Badges (Bronze, Silver, Gold) -->
+            <div class="badge-column">
+                <div class="badge-wrapper">
+                    <div class="badge badge-burn badge-bronze" title="Arsonist: Burned 100,000 $DEBT."></div>
+                    <span class="badge-name">Arsonist</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-burn badge-silver" title="Pyromaniac: Burned 1,000,000 $DEBT."></div>
+                    <span class="badge-name">Pyromaniac</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-burn badge-gold" title="Inferno: Burned 10,000,000+ $DEBT or multiple massive burns."></div>
+                    <span class="badge-name">Inferno</span>
+                </div>
+            </div>
+            <!-- Holding Badges (Bronze, Silver, Gold) -->
+            <div class="badge-column">
+                <div class="badge-wrapper">
+                    <div class="badge badge-holding badge-bronze" title="Iron Grip: Held $DEBT for 3 months."></div>
+                    <span class="badge-name">Iron Grip</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-holding badge-silver" title="Steel Resolve: Held $DEBT for 6 months, solid stack."></div>
+                    <span class="badge-name">Steel Resolve</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-holding badge-gold" title="Diamond Hands: Held $DEBT for 1 year+, unshakeable holder."></div>
+                    <span class="badge-name">Diamond Hands</span>
+                </div>
+            </div>
+            <!-- Shiller and Meme Badges (Single Tier) -->
+            <div class="badge-column">
+                <div class="badge-wrapper">
+                    <div class="badge badge-shiller badge-single" title="Cold Blooded Shiller: Hardcore $DEBT promoter on social media."></div>
+                    <span class="badge-name">Cold Blooded Shiller</span>
+                </div>
+                <div class="badge-wrapper">
+                    <div class="badge badge-meme badge-single" title="Meme Machine: Creates dank $DEBT memes."></div>
+                    <span class="badge-name">Meme Machine</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -2094,6 +2216,90 @@ function openBadgeGlossary() {
         content.style.padding = '15px';
         header.classList.add('active');
         header.setAttribute('aria-expanded', 'true');
+    }
+}
+function initializeBadgeGlossaryTooltips() {
+    const badges = document.querySelectorAll('.badge-glossary-content .badge');
+    let sharedTooltip = document.getElementById('shared-tooltip');
+    if (!sharedTooltip) {
+        sharedTooltip = document.createElement('div');
+        sharedTooltip.id = 'shared-tooltip';
+        sharedTooltip.className = 'shared-tooltip';
+        document.body.appendChild(sharedTooltip);
+    }
+
+    badges.forEach(badge => {
+        // Remove any existing event listeners to prevent duplicates
+        const newBadge = badge.cloneNode(true);
+        badge.parentNode.replaceChild(newBadge, badge);
+
+        // Add tap-to-toggle for mobile
+        if (window.innerWidth <= 1024) {
+            newBadge.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Close other open tooltips
+                document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+                    if (el !== newBadge) el.classList.remove('active-tooltip');
+                });
+                // Toggle tooltip on this badge
+                newBadge.classList.toggle('active-tooltip');
+
+                // Position and show shared tooltip
+                if (newBadge.classList.contains('active-tooltip')) {
+                    sharedTooltip.textContent = newBadge.getAttribute('title');
+                    const rect = newBadge.getBoundingClientRect();
+                    sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
+                    sharedTooltip.style.top = `${rect.top - 40}px`; // Position above badge
+                    sharedTooltip.style.display = 'block';
+                } else {
+                    sharedTooltip.style.display = 'none';
+                }
+            });
+        }
+    });
+}
+
+// Call initializeBadgeGlossaryTooltips when the glossary is opened
+function toggleBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    const isActive = content.classList.contains('active');
+
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
+    } else {
+        content.classList.remove('active');
+        content.style.maxHeight = '0';
+        content.style.padding = '0 15px';
+        header.classList.remove('active');
+        header.setAttribute('aria-expanded', 'false');
+        // Hide shared tooltip when closing
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
+    }
+}
+
+// Also call initializeBadgeGlossaryTooltips when opening via FAQ link
+function openBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    if (!content.classList.contains('active')) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
     }
 }
 function autoRotateCommunity() {
