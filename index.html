@@ -206,6 +206,94 @@
     #phantomLink:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
 
     /* Community Carousel Styles */
+/* Badge Styles */
+.hof-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+    min-height: 30px;
+}
+
+.hof-badges span {
+    color: #eee;
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.badge {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.badge:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px #ff5555;
+}
+
+.badge-bronze { background-color: #8b5e3c; }
+.badge-silver { background-color: #c0c0c0; }
+.badge-gold { background-color: #ffd700; }
+.badge-single { background-color: #ff5555; }
+
+.badge-spaces::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 10px;
+    height: 20px;
+    background: #eee;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transform: rotate(45deg);
+} /* Rocket shape */
+
+.badge-burn::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 10px;
+    height: 14px;
+    background: #eee;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+} /* Flame shape */
+
+.badge-holding::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    background: #eee;
+    transform: rotate(45deg);
+} /* Diamond shape */
+
+.badge-shiller::before {
+    content: 'X';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #eee;
+    font-size: 14px;
+    font-weight: bold;
+} /* X logo */
+
+.badge-meme::before {
+    content: '😂';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #eee;
+    font-size: 16px;
+} /* Laughing emoji */
     #community { padding-bottom: 60px; }
 .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: center; justify-content: center; }
 @media (min-width: 769px) {
@@ -794,7 +882,8 @@ body:not(:has(.social-bubbles.active))::before {
                             <div class="hof-title">The Visionary</div>
                         </div>
                     </div>
-                    <div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
+                    <div class="hof-badges" id="hof-badges"></div>
+<div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
                     <!-- Desktop Rows (4 rows of 6) -->
 <div class="hof-row-desktop">
     <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2">
@@ -1433,133 +1522,195 @@ function updateCommunityCarousel() {
     const featuredInnerBubble = featured.querySelector('.hof-inner-bubble');
 
         const members = [
-        {
-            name: 'Autopsy',
-            title: 'The Visionary',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg',
-            desc: 'Placeholder description for Autopsy.'
-        },
-        {
-            name: 'Catavina',
-            title: 'The Cheerleader',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg',
-            desc: 'Placeholder description for Catavina.'
-        },
-        {
-            name: 'Lou',
-            title: 'The Rally',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg',
-            desc: 'Placeholder description for Lou.'
-        },
-        {
-            name: 'Nerf',
-            title: 'The Professional',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg',
-            desc: 'Placeholder description for Nerf.'
-        },
-        {
-            name: 'JPEG',
-            title: 'The Youngblood',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg',
-            desc: 'Placeholder description for JPEG.'
-        },
-        {
-            name: 'Lunicking',
-            title: 'The Spark',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg',
-            desc: 'Placeholder description for Lunicking.'
-        },
-        {
-            name: 'Tormund',
-            title: 'The Oracle',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg',
-            desc: 'Placeholder description for Tormund.'
-        },
-        {
-            name: 'STAYHIGH',
-            title: 'The Unfiltered',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg',
-            desc: 'Placeholder description for STAYHIGH.'
-        },
-        {
-            name: 'Renee',
-            title: 'The Support',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg',
-            desc: 'Placeholder description for Renee.'
-        },
-        {
-            name: 'blu',
-            title: 'The Warden',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg',
-            desc: 'Placeholder description for blu.'
-        },
-        {
-            name: 'Scrappy',
-            title: 'The Goofball',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
-            desc: 'Placeholder description for Scrappy.'
-        },
-        {
-            name: 'Mo',
-            title: 'The Degen',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg',
-            desc: 'Placeholder description for Mo.'
-        },
-        {
-            name: 'Cory B',
-            title: 'The Bengal',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg',
-            desc: 'Placeholder description for Cory B.'
-        },
-        {
-            name: 'Dan',
-            title: 'The Vibes',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg',
-            desc: 'Placeholder description for Dan.'
-        },
-        {
-            name: 'Tom',
-            title: 'The King',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg',
-            desc: 'Placeholder description for Tom.'
-        },
-        {
-            name: 'Marilyn',
-            title: 'The Rockstar',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg',
-            desc: 'Placeholder description for Marilyn.'
-        },
-        {
-            name: 'Coinbud',
-            title: 'The Expert',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg',
-            desc: 'Placeholder description for Coinbud.'
-        },
-        {
-            name: 'ZOMBi',
-            title: 'The Creative',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg',
-            desc: 'Placeholder description for ZOMBi.'
-        },
-        {
-            name: 'Cyanide',
-            title: 'The Poison',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg',
-            desc: 'Placeholder description for Cyanide.'
-        },
-        {
-            name: 'George',
-            title: 'The Wise',
-            img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg',
-            desc: 'Placeholder description for George.'
-        }
-    ];
+    {
+        name: 'Autopsy',
+        title: 'The Visionary',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/Autopsy_hwi4ye.jpg',
+        desc: 'Placeholder description for Autopsy.',
+        badges: [
+            { name: 'Star Commander', tier: 'gold', type: 'spaces' },
+            { name: 'Inferno', tier: 'gold', type: 'burn' },
+            { name: 'Steel Reserve', tier: 'silver', type: 'holding' },
+            { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' },
+            { name: 'Meme Machine', tier: 'single', type: 'meme' }
+        ]
+    },
+    {
+        name: 'Catavina',
+        title: 'The Cheerleader',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg',
+        desc: 'Placeholder description for Catavina.',
+        badges: []
+    },
+    {
+        name: 'Lou',
+        title: 'The Rally',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg',
+        desc: 'Placeholder description for Lou.',
+        badges: []
+    },
+    {
+        name: 'Nerf',
+        title: 'The Professional',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg',
+        desc: 'Placeholder description for Nerf.',
+        badges: []
+    },
+    {
+        name: 'JPEG',
+        title: 'The Youngblood',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg',
+        desc: 'Placeholder description for JPEG.',
+        badges: []
+    },
+    {
+        name: 'Lunicking',
+        title: 'The Spark',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg',
+        desc: 'Placeholder description for Lunicking.',
+        badges: []
+    },
+    {
+        name: 'Tormund',
+        title: 'The Oracle',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg',
+        desc: 'Placeholder description for Tormund.',
+        badges: []
+    },
+    {
+        name: 'STAYHIGH',
+        title: 'The Unfiltered',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg',
+        desc: 'Placeholder description for STAYHIGH.',
+        badges: []
+    },
+    {
+        name: 'Renee',
+        title: 'The Support',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Renee_v4slwz.jpg',
+        desc: 'Placeholder description for Renee.',
+        badges: []
+    },
+    {
+        name: 'blu',
+        title: 'The Warden',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg',
+        desc: 'Placeholder description for blu.',
+        badges: []
+    },
+    {
+        name: 'Scrappy',
+        title: 'The Goofball',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
+        desc: 'Placeholder description for Scrappy.',
+        badges: []
+    },
+    {
+        name: 'Mo',
+        title: 'The Degen',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg',
+        desc: 'Placeholder description for Mo.',
+        badges: []
+    },
+    {
+        name: 'Cory B',
+        title: 'The Bengal',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg',
+        desc: 'Placeholder description for Cory B.',
+        badges: []
+    },
+    {
+        name: 'Dan',
+        title: 'The Vibes',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg',
+        desc: 'Placeholder description for Dan.',
+        badges: []
+    },
+    {
+        name: 'Tom',
+        title: 'The King',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg',
+        desc: 'Placeholder description for Tom.',
+        badges: []
+    },
+    {
+        name: 'Marilyn',
+        title: 'The Rockstar',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg',
+        desc: 'Placeholder description for Marilyn.',
+        badges: []
+    },
+    {
+        name: 'Coinbud',
+        title: 'The Expert',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg',
+        desc: 'Placeholder description for Coinbud.',
+        badges: []
+    },
+    {
+        name: 'ZOMBi',
+        title: 'The Creative',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg',
+        desc: 'Placeholder description for ZOMBi.',
+        badges: []
+    },
+    {
+        name: 'Cyanide',
+        title: 'The Poison',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg',
+        desc: 'Placeholder description for Cyanide.',
+        badges: []
+    },
+    {
+        name: 'George',
+        title: 'The Wise',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg',
+        desc: 'Placeholder description for George.',
+        badges: []
+    }
+];
 
     const member = members[currentCommunityIndex];
     featuredInnerBubble.innerHTML = `<img src="${member.img}" alt="${member.name} profile picture" width="130" height="130" loading="lazy">`;
     featured.querySelector('.hof-name').textContent = member.name;
     featured.querySelector('.hof-title').textContent = member.title;
-    description.textContent = member.desc;
+    // Update badges
+const badgesContainer = document.getElementById('hof-badges') || document.createElement('div');
+badgesContainer.id = 'hof-badges';
+badgesContainer.className = 'hof-badges';
+badgesContainer.innerHTML = '';
+if (member.badges && member.badges.length > 0) {
+    member.badges.forEach(badge => {
+        const badgeEl = document.createElement('div');
+        badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
+        badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
+        badgeEl.title = `${badge.name}: ${getBadgeDescription(badge.name)}`;
+        badgesContainer.appendChild(badgeEl);
+    });
+} else {
+    badgesContainer.innerHTML = '<span>No badges yet</span>';
+}
+description.parentNode.insertBefore(badgesContainer, description);
+
+description.textContent = member.desc;
+
+// Helper function for badge descriptions
+function getBadgeDescription(badgeName) {
+    const descriptions = {
+        'Zero Gravity': 'Constantly joins X Spaces regularly.',
+        'Orbit Breaker': 'Actively participates in Spaces conversations.',
+        'Star Commander': 'Leads discussions or hosts Spaces.',
+        'Arsonist': 'Burned 100,000 $DEBT.',
+        'Pyromaniac': 'Burned 1,000,000 $DEBT.',
+        'Inferno': 'Burned 10,000,000+ $DEBT or multiple massive burns.',
+        'Iron Grip': 'Held $DEBT for 3 months.',
+        'Steel Resolve': 'Held $DEBT for 6 months, solid stack.',
+        'Diamond Hands': 'Held $DEBT for 1 year+, unshakeable holder.',
+        'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
+        'Meme Machine': 'Creates dank $DEBT memes.'
+    };
+    return descriptions[badgeName] || 'Badge earned for community contributions.';
+}
 
     featuredBubble.onclick = () => {
         if (xLink) window.open(xLink, '_blank');
