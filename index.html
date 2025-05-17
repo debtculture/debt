@@ -237,26 +237,27 @@
 /* Tooltip styles for desktop hover and mobile tap */
 .badge {
     position: relative; /* Ensure positioning context for tooltip */
+    z-index: 1; /* Base z-index for badge */
 }
 
 .badge::after {
     content: attr(title);
     position: absolute;
-    bottom: calc(100% + 5px); /* Small gap above badge */
+    bottom: calc(100% + 8px); /* Increased gap for visibility */
     left: 50%;
     transform: translateX(-50%);
     background: #1a1a1a;
     color: #eee;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 5px;
-    font-size: 0.8rem;
-    white-space: normal; /* Allow wrapping for longer descriptions */
-    max-width: 150px; /* Prevent overly wide tooltips on mobile */
+    font-size: 0.9rem; /* Slightly larger for readability */
+    white-space: normal;
+    max-width: 160px;
     text-align: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 10;
+    z-index: 100; /* High z-index to ensure it’s above other elements */
     border: 1px solid #ff5555;
     box-shadow: 0 0 10px #ff5555;
 }
@@ -286,11 +287,14 @@
     .badge.active-tooltip {
         transform: scale(1.2);
         box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
+        z-index: 50; /* Ensure badge is above others when active */
     }
 
     .badge.active-tooltip::after {
+        display: block; /* Force display */
         opacity: 1;
         visibility: visible;
+        z-index: 100; /* Ensure tooltip is on top */
     }
 
     /* Adjust badge size for better tap target */
@@ -1783,7 +1787,7 @@ badgesContainer.appendChild(badgeEl);
 if (window.innerWidth <= 768) {
     badgeEl.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('Badge tapped:', badgeEl.getAttribute('title'), 'Active:', badgeEl.classList.contains('active-tooltip'));
+        console.log('Badge tapped:', badgeEl.getAttribute('title'), 'Classes:', badgeEl.className, 'Active:', badgeEl.classList.contains('active-tooltip'));
         // Close other open tooltips
         document.querySelectorAll('.badge.active-tooltip').forEach(el => {
             if (el !== badgeEl) el.classList.remove('active-tooltip');
