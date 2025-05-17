@@ -133,7 +133,7 @@
     #community { margin-top: -700px; padding-bottom: 60px; min-height: auto; }
     .hof-carousel { max-width: 600px; height: 450px; }
     .faq-container { max-width: 800px; }
-    .hof-blurb { margin: 510px auto 20px; }
+    .hof-blurb { margin: 500px auto 20px; }
 }
         @media (max-width: 768px) {
     #roadmap { margin-top: -150px; }
@@ -234,9 +234,78 @@
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
 
-.badge:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
+/* Tooltip styles for desktop hover and mobile tap */
+.badge {
+    position: relative; /* Ensure positioning context for tooltip */
+}
+
+.badge::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #eee;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+    border: 1px solid #ff5555;
+    box-shadow: 0 0 10px #ff5555;
+}
+
+.badge:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile-specific tooltip toggle */
+@media (max-width: 768px) {
+    .badge:hover::after {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .badge.active-tooltip::after {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Adjust badge size for better tap target */
+    .badge {
+        width: 44px;
+        height: 44px;
+    }
+
+    .badge-spaces::before {
+        top: 14px;
+        left: 17px;
+    }
+
+    .badge-burn::before {
+        top: 16px;
+        left: 17px;
+    }
+
+    .badge-holding::before {
+        top: 17px;
+        left: 17px;
+    }
+
+    .badge-shiller::before {
+        top: 50%;
+        left: 50%;
+    }
+
+    .badge-meme::before {
+        top: 50%;
+        left: 50%;
+    }
 }
 
 .badge-bronze { background-color: #8b5e3c; }
@@ -1690,6 +1759,19 @@ if (member.badges && member.badges.length > 0) {
         badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
         badgeEl.title = `${badge.name}: ${getBadgeDescription(badge.name)}`;
         badgesContainer.appendChild(badgeEl);
+
+// Add tap-to-toggle for mobile
+if (window.innerWidth <= 768) {
+    badgeEl.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Close other open tooltips
+        document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+            if (el !== badgeEl) el.classList.remove('active-tooltip');
+        });
+        // Toggle tooltip on this badge
+        badgeEl.classList.toggle('active-tooltip');
+    });
+}
     });
 } else {
     badgesContainer.innerHTML = '<span>No badges yet</span>';
