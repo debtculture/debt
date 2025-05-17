@@ -1904,7 +1904,18 @@ function rotateHof(direction) {
     updateCommunityCarousel();
     resetCommunityAutoRotate();
 }
-
+// Hide tooltip on scroll for mobile
+window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 1024) {
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
+    }
+});
 function autoRotateCommunity() {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     updateCommunityCarousel();
