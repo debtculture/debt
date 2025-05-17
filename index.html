@@ -223,16 +223,20 @@
 }
 
 .badge {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.3));
+    border: 1px solid rgba(255, 85, 85, 0.5);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
 
 .badge:hover {
     transform: scale(1.2);
-    box-shadow: 0 0 15px #ff5555;
+    box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
 }
 
 .badge-bronze { background-color: #8b5e3c; }
@@ -243,10 +247,10 @@
 .badge-spaces::before {
     content: '';
     position: absolute;
-    top: 5px;
-    left: 10px;
+    top: 12px;
+    left: 15px;
     width: 10px;
-    height: 20px;
+    height: 16px;
     background: #eee;
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
     transform: rotate(45deg);
@@ -255,10 +259,10 @@
 .badge-burn::before {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 10px;
+    top: 14px;
+    left: 15px;
     width: 10px;
-    height: 14px;
+    height: 12px;
     background: #eee;
     clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
 } /* Flame shape */
@@ -266,8 +270,8 @@
 .badge-holding::before {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     width: 10px;
     height: 10px;
     background: #eee;
