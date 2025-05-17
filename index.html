@@ -831,7 +831,7 @@ body:not(:has(.social-bubbles.active))::before {
     }
 
     .badge-row {
-        gap: 5px;
+        gap: 3px; /* Reduced from 5px to 3px */
     }
 
     .badge-wrapper {
@@ -845,7 +845,11 @@ body:not(:has(.social-bubbles.active))::before {
 
     .badge-arrow {
         font-size: 1rem;
-        margin: 0 2px;
+        margin: 0 0px; /* Reduced from 0 2px to 0 0px */
+    }
+
+    .invisible-arrow {
+        margin: 0 0px; /* Ensure invisible arrows match the reduced spacing */
     }
 }
     @media (min-width: 769px) {
