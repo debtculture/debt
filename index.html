@@ -153,7 +153,7 @@
     .phase ul { margin: 0; padding-left: 40px; text-align: left; }
     .phase li { font-size: 1.2rem; margin: 10px 0; position: relative; }
     .section-connector { display: block; width: 6px; height: 50px; background: linear-gradient(to bottom, #ff5555, #555); margin: 30px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out; }
-    .community-to-faq { margin-top: -10px; } /* Reduced from 30px to -10px (30 - 40 = -10) */
+    .community-to-faq { margin-top: -40px; } /* Move up 40px */
     .section-connector.visible { opacity: 1; transform: translateY(0); }
     @keyframes wind { 0% { transform: translateY(20px) scaleY(1); } 50% { transform: translateY(0) scaleY(1.1) skewX(5deg); } 100% { transform: translateY(20px) scaleY(1); } }
     .future-teaser h2 { font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px; }
@@ -617,11 +617,11 @@ body:not(:has(.social-bubbles.active))::before {
 }
 /* Badge Glossary Styles */
 .badge-glossary-container {
-    max-width: 600px; /* Slightly narrower than FAQ */
+    max-width: 600px; /* Narrower than FAQ (800px) */
     margin: 20px auto;
-    padding: 0 25px; /* 20-30px padding on each side */
+    padding: 0 25px; /* 25px padding on each side */
     position: relative;
-    box-sizing: content-box; /* Ensure padding doesn’t reduce content width */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .badge-glossary-header {
@@ -635,6 +635,8 @@ body:not(:has(.social-bubbles.active))::before {
     text-align: center; /* Center the text */
     position: relative;
     transition: background 0.3s ease;
+    width: 100%; /* Respect container width */
+    box-sizing: border-box; /* Prevent overflow */
 }
 
 .badge-glossary-header:hover {
@@ -674,7 +676,7 @@ body:not(:has(.social-bubbles.active))::before {
 
 .badge-row {
     display: flex;
-    justify-content: space-between; /* Distribute items evenly */
+    justify-content: space-around; /* Evenly space badges */
     align-items: center;
     gap: 10px; /* Base gap for consistent spacing */
     flex-wrap: nowrap; /* Prevent wrapping */
@@ -687,7 +689,7 @@ body:not(:has(.social-bubbles.active))::before {
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    min-width: 100px;
+    width: 100px; /* Fixed width for consistent alignment */
     height: 90px; /* Fixed height for consistent alignment */
 }
 
@@ -744,6 +746,7 @@ body:not(:has(.social-bubbles.active))::before {
     align-items: center; /* Align with badge center */
     justify-content: center;
     height: 40px; /* Match badge height */
+    transform: translateY(-7px); /* Move up 7px to align with badge center */
 }
 
 /* Invisible arrow placeholder for single-tier row to match spacing */
@@ -754,6 +757,7 @@ body:not(:has(.social-bubbles.active))::before {
     display: flex; /* Ensure consistent spacing */
     align-items: center;
     height: 40px; /* Match badge height */
+    transform: translateY(-7px); /* Match arrow alignment */
 }
 
 /* Reuse and update badge styles for glossary */
@@ -862,12 +866,11 @@ body:not(:has(.social-bubbles.active))::before {
         height: 44px;
     }
 
-    /* Adjust shared tooltip positioning and size */
+        /* Adjust shared tooltip positioning and size */
     .shared-tooltip {
-        max-width: 140px; /* Reduced from 160px */
-        font-size: 0.8rem; /* Slightly smaller text */
-        padding: 5px 10px; /* Tighter padding */
-        top: -50px !important; /* Move further above badge */
+        max-width: 160px; /* Restore original width */
+        font-size: 0.9rem; /* Restore original text size */
+        padding: 6px 12px; /* Restore original padding */
     }
 }
 
@@ -891,43 +894,45 @@ body:not(:has(.social-bubbles.active))::before {
         padding: 10px 5px; /* Reduce padding to match container */
     }
 
-      .badge-row {
-      gap: 2px; /* Reduced from 3px to 2px */
-      justify-content: space-between; /* Distribute items evenly */
-      flex-wrap: nowrap; /* Prevent wrapping */
-      max-width: 280px; /* Constrain width for mobile */
-      margin: 0 auto; /* Center the row */
-  }
+    .badge-row {
+    gap: 2px; /* Reduced from 3px to 2px */
+    justify-content: space-around; /* Evenly space badges */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    max-width: 300px; /* Adjusted for mobile */
+    margin: 0 auto; /* Center the row */
+}
 
-    .badge-wrapper {
-        min-width: 80px; /* Increased to allow more space */
+        .badge-wrapper {
+        width: 90px; /* Fixed width for consistent alignment */
     }
 
-    .badge-name {
+            .badge-name {
         font-size: 0.8rem;
-        max-width: 80px; /* Match the increased min-width */
-        white-space: nowrap; /* Prevent unnecessary wrapping */
-        overflow: hidden; /* Hide overflow */
-        text-overflow: ellipsis; /* Add ellipsis for long text */
+        max-width: 100px; /* Wider to ensure two-line wrapping */
+        white-space: normal; /* Allow wrapping */
+        line-height: 1.2; /* Tight line spacing for two lines */
+        overflow-wrap: break-word; /* Ensure word breaks */
     }
 
-      .badge-arrow {
-      font-size: 1rem;
-      margin: 0 0px;
-      width: 20px;
-      display: flex; /* Center vertically */
-      align-items: center; /* Align with badge center */
-      justify-content: center;
-      height: 44px; /* Match mobile badge height */
-  }
+          .badge-arrow {
+    font-size: 1rem;
+    margin: 0 0px;
+    width: 20px;
+    display: flex; /* Center vertically */
+    align-items: center; /* Align with badge center */
+    justify-content: center;
+    height: 44px; /* Match mobile badge height */
+    transform: translateY(-7px); /* Move up 7px to align with badge center */
+}
 
-  .invisible-arrow {
-      margin: 0 0px;
-      width: 20px;
-      display: flex; /* Ensure consistent spacing */
-      align-items: center;
-      height: 44px; /* Match mobile badge height */
-  }
+.invisible-arrow {
+    margin: 0 0px;
+    width: 20px;
+    display: flex; /* Ensure consistent spacing */
+    align-items: center;
+    height: 44px; /* Match mobile badge height */
+    transform: translateY(-7px); /* Match arrow alignment */
+}
 }
     @media (min-width: 769px) {
     #hero { margin-top: 70px; }
@@ -2257,7 +2262,7 @@ if (window.innerWidth <= 1024) {
             sharedTooltip.textContent = badgeEl.getAttribute('title');
             const rect = badgeEl.getBoundingClientRect();
             sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
-            sharedTooltip.style.top = `${rect.top - 40}px`; // Position above badge
+            sharedTooltip.style.top = `${rect.bottom + 25}px`; // Position 25px below badge
             sharedTooltip.style.display = 'block';
         } else {
             sharedTooltip.style.display = 'none';
@@ -2401,7 +2406,7 @@ function initializeBadgeGlossaryTooltips() {
                     sharedTooltip.textContent = newBadge.getAttribute('title');
                     const rect = newBadge.getBoundingClientRect();
                     sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
-                    sharedTooltip.style.top = `${rect.top - 40}px`; // Position above badge
+                    sharedTooltip.style.top = `${rect.bottom + 25}px`; // Position 25px below badge
                     sharedTooltip.style.display = 'block';
                 } else {
                     sharedTooltip.style.display = 'none';
