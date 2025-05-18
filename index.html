@@ -140,7 +140,7 @@
     .roadmap-container { margin-bottom: -55px; }
     .roadmap-to-buy { margin-top: -40px; }
     .hof-to-faq { margin-bottom: 34px; }
-    .community-to-faq { margin-top: -90px; } /* Move up 90px total */
+    .community-to-faq { margin-top: -120px; } /* Move up 120px total */
     section#faq { margin-top: -90px; padding: 20px; }
     .hof-blurb { margin: 740px auto 20px; }
     #community { margin-top: -90px; }
@@ -153,7 +153,7 @@
     .phase ul { margin: 0; padding-left: 40px; text-align: left; }
     .phase li { font-size: 1.2rem; margin: 10px 0; position: relative; }
     .section-connector { display: block; width: 6px; height: 50px; background: linear-gradient(to bottom, #ff5555, #555); margin: 30px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out; }
-    .community-to-faq { margin-top: -90px; } /* Move up 90px total */
+    .community-to-faq { margin-top: -120px; } /* Move up 120px total */
     .section-connector.visible { opacity: 1; transform: translateY(0); }
     @keyframes wind { 0% { transform: translateY(20px) scaleY(1); } 50% { transform: translateY(0) scaleY(1.1) skewX(5deg); } 100% { transform: translateY(20px) scaleY(1); } }
     .future-teaser h2 { font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px; }
@@ -662,10 +662,14 @@ body:not(:has(.social-bubbles.active))::before {
 .badge-glossary-content {
     max-height: 0;
     overflow: hidden;
-    background-color: #2a2a2a;
-    border-radius: 0 0 5px 5px;
-    padding: 0 15px;
+    background: #1e1e1e;
+    border-radius: 5px;
     transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 15px;
+    box-sizing: border-box; /* Include padding in width */
+    max-width: 600px; /* Match glossary bar */
+    width: 100%; /* Respect container width */
+    margin: 0 auto; /* Center within container */
 }
 
 .badge-glossary-content.active {
@@ -752,7 +756,7 @@ body:not(:has(.social-bubbles.active))::before {
     align-items: center; /* Align with badge center */
     justify-content: center;
     height: 40px; /* Match badge height */
-    transform: translateY(-15px); /* Move up 15px total */
+    transform: translateY(-23px); /* Move up 23px total */
 }
 
 /* Invisible arrow placeholder for single-tier row to match spacing */
@@ -763,7 +767,7 @@ body:not(:has(.social-bubbles.active))::before {
     display: flex; /* Ensure consistent spacing */
     align-items: center;
     height: 40px; /* Match badge height */
-    transform: translateY(-15px); /* Match arrow alignment */
+    transform: translateY(-23px); /* Match arrow alignment */
 }
 
 /* Reuse and update badge styles for glossary */
@@ -924,7 +928,7 @@ body:not(:has(.social-bubbles.active))::before {
     text-align: center; /* Ensure horizontal centering */
 }
 
-              .badge-arrow {
+                  .badge-arrow {
     font-size: 1rem;
     margin: 0 0px;
     width: 20px;
@@ -932,7 +936,7 @@ body:not(:has(.social-bubbles.active))::before {
     align-items: center; /* Align with badge center */
     justify-content: center;
     height: 44px; /* Match mobile badge height */
-    transform: translateY(-15px); /* Move up 15px total */
+    transform: translateY(-23px); /* Move up 23px total */
 }
 
 .invisible-arrow {
@@ -941,7 +945,7 @@ body:not(:has(.social-bubbles.active))::before {
     display: flex; /* Ensure consistent spacing */
     align-items: center;
     height: 44px; /* Match mobile badge height */
-    transform: translateY(-15px); /* Match arrow alignment */
+    transform: translateY(-23px); /* Match arrow alignment */
 }
 }
     @media (min-width: 769px) {
@@ -1776,9 +1780,9 @@ body:not(:has(.social-bubbles.active))::before {
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-holding badge-silver" title="Steel Resolve: Held $DEBT for 6 months, solid stack."></div>
+                        <div class="badge badge-holding badge-silver" title="Steel Reserve: Held $DEBT for 6 months, solid stack."></div>
                     </div>
-                    <span class="badge-name">Steel Resolve</span>
+                    <span class="badge-name">Steel Reserve</span>
                 </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
@@ -2297,7 +2301,7 @@ function getBadgeDescription(badgeName) {
         'Pyromaniac': 'Burned 1,000,000 $DEBT.',
         'Inferno': 'Burned 10,000,000+ $DEBT or multiple massive burns.',
         'Iron Grip': 'Held $DEBT for 3 months.',
-        'Steel Resolve': 'Held $DEBT for 6 months, solid stack.',
+        'Steel Reserve': 'Held $DEBT for 6 months, solid stack.',
         'Diamond Hands': 'Held $DEBT for 1 year+, unshakeable holder.',
         'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
         'Meme Machine': 'Creates dank $DEBT memes.'
