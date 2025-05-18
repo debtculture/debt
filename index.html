@@ -140,7 +140,7 @@
     .roadmap-container { margin-bottom: -55px; }
     .roadmap-to-buy { margin-top: -40px; }
     .hof-to-faq { margin-bottom: 34px; }
-    .community-to-faq { margin-top: -40px; }
+    .community-to-faq { margin-top: -90px; } /* Move up 90px total */
     section#faq { margin-top: -90px; padding: 20px; }
     .hof-blurb { margin: 740px auto 20px; }
     #community { margin-top: -90px; }
@@ -153,7 +153,7 @@
     .phase ul { margin: 0; padding-left: 40px; text-align: left; }
     .phase li { font-size: 1.2rem; margin: 10px 0; position: relative; }
     .section-connector { display: block; width: 6px; height: 50px; background: linear-gradient(to bottom, #ff5555, #555); margin: 30px auto; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; animation: wind 2s infinite ease-in-out; }
-    .community-to-faq { margin-top: -40px; } /* Move up 40px */
+    .community-to-faq { margin-top: -90px; } /* Move up 90px total */
     .section-connector.visible { opacity: 1; transform: translateY(0); }
     @keyframes wind { 0% { transform: translateY(20px) scaleY(1); } 50% { transform: translateY(0) scaleY(1.1) skewX(5deg); } 100% { transform: translateY(20px) scaleY(1); } }
     .future-teaser h2 { font-size: 2.5rem; margin: 0 0 15px; color: #fff; text-align: center; width: 100%; padding: 10px; background: linear-gradient(90deg, #ff5555, #ff7777); border-radius: 5px; }
@@ -618,10 +618,12 @@ body:not(:has(.social-bubbles.active))::before {
 /* Badge Glossary Styles */
 .badge-glossary-container {
     max-width: 600px; /* Narrower than FAQ (800px) */
+    width: 100%; /* Respect container width */
     margin: 20px auto;
     padding: 0 25px; /* 25px padding on each side */
     position: relative;
     box-sizing: border-box; /* Include padding in width */
+    overflow: hidden; /* Prevent stretching */
 }
 
 .badge-glossary-header {
@@ -635,8 +637,10 @@ body:not(:has(.social-bubbles.active))::before {
     text-align: center; /* Center the text */
     position: relative;
     transition: background 0.3s ease;
+    max-width: 600px; /* Match container */
     width: 100%; /* Respect container width */
     box-sizing: border-box; /* Prevent overflow */
+    margin: 0 auto; /* Center within container */
 }
 
 .badge-glossary-header:hover {
@@ -700,7 +704,9 @@ body:not(:has(.social-bubbles.active))::before {
     max-width: 100px;
     overflow-wrap: break-word; /* Wrap whole words */
     white-space: normal; /* Allow wrapping, but not mid-word */
-    margin-top: auto;
+    display: flex; /* Center vertically */
+    align-items: center; /* Align with badge center */
+    height: 38px; /* Fixed height to match two-line text */
 }
 
 /* Ensure the badge itself has a fixed size and is centered */
@@ -746,7 +752,7 @@ body:not(:has(.social-bubbles.active))::before {
     align-items: center; /* Align with badge center */
     justify-content: center;
     height: 40px; /* Match badge height */
-    transform: translateY(-7px); /* Move up 7px to align with badge center */
+    transform: translateY(-15px); /* Move up 15px total */
 }
 
 /* Invisible arrow placeholder for single-tier row to match spacing */
@@ -757,7 +763,7 @@ body:not(:has(.social-bubbles.active))::before {
     display: flex; /* Ensure consistent spacing */
     align-items: center;
     height: 40px; /* Match badge height */
-    transform: translateY(-7px); /* Match arrow alignment */
+    transform: translateY(-15px); /* Match arrow alignment */
 }
 
 /* Reuse and update badge styles for glossary */
@@ -907,14 +913,18 @@ body:not(:has(.social-bubbles.active))::before {
     }
 
             .badge-name {
-        font-size: 0.8rem;
-        max-width: 100px; /* Wider to ensure two-line wrapping */
-        white-space: normal; /* Allow wrapping */
-        line-height: 1.2; /* Tight line spacing for two lines */
-        overflow-wrap: break-word; /* Ensure word breaks */
-    }
+    font-size: 0.8rem;
+    max-width: 100px; /* Match wrapper width */
+    white-space: normal; /* Allow wrapping */
+    line-height: 1.2; /* Tight line spacing for two lines */
+    overflow-wrap: break-word; /* Ensure word breaks */
+    display: flex; /* Center vertically */
+    align-items: center; /* Align with badge center */
+    height: 34px; /* Fixed height to match two-line text */
+    text-align: center; /* Ensure horizontal centering */
+}
 
-          .badge-arrow {
+              .badge-arrow {
     font-size: 1rem;
     margin: 0 0px;
     width: 20px;
@@ -922,7 +932,7 @@ body:not(:has(.social-bubbles.active))::before {
     align-items: center; /* Align with badge center */
     justify-content: center;
     height: 44px; /* Match mobile badge height */
-    transform: translateY(-7px); /* Move up 7px to align with badge center */
+    transform: translateY(-15px); /* Move up 15px total */
 }
 
 .invisible-arrow {
@@ -931,7 +941,7 @@ body:not(:has(.social-bubbles.active))::before {
     display: flex; /* Ensure consistent spacing */
     align-items: center;
     height: 44px; /* Match mobile badge height */
-    transform: translateY(-7px); /* Match arrow alignment */
+    transform: translateY(-15px); /* Match arrow alignment */
 }
 }
     @media (min-width: 769px) {
