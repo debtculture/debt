@@ -1886,7 +1886,7 @@ body:not(:has(.social-bubbles.active))::before {
         What are badges?
     </div>
     <div class="accordion-content">
-        <p>Badges are special achievements awarded to $DEBT community members for their contributions and loyalty. They recognize actions like participating in discussions, holding $DEBT, promoting the project, creating memes, or burning tokens. On desktop, hover over a badge to see its description; on mobile, tap to reveal it. Want to see all badges? Check out the <a href="#community" onclick="openBadgeGlossary()">Badge Glossary in the Community section</a>!</p>
+        <p>Badges are special achievements awarded to $DEBT community members for their contributions and loyalty. They recognize actions like participating in discussions, holding $DEBT, promoting the project, creating memes, or burning tokens. On desktop, hover over a badge to see its description; on mobile, tap to reveal it. Want to see all badges? Check out the <a href="#badgeGlossary" onclick="scrollToSection('#badgeGlossary'); openBadgeGlossary(); return false;">Badge Glossary</a> in the Community section!</p>
     </div>
 </div>
             </div>
@@ -1936,7 +1936,14 @@ function toggleDropdown() {
 }
 
 function scrollToSection(selector) {
-    document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+    const element = document.querySelector(selector);
+    const headerOffset = 60; // Adjust for fixed header height
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+    });
 }
 
 function toggleAccordion(header) {
