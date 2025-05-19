@@ -901,26 +901,26 @@ body:not(:has(.social-bubbles.active))::before {
     gap: 2px; /* Tight spacing between badges */
     justify-content: space-around; /* Evenly space badges */
     flex-wrap: nowrap; /* Prevent wrapping */
-    max-width: 340px; /* Reduced to fit container */
+    max-width: 340px; /* Kept to fit container */
     margin: 0 auto; /* Center the row */
-    margin-left: -2px; /* Shift left to balance margins */
+    margin-left: -12px; /* Increased shift to test visibility */
 }
 .badge-wrapper {
-    width: 95px; /* Reduced to fit row while keeping text */
+    width: 100px; /* Increased to fit "Cold Blooded" */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 92px; /* Adjusted for slightly smaller width */
+    height: 90px; /* Adjusted for two-line titles */
 }
 .badge-name {
     font-size: 0.7rem; /* Kept for readability */
-    max-width: 95px; /* Reduced to match wrapper */
-    height: 44px; /* Kept to display two lines */
-    line-height: 1.3; /* Balanced line spacing */
+    max-width: 100px; /* Increased to fit "Cold Blooded" */
+    height: 40px; /* Reduced to tightly fit two lines */
+    line-height: 1.2; /* Tighter spacing for two lines */
     white-space: normal; /* Allow wrapping */
     overflow: hidden; /* Hide overflow */
-    text-overflow: ellipsis; /* Ellipsis for overflow */
+    text-overflow: clip; /* Remove ellipsis to show full text */
     display: -webkit-box; /* Enforce two-line limit */
     -webkit-line-clamp: 2; /* Limit to two lines */
     -webkit-box-orient: vertical;
