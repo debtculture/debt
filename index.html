@@ -903,26 +903,26 @@ body:not(:has(.social-bubbles.active))::before {
     flex-wrap: nowrap; /* Prevent wrapping */
     max-width: 340px; /* Kept to fit container */
     margin: 0 auto; /* Center the row */
-    margin-left: -12px; /* Increased shift to test visibility */
+    margin-left: -12px; /* Kept for balanced margins */
 }
 .badge-wrapper {
-    width: 100px; /* Increased to fit "Cold Blooded" */
+    width: 105px; /* Increased to fit "Cold Blooded" */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 90px; /* Adjusted for two-line titles */
+    height: 92px; /* Adjusted for two-line titles */
 }
 .badge-name {
     font-size: 0.7rem; /* Kept for readability */
-    max-width: 100px; /* Increased to fit "Cold Blooded" */
-    height: 40px; /* Reduced to tightly fit two lines */
+    max-width: 105px; /* Increased to fit "Cold Blooded" */
+    height: 42px; /* Adjusted to fit two lines tightly */
     line-height: 1.2; /* Tighter spacing for two lines */
     white-space: normal; /* Allow wrapping */
     overflow: hidden; /* Hide overflow */
-    text-overflow: clip; /* Remove ellipsis to show full text */
-    display: -webkit-box; /* Enforce two-line limit */
-    -webkit-line-clamp: 2; /* Limit to two lines */
+    text-overflow: clip; /* Ensure no ellipsis */
+    display: -webkit-box; /* Enforce line limit */
+    -webkit-line-clamp: 3; /* Allow three lines as fallback */
     -webkit-box-orient: vertical;
     text-align: center; /* Center horizontally */
     padding: 4px 0; /* Consistent vertical spacing */
