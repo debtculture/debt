@@ -2473,26 +2473,31 @@ function autoRotateCommunity() {
     updateCommunityCarousel();
 }
 
-let communityAutoRotateInterval = setInterval(autoRotateCommunity, 20000);
+let communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
 
 function resetCommunityAutoRotate() {
     clearInterval(communityAutoRotateInterval);
-    communityAutoRotateInterval = setInterval(autoRotateCommunity, 20000);
+    communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
 }
 
 const communityCarousel = document.querySelector('.hof-carousel');
 let communityTouchStartX = 0;
 communityCarousel.addEventListener('touchstart', (e) => {
     communityTouchStartX = e.touches[0].clientX;
+    clearInterval(communityAutoRotateInterval); // Pause on touch
 });
 communityCarousel.addEventListener('touchend', (e) => {
     const touchEndX = e.changedTouches[0].clientX;
     if (communityTouchStartX - touchEndX > 50) rotateHof('right');
     if (touchEndX - communityTouchStartX > 50) rotateHof('left');
+    resetCommunityAutoRotate(); // Resume after swipe
 });
-communityCarousel.addEventListener('mouseenter', () => clearInterval(communityAutoRotateInterval));
-communityCarousel.addEventListener('mouseleave', () => communityAutoRotateInterval = setInterval(autoRotateCommunity, 20000));
-
+communityCarousel.addEventListener('mousedown', () => {
+    clearInterval(communityAutoRotateInterval); // Pause on click
+});
+communityCarousel.addEventListener('mouseup', () => {
+    resetCommunityAutoRotate(); // Resume after click
+});
 function initializeRoadmapPhases() {
     const isMobile = window.innerWidth <= 768;
     document.querySelectorAll('.future-phase').forEach(phase => {
