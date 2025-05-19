@@ -533,7 +533,29 @@
     z-index: 2101; 
 }
 .join-rebellion:hover { background-color: #ff7777; }
-.join-rebellion.active { transform: scale(0.6); }
+.join-rebellion.active {
+    background: radial-gradient(circle at center, rgba(255, 85, 85, 0.8), rgba(204, 68, 68, 0.8));
+    border-radius: 50%;
+    transform: scale(0.6);
+}
+.join-rebellion.clicked {
+    animation: clickGlow 0.3s ease;
+}
+@keyframes clickGlow {
+    0% { box-shadow: 0 0 5px #ff5555; transform: scale(1); }
+    50% { box-shadow: 0 0 20px #ff5555; transform: scale(1.05); }
+    100% { box-shadow: 0 0 5px #ff5555; transform: scale(1); }
+}
+@media (max-width: 768px) {
+    .join-rebellion.clicked {
+        animation: clickGlowMobile 0.3s ease;
+    }
+    @keyframes clickGlowMobile {
+        0% { box-shadow: 0 0 5px #ff5555; transform: scale(0.6); }
+        50% { box-shadow: 0 0 20px #ff5555; transform: scale(0.65); }
+        100% { box-shadow: 0 0 5px #ff5555; transform: scale(0.6); }
+    }
+}
 body:has(.social-bubbles.active)::before { 
     content: ''; 
     position: fixed; 
@@ -2617,6 +2639,8 @@ function toggleSocialBubbles() {
     }
     const isActive = bubbles.classList.toggle('active');
     button.classList.toggle('active', isActive);
+    button.classList.add('clicked');
+    setTimeout(() => button.classList.remove('clicked'), 300); // Matches animation duration
     button.setAttribute('aria-expanded', isActive);
     console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
 }
