@@ -898,26 +898,26 @@ body:not(:has(.social-bubbles.active))::before {
         box-sizing: border-box;
     }
     .badge-row {
-    gap: 2px; /* Reduced spacing between badges */
+    gap: 2px; /* Tight spacing between badges */
     justify-content: space-around; /* Evenly space badges */
     flex-wrap: nowrap; /* Prevent wrapping */
-    max-width: 340px; /* Optimized for mobile */
+    max-width: 380px; /* Increased to accommodate wider badges */
     margin: 0 auto; /* Center the row */
     margin-left: -2px; /* Shift left to balance margins */
 }
-    .badge-wrapper {
-        width: 85px; /* Fixed width for consistent alignment */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        height: 90px; /* Fixed height to align badges and names */
-    }
-    .badge-name {
-    font-size: 0.7rem; /* Slightly smaller for better fit */
-    max-width: 90px; /* Slightly wider to fit "Cold Blooded" */
-    height: 40px; /* Increased to accommodate two lines */
-    line-height: 1.3; /* Adjusted for better line spacing */
+.badge-wrapper {
+    width: 100px; /* Increased to give more title space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 94px; /* Adjusted for taller titles */
+}
+.badge-name {
+    font-size: 0.7rem; /* Kept for readability */
+    max-width: 100px; /* Increased to fit "Cold Blooded" */
+    height: 44px; /* Increased to fully display two lines */
+    line-height: 1.3; /* Balanced line spacing */
     white-space: normal; /* Allow wrapping */
     overflow: hidden; /* Hide overflow */
     text-overflow: ellipsis; /* Ellipsis for overflow */
