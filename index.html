@@ -212,9 +212,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin: 10px 0;
     min-height: 30px;
+    max-width: 100%;
 }
 
 .hof-badges span {
@@ -344,8 +345,21 @@
 
 .badge-bronze { background-color: #8b5e3c; }
 .badge-silver { background-color: #c0c0c0; }
-.badge-gold { background-color: #ffd700; }
- { background-color: #ff5555; }
+.badge-gold {
+    background: linear-gradient(145deg, #ffd700, #ccac00);
+    border-color: #ffd700;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700;
+}
+.badge-amethyst {
+    background: linear-gradient(145deg, #9966cc, #7a52a3);
+    border-color: #9966cc;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc;
+}
+.badge-glossary-content .badge-amethyst {
+    background: linear-gradient(145deg, #9966cc, #7a52a3);
+    border-color: #9966cc;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc;
+}
 
 .badge-spaces::before {
     content: '';
@@ -688,12 +702,12 @@ body:not(:has(.social-bubbles.active))::before {
 
 .badge-row {
     display: flex;
-    justify-content: space-around; /* Evenly space badges */
+    justify-content: space-around;
     align-items: center;
-    gap: 10px; /* Base gap for consistent spacing */
-    flex-wrap: nowrap; /* Prevent wrapping */
-    max-width: 360px; /* Constrain width to align items */
-    margin: 0 auto; /* Center the row */
+    gap: 8px;
+    flex-wrap: nowrap;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
 .badge-wrapper {
@@ -801,7 +815,7 @@ body:not(:has(.social-bubbles.active))::before {
 }
 
 .badge-glossary-content .badge-gold {
-    background: linear-gradient(145deg, #ffd700, #daa520);
+    background: linear-gradient(145deg, #ffd700, #ccac00);
     border-color: #ffd700;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700;
 }
@@ -885,6 +899,24 @@ body:not(:has(.social-bubbles.active))::before {
     .badge-glossary-container {
         max-width: 100%; /* Stretch to full width like the disclaimer */
         padding: 0 5px; /* Reduce padding to maximize space */
+    }
+    .badge-row {
+        gap: 4px;
+        max-width: 380px;
+    }
+    .badge-wrapper {
+        width: 80px;
+    }
+    .badge-name {
+        font-size: 0.75rem;
+        max-width: 80px;
+        height: 36px;
+    }
+    .badge-arrow, .invisible-arrow {
+        width: 16px;
+        margin: 0;
+        height: 44px;
+        transform: translateY(-24px);
     }
 
     .badge-glossary-header {
@@ -1720,7 +1752,7 @@ body:not(:has(.social-bubbles.active))::before {
     </div>
     <div class="badge-glossary-content" id="badgeGlossary">
         <div class="badge-grid">
-            <!-- Spaces Badges (Bronze -> Silver -> Gold) -->
+                        <!-- Spaces Badges (Bronze -> Silver -> Gold -> Amethyst) -->
             <div class="badge-row">
                 <div class="badge-wrapper">
                     <div class="badge-container">
@@ -1742,8 +1774,15 @@ body:not(:has(.social-bubbles.active))::before {
                     </div>
                     <span class="badge-name">Star Commander</span>
                 </div>
+                <span class="badge-arrow">➔</span>
+                <div class="badge-wrapper">
+                    <div class="badge-container">
+                        <div class="badge badge-spaces badge-amethyst" title="Amethyst: Placeholder for Space Hosts."></div>
+                    </div>
+                    <span class="badge-name">Amethyst</span>
+                </div>
             </div>
-            <!-- Burn Badges (Bronze -> Silver -> Gold) -->
+                        <!-- Burn Badges (Bronze -> Silver -> Gold -> Amethyst) -->
             <div class="badge-row">
                 <div class="badge-wrapper">
                     <div class="badge-container">
@@ -1765,28 +1804,42 @@ body:not(:has(.social-bubbles.active))::before {
                     </div>
                     <span class="badge-name">Inferno</span>
                 </div>
+                <span class="badge-arrow">➔</span>
+                <div class="badge-wrapper">
+                    <div class="badge-container">
+                        <div class="badge badge-burn badge-amethyst" title="Amethyst: Placeholder for Burn Hosts."></div>
+                    </div>
+                    <span class="badge-name">Amethyst</span>
+                </div>
             </div>
-            <!-- Holding Badges (Bronze -> Silver -> Gold) -->
+                        <!-- Burn Badges (Bronze -> Silver -> Gold -> Amethyst) -->
             <div class="badge-row">
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-holding badge-bronze" title="Iron Grip: Held $DEBT for 3 months."></div>
+                        <div class="badge badge-burn badge-bronze" title="Arsonist: Burned 100,000+ $DEBT."></div>
                     </div>
-                    <span class="badge-name">Iron Grip</span>
+                    <span class="badge-name">Arsonist</span>
                 </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-holding badge-silver" title="Steel Reserve: Held $DEBT for 6 months, solid stack."></div>
+                        <div class="badge badge-burn badge-silver" title="Pyromaniac: Burned 1,000,000+ $DEBT."></div>
                     </div>
-                    <span class="badge-name">Steel Reserve</span>
+                    <span class="badge-name">Pyromaniac</span>
                 </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-holding badge-gold" title="Diamond Hands: Held $DEBT for 1 year+, unshakeable holder."></div>
+                        <div class="badge badge-burn badge-gold" title="Inferno: Burned 10,000,000+ $DEBT."></div>
                     </div>
-                    <span class="badge-name">Diamond Hands</span>
+                    <span class="badge-name">Inferno</span>
+                </div>
+                <span class="badge-arrow">➔</span>
+                <div class="badge-wrapper">
+                    <div class="badge-container">
+                        <div class="badge badge-burn badge-amethyst" title="Amethyst: Placeholder for Burn Hosts."></div>
+                    </div>
+                    <span class="badge-name">Amethyst</span>
                 </div>
             </div>
             <!-- Shiller, Meme, and Coming Soon (Single Tier, Invisible Arrows for Spacing) -->
@@ -1803,6 +1856,13 @@ body:not(:has(.social-bubbles.active))::before {
                         <div class="badge badge-meme badge-single" title="Meme Machine: Creates dank $DEBT memes."></div>
                     </div>
                     <span class="badge-name">Meme Machine</span>
+                </div>
+                <span class="invisible-arrow">➔</span>
+                                <div class="badge-wrapper">
+                    <div class="badge-container">
+                        <div class="badge badge-new badge-single" title="Coming Soon: Placeholder for a future badge."></div>
+                    </div>
+                    <span class="badge-name">Coming Soon</span>
                 </div>
                 <span class="invisible-arrow">➔</span>
                 <div class="badge-wrapper">
@@ -2359,6 +2419,7 @@ function getBadgeDescription(badgeName) {
         'Zero Gravity': 'Constantly joins X Spaces regularly.',
         'Orbit Breaker': 'Actively participates in Spaces conversations.',
         'Star Commander': 'Leads discussions or hosts Spaces.',
+        'Amethyst': 'Placeholder for top-tier contributions.',
         'Arsonist': 'Burned 100,000+ $DEBT.',
         'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
         'Inferno': 'Burned 10,000,000+ $DEBT.',
