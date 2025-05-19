@@ -719,17 +719,13 @@ body:not(:has(.social-bubbles.active))::before {
     height: 90px; /* Fixed height for consistent alignment */
 }
 
-.badge-name {
-    font-size: 0.9rem;
-    color: #eee;
-    text-align: center;
-    max-width: 100px;
-    overflow-wrap: break-word; /* Wrap whole words */
-    white-space: normal; /* Allow wrapping, but not mid-word */
-    display: flex; /* Center vertically */
-    align-items: center; /* Align with badge center */
-    height: 38px; /* Fixed height to match two-line text */
-}
+    .badge-name {
+        font-size: 0.7rem;
+        max-width: 80px;
+        height: 40px;
+        line-height: 1.3;
+        padding-top: 4px;
+    }
 
 /* Ensure the badge itself has a fixed size and is centered */
 .badge-glossary-content .badge {
