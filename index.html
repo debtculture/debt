@@ -907,10 +907,12 @@ body:not(:has(.social-bubbles.active))::before {
     .badge-wrapper {
         width: 80px;
     }
-    .badge-name {
-        font-size: 0.75rem;
+        .badge-name {
+        font-size: 0.7rem;
         max-width: 80px;
-        height: 36px;
+        height: 40px;
+        line-height: 1.3;
+        padding-top: 4px;
     }
     .badge-arrow, .invisible-arrow {
         width: 16px;
@@ -2418,13 +2420,15 @@ function getBadgeDescription(badgeName) {
     const descriptions = {
         'Zero Gravity': 'Constantly joins X Spaces regularly.',
         'Orbit Breaker': 'Actively participates in Spaces conversations.',
-        'Star Commander': 'Leads discussions or hosts Spaces.',
-        'Amethyst': 'Placeholder for top-tier contributions.',
+        'Star Commander': 'Leads discussions in $DEBT Spaces.',
+        'Moonwalker': 'Hosts $DEBT-related X Spaces.',
         'Arsonist': 'Burned 100,000+ $DEBT.',
         'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
         'Inferno': 'Burned 10,000,000+ $DEBT.',
-        'Iron Grip': 'Held $DEBT for 3 months.',
-        'Steel Reserve': 'Held $DEBT for 6 months, solid stack.',
+        'Ashbringer': 'Burned 100,000,000+ $DEBT.',
+        'Cold Wallet': 'Held $DEBT for 1+ month.',
+        'Iron Grip': 'Held $DEBT for 3+ months.',
+        'Steel Reserve': 'Held $DEBT for 6+ months, solid stack.',
         'Diamond Hands': 'Held $DEBT for 1 year+, unshakeable holder.',
         'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
         'Meme Machine': 'Creates dank $DEBT memes.'
