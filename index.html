@@ -898,12 +898,13 @@ body:not(:has(.social-bubbles.active))::before {
         box-sizing: border-box;
     }
     .badge-row {
-        gap: 4px; /* Consistent spacing between badges */
-        justify-content: space-around; /* Evenly space badges */
-        flex-wrap: nowrap; /* Prevent wrapping */
-        max-width: 340px; /* Optimized for mobile */
-        margin: 0 auto; /* Center the row */
-    }
+    gap: 2px; /* Reduced spacing between badges */
+    justify-content: space-around; /* Evenly space badges */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    max-width: 340px; /* Optimized for mobile */
+    margin: 0 auto; /* Center the row */
+    margin-left: -2px; /* Shift left to balance margins */
+}
     .badge-wrapper {
         width: 85px; /* Fixed width for consistent alignment */
         display: flex;
