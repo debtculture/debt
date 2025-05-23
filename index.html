@@ -32,6 +32,9 @@
 .hover-underline:hover::after {
     content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555;
 }
+.navbar a, .dropbtn, .dropdown-content a, .mobile-menu a, .mobile-menu .expand, .mobile-dropdown a {
+    position: relative;
+}
 .mobile-menu .hover-underline:hover::after,
 .mobile-dropdown .hover-underline:hover::after {
     left: 15px; width: calc(100% - 30px);
@@ -1109,17 +1112,17 @@ body:not(:has(.social-bubbles.active))::before {
                 <a href="#faq" class="hover-underline">FAQ</a>
                 <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" class="hover-underline">Memes</a>
                 <div class="dropdown">
-                    <div class="dropbtn" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
+                    <div class="dropbtn hover-underline" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
                     <div class="dropdown-content">
-                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexTools</a>
-                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">GeckoTerminal</a>
-                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexScreener</a>
-                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">RugCheck</a>
-                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">Photon</a>
-                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer">Birdeye</a>
-                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">GMGN</a>
-                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Raydium</a>
-                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Solscan</a>
+                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexTools</a>
+                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">GeckoTerminal</a>
+                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexScreener</a>
+                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">RugCheck</a>
+                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">Photon</a>
+                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" class="hover-underline">Birdeye</a>
+                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">GMGN</a>
+                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Raydium</a>
+                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Solscan</a>
                     </div>
                 </div>
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100">
@@ -1207,23 +1210,23 @@ body:not(:has(.social-bubbles.active))::before {
     <div></div><div></div><div></div>
 </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#overview" onclick="closeMenu()">Overview</a>
-            <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
-            <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
-            <a href="#community" onclick="closeMenu()">Community</a>
-            <a href="#faq" onclick="closeMenu()">FAQ</a>
-            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Memes</a>
-            <span class="expand" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()">Resources ▼</span>
+            <a href="#overview" onclick="closeMenu()" class="hover-underline">Overview</a>
+            <a href="#roadmap" onclick="closeMenu()" class="hover-underline">Roadmap</a>
+            <a href="#how-to-buy" onclick="closeMenu()" class="hover-underline">How to Buy</a>
+            <a href="#community" onclick="closeMenu()" class="hover-underline">Community</a>
+            <a href="#faq" onclick="closeMenu()" class="hover-underline">FAQ</a>
+            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">Memes</a>
+            <span class="expand hover-underline" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()">Resources ▼</span>
             <div class="mobile-dropdown" id="mobileDropdown">
-                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">DexTools</a>
-                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">GeckoTerminal</a>
-                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">DexScreener</a>
-                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">RugCheck</a>
-                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Photon</a>
-                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Birdeye</a>
-                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">GMGN</a>
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Raydium</a>
-                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Solscan</a>
+                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">DexTools</a>
+                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">GeckoTerminal</a>
+                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">DexScreener</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">RugCheck</a>
+                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">Photon</a>
+                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">Birdeye</a>
+                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">GMGN</a>
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">Raydium</a>
+                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline">Solscan</a>
             </div>
         </div>
 
