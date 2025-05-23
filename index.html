@@ -1202,7 +1202,7 @@ body:not(:has(.social-bubbles.active))::before {
         </section>
 
         <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet (Feature Coming Soon)">Connect Wallet</button>
-        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()">
+        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()">
     <div></div><div></div><div></div>
 </div>
         <div class="mobile-menu" id="mobileMenu">
@@ -1948,9 +1948,13 @@ body:not(:has(.social-bubbles.active))::before {
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     const hamburger = document.querySelector(".hamburger");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-    menu.setAttribute('aria-expanded', menu.style.display === "block");
-    hamburger.classList.toggle("active", menu.style.display === "block");
+    const isOpen = menu.style.display === "block";
+    menu.style.display = isOpen ? "none" : "block";
+    menu.setAttribute('aria-expanded', !isOpen);
+    hamburger.classList.toggle("active", !isOpen);
+    if (!isOpen) {
+        menu.querySelector('a').focus(); // Focus first menu item when opened
+    }
 }
 
 function closeMenu() {
