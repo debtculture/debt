@@ -29,14 +29,18 @@
    .navbar { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 930px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); padding: 10px 15px; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); overflow: visible; }
 .navbar a { position: relative; background: transparent !important; color: #eee; text-decoration: none; padding: 5px 10px; transition: color 0.3s ease; }
 .navbar a:hover { background: transparent !important; color: #ff5555; }
-.navbar a:hover::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
+.hover-underline:hover::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555;
+}
+.mobile-menu .hover-underline:hover::after,
+.mobile-dropdown .hover-underline:hover::after {
+    left: 15px; width: calc(100% - 30px);
+}
 .dropbtn { position: relative; background: transparent !important; color: #eee; padding: 5px 10px; transition: color 0.3s ease; }
 .dropbtn:hover { background: transparent !important; color: #ff5555; }
-.dropbtn:hover::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .dropdown-content { background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); top: 100%; }
 .dropdown-content a { background: rgba(18, 18, 18, 0.5) !important; backdrop-filter: blur(5px); text-align: center; color: #eee; padding: 5px 10px; transition: color 0.3s ease; }
 .dropdown-content a:hover { background: rgba(18, 18, 18, 0.5) !important; backdrop-filter: blur(5px); color: #ff5555; }
-.dropdown-content a:hover::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
     .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; }
     .navbar a:hover { background-color: #555; }
     .navbar-links { display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
@@ -56,14 +60,11 @@
 .mobile-menu { display: none; position: fixed; top: 60px; left: 15px; width: 167px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); z-index: 999; overflow-x: hidden; padding: 10px 0; max-height: 80vh; overflow-y: auto; }
 .mobile-menu a { display: block; color: #eee; padding: 8px 15px; text-decoration: none; position: relative; transition: color 0.3s ease; background: transparent !important; text-align: center; }
 .mobile-menu a:hover { background: transparent !important; color: #ff5555; }
-.mobile-menu a:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .mobile-menu .expand { cursor: pointer; color: #eee; padding: 8px 15px; text-decoration: none; display: block; position: relative; transition: color 0.3s ease; background: transparent !important; text-align: center; }
 .mobile-menu .expand:hover { background: transparent !important; color: #ff5555; }
-.mobile-menu .expand:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .mobile-dropdown { display: none; padding-left: 20px; overflow-y: auto; margin-top: 5px; overflow-x: hidden; background: transparent !important; }
 .mobile-dropdown a { padding: 8px 15px; background: transparent !important; text-align: center; }
 .mobile-dropdown a:hover { background: transparent !important; color: #ff5555; }
-.mobile-dropdown a:hover::after { content: ''; position: absolute; bottom: -2px; left: 15px; width: calc(100% - 30px); height: 2px; background-color: #ff5555; box-shadow: 0 0 8px #ff5555; }
 .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
     .social-bubbles { 
     position: fixed; 
