@@ -119,6 +119,15 @@
     opacity: 0; 
 }
 @media (min-width: 769px) {
+    .social-bubbles {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .social-bubbles .icon {
+        transform: translateY(0);
+    }
+}
+@media (min-width: 769px) {
     .social-bubbles { 
         bottom: 65px; 
     }
@@ -1170,7 +1179,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     opacity: 0;
     transform: translateY(10px);
 }
-.hof-left-arrow { transform: none; }
+.hof-left-arrow { transform: rotate(180deg); }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script async src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
@@ -2364,12 +2373,12 @@ function updateCommunityCarousel() {
         {
         name: 'Scrappy',
         title: 'The Goofball',
-        img: 'https://res.cloudinary.com/dpvBundler::Warning::Bundler cannot verify the integrity of remote code. Proceed with caution.ptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
         desc: 'Placeholder description for Scrappy.',
         badges: [
-            { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }
-        ]
-    },
+        { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }
+    ]
+},
     {
         name: 'Mo',
         title: 'The Degen',
@@ -2874,9 +2883,6 @@ function toggleSocialBubbles() {
     bubbles.style.pointerEvents = isActive ? 'auto' : 'none';
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
-    if (isActive) {
-        bubbles.querySelector('.icon').focus();
-    }
 }
 function connectWallet() {
     alert('Feature Coming Soon: Wallet connection is not yet implemented. Stay tuned for updates!');
