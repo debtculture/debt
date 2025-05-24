@@ -2147,13 +2147,23 @@ function copyAddress(element) {
 
 function setPhantomLink() {
     const phantomLink = document.getElementById('phantomLink');
-    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
-        ? 'https://play.google.com/store/apps/details?id=app.phantom'
-        : isMobile
-        ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
-        : 'https://phantom.app/download';
-    phantomLink.target = '_blank';
+    if (!phantomLink) {
+        console.error('Phantom link element not found');
+        return;
+    }
+    try {
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
+            ? 'https://play.google.com/store/apps/details?id=app.phantom'
+            : isMobile
+            ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
+            : 'https://phantom.app/download';
+        phantomLink.target = '_blank';
+    } catch (error) {
+        console.error('Error setting Phantom link:', error);
+        phantomLink.href = 'https://phantom.app/'; // Fallback URL
+        phantomLink.target = '_blank';
+    }
 }
 
 async function updateTokenomics() {
