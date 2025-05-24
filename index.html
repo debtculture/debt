@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="Join $DEBT rebellion! Fight finance with memes, burns, and community.">
     <meta name="keywords" content="DEBT, cryptocurrency, Solana, memecoin, rebellion, defy finance, burn tokens, community power">
     <meta name="robots" content="index, follow, max-image-preview:large">
@@ -19,17 +19,29 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@DebtCulture">
     <meta name="theme-color" content="#ff5555">
+    <meta name="twitter:title" content="Debt Culture - $DEBT Token">
+    <meta name="twitter:description" content="$DEBT: Defy debt, burn lies, empower the 99%. Join the rebellion!">
+    <meta name="twitter:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Debt Culture</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
-    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" sizes="180x180">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" sizes="192x192">
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://t.me">
     <link rel="preload" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" as="image">
-    <link rel="preload" href="matrix.js" as="script">
+    <link rel="preload" href="matrix.js" as="script" fetchpriority="high">
     <style>
-    * { box-sizing: border-box; }
+    html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
     /* Remove horizontal scrollbar on desktop */
     @media (min-width: 769px) {
         html, body, .content-wrapper, #roadmap { overflow-x: hidden; overflow-y: auto; }
@@ -37,13 +49,21 @@
     }
     /* Fallback for mobile to prevent unwanted scrolling */
     @media (max-width: 768px) {
-        html { overflow-x: hidden; }
-        .content-wrapper { overflow-x: hidden; overflow-y: auto; }
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw;
+        touch-action: pan-y;
     }
+    .content-wrapper {
+        overflow-x: hidden !important;
+        overflow-y: auto;
+        max-width: 100vw;
+    }
+}
     .content-wrapper { filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; }
     .content-wrapper.unblurred { filter: none; }
     
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
+    body { font-family: 'Inter', Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
     #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
    .navbar { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 930px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); padding: 10px 15px; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); overflow: visible; }
 .navbar a { position: relative; background: transparent !important; color: #eee; text-decoration: none; padding: 5px 10px; transition: color 0.3s ease; }
@@ -295,6 +315,12 @@
 .badge:hover::after {
     opacity: 1;
     visibility: visible;
+    pointer-events: none;
+}
+@media (max-width: 1024px) {
+    .badge.active-tooltip::after {
+        display: none;
+    }
 }
 
 /* Shared tooltip for mobile */
@@ -468,7 +494,7 @@
     .hof-featured .hof-title { position: static; transform: none; font-size: 0.9rem; margin-bottom: 5px; }
     .hof-arrow { position: absolute; top: 100px; font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
     .hof-arrow:hover { color: #ff7777; }
-    .hof-left-arrow { left: 20px; transform: rotate(180deg); }
+    .hof-left-arrow { left: 20px; transform: none; }
     .hof-right-arrow { right: 20px; }
 
     /* Construction Modal Styles */
@@ -705,12 +731,12 @@ body:not(:has(.social-bubbles.active))::before {
     overflow: hidden;
     background: #1e1e1e;
     border-radius: 5px;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
     padding: 0 15px;
-    box-sizing: border-box; /* Include padding in width */
-    max-width: 600px; /* Match glossary bar */
-    width: 100%; /* Respect container width */
-    margin: 0 auto; /* Center within container */
+    box-sizing: border-box;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .badge-glossary-content.active {
@@ -1119,6 +1145,19 @@ a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shad
 @keyframes neonPulse {
     0%, 100% { box-shadow: 0 0 10px #ff5555; }
     50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff0000; }
+}
+a:focus, button:focus, [role="button"]:focus {
+    outline: 2px solid #ff5555;
+    outline-offset: 2px;
+    box-shadow: 0 0 10px #ff5555;
+}
+a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow:hover {
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.7), 0 0 25px rgba(255, 85, 85, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+.phase:hover, .future-teaser:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
 }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
