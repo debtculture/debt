@@ -1145,6 +1145,16 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     transform: scale(1.02);
     transition: transform 0.3s ease;
 }
+.badge-glossary-content {
+    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+.social-bubbles {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.social-bubbles:not(.active) {
+    opacity: 0;
+    transform: translateY(10px);
+}
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script async src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
@@ -2031,7 +2041,13 @@ function closeMenu() {
 
 function toggleDropdown() {
     const dropdown = document.getElementById("mobileDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    const trigger = document.querySelector('.expand');
+    const isOpen = dropdown.style.display === "block";
+    dropdown.style.display = isOpen ? "none" : "block";
+    trigger.setAttribute('aria-expanded', !isOpen);
+    if (!isOpen) {
+        dropdown.querySelector('a').focus();
+    }
 }
 
 function scrollToSection(selector) {
@@ -2167,9 +2183,9 @@ async function updateTokenomics() {
 
 // Community Carousel
 let currentCommunityIndex = 0;
-const communityMembers = document.querySelectorAll(
+const communityMembers = Array.from(document.querySelectorAll(
     window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
-);
+)).slice(0, totalNamedCommunityMembers);
 const totalNamedCommunityMembers = 20; // Only named members, excluding TBA placeholders
 const totalCommunityMembers = 24; // Total including TBA placeholders
 
@@ -2619,16 +2635,19 @@ function toggleBadgeGlossary() {
         content.classList.add('active');
         content.style.maxHeight = `${content.scrollHeight + 30}px`;
         content.style.padding = '15px';
+        content.style.opacity = '1';
         header.classList.add('active');
         header.setAttribute('aria-expanded', 'true');
-        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
+        initializeBadgeGlossaryTooltips();
     } else {
-        content.classList.remove('active');
         content.style.maxHeight = '0';
         content.style.padding = '0 15px';
+        content.style.opacity = '0';
+        setTimeout(() => {
+            content.classList.remove('active');
+        }, 300);
         header.classList.remove('active');
         header.setAttribute('aria-expanded', 'false');
-        // Hide shared tooltip when closing
         const sharedTooltip = document.getElementById('shared-tooltip');
         if (sharedTooltip) {
             sharedTooltip.style.display = 'none';
@@ -2706,7 +2725,9 @@ function initializeRoadmapPhases() {
 
 function initializeMatrix() {
     const canvas = document.getElementById('matrix-bg');
+    if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -2756,19 +2777,12 @@ if (localStorage.getItem('constructionAccepted')) {
     document.getElementById('constructionModal').style.display = 'none';
 }
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     setPhantomLink();
     updateTokenomics();
     updateCommunityCarousel();
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
-});
-function connectWallet() {
-    alert('Wallet Connect Feature Coming Soon!');
-}
-
-// Check if wallet is already connected on page load
-window.addEventListener('load', async () => {
     try {
         const walletAddress = localStorage.getItem('walletAddress');
         if (walletAddress) {
@@ -2778,8 +2792,6 @@ window.addEventListener('load', async () => {
                 button.classList.add('connected');
                 button.disabled = true;
                 console.log('Restored wallet connection:', walletAddress);
-            } else {
-                console.error('Connect Wallet button not found');
             }
         }
     } catch (error) {
@@ -2795,9 +2807,10 @@ function toggleSocialBubbles() {
         return;
     }
     const isActive = bubbles.classList.toggle('active');
+    bubbles.style.opacity = isActive ? '1' : '0';
+    bubbles.style.transform = isActive ? 'translateY(0)' : 'translateY(10px)';
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
-    console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
 }
 </script>
 </html>
