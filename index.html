@@ -1105,6 +1105,14 @@ a, button, [role="button"], .hover-underline, .accordion-header, .join-rebellion
 h1 { animation: neonFlicker 3s infinite ease-in-out; }
 @keyframes neonFlicker { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555; } 20%, 24%, 55% { text-shadow: none; } }    
 a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shadow 0.3s ease; }
+.copyable-address[data-copied="true"] {
+    background: #00ff00 !important;
+    color: #000 !important;
+    box-shadow: 0 0 10px #00ff00 !important;
+}
+.copyable-address[data-copied="true"] .copied-message {
+    display: block !important;
+}
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
@@ -1156,7 +1164,7 @@ a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shad
 
         <!-- Hero Section -->
         <section id="hero" class="section">
-            <h1 style="animation: pulseGlow 2s infinite ease-in-out;">$DEBT: Don’t Ever Believe Them</h1>
+            <h1>$DEBT: Don’t Ever Believe Them</h1>
             <p class="typewriter">For the 99%: Smash debt, defy lies. The elite’s reign ends NOW.</p>
             <button onclick="scrollToSection('#how-to-buy')" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';" aria-label="Scroll to How to Buy section">Ignite the Revolt</button>
         </section>
@@ -1164,12 +1172,12 @@ a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shad
         <!-- Contract Address Section -->
         <div class="contract-address" style="animation: pulseGlow 2s infinite ease-in-out;">
             <h3>Contract Address</h3>
-            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite" style="transition: background 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.background='#444'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.background='#333'; this.style.boxShadow='none';">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump</span>
+            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite" style="transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; position: relative;" onmouseover="this.style.background='#444'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.background='#333'; this.style.boxShadow='none';" data-copied="false">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump<span class="copied-message" style="display: none; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #00ff00; color: #000; padding: 5px 10px; border-radius: 5px; font-size: 12px;">Copied!</span></span>
         </div>
 
         <!-- Overview Section -->
         <section id="overview" class="section">
-            <h1 style="animation: pulseGlow 2s infinite ease-in-out;">Overview</h1>
+            <h1>Overview</h1>
             <p>$DEBT: A revolt against their bloated debt machine. We burn tokens, wield memes, and empower the 99%. Join the chaos!</p>
             <div class="debt-clock-container" onclick="window.open('https://www.usdebtclock.org/', '_blank')" role="button" aria-label="Visit U.S. Debt Clock" style="animation: pulseGlow 2s infinite ease-in-out;">
                 <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no" sandbox="allow-same-origin allow-scripts"></iframe>
@@ -1186,7 +1194,7 @@ a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shad
                     <tr><td>Change (%)</td><td id="supply-change">Calculating...</td></tr>
                 </table>
                 <div class="burn-tracker">
-                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Inferno Log</a>
+                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
                 </div>
                 <p>Their debt balloons. Ours burns to ash.</p>
                 <p>50M+ $DEBT gone—and counting.</p>
@@ -1207,21 +1215,21 @@ a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shad
         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
         <div class="host-title">Lou</div>
         <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease; transform-origin: center;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 8px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
         </a>
     </div>
     <div class="host-bubble">
     <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
     <div class="host-title">Catavina</div>
     <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease; transform-origin: center;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 8px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
     </a>
 </div>
     <div class="host-bubble">
         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" class="profile-pic" width="75" height="75" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
         <div class="host-title">Autopsy</div>
         <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Autopsy's X profile">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease; transform-origin: center;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 8px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
         </a>
     </div>
 </div>
