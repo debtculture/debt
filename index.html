@@ -119,7 +119,17 @@
 }
 @media (min-width: 769px) {
     .social-bubbles { 
+        position: fixed; 
         bottom: 65px; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        width: auto; 
+        height: auto; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        gap: 10px; 
+        pointer-events: auto; 
     }
 }
 .social-bubbles.active { 
@@ -162,19 +172,6 @@
     100% { box-shadow: 0 0 5px #ff5555; } 
 }
 @media (min-width: 769px) {
-    .social-bubbles { 
-        position: fixed; 
-        bottom: 65px; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        width: auto; 
-        height: auto; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        gap: 10px; 
-        pointer-events: auto; 
-    }
     .icon { 
         position: relative; 
         width: 60px; 
@@ -667,21 +664,23 @@
     border-radius: 50%;
     transform: scale(0.6);
 }
-body:has(.social-bubbles.active)::before { 
-    content: ''; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0, 0, 0, 0.7); 
-    z-index: 2098; 
-    opacity: 1; 
-    transition: opacity 0.3s ease; 
-}
-body:not(:has(.social-bubbles.active))::before { 
-    opacity: 0; 
-    transition: opacity 0.3s ease; 
+@media (max-width: 768px) {
+    body:has(.social-bubbles.active)::before { 
+        content: ''; 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background: rgba(0, 0, 0, 0.7); 
+        z-index: 2098; 
+        opacity: 1; 
+        transition: opacity 0.3s ease; 
+    }
+    body:not(:has(.social-bubbles.active))::before { 
+        opacity: 0; 
+        transition: opacity 0.3s ease; 
+    }
 }
 .social-bubbles.active { 
     z-index: 2100; 
@@ -2913,15 +2912,7 @@ window.addEventListener('load', async () => {
     updateTokenomics();
     initializeCommunityMembers();
     updateCommunityCarousel();
-    if (window.innerWidth > 768) {
-    const bubbles = document.querySelector('.social-bubbles');
-    if (bubbles) {
-        bubbles.classList.add('active');
-        bubbles.style.opacity = '1';
-        bubbles.style.transform = 'translateY(0)';
-        bubbles.style.pointerEvents = 'auto';
-    }
-}
+    // Removed auto-activation of social bubbles on desktop
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
     try {
@@ -2947,14 +2938,10 @@ function toggleSocialBubbles() {
         console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
         return;
     }
-    if (window.innerWidth <= 768) {
-        const isActive = bubbles.classList.toggle('active');
-        bubbles.style.opacity = isActive ? '1' : '0';
-        bubbles.style.transform = isActive ? 'translateY(0)' : 'translateY(10px)';
-        bubbles.style.pointerEvents = isActive ? 'auto' : 'none';
-        button.classList.toggle('active', isActive);
-        button.setAttribute('aria-expanded', isActive);
-    }
+    const isActive = bubbles.classList.toggle('active');
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-expanded', isActive);
+    console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
 }
 function connectWallet() {
     alert('Feature Coming Soon: Wallet connection is not yet implemented. Stay tuned for updates!');
