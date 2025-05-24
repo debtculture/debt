@@ -2021,9 +2021,6 @@ function toggleMenu() {
     menu.style.display = isOpen ? "none" : "block";
     menu.setAttribute('aria-expanded', !isOpen);
     hamburger.classList.toggle("active", !isOpen);
-    if (!isOpen) {
-        menu.querySelector('a').focus(); // Focus first menu item when opened
-    }
 }
 
 function closeMenu() {
