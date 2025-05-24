@@ -1159,6 +1159,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     transform: scale(1.02);
     transition: transform 0.3s ease;
 }
+.badge-glossary-content { transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease; }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
@@ -2564,23 +2565,35 @@ window.addEventListener('scroll', () => {
         });
     }
 });
+
 function toggleBadgeGlossary() {
     const content = document.getElementById('badgeGlossary');
     const header = content.previousElementSibling;
     const isActive = content.classList.contains('active');
-
     if (!isActive) {
         content.classList.add('active');
         content.style.maxHeight = `${content.scrollHeight + 30}px`;
         content.style.padding = '15px';
+        content.style.opacity = '1';
         header.classList.add('active');
         header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips();
     } else {
-        content.classList.remove('active');
         content.style.maxHeight = '0';
         content.style.padding = '0 15px';
+        content.style.opacity = '0';
+        setTimeout(() => {
+            content.classList.remove('active');
+        }, 300);
         header.classList.remove('active');
         header.setAttribute('aria-expanded', 'false');
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
     }
 }
 
@@ -2634,36 +2647,6 @@ function initializeBadgeGlossaryTooltips() {
             });
         }
     });
-}
-
-// Call initializeBadgeGlossaryTooltips when the glossary is opened
-function toggleBadgeGlossary() {
-    const content = document.getElementById('badgeGlossary');
-    const header = content.previousElementSibling;
-    const isActive = content.classList.contains('active');
-
-    if (!isActive) {
-        content.classList.add('active');
-        content.style.maxHeight = `${content.scrollHeight + 30}px`;
-        content.style.padding = '15px';
-        header.classList.add('active');
-        header.setAttribute('aria-expanded', 'true');
-        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
-    } else {
-        content.classList.remove('active');
-        content.style.maxHeight = '0';
-        content.style.padding = '0 15px';
-        header.classList.remove('active');
-        header.setAttribute('aria-expanded', 'false');
-        // Hide shared tooltip when closing
-        const sharedTooltip = document.getElementById('shared-tooltip');
-        if (sharedTooltip) {
-            sharedTooltip.style.display = 'none';
-        }
-        document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
-            el.classList.remove('active-tooltip');
-        });
-    }
 }
 
 // Also call initializeBadgeGlossaryTooltips when opening via FAQ link
