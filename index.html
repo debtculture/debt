@@ -2051,25 +2051,35 @@ function toggleDropdown() {
 
 function scrollToSection(selector) {
     const element = document.querySelector(selector);
-    const headerOffset = 60; // Adjust for fixed header height
+    const headerOffset = 100; // Increased for better centering
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = elementPosition - headerOffset;
     window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
     });
-    // Ensure section is visible and centered
-    element.classList.add('visible');
-    if (element.id === 'roadmap') {
-        element.querySelectorAll('.phase, .future-teaser').forEach(phase => {
-            phase.classList.add('visible');
-        });
-    }
-    if (element.id === 'how-to-buy') {
-        element.querySelectorAll('.buy-step').forEach(step => {
-            step.classList.add('visible');
-        });
-    }
+    // Force section visibility after scroll
+    setTimeout(() => {
+        element.classList.add('visible');
+        if (element.id === 'roadmap') {
+            element.querySelectorAll('.phase, .future-teaser').forEach(phase => {
+                phase.classList.add('visible');
+            });
+        }
+        if (element.id === 'how-to-buy') {
+            element.querySelectorAll('.buy-step').forEach(step => {
+                step.classList.add('visible');
+            });
+        }
+        if (element.id === 'community') {
+            element.querySelectorAll('.hof-container').forEach(container => {
+                container.classList.add('visible');
+            });
+        }
+        if (element.id === 'faq') {
+            element.classList.add('visible');
+        }
+    }, 500); // Delay to ensure scroll completes
 }
 
 function toggleAccordion(header) {
