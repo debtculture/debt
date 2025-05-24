@@ -2035,6 +2035,9 @@ function toggleMenu() {
     menu.style.display = isOpen ? "none" : "block";
     menu.setAttribute('aria-expanded', !isOpen);
     hamburger.classList.toggle("active", !isOpen);
+    if (!isOpen) {
+        menu.querySelector('a').focus(); // Focus first menu item when opened
+    }
 }
 
 function closeMenu() {
@@ -2045,13 +2048,7 @@ function closeMenu() {
 
 function toggleDropdown() {
     const dropdown = document.getElementById("mobileDropdown");
-    const trigger = document.querySelector('.expand');
-    const isOpen = dropdown.style.display === "block";
-    dropdown.style.display = isOpen ? "none" : "block";
-    trigger.setAttribute('aria-expanded', !isOpen);
-    if (!isOpen) {
-        dropdown.querySelector('a').focus();
-    }
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
 function scrollToSection(selector) {
@@ -2133,14 +2130,11 @@ function acceptConstructionNotice() {
 }
 
 function copyAddress(element) {
-    const text = element.textContent.trim();
+    const text = element.textContent;
     navigator.clipboard.writeText(text).then(() => {
         element.setAttribute('data-copied', 'true');
         const copiedMessage = element.querySelector('.copied-message');
-        if (copiedMessage) {
-            copiedMessage.style.display = 'block';
-            copiedMessage.style.background = '#00ff00'; // Match your highly green preference
-        }
+        if (copiedMessage) copiedMessage.style.display = 'block';
         setTimeout(() => {
             element.setAttribute('data-copied', 'false');
             if (copiedMessage) copiedMessage.style.display = 'none';
@@ -2153,23 +2147,13 @@ function copyAddress(element) {
 
 function setPhantomLink() {
     const phantomLink = document.getElementById('phantomLink');
-    if (!phantomLink) {
-        console.error('Phantom link element not found');
-        return;
-    }
-    try {
-        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-        phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
-            ? 'https://play.google.com/store/apps/details?id=app.phantom'
-            : isMobile
-            ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
-            : 'https://phantom.app/download';
-        phantomLink.target = '_blank';
-    } catch (error) {
-        console.error('Error setting Phantom link:', error);
-        phantomLink.href = 'https://phantom.app/'; // Fallback URL
-        phantomLink.target = '_blank';
-    }
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
+        ? 'https://play.google.com/store/apps/details?id=app.phantom'
+        : isMobile
+        ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
+        : 'https://phantom.app/download';
+    phantomLink.target = '_blank';
 }
 
 async function updateTokenomics() {
@@ -2200,15 +2184,11 @@ async function updateTokenomics() {
 
 // Community Carousel
 let currentCommunityIndex = 0;
-let communityMembers = [];
-const totalNamedCommunityMembers = 20;
-const totalCommunityMembers = 24;
-
-function initializeCommunityMembers() {
-    communityMembers = Array.from(document.querySelectorAll(
-        window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
-    )).slice(0, totalNamedCommunityMembers);
-}
+const communityMembers = document.querySelectorAll(
+    window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+);
+const totalNamedCommunityMembers = 20; // Only named members, excluding TBA placeholders
+const totalCommunityMembers = 24; // Total including TBA placeholders
 
 function updateCommunityCarousel() {
     // Hide shared tooltip and reset active badges on carousel update
@@ -2553,11 +2533,7 @@ function getBadgeDescription(badgeName) {
 });
 }
 
-let isRotating = false;
-
 function rotateHof(direction) {
-    if (isRotating) return;
-    isRotating = true;
     if (direction === 'right') {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     } else if (direction === 'left') {
@@ -2565,7 +2541,6 @@ function rotateHof(direction) {
     }
     updateCommunityCarousel();
     resetCommunityAutoRotate();
-    setTimeout(() => { isRotating = false; }, 500); // 500ms debounce
 }
 // Hide tooltip on scroll for mobile
 window.addEventListener('scroll', () => {
@@ -2840,30 +2815,6 @@ function toggleSocialBubbles() {
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
     console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
-}
-function featureMember(element) {
-    const index = parseInt(element.getAttribute('data-index'));
-    if (index >= 0 && index < totalNamedCommunityMembers) {
-        currentCommunityIndex = index;
-        updateCommunityCarousel();
-        resetCommunityAutoRotate();
-        if (window.innerWidth <= 768) {
-            const featured = document.getElementById('hof-featured');
-            const offset = 60;
-            const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({
-                top: featuredPosition - offset,
-                behavior: 'smooth'
-            });
-        }
-    }
-}
-
-function redirectToXProfile(element) {
-    const xLink = element.getAttribute('data-x-link');
-    if (xLink) {
-        window.open(xLink, '_blank');
-    }
 }
 </script>
 </html>
