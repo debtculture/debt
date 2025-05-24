@@ -111,19 +111,36 @@
     position: fixed; 
     bottom: 55px; 
     right: 55px; 
-    width: 0; 
-    height: 0; 
-    display: block; 
+    width: auto; 
+    height: auto; 
+    display: flex; 
+    flex-direction: row; 
+    gap: 20px; 
     z-index: 2000; 
     pointer-events: none; 
     opacity: 0; 
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+.social-bubbles .icon {
+    transform: translateY(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 @media (min-width: 769px) {
     .social-bubbles {
         opacity: 1;
         pointer-events: auto;
+        transform: translateY(0);
+        bottom: 20px; /* Adjust for navbar feel */
+        right: 20px;
     }
     .social-bubbles .icon {
+        transform: translateY(0);
+    }
+}
+@media (max-width: 768px) {
+    .social-bubbles.active {
+        opacity: 1;
+        pointer-events: auto;
         transform: translateY(0);
     }
 }
@@ -1179,7 +1196,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     opacity: 0;
     transform: translateY(10px);
 }
-.hof-left-arrow { transform: rotate(180deg); }
+.hof-left-arrow { transform: none; }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script async src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
@@ -1416,7 +1433,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <section id="community" class="section from-right">
             <h1>Community</h1>
             <div class="hof-carousel">
-                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">➜</div>
+                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">⬅</div>
                 <div class="hof-container">
                     <div class="hof-featured" id="hof-featured">
     <div class="hof-bubble" onclick="redirectToXProfile(this)" data-x-link="https://x.com/AutopsyT2">
@@ -2852,6 +2869,15 @@ window.addEventListener('load', async () => {
     updateTokenomics();
     initializeCommunityMembers();
     updateCommunityCarousel();
+    if (window.innerWidth > 768) {
+    const bubbles = document.querySelector('.social-bubbles');
+    if (bubbles) {
+        bubbles.classList.add('active');
+        bubbles.style.opacity = '1';
+        bubbles.style.transform = 'translateY(0)';
+        bubbles.style.pointerEvents = 'auto';
+    }
+}
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
     try {
@@ -2877,12 +2903,14 @@ function toggleSocialBubbles() {
         console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
         return;
     }
-    const isActive = bubbles.classList.toggle('active');
-    bubbles.style.opacity = isActive ? '1' : '0';
-    bubbles.style.transform = isActive ? 'translateY(0)' : 'translateY(10px)';
-    bubbles.style.pointerEvents = isActive ? 'auto' : 'none';
-    button.classList.toggle('active', isActive);
-    button.setAttribute('aria-expanded', isActive);
+    if (window.innerWidth <= 768) {
+        const isActive = bubbles.classList.toggle('active');
+        bubbles.style.opacity = isActive ? '1' : '0';
+        bubbles.style.transform = isActive ? 'translateY(0)' : 'translateY(10px)';
+        bubbles.style.pointerEvents = isActive ? 'auto' : 'none';
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-expanded', isActive);
+    }
 }
 function connectWallet() {
     alert('Feature Coming Soon: Wallet connection is not yet implemented. Stay tuned for updates!');
