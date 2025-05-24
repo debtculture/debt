@@ -2,25 +2,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Join $DEBT rebellion! Fight finance with memes, burns, and community.">
-    <meta name="keywords" content="DEBT, cryptocurrency, Solana, token, rebellion, finance">
+    <meta name="keywords" content="DEBT, cryptocurrency, Solana, memecoin, rebellion, defy finance, burn tokens, community power">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Debt Culture">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="canonical" href="https://debtculture.xyz">
+    <link rel="alternate" type="application/rss+xml" title="Debt Culture Updates" href="https://debtculture.xyz/rss.xml">
     <meta property="og:title" content="Debt Culture - $DEBT Token">
-    <meta property="og:description" content="Break the chains of debt with $DEBT, a deflationary token for the 99%.">
+    <meta property="og:description" content="$DEBT: Defy debt, burn lies, empower the 99%. Join the rebellion!">
     <meta property="og:url" content="https://debtculture.xyz">
     <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Debt Culture">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@DebtCulture">
     <meta name="theme-color" content="#ff5555">
     <title>Debt Culture</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preload" href="script.js" as="script">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://t.me">
     <link rel="preload" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" as="image">
-    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="matrix.js" as="script">
     <style>
     * { box-sizing: border-box; }
     /* Remove horizontal scrollbar on desktop */
@@ -1092,6 +1097,11 @@ body:not(:has(.social-bubbles.active))::before {
         box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555;
     }
 }
+body { animation: neonEntry 1.5s ease-out; }
+@keyframes neonEntry { 0% { box-shadow: inset 0 0 50px rgba(255, 85, 85, 0.5); } 100% { box-shadow: inset 0 0 0 rgba(255, 85, 85, 0); } }
+a, button, [role="button"], .hover-underline, .accordion-header, .join-rebellion, .hof-arrow { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="none" stroke="#ff5555" stroke-width="2" opacity="0.8"/><circle cx="16" cy="16" r="5" fill="#ff5555"/></svg>') 16 16, pointer; }
+h1 { animation: neonFlicker 3s infinite ease-in-out; }
+@keyframes neonFlicker { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555; } 20%, 24%, 55% { text-shadow: none; } }    
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
