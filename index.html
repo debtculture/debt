@@ -2127,11 +2127,14 @@ function acceptConstructionNotice() {
 }
 
 function copyAddress(element) {
-    const text = element.textContent;
+    const text = element.textContent.trim();
     navigator.clipboard.writeText(text).then(() => {
         element.setAttribute('data-copied', 'true');
         const copiedMessage = element.querySelector('.copied-message');
-        if (copiedMessage) copiedMessage.style.display = 'block';
+        if (copiedMessage) {
+            copiedMessage.style.display = 'block';
+            copiedMessage.style.background = '#00ff00'; // Match your highly green preference
+        }
         setTimeout(() => {
             element.setAttribute('data-copied', 'false');
             if (copiedMessage) copiedMessage.style.display = 'none';
