@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Join $DEBT rebellion! Fight finance with memes, burns, and community.">
     <meta name="keywords" content="DEBT, cryptocurrency, Solana, memecoin, rebellion, defy finance, burn tokens, community power">
     <meta name="robots" content="index, follow, max-image-preview:large">
@@ -18,29 +18,18 @@
     <meta property="og:site_name" content="Debt Culture">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@DebtCulture">
-    <meta name="twitter:title" content="Debt Culture - $DEBT Token">
-    <meta name="twitter:description" content="$DEBT: Defy debt, burn lies, empower the 99%. Join the rebellion!">
-    <meta name="twitter:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
     <meta name="theme-color" content="#ff5555">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Debt Culture</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" sizes="180x180">
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png">
     <link rel="preconnect" href="https://res.cloudinary.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://t.me">
     <link rel="preload" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png" as="image">
-    <link rel="preload" href="matrix.js" as="script" fetchpriority="high">
+    <link rel="preload" href="matrix.js" as="script">
     <style>
-    html {
-    box-sizing: border-box;
-}
-*, *:before, *:after {
-    box-sizing: inherit;
-}
+    * { box-sizing: border-box; }
     /* Remove horizontal scrollbar on desktop */
     @media (min-width: 769px) {
         html, body, .content-wrapper, #roadmap { overflow-x: hidden; overflow-y: auto; }
@@ -48,21 +37,13 @@
     }
     /* Fallback for mobile to prevent unwanted scrolling */
     @media (max-width: 768px) {
-    html, body {
-        overflow-x: hidden !important;
-        max-width: 100vw;
-        touch-action: pan-y;
+        html { overflow-x: hidden; }
+        .content-wrapper { overflow-x: hidden; overflow-y: auto; }
     }
-    .content-wrapper {
-        overflow-x: hidden !important;
-        overflow-y: auto;
-        max-width: 100vw;
-    }
-}
     .content-wrapper { filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; }
     .content-wrapper.unblurred { filter: none; }
     
-    body { font-family: 'Inter', Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
     #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
    .navbar { position: fixed; top: 15px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 930px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); padding: 10px 15px; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 50px; border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); overflow: visible; }
 .navbar a { position: relative; background: transparent !important; color: #eee; text-decoration: none; padding: 5px 10px; transition: color 0.3s ease; }
@@ -107,87 +88,19 @@
 .mobile-dropdown a { padding: 8px 15px; background: transparent !important; text-align: center; }
 .mobile-dropdown a:hover { background: transparent !important; color: #ff5555; }
 .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
-    .social-bubbles {
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    z-index: 1000;
+    .social-bubbles { 
+    position: fixed; 
+    bottom: 55px; 
+    right: 55px; 
+    width: 0; 
+    height: 0; 
+    display: none; 
+    z-index: 2000; 
+    pointer-events: none; 
 }
-.icon {
-    width: 60px;
-    height: 60px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-.icon:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555;
-}
-@media (max-width: 768px) {
-    .social-bubbles {
-        bottom: 55px;
-        right: 55px;
-        width: 0;
-        height: 0;
-        display: none;
-        pointer-events: none;
-    }
-    .social-bubbles.active {
-        display: block;
-        pointer-events: auto;
-        z-index: 2100;
-    }
-    .icon {
-        opacity: 0;
-        transform: scale(0);
-        transition: all 0.3s ease;
-        pointer-events: auto;
-        position: absolute;
-    }
-    .social-bubbles.active .icon {
-        opacity: 1;
-        transform: scale(1);
-        animation: neonGlow 1.5s infinite ease-in-out;
-    }
-    .social-bubbles.active .icon:nth-child(1) { transform: translate(-120px, 0px) scale(1); transition-delay: 0.1s; }
-    .social-bubbles.active .icon:nth-child(2) { transform: translate(-104px, -60px) scale(1); transition-delay: 0.2s; }
-    .social-bubbles.active .icon:nth-child(3) { transform: translate(-60px, -104px) scale(1); transition-delay: 0.3s; }
-    .social-bubbles.active .icon:nth-child(4) { transform: translate(0px, -120px) scale(1); transition-delay: 0.4s; }
-    @keyframes neonGlow {
-        0% { box-shadow: 0 0 5px #ff5555; }
-        50% { box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555; }
-        100% { box-shadow: 0 0 5px #ff5555; }
-    }
-    body:has(.social-bubbles.active)::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 2098;
-        opacity: 1;
-        transition: opacity 0.3s ease;
-    }
-    body:not(:has(.social-bubbles.active))::before {
-        opacity: 0;
-        transition: opacity 0.3s ease;
+@media (min-width: 769px) {
+    .social-bubbles { 
+        bottom: 65px; 
     }
 }
     .fixed-bar a { margin: 0 5px; }
@@ -382,12 +295,6 @@
 .badge:hover::after {
     opacity: 1;
     visibility: visible;
-    pointer-events: none;
-}
-@media (max-width: 1024px) {
-    .badge.active-tooltip::after {
-        display: none;
-    }
 }
 
 /* Shared tooltip for mobile */
@@ -636,62 +543,53 @@
     .contract-address .copyable-address { font-size: 1.2rem; margin: 0; color: #eee; word-break: break-all; }
 
     /* Join Rebellion Button */
-    .join-rebellion-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 2100;
+    .join-rebellion-container { 
+    position: fixed; 
+    bottom: 10px; 
+    right: 10px; 
+    z-index: 2100; 
 }
-.join-rebellion {
-    width: 90px;
-    height: 90px;
-    background-color: #ff5555;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    font-size: 0.9rem;
-    text-align: center;
-    line-height: 1.2;
-    padding: 5px;
-    animation: pulseGlow 2s infinite ease-in-out;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    z-index: 2101;
+.join-rebellion { 
+    width: 90px; 
+    height: 90px; 
+    background-color: #ff5555; 
+    color: #fff; 
+    border-radius: 50%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-decoration: none; 
+    font-size: 0.9rem; 
+    text-align: center; 
+    line-height: 1.2; 
+    padding: 5px; 
+    animation: pulseGlow 2s infinite ease-in-out; 
+    transition: transform 0.3s ease; 
+    cursor: pointer; 
+    position: relative; 
+    z-index: 2101; 
 }
-.join-rebellion:hover {
-    background-color: #ff7777;
-}
+.join-rebellion:hover { background-color: #ff7777; }
 .join-rebellion.active {
     background: radial-gradient(circle at center, rgba(255, 85, 85, 0.8), rgba(204, 68, 68, 0.8));
     border-radius: 50%;
     transform: scale(0.6);
 }
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 5px #ff5555; }
-    50% { box-shadow: 0 0 15px #ff5555; }
-    100% { box-shadow: 0 0 5px #ff5555; }
+body:has(.social-bubbles.active)::before { 
+    content: ''; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 2098; 
+    opacity: 1; 
+    transition: opacity 0.3s ease; 
 }
-@media (max-width: 768px) {
-    body:has(.social-bubbles.active)::before { 
-        content: ''; 
-        position: fixed; 
-        top: 0; 
-        left: 0; 
-        width: 100%; 
-        height: 100%; 
-        background: rgba(0, 0, 0, 0.7); 
-        z-index: 2098; 
-        opacity: 1; 
-        transition: opacity 0.3s ease; 
-    }
-    body:not(:has(.social-bubbles.active))::before { 
-        opacity: 0; 
-        transition: opacity 0.3s ease; 
-    }
+body:not(:has(.social-bubbles.active))::before { 
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
 }
 .social-bubbles.active { 
     z-index: 2100; 
@@ -1207,15 +1105,6 @@ a, button, [role="button"], .hover-underline, .accordion-header, .join-rebellion
 h1 { animation: neonFlicker 3s infinite ease-in-out; }
 @keyframes neonFlicker { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555; } 20%, 24%, 55% { text-shadow: none; } }    
 a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shadow 0.3s ease; }
-a:focus, button:focus, [role="button"]:focus {
-    outline: 2px solid #ff5555;
-    outline-offset: 2px;
-    box-shadow: 0 0 10px #ff5555;
-}
-a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow:hover {
-    box-shadow: 0 0 15px rgba(255, 85, 85, 0.7), 0 0 25px rgba(255, 85, 85, 0.5);
-    transition: box-shadow 0.3s ease;
-}
 .copyable-address[data-copied="true"] {
     background: #00ff00 !important;
     color: #000 !important;
@@ -1231,29 +1120,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     0%, 100% { box-shadow: 0 0 10px #ff5555; }
     50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff0000; }
 }
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-.phase:hover, .future-teaser:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-}
-.badge-glossary-content {
-    transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
-}
-.social-bubbles {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.social-bubbles:not(.active) {
-    opacity: 0;
-    transform: translateY(10px);
-}
-.hof-left-arrow { transform: none; }
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
-<script async src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
-<script async src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
-<script async src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/lib/index.js"></script>
-<script async src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/lib/index.js"></script>
-<script async src="https://unpkg.com/@solana/wallet-adapter-react-ui@0.9.35/lib/index.js"></script>
+<script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+<script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/lib/index.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/lib/index.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-react-ui@0.9.35/lib/index.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-react-ui@0.9.35/styles.css">
 </head>
 <body>
@@ -1300,13 +1173,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <section id="hero" class="section">
             <h1>$DEBT: Don’t Ever Believe Them</h1>
             <p class="typewriter">For the 99%: Smash debt, defy lies. The elite’s reign ends NOW.</p>
-            <button onclick="scrollToSection('#how-to-buy')" style="background: #ff5555; color: #fff; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;" onmouseover="this.style.transform='scale(1.15)'; this.style.boxShadow='0 0 20px #ff5555, 0 0 30px #ff5555'; this.style.background='#ff7777';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'; this.style.background='#ff5555';" aria-label="Scroll to How to Buy section">Ignite the Revolt</button>
+            <button onclick="scrollToSection('#how-to-buy')" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';" aria-label="Scroll to How to Buy section">Ignite the Revolt</button>
         </section>
 
         <!-- Contract Address Section -->
         <div class="contract-address" style="animation: pulseGlow 2s infinite ease-in-out;">
             <h3>Contract Address</h3>
-            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite" style="transition: background 0.3s ease, box-shadow 0.3s ease; cursor: pointer; position: relative;" onmouseover="this.style.background='#444'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.background='#333'; this.style.boxShadow='none';" data-copied="false">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump<span class="copied-message" style="display: none; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #00ff00; color: #000; padding: 5px 10px; border-radius: 5px; font-size: 12px; z-index: 1000;">Copied!</span></span>
+            <span class="copyable-address" onclick="copyAddress(this)" tabindex="0" role="button" aria-label="Copy contract address" onkeydown="if(event.key === 'Enter') copyAddress(this)" aria-live="polite" style="transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; position: relative;" onmouseover="this.style.background='#444'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.background='#333'; this.style.boxShadow='none';" data-copied="false">9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump<span class="copied-message" style="display: none; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #00ff00; color: #000; padding: 5px 10px; border-radius: 5px; font-size: 12px;">Copied!</span></span>
         </div>
 
         <!-- Overview Section -->
@@ -1346,21 +1219,21 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                     <h3>Hosts Include:</h3>
                     <div class="host-bubbles">
     <div class="host-bubble">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
         <div class="host-title">Lou</div>
         <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
             <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
         </a>
     </div>
     <div class="host-bubble">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
         <div class="host-title">Catavina</div>
         <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
             <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
         </a>
     </div>
     <div class="host-bubble">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" class="profile-pic" width="75" height="75" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
         <div class="host-title">Autopsy</div>
         <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Autopsy's X profile">
             <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
@@ -1373,7 +1246,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </section>
 
         <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet (Feature Coming Soon)">Connect Wallet</button>
-        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
+        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
     <div></div><div></div><div></div>
 </div>
         <div class="mobile-menu" id="mobileMenu">
@@ -1454,7 +1327,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                 <div class="buy-step">
                     <div class="step-number" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';">1</div>
                     <div class="step-content">
-                        <p>Set Up a Wallet – Grab <a href="https://phantom.app/" id="phantomLink" target="_blank" rel="noopener noreferrer" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Phantom</a> (or any Solana wallet) and save your recovery phrase.</p>
+                        <p>Set Up a Wallet – Grab <a href="#" id="phantomLink" rel="noopener noreferrer">Phantom</a> (or any Solana wallet) and save your recovery phrase.</p>
                     </div>
                 </div>
                 <div class="buy-step">
@@ -1472,7 +1345,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                 <div class="buy-step">
                     <div class="step-number" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';">4</div>
                     <div class="step-content">
-                        <p>Join the Rebellion – You’re now $DEBT!</p>
+                        <p>Join the Movement – You are now in $DEBT.</p>
                     </div>
                 </div>
             </div>
@@ -1483,24 +1356,22 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <section id="community" class="section from-right">
             <h1>Community</h1>
             <div class="hof-carousel">
-                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">⇠
-
-</div>
+                <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">➜</div>
                 <div class="hof-container">
                     <div class="hof-featured" id="hof-featured">
-    <div class="hof-bubble" onclick="redirectToXProfile(this)" data-x-link="https://x.com/AutopsyT2">
-        <div class="hof-inner-bubble">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" width="130" height="130" loading="eager">
-        </div>
-        <div class="hof-name">Autopsy</div>
-        <div class="hof-title">The Visionary</div>
-    </div>
-</div>
+                        <div class="hof-bubble">
+                            <div class="hof-inner-bubble">
+                                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" width="130" height="130" loading="eager">
+                            </div>
+                            <div class="hof-name">Autopsy</div>
+                            <div class="hof-title">The Visionary</div>
+                        </div>
+                    </div>
                     <div class="hof-badges" id="hof-badges"></div>
 <div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
                     <!-- Desktop Rows (4 rows of 6) -->
 <div class="hof-row-desktop">
-    <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2" onclick="featureMember(this)">
+    <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1508,7 +1379,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Autopsy</div>
     </div>
-    <div class="hof-member" data-index="1" data-title="Catavina" data-x-link="https://x.com/catavina17" onclick="featureMember(this)">
+    <div class="hof-member" data-index="1" data-title="Catavina" data-x-link="https://x.com/catavina17">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1516,7 +1387,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Catavina</div>
     </div>
-    <div class="hof-member" data-index="2" data-title="Lou" data-x-link="https://x.com/louisedbegin" onclick="featureMember(this)">
+    <div class="hof-member" data-index="2" data-title="Lou" data-x-link="https://x.com/louisedbegin">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1524,7 +1395,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Lou</div>
     </div>
-    <div class="hof-member" data-index="3" data-title="Nerf" data-x-link="https://x.com/0xnerf" onclick="featureMember(this)">
+    <div class="hof-member" data-index="3" data-title="Nerf" data-x-link="https://x.com/0xnerf">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1532,7 +1403,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Nerf</div>
     </div>
-    <div class="hof-member" data-index="4" data-title="JPEG" data-x-link="https://x.com/jpegfein" onclick="featureMember(this)">
+    <div class="hof-member" data-index="4" data-title="JPEG" data-x-link="https://x.com/jpegfein">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1540,7 +1411,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">JPEG</div>
     </div>
-    <div class="hof-member" data-index="5" data-title="Lunicking" data-x-link="https://x.com/Lunicking178677" onclick="featureMember(this)">
+    <div class="hof-member" data-index="5" data-title="Lunicking" data-x-link="https://x.com/Lunicking178677">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1550,7 +1421,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
 <div class="hof-row-desktop hof-row-desktop-2">
-    <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17" onclick="featureMember(this)">
+    <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1558,7 +1429,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Tormund</div>
     </div>
-    <div class="hof-member" data-index="7" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH" onclick="featureMember(this)">
+    <div class="hof-member" data-index="7" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1566,7 +1437,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">STAYHIGH</div>
     </div>
-    <div class="hof-member" data-index="8" data-title="Renee" data-x-link="https://x.com/ReneeBush96829" onclick="featureMember(this)">
+    <div class="hof-member" data-index="8" data-title="Renee" data-x-link="https://x.com/ReneeBush96829">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1574,7 +1445,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Renee</div>
     </div>
-    <div class="hof-member" data-index="9" data-title="blu" data-x-link="https://x.com/blu_chek" onclick="featureMember(this)">
+    <div class="hof-member" data-index="9" data-title="blu" data-x-link="https://x.com/blu_chek">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1582,7 +1453,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">blu</div>
     </div>
-    <div class="hof-member" data-index="10" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7" onclick="featureMember(this)">
+    <div class="hof-member" data-index="10" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1590,7 +1461,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Scrappy</div>
     </div>
-    <div class="hof-member" data-index="11" data-title="Mo" data-x-link="https://x.com/MoDegen1369" onclick="featureMember(this)">
+    <div class="hof-member" data-index="11" data-title="Mo" data-x-link="https://x.com/MoDegen1369">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg" alt="Mo profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1600,7 +1471,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
 <div class="hof-row-desktop hof-row-desktop-3">
-    <div class="hof-member" data-index="12" data-title="Cory B" data-x-link="https://x.com/coryb410" onclick="featureMember(this)">
+    <div class="hof-member" data-index="12" data-title="Cory B" data-x-link="https://x.com/coryb410">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1608,7 +1479,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Cory B</div>
     </div>
-    <div class="hof-member" data-index="13" data-title="Dan" data-x-link="https://x.com/DanVibes10" onclick="featureMember(this)">
+    <div class="hof-member" data-index="13" data-title="Dan" data-x-link="https://x.com/DanVibes10">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1616,7 +1487,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Dan</div>
     </div>
-    <div class="hof-member" data-index="14" data-title="Tom" data-x-link="https://x.com/tholson90" onclick="featureMember(this)">
+    <div class="hof-member" data-index="14" data-title="Tom" data-x-link="https://x.com/tholson90">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1624,7 +1495,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Tom</div>
     </div>
-    <div class="hof-member" data-index="15" data-title="Marilyn" data-x-link="https://x.com/Marilyn_Moanroe" onclick="featureMember(this)">
+    <div class="hof-member" data-index="15" data-title="Marilyn" data-x-link="https://x.com/Marilyn_Moanroe">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1632,7 +1503,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Marilyn</div>
     </div>
-    <div class="hof-member" data-index="16" data-title="Coinbud" data-x-link="https://x.com/madgamer1979" onclick="featureMember(this)">
+    <div class="hof-member" data-index="16" data-title="Coinbud" data-x-link="https://x.com/madgamer1979">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1640,7 +1511,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Coinbud</div>
     </div>
-    <div class="hof-member" data-index="17" data-title="ZOMBi" data-x-link="https://x.com/HauskenHelge" onclick="featureMember(this)">
+    <div class="hof-member" data-index="17" data-title="ZOMBi" data-x-link="https://x.com/HauskenHelge">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1650,7 +1521,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
 <div class="hof-row-desktop hof-row-desktop-4">
-    <div class="hof-member" data-index="18" data-title="Cyanide" data-x-link="https://x.com/ipoopcrypto" onclick="featureMember(this)">
+    <div class="hof-member" data-index="18" data-title="Cyanide" data-x-link="https://x.com/ipoopcrypto">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1658,7 +1529,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">Cyanide</div>
     </div>
-    <div class="hof-member" data-index="19" data-title="George" data-x-link="https://x.com/GeorgeCdr28874" onclick="featureMember(this)">
+    <div class="hof-member" data-index="19" data-title="George" data-x-link="https://x.com/GeorgeCdr28874">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
@@ -1889,9 +1760,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
                 </div>
-                <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Community member" onkeydown="if(event.key === 'Enter') rotateHof('right')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">⇢
-
-</div>
+                <div class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" tabindex="0" role="button" aria-label="Next Community member" onkeydown="if(event.key === 'Enter') rotateHof('right')" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">➜</div>
             </div>
             <p class="hof-blurb">Crave $DEBT Hall of Fame glory? Go hard in X Spaces, HODL $DEBT, spam memes, recruit rebels, and bring chaos! Whales, memers, champs—OWN IT!</p>
                 <div class="badge-glossary-header" onclick="toggleBadgeGlossary()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Badge Glossary" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
@@ -2098,12 +1967,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </section>
 
         <div class="join-rebellion-container">
-    <a class="join-rebellion" href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false">Join the Rebellion</a>
-    <div class="social-bubbles" id="socialBubbles" role="region" aria-label="Social media links">
-        <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
-        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
-        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
-        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
+    <a class="join-rebellion" href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false" style="animation: pulseGlow 1.5s infinite ease-in-out;">Join the Rebellion</a>
+    <div class="social-bubbles">
+        <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
+        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
+        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
+        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
     </div>
 </div>
 
@@ -2127,6 +1996,9 @@ function toggleMenu() {
     menu.style.display = isOpen ? "none" : "block";
     menu.setAttribute('aria-expanded', !isOpen);
     hamburger.classList.toggle("active", !isOpen);
+    if (!isOpen) {
+        menu.querySelector('a').focus(); // Focus first menu item when opened
+    }
 }
 
 function closeMenu() {
@@ -2137,13 +2009,7 @@ function closeMenu() {
 
 function toggleDropdown() {
     const dropdown = document.getElementById("mobileDropdown");
-    const trigger = document.querySelector('.expand');
-    const isOpen = dropdown.style.display === "block";
-    dropdown.style.display = isOpen ? "none" : "block";
-    trigger.setAttribute('aria-expanded', !isOpen);
-    if (!isOpen) {
-        dropdown.querySelector('a').focus();
-    }
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 
 function scrollToSection(selector) {
@@ -2225,14 +2091,11 @@ function acceptConstructionNotice() {
 }
 
 function copyAddress(element) {
-    const text = element.textContent.trim();
+    const text = element.textContent;
     navigator.clipboard.writeText(text).then(() => {
         element.setAttribute('data-copied', 'true');
         const copiedMessage = element.querySelector('.copied-message');
-        if (copiedMessage) {
-            copiedMessage.style.display = 'block';
-            copiedMessage.style.background = '#00ff00'; // Match your highly green preference
-        }
+        if (copiedMessage) copiedMessage.style.display = 'block';
         setTimeout(() => {
             element.setAttribute('data-copied', 'false');
             if (copiedMessage) copiedMessage.style.display = 'none';
@@ -2245,23 +2108,13 @@ function copyAddress(element) {
 
 function setPhantomLink() {
     const phantomLink = document.getElementById('phantomLink');
-    if (!phantomLink) {
-        console.error('Phantom link element not found');
-        return;
-    }
-    try {
-        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-        phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
-            ? 'https://play.google.com/store/apps/details?id=app.phantom'
-            : isMobile
-            ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
-            : 'https://phantom.app/download';
-        phantomLink.target = '_blank';
-    } catch (error) {
-        console.error('Error setting Phantom link:', error);
-        phantomLink.href = 'https://phantom.app/'; // Fallback URL
-        phantomLink.target = '_blank';
-    }
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
+        ? 'https://play.google.com/store/apps/details?id=app.phantom'
+        : isMobile
+        ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
+        : 'https://phantom.app/download';
+    phantomLink.target = '_blank';
 }
 
 async function updateTokenomics() {
@@ -2292,15 +2145,11 @@ async function updateTokenomics() {
 
 // Community Carousel
 let currentCommunityIndex = 0;
-let communityMembers = [];
-const totalNamedCommunityMembers = 20;
-const totalCommunityMembers = 24;
-
-function initializeCommunityMembers() {
-    communityMembers = Array.from(document.querySelectorAll(
-        window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
-    )).slice(0, totalNamedCommunityMembers);
-}
+const communityMembers = document.querySelectorAll(
+    window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+);
+const totalNamedCommunityMembers = 20; // Only named members, excluding TBA placeholders
+const totalCommunityMembers = 24; // Total including TBA placeholders
 
 function updateCommunityCarousel() {
     // Hide shared tooltip and reset active badges on carousel update
@@ -2444,12 +2293,12 @@ function updateCommunityCarousel() {
         {
         name: 'Scrappy',
         title: 'The Goofball',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
+        img: 'https://res.cloudinary.com/dpvBundler::Warning::Bundler cannot verify the integrity of remote code. Proceed with caution.ptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
         desc: 'Placeholder description for Scrappy.',
         badges: [
-        { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }
-    ]
-},
+            { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }
+        ]
+    },
     {
         name: 'Mo',
         title: 'The Degen',
@@ -2645,11 +2494,7 @@ function getBadgeDescription(badgeName) {
 });
 }
 
-let isRotating = false;
-
 function rotateHof(direction) {
-    if (isRotating) return;
-    isRotating = true;
     if (direction === 'right') {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     } else if (direction === 'left') {
@@ -2657,7 +2502,6 @@ function rotateHof(direction) {
     }
     updateCommunityCarousel();
     resetCommunityAutoRotate();
-    setTimeout(() => { isRotating = false; }, 500); // 500ms debounce
 }
 // Hide tooltip on scroll for mobile
 window.addEventListener('scroll', () => {
@@ -2753,19 +2597,16 @@ function toggleBadgeGlossary() {
         content.classList.add('active');
         content.style.maxHeight = `${content.scrollHeight + 30}px`;
         content.style.padding = '15px';
-        content.style.opacity = '1';
         header.classList.add('active');
         header.setAttribute('aria-expanded', 'true');
-        initializeBadgeGlossaryTooltips();
+        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
     } else {
+        content.classList.remove('active');
         content.style.maxHeight = '0';
         content.style.padding = '0 15px';
-        content.style.opacity = '0';
-        setTimeout(() => {
-            content.classList.remove('active');
-        }, 300);
         header.classList.remove('active');
         header.setAttribute('aria-expanded', 'false');
+        // Hide shared tooltip when closing
         const sharedTooltip = document.getElementById('shared-tooltip');
         if (sharedTooltip) {
             sharedTooltip.style.display = 'none';
@@ -2792,29 +2633,6 @@ function openBadgeGlossary() {
 function autoRotateCommunity() {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     updateCommunityCarousel();
-}
-function featureMember(element) {
-    const index = parseInt(element.getAttribute('data-index'));
-    if (index >= 0 && index < totalNamedCommunityMembers) {
-        currentCommunityIndex = index;
-        updateCommunityCarousel();
-        resetCommunityAutoRotate();
-        if (window.innerWidth <= 768) {
-            const featured = document.getElementById('hof-featured');
-            const offset = 60;
-            const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({
-                top: featuredPosition - offset,
-                behavior: 'smooth'
-            });
-        }
-    }
-}
-function redirectToXProfile(element) {
-    const xLink = element.getAttribute('data-x-link');
-    if (xLink) {
-        window.open(xLink, '_blank');
-    }
 }
 
 let communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
@@ -2866,9 +2684,7 @@ function initializeRoadmapPhases() {
 
 function initializeMatrix() {
     const canvas = document.getElementById('matrix-bg');
-    if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
     
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -2918,13 +2734,19 @@ if (localStorage.getItem('constructionAccepted')) {
     document.getElementById('constructionModal').style.display = 'none';
 }
 
-window.addEventListener('load', async () => {
+window.addEventListener('load', () => {
     setPhantomLink();
     updateTokenomics();
-    initializeCommunityMembers();
     updateCommunityCarousel();
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
+});
+function connectWallet() {
+    alert('Wallet Connect Feature Coming Soon!');
+}
+
+// Check if wallet is already connected on page load
+window.addEventListener('load', async () => {
     try {
         const walletAddress = localStorage.getItem('walletAddress');
         if (walletAddress) {
@@ -2934,6 +2756,8 @@ window.addEventListener('load', async () => {
                 button.classList.add('connected');
                 button.disabled = true;
                 console.log('Restored wallet connection:', walletAddress);
+            } else {
+                console.error('Connect Wallet button not found');
             }
         }
     } catch (error) {
@@ -2941,19 +2765,17 @@ window.addEventListener('load', async () => {
     }
 });
 function toggleSocialBubbles() {
+    const container = document.querySelector('.join-rebellion-container');
     const button = document.querySelector('.join-rebellion');
-    const bubbles = document.getElementById('socialBubbles');
+    const bubbles = document.querySelector('.social-bubbles');
+    if (!container || !button || !bubbles) {
+        console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
+        return;
+    }
     const isActive = bubbles.classList.toggle('active');
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
-    if (isActive && window.innerWidth <= 768) {
-        bubbles.querySelectorAll('.icon').forEach((icon, index) => {
-            icon.style.transitionDelay = `${0.1 * (index + 1)}s`;
-        });
-    }
-}
-function connectWallet() {
-    alert('Feature Coming Soon: Wallet connection is not yet implemented. Stay tuned for updates!');
+    console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
 }
 </script>
 </html>
