@@ -2162,13 +2162,23 @@ function copyAddress(element) {
 
 function setPhantomLink() {
     const phantomLink = document.getElementById('phantomLink');
-    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
-        ? 'https://play.google.com/store/apps/details?id=app.phantom'
-        : isMobile
-        ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
-        : 'https://phantom.app/download';
-    phantomLink.target = '_blank';
+    if (!phantomLink) {
+        console.error('Phantom link element not found');
+        return;
+    }
+    try {
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
+            ? 'https://play.google.com/store/apps/details?id=app.phantom'
+            : isMobile
+            ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
+            : 'https://phantom.app/download';
+        phantomLink.target = '_blank';
+    } catch (error) {
+        console.error('Error setting Phantom link:', error);
+        phantomLink.href = 'https://phantom.app/'; // Fallback URL
+        phantomLink.target = '_blank';
+    }
 }
 
 async function updateTokenomics() {
@@ -2199,11 +2209,15 @@ async function updateTokenomics() {
 
 // Community Carousel
 let currentCommunityIndex = 0;
-const communityMembers = Array.from(document.querySelectorAll(
-    window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
-)).slice(0, totalNamedCommunityMembers);
-const totalNamedCommunityMembers = 20; // Only named members, excluding TBA placeholders
-const totalCommunityMembers = 24; // Total including TBA placeholders
+let communityMembers = [];
+const totalNamedCommunityMembers = 20;
+const totalCommunityMembers = 24;
+
+function initializeCommunityMembers() {
+    communityMembers = Array.from(document.querySelectorAll(
+        window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+    )).slice(0, totalNamedCommunityMembers);
+}
 
 function updateCommunityCarousel() {
     // Hide shared tooltip and reset active badges on carousel update
@@ -2548,7 +2562,11 @@ function getBadgeDescription(badgeName) {
 });
 }
 
+let isRotating = false;
+
 function rotateHof(direction) {
+    if (isRotating) return;
+    isRotating = true;
     if (direction === 'right') {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     } else if (direction === 'left') {
@@ -2556,6 +2574,7 @@ function rotateHof(direction) {
     }
     updateCommunityCarousel();
     resetCommunityAutoRotate();
+    setTimeout(() => { isRotating = false; }, 500); // 500ms debounce
 }
 // Hide tooltip on scroll for mobile
 window.addEventListener('scroll', () => {
@@ -2691,6 +2710,29 @@ function autoRotateCommunity() {
         currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     updateCommunityCarousel();
 }
+function featureMember(element) {
+    const index = parseInt(element.getAttribute('data-index'));
+    if (index >= 0 && index < totalNamedCommunityMembers) {
+        currentCommunityIndex = index;
+        updateCommunityCarousel();
+        resetCommunityAutoRotate();
+        if (window.innerWidth <= 768) {
+            const featured = document.getElementById('hof-featured');
+            const offset = 60;
+            const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: featuredPosition - offset,
+                behavior: 'smooth'
+            });
+        }
+    }
+}
+function redirectToXProfile(element) {
+    const xLink = element.getAttribute('data-x-link');
+    if (xLink) {
+        window.open(xLink, '_blank');
+    }
+}
 
 let communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
 
@@ -2796,6 +2838,7 @@ if (localStorage.getItem('constructionAccepted')) {
 window.addEventListener('load', async () => {
     setPhantomLink();
     updateTokenomics();
+    initializeCommunityMembers();
     updateCommunityCarousel();
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
@@ -2825,8 +2868,12 @@ function toggleSocialBubbles() {
     const isActive = bubbles.classList.toggle('active');
     bubbles.style.opacity = isActive ? '1' : '0';
     bubbles.style.transform = isActive ? 'translateY(0)' : 'translateY(10px)';
+    bubbles.style.pointerEvents = isActive ? 'auto' : 'none';
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
+    if (isActive) {
+        bubbles.querySelector('.icon').focus();
+    }
 }
 </script>
 </html>
