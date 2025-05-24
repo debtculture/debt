@@ -107,83 +107,87 @@
 .mobile-dropdown a { padding: 8px 15px; background: transparent !important; text-align: center; }
 .mobile-dropdown a:hover { background: transparent !important; color: #ff5555; }
 .mobile-logo { display: none; position: fixed; top: -18px; right: -10px; width: 100px; height: 100px; object-fit: contain; z-index: 1000; }
-    .social-bubbles { 
-    position: fixed; 
-    bottom: 55px; 
-    right: 55px; 
-    width: 0; 
-    height: 0; 
-    display: none; 
-    z-index: 2000; 
-    pointer-events: none; 
+    .social-bubbles {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
 }
-@media (min-width: 769px) {
-    .social-bubbles { 
-        position: fixed; 
-        bottom: 65px; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        width: auto; 
-        height: auto; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        gap: 10px; 
-        pointer-events: auto; 
-    }
-}
-.social-bubbles.active { 
-    display: block; 
-    pointer-events: auto; 
-    z-index: 2100; 
-}
-.icon { 
-    width: 54px; 
-    height: 54px; 
-    background-color: #fff; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    overflow: hidden; 
-    opacity: 0; 
-    transform: scale(0); 
-    transition: all 0.3s ease; 
-    pointer-events: auto; 
-    position: absolute; 
+.icon {
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.social-bubbles.active .icon { 
-    opacity: 1; 
-    transform: scale(1); 
-    animation: neonGlow 1.5s infinite ease-in-out; 
+.icon:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555;
 }
-.social-bubbles.active .icon:nth-child(1) { transform: translate(-120px, 0px) scale(1); transition-delay: 0.1s; } /* 0° */
-.social-bubbles.active .icon:nth-child(2) { transform: translate(-104px, -60px) scale(1); transition-delay: 0.2s; } /* 30° */
-.social-bubbles.active .icon:nth-child(3) { transform: translate(-60px, -104px) scale(1); transition-delay: 0.3s; } /* 60° */
-.social-bubbles.active .icon:nth-child(4) { transform: translate(0px, -120px) scale(1); transition-delay: 0.4s; } /* 90° */
-@keyframes neonGlow { 
-    0% { box-shadow: 0 0 5px #ff5555; } 
-    50% { box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555; } 
-    100% { box-shadow: 0 0 5px #ff5555; } 
-}
-@media (min-width: 769px) {
-    .icon { 
-        position: relative; 
-        width: 60px; 
-        height: 60px; 
-        opacity: 1; 
-        transform: none; 
-        animation: none; 
-        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+@media (max-width: 768px) {
+    .social-bubbles {
+        bottom: 55px;
+        right: 55px;
+        width: 0;
+        height: 0;
+        display: none;
+        pointer-events: none;
     }
-    .icon:hover {
-        transform: scale(1.2);
-        box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555;
+    .social-bubbles.active {
+        display: block;
+        pointer-events: auto;
+        z-index: 2100;
+    }
+    .icon {
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s ease;
+        pointer-events: auto;
+        position: absolute;
+    }
+    .social-bubbles.active .icon {
+        opacity: 1;
+        transform: scale(1);
+        animation: neonGlow 1.5s infinite ease-in-out;
+    }
+    .social-bubbles.active .icon:nth-child(1) { transform: translate(-120px, 0px) scale(1); transition-delay: 0.1s; }
+    .social-bubbles.active .icon:nth-child(2) { transform: translate(-104px, -60px) scale(1); transition-delay: 0.2s; }
+    .social-bubbles.active .icon:nth-child(3) { transform: translate(-60px, -104px) scale(1); transition-delay: 0.3s; }
+    .social-bubbles.active .icon:nth-child(4) { transform: translate(0px, -120px) scale(1); transition-delay: 0.4s; }
+    @keyframes neonGlow {
+        0% { box-shadow: 0 0 5px #ff5555; }
+        50% { box-shadow: 0 0 15px #ff5555, 0 0 30px #ff5555; }
+        100% { box-shadow: 0 0 5px #ff5555; }
+    }
+    body:has(.social-bubbles.active)::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 2098;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+    body:not(:has(.social-bubbles.active))::before {
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 }
     .fixed-bar a { margin: 0 5px; }
@@ -632,37 +636,44 @@
     .contract-address .copyable-address { font-size: 1.2rem; margin: 0; color: #eee; word-break: break-all; }
 
     /* Join Rebellion Button */
-    .join-rebellion-container { 
-    position: fixed; 
-    bottom: 10px; 
-    right: 10px; 
-    z-index: 2100; 
+    .join-rebellion-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2100;
 }
-.join-rebellion { 
-    width: 90px; 
-    height: 90px; 
-    background-color: #ff5555; 
-    color: #fff; 
-    border-radius: 50%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-decoration: none; 
-    font-size: 0.9rem; 
-    text-align: center; 
-    line-height: 1.2; 
-    padding: 5px; 
-    animation: pulseGlow 2s infinite ease-in-out; 
-    transition: transform 0.3s ease; 
-    cursor: pointer; 
-    position: relative; 
-    z-index: 2101; 
+.join-rebellion {
+    width: 90px;
+    height: 90px;
+    background-color: #ff5555;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.2;
+    padding: 5px;
+    animation: pulseGlow 2s infinite ease-in-out;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 2101;
 }
-.join-rebellion:hover { background-color: #ff7777; }
+.join-rebellion:hover {
+    background-color: #ff7777;
+}
 .join-rebellion.active {
     background: radial-gradient(circle at center, rgba(255, 85, 85, 0.8), rgba(204, 68, 68, 0.8));
     border-radius: 50%;
     transform: scale(0.6);
+}
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 5px #ff5555; }
+    50% { box-shadow: 0 0 15px #ff5555; }
+    100% { box-shadow: 0 0 5px #ff5555; }
 }
 @media (max-width: 768px) {
     body:has(.social-bubbles.active)::before { 
@@ -2087,12 +2098,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </section>
 
         <div class="join-rebellion-container">
-    <a class="join-rebellion" href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false" style="animation: pulseGlow 1.2s infinite alternate ease-in-out; font-weight: 700;">Join the Rebellion</a>
+    <a class="join-rebellion" href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false">Join the Rebellion</a>
     <div class="social-bubbles" id="socialBubbles" role="region" aria-label="Social media links">
-        <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
+        <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
+        <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
+        <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
+        <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page" tabindex="0" onkeydown="if(event.key === 'Enter') this.click();"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
     </div>
 </div>
 
@@ -2912,7 +2923,6 @@ window.addEventListener('load', async () => {
     updateTokenomics();
     initializeCommunityMembers();
     updateCommunityCarousel();
-    // Removed auto-activation of social bubbles on desktop
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
     try {
@@ -2931,17 +2941,16 @@ window.addEventListener('load', async () => {
     }
 });
 function toggleSocialBubbles() {
-    const container = document.querySelector('.join-rebellion-container');
     const button = document.querySelector('.join-rebellion');
-    const bubbles = document.querySelector('.social-bubbles');
-    if (!container || !button || !bubbles) {
-        console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
-        return;
-    }
+    const bubbles = document.getElementById('socialBubbles');
     const isActive = bubbles.classList.toggle('active');
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
-    console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
+    if (isActive && window.innerWidth <= 768) {
+        bubbles.querySelectorAll('.icon').forEach((icon, index) => {
+            icon.style.transitionDelay = `${0.1 * (index + 1)}s`;
+        });
+    }
 }
 function connectWallet() {
     alert('Feature Coming Soon: Wallet connection is not yet implemented. Stay tuned for updates!');
