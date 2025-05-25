@@ -1,0 +1,21 @@
+{
+  "name": "Debt Culture",
+  "short_name": "$DEBT",
+  "description": "Join $DEBT rebellion! Fight finance with memes, burns, and community.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#ff5555",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/debt_png_ah6lec.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
