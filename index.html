@@ -1155,8 +1155,13 @@ a:focus, button:focus, [role="button"]:focus {
     box-shadow: 0 0 10px #ff5555;
 }
 a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow:hover {
-    box-shadow: 0 0 15px rgba(255, 85, 85, 0.7), 0 0 25px rgba(255, 85, 85, 0.5);
+    box-shadow: 0 0 20px rgba(255, 85, 85, 0.9), 0 0 40px rgba(255, 85, 85, 0.7), 0 0 60px rgba(255, 85, 85, 0.5);
+    animation: neonBuzz 0.1s infinite alternate;
     transition: box-shadow 0.3s ease;
+}
+@keyframes neonBuzz {
+    0% { box-shadow: 0 0 20px rgba(255, 85, 85, 0.9), 0 0 40px rgba(255, 85, 85, 0.7); }
+    100% { box-shadow: 0 0 25px rgba(255, 85, 85, 1), 0 0 50px rgba(255, 85, 85, 0.8); }
 }
 .phase:hover, .future-teaser:hover {
     transform: scale(1.02);
