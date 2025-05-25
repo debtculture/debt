@@ -2862,7 +2862,7 @@ const drops = Array(Math.floor(columns)).fill(1);
 function drawRain() {
     rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
-    rainCtx.fillStyle = '#cccccc';
+    rainCtx.fillStyle = '#999999';
     rainCtx.font = fontSize + 'px monospace';
     drops.forEach((y, i) => {
         const text = chars.charAt(Math.floor(Math.random() * chars.length));
