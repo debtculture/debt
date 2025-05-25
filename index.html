@@ -1259,26 +1259,26 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                     <h3>Hosts Include:</h3>
                     <div class="host-bubbles">
     <div class="host-bubble">
-    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';" onclick="featureHost('Lou')" onkeydown="if(event.key === 'Enter') featureHost('Lou')" role="button" aria-label="Feature Lou in Community section">
-    <div class="host-title">Lou</div>
-    <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-    </a>
-</div>
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <div class="host-title">Lou</div>
+        <a href="https://x.com/louisedbegin" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Lou's X profile">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+        </a>
+    </div>
     <div class="host-bubble">
-    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';" onclick="featureHost('Catavina')" onkeydown="if(event.key === 'Enter') featureHost('Catavina')" role="button" aria-label="Feature Catavina in Community section">
-    <div class="host-title">Catavina</div>
-    <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-    </a>
-</div>
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <div class="host-title">Catavina</div>
+        <a href="https://x.com/catavina17" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Catavina's X profile">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+        </a>
+    </div>
     <div class="host-bubble">
-    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';" onclick="featureHost('Autopsy')" onkeydown="if(event.key === 'Enter') featureHost('Autopsy')" role="button" aria-label="Feature Autopsy in Community section">
-    <div class="host-title">Autopsy</div>
-    <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Autopsy's X profile">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
-    </a>
-</div>
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747691680/Autopsy_p06ask.png" alt="Autopsy profile picture" class="profile-pic" width="75" height="75" loading="lazy" decoding="async" style="transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">
+        <div class="host-title">Autopsy</div>
+        <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="twitter-link" aria-label="Autopsy's X profile">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" class="twitter-icon" width="20" height="20" loading="lazy">
+        </a>
+    </div>
 </div>
                 </div>
             </div>
@@ -2051,38 +2051,13 @@ function toggleDropdown() {
 
 function scrollToSection(selector) {
     const element = document.querySelector(selector);
-    const headerOffset = 100; // Increased for better centering
+    const headerOffset = 60; // Adjust for fixed header height
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = elementPosition - headerOffset;
-    // Force visibility immediately
-    element.classList.add('visible');
-    if (element.id === 'roadmap') {
-        element.querySelectorAll('.phase, .future-teaser').forEach(phase => {
-            phase.classList.add('visible');
-        });
-    }
-    if (element.id === 'how-to-buy') {
-        element.querySelectorAll('.buy-step').forEach(step => {
-            step.classList.add('visible');
-        });
-    }
-    if (element.id === 'community') {
-        element.querySelectorAll('.hof-container').forEach(container => {
-            container.classList.add('visible');
-        });
-    }
-    if (element.id === 'faq') {
-        element.classList.add('visible');
-    }
     window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
     });
-    // Prevent scroll event from overriding visibility
-    element.dataset.navClicked = 'true';
-    setTimeout(() => {
-        delete element.dataset.navClicked;
-    }, 1000); // Clear flag after scroll completes
 }
 
 function toggleAccordion(header) {
@@ -2365,15 +2340,15 @@ function updateCommunityCarousel() {
             { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }
         ]
     },
-    {
+        {
         name: 'Scrappy',
         title: 'The Goofball',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
+        img: 'https://res.cloudinary.com/dpvBundler::Warning::Bundler cannot verify the integrity of remote code. Proceed with caution.ptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg',
         desc: 'Placeholder description for Scrappy.',
         badges: [
             { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }
-    ]
-},
+        ]
+    },
     {
         name: 'Mo',
         title: 'The Degen',
@@ -2833,23 +2808,6 @@ function toggleSocialBubbles() {
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-expanded', isActive);
     console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
-}
-function featureHost(hostName) {
-    const memberIndex = {
-        'Autopsy': 0,
-        'Catavina': 1,
-        'Lou': 2
-    };
-    currentCommunityIndex = memberIndex[hostName] || 0;
-    updateCommunityCarousel();
-    resetCommunityAutoRotate();
-    const featured = document.getElementById('hof-featured');
-    const offset = 60; // Account for header
-    const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo({
-        top: featuredPosition - offset,
-        behavior: 'smooth'
-    });
 }
 </script>
 </html>
