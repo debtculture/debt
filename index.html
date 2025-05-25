@@ -2054,32 +2054,35 @@ function scrollToSection(selector) {
     const headerOffset = 100; // Increased for better centering
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = elementPosition - headerOffset;
+    // Force visibility immediately
+    element.classList.add('visible');
+    if (element.id === 'roadmap') {
+        element.querySelectorAll('.phase, .future-teaser').forEach(phase => {
+            phase.classList.add('visible');
+        });
+    }
+    if (element.id === 'how-to-buy') {
+        element.querySelectorAll('.buy-step').forEach(step => {
+            step.classList.add('visible');
+        });
+    }
+    if (element.id === 'community') {
+        element.querySelectorAll('.hof-container').forEach(container => {
+            container.classList.add('visible');
+        });
+    }
+    if (element.id === 'faq') {
+        element.classList.add('visible');
+    }
     window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
     });
-    // Force section visibility after scroll
+    // Prevent scroll event from overriding visibility
+    element.dataset.navClicked = 'true';
     setTimeout(() => {
-        element.classList.add('visible');
-        if (element.id === 'roadmap') {
-            element.querySelectorAll('.phase, .future-teaser').forEach(phase => {
-                phase.classList.add('visible');
-            });
-        }
-        if (element.id === 'how-to-buy') {
-            element.querySelectorAll('.buy-step').forEach(step => {
-                step.classList.add('visible');
-            });
-        }
-        if (element.id === 'community') {
-            element.querySelectorAll('.hof-container').forEach(container => {
-                container.classList.add('visible');
-            });
-        }
-        if (element.id === 'faq') {
-            element.classList.add('visible');
-        }
-    }, 500); // Delay to ensure scroll completes
+        delete element.dataset.navClicked;
+    }, 1000); // Clear flag after scroll completes
 }
 
 function toggleAccordion(header) {
