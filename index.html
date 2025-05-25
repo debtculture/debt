@@ -2116,6 +2116,10 @@ window.addEventListener('scroll', () => {
     sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
         const sectionBottom = section.getBoundingClientRect().bottom;
+        // Skip visibility reset if section was just clicked
+        if (section.dataset.navClicked === 'true') {
+            return;
+        }
         if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
             section.classList.add('visible');
             if (section.id === 'roadmap') {
@@ -2134,6 +2138,8 @@ window.addEventListener('scroll', () => {
             if (section.id === 'faq') {
                 section.classList.add('visible');
             }
+        } else {
+            section.classList.remove('visible');
         }
     });
 
@@ -2142,6 +2148,8 @@ window.addEventListener('scroll', () => {
         const connectorBottom = connector.getBoundingClientRect().bottom;
         if (connectorTop < windowHeight * 0.85 && connectorBottom > 0) {
             connector.classList.add('visible');
+        } else {
+            connector.classList.remove('visible');
         }
     });
 });
