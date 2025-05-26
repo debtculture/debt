@@ -1165,21 +1165,6 @@ a:hover { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; transition: text-shad
 }
 .copyable-address[data-copied="true"] .copied-message {
     display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-@media (min-width: 769px) {
-    .copyable-address .copied-message {
-        display: none;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    .copyable-address[data-copied="true"] .copied-message {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
 }
 .accordion-header.pulse {
     animation: neonPulse 0.5s ease-in-out 2;
