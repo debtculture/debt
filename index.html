@@ -2751,22 +2751,19 @@ communityCarousel.addEventListener('mouseup', () => {
 function initializeRoadmapPhases() {
     const isMobile = window.innerWidth <= 768;
     document.querySelectorAll('.future-phase').forEach(phase => {
+        // Ensure phases load blurred on both mobile and desktop
+        phase.classList.remove('active');
         if (isMobile) {
             localStorage.removeItem(`phase-${phase.querySelector('h2').textContent}`);
-            phase.classList.remove('active');
+        } else {
+            // Clear localStorage for desktop on load to ensure blurred state
+            localStorage.removeItem(`phase-${phase.querySelector('h2').textContent}`);
         }
         phase.addEventListener('click', () => {
             const isActive = phase.classList.toggle('active');
-            if (!isMobile || isActive) {
-                localStorage.setItem(`phase-${phase.querySelector('h2').textContent}`, isActive);
-            }
+            // Save state only when toggling
+            localStorage.setItem(`phase-${phase.querySelector('h2').textContent}`, isActive);
         });
-        if (!isMobile) {
-            const savedState = localStorage.getItem(`phase-${phase.querySelector('h2').textContent}`);
-            if (savedState === 'true') {
-                phase.classList.add('active');
-            }
-        }
     });
 }
 
