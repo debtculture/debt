@@ -64,10 +64,7 @@
     }
 }
     .content-wrapper { filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; }
-.content-wrapper.unblurred { filter: none; }
-@media (min-width: 769px) {
-    .content-wrapper { padding-bottom: 200px; }
-}
+    .content-wrapper.unblurred { filter: none; }
     
     body { font-family: 'Inter', Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
     #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
@@ -569,9 +566,6 @@
 
     /* Disclaimer Styles */
     .disclaimer { max-width: 800px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
-@media (min-width: 769px) {
-    .disclaimer { margin-bottom: 80px; }
-}
     .disclaimer::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
     .disclaimer h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
     .disclaimer ol { padding-left: 20px; margin: 0; }
@@ -1195,15 +1189,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 .phase:hover, .future-teaser:hover {
     transform: scale(1.02);
-    transition: transform 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
-    border: 4px solid #ff5555;
-    box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
-}
-#roadmap, #roadmap:hover, .roadmap-container, .roadmap-container:hover {
-    transform: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
+    transition: transform 0.3s ease;
 }
 .badge-glossary-content { transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease; }
     </style>
