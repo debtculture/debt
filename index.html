@@ -566,6 +566,9 @@
 
     /* Disclaimer Styles */
     .disclaimer { max-width: 800px; padding: 20px; background: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: left; position: relative; border: 4px solid transparent; animation: neonPulse 2s infinite ease-in-out; }
+@media (min-width: 769px) {
+    .disclaimer { margin-bottom: 80px; }
+}
     .disclaimer::before { content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border-radius: 14px; background: linear-gradient(45deg, rgba(255, 85, 85, 0.7), rgba(255, 85, 85, 0)); filter: blur(12px); z-index: -1; animation: glowShift 2s infinite ease-in-out; }
     .disclaimer h3 { font-size: 1.5rem; color: #ff5555; margin: 0 0 15px; text-align: center; text-transform: uppercase; letter-spacing: 2px; }
     .disclaimer ol { padding-left: 20px; margin: 0; }
