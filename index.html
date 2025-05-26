@@ -1189,7 +1189,14 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 .phase:hover, .future-teaser:hover {
     transform: scale(1.02);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+    border: 4px solid #ff5555;
+    box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555;
+}
+#roadmap:hover {
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 .badge-glossary-content { transition: opacity 0.3s ease, max-height 0.3s ease, padding 0.3s ease; }
     </style>
