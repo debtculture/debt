@@ -62,8 +62,10 @@
         max-width: 100vw;
     }
 }
-    .content-wrapper { filter: blur(5px); transition: filter 0.5s ease; padding-bottom: 100px; }
-    .content-wrapper.unblurred { filter: none; }
+    .content-wrapper { 
+    transition: all ease; 
+    padding-bottom: 100px; 
+}
     
     body { font-family: 'Inter', Arial, sans-serif; margin: 0; padding: 0; background-color: #121212; color: #eee; text-align: center; position: relative; }
     #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
@@ -1226,14 +1228,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 <body>
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
-    <!-- Construction Modal -->
-    <div class="construction-modal" id="constructionModal" role="dialog" aria-labelledby="modal-title">
-        <div class="modal-content">
-            <h2 id="modal-title">SITE UNDER CONSTRUCTION</h2>
-            <p>This site is currently being built. Content may be incomplete or subject to change. Proceed anyway?</p>
-            <button onclick="acceptConstructionNotice()" tabindex="0" aria-label="Accept and proceed" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Accept</button>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <div class="content-wrapper" id="contentWrapper">
@@ -2176,12 +2170,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-function acceptConstructionNotice() {
-    localStorage.setItem('constructionAccepted', 'true');
-    document.getElementById('contentWrapper').classList.add('unblurred');
-    document.getElementById('constructionModal').style.display = 'none';
-}
-
 function copyAddress(element) {
     const addressText = element.querySelector('.address-text').textContent.trim();
     navigator.clipboard.writeText(addressText).then(() => {
@@ -2794,12 +2782,6 @@ function initializeMatrix() {
 
 // Run Matrix immediately
 initializeMatrix();
-
-// Check constructionAccepted immediately
-if (localStorage.getItem('constructionAccepted')) {
-    document.getElementById('contentWrapper').classList.add('unblurred');
-    document.getElementById('constructionModal').style.display = 'none';
-}
 
 window.addEventListener('load', () => {
     setPhantomLink();
