@@ -476,10 +476,19 @@
     color: #eee;
     font-size: 16px;
 } /* Laughing emoji */
-.badge-spaces.badge-amethyst, .badge-spaces.badge-gold, .badge-spaces.badge-silver, .badge-spaces.badge-bronze,
-.badge-burn.badge-gold, .badge-burn.badge-silver, .badge-burn.badge-bronze,
-.badge-holding.badge-gold, .badge-holding.badge-silver, .badge-holding.badge-bronze {
-    background-position: center center !important; /* Center the background image */
+/* Ensure tiered badge emblems are centered */
+.badge-spaces.badge-amethyst, 
+.badge-spaces.badge-gold, 
+.badge-spaces.badge-silver, 
+.badge-spaces.badge-bronze,
+.badge-burn.badge-gold, 
+.badge-burn.badge-silver, 
+.badge-burn.badge-bronze,
+.badge-holding.badge-gold, 
+.badge-holding.badge-silver, 
+.badge-holding.badge-bronze {
+    background-position: 50% 50% !important; /* Explicitly center the background image */
+    background-size: contain !important; /* Ensure the image fits within the badge */
     transform: none !important; /* Remove any rotation */
 }
     #community { padding-bottom: 60px; }
@@ -1031,10 +1040,18 @@ body:not(:has(.social-bubbles.active))::before {
     .badge-glossary-content.active {
         padding: 10px 5px; /* Reduced padding to match container */
     }
-    .badge-spaces.badge-amethyst, .badge-spaces.badge-gold, .badge-spaces.badge-silver, .badge-spaces.badge-bronze,
-    .badge-burn.badge-gold, .badge-burn.badge-silver, .badge-burn.badge-bronze,
-    .badge-holding.badge-gold, .badge-holding.badge-silver, .badge-holding.badge-bronze {
-        background-position: center center !important;
+    .badge-spaces.badge-amethyst, 
+    .badge-spaces.badge-gold, 
+    .badge-spaces.badge-silver, 
+    .badge-spaces.badge-bronze,
+    .badge-burn.badge-gold, 
+    .badge-burn.badge-silver, 
+    .badge-burn.badge-bronze,
+    .badge-holding.badge-gold, 
+    .badge-holding.badge-silver, 
+    .badge-holding.badge-bronze {
+        background-position: 50% 50% !important;
+        background-size: contain !important;
         transform: none !important;
     }
 }
