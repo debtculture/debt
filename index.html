@@ -476,6 +476,12 @@
     color: #eee;
     font-size: 16px;
 } /* Laughing emoji */
+.badge-spaces.badge-amethyst, .badge-spaces.badge-gold, .badge-spaces.badge-silver, .badge-spaces.badge-bronze,
+.badge-burn.badge-gold, .badge-burn.badge-silver, .badge-burn.badge-bronze,
+.badge-holding.badge-gold, .badge-holding.badge-silver, .badge-holding.badge-bronze {
+    background-position: center center !important; /* Center the background image */
+    transform: none !important; /* Remove any rotation */
+}
     #community { padding-bottom: 60px; }
 .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: center; justify-content: center; }
 @media (min-width: 769px) {
@@ -1024,6 +1030,12 @@ body:not(:has(.social-bubbles.active))::before {
     }
     .badge-glossary-content.active {
         padding: 10px 5px; /* Reduced padding to match container */
+    }
+    .badge-spaces.badge-amethyst, .badge-spaces.badge-gold, .badge-spaces.badge-silver, .badge-spaces.badge-bronze,
+    .badge-burn.badge-gold, .badge-burn.badge-silver, .badge-burn.badge-bronze,
+    .badge-holding.badge-gold, .badge-holding.badge-silver, .badge-holding.badge-bronze {
+        background-position: center center !important;
+        transform: none !important;
     }
 }
     @media (min-width: 769px) {
@@ -2483,7 +2495,7 @@ function updateCommunityCarousel() {
         badgesContainer.innerHTML = '<span>No badges yet</span>';
     }
 
-    description.textContent = `${member.name} - ${member.title}: ${member.desc}`;
+        description.textContent = `Placeholder description for ${member.name}.`;
 
     function getBadgeDescription(badgeName) {
         const descriptions = {
