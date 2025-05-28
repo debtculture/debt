@@ -1226,7 +1226,130 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   color: #ff7777;
   text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
 }
+/* Pokémon Card Style for Featured Member */
+.trading-card {
+    background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%);
+    border: 5px solid #ffd700;
+    border-radius: 10px;
+    width: 200px;
+    min-height: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-image: url('https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-opacity: 0.1;
+    opacity: 0.95;
+}
 
+.trading-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555;
+}
+
+.card-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.card-level {
+    background: #ff5555;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
+}
+
+.card-pfp-square {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    border: 3px solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.card-pfp-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-stats {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.hof-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 5px;
+}
+
+.hof-title {
+    font-size: 14px;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.divider {
+    width: 80%;
+    height: 1px;
+    background: #000;
+    margin: 5px auto;
+}
+
+.hof-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.hof-description {
+    font-size: 12px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.4;
+    padding: 0 5px;
+}
+
+@media (max-width: 768px) {
+    .trading-card {
+        width: 180px;
+        min-height: 280px;
+    }
+
+    .card-pfp-square {
+        width: 130px;
+        height: 130px;
+    }
+
+    .hof-name {
+        font-size: 18px;
+    }
+
+    .hof-title {
+        font-size: 12px;
+    }
+
+    .hof-description {
+        font-size: 11px;
+    }
+}
     </style>
     <!-- Solana Wallet Adapter and Dependencies -->
 <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
@@ -1458,13 +1581,22 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="hof-carousel">
                 <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">⇠</div>
                 <div class="hof-container">
-                    <div class="hof-featured" id="hof-featured">
-    <div class="hof-bubble" onclick="redirectToXProfile(this)" data-x-link="https://x.com/AutopsyT2">
-        <div class="hof-inner-bubble">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="130" height="130" loading="eager">
+                                        <div class="hof-featured" id="hof-featured">
+    <div class="trading-card" onclick="redirectToXProfile(this)" data-x-link="https://x.com/AutopsyT2">
+        <div class="card-header">
+            <div class="card-level">Community Lv. 99</div>
         </div>
-        <div class="hof-name">Autopsy</div>
-        <div class="hof-title">The Visionary</div>
+        <div class="card-pfp-square">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="150" height="150" loading="eager">
+        </div>
+        <div class="card-stats">
+            <div class="hof-name">Autopsy</div>
+            <div class="hof-title">The Visionary</div>
+            <div class="divider"></div>
+            <div class="hof-badges" id="hof-badges"></div>
+            <div class="divider"></div>
+            <div class="hof-description" id="hof-description">Placeholder description for Autopsy.</div>
+        </div>
     </div>
 </div>
                     <div class="hof-badges" id="hof-badges"></div>
