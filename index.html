@@ -476,19 +476,20 @@
     color: #eee;
     font-size: 16px;
 } /* Laughing emoji */
-/* Ensure tiered badge emblems are centered */
-.badge-spaces.badge-amethyst, 
-.badge-spaces.badge-gold, 
-.badge-spaces.badge-silver, 
-.badge-spaces.badge-bronze,
-.badge-burn.badge-gold, 
-.badge-burn.badge-silver, 
-.badge-burn.badge-bronze,
-.badge-holding.badge-gold, 
-.badge-holding.badge-silver, 
-.badge-holding.badge-bronze {
-    background-position: 50% 50% !important; /* Explicitly center the background image */
-    background-size: contain !important; /* Ensure the image fits within the badge */
+/* Force centering of tiered badge emblems */
+.trading-card .hof-badges .badge-spaces.badge-amethyst,
+.trading-card .hof-badges .badge-spaces.badge-gold,
+.trading-card .hof-badges .badge-spaces.badge-silver,
+.trading-card .hof-badges .badge-spaces.badge-bronze,
+.trading-card .hof-badges .badge-burn.badge-gold,
+.trading-card .hof-badges .badge-burn.badge-silver,
+.trading-card .hof-badges .badge-burn.badge-bronze,
+.trading-card .hof-badges .badge-holding.badge-gold,
+.trading-card .hof-badges .badge-holding.badge-silver,
+.trading-card .hof-badges .badge-holding.badge-bronze {
+    background-position: 50% 50% !important; /* Explicitly center */
+    background-size: 80% !important; /* Scale down slightly to fit */
+    background-repeat: no-repeat !important; /* Prevent tiling */
     transform: none !important; /* Remove any rotation */
 }
     #community { padding-bottom: 60px; }
@@ -1040,18 +1041,23 @@ body:not(:has(.social-bubbles.active))::before {
     .badge-glossary-content.active {
         padding: 10px 5px; /* Reduced padding to match container */
     }
-    .badge-spaces.badge-amethyst, 
-    .badge-spaces.badge-gold, 
-    .badge-spaces.badge-silver, 
-    .badge-spaces.badge-bronze,
-    .badge-burn.badge-gold, 
-    .badge-burn.badge-silver, 
-    .badge-burn.badge-bronze,
-    .badge-holding.badge-gold, 
-    .badge-holding.badge-silver, 
-    .badge-holding.badge-bronze {
+    .trading-card .hof-badges .badge {
+    background-position: 50% 50% !important; /* Default centering for all badges */
+    background-repeat: no-repeat !important; /* Prevent tiling */
+}
+    .trading-card .hof-badges .badge-spaces.badge-amethyst,
+    .trading-card .hof-badges .badge-spaces.badge-gold,
+    .trading-card .hof-badges .badge-spaces.badge-silver,
+    .trading-card .hof-badges .badge-spaces.badge-bronze,
+    .trading-card .hof-badges .badge-burn.badge-gold,
+    .trading-card .hof-badges .badge-burn.badge-silver,
+    .trading-card .hof-badges .badge-burn.badge-bronze,
+    .trading-card .hof-badges .badge-holding.badge-gold,
+    .trading-card .hof-badges .badge-holding.badge-silver,
+    .trading-card .hof-badges .badge-holding.badge-bronze {
         background-position: 50% 50% !important;
-        background-size: contain !important;
+        background-size: 80% !important;
+        background-repeat: no-repeat !important;
         transform: none !important;
     }
 }
