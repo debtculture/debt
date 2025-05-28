@@ -290,15 +290,12 @@
     border: 1px solid rgba(255, 85, 85, 0.5);
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
-.badge[class*='badge-'][class*='badge-'],
-.badge.badge-amethyst,
-.badge.badge-gold,
-.badge.badge-silver,
-.badge.badge-bronze,
-.badge.badge-single {
+.badge[class*='badge-'],
+.trading-card .hof-badges .badge {
     background: none !important;
+    background-color: transparent !important;
+    background-image: none !important;
 }
-
 /* Tooltip styles for desktop hover */
 .badge {
     position: relative; /* Ensure positioning context for tooltip */
@@ -402,17 +399,6 @@
         top: 50%;
         left: 50%;
     }
-}
-
-.badge-gold {
-    background: linear-gradient(145deg, #ffd700, #ccac00);
-    border-color: #ffd700;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700;
-}
-.badge-amethyst {
-    background: linear-gradient(145deg, #9966cc, #7a52a3);
-    border: 1px solid #9966cc;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc;
 }
 .badge-glossary-content .badge-amethyst {
     background: linear-gradient(145deg, #9966cc, #7a52a3) !important;
@@ -876,32 +862,27 @@ body:not(:has(.social-bubbles.active))::before {
 
 /* Update badge colors based on tier */
 .badge-glossary-content .badge-bronze {
-    background: linear-gradient(145deg, #cd7f32, #8c5523);
-    border-color: #cd7f32;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32;
+    background: linear-gradient(145deg, #cd7f32, #8c5523) !important;
+    border-color: #cd7f32 !important;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important;
 }
 
 .badge-glossary-content .badge-silver {
-    background: linear-gradient(145deg, #c0c0c0, #808080);
-    border-color: #c0c0c0;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0;
+    background: linear-gradient(145deg, #c0c0c0, #808080) !important;
+    border-color: #c0c0c0 !important;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important;
 }
 
 .badge-glossary-content .badge-gold {
-    background: linear-gradient(145deg, #ffd700, #ccac00);
-    border-color: #ffd700;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700;
+    background: linear-gradient(145deg, #ffd700, #ccac00) !important;
+    border-color: #ffd700 !important;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important;
 }
 
-.badge-single {
-    background: linear-gradient(145deg, #ff5555, #cc4444);
-    border-color: #ff5555;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555;
-}
 .badge-glossary-content .badge-single {
-    background: linear-gradient(145deg, #ff5555, #cc4444);
-    border-color: #ff5555;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555;
+    background: linear-gradient(145deg, #ff5555, #cc4444) !important;
+    border-color: #ff5555 !important;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important;
 }
 
 /* Tooltip styles for desktop hover */
@@ -1394,7 +1375,9 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     border: 1px solid #cd7f32 !important;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important;
 }
-.trading-card .hof-badges .badge-single {
+.trading-card .hof-badges .badge-single,
+.trading-card .hof-badges .badge-shiller,
+.trading-card .hof-badges .badge-meme {
     background: linear-gradient(145deg, #ff5555, #cc4444) !important;
     border: 1px solid #ff5555 !important;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important;
