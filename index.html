@@ -1275,6 +1275,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.pfp-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 .card-pfp-square img {
     width: 100%;
     height: 100%;
@@ -1575,13 +1581,15 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="hof-carousel">
                 <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">⇠</div>
                 <div class="hof-container">
-                                                            <div class="hof-featured" id="hof-featured">
-    <div class="trading-card" onclick="redirectToXProfile(this)" data-x-link="https://x.com/AutopsyT2">
+            <div class="hof-featured" id="hof-featured">
+    <div class="trading-card" data-x-link="https://x.com/AutopsyT2">
         <div class="card-header">
             <div class="card-level">Community Lv. 99</div>
         </div>
         <div class="card-pfp-square">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="150" height="150" loading="eager">
+            <a href="https://x.com/AutopsyT2" target="_blank" class="pfp-link">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="150" height="150" loading="eager">
+            </a>
         </div>
         <div class="card-stats">
             <div class="hof-name">Autopsy</div>
@@ -2387,7 +2395,7 @@ function updateCommunityCarousel() {
         { name: 'Catavina', title: 'The Cheerleader', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg', desc: 'Placeholder description for Catavina.', badges: [{ name: 'Moonwalker', tier: 'amethyst', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
         { name: 'Lou', title: 'The Rally', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg', desc: 'Placeholder description for Lou.', badges: [{ name: 'Moonwalker', tier: 'amethyst', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
         { name: 'Nerf', title: 'The Professional', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg', desc: 'Placeholder description for Nerf.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
-        { name: 'JPEG', title: 'The Youngblood', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg', desc: 'Placeholder description for JPEG.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'JPEG', title: 'The Youngblood', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg', desc: 'Placeholder description for JPEG.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: "Cold Blooded Shiller", tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
         { name: 'Lunicking', title: 'The Spark', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg', desc: 'Placeholder description for Lunicking.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Zero Gravity', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
         { name: 'Tormund', title: 'The Oracle', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg', desc: 'Placeholder description for Tormund.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
         { name: 'STAYHIGH', title: 'The Unfiltered', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg', desc: 'Placeholder description for STAYHIGH.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
@@ -2408,7 +2416,9 @@ function updateCommunityCarousel() {
 
     const member = members[currentCommunityIndex];
     const featuredCard = featured.querySelector('.trading-card');
+    const pfpLink = featuredCard.querySelector('.pfp-link');
     featuredCard.setAttribute('data-x-link', xLink);
+    pfpLink.setAttribute('href', xLink);
     featuredCard.querySelector('.card-pfp-square img').src = member.img;
     featuredCard.querySelector('.card-pfp-square img').alt = `${member.name} profile picture`;
     featuredCard.querySelector('.hof-name').textContent = member.name;
@@ -2442,7 +2452,7 @@ function updateCommunityCarousel() {
                     if (badgeEl.classList.contains('active-tooltip')) {
                         sharedTooltip.textContent = `${badge.name}: ${getBadgeDescription(badge.name)}`;
                         const rect = badgeEl.getBoundingClientRect();
-                        sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
+                        sharedTooltip.style.left = `${rect.left + rect.width}px`;
                         sharedTooltip.style.top = `${rect.bottom + 25}px`;
                         sharedTooltip.style.display = 'block';
                     } else {
@@ -2467,10 +2477,10 @@ function updateCommunityCarousel() {
             'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
             'Inferno': 'Burned 10,000,000+ $DEBT.',
             'Ashbringer': 'Burned 100,000,000+ $DEBT.',
-            'Cold Wallet': 'Held $DEBT for 1+ month.',
-            'Iron Grip': 'Held $DEBT for 3+ months.',
-            'Steel Reserve': 'Held $DEBT for 6+ months, solid stack.',
-            'Diamond Hands': 'Held $DEBT for 1 year+, unshakeable holder.',
+            'Cold Wallet': 'Held 1+ month.',
+            'Iron Grip': 'Held 3+ months.',
+            'Steel Reserve': 'Held 6+ months, solid stack.',
+            'Diamond Hands': 'Held 1 year+, unshakeable holder.',
             'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
             'Meme Machine': 'Creates dank $DEBT memes.'
         };
@@ -2495,7 +2505,7 @@ function updateCommunityCarousel() {
                 }
             }
         };
-        bubble.setAttribute('aria-label', `Select ${member.getAttribute('data-title')}`);
+        bubble.setAttribute('aria-label', `select ${member.getAttribute('data-name')}`);
     });
 }
 
