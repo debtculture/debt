@@ -1251,7 +1251,8 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 
 .card-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 5px;
 }
 
@@ -1263,6 +1264,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     border-radius: 5px;
     font-weight: bold;
     font-family: 'Arial', sans-serif;
+    line-height: 1;
 }
 
 .card-pfp-square {
@@ -1281,6 +1283,22 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     height: 100%;
 }
 
+.special-ability {
+    margin-top: 5px;
+}
+
+.ability-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+.ability-content {
+    height: 30px; /* Placeholder space */
+}
+
 .card-pfp-square img {
     width: 100%;
     height: 100%;
@@ -1297,14 +1315,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     font-weight: bold;
     color: #000;
     font-family: 'Arial', sans-serif;
-    margin-bottom: 3px;
-}
-
-.trading-card .hof-title {
-    font-size: 12px;
-    font-style: italic;
-    color: #555;
-    margin-bottom: 3px;
 }
 
 .divider {
@@ -1318,15 +1328,15 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 3px;
+    gap: 4px;
     margin: 5px 0;
-    flex-grow: 1; /* Use remaining space */
+    flex-grow: 1;
     overflow: hidden;
 }
 
 .hof-badges .badge {
-    width: 20px; /* Slightly smaller badges */
-    height: 20px;
+    width: 28px;
+    height: 28px;
 }
 
 @media (max-width: 768px) {
@@ -1343,11 +1353,17 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 
         .hof-name {
-        font-size: 16px;
+        font-size: 14px;
     }
 
-        .hof-title {
+        .card-level {
         font-size: 10px;
+        padding: 1px 6px;
+    }
+
+        .hof-badges .badge {
+        width: 24px;
+        height: 24px;
     }
 }
     </style>
@@ -1581,10 +1597,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="hof-carousel">
                 <div class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" tabindex="0" role="button" aria-label="Previous Community member" onkeydown="if(event.key === 'Enter') rotateHof('left')" style="transition: transform 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.3)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" onfocus="this.style.boxShadow='0 0 10px #ff5555';" onblur="this.style.boxShadow='none';">⇠</div>
                 <div class="hof-container">
-            <div class="hof-featured" id="hof-featured">
+                                <div class="hof-featured" id="hof-featured">
     <div class="trading-card" data-x-link="https://x.com/AutopsyT2">
         <div class="card-header">
-            <div class="card-level">Community Lv. 99</div>
+            <div class="hof-name">Autopsy</div>
+            <div class="card-level">Lv. 99</div>
         </div>
         <div class="card-pfp-square">
             <a href="https://x.com/AutopsyT2" target="_blank" class="pfp-link">
@@ -1592,10 +1609,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             </a>
         </div>
         <div class="card-stats">
-            <div class="hof-name">Autopsy</div>
-            <div class="hof-title">The Visionary</div>
-            <div class="divider"></div>
             <div class="hof-badges" id="hof-badges"></div>
+            <div class="divider"></div>
+            <div class="special-ability">
+                <div class="ability-title">Special Ability</div>
+                <div class="ability-content"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -2422,7 +2441,6 @@ function updateCommunityCarousel() {
     featuredCard.querySelector('.card-pfp-square img').src = member.img;
     featuredCard.querySelector('.card-pfp-square img').alt = `${member.name} profile picture`;
     featuredCard.querySelector('.hof-name').textContent = member.name;
-    featuredCard.querySelector('.hof-title').textContent = member.title;
 
     const badgesContainer = document.getElementById('hof-badges');
     badgesContainer.innerHTML = '';
@@ -2465,7 +2483,7 @@ function updateCommunityCarousel() {
         badgesContainer.innerHTML = '<span>No badges yet</span>';
     }
 
-    description.textContent = member.desc;
+    description.textContent = `${member.name} - ${member.title}: ${member.desc}`;
 
     function getBadgeDescription(badgeName) {
         const descriptions = {
