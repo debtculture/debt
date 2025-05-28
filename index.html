@@ -180,7 +180,7 @@
     #community { margin-top: -700px; padding-bottom: 60px; min-height: auto; }
     .hof-carousel { max-width: 600px; height: 450px; }
     .faq-container { max-width: 800px; }
-    .hof-blurb { margin: 500px auto 20px; }
+    .hof-blurb { margin: 530px auto 20px; }
 }
         @media (max-width: 768px) {
     #roadmap { margin-top: -150px; }
@@ -1231,8 +1231,8 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%);
     border: 5px solid #ffd700;
     border-radius: 10px;
-    width: 200px;
-    min-height: 300px;
+    width: 210px; /* Slightly wider for badge display */
+    height: 294px; /* 5:7 ratio (210 * 7/5) */
     margin: 0 auto;
     padding: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -1240,6 +1240,9 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .trading-card:hover {
@@ -1264,8 +1267,8 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 
 .card-pfp-square {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     margin: 0 auto;
     border: 3px solid #000;
     border-radius: 5px;
@@ -1285,18 +1288,18 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 
 .hof-name {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #000;
     font-family: 'Arial', sans-serif;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .trading-card .hof-title {
-    font-size: 14px;
+    font-size: 12px;
     font-style: italic;
     color: #555;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .divider {
@@ -1310,39 +1313,53 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 5px;
+    gap: 3px; /* Reduced gap for better fit */
     margin: 5px 0;
+    max-height: 40px; /* Limit height to fit within card */
+    overflow: hidden; /* Hide overflow badges */
+}
+
+.hof-badges .badge {
+    width: 20px; /* Slightly smaller badges */
+    height: 20px;
 }
 
 .hof-description {
-    font-size: 12px;
+    font-size: 11px;
     color: #333;
     font-family: 'Arial', sans-serif;
-    line-height: 1.4;
+    line-height: 1.2;
     padding: 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
 }
 
 @media (max-width: 768px) {
-    .trading-card {
+        .trading-card {
         width: 180px;
-        min-height: 280px;
+        height: 252px; /* 5:7 ratio (180 * 7/5) */
+    }
+    .hof-container {
+        margin-bottom: 40px; /* Add spacing to prevent overlap */
+    }
+        .card-pfp-square {
+        width: 120px;
+        height: 120px;
     }
 
-    .card-pfp-square {
-        width: 130px;
-        height: 130px;
+        .hof-name {
+        font-size: 16px;
     }
 
-    .hof-name {
-        font-size: 18px;
+        .hof-title {
+        font-size: 10px;
     }
 
-    .hof-title {
-        font-size: 12px;
-    }
-
-    .hof-description {
-        font-size: 11px;
+        .hof-description {
+        font-size: 10px;
     }
 }
     </style>
