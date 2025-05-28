@@ -1626,11 +1626,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </div>
         <div class="hof-title">George</div>
     </div>
-    <div class="hof-member" data-index="20" data-title="TBA">
+    <div class="hof-member" data-index="20" data-title="Dog" data-x-link="https://x.com/Dog66515910" onclick="featureMember(this)">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">?</div>
         </div>
-        <div class="hof-title">TBA</div>
+        <div class="hof-title">Dog</div>
     </div>
     <div class="hof-member" data-index="21" data-title="TBA">
         <div class="hof-bubble">
@@ -1823,11 +1823,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
 <div class="hof-row-mobile hof-row-mobile-6">
-    <div class="hof-member" data-index="20" data-title="TBA">
+    <div class="hof-member" data-index="20" data-title="Dog" data-x-link="https://x.com/Dog66515910">
         <div class="hof-bubble">
             <div class="hof-inner-bubble">?</div>
         </div>
-        <div class="hof-title">TBA</div>
+        <div class="hof-title">Dog</div>
     </div>
     <div class="hof-member" data-index="21" data-title="TBA">
         <div class="hof-bubble">
@@ -2224,7 +2224,7 @@ let currentCommunityIndex = 0;
 const communityMembers = document.querySelectorAll(
     window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
 );
-const totalNamedCommunityMembers = 20; // Only named members, excluding TBA placeholders
+const totalNamedCommunityMembers = 21; // Only named members, excluding TBA placeholders
 const totalCommunityMembers = 24; // Total including TBA placeholders
 
 function updateCommunityCarousel() {
