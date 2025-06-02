@@ -1499,7 +1499,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
         <div id="walletInfo" style="display: none; position: fixed; top: 60px; right: 15px; text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
             <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
-            <p id="debtBalance" style="margin: 0 0 10px;">$DEBT Balance: <span>0 $DEBT</span></p>
+            <p id="debtBalance" style="margin: 0 0 10px;">Balance: <span>0 $DEBT</span></p>
             <button onclick="disconnectWallet()" style="background: #ff5555; color: #fff; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Disconnect</button>
         </div>
         <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
@@ -2855,34 +2855,42 @@ async function disconnectWallet() {
 
 async function getDebtBalance(publicKey) {
     try {
-        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        // Use a more reliable RPC endpoint
+        const connection = new solanaWeb3.Connection('https://rpc.ankr.com/solana', 'confirmed');
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
-        console.log('Fetching $DEBT balance for:', publicKey);
+        console.log('Fetching $DEBT balance for wallet:', publicKey);
+        console.log('Using token mint:', tokenMintAddress.toBase58());
+
         const tokenAccounts = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
-        console.log('Token accounts found:', tokenAccounts.value.length);
+        console.log('Token accounts found:', tokenAccounts.value.length, 'Details:', tokenAccounts.value);
 
         if (tokenAccounts.value.length === 0) {
-            console.log('No $DEBT token account found for this wallet.');
+            console.log('No $DEBT token account found for this wallet. Ensure the wallet holds $DEBT tokens.');
             return '0 $DEBT';
         }
 
-        const accountInfo = await connection.getAccountInfo(tokenAccounts.value[0].pubkey);
+        const tokenAccountPubkey = tokenAccounts.value[0].pubkey;
+        console.log('Token account pubkey:', tokenAccountPubkey.toBase58());
+
+        const accountInfo = await connection.getAccountInfo(tokenAccountPubkey);
         if (!accountInfo) {
-            console.log('Failed to fetch account info for token account.');
+            console.log('Failed to fetch account info for token account:', tokenAccountPubkey.toBase58());
             return '0 $DEBT';
         }
 
         const tokenAccount = splToken.TokenAccountData.decode(accountInfo.data);
+        console.log('Token account data:', tokenAccount);
+
         const balance = Number(tokenAccount.amount) / 10 ** 6; // $DEBT has 6 decimals
-        console.log('Raw balance:', tokenAccount.amount, 'Formatted balance:', balance);
+        console.log('Raw balance (lamports):', tokenAccount.amount.toString(), 'Formatted balance:', balance);
 
         // Format with commas for readability
         const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return `${formattedBalance} $DEBT`;
     } catch (error) {
-        console.error('Error fetching $DEBT balance:', error);
+        console.error('Error fetching $DEBT balance:', error.message, error.stack);
         return '0 $DEBT';
     }
 }
