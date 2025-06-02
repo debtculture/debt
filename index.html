@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<script type="module">
+    import * as solanaWeb3 from 'https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/+esm';
+    import * as splToken from 'https://cdn.jsdelivr.net/npm/@solana/spl-token@0.4.8/+esm';
+    window.solanaWeb3 = solanaWeb3;
+    window.splToken = splToken;
+</script>
     <meta name="description" content="Join $DEBT rebellion! Fight finance with memes, burns, and community.">
     <meta name="keywords" content="DEBT, cryptocurrency, Solana, memecoin, rebellion, defy finance, burn tokens, community power">
     <meta name="robots" content="index, follow, max-image-preview:large">
@@ -2803,6 +2809,12 @@ async function connectWallet() {
     const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
     const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
 
+    if (button.classList.contains('connected')) {
+        // Toggle wallet info visibility
+        walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
+        return;
+    }
+
     try {
         if (!window.solana) {
             alert('Please install a Solana wallet like Phantom or Solflare.');
@@ -2815,7 +2827,6 @@ async function connectWallet() {
 
         button.textContent = `${provider} Connected`;
         button.classList.add('connected');
-        button.disabled = true;
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         walletInfo.style.display = 'block';
@@ -2854,46 +2865,38 @@ async function disconnectWallet() {
 
 async function getDebtBalance(publicKey) {
     try {
-        // Use QuickNode RPC for reliability (replace with your own endpoint if needed)
         const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXpV6y3EdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
         console.log('Fetching $DEBT balance for:', publicKey);
 
-        // Get token accounts
         const tokenAccounts = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
-        if (tokenAccounts.value.length === 0) {
+        if (!tokenAccounts.value.length) {
             console.log('No $DEBT token account found.');
             return '0 $DEBT';
         }
 
-        // Get first token account
         const tokenAccountPubkey = tokenAccounts.value[0].pubkey;
         console.log('Token account:', tokenAccountPubkey.toBase58());
 
-        // Get account info
         const accountInfo = await connection.getAccountInfo(tokenAccountPubkey);
         if (!accountInfo) {
             console.log('No account info for:', tokenAccountPubkey.toBase58());
             return '0 $DEBT';
         }
 
-        // Parse token account data using @solana/spl-token
         const { unpackAccount } = await import('https://cdn.jsdelivr.net/npm/@solana/spl-token@0.4.8/+esm');
         const tokenAccount = unpackAccount(tokenAccountPubkey, accountInfo);
         console.log('Token account data:', tokenAccount);
 
-        // Get token decimals
         const mintInfo = await connection.getParsedAccountInfo(tokenMintAddress);
         const decimals = mintInfo.value?.data?.parsed?.info?.decimals || 6;
         console.log('Token decimals:', decimals);
 
-        // Calculate balance
         const balance = Number(tokenAccount.amount) / Math.pow(10, decimals);
         console.log('Raw balance:', tokenAccount.amount.toString(), 'Formatted:', balance);
 
-        // Format balance
         const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return `${formattedBalance} $DEBT`;
     } catch (error) {
@@ -2919,9 +2922,8 @@ window.addEventListener('load', async () => {
 
             button.textContent = 'Wallet Connected';
             button.classList.add('connected');
-            button.disabled = true;
             walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-            walletInfo.style.display = 'block';
+            walletInfo.style.display = 'none'; // Start hidden
 
             const balance = await getDebtBalance(publicKey);
             debtBalanceEl.textContent = balance;
