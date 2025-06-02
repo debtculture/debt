@@ -1426,10 +1426,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 }
 #walletInfo {
-    position: absolute;
-    top: 115px; /* Below navbar and bubble */
-    right: 15px; /* Align closer to bubble */
-    transform: translateX(-45px); /* Center under 90px bubble */
+    display: none; /* Controlled by JavaScript */
     text-align: center;
     padding: 8px 12px;
     background-color: rgba(18, 18, 18, 0.8);
@@ -1443,34 +1440,25 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     max-width: 180px;
     width: max-content;
 }
-@media (max-width: 768px) {
-    #walletInfo {
-        position: fixed;
-        top: 80px;
-        right: 15px;
-        transform: none;
-        z-index: 1200;
-        max-width: 180px;
-        font-size: 0.75rem;
-    }
-}
     </style>
 <style>
 @media (max-width: 768px) {
     #walletInfo {
+        position: fixed;
         top: 60px !important;
         right: 15px !important;
         left: auto !important;
         transform: none !important;
+        font-size: 0.75rem;
     }
 }
 @media (min-width: 769px) {
     #walletInfo {
-        top: 120px !important; /* Adjusted to appear below connect bubble */
-        right: 20px !important; /* Aligns with the wallet connect bubble's right edge */
+        position: fixed;
+        top: 120px !important; /* Below 90px bubble + navbar */
+        right: 15px !important; /* Matches bubble’s right edge */
+        transform: translateX(-45px) !important; /* Centers under 90px bubble */
         left: auto !important;
-        transform: none !important;
-        margin-right: 10px !important; /* Fine-tunes horizontal positioning */
     }
 }
 </style>
