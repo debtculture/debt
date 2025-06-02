@@ -1388,10 +1388,36 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     border: 1px solid #ff5555 !important;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important;
 }
+.connect-wallet-desktop {
+    background: #ff5555;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    margin-left: 10px;
+}
+.connect-wallet-desktop:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #ff5555;
+    background: #ff7777;
+}
+.connect-wallet-desktop.connected {
+    background: #00cc00;
+}
+@media (max-width: 768px) {
+    .connect-wallet-desktop {
+        display: none;
+    }
+}
     </style>
         <!-- Solana Wallet Adapter and Dependencies -->
 <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
 <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@solana/spl-token@0.4.8/lib/index.min.js"></script>
 <script type="module">
     import * as solanaWeb3 from 'https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/+esm';
     import * as splToken from 'https://cdn.jsdelivr.net/npm/@solana/spl-token@0.4.8/+esm';
@@ -1429,6 +1455,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                     </div>
                 </div>
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 connect-wallet-desktop" id="connectWalletDesktop" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
             </div>
         </div>
 
@@ -2810,23 +2837,53 @@ async function connectWallet() {
     const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
 
     if (button.classList.contains('connected')) {
-        // Toggle wallet info visibility
         walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         return;
     }
 
     try {
         if (!window.solana) {
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (isMobile) {
+        const walletChoice = prompt('No wallet detected. Choose a wallet to install:\n1. Phantom\n2. Solflare\nEnter 1 or 2, or cancel.');
+        if (walletChoice === '1') {
+            window.location.href = 'https://phantom.app/download';
+        } else if (walletChoice === '2') {
+            window.location.href = 'https://solflare.com/download';
+        } else {
             alert('Please install a Solana wallet like Phantom or Solflare.');
-            return;
+        }
+    } else {
+        alert('Please install a Solana wallet extension like Phantom or Solflare.');
+    }
+    return;
+}
+
+        let provider = 'Solana Wallet';
+        if (window.solana.isPhantom) provider = 'Phantom';
+        else if (window.solana.isSolflare) provider = 'Solflare';
+
+        let publicKey;
+        try {
+            const response = await window.solana.connect();
+            publicKey = response.publicKey.toString();
+        } catch (err) {
+            if (provider === 'Solflare') {
+                // Fallback for Solflare
+                await window.solana.connect({ onlyIfTrusted: false });
+                publicKey = window.solana.publicKey.toString();
+            } else {
+                throw err;
+            }
         }
 
-        const provider = window.solana.isPhantom ? 'Phantom' : window.solana.isSolflare ? 'Solflare' : 'Solana Wallet';
-        const response = await window.solana.connect();
-        const publicKey = response.publicKey.toString();
-
-        button.textContent = `${provider} Connected`;
-        button.classList.add('connected');
+        const buttons = [document.getElementById('connectWalletMobile'), document.getElementById('connectWalletDesktop')];
+buttons.forEach(btn => {
+    if (btn) {
+        btn.textContent = `${provider} Connected`;
+        btn.classList.add('connected');
+    }
+});
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         walletInfo.style.display = 'block';
@@ -2839,21 +2896,25 @@ async function connectWallet() {
         console.log(`${provider} connected:`, publicKey);
     } catch (error) {
         console.error('Error connecting wallet:', error);
-        alert('Failed to connect wallet. Please try again.');
+        alert('Failed to connect wallet. Ensure your wallet is unlocked and try again.');
     }
 }
 
 async function disconnectWallet() {
-    const button = document.getElementById('connectWalletMobile');
+    const buttons = [document.getElementById('connectWalletMobile'), document.getElementById('connectWalletDesktop')];
     const walletInfo = document.getElementById('walletInfo');
 
     try {
         if (window.solana && window.solana.disconnect) {
             await window.solana.disconnect();
         }
-        button.textContent = 'Connect Wallet';
-        button.classList.remove('connected');
-        button.disabled = false;
+        buttons.forEach(btn => {
+            if (btn) {
+                btn.textContent = 'Connect Wallet';
+                btn.classList.remove('connected');
+                btn.disabled = false;
+            }
+        });
         walletInfo.style.display = 'none';
         localStorage.removeItem('walletAddress');
         console.log('Wallet disconnected');
@@ -2866,36 +2927,22 @@ async function disconnectWallet() {
 async function getDebtBalance(publicKey) {
     try {
         const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXpV6y3EdqEFRuv5e1k7CuQW82pump');
+        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
         console.log('Fetching $DEBT balance for:', publicKey);
 
-        const tokenAccounts = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
+        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(owner, { mint: tokenMintAddress });
         if (!tokenAccounts.value.length) {
             console.log('No $DEBT token account found.');
             return '0 $DEBT';
         }
 
-        const tokenAccountPubkey = tokenAccounts.value[0].pubkey;
-        console.log('Token account:', tokenAccountPubkey.toBase58());
+        const tokenAccount = tokenAccounts.value[0].account.data.parsed.info;
+        const balance = tokenAccount.tokenAmount.uiAmount;
+        const decimals = tokenAccount.tokenAmount.decimals;
 
-        const accountInfo = await connection.getAccountInfo(tokenAccountPubkey);
-        if (!accountInfo) {
-            console.log('No account info for:', tokenAccountPubkey.toBase58());
-            return '0 $DEBT';
-        }
-
-        const { unpackAccount } = await import('https://cdn.jsdelivr.net/npm/@solana/spl-token@0.4.8/+esm');
-        const tokenAccount = unpackAccount(tokenAccountPubkey, accountInfo);
-        console.log('Token account data:', tokenAccount);
-
-        const mintInfo = await connection.getParsedAccountInfo(tokenMintAddress);
-        const decimals = mintInfo.value?.data?.parsed?.info?.decimals || 6;
-        console.log('Token decimals:', decimals);
-
-        const balance = Number(tokenAccount.amount) / Math.pow(10, decimals);
-        console.log('Raw balance:', tokenAccount.amount.toString(), 'Formatted:', balance);
+        console.log('Token account balance:', balance, 'Decimals:', decimals);
 
         const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return `${formattedBalance} $DEBT`;
