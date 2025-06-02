@@ -1388,29 +1388,44 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     border: 1px solid #ff5555 !important;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important;
 }
-.connect-wallet-desktop {
-    background: #ff5555;
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
+.connect-wallet-bubble {
     cursor: pointer;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
     margin-left: 10px;
 }
-.connect-wallet-desktop:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #ff5555;
-    background: #ff7777;
+.connect-wallet-bubble img {
+    filter: brightness(1) hue-rotate(0deg) drop-shadow(0 0 5px #ff5555);
 }
-.connect-wallet-desktop.connected {
-    background: #00cc00;
+.connect-wallet-bubble.connected img {
+    filter: brightness(1.2) hue-rotate(120deg) drop-shadow(0 0 10px #00cc00);
 }
 @media (max-width: 768px) {
-    .connect-wallet-desktop {
+    .connect-wallet-bubble {
         display: none;
+    }
+}
+#walletInfo {
+    position: absolute;
+    top: 100px; /* Below bubble */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(18, 18, 18, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 85, 85, 0.3);
+    box-shadow: 0 0 10px rgba(255, 85, 85, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    z-index: 1100;
+}
+@media (max-width: 768px) {
+    #walletInfo {
+        position: fixed;
+        top: 60px;
+        right: 15px;
+        transform: none;
     }
 }
     </style>
@@ -1454,8 +1469,9 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                         <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Solscan</a>
                     </div>
                 </div>
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
-                <button class="absolute right-0 top-1/2 -translate-y-1/2 connect-wallet-desktop" id="connectWalletDesktop" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
+                <div class="connect-wallet-bubble" id="connectWalletDesktop" onclick="connectWallet()" role="button" aria-label="Connect Wallet">
+    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748888378/wallet_png_lk307f.png" alt="Connect Wallet" width="80" height="80" loading="eager" style="transition: transform 0.3s ease, filter 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.filter='brightness(1.2) drop-shadow(0 0 10px #ff5555)';" onmouseout="this.style.transform='scale(1)'; this.style.filter='brightness(1) drop-shadow(0 0 0 #ff5555)';">
+</div>
             </div>
         </div>
 
@@ -2831,33 +2847,29 @@ window.addEventListener('load', () => {
     window.dispatchEvent(new Event('scroll'));
 });
 async function connectWallet() {
-    const button = document.getElementById('connectWalletMobile');
+    const mobileButton = document.getElementById('connectWalletMobile');
+    const desktopBubble = document.getElementById('connectWalletDesktop');
     const walletInfo = document.getElementById('walletInfo');
     const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
     const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
 
-    if (button.classList.contains('connected')) {
+    if (mobileButton?.classList.contains('connected') || desktopBubble?.classList.contains('connected')) {
         walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         return;
     }
 
     try {
         if (!window.solana) {
-    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    if (isMobile) {
-        const walletChoice = prompt('No wallet detected. Choose a wallet to install:\n1. Phantom\n2. Solflare\nEnter 1 or 2, or cancel.');
-        if (walletChoice === '1') {
-            window.location.href = 'https://phantom.app/download';
-        } else if (walletChoice === '2') {
-            window.location.href = 'https://solflare.com/download';
-        } else {
-            alert('Please install a Solana wallet like Phantom or Solflare.');
+            const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+            if (isMobile) {
+                alert('No wallet detected. Install a Solana wallet:');
+                window.location.href = 'https://phantom.app/download';
+            } else {
+                const walletPrompt = window.confirm('No wallet detected. Install Phantom or Solflare?\nClick OK for Phantom, Cancel for Solflare.');
+                window.location.href = walletPrompt ? 'https://phantom.app/download' : 'https://solflare.com/download';
+            }
+            return;
         }
-    } else {
-        alert('Please install a Solana wallet extension like Phantom or Solflare.');
-    }
-    return;
-}
 
         let provider = 'Solana Wallet';
         if (window.solana.isPhantom) provider = 'Phantom';
@@ -2865,25 +2877,25 @@ async function connectWallet() {
 
         let publicKey;
         try {
-            const response = await window.solana.connect();
+            const response = await window.solana.request({ method: 'connect' });
             publicKey = response.publicKey.toString();
         } catch (err) {
             if (provider === 'Solflare') {
-                // Fallback for Solflare
-                await window.solana.connect({ onlyIfTrusted: false });
-                publicKey = window.solana.publicKey.toString();
+                await window.solana.connect();
+                publicKey = window.solana.publicKey?.toString();
+                if (!publicKey) throw new Error('Solflare connect failed');
             } else {
                 throw err;
             }
         }
 
-        const buttons = [document.getElementById('connectWalletMobile'), document.getElementById('connectWalletDesktop')];
-buttons.forEach(btn => {
-    if (btn) {
-        btn.textContent = `${provider} Connected`;
-        btn.classList.add('connected');
-    }
-});
+        if (mobileButton) {
+            mobileButton.textContent = `${provider} Connected`;
+            mobileButton.classList.add('connected');
+        }
+        if (desktopBubble) {
+            desktopBubble.classList.add('connected');
+        }
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         walletInfo.style.display = 'block';
@@ -2901,20 +2913,22 @@ buttons.forEach(btn => {
 }
 
 async function disconnectWallet() {
-    const buttons = [document.getElementById('connectWalletMobile'), document.getElementById('connectWalletDesktop')];
+    const mobileButton = document.getElementById('connectWalletMobile');
+    const desktopBubble = document.getElementById('connectWalletDesktop');
     const walletInfo = document.getElementById('walletInfo');
 
     try {
         if (window.solana && window.solana.disconnect) {
             await window.solana.disconnect();
         }
-        buttons.forEach(btn => {
-            if (btn) {
-                btn.textContent = 'Connect Wallet';
-                btn.classList.remove('connected');
-                btn.disabled = false;
-            }
-        });
+        if (mobileButton) {
+            mobileButton.textContent = 'Connect Wallet';
+            mobileButton.classList.remove('connected');
+            mobileButton.disabled = false;
+        }
+        if (desktopBubble) {
+            desktopBubble.classList.remove('connected');
+        }
         walletInfo.style.display = 'none';
         localStorage.removeItem('walletAddress');
         console.log('Wallet disconnected');
@@ -2926,24 +2940,21 @@ async function disconnectWallet() {
 
 async function getDebtBalance(publicKey) {
     try {
-        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        const connection = new solanaWeb3.Connection('https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e', 'confirmed');
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
         console.log('Fetching $DEBT balance for:', publicKey);
 
-        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(owner, { mint: tokenMintAddress });
-        if (!tokenAccounts.value.length) {
+        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(owner, { mint: tokenMintAddress }, 'confirmed');
+        let balance = 0;
+        if (tokenAccounts.value.length) {
+            balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+        } else {
             console.log('No $DEBT token account found.');
-            return '0 $DEBT';
         }
 
-        const tokenAccount = tokenAccounts.value[0].account.data.parsed.info;
-        const balance = tokenAccount.tokenAmount.uiAmount;
-        const decimals = tokenAccount.tokenAmount.decimals;
-
-        console.log('Token account balance:', balance, 'Decimals:', decimals);
-
+        console.log('Raw balance:', balance);
         const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         return `${formattedBalance} $DEBT`;
     } catch (error) {
