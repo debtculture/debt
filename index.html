@@ -1467,8 +1467,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 @media (min-width: 769px) {
     #walletInfo {
         top: 120px !important; /* Adjusted to appear below connect bubble */
-        left: calc(100% - 100px) !important; /* Positions it relative to the right edge, adjusted to align under bubble */
-        transform: translateX(-50%) !important; /* Centers it under the bubble */
+        right: 20px !important; /* Aligns with the wallet connect bubble's right edge */
+        left: auto !important;
+        transform: none !important;
+        margin-right: 10px !important; /* Fine-tunes horizontal positioning */
     }
 }
 </style>
