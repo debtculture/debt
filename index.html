@@ -1574,7 +1574,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </section>
 
         <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
-        <div id="walletInfo" style="display: none; position: fixed; top: 60px; right: 15px; text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
+        <div id="walletInfo" style="display: none; position: fixed; top: 60px; left: calc(100% - 150px); transform: translateX(-50%); text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
             <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
             <p id="debtBalance" style="margin: 0 0 10px;">Balance: <span>0 $DEBT</span></p>
             <button onclick="disconnectWallet()" style="background: #ff5555; color: #fff; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Disconnect</button>
