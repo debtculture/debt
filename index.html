@@ -1383,13 +1383,9 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important;
 }
     </style>
-    <!-- Solana Wallet Adapter and Dependencies -->
+        <!-- Solana Wallet Adapter and Dependencies -->
 <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
 <script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
-<script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/lib/index.js"></script>
-<script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/lib/index.js"></script>
-<script src="https://unpkg.com/@solana/wallet-adapter-react-ui@0.9.35/lib/index.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@solana/wallet-adapter-react-ui@0.9.35/styles.css">
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -1500,7 +1496,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
-        <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet (Feature Coming Soon)">Connect Wallet</button>
+        <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
+        <div id="walletInfo" style="display: none; position: fixed; top: 60px; right: 15px; text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
+            <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
+            <p id="debtBalance" style="margin: 0 0 10px;">$DEBT Balance: <span>0</span></p>
+            <button onclick="disconnectWallet()" style="background: #ff5555; color: #fff; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Disconnect</button>
+        </div>
         <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0" onkeydown="if(event.key === 'Enter') toggleMenu()" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
     <div></div><div></div><div></div>
 </div>
@@ -2790,24 +2791,107 @@ window.addEventListener('load', () => {
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
 });
-function connectWallet() {
-    alert('Wallet Connect Feature Coming Soon!');
+async function connectWallet() {
+    const button = document.getElementById('connectWalletMobile');
+    const walletInfo = document.getElementById('walletInfo');
+    const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+    const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
+
+    try {
+        if (!window.solana) {
+            alert('Please install a Solana wallet like Phantom or Solflare.');
+            return;
+        }
+
+        const response = await window.solana.connect();
+        const publicKey = response.publicKey.toString();
+        button.textContent = 'Wallet Connected';
+        button.classList.add('connected');
+        button.disabled = true;
+
+        walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+        walletInfo.style.display = 'block';
+
+        localStorage.setItem('walletAddress', publicKey);
+
+        const balance = await getDebtBalance(publicKey);
+        debtBalanceEl.textContent = balance;
+
+        console.log('Wallet connected:', publicKey);
+    } catch (error) {
+        console.error('Error connecting wallet:', error);
+        alert('Failed to connect wallet. Please try again.');
+    }
 }
 
-// Check if wallet is already connected on page load
-window.addEventListener('load', async () => {
+async function disconnectWallet() {
+    const button = document.getElementById('connectWalletMobile');
+    const walletInfo = document.getElementById('walletInfo');
+
     try {
-        const walletAddress = localStorage.getItem('walletAddress');
-        if (walletAddress) {
+        if (window.solana && window.solana.disconnect) {
+            await window.solana.disconnect();
+        }
+        button.textContent = 'Connect Wallet';
+        button.classList.remove('connected');
+        button.disabled = false;
+        walletInfo.style.display = 'none';
+        localStorage.removeItem('walletAddress');
+        console.log('Wallet disconnected');
+    } catch (error) {
+        console.error('Error disconnecting wallet:', error);
+        alert('Failed to disconnect wallet. Please try again.');
+    }
+}
+
+async function getDebtBalance(publicKey) {
+    try {
+        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+        const owner = new solanaWeb3.PublicKey(publicKey);
+
+        const tokenAccounts = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
+        if (tokenAccounts.length === 0) {
+            return '0';
+        }
+
+        const accountInfo = await connection.getAccountInfo(tokenAccounts.value[0].pubkey);
+        const tokenAccount = splToken.TokenAccountData.decode(accountInfo.data);
+        const balance = Number(tokenAccount.amount) / 10 ** 6; // $DEBT has 6 decimals
+        return balance.toFixed(2);
+    } catch (error) {
+        console.error('Error fetching $DEBT balance:', error);
+        return '0';
+    }
+}
+
+window.addEventListener('load', async () => {
+    setPhantomLink();
+    updateTokenomics();
+    updateCommunityCarousel();
+    initializeRoadmapPhases();
+    window.dispatchEvent(new Event('scroll'));
+
+    try {
+        if (window.solana && window.solana.isConnected) {
+            const response = await window.solana.connect({ onlyIfTrusted: true });
+            const publicKey = response.publicKey.toString();
             const button = document.getElementById('connectWalletMobile');
-            if (button) {
-                button.textContent = 'Wallet Connected';
-                button.classList.add('connected');
-                button.disabled = true;
-                console.log('Restored wallet connection:', walletAddress);
-            } else {
-                console.error('Connect Wallet button not found');
-            }
+            const walletInfo = document.getElementById('walletInfo');
+            const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+            const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
+
+            button.textContent = 'Wallet Connected';
+            button.classList.add('connected');
+            button.disabled = true;
+            walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+            walletInfo.style.display = 'block';
+
+            const balance = await getDebtBalance(publicKey);
+            debtBalanceEl.textContent = balance;
+
+            localStorage.setItem('walletAddress', publicKey);
+            console.log('Restored wallet connection:', publicKey);
         }
     } catch (error) {
         console.error('Error checking wallet connection:', error);
