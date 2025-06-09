@@ -3103,14 +3103,11 @@ async function getDebtBalance(publicKey) {
             console.error('solanaWeb3 is not loaded');
             return '0 $DEBT';
         }
-        const connection = new solanaWeb3.Connection('https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e', 'confirmed');
+        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
         console.log('Fetching $DEBT balance for:', publicKey);
-
-        // Add delay to ensure network stability
-        await new Promise(resolve => setTimeout(resolve, 500));
 
         const tokenAccounts = await connection.getParsedTokenAccountsByOwner(owner, { mint: tokenMintAddress }, 'confirmed');
         let balance = 0;
