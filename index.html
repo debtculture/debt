@@ -2907,7 +2907,7 @@ window.addEventListener('load', () => {
 const wallets = [
     { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
     { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
-    { name: 'Trust Wallet', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
+    { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
 ];
 
 function openWalletModal() {
@@ -2951,26 +2951,51 @@ async function connectWallet(walletId) {
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
         const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('TrustWallet');
 
+        // Deep-linking for mobile
+        const deepLinks = {
+            phantom: 'phantom://',
+            solflare: 'solflare://',
+            trust: 'trust://'
+        };
+        const downloadUrls = {
+            phantom: 'https://phantom.app/download',
+            solflare: 'https://solflare.com/download',
+            trust: 'https://trustwallet.com/download'
+        };
+
+        if (isMobile && !isInAppBrowser) {
+            const wallet = wallets.find(w => w.id === walletId);
+            const deepLink = deepLinks[walletId];
+            const prompt = `Connect with ${wallet.name}?`;
+            if (confirm(prompt)) {
+                window.location.href = deepLink;
+                setTimeout(() => {
+                    if (document.hasFocus()) {
+                        window.open(downloadUrls[walletId], '_blank');
+                    }
+                }, 1000);
+            }
+            return;
+        }
+
+        // Desktop and in-app browser detection
         if (walletId === 'phantom' && (window.solana?.isPhantom || (isInAppBrowser && navigator.userAgent.includes('Phantom')))) {
             provider = window.solana;
             walletName = 'Phantom';
         } else if (walletId === 'solflare' && (window.solflare?.isSolflare || (isInAppBrowser && navigator.userAgent.includes('Solflare')))) {
             provider = window.solflare;
             walletName = 'Solflare';
-        } else if (walletId === 'trust' && (window.trustWallet || window.ethereum?.isTrust || (isInAppBrowser && navigator.userAgent.includes('TrustWallet')))) {
-            provider = window.trustWallet || window.ethereum;
-            walletName = 'Trust Wallet';
+        } else if (walletId === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum || (isInAppBrowser && navigator.userAgent.includes('TrustWallet')))) {
+            provider = window.trustWallet || window.trustwallet || window.ethereum;
+            walletName = 'Trust';
+            console.log('Trust provider detected:', provider);
         } else {
             const wallet = wallets.find(w => w.id === walletId);
-            const downloadUrl = {
-                phantom: isMobile ? 'https://phantom.app/download' : 'https://phantom.app/download',
-                solflare: isMobile ? 'https://solflare.com/download' : 'https://solflare.com/download',
-                trust: isMobile ? 'https://trustwallet.com/download' : 'https://trustwallet.com/download'
-            }[walletId];
-            const prompt = `No ${wallet.name} wallet detected. Install it now?`;
+            const prompt = `No ${wallet.name} detected. Install it now?`;
             if (confirm(prompt)) {
-                window.open(downloadUrl, '_blank');
+                window.open(downloadUrls[walletId], '_blank');
             }
+            console.log(`No provider for ${wallet.name}. Available providers:`, { solana: window.solana, solflare: window.solflare, trustWallet: window.trustWallet, trustwallet: window.trustwallet, ethereum: window.ethereum });
             return;
         }
 
@@ -3045,8 +3070,8 @@ async function disconnectWallet() {
             provider = window.solana;
         } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
             provider = window.solflare;
-        } else if (walletType === 'trust' && (window.trustWallet || window.ethereum?.isTrust)) {
-            provider = window.trustWallet || window.ethereum;
+        } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
+            provider = window.trustWallet || window.trustwallet || window.ethereum;
         }
 
         if (provider && provider.disconnect) {
@@ -3078,34 +3103,14 @@ async function getDebtBalance(publicKey) {
             console.error('solanaWeb3 is not loaded');
             return '0 $DEBT';
         }
-        const rpcUrls = [
-            'https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e',
-            'https://api.mainnet-beta.solana.com'
-        ];
-        let connection = null;
-        let lastError = null;
-
-        for (const url of rpcUrls) {
-            try {
-                connection = new solanaWeb3.Connection(url, 'confirmed');
-                await connection.getSlot();
-                console.log(`Connected to RPC: ${url}`);
-                break;
-            } catch (err) {
-                console.error(`Failed to connect to RPC ${url}:`, err.message);
-                lastError = err;
-                connection = null;
-            }
-        }
-
-        if (!connection) {
-            throw new Error(`All RPC connections failed: ${lastError.message}`);
-        }
-
+        const connection = new solanaWeb3.Connection('https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e', 'confirmed');
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
         console.log('Fetching $DEBT balance for:', publicKey);
+
+        // Add delay to ensure network stability
+        await new Promise(resolve => setTimeout(resolve, 500));
 
         const tokenAccounts = await connection.getParsedTokenAccountsByOwner(owner, { mint: tokenMintAddress }, 'confirmed');
         let balance = 0;
@@ -3113,7 +3118,7 @@ async function getDebtBalance(publicKey) {
             balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
             console.log('Token account found:', tokenAccounts.value[0].pubkey.toString());
         } else {
-            console.log('No $DEBT token account found for this wallet.');
+            console.log('No $DEBT token account found.');
         }
 
         console.log('Raw balance:', balance);
@@ -3161,9 +3166,9 @@ window.addEventListener('load', async () => {
             } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
                 provider = window.solflare;
                 walletName = 'Solflare';
-            } else if (walletType === 'trust' && (window.trustWallet || window.ethereum?.isTrust)) {
-                provider = window.trustWallet || window.ethereum;
-                walletName = 'Trust Wallet';
+            } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
+                provider = window.trustWallet || window.trustwallet || window.ethereum;
+                walletName = 'Trust';
             }
 
             if (provider) {
@@ -3179,7 +3184,7 @@ window.addEventListener('load', async () => {
                 if (publicKey && publicKey === walletAddress) {
                     const walletInfo = document.getElementById('walletInfo');
                     const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
-                    const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
+                    const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
 
                     mobileButton.textContent = `${walletName} Connected`;
                     mobileButton.classList.add('connected');
