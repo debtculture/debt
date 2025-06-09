@@ -3109,11 +3109,19 @@ async function getDebtBalance(publicKey) {
 
         console.log('Fetching $DEBT balance for:', publicKey);
 
-        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(owner, { mint: tokenMintAddress }, 'confirmed');
+        const response = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
         let balance = 0;
-        if (tokenAccounts.value.length) {
-            balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-            console.log('Token account found:', tokenAccounts.value[0].pubkey.toString());
+        if (response.value.length > 0) {
+            const accountInfo = await connection.getAccountInfo(response.value[0].pubkey);
+            if (accountInfo && accountInfo.data) {
+                const parsedData = new Uint8Array(accountInfo.data);
+                const amount = parsedData.slice(64, 72);
+                const amountBigInt = new DataView(amount.buffer).getBigUint64(0, true);
+                balance = Number(amountBigInt) / Math.pow(10, 6); // Adjust for 6 decimals
+                console.log('Token account found:', response.value[0].pubkey.toString(), 'Balance:', balance);
+            } else {
+                console.log('No valid account data found for token account.');
+            }
         } else {
             console.log('No $DEBT token account found.');
         }
