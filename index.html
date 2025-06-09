@@ -1462,9 +1462,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 }
 </style>
-        <!-- Solana Wallet Adapter and Dependencies -->
-<script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
-<script src="https://unpkg.com/@solana/spl-token@0.4.8/lib/index.iife.min.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
+<script src="https://unpkg.com/@solana/wallet-adapter-react@0.15.35/dist/umd/index.js"></script>
+<script src="https://unpkg.com/@solana/web3.js@1.95.3/dist/solana-web3.min.js"></script>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -1495,10 +1496,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                         <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Solscan</a>
                     </div>
                 </div>
-                <div class="connect-wallet-bubble" id="connectWalletDesktop" onclick="connectWallet()" role="button" aria-label="Connect Wallet">
+                <div class="connect-wallet-bubble" id="connectWalletDesktop" role="button" aria-label="Select Wallet">
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png" alt="Connect Wallet" width="53" height="53" loading="eager" style="margin-top: -5px; transition: transform 0.3s ease, filter 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.filter='brightness(1.2) drop-shadow(0 0 10px #ff5555)';" onmouseout="this.style.transform='scale(1)'; this.style.filter='brightness(1) drop-shadow(0 0 0 #ff5555)';">
-        <span style="color: #fff; font-size: 12px; margin-top: -5px;">Connect</span>
+        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png" alt="Select Wallet" width="53" height="53" loading="eager" style="margin-top: -5px; transition: transform 0.3s ease, filter 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.filter='brightness(1.2) drop-shadow(0 0 10px #ff5555)';" onmouseout="this.style.transform='scale(1)'; this.style.filter='brightness(1) drop-shadow(0 0 0 #ff5555)';">
+        <span style="color: #fff; font-size: 12px; margin-top: -5px;">Select Wallet</span>
     </div>
 </div>
             </div>
@@ -1580,7 +1581,16 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="section-connector overview-to-roadmap"></div>
         </section>
 
-        <button class="connect-wallet-mobile" id="connectWalletMobile" onclick="connectWallet()" role="button" aria-label="Connect Wallet">Connect Wallet</button>
+        <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
+<div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+    <div style="background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+        <h2 style="font-size: 1.5rem; color: #ff5555; margin: 0 0 15px;">Select a Wallet</h2>
+        <div id="walletList" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Wallet options will be populated by JavaScript -->
+        </div>
+        <button onclick="closeWalletModal()" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; margin-top: 15px; transition: background-color 0.3s;" onmouseover="this.style.background='#ff7777';" onmouseout="this.style.background='#ff5555';">Close</button>
+    </div>
+</div>
         <div id="walletInfo" style="display: none; position: fixed; text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
             <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
             <p id="debtBalance" style="margin: 0 0 10px;">Balance: <span>0 $DEBT</span></p>
@@ -2357,6 +2367,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </body>
 <script>
+if (typeof solanaWeb3 === 'undefined') { console.error('solanaWeb3 library is not loaded. Please include it via CDN.'); }
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     const hamburger = document.querySelector(".hamburger");
@@ -2892,69 +2903,135 @@ window.addEventListener('load', () => {
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
 });
-async function connectWallet() {
+// Wallet connection logic
+const wallets = [
+    { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png' },
+    { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/solflare_icon.png' },
+    { name: 'Trust Wallet', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/trustwallet_icon.png' },
+    { name: 'Magic Eden', id: 'magiceden', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/magiceden_icon.png' }
+];
+
+function openWalletModal() {
+    const walletModal = document.getElementById('walletModal');
+    const walletList = document.getElementById('walletList');
+    walletList.innerHTML = '';
+
+    wallets.forEach(wallet => {
+        const button = document.createElement('button');
+        button.className = 'wallet-option';
+        button.innerHTML = `
+            <img src="${wallet.icon}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">
+            ${wallet.name}
+        `;
+        button.style.cssText = 'display: flex; align-items: center; justify-content: center; padding: 10px; width: 100%; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;';
+        button.onmouseover = () => button.style.background = '#ff5555';
+        button.onmouseout = () => button.style.background = '#333';
+        button.onclick = () => connectWallet(wallet.id);
+        walletList.appendChild(button);
+    });
+
+    walletModal.style.display = 'flex';
+}
+
+function closeWalletModal() {
+    const walletModal = document.getElementById('walletModal');
+    walletModal.style.display = 'none';
+}
+
+async function connectWallet(walletId) {
     const mobileButton = document.getElementById('connectWalletMobile');
     const desktopBubble = document.getElementById('connectWalletDesktop');
     const walletInfo = document.getElementById('walletInfo');
     const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
     const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
-
-    if (mobileButton?.classList.contains('connected') || desktopBubble?.classList.contains('connected')) {
-        walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
-        return;
-    }
+    closeWalletModal();
 
     try {
-        if (!window.solana) {
+        let provider = null;
+        let walletName = 'Unknown Wallet';
+
+        if (walletId === 'phantom' && window.solana?.isPhantom) {
+            provider = window.solana;
+            walletName = 'Phantom';
+        } else if (walletId === 'solflare' && window.solflare?.isSolflare) {
+            provider = window.solflare;
+            walletName = 'Solflare';
+        } else if (walletId === 'trust' && window.solana?.isTrust) {
+            provider = window.solana;
+            walletName = 'Trust Wallet';
+        } else if (walletId === 'magiceden' && window.magicEden) {
+            provider = window.magicEden;
+            walletName = 'Magic Eden';
+        } else {
             const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-            if (isMobile) {
-                alert('No wallet detected. Install a Solana wallet:');
-                window.location.href = 'https://phantom.app/download';
-            } else {
-                const walletPrompt = window.confirm('No wallet detected. Install Phantom or Solflare?\nClick OK for Phantom, Cancel for Solflare.');
-                window.location.href = walletPrompt ? 'https://phantom.app/download' : 'https://solflare.com/download';
+            const wallet = wallets.find(w => w.id === walletId);
+            const downloadUrl = {
+                phantom: isMobile ? 'https://phantom.app/download' : 'https://phantom.app/download',
+                solflare: isMobile ? 'https://solflare.com/download' : 'https://solflare.com/download',
+                trust: isMobile ? 'https://trustwallet.com/download' : 'https://trustwallet.com/download',
+                magiceden: isMobile ? 'https://wallet.magiceden.io/download' : 'https://wallet.magiceden.io/download'
+            }[walletId];
+            const prompt = `No ${wallet.name} wallet detected. Install it now?`;
+            if (confirm(prompt)) {
+                window.location.href = downloadUrl;
             }
             return;
         }
 
-        let provider = 'Solana Wallet';
-        if (window.solana.isPhantom) provider = 'Phantom';
-        else if (window.solana.isSolflare) provider = 'Solflare';
-
         let publicKey;
         try {
-            const response = await window.solana.request({ method: 'connect' });
-            publicKey = response.publicKey.toString();
-        } catch (err) {
-            if (provider === 'Solflare') {
-                await window.solana.connect();
-                publicKey = window.solana.publicKey?.toString();
-                if (!publicKey) throw new Error('Solflare connect failed');
+            if (walletId === 'solflare') {
+                await provider.connect();
+                publicKey = provider.publicKey?.toString();
             } else {
-                throw err;
+                const response = await provider.request({ method: 'connect' });
+                publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
             }
+        } catch (err) {
+            throw new Error(`${walletName} connection failed: ${err.message}`);
+        }
+
+        if (!publicKey) {
+            throw new Error('Failed to retrieve public key');
         }
 
         if (mobileButton) {
-            mobileButton.textContent = `${provider} Connected`;
+            mobileButton.textContent = `${walletName} Connected`;
             mobileButton.classList.add('connected');
         }
         if (desktopBubble) {
             desktopBubble.classList.add('connected');
+            const span = desktopBubble.querySelector('span');
+            span.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         }
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         walletInfo.style.display = 'block';
 
         localStorage.setItem('walletAddress', publicKey);
+        localStorage.setItem('walletType', walletId);
 
         const balance = await getDebtBalance(publicKey);
         debtBalanceEl.textContent = balance;
 
-        console.log(`${provider} connected:`, publicKey);
+        console.log(`${walletName} connected:`, publicKey);
+
+        // Auto-reconnect setup
+        provider.on('accountChanged', async (newPublicKey) => {
+            if (newPublicKey) {
+                const newKey = newPublicKey.toString();
+                walletAddressEl.textContent = `${newKey.slice(0, 4)}...${newKey.slice(-4)}`;
+                localStorage.setItem('walletAddress', newKey);
+                const balance = await getDebtBalance(newKey);
+                debtBalanceEl.textContent = balance;
+                console.log(`${walletName} account changed:`, newKey);
+            } else {
+                disconnectWallet();
+            }
+        });
     } catch (error) {
         console.error('Error connecting wallet:', error);
-        alert('Failed to connect wallet. Ensure your wallet is unlocked and try again.');
+        alert(`Failed to connect ${walletName}. Ensure your wallet is unlocked and try again.`);
     }
 }
 
@@ -2962,21 +3039,36 @@ async function disconnectWallet() {
     const mobileButton = document.getElementById('connectWalletMobile');
     const desktopBubble = document.getElementById('connectWalletDesktop');
     const walletInfo = document.getElementById('walletInfo');
+    const walletType = localStorage.getItem('walletType');
 
     try {
-        if (window.solana && window.solana.disconnect) {
-            await window.solana.disconnect();
+        let provider = null;
+        if (walletType === 'phantom' && window.solana?.isPhantom) {
+            provider = window.solana;
+        } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
+            provider = window.solflare;
+        } else if (walletType === 'trust' && window.solana?.isTrust) {
+            provider = window.solana;
+        } else if (walletType === 'magiceden' && window.magicEden) {
+            provider = window.magicEden;
         }
+
+        if (provider && provider.disconnect) {
+            await provider.disconnect();
+        }
+
         if (mobileButton) {
-            mobileButton.textContent = 'Connect Wallet';
+            mobileButton.textContent = 'Select Wallet';
             mobileButton.classList.remove('connected');
-            mobileButton.disabled = false;
         }
         if (desktopBubble) {
             desktopBubble.classList.remove('connected');
+            const span = desktopBubble.querySelector('span');
+            span.textContent = 'Select Wallet';
         }
         walletInfo.style.display = 'none';
         localStorage.removeItem('walletAddress');
+        localStorage.removeItem('walletType');
         console.log('Wallet disconnected');
     } catch (error) {
         console.error('Error disconnecting wallet:', error);
@@ -2986,6 +3078,10 @@ async function disconnectWallet() {
 
 async function getDebtBalance(publicKey) {
     try {
+        if (typeof solanaWeb3 === 'undefined') {
+            console.error('solanaWeb3 is not loaded');
+            return '0 $DEBT';
+        }
         const connection = new solanaWeb3.Connection('https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e', 'confirmed');
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
@@ -3015,28 +3111,76 @@ window.addEventListener('load', async () => {
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
 
+    // Add event listeners for wallet buttons
+    const mobileButton = document.getElementById('connectWalletMobile');
+    const desktopBubble = document.getElementById('connectWalletDesktop');
+    mobileButton.addEventListener('click', () => {
+        if (mobileButton.classList.contains('connected')) {
+            document.getElementById('walletInfo').style.display = 'block';
+        } else {
+            openWalletModal();
+        }
+    });
+    desktopBubble.addEventListener('click', () => {
+        if (desktopBubble.classList.contains('connected')) {
+            document.getElementById('walletInfo').style.display = 'block';
+        } else {
+            openWalletModal();
+        }
+    });
+
+    // Attempt auto-reconnect
     try {
-        if (window.solana && window.solana.isConnected) {
-            const response = await window.solana.connect({ onlyIfTrusted: true });
-            const publicKey = response.publicKey.toString();
-            const button = document.getElementById('connectWalletMobile');
-            const walletInfo = document.getElementById('walletInfo');
-            const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
-            const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
+        const walletType = localStorage.getItem('walletType');
+        const walletAddress = localStorage.getItem('walletAddress');
+        if (walletType && walletAddress) {
+            let provider = null;
+            let walletName = 'Unknown Wallet';
+            if (walletType === 'phantom' && window.solana?.isPhantom) {
+                provider = window.solana;
+                walletName = 'Phantom';
+            } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
+                provider = window.solflare;
+                walletName = 'Solflare';
+            } else if (walletType === 'trust' && window.solana?.isTrust) {
+                provider = window.solana;
+                walletName = 'Trust Wallet';
+            } else if (walletType === 'magiceden' && window.magicEden) {
+                provider = window.magicEden;
+                walletName = 'Magic Eden';
+            }
 
-            button.textContent = 'Wallet Connected';
-            button.classList.add('connected');
-            walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-            walletInfo.style.display = 'none'; // Start hidden
+            if (provider) {
+                let publicKey;
+                if (walletType === 'solflare') {
+                    await provider.connect({ onlyIfTrusted: true });
+                    publicKey = provider.publicKey?.toString();
+                } else {
+                    const response = await provider.request({ method: 'connect', params: { onlyIfTrusted: true } });
+                    publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+                }
 
-            const balance = await getDebtBalance(publicKey);
-            debtBalanceEl.textContent = balance;
+                if (publicKey && publicKey === walletAddress) {
+                    const walletInfo = document.getElementById('walletInfo');
+                    const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+                    const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
 
-            localStorage.setItem('walletAddress', publicKey);
-            console.log('Restored wallet connection:', publicKey);
+                    mobileButton.textContent = `${walletName} Connected`;
+                    mobileButton.classList.add('connected');
+                    desktopBubble.classList.add('connected');
+                    desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                    walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                    walletInfo.style.display = 'none';
+
+                    const balance = await getDebtBalance(publicKey);
+                    debtBalanceEl.textContent = balance;
+
+                    console.log(`Restored ${walletName} connection:`, publicKey);
+                }
+            }
         }
     } catch (error) {
-        console.error('Error checking wallet connection:', error);
+        console.error('Error restoring wallet connection:', error);
     }
 });
 function toggleSocialBubbles() {
