@@ -2905,21 +2905,9 @@ window.addEventListener('load', () => {
 });
 // Wallet connection logic
 const wallets = [
-    { 
-        name: 'Phantom', 
-        id: 'phantom', 
-        icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png' // Update with new Cloudinary URL
-    },
-    { 
-        name: 'Solflare', 
-        id: 'solflare', 
-        icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/solflare_icon.png' // Update with new Cloudinary URL
-    },
-    { 
-        name: 'Trust Wallet', 
-        id: 'trust', 
-        icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/trustwallet_icon.png' // Update with new Cloudinary URL
-    }
+    { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
+    { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
+    { name: 'Trust Wallet', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
 ];
 
 function openWalletModal() {
@@ -2963,7 +2951,6 @@ async function connectWallet(walletId) {
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
         const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('TrustWallet');
 
-        // Detect wallet provider
         if (walletId === 'phantom' && (window.solana?.isPhantom || (isInAppBrowser && navigator.userAgent.includes('Phantom')))) {
             provider = window.solana;
             walletName = 'Phantom';
@@ -2982,7 +2969,7 @@ async function connectWallet(walletId) {
             }[walletId];
             const prompt = `No ${wallet.name} wallet detected. Install it now?`;
             if (confirm(prompt)) {
-                window.open(downloadUrl, '_blank'); // Open in new tab
+                window.open(downloadUrl, '_blank');
             }
             return;
         }
@@ -2993,7 +2980,6 @@ async function connectWallet(walletId) {
                 await provider.connect();
                 publicKey = provider.publicKey?.toString();
             } else if (walletId === 'trust') {
-                // Trust Wallet may use WalletConnect or Ethereum provider for Solana
                 const response = await provider.request({ method: 'connect' });
                 publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
             } else {
@@ -3029,7 +3015,6 @@ async function connectWallet(walletId) {
 
         console.log(`${walletName} connected:`, publicKey);
 
-        // Auto-reconnect setup
         provider.on('accountChanged', async (newPublicKey) => {
             if (newPublicKey) {
                 const newKey = newPublicKey.toString();
@@ -3093,11 +3078,9 @@ async function getDebtBalance(publicKey) {
             console.error('solanaWeb3 is not loaded');
             return '0 $DEBT';
         }
-        // Try alternative RPC if Helius fails
         const rpcUrls = [
             'https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e',
-            'https://api.mainnet-beta.solana.com',
-            'https://solana-mainnet.g.alchemy.com/v2/demo' // Replace with your Alchemy or QuickNode URL if available
+            'https://api.mainnet-beta.solana.com'
         ];
         let connection = null;
         let lastError = null;
@@ -3105,7 +3088,6 @@ async function getDebtBalance(publicKey) {
         for (const url of rpcUrls) {
             try {
                 connection = new solanaWeb3.Connection(url, 'confirmed');
-                // Test connection
                 await connection.getSlot();
                 console.log(`Connected to RPC: ${url}`);
                 break;
@@ -3150,7 +3132,6 @@ window.addEventListener('load', async () => {
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
 
-    // Add event listeners for wallet buttons
     const mobileButton = document.getElementById('connectWalletMobile');
     const desktopBubble = document.getElementById('connectWalletDesktop');
     mobileButton.addEventListener('click', () => {
@@ -3168,7 +3149,6 @@ window.addEventListener('load', async () => {
         }
     });
 
-    // Attempt auto-reconnect
     try {
         const walletType = localStorage.getItem('walletType');
         const walletAddress = localStorage.getItem('walletAddress');
