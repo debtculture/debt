@@ -3099,41 +3099,40 @@ async function disconnectWallet() {
 
 async function getDebtBalance(publicKey) {
     try {
-        if (typeof solanaWeb3 === 'undefined') {
-            console.error('solanaWeb3 is not loaded');
-            return '0 $DEBT';
-        }
-        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        const connection = new solanaWeb3.Connection(
+            'https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e',
+            'confirmed'
+        );
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
         console.log('Fetching $DEBT balance for:', publicKey);
 
-        const response = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
+        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
+            owner,
+            { mint: tokenMintAddress },
+            'confirmed'
+        );
+
         let balance = 0;
-        if (response.value.length > 0) {
-            const accountInfo = await connection.getAccountInfo(response.value[0].pubkey);
-            if (accountInfo && accountInfo.data) {
-                const parsedData = new Uint8Array(accountInfo.data);
-                const amount = parsedData.slice(64, 72);
-                const amountBigInt = new DataView(amount.buffer).getBigUint64(0, true);
-                balance = Number(amountBigInt) / Math.pow(10, 6); // Adjust for 6 decimals
-                console.log('Token account found:', response.value[0].pubkey.toString(), 'Balance:', balance);
-            } else {
-                console.log('No valid account data found for token account.');
-            }
+        if (tokenAccounts.value.length) {
+            balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
         } else {
             console.log('No $DEBT token account found.');
         }
 
         console.log('Raw balance:', balance);
-        const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const formattedBalance = balance.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
         return `${formattedBalance} $DEBT`;
     } catch (error) {
         console.error('Error fetching $DEBT balance:', error.message);
         return '0 $DEBT';
     }
 }
+
 
 window.addEventListener('load', async () => {
     setPhantomLink();
