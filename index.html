@@ -2905,10 +2905,21 @@ window.addEventListener('load', () => {
 });
 // Wallet connection logic
 const wallets = [
-    { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png' },
-    { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/solflare_icon.png' },
-    { name: 'Trust Wallet', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/trustwallet_icon.png' },
-    { name: 'Magic Eden', id: 'magiceden', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/magiceden_icon.png' }
+    { 
+        name: 'Phantom', 
+        id: 'phantom', 
+        icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png' // Update with new Cloudinary URL
+    },
+    { 
+        name: 'Solflare', 
+        id: 'solflare', 
+        icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/solflare_icon.png' // Update with new Cloudinary URL
+    },
+    { 
+        name: 'Trust Wallet', 
+        id: 'trust', 
+        icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1759890233/trustwallet_icon.png' // Update with new Cloudinary URL
+    }
 ];
 
 function openWalletModal() {
@@ -2949,31 +2960,29 @@ async function connectWallet(walletId) {
     try {
         let provider = null;
         let walletName = 'Unknown Wallet';
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('TrustWallet');
 
-        if (walletId === 'phantom' && window.solana?.isPhantom) {
+        // Detect wallet provider
+        if (walletId === 'phantom' && (window.solana?.isPhantom || (isInAppBrowser && navigator.userAgent.includes('Phantom')))) {
             provider = window.solana;
             walletName = 'Phantom';
-        } else if (walletId === 'solflare' && window.solflare?.isSolflare) {
+        } else if (walletId === 'solflare' && (window.solflare?.isSolflare || (isInAppBrowser && navigator.userAgent.includes('Solflare')))) {
             provider = window.solflare;
             walletName = 'Solflare';
-        } else if (walletId === 'trust' && window.solana?.isTrust) {
-            provider = window.solana;
+        } else if (walletId === 'trust' && (window.trustWallet || window.ethereum?.isTrust || (isInAppBrowser && navigator.userAgent.includes('TrustWallet')))) {
+            provider = window.trustWallet || window.ethereum;
             walletName = 'Trust Wallet';
-        } else if (walletId === 'magiceden' && window.magicEden) {
-            provider = window.magicEden;
-            walletName = 'Magic Eden';
         } else {
-            const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
             const wallet = wallets.find(w => w.id === walletId);
             const downloadUrl = {
                 phantom: isMobile ? 'https://phantom.app/download' : 'https://phantom.app/download',
                 solflare: isMobile ? 'https://solflare.com/download' : 'https://solflare.com/download',
-                trust: isMobile ? 'https://trustwallet.com/download' : 'https://trustwallet.com/download',
-                magiceden: isMobile ? 'https://wallet.magiceden.io/download' : 'https://wallet.magiceden.io/download'
+                trust: isMobile ? 'https://trustwallet.com/download' : 'https://trustwallet.com/download'
             }[walletId];
             const prompt = `No ${wallet.name} wallet detected. Install it now?`;
             if (confirm(prompt)) {
-                window.location.href = downloadUrl;
+                window.open(downloadUrl, '_blank'); // Open in new tab
             }
             return;
         }
@@ -2983,6 +2992,10 @@ async function connectWallet(walletId) {
             if (walletId === 'solflare') {
                 await provider.connect();
                 publicKey = provider.publicKey?.toString();
+            } else if (walletId === 'trust') {
+                // Trust Wallet may use WalletConnect or Ethereum provider for Solana
+                const response = await provider.request({ method: 'connect' });
+                publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
             } else {
                 const response = await provider.request({ method: 'connect' });
                 publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
@@ -3047,10 +3060,8 @@ async function disconnectWallet() {
             provider = window.solana;
         } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
             provider = window.solflare;
-        } else if (walletType === 'trust' && window.solana?.isTrust) {
-            provider = window.solana;
-        } else if (walletType === 'magiceden' && window.magicEden) {
-            provider = window.magicEden;
+        } else if (walletType === 'trust' && (window.trustWallet || window.ethereum?.isTrust)) {
+            provider = window.trustWallet || window.ethereum;
         }
 
         if (provider && provider.disconnect) {
@@ -3082,7 +3093,33 @@ async function getDebtBalance(publicKey) {
             console.error('solanaWeb3 is not loaded');
             return '0 $DEBT';
         }
-        const connection = new solanaWeb3.Connection('https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e', 'confirmed');
+        // Try alternative RPC if Helius fails
+        const rpcUrls = [
+            'https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e',
+            'https://api.mainnet-beta.solana.com',
+            'https://solana-mainnet.g.alchemy.com/v2/demo' // Replace with your Alchemy or QuickNode URL if available
+        ];
+        let connection = null;
+        let lastError = null;
+
+        for (const url of rpcUrls) {
+            try {
+                connection = new solanaWeb3.Connection(url, 'confirmed');
+                // Test connection
+                await connection.getSlot();
+                console.log(`Connected to RPC: ${url}`);
+                break;
+            } catch (err) {
+                console.error(`Failed to connect to RPC ${url}:`, err.message);
+                lastError = err;
+                connection = null;
+            }
+        }
+
+        if (!connection) {
+            throw new Error(`All RPC connections failed: ${lastError.message}`);
+        }
+
         const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const owner = new solanaWeb3.PublicKey(publicKey);
 
@@ -3092,8 +3129,9 @@ async function getDebtBalance(publicKey) {
         let balance = 0;
         if (tokenAccounts.value.length) {
             balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+            console.log('Token account found:', tokenAccounts.value[0].pubkey.toString());
         } else {
-            console.log('No $DEBT token account found.');
+            console.log('No $DEBT token account found for this wallet.');
         }
 
         console.log('Raw balance:', balance);
@@ -3104,6 +3142,7 @@ async function getDebtBalance(publicKey) {
         return '0 $DEBT';
     }
 }
+
 window.addEventListener('load', async () => {
     setPhantomLink();
     updateTokenomics();
@@ -3142,12 +3181,9 @@ window.addEventListener('load', async () => {
             } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
                 provider = window.solflare;
                 walletName = 'Solflare';
-            } else if (walletType === 'trust' && window.solana?.isTrust) {
-                provider = window.solana;
+            } else if (walletType === 'trust' && (window.trustWallet || window.ethereum?.isTrust)) {
+                provider = window.trustWallet || window.ethereum;
                 walletName = 'Trust Wallet';
-            } else if (walletType === 'magiceden' && window.magicEden) {
-                provider = window.magicEden;
-                walletName = 'Magic Eden';
             }
 
             if (provider) {
