@@ -2368,6 +2368,21 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </body>
 <script>
+// Utility to wait for solanaWeb3 and SPL to load
+async function waitForWeb3Libraries(maxRetries = 10, delayMs = 500) {
+    let retries = 0;
+    while (retries < maxRetries) {
+        if (window.solanaWeb3 && window.SPL) {
+            console.log('solanaWeb3 and SPL loaded');
+            return true;
+        }
+        console.warn(`solanaWeb3/SPL not loaded, retry ${retries + 1}/${maxRetries}`);
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+        retries++;
+    }
+    console.error('Failed to load solanaWeb3 or SPL after retries');
+    return false;
+}
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     const hamburger = document.querySelector(".hamburger");
@@ -3095,22 +3110,6 @@ async function disconnectWallet() {
         console.error('Error disconnecting wallet:', error);
         alert('Failed to disconnect wallet. Please try again.');
     }
-}
-
-// Utility to wait for solanaWeb3 and SPL to load
-async function waitForWeb3Libraries(maxRetries = 10, delayMs = 500) {
-    let retries = 0;
-    while (retries < maxRetries) {
-        if (window.solanaWeb3 && window.SPL) {
-            console.log('solanaWeb3 and SPL loaded');
-            return true;
-        }
-        console.warn(`solanaWeb3/SPL not loaded, retry ${retries + 1}/${maxRetries}`);
-        await new Promise(resolve => setTimeout(resolve, delayMs));
-        retries++;
-    }
-    console.error('Failed to load solanaWeb3 or SPL after retries');
-    return false;
 }
 
 async function getDebtBalance(publicKey) {
