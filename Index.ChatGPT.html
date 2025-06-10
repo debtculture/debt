@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Culture</title>
+    <!-- Include Solana Web3.js -->
+    <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.js"></script>
+    <!-- Styles and Meta (unchanged from version 2) -->
+    <!-- ... your other meta tags and styles ... -->
+</head>
+<body>
+    <!-- Your existing HTML body content, including wallet modal UI -->
+    <div id="walletInfo" style="display: none;">
+        <p id="walletAddress">Connected: <span></span></p>
+        <p id="debtBalance">Balance: <span>0 $DEBT</span></p>
+        <button onclick="disconnectWallet()">Disconnect</button>
+    </div>
+
+    <!-- Your wallet modal and UI elements -->
+    <!-- ... -->
+
+    <script>
+    const heliusRpc = "https://rpc.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e";
+    const tokenMintAddress = new solanaWeb3.PublicKey("9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump");
+
+    async function getDebtBalance(publicKey) {
+        try {
+            const connection = new solanaWeb3.Connection(heliusRpc, "confirmed");
+            const tokenAccounts = await connection.getParsedTokenAccountsByOwner(
+                publicKey,
+                { mint: tokenMintAddress }
+            );
+            if (tokenAccounts.value.length > 0) {
+                const balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+                return balance;
+            } else {
+                return 0;
+            }
+        } catch (e) {
+            console.error("Error fetching DEBT balance:", e);
+            return 0;
+        }
+    }
+
+    async function connectWallet(walletType) {
+        let provider;
+        if (walletType === 'phantom' && window.solana && window.solana.isPhantom) {
+            provider = window.solana;
+        } else if (walletType === 'solflare' && window.solflare && window.solflare.isSolflare) {
+            provider = window.solflare;
+        } else {
+            alert("Wallet not found");
+            return;
+        }
+
+        try {
+            const resp = await provider.connect();
+            const publicKey = new solanaWeb3.PublicKey(resp.publicKey.toString());
+
+            document.getElementById("walletInfo").style.display = "block";
+            document.querySelector("#walletAddress span").textContent = publicKey.toString();
+
+            const balance = await getDebtBalance(publicKey);
+            document.querySelector("#debtBalance span").textContent = `${balance} $DEBT`;
+        } catch (err) {
+            console.error("Wallet connection failed:", err);
+        }
+    }
+    </script>
+</body>
+</html>
