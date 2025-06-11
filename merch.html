@@ -13,15 +13,16 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@DebtCulture">
     <title>DEBT</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v174966/v174/e/e/v/v/debt_favicon.png">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/debt_favicon.png">
     <link rel="manifest" href="manifest.json">
     <style>
         :root {
             --primary-color: #ff5555;
             --background-color: #121212;
-            --text-color: #fff;
-            --secondary-text: #999;
+            --text-color: #ffffff;
+            --secondary-text: #999999;
             --shadow-color: rgba(255, 85, 85, 0.5);
+            --shadow-glow: 0 0 10px rgba(255, 85, 85, 0.5);
         }
         * {
             margin: 0;
@@ -30,7 +31,7 @@
             font-family: 'Arial', sans-serif;
         }
         body {
-            background-color: var(--background-color);
+            background: var(--background-color);
             color: var(--text-color);
             overflow-x: hidden;
             min-height: 100vh;
@@ -45,6 +46,11 @@
             height: 100%;
             z-index: -2;
         }
+        canvas#matrix-rain {
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
         .content-wrapper {
             position: relative;
             z-index: 1;
@@ -55,44 +61,41 @@
         }
         .navbar {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 8px 0;
+            padding: 15px 0;
             position: sticky;
             top: 0;
             background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(5px);
             z-index: 1000;
+            border-bottom: 1px solid rgba(255, 85, 85, 0.2);
         }
         .navbar-logo {
-            max-width: 70px;
+            max-width: 100px;
+            transition: transform 0.3s ease;
+        }
+        .navbar-logo:hover {
+            transform: scale(1.1);
         }
         .navbar-links {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
-        .hover-underline {
+        .navbar-links a {
             text-decoration: none;
             color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .hover-underline {
             position: relative;
-            font-size: 0.95rem;
             transition: transform 0.3s ease, text-shadow 0.3s ease;
         }
         .hover-underline:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 10px #ff5555;
-        }
-        .connect-wallet {
-            background: var(--primary-color);
-            padding: 6px 12px;
-            border-radius: 4px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: background 0.3s ease;
-        }
-        .connect-wallet:hover {
-            background: #e04e4e;
+            text-shadow: var(--shadow-glow);
         }
         .dropdown {
             position: relative;
@@ -100,150 +103,243 @@
         .dropbtn {
             cursor: pointer;
             color: var(--text-color);
-            font-size: 0.95rem;
-            transition: transform 0.3s ease, text-shadow 0.3s ease;
-        }
-        .dropbtn:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 10px #ff5555;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
         .dropdown-content {
             display: none;
             position: absolute;
             background: rgba(18, 18, 18, 0.95);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 4px;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border-radius: 5px;
             top: 100%;
             left: 0;
+            border: 1px solid rgba(255, 85, 85, 0.2);
         }
         .dropdown:hover .dropdown-content {
             display: block;
         }
         .dropdown-content a {
-            color: var(--text-color);
-            padding: 8px 12px;
+            padding: 10px 15px;
             display: block;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
         .dropdown-content a:hover {
             background: rgba(255, 85, 85, 0.2);
+            transform: scale(1.02);
+        }
+        .connect-wallet-bubble {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .connect-wallet-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+        .connect-wallet-bubble.connected {
+            background: var(--primary-color);
+        }
+        .connect-wallet-mobile {
+            display: none;
+            background: var(--primary-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 10px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .connect-wallet-mobile:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+        .connect-wallet-mobile.connected {
+            background: #e04e4e;
         }
         .hamburger {
             display: none;
             flex-direction: column;
+            gap: 4px;
             cursor: pointer;
-            gap: 3px;
-            padding: 4px;
+            padding: 8px;
             background: rgba(255, 85, 85, 0.15);
-            border-radius: 3px;
+            border-radius: 5px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
         }
-        .hamburger span {
-            width: 18px;
-            height: 2px;
+        .hamburger div {
+            width: 22px;
+            height: 3px;
             background: var(--text-color);
             transition: all 0.3s ease;
         }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(4px, 4px);
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
         }
-        .hamburger.active span:nth-child(2) {
+        .hamburger.active div:nth-child(2) {
             opacity: 0;
         }
-        .hamburger.active span:nth-child(3) {
+        .hamburger.active div:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
         .mobile-menu {
             display: none;
             flex-direction: column;
-            position: absolute;
-            top: 50px;
+            position: fixed;
+            top: 60px;
             left: 0;
             width: 100%;
-            background: rgba(18, 18, 18, 0.98);
-            padding: 10px 15px;
+            background: rgba(18, 18, 18, 0.95);
+            padding: 20px;
             z-index: 999;
+            border-bottom: 2px solid rgba(255, 85, 85, 0.2);
         }
-        .mobile-menu.active {
-            display: flex;
-        }
-        .mobile-menu a {
+        .mobile-menu a, .mobile-menu span.expand {
             color: var(--text-color);
             text-decoration: none;
-            padding: 8px 0;
-            font-size: 1rem;
+            padding: 10px 0;
+            font-size: 1.2rem;
             transition: transform 0.3s ease, text-shadow 0.3s ease;
         }
-        .mobile-menu a:hover {
+        .mobile-menu a:hover, .mobile-menu span.expand:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 10px #ff5555;
+            text-shadow: var(--shadow-glow);
         }
-        .connect-btn {
-            background: var(--primary-color);
-            color: var(--text-color);
-            text-align: center;
-            padding: 6px 0;
-            margin: 8px 0;
-            border-radius: 4px;
+        .mobile-dropdown {
+            display: none;
+            flex-direction: column;
+            padding-left: 20px;
+        }
+        .mobile-dropdown a {
             font-size: 1rem;
-            text-decoration: none;
-        }
-        .connect-btn:hover {
-            background: #e04e4e;
+            padding: 8px 0;
         }
         .section {
-            padding: 50px 0;
+            padding: 60px 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .section.from-right {
+            transform: translateX(100px);
+        }
+        .section.from-right.visible {
+            transform: translateX(0);
         }
         h1 {
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: var(--shadow-glow);
             animation: neon-flicker 1.5s infinite alternate;
         }
         @keyframes neon-flicker {
             0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 20px var(--shadow-color);
+                text-shadow: var(--shadow-glow), 0 0 20px var(--shadow-color);
             }
             20%, 24%, 55% {
                 text-shadow: none;
             }
         }
         p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--secondary-text);
-            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
         }
         .product-image {
             width: 300px;
             max-width: 100%;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(255, 85, 85, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 85, 85, 0.5);
         }
         .btn {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 10px 20px;
             background: var(--primary-color);
             color: var(--text-color);
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            transition: background 0.3s ease;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         }
         .btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
             background: #e04e4e;
+        }
+        .join-rebellion-container {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .join-rebellion {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--text-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .join-rebellion:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+        .social-bubbles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .social-bubbles .icon img {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .social-bubbles .icon img:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
         }
         .footer {
             text-align: center;
-            padding: 10px 15px;
+            padding: 15px;
             background: rgba(18, 18, 18, 0.95);
             color: var(--secondary-text);
-            font-size: 0.85rem;
-            width: 100%;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 85, 85, 0.2);
             flex-shrink: 0;
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
         }
         .footer-link {
             color: var(--primary-color);
@@ -252,31 +348,107 @@
         }
         .footer-link:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 10px #ff5555;
+            text-shadow: var(--shadow-glow);
+        }
+        #walletModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        #walletModal > div {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        #walletModal h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0 0 15px;
+        }
+        #walletList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #walletInfo {
+            display: none;
+            position: fixed;
+            text-align: center;
+            padding: 10px;
+            background: rgba(18, 18, 18, 0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            box-shadow: 0 0 10px rgba(255, 85, 85, 0.2);
+            color: var(--text-color);
+            font-size: 0.9rem;
+            z-index: 1100;
+            top: 20px;
+            right: 20px;
+        }
+        #walletInfo p {
+            margin: 0 0 5px;
+            text-align: left;
+        }
+        #walletInfo button {
+            background: var(--primary-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #walletInfo button:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px var(--primary-color); }
+            50% { box-shadow: 0 0 20px var(--primary-color); }
+            100% { box-shadow: 0 0 5px var(--primary-color); }
         }
         @media (max-width: 768px) {
             .navbar {
-                padding: 8px 10px;
                 justify-content: flex-start;
+                padding: 10px;
+            }
+            .navbar-links, .navbar-logo {
+                display: none;
             }
             .hamburger {
                 display: flex;
-                margin-right: auto;
             }
-            .navbar-logo, .navbar-links {
+            .mobile-menu {
                 display: none;
             }
-            .mobile-menu.active {
+            .mobile-menu[style*="display: block"] {
                 display: flex;
             }
+            .connect-wallet-mobile {
+                display: block;
+            }
             .section {
-                padding: 30px 0;
+                padding: 40px 0;
             }
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             p {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             .product-image {
                 width: 250px;
@@ -286,30 +458,37 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                padding: 8px 10px;
+                padding: 10px;
+                z-index: 1000;
+            }
+            .social-bubbles {
+                display: none;
+            }
+            .social-bubbles.active {
+                display: flex;
+            }
+            .join-rebellion.active {
+                background: #e04e4e;
             }
         }
     </style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
-    <canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
+    <canvas id="matrix-rain"></canvas>
     <div class="content-wrapper" id="contentWrapper">
         <div class="navbar">
-            <div class="hamburger" onclick="toggleMenu();" aria-label="Toggle mobile menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
             <div class="navbar-links">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
                 <a href="index.html#overview" class="hover-underline">Overview</a>
                 <a href="index.html#roadmap" class="hover-underline">Roadmap</a>
                 <a href="index.html#how-to-buy" class="hover-underline">How to Buy</a>
                 <a href="index.html#community" class="hover-underline">Community</a>
+                <a href="merch.html" class="hover-underline">Merch</a>
                 <a href="index.html#faq" class="hover-underline">FAQ</a>
-                <a href="index.html#memes" class="hover-underline">Memes</a>
+                <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" class="hover-underline">Memes</a>
                 <div class="dropdown">
-                    <div class="dropbtn hover-underline">Resources ▼</div>
+                    <div class="dropbtn hover-underline" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
                     <div class="dropdown-content">
                         <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexTools</a>
                         <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">GeckoTerminal</a>
@@ -322,64 +501,92 @@
                         <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Solscan</a>
                     </div>
                 </div>
-                <a href="#" class="connect-wallet" id="connectWalletDesktop" onclick="openWalletModal();">Select Wallet</a>
-            </div>
-            <div class="mobile-menu" id="mobileMenu">
-                <a href="index.html#overview" onclick="scrollToSection('#overview'); closeMenu();">Overview</a>
-                <a href="index.html#roadmap" onclick="scrollToSection('#roadmap'); closeMenu();">Roadmap</a>
-                <a href="index.html#how-to-buy" onclick="scrollToSection('#how-to-buy'); closeMenu();">How to Buy</a>
-                <a href="index.html#community" onclick="scrollToSection('#community'); closeMenu();">Community</a>
-                <a href="index.html#faq" onclick="scrollToSection('#faq'); closeMenu();">FAQ</a>
-                <a href="index.html#memes" onclick="scrollToSection('#memes'); closeMenu();">Memes</a>
-                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexTools</a>
-                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">GeckoTerminal</a>
-                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexScreener</a>
-                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">RugCheck</a>
-                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">Photon</a>
-                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer">Birdeye</a>
-                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">GMGN</a>
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Raydium</a>
-                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Solscan</a>
-                <a href="#" class="connect-btn" onclick="openWalletModal(); closeMenu();">Connect</a>
+                <div class="connect-wallet-bubble" id="connectWalletDesktop" role="button" aria-label="Select Wallet">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748890233/Wallet_PNG_sxrfdx.png" alt="Select Wallet" width="53" height="53" loading="eager">
+                        <span style="color: #fff; font-size: 12px; margin-top: -5px;">Select Wallet</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <section class="section" id="merch">
+        <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
+        <div id="walletModal" style="display: none;">
+            <div>
+                <h2>Select a Wallet</h2>
+                <div id="walletList"></div>
+                <button onclick="closeWalletModal()">Close</button>
+            </div>
+        </div>
+        <div id="walletInfo" style="display: none;">
+            <p id="walletAddress">Connected: <span></span></p>
+            <p id="debtBalance">Balance: <span>0 $DEBT</span></p>
+            <button onclick="disconnectWallet()">Disconnect</button>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+            <div></div><div></div><div></div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html#overview" onclick="closeMenu()">Overview</a>
+            <a href="index.html#roadmap" onclick="closeMenu()">Roadmap</a>
+            <a href="index.html#how-to-buy" onclick="closeMenu()">How to Buy</a>
+            <a href="index.html#community" onclick="closeMenu()">Community</a>
+            <a href="merch.html" onclick="closeMenu()">Merch</a>
+            <a href="index.html#faq" onclick="closeMenu()">FAQ</a>
+            <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Memes</a>
+            <span class="expand hover-underline" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0">Resources ▼</span>
+            <div class="mobile-dropdown" id="mobileDropdown">
+                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">DexTools</a>
+                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">GeckoTerminal</a>
+                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">DexScreener</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">RugCheck</a>
+                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Photon</a>
+                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Birdeye</a>
+                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">GMGN</a>
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Raydium</a>
+                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">Solscan</a>
+            </div>
+        </div>
+        <section id="merch" class="section from-right">
             <h1>$DEBT Merch Store</h1>
-            <p style="margin-bottom: 20px;">Merch incoming! Check out our first trucker hat. More to come!</p>
-            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+            <p>Merch incoming! Check out our first trucker hat. More to come!</p>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;">
                 <div style="text-align: center;">
                     <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="$DEBT Trucker Hat" class="product-image">
-                    <p style="margin: 20px 0;">$DEBT Trucker Hat - $25</p>
+                    <p style="margin: 20px 0; color: var(--text-color);">$DEBT Trucker Hat - $25</p>
                     <a href="#" class="btn">Buy Now (Coming Soon)</a>
                 </div>
             </div>
         </section>
+        <div class="join-rebellion-container">
+            <a class="join-rebellion" href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false">Join the Rebellion</a>
+            <div class="social-bubbles">
+                <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy"></a>
+                <a href="https://t.me/debtculture" target="_blank" rel="noopener noreferrer" class="icon" id="telegram-icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy"></a>
+                <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy"></a>
+                <a href="https://pump.fun/coin/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Pump.fun page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Pumpfun_yuhaon.png" alt="Pumpfun icon" width="60" height="60" loading="lazy"></a>
+            </div>
+        </div>
         <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
     </div>
-    <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center;">
-        <div style="background: #222; padding: 20px; border-radius: 10px; max-width: 400px; width: 90%; text-align: center;">
-            <h2 style="color: #ff5555;">Connect Wallet</h2>
-            <div id="walletList" style="margin: 20px 0;"></div>
-            <button onclick="closeWalletModal();" style="background: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Close</button>
-        </div>
-    </div>
-    <div id="walletInfo" style="display: none; position: fixed; top: 20px; right: 20px; background: #222; padding: 15px; border-radius: 10px; z-index: 1000;">
-        <p id="walletAddress" style="color: #ff5555;">Wallet: <span></span></p>
-        <p id="debtBalance" style="color: #fff;">$DEBT Balance: <span></span></p>
-        <button onclick="disconnectWallet();" style="background: #ff5555; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Disconnect</button>
-    </div>
     <script>
+        if (typeof solanaWeb3 === 'undefined') { console.error('solanaWeb3 library is not loaded. Please include it via CDN.'); }
         function toggleMenu() {
             const menu = document.getElementById("mobileMenu");
             const hamburger = document.querySelector(".hamburger");
-            const isOpen = menu.classList.contains("active");
-            menu.classList.toggle("active", !isOpen);
+            const isOpen = menu.style.display === "block";
+            menu.style.display = isOpen ? "none" : "block";
+            menu.setAttribute('aria-expanded', !isOpen);
             hamburger.classList.toggle("active", !isOpen);
         }
         function closeMenu() {
             const menu = document.getElementById("mobileMenu");
-            menu.classList.remove("active");
+            menu.style.display = "none";
+            menu.setAttribute('aria-expanded', 'false');
             document.querySelector(".hamburger").classList.remove("active");
+        }
+        function toggleDropdown() {
+            const dropdown = document.getElementById("mobileDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }
         function scrollToSection(selector) {
             const element = document.querySelector(selector);
@@ -389,6 +596,26 @@
                 window.scrollTo({ top: elementPosition - headerOffset, behavior: 'smooth' });
             }
         }
+        function toggleSocialBubbles() {
+            const container = document.querySelector('.join-rebellion-container');
+            const button = document.querySelector('.join-rebellion');
+            const bubbles = document.querySelector('.social-bubbles');
+            if (!container || !button || !bubbles) return;
+            const isActive = bubbles.classList.toggle('active');
+            button.classList.toggle('active', isActive);
+            button.setAttribute('aria-expanded', isActive);
+        }
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const windowHeight = window.innerHeight;
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+                if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+                    section.classList.add('visible');
+                }
+            });
+        });
         function initializeMatrix() {
             const canvas = document.getElementById('matrix-bg');
             const ctx = canvas.getContext('2d');
@@ -449,23 +676,26 @@
             rainCanvas.height = window.innerHeight;
             rainCanvas.width = window.innerWidth;
         });
+        const wallets = [
+            { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
+            { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
+            { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
+        ];
         function openWalletModal() {
             const walletModal = document.getElementById('walletModal');
             const walletList = document.getElementById('walletList');
             walletList.innerHTML = '';
-            const wallets = [
-                { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
-                { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
-                { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
-            ];
             wallets.forEach(wallet => {
                 const button = document.createElement('button');
                 button.className = 'wallet-option';
-                button.innerHTML = `<img src="${wallet.icon}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">${wallet.name}`;
+                button.innerHTML = `
+                    <img src="${wallet.icon}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">
+                    ${wallet.name}
+                `;
                 button.style.cssText = 'display: flex; align-items: center; justify-content: center; padding: 10px; width: 100%; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;';
                 button.onmouseover = () => button.style.background = '#ff5555';
                 button.onmouseout = () => button.style.background = '#333';
-                button.onclick = () => alert('Wallet connect not implemented yet.');
+                button.onclick = () => connectWallet(wallet.id);
                 walletList.appendChild(button);
             });
             walletModal.style.display = 'flex';
@@ -473,8 +703,270 @@
         function closeWalletModal() {
             document.getElementById('walletModal').style.display = 'none';
         }
-        window.addEventListener('load', () => {
+        async function connectWallet(walletId) {
+            const mobileButton = document.getElementById('connectWalletMobile');
+            const desktopBubble = document.getElementById('connectWalletDesktop');
+            const walletInfo = document.getElementById('walletInfo');
+            const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+            const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
+            closeWalletModal();
+            try {
+                let provider = null;
+                let walletName = 'Unknown Wallet';
+                const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+                const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('TrustWallet');
+
+                const deepLinks = {
+                    phantom: 'phantom://',
+                    solflare: 'solflare://',
+                    trust: 'trust://'
+                };
+                const downloadUrls = {
+                    phantom: 'https://phantom.app/download',
+                    solflare: 'https://solflare.com/download',
+                    trust: 'https://trustwallet.com/download'
+                };
+
+                if (isMobile && !isInAppBrowser()) {
+                    const wallet = wallets.find(w => w.id === walletId);
+                    const deepLink = deepLinks[walletId];
+                    const prompt = `Connect with ${wallet.name}?`;
+                    if (confirm(prompt)) {
+                        window.location.href = deepLink;
+                        setTimeout(() => {
+                            if (document.hasFocus()) {
+                                window.open(downloadUrls[walletId], '_blank');
+                            }
+                        }, 1000);
+                    }
+                    return;
+                }
+
+                if (walletId === 'phantom' && (window.solana?.isPhantom || (isInAppBrowser && navigator.userAgent.includes('Phantom')))) {
+                    provider = window.solana;
+                    walletName = 'Phantom';
+                } else if (walletId === 'solflare' && (window.solflare?.isSolflare || (isInAppBrowser && navigator.userAgent.includes('Solflare')))) {
+                    provider = window.solflare;
+                    walletName = 'Solflare';
+                } else if (walletId === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum || (isInAppBrowser && navigator.userAgent.includes('TrustWallet')))) {
+                    provider = window.trustWallet || window.trustwallet || window.ethereum;
+                    walletName = 'Trust';
+                    console.log('Trust provider detected:', provider);
+                } else {
+                    const wallet = wallets.find(w => w.id === walletId);
+                    const prompt = `No ${prompt} detected. Install it now?`;
+                    if (confirm(prompt)) {
+                        window.open(downloadUrls[walletId], '_blank');
+                    }
+                    console.log(`No provider for ${wallet.name}. Available providers:`, { solana: window.solana, solflare: window.solflare, trustWallet: window.trustWallet, trustwallet: window.trustwallet, ethereum: window.ethereum });
+                    return;
+                }
+
+                let publicKey;
+                try {
+                    if (walletId === 'solflare') {
+                        await provider.connect();
+                        publicKey = provider.publicKey?.toString();
+                    } else if (walletId === 'trust') {
+                        const response = await provider.request({ method: 'connect' });
+                        publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+                    } else {
+                        const response = await provider.request({ method: 'connect' });
+                        publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+                    }
+                } catch (err) {
+                    throw new Error(`${walletName} connection failed: ${err.message}`);
+                }
+
+                if (!publicKey) {
+                    throw new Error('Failed to retrieve public key');
+                }
+
+                if (mobileButton) {
+                    mobileButton.textContent = `${walletName} Connected`;
+                    mobileButton.classList.add('connected');
+                }
+                if (desktopBubble) {
+                    desktopBubble.classList.add('connected');
+                    const span = desktopBubble.querySelector('span');
+                    span.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                }
+
+                walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                walletInfo.style.display = 'block';
+
+                localStorage.setItem('walletAddress', publicKey);
+                localStorage.setItem('walletType', walletId);
+
+                const balance = await getDebtBalance(publicKey);
+                debtBalanceEl.textContent = balance;
+
+                console.log(`${walletName} connected:`, publicKey);
+
+                provider.on('accountChanged', async (newPublicKey => {
+                    if (newPublicKey)) {
+                        const newKey = newPublicKey.toString();
+                        walletAddressEl.textContent = `${newKey.slice(0, 4)}...${newKey.slice(-4)}`;
+                        localStorage.setItem('walletAddress', newKey);
+                        const balance = await getDebtBalance(newKey);
+                        debtBalanceEl.textContent = balance;
+                        console.log(`${walletName} account changed:`, newKey);
+                    } else {
+                        disconnectWallet();
+                    }
+                });
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                alert(`Failed to connect ${walletName}. Ensure your wallet is unlocked and try again.`);
+            }
+        }
+
+        async function disconnectWallet() {
+            const mobileButton = document.getElementById('connectWalletMobile');
+            const desktopBubble = document.getElementById('connectWalletDesktop');
+            const walletInfo = document.getElementById('walletInfo');
+            const walletType = localStorage.getItem('walletType');
+
+            try {
+                let provider = null;
+                if (walletType === 'phantom' && window.solana?.isPhantom) {
+                    provider = window.solana;
+                } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
+                    provider = window.solflare;
+                } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
+                    provider = window.trustWallet || window.trustwallet || window.ethereum;
+                }
+
+                if (provider && provider.disconnect) {
+                    await provider.disconnect();
+                }
+
+                if (mobileButton) {
+                    mobileButton.textContent = 'Select Wallet';
+                    mobileButton.classList.remove('connected');
+                }
+                if (desktopBubble) {
+                    desktopBubble.classList.remove('connected');
+                    const span = desktopBubble.querySelector('span');
+                    span.textContent = 'Select Wallet';
+                }
+                walletInfo.style.display = 'none';
+                localStorage.removeItem('walletAddress');
+                localStorage.removeItem('walletType');
+                console.log('Wallet disconnected');
+            } catch (error) {
+                console.error('Error disconnecting wallet:', error);
+                alert('Failed to disconnect wallet. Please try again.');
+            }
+        }
+
+        async function getDebtBalance(publicKey) {
+    try {
+        if (typeof solanaWeb3 === 'undefined') {
+            console.error('solanaWeb3 is not loaded');
+            return '0 $DEBT';
+        }
+        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+        const owner = new solanaWeb3.PublicKey(publicKey);
+
+        console.log('Fetching $DEBT balance for:', publicKey);
+
+        const response = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
+        let balance = 0;
+        if (response.value.length > 0) {
+            const accountInfo = await connection.getAccountInfo(response.value[0].pubkey);
+            if (accountInfo && accountInfo.data) {
+                const parsedData = new Uint8Array(accountInfo.data);
+                const amount = parsedData.slice(64, 72);
+                const amountBigInt = new DataView(amount.buffer, amount.byteOffset).getBigUint64(0, true);
+                balance = Number(amountBigInt) / Math.pow(10, 6); // Adjust for 6 decimals
+                console.log('Token account:', response.value[0].pubkey.toString(), 'Balance:', balance);
+            } else {
+                console.log('No valid account data found for token account.');
+            }
+        } else {
+            console.log('No $DEBT token account found.');
+        }
+
+        console.log('Raw balance:', balance);
+        const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return `${formattedBalance} $DEBT`;
+    } catch (error) {
+        console.error('Error fetching $DEBT balance:', error.message);
+        return '0 $DEBT';
+    }
+}
+
+        window.addEventListener('load', async () => {
             initializeMatrix();
+            window.dispatchEvent(new Event('scroll'));
+
+            const mobileButton = document.getElementById('connectWalletMobile');
+            const desktopBubble = document.getElementById('connectWalletDesktop');
+            mobileButton.addEventListener('click', () => {
+                if (mobileButton.classList.contains('connected')) {
+                    document.getElementById('walletInfo').style.display = 'block';
+                } else {
+                    openWalletModal();
+                }
+            });
+            desktopBubble.addEventListener('click', () => {
+                if (desktopBubble.classList.contains('connected')) {
+                    document.getElementById('walletInfo').style.display = 'block';
+                } else {
+                    openWalletModal();
+                }
+            });
+
+            try {
+                const walletType = localStorage.getItem('walletType');
+                const walletAddress = localStorage.getItem('walletAddress');
+                if (walletType && walletAddress) {
+                    let provider = null;
+                    let walletName = 'Unknown Wallet';
+                    if (walletType === 'phantom' && window.solana?.isPhantom) {
+                        provider = window.solana;
+                        walletName = 'Phantom';
+                    } else if (walletType === 'solflare' && window.solflare?.roringType === 'solflare') {
+                        return 'unknown';
+                    } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
+                        provider = window.trustWallet || window.trustwallet || window.ethereum;
+                        walletName = 'Trust';
+                    }
+
+                    if (provider) {
+                        let publicKey;
+                        if (walletType === 'solflare') {
+                            await provider.connect({ onlyIfTrusted: true });
+                            publicKey = provider.publicKey?.toString();
+                        } else {
+                            const response = await provider.request({ method: 'connect', params: { onlyIfTrusted: true } });
+                            publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+                        }
+
+                        if (publicKey && publicKey === walletAddress) {
+                            const walletInfo = document.getElementById('walletInfo');
+                            const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+                            const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
+
+                            mobileButton.textContent = `${walletName} Connected`;
+                            mobileButton.classList.add('connected');
+                            desktopBubble.classList.add('connected');
+                            desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                            walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                            walletInfo.style.display = 'none';
+
+                            const balance = await getDebtBalance(publicKey);
+                            debtBalanceEl.textContent = balance;
+
+                            console.log(`Restored ${walletName} connection:`, publicKey);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error restoring wallet connection:', error);
+            }
         });
     </script>
 </body>
