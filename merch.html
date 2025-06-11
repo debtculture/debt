@@ -928,9 +928,10 @@
                     if (walletType === 'phantom' && window.solana?.isPhantom) {
                         provider = window.solana;
                         walletName = 'Phantom';
-                    } else if (walletType === 'solflare' && window.solflare?.roringType === 'solflare') {
-                        return 'unknown';
-                    } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
+                    } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
+    provider = window.solflare;
+    walletName = 'Solflare';
+} else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
                         provider = window.trustWallet || window.trustwallet || window.ethereum;
                         walletName = 'Trust';
                     }
