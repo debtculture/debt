@@ -21,6 +21,9 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         canvas#matrix-bg {
             position: fixed;
@@ -46,6 +49,7 @@
             padding: 20px;
             position: relative;
             z-index: 1;
+            flex: 1;
         }
         .navbar {
             position: sticky;
@@ -326,7 +330,7 @@
             padding: 20px;
             background: rgba(18, 18, 18, 0.9);
             border-top: 1px solid #ff5555;
-            margin-top: 40px;
+            width: 100%;
         }
         .footer-link {
             color: #ff5555;
@@ -376,12 +380,11 @@
     <div class="content-wrapper">
         <div class="navbar">
             <div class="navbar-links">
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748441742/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
                 <a href="index.html#overview" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Overview</a>
                 <a href="index.html#roadmap" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Roadmap</a>
                 <a href="index.html#how-to-buy" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">How to Buy</a>
                 <a href="index.html#community" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Community</a>
-                <a href="merch.html" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Merch</a>
                 <a href="index.html#faq" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">FAQ</a>
                 <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Memes</a>
                 <div class="dropdown">
@@ -428,7 +431,6 @@
             <a href="index.html#roadmap" onclick="closeMenu()" class="hover-underline" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">Roadmap</a>
             <a href="index.html#how-to-buy" onclick="closeMenu()" class="hover-underline" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">How to Buy</a>
             <a href="index.html#community" onclick="closeMenu()" class="hover-underline" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">Community</a>
-            <a href="merch.html" onclick="closeMenu()" class="hover-underline" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">Merch</a>
             <a href="index.html#faq" onclick="closeMenu()" class="hover-underline" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">FAQ</a>
             <a href="https://giphy.com/channel/AutopsyGG/debt" target="_blank" rel="noopener noreferrer" onclick="closeMenu()" class="hover-underline" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">Memes</a>
             <span class="expand hover-underline" onclick="toggleDropdown()" role="button" aria-label="Toggle resources dropdown" tabindex="0" onkeydown="if(event.key === 'Enter') toggleDropdown()" style="transition: text-shadow 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.textShadow='none';">Resources ▼</span>
