@@ -150,26 +150,6 @@
         .connect-wallet-bubble.connected {
             background: var(--primary-color);
         }
-        .connect-wallet-mobile {
-            display: none;
-            background: var(--primary-color);
-            color: var(--text-color);
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin: 10px auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .connect-wallet-mobile:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-glow);
-        }
-        .connect-wallet-mobile.connected {
-            background: #e04e4e;
-        }
         .hamburger {
             display: none;
             flex-direction: column;
@@ -179,7 +159,7 @@
             background: rgba(255, 85, 85, 0.15);
             border-radius: 5px;
             position: absolute;
-            right: 15px;
+            left: 15px;
             top: 15px;
         }
         .hamburger div {
@@ -297,6 +277,7 @@
         .join-rebellion-container {
             text-align: center;
             padding: 30px 0;
+            margin-top: auto;
         }
         .join-rebellion {
             display: inline-block;
@@ -438,9 +419,6 @@
             .mobile-menu[style*="display: block"] {
                 display: flex;
             }
-            .connect-wallet-mobile {
-                display: block;
-            }
             .section {
                 padding: 40px 0;
             }
@@ -469,6 +447,9 @@
             }
             .join-rebellion.active {
                 background: #e04e4e;
+            }
+            .connect-wallet-bubble, .connect-wallet-mobile {
+                display: none;
             }
         }
     </style>
@@ -509,7 +490,6 @@
                 </div>
             </div>
         </div>
-        <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
         <div id="walletModal" style="display: none;">
             <div>
                 <h2>Select a Wallet</h2>
@@ -661,25 +641,28 @@
         const drops = Array(Math.floor(columns)).fill(1);
         function drawRain() {
             rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+            rainCtx.fillRect(0, 0, canvas.width, canvas.height);
             rainCtx.fillStyle = '#999999';
             rainCtx.font = fontSize + 'px monospace';
             drops.forEach((y, i) => {
                 const text = chars.charAt(Math.floor(Math.random() * chars.length));
                 rainCtx.fillText(text, i * fontSize, y * fontSize);
-                if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                if (y * fontSize > window.innerHeight && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
                 drops[i]++;
             });
         }
         setInterval(drawRain, 50);
+    }
         window.addEventListener('resize', () => {
             rainCanvas.height = window.innerHeight;
             rainCanvas.width = window.innerWidth;
         });
         const wallets = [
-            { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
-            { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
-            { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
+            { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/upload/image/v1749488428/Phantom_Wallet_s3cahc.jpg'},
+            { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptn4t/image/upload/v/1749488428/Solflare_wallet_nxcl95.jpg'},
+            { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptn4t/image/upload/v_t/1749488428/TrustWallet_bidtn3.jpg'}
         ];
         function openWalletModal() {
             const walletModal = document.getElementById('walletModal');
@@ -689,9 +672,8 @@
                 const button = document.createElement('button');
                 button.className = 'wallet-option';
                 button.innerHTML = `
-                    <img src="${wallet.icon}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">
-                    ${wallet.name}
-                `;
+                    <img src="${wallet.icon}" alt="${wallet.name}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">
+                    ${wallet.name}`;
                 button.style.cssText = 'display: flex; align-items: center; justify-content: center; padding: 10px; width: 100%; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;';
                 button.onmouseover = () => button.style.background = '#ff5555';
                 button.onmouseout = () => button.style.background = '#333';
@@ -704,7 +686,6 @@
             document.getElementById('walletModal').style.display = 'none';
         }
         async function connectWallet(walletId) {
-            const mobileButton = document.getElementById('connectWalletMobile');
             const desktopBubble = document.getElementById('connectWalletDesktop');
             const walletInfo = document.getElementById('walletInfo');
             const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
@@ -727,7 +708,7 @@
                     trust: 'https://trustwallet.com/download'
                 };
 
-                if (isMobile && !isInAppBrowser()) {
+                if (isMobile && !isInAppBrowser) {
                     const wallet = wallets.find(w => w.id === walletId);
                     const deepLink = deepLinks[walletId];
                     const prompt = `Connect with ${wallet.name}?`;
@@ -754,7 +735,7 @@
                     console.log('Trust provider detected:', provider);
                 } else {
                     const wallet = wallets.find(w => w.id === walletId);
-                    const prompt = `No ${prompt} detected. Install it now?`;
+                    const prompt = `No ${wallet.name} detected. Install it now?`;
                     if (confirm(prompt)) {
                         window.open(downloadUrls[walletId], '_blank');
                     }
@@ -782,10 +763,6 @@
                     throw new Error('Failed to retrieve public key');
                 }
 
-                if (mobileButton) {
-                    mobileButton.textContent = `${walletName} Connected`;
-                    mobileButton.classList.add('connected');
-                }
                 if (desktopBubble) {
                     desktopBubble.classList.add('connected');
                     const span = desktopBubble.querySelector('span');
@@ -803,8 +780,8 @@
 
                 console.log(`${walletName} connected:`, publicKey);
 
-                provider.on('accountChanged', async (newPublicKey => {
-                    if (newPublicKey)) {
+                provider.on('accountChanged', async (newPublicKey) => {
+                    if (newPublicKey) {
                         const newKey = newPublicKey.toString();
                         walletAddressEl.textContent = `${newKey.slice(0, 4)}...${newKey.slice(-4)}`;
                         localStorage.setItem('walletAddress', newKey);
@@ -822,7 +799,6 @@
         }
 
         async function disconnectWallet() {
-            const mobileButton = document.getElementById('connectWalletMobile');
             const desktopBubble = document.getElementById('connectWalletDesktop');
             const walletInfo = document.getElementById('walletInfo');
             const walletType = localStorage.getItem('walletType');
@@ -841,10 +817,6 @@
                     await provider.disconnect();
                 }
 
-                if (mobileButton) {
-                    mobileButton.textContent = 'Select Wallet';
-                    mobileButton.classList.remove('connected');
-                }
                 if (desktopBubble) {
                     desktopBubble.classList.remove('connected');
                     const span = desktopBubble.querySelector('span');
@@ -861,56 +833,48 @@
         }
 
         async function getDebtBalance(publicKey) {
-    try {
-        if (typeof solanaWeb3 === 'undefined') {
-            console.error('solanaWeb3 is not loaded');
-            return '0 $DEBT';
-        }
-        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
-        const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
-        const owner = new solanaWeb3.PublicKey(publicKey);
+            try {
+                if (typeof solanaWeb3 === 'undefined') {
+                    console.error('solanaWeb3 is not loaded');
+                    return '0 $DEBT';
+                }
+                const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+                const tokenMintAddress = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+                const owner = new solanaWeb3.PublicKey(publicKey);
 
-        console.log('Fetching $DEBT balance for:', publicKey);
+                console.log('Fetching $DEBT balance for:', publicKey);
 
-        const response = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
-        let balance = 0;
-        if (response.value.length > 0) {
-            const accountInfo = await connection.getAccountInfo(response.value[0].pubkey);
-            if (accountInfo && accountInfo.data) {
-                const parsedData = new Uint8Array(accountInfo.data);
-                const amount = parsedData.slice(64, 72);
-                const amountBigInt = new DataView(amount.buffer, amount.byteOffset).getBigUint64(0, true);
-                balance = Number(amountBigInt) / Math.pow(10, 6); // Adjust for 6 decimals
-                console.log('Token account:', response.value[0].pubkey.toString(), 'Balance:', balance);
-            } else {
-                console.log('No valid account data found for token account.');
+                const response = await connection.getTokenAccountsByOwner(owner, { mint: tokenMintAddress });
+                let balance = 0;
+                if (response.value.length > 0) {
+                    const accountInfo = await connection.getAccountInfo(response.value[0].pubkey);
+                    if (accountInfo && accountInfo.data) {
+                        const parsedData = new Uint8Array(accountInfo.data);
+                        const amount = parsedData.slice(64, 72);
+                        const amountBigInt = new DataView(amount.buffer, amount.byteOffset).getBigUint64(0, true);
+                        balance = Number(amountBigInt) / Math.pow(10, 6);
+                        console.log('Token account:', response.value[0].pubkey.toString(), 'Balance:', balance);
+                    } else {
+                        console.log('No valid account data found for token account.');
+                    }
+                } else {
+                    console.log('No $DEBT token account found.');
+                }
+
+                console.log('Raw balance:', balance);
+                const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                return `${formattedBalance} $DEBT`;
+            } catch (error) {
+                console.error('Error fetching $DEBT balance:', error.message);
+                return '0 $DEBT';
             }
-        } else {
-            console.log('No $DEBT token account found.');
         }
-
-        console.log('Raw balance:', balance);
-        const formattedBalance = balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return `${formattedBalance} $DEBT`;
-    } catch (error) {
-        console.error('Error fetching $DEBT balance:', error.message);
-        return '0 $DEBT';
-    }
-}
 
         window.addEventListener('load', async () => {
             initializeMatrix();
             window.dispatchEvent(new Event('scroll'));
 
-            const mobileButton = document.getElementById('connectWalletMobile');
             const desktopBubble = document.getElementById('connectWalletDesktop');
-            mobileButton.addEventListener('click', () => {
-                if (mobileButton.classList.contains('connected')) {
-                    document.getElementById('walletInfo').style.display = 'block';
-                } else {
-                    openWalletModal();
-                }
-            });
             desktopBubble.addEventListener('click', () => {
                 if (desktopBubble.classList.contains('connected')) {
                     document.getElementById('walletInfo').style.display = 'block';
@@ -929,9 +893,9 @@
                         provider = window.solana;
                         walletName = 'Phantom';
                     } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
-    provider = window.solflare;
-    walletName = 'Solflare';
-} else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
+                        provider = window.solflare;
+                        walletName = 'Solflare';
+                    } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
                         provider = window.trustWallet || window.trustwallet || window.ethereum;
                         walletName = 'Trust';
                     }
@@ -943,32 +907,30 @@
                             publicKey = provider.publicKey?.toString();
                         } else {
                             const response = await provider.request({ method: 'connect', params: { onlyIfTrusted: true } });
-                            publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
-                        }
+                            publicKey = response.publicKey?.toString() || provider.publicKey?.toString());
+                            }
 
-                        if (publicKey && publicKey === walletAddress) {
-                            const walletInfo = document.getElementById('walletInfo');
-                            const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
-                            const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
+                            if (publicKey && publicKey === walletAddress) {
+                                const walletInfo = document.getElementById('walletInfo');
+                                const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+                                const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
 
-                            mobileButton.textContent = `${walletName} Connected`;
-                            mobileButton.classList.add('connected');
-                            desktopBubble.classList.add('connected');
-                            desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-                            walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-                            walletInfo.style.display = 'none';
+                                desktopBubble.classList.add('connected');
+                                desktopBubble.querySelector('span').textContent = ''${publicKey.slice(0, 4)}...${publicKey.slice(-4)}';
+                                walletAddressEl.textContent = ''${publicKey.slice(0, 4)}...${publicKey.slice(-4)}';
+                                walletInfo.style.display = 'none';
 
-                            const balance = await getDebtBalance(publicKey);
-                            debtBalanceEl.textContent = balance;
+                                const balance = await getDebtBalance(publicKey);
+                                debtBalanceEl.textContent = balance;
 
-                            console.log(`Restored ${walletName} connection:`, publicKey);
+                                console.log(`Restored ${walletName} connection:`, publicKey);
+                            }
                         }
                     }
+                catch (error) {
+                    console.error('Error restoring wallet connection:', error);
                 }
-            } catch (error) {
-                console.error('Error restoring wallet connection:', error);
-            }
-        });
-    </script>
-</body>
+            });
+        </script>
+    </body>
 </html>
