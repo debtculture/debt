@@ -50,91 +50,119 @@
             z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
             flex: 1 0 auto;
         }
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0;
             position: sticky;
             top: 0;
             background: rgba(18, 18, 18, 0.95);
             z-index: 1000;
         }
         .navbar-logo {
-            max-width: 80px;
+            max-width: 70px;
         }
         .navbar-links {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
         .hover-underline {
             text-decoration: none;
             color: var(--text-color);
             position: relative;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
         }
-        .hover-underline::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -3px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        .hover-underline:hover::after {
-            width: 100%;
+        .hover-underline:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px #ff5555;
         }
         .connect-wallet {
             background: var(--primary-color);
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 4px;
             color: var(--text-color);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: background 0.3s ease;
         }
         .connect-wallet:hover {
             background: #e04e4e;
         }
+        .dropdown {
+            position: relative;
+        }
+        .dropbtn {
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+        .dropbtn:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px #ff5555;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(18, 18, 18, 0.95);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 8px 12px;
+            display: block;
+            font-size: 0.9rem;
+        }
+        .dropdown-content a:hover {
+            background: rgba(255, 85, 85, 0.2);
+        }
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 4px;
-            padding: 5px;
-            background: rgba(255, 85, 85, 0.2);
+            gap: 3px;
+            padding: 4px;
+            background: rgba(255, 85, 85, 0.15);
             border-radius: 3px;
         }
         .hamburger span {
-            width: 20px;
+            width: 18px;
             height: 2px;
             background: var(--text-color);
             transition: all 0.3s ease;
         }
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
+            transform: rotate(45deg) translate(4px, 4px);
         }
         .hamburger.active span:nth-child(2) {
             opacity: 0;
         }
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg) translate(5px, -5px);
         }
         .mobile-menu {
             display: none;
             flex-direction: column;
             position: absolute;
-            top: 60px;
+            top: 50px;
             left: 0;
             width: 100%;
             background: rgba(18, 18, 18, 0.98);
-            padding: 20px;
+            padding: 10px 15px;
             z-index: 999;
         }
         .mobile-menu.active {
@@ -143,14 +171,32 @@
         .mobile-menu a {
             color: var(--text-color);
             text-decoration: none;
-            padding: 10px 0;
-            font-size: 1.1rem;
+            padding: 8px 0;
+            font-size: 1rem;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+        .mobile-menu a:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px #ff5555;
+        }
+        .connect-btn {
+            background: var(--primary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 6px 0;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+        .connect-btn:hover {
+            background: #e04e4e;
         }
         .section {
-            padding: 60px 0;
+            padding: 50px 0;
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             color: var(--primary-color);
             text-align: center;
             margin-bottom: 15px;
@@ -165,19 +211,24 @@
             }
         }
         p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--secondary-text);
             text-align: center;
-            margin-bottom: 20px;
+        }
+        .product-image {
+            width: 300px;
+            max-width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 85, 85, 0.3);
         }
         .btn {
             display: inline-block;
-            padding: 8px 15px;
+            padding: 6px 12px;
             background: var(--primary-color);
             color: var(--text-color);
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
             transition: background 0.3s ease;
         }
         .btn:hover {
@@ -185,51 +236,57 @@
         }
         .footer {
             text-align: center;
-            padding: 15px 20px;
+            padding: 10px 15px;
             background: rgba(18, 18, 18, 0.95);
             color: var(--secondary-text);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             width: 100%;
             flex-shrink: 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .footer-link {
             color: var(--primary-color);
             text-decoration: none;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+        .footer-link:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px #ff5555;
         }
         @media (max-width: 768px) {
             .navbar {
-                padding: 10px 15px;
-                justify-content: space-between;
-            }
-            .navbar-logo {
-                order: 2;
-                max-width: 60px;
+                padding: 8px 10px;
+                justify-content: flex-start;
             }
             .hamburger {
                 display: flex;
-                order: 1;
+                margin-right: auto;
             }
-            .navbar-links {
+            .navbar-logo, .navbar-links {
                 display: none;
             }
             .mobile-menu.active {
                 display: flex;
             }
             .section {
-                padding: 40px 0;
+                padding: 30px 0;
             }
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             p {
-                font-size: 1rem;
+                font-size: 0.9rem;
+            }
+            .product-image {
+                width: 250px;
             }
             .footer {
                 position: fixed;
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                padding: 10px 15px;
+                padding: 8px 10px;
             }
         }
     </style>
@@ -239,21 +296,33 @@
     <canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
     <div class="content-wrapper" id="contentWrapper">
         <div class="navbar">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="80" height="80" loading="eager">
-            <div class="navbar-links">
-                <a href="index.html#overview" class="hover-underline" onclick="scrollToSection('#overview');">Overview</a>
-                <a href="index.html#roadmap" class="hover-underline" onclick="scrollToSection('#roadmap');">Roadmap</a>
-                <a href="index.html#how-to-buy" class="hover-underline" onclick="scrollToSection('#how-to-buy');">How to Buy</a>
-                <a href="index.html#community" class="hover-underline" onclick="scrollToSection('#community');">Community</a>
-                <a href="index.html#faq" class="hover-underline" onclick="scrollToSection('#faq');">FAQ</a>
-                <a href="index.html#memes" class="hover-underline" onclick="scrollToSection('#memes');">Memes</a>
-                <a href="merch.html" class="hover-underline">Merch</a>
-                <a href="#" class="connect-wallet" id="connectWalletDesktop" onclick="openWalletModal();"><span>Select Wallet</span></a>
-            </div>
             <div class="hamburger" onclick="toggleMenu();" aria-label="Toggle mobile menu">
                 <span></span>
                 <span></span>
                 <span></span>
+            </div>
+            <div class="navbar-links">
+                <a href="index.html#overview" class="hover-underline">Overview</a>
+                <a href="index.html#roadmap" class="hover-underline">Roadmap</a>
+                <a href="index.html#how-to-buy" class="hover-underline">How to Buy</a>
+                <a href="index.html#community" class="hover-underline">Community</a>
+                <a href="index.html#faq" class="hover-underline">FAQ</a>
+                <a href="index.html#memes" class="hover-underline">Memes</a>
+                <div class="dropdown">
+                    <div class="dropbtn hover-underline">Resources ▼</div>
+                    <div class="dropdown-content">
+                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexTools</a>
+                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">GeckoTerminal</a>
+                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexScreener</a>
+                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">RugCheck</a>
+                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">Photon</a>
+                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" class="hover-underline">Birdeye</a>
+                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">GMGN</a>
+                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Raydium</a>
+                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Solscan</a>
+                    </div>
+                </div>
+                <a href="#" class="connect-wallet" id="connectWalletDesktop" onclick="openWalletModal();">Select Wallet</a>
             </div>
             <div class="mobile-menu" id="mobileMenu">
                 <a href="index.html#overview" onclick="scrollToSection('#overview'); closeMenu();">Overview</a>
@@ -262,8 +331,16 @@
                 <a href="index.html#community" onclick="scrollToSection('#community'); closeMenu();">Community</a>
                 <a href="index.html#faq" onclick="scrollToSection('#faq'); closeMenu();">FAQ</a>
                 <a href="index.html#memes" onclick="scrollToSection('#memes'); closeMenu();">Memes</a>
-                <a href="merch.html" onclick="closeMenu();">Merch</a>
-                <a href="#" id="connectWalletMobile" onclick="openWalletModal(); closeMenu();">Select Wallet</a>
+                <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexTools</a>
+                <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">GeckoTerminal</a>
+                <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">DexScreener</a>
+                <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">RugCheck</a>
+                <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer">Photon</a>
+                <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer">Birdeye</a>
+                <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">GMGN</a>
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Raydium</a>
+                <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Solscan</a>
+                <a href="#" class="connect-btn" onclick="openWalletModal(); closeMenu();">Connect</a>
             </div>
         </div>
         <section class="section" id="merch">
@@ -271,7 +348,7 @@
             <p style="margin-bottom: 20px;">Merch incoming! Check out our first trucker hat. More to come!</p>
             <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
                 <div style="text-align: center;">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="$DEBT Trucker Hat" style="width: 300px; max-width: 100%;">
+                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="$DEBT Trucker Hat" class="product-image">
                     <p style="margin: 20px 0;">$DEBT Trucker Hat - $25</p>
                     <a href="#" class="btn">Buy Now (Coming Soon)</a>
                 </div>
@@ -363,7 +440,7 @@
             drops.forEach((y, i) => {
                 const text = chars.charAt(Math.floor(Math.random() * chars.length));
                 rainCtx.fillText(text, i * fontSize, y * fontSize);
-                if (y * fontSize > rainCanvas.height && Math.random > 0.975) drops[i] = 0;
+                if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             });
         }
