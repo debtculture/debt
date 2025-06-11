@@ -9,7 +9,7 @@
     <meta property="og:title" content="Debt Culture - $DEBT Memecoin">
     <meta property="og:description" content="Join the rebellion against financial elites with $DEBT, a community-driven memecoin on Solana.">
     <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
-    <meta property="og:url" content="https://your-username.github.io/debt">
+    <meta property="og:url" content="https://debtculture.github.io/debt">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@DebtCulture">
     <title>DEBT</title>
@@ -33,7 +33,6 @@
             background-color: var(--background-color);
             color: var(--text-color);
             overflow-x: hidden;
-            position: relative;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -58,32 +57,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 10px 0;
             position: sticky;
             top: 0;
-            background: rgba(18, 18, 18, 0.9);
+            background: rgba(18, 18, 18, 0.95);
             z-index: 1000;
         }
         .navbar-logo {
-            max-width: 100px;
+            max-width: 80px;
         }
         .navbar-links {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
         }
         .hover-underline {
             text-decoration: none;
             color: var(--text-color);
             position: relative;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .hover-underline::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
+            bottom: -3px;
             left: 0;
             background-color: var(--primary-color);
             transition: width 0.3s ease;
@@ -93,10 +92,11 @@
         }
         .connect-wallet {
             background: var(--primary-color);
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 5px;
             color: var(--text-color);
             text-decoration: none;
+            font-size: 0.9rem;
             transition: background 0.3s ease;
         }
         .connect-wallet:hover {
@@ -106,54 +106,78 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 5px;
+            gap: 4px;
+            padding: 5px;
+            background: rgba(255, 85, 85, 0.2);
+            border-radius: 3px;
         }
         .hamburger span {
-            width: 25px;
-            height: 3px;
+            width: 20px;
+            height: 2px;
             background: var(--text-color);
             transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
         .mobile-menu {
             display: none;
             flex-direction: column;
             position: absolute;
-            top: 80px;
+            top: 60px;
             left: 0;
             width: 100%;
-            background: rgba(18, 18, 18, 0.95);
+            background: rgba(18, 18, 18, 0.98);
             padding: 20px;
             z-index: 999;
+        }
+        .mobile-menu.active {
+            display: flex;
         }
         .mobile-menu a {
             color: var(--text-color);
             text-decoration: none;
             padding: 10px 0;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         .section {
-            padding: 80px 0;
-            opacity: 1;
-            transform: translateY(0);
+            padding: 60px 0;
         }
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 15px;
+            animation: neon-flicker 1.5s infinite alternate;
+        }
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 20px var(--shadow-color);
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        p {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
             text-align: center;
             margin-bottom: 20px;
         }
-        p {
-            font-size: 1.2rem;
-            color: var(--secondary-text);
-            text-align: center;
-        }
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 8px 15px;
             background: var(--primary-color);
             color: var(--text-color);
             text-decoration: none;
             border-radius: 5px;
+            font-size: 0.9rem;
             transition: background 0.3s ease;
         }
         .btn:hover {
@@ -161,24 +185,32 @@
         }
         .footer {
             text-align: center;
-            padding: 20px;
-            background: rgba(18, 18, 18, 0.9);
+            padding: 15px 20px;
+            background: rgba(18, 18, 18, 0.95);
             color: var(--secondary-text);
+            font-size: 0.9rem;
             width: 100%;
             flex-shrink: 0;
-            position: relative;
-            bottom: 0;
         }
         .footer-link {
             color: var(--primary-color);
             text-decoration: none;
         }
         @media (max-width: 768px) {
-            .navbar-links {
-                display: none;
+            .navbar {
+                padding: 10px 15px;
+                justify-content: space-between;
+            }
+            .navbar-logo {
+                order: 2;
+                max-width: 60px;
             }
             .hamburger {
                 display: flex;
+                order: 1;
+            }
+            .navbar-links {
+                display: none;
             }
             .mobile-menu.active {
                 display: flex;
@@ -197,6 +229,7 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
+                padding: 10px 15px;
             }
         }
     </style>
@@ -206,7 +239,7 @@
     <canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
     <div class="content-wrapper" id="contentWrapper">
         <div class="navbar">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="80" height="80" loading="eager">
             <div class="navbar-links">
                 <a href="index.html#overview" class="hover-underline" onclick="scrollToSection('#overview');">Overview</a>
                 <a href="index.html#roadmap" class="hover-underline" onclick="scrollToSection('#roadmap');">Roadmap</a>
@@ -235,11 +268,11 @@
         </div>
         <section class="section" id="merch">
             <h1>$DEBT Merch Store</h1>
-            <p>Merch incoming! Check out our first trucker hat. More to come!</p>
+            <p style="margin-bottom: 20px;">Merch incoming! Check out our first trucker hat. More to come!</p>
             <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
                 <div style="text-align: center;">
                     <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="$DEBT Trucker Hat" style="width: 300px; max-width: 100%;">
-                    <p>$DEBT Trucker Hat - $25</p>
+                    <p style="margin: 20px 0;">$DEBT Trucker Hat - $25</p>
                     <a href="#" class="btn">Buy Now (Coming Soon)</a>
                 </div>
             </div>
@@ -330,7 +363,7 @@
             drops.forEach((y, i) => {
                 const text = chars.charAt(Math.floor(Math.random() * chars.length));
                 rainCtx.fillText(text, i * fontSize, y * fontSize);
-                if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                if (y * fontSize > rainCanvas.height && Math.random > 0.975) drops[i] = 0;
                 drops[i]++;
             });
         }
