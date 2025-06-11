@@ -9,7 +9,7 @@
     <meta property="og:title" content="Debt Culture - $DEBT Memecoin">
     <meta property="og:description" content="Join the rebellion against financial elites with $DEBT, a community-driven memecoin on Solana.">
     <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
-    <meta property="og:url" content="https://debtculture.github.io/debt">
+    <meta property="og:url" content="https://your-username.github.io/debt">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@DebtCulture">
     <title>DEBT</title>
@@ -34,6 +34,9 @@
             color: var(--text-color);
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         canvas#matrix-bg, canvas#matrix-rain {
             position: fixed;
@@ -49,6 +52,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            flex: 1 0 auto;
         }
         .navbar {
             display: flex;
@@ -60,18 +64,19 @@
             background: rgba(18, 18, 18, 0.9);
             z-index: 1000;
         }
+        .navbar-logo {
+            max-width: 100px;
+        }
         .navbar-links {
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-        .navbar-logo {
-            max-width: 100px;
+            gap: 30px;
         }
         .hover-underline {
             text-decoration: none;
             color: var(--text-color);
             position: relative;
+            font-size: 1.1rem;
         }
         .hover-underline::after {
             content: '';
@@ -86,13 +91,48 @@
         .hover-underline:hover::after {
             width: 100%;
         }
+        .connect-wallet {
+            background: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .connect-wallet:hover {
+            background: #e04e4e;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.95);
+            padding: 20px;
+            z-index: 999;
+        }
+        .mobile-menu a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 1.2rem;
+        }
         .section {
             padding: 80px 0;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .section.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -117,13 +157,17 @@
             transition: background 0.3s ease;
         }
         .btn:hover {
-            background: darken(var(--primary-color), 10%);
+            background: #e04e4e;
         }
         .footer {
             text-align: center;
-            padding: 20px 0;
+            padding: 20px;
             background: rgba(18, 18, 18, 0.9);
             color: var(--secondary-text);
+            width: 100%;
+            flex-shrink: 0;
+            position: relative;
+            bottom: 0;
         }
         .footer-link {
             color: var(--primary-color);
@@ -132,6 +176,12 @@
         @media (max-width: 768px) {
             .navbar-links {
                 display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .mobile-menu.active {
+                display: flex;
             }
             .section {
                 padding: 40px 0;
@@ -142,6 +192,12 @@
             p {
                 font-size: 1rem;
             }
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -150,30 +206,79 @@
     <canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
     <div class="content-wrapper" id="contentWrapper">
         <div class="navbar">
+            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
             <div class="navbar-links">
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
-                <a href="index.html#overview" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Overview</a>
-                <a href="index.html#roadmap" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Roadmap</a>
-                <a href="index.html#how-to-buy" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">How to Buy</a>
-                <a href="index.html#community" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Community</a>
-                <a href="index.html#faq" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">FAQ</a>
-                <a href="merch.html" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Merch</a>
+                <a href="index.html#overview" class="hover-underline" onclick="scrollToSection('#overview');">Overview</a>
+                <a href="index.html#roadmap" class="hover-underline" onclick="scrollToSection('#roadmap');">Roadmap</a>
+                <a href="index.html#how-to-buy" class="hover-underline" onclick="scrollToSection('#how-to-buy');">How to Buy</a>
+                <a href="index.html#community" class="hover-underline" onclick="scrollToSection('#community');">Community</a>
+                <a href="index.html#faq" class="hover-underline" onclick="scrollToSection('#faq');">FAQ</a>
+                <a href="index.html#memes" class="hover-underline" onclick="scrollToSection('#memes');">Memes</a>
+                <a href="merch.html" class="hover-underline">Merch</a>
+                <a href="#" class="connect-wallet" id="connectWalletDesktop" onclick="openWalletModal();"><span>Select Wallet</span></a>
+            </div>
+            <div class="hamburger" onclick="toggleMenu();" aria-label="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="index.html#overview" onclick="scrollToSection('#overview'); closeMenu();">Overview</a>
+                <a href="index.html#roadmap" onclick="scrollToSection('#roadmap'); closeMenu();">Roadmap</a>
+                <a href="index.html#how-to-buy" onclick="scrollToSection('#how-to-buy'); closeMenu();">How to Buy</a>
+                <a href="index.html#community" onclick="scrollToSection('#community'); closeMenu();">Community</a>
+                <a href="index.html#faq" onclick="scrollToSection('#faq'); closeMenu();">FAQ</a>
+                <a href="index.html#memes" onclick="scrollToSection('#memes'); closeMenu();">Memes</a>
+                <a href="merch.html" onclick="closeMenu();">Merch</a>
+                <a href="#" id="connectWalletMobile" onclick="openWalletModal(); closeMenu();">Select Wallet</a>
             </div>
         </div>
-        <section class="section visible" id="merch">
+        <section class="section" id="merch">
             <h1>$DEBT Merch Store</h1>
             <p>Merch incoming! Check out our first trucker hat. More to come!</p>
             <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
                 <div style="text-align: center;">
                     <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="$DEBT Trucker Hat" style="width: 300px; max-width: 100%;">
                     <p>$DEBT Trucker Hat - $25</p>
-                    <a href="#" class="btn" style="background: #ff5555; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Buy Now (Coming Soon)</a>
+                    <a href="#" class="btn">Buy Now (Coming Soon)</a>
                 </div>
             </div>
         </section>
         <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
     </div>
+    <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center;">
+        <div style="background: #222; padding: 20px; border-radius: 10px; max-width: 400px; width: 90%; text-align: center;">
+            <h2 style="color: #ff5555;">Connect Wallet</h2>
+            <div id="walletList" style="margin: 20px 0;"></div>
+            <button onclick="closeWalletModal();" style="background: #ff5555; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Close</button>
+        </div>
+    </div>
+    <div id="walletInfo" style="display: none; position: fixed; top: 20px; right: 20px; background: #222; padding: 15px; border-radius: 10px; z-index: 1000;">
+        <p id="walletAddress" style="color: #ff5555;">Wallet: <span></span></p>
+        <p id="debtBalance" style="color: #fff;">$DEBT Balance: <span></span></p>
+        <button onclick="disconnectWallet();" style="background: #ff5555; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Disconnect</button>
+    </div>
     <script>
+        function toggleMenu() {
+            const menu = document.getElementById("mobileMenu");
+            const hamburger = document.querySelector(".hamburger");
+            const isOpen = menu.classList.contains("active");
+            menu.classList.toggle("active", !isOpen);
+            hamburger.classList.toggle("active", !isOpen);
+        }
+        function closeMenu() {
+            const menu = document.getElementById("mobileMenu");
+            menu.classList.remove("active");
+            document.querySelector(".hamburger").classList.remove("active");
+        }
+        function scrollToSection(selector) {
+            const element = document.querySelector(selector);
+            if (element) {
+                const headerOffset = 60;
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({ top: elementPosition - headerOffset, behavior: 'smooth' });
+            }
+        }
         function initializeMatrix() {
             const canvas = document.getElementById('matrix-bg');
             const ctx = canvas.getContext('2d');
@@ -234,6 +339,30 @@
             rainCanvas.height = window.innerHeight;
             rainCanvas.width = window.innerWidth;
         });
+        function openWalletModal() {
+            const walletModal = document.getElementById('walletModal');
+            const walletList = document.getElementById('walletList');
+            walletList.innerHTML = '';
+            const wallets = [
+                { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
+                { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
+                { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
+            ];
+            wallets.forEach(wallet => {
+                const button = document.createElement('button');
+                button.className = 'wallet-option';
+                button.innerHTML = `<img src="${wallet.icon}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">${wallet.name}`;
+                button.style.cssText = 'display: flex; align-items: center; justify-content: center; padding: 10px; width: 100%; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;';
+                button.onmouseover = () => button.style.background = '#ff5555';
+                button.onmouseout = () => button.style.background = '#333';
+                button.onclick = () => alert('Wallet connect not implemented yet.');
+                walletList.appendChild(button);
+            });
+            walletModal.style.display = 'flex';
+        }
+        function closeWalletModal() {
+            document.getElementById('walletModal').style.display = 'none';
+        }
         window.addEventListener('load', () => {
             initializeMatrix();
         });
