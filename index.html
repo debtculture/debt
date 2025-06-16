@@ -521,21 +521,6 @@
     .x-space-schedule li::before { content: "📅"; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
     .x-space-schedule a { color: #fff; text-decoration: none; margin-left: 5px; }
     .x-space-schedule a:hover { color: #ff5555; }
-    .x-space-schedule ul li.saturday {
-    display: block !important;
-    padding: 0 !important;
-    text-align: left !important;
-    line-height: 1.2 !important;
-}
-    .x-space-schedule ul li.saturday > div {
-    display: flex !important;
-    align-items: center !important;
-    margin-bottom: 0 !important;
-}
-    .x-space-schedule ul li.saturday span {
-    display: inline-block !important;
-    vertical-align: middle !important;
-}
     .hosts-include { margin-top: 15px; }
     .hosts-include h3 { font-size: 1.2rem; color: #ff5555; margin: 0 0 10px; }
     .host-bubbles { display: flex; justify-content: center; gap: 20px; }
@@ -1589,23 +1574,15 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <ul style="margin: 0 10px; list-style: none;">
             <li style="font-size: 14px; white-space: nowrap;">Monday – <span style="margin-right: 5px;">🎤</span>9 PM EST with <a href="#community" onclick="featureHost('Lou')" style="color: #ff5555; text-decoration: none; transition: text-decoration 0.3s ease, color 0.3s ease;" onmouseover="this.style.textDecoration='underline'; this.style.color='#ff7777';" onmouseout="this.style.textDecoration='none'; this.style.color='#ff5555';">Lou</a></li>
             <li style="font-size: 14px; white-space: nowrap;">Thursday – <span style="margin-right: 5px;">🧠</span>9 PM EST with <a href="#community" onclick="featureHost('Catavina')" style="color: #ff5555; text-decoration: none; transition: text-decoration 0.3s ease, color 0.3s ease;" onmouseover="this.style.textDecoration='underline'; this.style.color='#ff7777';" onmouseout="this.style.textDecoration='none'; this.style.color='#ff5555';">Catavina</a></li>
-            <li style="font-size: 14px; display: flex; flex-direction: column; align-items: flex-start; padding-left: 0; margin: 10px 0;">
-    <div style="display: flex; align-items: center; width: 100%;">
-        <span style="width: 90px;">Saturday –</span>
-        <span style="display: inline-flex; align-items: center;">
-            <span style="width: 20px; text-align: center; margin-right: 5px;">🃏</span>
-            <span style="width: 80px;">8 PM EST</span>
-        </span>
+            <li style="font-size: 14px;">
+    <div style="display: flex; align-items: baseline;">
+        <span>Saturday – <span style="margin-right: 5px;">🃏</span><span style="width: 80px; display: inline-block;">8 PM EST</span></span>
     </div>
-    <div style="display: flex; align-items: center; width: 100%; margin-top: 4px;">
-        <span style="width: 90px;"></span>
-        <span style="display: inline-flex; align-items: center;">
-            <span style="width: 20px; text-align: center; margin-right: 5px;">🔥</span>
-            <span style="width: 80px;">9 PM EST</span>
-        </span>
+    <div style="display: flex; align-items: baseline;">
+        <span style="width: 80px; display: inline-block; text-align: right;"><span style="margin-right: 5px;">🔥</span></span><span style="width: 80px; display: inline-block;">9 PM EST</span>
     </div>
-    <div style="display: flex; justify-content: flex-start; margin-top: 2px; margin-left: 110px;">
-        <span>with <a href="#community" onclick="featureHost('Autopsy')" style="color: #ff5555; text-decoration: none; transition: text-decoration 0.3s ease, color 0.3s ease;" onmouseover="this.style.textDecoration='underline'; this.style.color='#ff7777';" onmouseout="this.style.textDecoration='none'; this.style.color='#ff5555';">Autopsy</a></span>
+    <div style="display: flex; justify-content: flex-end; margin-top: -8px; margin-bottom: 8px;">
+        <span style="margin-left: 85px;">with <a href="#community" onclick="featureHost('Autopsy')" style="color: #ff5555; text-decoration: none; transition: text-decoration 0.3s ease, color 0.3s ease;" onmouseover="this.style.textDecoration='underline'; this.style.color='#ff7777';" onmouseout="this.style.textDecoration='none'; this.style.color='#ff5555';">Autopsy</a></span>
     </div>
 </li>
         </ul>
