@@ -2409,19 +2409,7 @@ function toggleAccordion(header) {
     }
 }
 
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-window.addEventListener('scroll', debounce(() => {
+window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.section');
     const connectors = document.querySelectorAll('.section-connector');
     const windowHeight = window.innerHeight;
@@ -2442,7 +2430,7 @@ window.addEventListener('scroll', debounce(() => {
                 });
             }
             if (section.id === 'how-to-buy') {
-                const steps = document.querySelectorAll('.buy-step');
+                const steps = section.querySelectorAll('.buy-step');
                 steps.forEach(step => step.classList.add('visible'));
             }
             if (section.id === 'faq') {
@@ -2458,7 +2446,7 @@ window.addEventListener('scroll', debounce(() => {
             connector.classList.add('visible');
         }
     });
-}, 100));
+});
 
 function copyAddress(element) {
     const addressText = element.querySelector('.address-text').textContent.trim();
@@ -3153,6 +3141,7 @@ function startMatrixRain() {
 }
 
 window.addEventListener('load', async () => {
+    console.log('Load event fired');
     initializeMatrix(); // Red matrix
     startMatrixRain(); // Grey matrix
     setPhantomLink();
