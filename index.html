@@ -2409,7 +2409,19 @@ function toggleAccordion(header) {
     }
 }
 
-window.addEventListener('scroll', () => {
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+window.addEventListener('scroll', debounce(() => {
     const sections = document.querySelectorAll('.section');
     const connectors = document.querySelectorAll('.section-connector');
     const windowHeight = window.innerHeight;
