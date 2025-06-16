@@ -2497,6 +2497,26 @@ function updateTokenomics() {
     document.getElementById('supply-change').textContent = `${changePercent}%`;
 }
 
+function getBadgeDescription(badgeName) {
+        const descriptions = {
+            'Zero Gravity': 'Constantly joins X Spaces regularly.',
+            'Orbit Breaker': 'Actively participates in Spaces conversations.',
+            'Star Commander': 'Leads discussions in $DEBT Spaces.',
+            'Moonwalker': 'Hosts $DEBT-related X Spaces.',
+            'Arsonist': 'Burned 100,000+ $DEBT.',
+            'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
+            'Inferno': 'Burned 10,000,000+ $DEBT.',
+            'Ashbringer': 'Burned 100,000,000+ $DEBT.',
+            'Cold Wallet': 'Held 1+ month.',
+            'Iron Grip': 'Held 3+ months.',
+            'Steel Reserve': 'Held 6+ months, solid stack.',
+            'Diamond Hands': 'Held 1 year+, unshakeable holder.',
+            'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
+            'Meme Machine': 'Creates dank $DEBT memes.'
+        };
+        return descriptions[badgeName] || 'Badge earned for community contributions.';
+    }
+
 // Community Carousel
 let currentCommunityIndex = 0;
 const communityMembers = document.querySelectorAll(
@@ -2628,26 +2648,6 @@ function updateCommunityCarousel() {
     }
 
         description.textContent = `Placeholder description for ${member.name}.`;
-
-    function getBadgeDescription(badgeName) {
-        const descriptions = {
-            'Zero Gravity': 'Constantly joins X Spaces regularly.',
-            'Orbit Breaker': 'Actively participates in Spaces conversations.',
-            'Star Commander': 'Leads discussions in $DEBT Spaces.',
-            'Moonwalker': 'Hosts $DEBT-related X Spaces.',
-            'Arsonist': 'Burned 100,000+ $DEBT.',
-            'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
-            'Inferno': 'Burned 10,000,000+ $DEBT.',
-            'Ashbringer': 'Burned 100,000,000+ $DEBT.',
-            'Cold Wallet': 'Held 1+ month.',
-            'Iron Grip': 'Held 3+ months.',
-            'Steel Reserve': 'Held 6+ months, solid stack.',
-            'Diamond Hands': 'Held 1 year+, unshakeable holder.',
-            'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
-            'Meme Machine': 'Creates dank $DEBT memes.'
-        };
-        return descriptions[badgeName] || 'Badge earned for community contributions.';
-    }
 
     communityMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
