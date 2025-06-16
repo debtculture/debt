@@ -3112,9 +3112,36 @@ async function getDebtBalance(publicKey) {
         return '0 $DEBT';
     }
 }
-
+function startMatrixRain() {
+    const rainCanvas = document.getElementById('matrix-rain');
+    const rainCtx = rainCanvas.getContext('2d');
+    rainCanvas.height = window.innerHeight;
+    rainCanvas.width = window.innerWidth;
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const fontSize = 14;
+    const columns = rainCanvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+    function drawRain() {
+        rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+        rainCtx.fillStyle = '#999999';
+        rainCtx.font = fontSize + 'px monospace';
+        drops.forEach((y, i) => {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            rainCtx.fillText(text, i * fontSize, y * fontSize);
+            if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }
+    setInterval(drawRain, 50); // Keep at 50ms
+    window.addEventListener('resize', () => {
+        rainCanvas.height = window.innerHeight;
+        rainCanvas.width = window.innerWidth;
+    });
+}
 window.addEventListener('load', async () => {
-    initializeMatrix(); // Added matrix here
+    initializeMatrix(); // Red matrix
+    startMatrixRain(); // Grey matrix
     setPhantomLink();
     updateTokenomics();
     updateCommunityCarousel();
@@ -3218,30 +3245,5 @@ function featureHost(hostName) {
         behavior: 'smooth'
     });
 }
-const rainCanvas = document.getElementById('matrix-rain');
-const rainCtx = rainCanvas.getContext('2d');
-rainCanvas.height = window.innerHeight;
-rainCanvas.width = window.innerWidth;
-const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const fontSize = 14;
-const columns = rainCanvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-function drawRain() {
-    rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
-    rainCtx.fillStyle = '#999999';
-    rainCtx.font = fontSize + 'px monospace';
-    drops.forEach((y, i) => {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        rainCtx.fillText(text, i * fontSize, y * fontSize);
-        if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-    });
-}
-setInterval(drawRain, 50);
-window.addEventListener('resize', () => {
-    rainCanvas.height = window.innerHeight;
-    rainCanvas.width = window.innerWidth;
-});
 </script>
 </html>
