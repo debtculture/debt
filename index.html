@@ -2881,17 +2881,6 @@ function initializeMatrix() {
     setInterval(draw, 33);
 }
 
-window.addEventListener('load', () => {
-    initializeMatrix();
-});
-
-window.addEventListener('load', () => {
-    setPhantomLink();
-    updateTokenomics();
-    updateCommunityCarousel();
-    initializeRoadmapPhases();
-    window.dispatchEvent(new Event('scroll'));
-});
 // Wallet connection logic
 const wallets = [
     { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
@@ -3125,6 +3114,7 @@ async function getDebtBalance(publicKey) {
 }
 
 window.addEventListener('load', async () => {
+    initializeMatrix(); // Added matrix here
     setPhantomLink();
     updateTokenomics();
     updateCommunityCarousel();
