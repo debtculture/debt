@@ -1325,68 +1325,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     height: 28px;
 }
 
-/* Weekly Schedule Styles */
-.x-space-schedule ul {
-    list-style: none;
-    margin: 0 10px;
-    padding: 0;
-}
-
-.x-space-schedule ul li {
-    font-size: 14px;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 5px 0;
-}
-
-.x-space-schedule ul li div {
-    display: flex;
-    align-items: baseline;
-}
-
-.x-space-schedule ul li span {
-    display: inline-flex;
-    align-items: center;
-}
-
-/* Align emojis for Saturday events */
-.x-space-schedule ul li:nth-child(3) div:nth-child(1) span span:first-child,
-.x-space-schedule ul li:nth-child(3) div:nth-child(2) span span:first-child {
-    width: 20px; /* Fixed width for emojis */
-    text-align: center; /* Center emoji */
-    margin-right: 5px;
-}
-
-/* Position 'with Autopsy' */
-.x-space-schedule ul li:nth-child(3) div:nth-child(3) {
-    margin-top: -12px; /* Center vertically */
-    margin-left: 25px; /* Align with time text */
-}
-
-/* Restrict hover effects to host names */
-.x-space-schedule a {
-    color: #ff5555;
-    text-decoration: none;
-    transition: text-decoration 0.3s ease, color 0.3s ease;
-}
-
-.x-space-schedule a:hover {
-    text-decoration: underline;
-    color: #ff7777;
-}
-
-/* Prevent hover on non-link elements */
-.x-space-schedule span:not(a) {
-    pointer-events: none;
-}
-
-/* Preserve existing override */
-.x-space-schedule ul li::before {
-    content: none !important;
-}
-
 @media (max-width: 768px) {
         .trading-card {
         width: 180px;
