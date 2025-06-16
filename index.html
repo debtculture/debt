@@ -2442,7 +2442,7 @@ window.addEventListener('scroll', debounce(() => {
                 });
             }
             if (section.id === 'how-to-buy') {
-                const steps = section.querySelectorAll('.buy-step');
+                const steps = document.querySelectorAll('.buy-step');
                 steps.forEach(step => step.classList.add('visible'));
             }
             if (section.id === 'faq') {
@@ -2458,7 +2458,7 @@ window.addEventListener('scroll', debounce(() => {
             connector.classList.add('visible');
         }
     });
-});
+}, 100));
 
 function copyAddress(element) {
     const addressText = element.querySelector('.address-text').textContent.trim();
@@ -2510,24 +2510,24 @@ function updateTokenomics() {
 }
 
 function getBadgeDescription(badgeName) {
-        const descriptions = {
-            'Zero Gravity': 'Constantly joins X Spaces regularly.',
-            'Orbit Breaker': 'Actively participates in Spaces conversations.',
-            'Star Commander': 'Leads discussions in $DEBT Spaces.',
-            'Moonwalker': 'Hosts $DEBT-related X Spaces.',
-            'Arsonist': 'Burned 100,000+ $DEBT.',
-            'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
-            'Inferno': 'Burned 10,000,000+ $DEBT.',
-            'Ashbringer': 'Burned 100,000,000+ $DEBT.',
-            'Cold Wallet': 'Held 1+ month.',
-            'Iron Grip': 'Held 3+ months.',
-            'Steel Reserve': 'Held 6+ months, solid stack.',
-            'Diamond Hands': 'Held 1 year+, unshakeable holder.',
-            'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
-            'Meme Machine': 'Creates dank $DEBT memes.'
-        };
-        return descriptions[badgeName] || 'Badge earned for community contributions.';
-    }
+    const descriptions = {
+        'Zero Gravity': 'Constantly joins X Spaces regularly.',
+        'Orbit Breaker': 'Actively participates in Spaces conversations.',
+        'Star Commander': 'Leads discussions in $DEBT Spaces.',
+        'Moonwalker': 'Hosts $DEBT-related X Spaces.',
+        'Arsonist': 'Burned 100,000+ $DEBT.',
+        'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
+        'Inferno': 'Burned 10,000,000+ $DEBT.',
+        'Ashbringer': 'Burned 100,000,000+ $DEBT.',
+        'Cold Wallet': 'Held 1+ month.',
+        'Iron Grip': 'Held 3+ months.',
+        'Steel Reserve': 'Held 6+ months, solid stack.',
+        'Diamond Hands': 'Held 1 year+, unshakeable holder.',
+        'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
+        'Meme Machine': 'Creates dank $DEBT memes.'
+    };
+    return descriptions[badgeName] || 'Badge earned for community contributions.';
+}
 
 // Community Carousel
 let currentCommunityIndex = 0;
@@ -2545,6 +2545,14 @@ function updateCommunityCarousel() {
     document.querySelectorAll('.badge.active-tooltip').forEach(el => {
         el.classList.remove('active-tooltip');
     });
+
+    const communityMembers = document.querySelectorAll(
+        window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+    );
+    if (!communityMembers.length) {
+        console.error('No community members found for carousel');
+        return;
+    }
 
     const featured = document.getElementById('hof-featured');
     const description = document.getElementById('hof-description');
@@ -2591,7 +2599,7 @@ function updateCommunityCarousel() {
     featuredCard.querySelector('.card-pfp-square img').alt = `${member.name} profile picture`;
     featuredCard.querySelector('.hof-name').textContent = member.name;
 
-        const badgesContainer = document.getElementById('hof-badges');
+    const badgesContainer = document.getElementById('hof-badges');
     badgesContainer.innerHTML = '';
     if (member.badges && member.badges.length > 0) {
         member.badges.forEach(badge => {
@@ -2602,7 +2610,6 @@ function updateCommunityCarousel() {
                 badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
             }
 
-            // Add the emblem as an <img> tag
             const emblemImg = document.createElement('img');
             emblemImg.className = 'badge-emblem';
             let emblemSrc = '';
@@ -2659,7 +2666,7 @@ function updateCommunityCarousel() {
         badgesContainer.innerHTML = '<span>No badges yet</span>';
     }
 
-        description.textContent = `Placeholder description for ${member.name}.`;
+    description.textContent = `Placeholder description for ${member.name}.`;
 
     communityMembers.forEach((member, index) => {
         const bubble = member.querySelector('.hof-bubble');
@@ -2692,6 +2699,7 @@ function rotateHof(direction) {
     updateCommunityCarousel();
     resetCommunityAutoRotate();
 }
+
 // Hide tooltip on scroll for mobile
 window.addEventListener('scroll', () => {
     if (window.innerWidth <= 1024) {
@@ -2735,6 +2743,7 @@ function toggleBadgeGlossary() {
         });
     }
 }
+
 function initializeBadgeGlossaryTooltips() {
     const badges = document.querySelectorAll('.badge-glossary-content .badge');
     let sharedTooltip = document.getElementById('shared-tooltip');
@@ -2789,8 +2798,9 @@ function openBadgeGlossary() {
         initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
     }
 }
+
 function autoRotateCommunity() {
-        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+    currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
     updateCommunityCarousel();
 }
 
@@ -2819,6 +2829,7 @@ communityCarousel.addEventListener('mousedown', () => {
 communityCarousel.addEventListener('mouseup', () => {
     resetCommunityAutoRotate(); // Resume after click
 });
+
 function initializeRoadmapPhases() {
     const isMobile = window.innerWidth <= 768;
     document.querySelectorAll('.future-phase').forEach(phase => {
@@ -3112,6 +3123,7 @@ async function getDebtBalance(publicKey) {
         return '0 $DEBT';
     }
 }
+
 function startMatrixRain() {
     const rainCanvas = document.getElementById('matrix-rain');
     const rainCtx = rainCanvas.getContext('2d');
@@ -3139,6 +3151,7 @@ function startMatrixRain() {
         rainCanvas.width = window.innerWidth;
     });
 }
+
 window.addEventListener('load', async () => {
     initializeMatrix(); // Red matrix
     startMatrixRain(); // Grey matrix
@@ -3215,6 +3228,7 @@ window.addEventListener('load', async () => {
         console.error('Error restoring wallet connection:', error);
     }
 });
+
 function toggleSocialBubbles() {
     const container = document.querySelector('.join-rebellion-container');
     const button = document.querySelector('.join-rebellion');
@@ -3228,6 +3242,7 @@ function toggleSocialBubbles() {
     button.setAttribute('aria-expanded', isActive);
     console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
 }
+
 function featureHost(hostName) {
     const memberIndex = {
         'Autopsy': 0,
