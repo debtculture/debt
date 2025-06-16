@@ -2723,18 +2723,6 @@ function toggleBadgeGlossary() {
         });
     }
 }
-
-function openBadgeGlossary() {
-    const content = document.getElementById('badgeGlossary');
-    const header = content.previousElementSibling;
-    if (!content.classList.contains('active')) {
-        content.classList.add('active');
-        content.style.maxHeight = `${content.scrollHeight + 30}px`;
-        content.style.padding = '15px';
-        header.classList.add('active');
-        header.setAttribute('aria-expanded', 'true');
-    }
-}
 function initializeBadgeGlossaryTooltips() {
     const badges = document.querySelectorAll('.badge-glossary-content .badge');
     let sharedTooltip = document.getElementById('shared-tooltip');
