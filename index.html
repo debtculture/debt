@@ -2881,8 +2881,9 @@ function initializeMatrix() {
     setInterval(draw, 33);
 }
 
-// Run Matrix immediately
-initializeMatrix();
+window.addEventListener('load', () => {
+    initializeMatrix();
+});
 
 window.addEventListener('load', () => {
     setPhantomLink();
