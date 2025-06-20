@@ -2382,7 +2382,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 </style>
 </body>
 <script>
-if (typeof solanaWeb3 === 'undefined') { console.error('solanaWeb3 library is not loaded. Please include it via CDN.'); }
+
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     const hamburger = document.querySelector(".hamburger");
@@ -3154,6 +3154,9 @@ function startMatrixRain() {
 }
 
 window.addEventListener('load', async () => {
+    if (typeof solanaWeb3 === 'undefined') {
+        console.error('solanaWeb3 library is not loaded. Please include it via CDN.');
+    }
     console.log('Load event fired');
     initializeMatrix(); // Red matrix
     startMatrixRain(); // Grey matrix
