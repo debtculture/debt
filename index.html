@@ -1466,7 +1466,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-react@0.15.35/dist/umd/index.js"></script>
-<script defer src="https://unpkg.com/@solana/web3.js@1.95.3/dist/solana-web3.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.js"></script>
 
 <script type="application/ld+json">
 {
@@ -2954,9 +2954,8 @@ async function connectWallet(walletId) {
         let provider = null;
         let walletName = 'Unknown Wallet';
         const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-        const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('TrustWallet');
+        const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('Backpack');
 
-        // Deep-linking for mobile
         const deepLinks = {
             phantom: 'phantom://',
             solflare: 'solflare://',
@@ -2983,7 +2982,6 @@ async function connectWallet(walletId) {
             return;
         }
 
-        // Desktop and in-app browser detection
         if (walletId === 'phantom' && (window.solana?.isPhantom || (isInAppBrowser && navigator.userAgent.includes('Phantom')))) {
             provider = window.solana;
             walletName = 'Phantom';
@@ -2999,7 +2997,6 @@ async function connectWallet(walletId) {
             if (confirm(prompt)) {
                 window.open(downloadUrls[walletId], '_blank');
             }
-            console.log(`No provider for ${wallet.name}. Available providers:`, { solana: window.solana, solflare: window.solflare, trustWallet: window.trustWallet, trustwallet: window.trustwallet, ethereum: window.ethereum });
             return;
         }
 
@@ -3008,19 +3005,19 @@ async function connectWallet(walletId) {
             if (walletId === 'solflare') {
                 await provider.connect();
                 publicKey = provider.publicKey?.toString();
-            } else if (walletId === 'trust') {
-                const response = await provider.request({ method: 'connect' });
-                publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+            } else if (walletId === 'backpack') {
+                await provider.connect();
+                publicKey = provider.publicKey?.toString();
             } else {
-                const response = await provider.request({ method: 'connect' });
-                publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+                await provider.connect();
+                publicKey = provider.publicKey?.toString();
             }
         } catch (err) {
             throw new Error(`${walletName} connection failed: ${err.message}`);
         }
 
         if (!publicKey) {
-            throw new Error('Failed to retrieve public key');
+            throw new Error(`Failed to retrieve public key from ${walletName}`);
         }
 
         if (mobileButton) {
@@ -3057,8 +3054,8 @@ async function connectWallet(walletId) {
             }
         });
     } catch (error) {
-        console.error('Error connecting wallet:', error);
-        alert(`Failed to connect ${walletName}. Ensure your wallet is unlocked and try again.`);
+        console.error(`Error connecting ${walletId} wallet:`, error);
+        alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked and try again.`);
     }
 }
 
