@@ -1510,15 +1510,24 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 .schedule-sub-events {
     display: flex;
     flex-direction: column;
-    gap: 2px; /* Reduced spacing (~10px less than default) */
+    gap: 0px; /* Reduced from 2px to 0px for ~5px closer */
     grid-column: 2 / 4; /* Span Emoji and Time columns */
 }
 
 .sub-event {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr; /* Match Emoji and Time column widths */
+    gap: 10px; /* Match main grid gap */
     justify-content: center;
     align-items: center;
+}
+
+.sub-event .schedule-emoji {
+    grid-column: 1; /* Align with main Emoji column */
+}
+
+.sub-event .schedule-time {
+    grid-column: 2; /* Align with main Time column */
 }
 
 .host-gap {
@@ -1550,7 +1559,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 
     .schedule-sub-events {
-        gap: 1px; /* Tighter on mobile */
+        gap: 0px; /* Keep tight on mobile */
+    }
+
+    .sub-event {
+        gap: 5px; /* Match main grid gap on mobile */
+        grid-template-columns: 0.5fr 1fr;
     }
 }
 </style>
