@@ -2160,30 +2160,30 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="badge-row">
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-spaces badge-bronze" title="Zero Gravity: Constantly joins X Spaces regularly." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
+                        <div class="badge badge-spaces badge-bronze" title="Orbiter: Consistently shows up to X Spaces." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
                     </div>
-                    <span class="badge-name">Zero Gravity</span>
+                    <span class="badge-name">Orbiter</span>
                 </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-spaces badge-silver" title="Orbit Breaker: Actively participates in Spaces conversations." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
+                        <div class="badge badge-spaces badge-silver" title="Cosmonaut: Regularly engages in Spaces conversations." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
                     </div>
-                    <span class="badge-name">Orbit Breaker</span>
+                    <span class="badge-name">Cosmonaut</span>
                 </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-spaces badge-gold" title="Star Commander: Leads discussions in $DEBT Spaces." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
+                        <div class="badge badge-spaces badge-gold" title="Star Commander: Leads conversations in $DEBT Spaces." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
                     </div>
                     <span class="badge-name">Star Commander</span>
                 </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
-                        <div class="badge badge-spaces badge-amethyst" title="Moonwalker: Hosts $DEBT-related X Spaces. style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';""></div>
+                        <div class="badge badge-spaces badge-amethyst" title="Supernova: Hosts $DEBT-focused X Spaces." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
                     </div>
-                    <span class="badge-name">Moonwalker</span>
+                    <span class="badge-name">Supernova</span>
                 </div>
             </div>
                                     <!-- Burn Badges (Bronze -> Silver -> Gold -> Amethyst) -->
@@ -2527,10 +2527,10 @@ function updateTokenomics() {
 
 function getBadgeDescription(badgeName) {
     const descriptions = {
-        'Zero Gravity': 'Constantly joins X Spaces regularly.',
-        'Orbit Breaker': 'Actively participates in Spaces conversations.',
-        'Star Commander': 'Leads discussions in $DEBT Spaces.',
-        'Moonwalker': 'Hosts $DEBT-related X Spaces.',
+        'Orbiter': 'Consistently shows up to X Spaces.',
+        'Cosmonaut': 'Regularly engages in Spaces conversations.',
+        'Star Commander': 'Leads conversations in $DEBT Spaces.',
+        'Supernova': 'Hosts $DEBT-focused X Spaces.',
         'Arsonist': 'Burned 100,000+ $DEBT.',
         'Pyromaniac': 'Burned 1,000,000+ $DEBT.',
         'Inferno': 'Burned 10,000,000+ $DEBT.',
@@ -2580,26 +2580,26 @@ function updateCommunityCarousel() {
     }
 
     const members = [
-        { name: 'Autopsy', title: 'The Visionary', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png', desc: 'Placeholder description for Autopsy.', badges: [{ name: 'Moonwalker', tier: 'amethyst', type: 'spaces' }, { name: 'Inferno', tier: 'gold', type: 'burn' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
-        { name: 'Catavina', title: 'The Cheerleader', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg', desc: 'Placeholder description for Catavina.', badges: [{ name: 'Moonwalker', tier: 'amethyst', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
-        { name: 'Lou', title: 'The Rally', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg', desc: 'Placeholder description for Lou.', badges: [{ name: 'Moonwalker', tier: 'amethyst', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Autopsy', title: 'The Visionary', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png', desc: 'Placeholder description for Autopsy.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Inferno', tier: 'gold', type: 'burn' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Catavina', title: 'The Cheerleader', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg', desc: 'Placeholder description for Catavina.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Lou', title: 'The Rally', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg', desc: 'Placeholder description for Lou.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
         { name: 'Nerf', title: 'The Professional', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg', desc: 'Placeholder description for Nerf.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
         { name: 'JPEG', title: 'The Youngblood', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg', desc: 'Placeholder description for JPEG.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: "Cold Blooded Shiller", tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
-        { name: 'Lunicking', title: 'The Spark', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg', desc: 'Placeholder description for Lunicking.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Zero Gravity', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
-        { name: 'Tormund', title: 'The Oracle', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg', desc: 'Placeholder description for Tormund.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
-        { name: 'STAYHIGH', title: 'The Unfiltered', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg', desc: 'Placeholder description for STAYHIGH.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
-        { name: 'Renee', title: 'The Support', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg', desc: 'Placeholder description for Renee.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Zero Gravity', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
-        { name: 'blu', title: 'The Warden', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg', desc: 'Placeholder description for blu.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
-        { name: 'Scrappy', title: 'The Goofball', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg', desc: 'Placeholder description for Scrappy.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }] },
+        { name: 'Lunicking', title: 'The Spark', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg', desc: 'Placeholder description for Lunicking.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Tormund', title: 'The Oracle', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg', desc: 'Placeholder description for Tormund.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'STAYHIGH', title: 'The Unfiltered', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg', desc: 'Placeholder description for STAYHIGH.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Renee', title: 'The Support', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg', desc: 'Placeholder description for Renee.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'blu', title: 'The Warden', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg', desc: 'Placeholder description for blu.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Scrappy', title: 'The Goofball', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg', desc: 'Placeholder description for Scrappy.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }] },
         { name: 'Mo', title: 'The Degen', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg', desc: 'Placeholder description for Mo.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }] },
-        { name: 'Cory B', title: 'The Bengal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg', desc: 'Placeholder description for Cory B.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
-        { name: 'Dan', title: 'The Vibes', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg', desc: 'Placeholder description for Dan.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
-        { name: 'Tom', title: 'The King', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg', desc: 'Placeholder description for Tom.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Cory B', title: 'The Bengal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg', desc: 'Placeholder description for Cory B.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Dan', title: 'The Vibes', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg', desc: 'Placeholder description for Dan.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Tom', title: 'The King', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg', desc: 'Placeholder description for Tom.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
         { name: 'Marilyn', title: 'The Rockstar', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg', desc: 'Placeholder description for Marilyn.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
-        { name: 'Coinbud', title: 'The Expert', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg', desc: 'Placeholder description for Coinbud.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Coinbud', title: 'The Expert', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg', desc: 'Placeholder description for Coinbud.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
         { name: 'ZOMBi', title: 'The Creative', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg', desc: 'Placeholder description for ZOMBi.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
-        { name: 'Cyanide', title: 'The Poison', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg', desc: 'Placeholder description for Cyanide.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
-        { name: 'George', title: 'The Wise', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg', desc: 'Placeholder description for George.', badges: [{ name: 'Orbit Breaker', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Cyanide', title: 'The Poison', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg', desc: 'Placeholder description for Cyanide.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'George', title: 'The Wise', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg', desc: 'Placeholder description for George.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
         { name: 'Dog', title: 'The Loyal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748440557/Dog_iiq5g8.jpg', desc: 'Placeholder description for Dog.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
         { name: 'Drinks', title: 'The Party', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906211/Drinks_tibhzd.jpg', desc: 'Placeholder description for Drinks.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
         { name: 'Ambient', title: 'The Vibe', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906930/Ambient_jztyfi.jpg', desc: 'Placeholder description for Ambient.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
