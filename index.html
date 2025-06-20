@@ -2912,7 +2912,7 @@ function initializeMatrix() {
 const wallets = [
     { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
     { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
-    { name: 'Trust', id: 'trust', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Trust_Wallet_bidtn3.jpg' }
+    { name: 'Backpack', id: 'backpack', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1750446379/backpack_rer24o.jpg' }
 ];
 
 function openWalletModal() {
@@ -2960,12 +2960,12 @@ async function connectWallet(walletId) {
         const deepLinks = {
             phantom: 'phantom://',
             solflare: 'solflare://',
-            trust: 'trust://'
+            backpack: 'backpack://'
         };
         const downloadUrls = {
             phantom: 'https://phantom.app/download',
             solflare: 'https://solflare.com/download',
-            trust: 'https://trustwallet.com/download'
+            backpack: 'https://backpack.app/download'
         };
 
         if (isMobile && !isInAppBrowser) {
@@ -2990,10 +2990,9 @@ async function connectWallet(walletId) {
         } else if (walletId === 'solflare' && (window.solflare?.isSolflare || (isInAppBrowser && navigator.userAgent.includes('Solflare')))) {
             provider = window.solflare;
             walletName = 'Solflare';
-        } else if (walletId === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum || (isInAppBrowser && navigator.userAgent.includes('TrustWallet')))) {
-            provider = window.trustWallet || window.trustwallet || window.ethereum;
-            walletName = 'Trust';
-            console.log('Trust provider detected:', provider);
+        } else if (walletId === 'backpack' && window.backpack) {
+            provider = window.backpack;
+            walletName = 'Backpack';
         } else {
             const wallet = wallets.find(w => w.id === walletId);
             const prompt = `No ${wallet.name} detected. Install it now?`;
@@ -3075,8 +3074,8 @@ async function disconnectWallet() {
             provider = window.solana;
         } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
             provider = window.solflare;
-        } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
-            provider = window.trustWallet || window.trustwallet || window.ethereum;
+        } else if (walletType === 'backpack' && window.backpack) {
+            provider = window.backpack;
         }
 
         if (provider && provider.disconnect) {
@@ -3196,9 +3195,9 @@ window.addEventListener('load', async () => {
             } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
                 provider = window.solflare;
                 walletName = 'Solflare';
-            } else if (walletType === 'trust' && (window.trustWallet || window.trustwallet || window.ethereum)) {
-                provider = window.trustWallet || window.trustwallet || window.ethereum;
-                walletName = 'Trust';
+            } else if (walletType === 'backpack' && window.backpack) {
+                provider = window.backpack;
+                walletName = 'Backpack';
             }
 
             if (provider) {
