@@ -3145,7 +3145,7 @@ async function connectWallet(walletId) {
         }
 
         if (mobileButton) {
-            mobileButton.textContent = `${walletName} Connected`;
+            mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
             mobileButton.classList.add('connected');
         }
         if (desktopBubble) {
@@ -3345,7 +3345,7 @@ window.addEventListener('load', async () => {
                     const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
                     const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
 
-                    mobileButton.textContent = `${walletName} Connected`;
+                    mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
                     mobileButton.classList.add('connected');
                     desktopBubble.classList.add('connected');
                     desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
