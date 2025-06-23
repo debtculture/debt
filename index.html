@@ -2636,7 +2636,7 @@ function setPhantomLink() {
 
 function updateTokenomics() {
     const startingSupply = 1000000000;
-    const currentSupply = 943543636.05; // Update this manually each Saturday
+    const currentSupply = 942543636.05; // Update this manually each Saturday
     const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
     const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
@@ -3280,7 +3280,7 @@ window.addEventListener('load', async () => {
     initializeMatrix(); // Red matrix
     startMatrixRain(); // Grey matrix
     setPhantomLink();
-    updateTokenomics();
+    update();
     updateCommunityCarousel();
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
