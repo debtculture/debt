@@ -1452,8 +1452,8 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     #walletInfo {
         position: fixed;
         top: 120px !important; /* Initial value, adjusted by JS */
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        left: 0 !important; /* Adjusted by JS */
+        transform: none !important; /* Adjusted by JS */
         right: auto !important;
     }
 }
@@ -3192,9 +3192,10 @@ function positionWalletInfo() {
         const desktopBubble = document.getElementById('connectWalletDesktop');
         const walletInfo = document.getElementById('walletInfo');
         const bubbleRect = desktopBubble.getBoundingClientRect();
+        const walletInfoRect = walletInfo.getBoundingClientRect();
         walletInfo.style.top = `${bubbleRect.bottom + window.scrollY + 10}px`; /* 10px gap below icon */
-        walletInfo.style.left = `${bubbleRect.left + bubbleRect.width / 2}px`;
-        walletInfo.style.transform = 'translateX(-50%)';
+        walletInfo.style.left = `${bubbleRect.left + (bubbleRect.width - walletInfoRect.width) / 2}px`; /* Center under icon */
+        walletInfo.style.transform = 'none';
     }
 }
 async function disconnectWallet() {
