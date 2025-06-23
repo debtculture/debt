@@ -1450,10 +1450,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 @media (min-width: 769px) {
     #walletInfo {
-        position: absolute;
-        top: auto !important;
+        position: fixed;
+        top: 120px !important; /* Below 90px bubble */
+        right: 45px !important; /* Adjusted to center under 90px bubble */
         left: auto !important;
-        right: auto !important;
         transform: none !important;
     }
 }
@@ -3156,9 +3156,6 @@ async function connectWallet(walletId) {
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         walletInfo.style.display = 'block';
-        if (window.innerWidth > 768) {
-            positionWalletInfo();
-        }
 
         localStorage.setItem('walletAddress', publicKey);
         localStorage.setItem('walletType', walletId);
@@ -3185,22 +3182,9 @@ async function connectWallet(walletId) {
         alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked and try again.`);
     }
 }
-
 function hideWalletInfo() {
     const walletInfo = document.getElementById('walletInfo');
     walletInfo.style.display = 'none';
-}
-function positionWalletInfo() {
-    if (window.innerWidth > 768) {
-        const desktopBubble = document.getElementById('connectWalletDesktop');
-        const walletInfo = document.getElementById('walletInfo');
-        const bubbleRect = desktopBubble.getBoundingClientRect();
-        const walletInfoRect = walletInfo.getBoundingClientRect();
-        walletInfo.style.position = 'absolute';
-        walletInfo.style.top = `${bubbleRect.bottom + 10}px`; /* 10px gap below icon */
-        walletInfo.style.left = `${bubbleRect.left + (bubbleRect.width / 2) - (walletInfoRect.width / 2)}px`; /* Center under icon */
-        walletInfo.style.transform = 'none';
-    }
 }
 async function disconnectWallet() {
     const mobileButton = document.getElementById('connectWalletMobile');
@@ -3297,7 +3281,6 @@ function startMatrixRain() {
 }
 
 window.addEventListener('load', async () => {
-window.addEventListener('resize', positionWalletInfo);
     if (typeof solanaWeb3 === 'undefined') {
         console.error('solanaWeb3 library is not loaded. Please include it via CDN.');
     }
@@ -3313,27 +3296,21 @@ window.addEventListener('resize', positionWalletInfo);
     const mobileButton = document.getElementById('connectWalletMobile');
     const desktopBubble = document.getElementById('connectWalletDesktop');
     mobileButton.addEventListener('click', () => {
-    if (mobileButton.classList.contains('connected')) {
-        const walletInfo = document.getElementById('walletInfo');
-        walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
-        if (walletInfo.style.display === 'block' && window.innerWidth > 768) {
-            positionWalletInfo();
+        if (mobileButton.classList.contains('connected')) {
+            const walletInfo = document.getElementById('walletInfo');
+            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
+        } else {
+            openWalletModal();
         }
-    } else {
-        openWalletModal();
-    }
-});
-desktopBubble.addEventListener('click', () => {
-    if (desktopBubble.classList.contains('connected')) {
-        const walletInfo = document.getElementById('walletInfo');
-        walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
-        if (walletInfo.style.display === 'block' && window.innerWidth > 768) {
-            positionWalletInfo();
+    });
+    desktopBubble.addEventListener('click', () => {
+        if (desktopBubble.classList.contains('connected')) {
+            const walletInfo = document.getElementById('walletInfo');
+            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
+        } else {
+            openWalletModal();
         }
-    } else {
-        openWalletModal();
-    }
-});
+    });
 
     try {
         const walletType = localStorage.getItem('walletType');
