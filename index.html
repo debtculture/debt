@@ -1053,6 +1053,10 @@ body:not(:has(.social-bubbles.active))::before {
     border-color: rgba(85, 255, 85, 0.3); 
     color: #55ff55; 
 }
+#walletInfo button {
+    font-weight: bold;
+    padding: 2px 6px;
+}
 .connect-wallet-mobile.connected:hover { 
     color: #77ff77; 
 }
@@ -1719,6 +1723,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
         <div id="walletInfo" style="display: none; position: fixed; text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
+    <button onclick="hideWalletInfo()" style="position: absolute; top: 5px; right: 5px; background: none; border: none; color: #ff5555; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" aria-label="Close wallet info">✕</button>
             <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
             <p id="debtBalance" style="margin: 0 0 10px;">Balance: <span>0 $DEBT</span></p>
             <button onclick="disconnectWallet()" style="background: #ff5555; color: #fff; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Disconnect</button>
@@ -3178,6 +3183,10 @@ async function connectWallet(walletId) {
     }
 }
 
+function hideWalletInfo() {
+    const walletInfo = document.getElementById('walletInfo');
+    walletInfo.style.display = 'none';
+}
 async function disconnectWallet() {
     const mobileButton = document.getElementById('connectWalletMobile');
     const desktopBubble = document.getElementById('connectWalletDesktop');
@@ -3289,14 +3298,16 @@ window.addEventListener('load', async () => {
     const desktopBubble = document.getElementById('connectWalletDesktop');
     mobileButton.addEventListener('click', () => {
         if (mobileButton.classList.contains('connected')) {
-            document.getElementById('walletInfo').style.display = 'block';
+            const walletInfo = document.getElementById('walletInfo');
+            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         } else {
             openWalletModal();
         }
     });
     desktopBubble.addEventListener('click', () => {
         if (desktopBubble.classList.contains('connected')) {
-            document.getElementById('walletInfo').style.display = 'block';
+            const walletInfo = document.getElementById('walletInfo');
+            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         } else {
             openWalletModal();
         }
