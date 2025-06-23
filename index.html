@@ -1451,10 +1451,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 @media (min-width: 769px) {
     #walletInfo {
         position: fixed;
-        top: 120px !important; /* Initial value, adjusted by JS */
-        left: auto !important;
+        top: 0 !important; /* Adjusted by JS */
+        left: 0 !important; /* Adjusted by JS */
         right: auto !important;
-        transform: none !important; /* Adjusted by JS */
+        transform: none !important;
     }
 }
 .x-space-schedule {
@@ -3156,6 +3156,9 @@ async function connectWallet(walletId) {
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
         walletInfo.style.display = 'block';
+        if (window.innerWidth > 768) {
+            setTimeout(positionWalletInfo, 0); // Ensure DOM is updated
+        }
 
         localStorage.setItem('walletAddress', publicKey);
         localStorage.setItem('walletType', walletId);
@@ -3193,8 +3196,9 @@ function positionWalletInfo() {
         const walletInfo = document.getElementById('walletInfo');
         const bubbleRect = desktopBubble.getBoundingClientRect();
         const walletInfoRect = walletInfo.getBoundingClientRect();
+        const leftPosition = bubbleRect.left + (bubbleRect.width / 2) - (walletInfoRect.width / 2);
         walletInfo.style.top = `${bubbleRect.bottom + window.scrollY + 10}px`; /* 10px gap below icon */
-        walletInfo.style.left = `${bubbleRect.left + (bubbleRect.width / 2) - (walletInfoRect.width / 2)}px`; /* Center under icon */
+        walletInfo.style.left = `${Math.max(10, leftPosition)}px`; /* Ensure not off-screen */
         walletInfo.style.transform = 'none';
     }
 }
@@ -3314,7 +3318,7 @@ window.addEventListener('scroll', positionWalletInfo);
         const walletInfo = document.getElementById('walletInfo');
         walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         if (walletInfo.style.display === 'block' && window.innerWidth > 768) {
-            positionWalletInfo();
+            setTimeout(positionWalletInfo, 0); // Ensure DOM is updated
         }
     } else {
         openWalletModal();
@@ -3325,7 +3329,7 @@ desktopBubble.addEventListener('click', () => {
         const walletInfo = document.getElementById('walletInfo');
         walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         if (walletInfo.style.display === 'block' && window.innerWidth > 768) {
-            positionWalletInfo();
+            setTimeout(positionWalletInfo, 0); // Ensure DOM is updated
         }
     } else {
         openWalletModal();
@@ -3370,6 +3374,9 @@ desktopBubble.addEventListener('click', () => {
                     desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
                     walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
                     walletInfo.style.display = 'none';
+                    if (window.innerWidth > 768) {
+                        setTimeout(positionWalletInfo, 0); // Ensure DOM is updated
+                    }
 
                     const balance = await getDebtBalance(publicKey);
                     debtBalanceEl.textContent = balance;
