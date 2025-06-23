@@ -1452,9 +1452,9 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     #walletInfo {
         position: fixed;
         top: 120px !important; /* Initial value, adjusted by JS */
-        left: 0 !important; /* Adjusted by JS */
-        transform: none !important; /* Adjusted by JS */
+        left: auto !important;
         right: auto !important;
+        transform: none !important; /* Adjusted by JS */
     }
 }
 .x-space-schedule {
@@ -3194,7 +3194,7 @@ function positionWalletInfo() {
         const bubbleRect = desktopBubble.getBoundingClientRect();
         const walletInfoRect = walletInfo.getBoundingClientRect();
         walletInfo.style.top = `${bubbleRect.bottom + window.scrollY + 10}px`; /* 10px gap below icon */
-        walletInfo.style.left = `${bubbleRect.left + (bubbleRect.width - walletInfoRect.width) / 2}px`; /* Center under icon */
+        walletInfo.style.left = `${bubbleRect.left + (bubbleRect.width / 2) - (walletInfoRect.width / 2)}px`; /* Center under icon */
         walletInfo.style.transform = 'none';
     }
 }
