@@ -1571,6 +1571,52 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         grid-template-columns: 0.5fr 1fr;
     }
 }
+.audio-player {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #121212;
+  border: 2px solid #ff5555;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1000;
+}
+.audio-player.active {
+  display: flex;
+}
+.audio-controls {
+  display: flex;
+  gap: 10px;
+}
+.audio-btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.audio-btn:hover {
+  background: #ff5555;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff5555;
+}
+.audio-btn.play::before {
+  content: '▶';
+}
+.audio-btn.pause::before {
+  content: '⏸';
+}
+.logo-btn {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.logo-btn.active {
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
@@ -1608,7 +1654,17 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     <div class="content-wrapper" id="contentWrapper">
         <div class="navbar">
             <div class="navbar-links">
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo" width="100" height="100" loading="eager">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo logo-btn" id="logo-btn" width="100" height="100" loading="eager" role="button" aria-label="Toggle audio player">
+                <div id="audio-player" class="audio-player">
+                  <div class="audio-controls">
+                    <button id="prev-track" class="audio-btn" aria-label="Previous track">⏮</button>
+                    <button id="play-pause" class="audio-btn play" aria-label="Play">▶</button>
+                    <button id="next-track" class="audio-btn" aria-label="Next track">⏭</button>
+                  </div>
+                </div>
+                <audio id="audio" preload="metadata">
+                  <source src="" type="audio/mpeg">
+                </audio>
                 <a href="#overview" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Overview</a>
                 <a href="#roadmap" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Roadmap</a>
                 <a href="#how-to-buy" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">How to Buy</a>
@@ -3280,7 +3336,100 @@ function startMatrixRain() {
     });
 }
 
+// Audio Player Logic
+const playlist = [
+  {
+    title: "Debt Song 1",
+    src: "https://res.cloudinary.com/dpvptjn4t/audio/upload/v1234567890/song1.mp3" // Replace with your Cloudinary audio URL
+  },
+  {
+    title: "Debt Song 2",
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_mp3/v1234567890/video1.mp3" // Example video-to-audio transformation
+  },
+  // Add more tracks as needed
+];
+let currentTrackIndex = 0;
+
+function initializeAudioPlayer() {
+  const audio = document.getElementById('audio');
+  const playPauseBtn = document.getElementById('play-pause');
+  const prevTrackBtn = document.getElementById('prev-track');
+  const nextTrackBtn = document.getElementById('next-track');
+  const audioPlayer = document.getElementById('audio-player');
+  const logoBtn = document.getElementById('logo-btn');
+
+  function loadTrack(index) {
+    audio.src = playlist[index].src;
+    audio.load();
+    playPauseBtn.className = 'audio-btn play';
+    audio.play().catch(err => console.error('Auto-play failed:', err));
+  }
+
+  function togglePlayPause() {
+    if (audio.paused) {
+      audio.play();
+      playPauseBtn.className = 'audio-btn pause';
+    } else {
+      audio.pause();
+      playPauseBtn.className = 'audio-btn play';
+    }
+  }
+
+  function toggleAudioPlayer() {
+    const isActive = audioPlayer.classList.toggle('active');
+    logoBtn.classList.toggle('active', isActive);
+    logoBtn.setAttribute('aria-expanded', isActive);
+    if (isActive && !audio.src) {
+      loadTrack(currentTrackIndex);
+    }
+  }
+
+  logoBtn.addEventListener('click', toggleAudioPlayer);
+  playPauseBtn.addEventListener('click', togglePlayPause);
+  prevTrackBtn.addEventListener('click', () => {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  nextTrackBtn.addEventListener('click', () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  audio.addEventListener('ended', () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+
+  // Keyboard accessibility
+  logoBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleAudioPlayer();
+    }
+  });
+  playPauseBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      togglePlayPause();
+    }
+  });
+  prevTrackBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrackIndex);
+    }
+  });
+  nextTrackBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+      loadTrack(currentTrackIndex);
+    }
+  });
+}
+
 window.addEventListener('load', async () => {
+  initializeAudioPlayer();
     if (typeof solanaWeb3 === 'undefined') {
         console.error('solanaWeb3 library is not loaded. Please include it via CDN.');
     }
