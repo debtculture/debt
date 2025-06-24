@@ -1584,6 +1584,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 .audio-player.active {
   display: flex;
+  flex-direction: column; /* Ensure vertical stacking for track-info */
 }
 .audio-controls {
   display: flex;
@@ -1616,6 +1617,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 .logo-btn.active {
   animation: pulseGlow 1.5s infinite ease-in-out;
+}
+#track-info {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
@@ -1662,6 +1669,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                     <button id="play-pause" class="audio-btn play" aria-label="Play">▶</button>
                     <button id="next-track" class="audio-btn" aria-label="Next track">⏭</button>
                   </div>
+                  <div id="track-info" style="color: #fff; font-size: 14px; margin-top: 5px; text-align: center;"></div>
                 </div>
                 <audio id="audio" preload="metadata">
                   <source src="" type="audio/mpeg">
@@ -3349,14 +3357,15 @@ function startMatrixRain() {
 // Audio Player Logic
 const playlist = [
   {
-    title: "Debt Song 1",
+    title: "Ambient 1",
+    artist: "Debt Culture", // Placeholder artist, update as needed
     src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1750800061/ambient1_y4zuze.mp3"
   },
   {
     title: "Debt Song 2",
-    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1750800992/ambient2_d0gjlr.mp3"
-  },
-  // Add more tracks as needed
+    artist: "Unknown Artist", // Placeholder for second song
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_mp3/v1234567890/video1.mp3"
+  }
 ];
 let currentTrackIndex = 0;
 
@@ -3369,11 +3378,12 @@ function initializeAudioPlayer() {
   const logoBtn = document.getElementById('logo-btn');
 
   function loadTrack(index) {
-    audio.src = playlist[index].src;
-    audio.load();
-    playPauseBtn.className = 'audio-btn play';
-    audio.play().catch(err => console.error('Auto-play failed:', err));
-  }
+      audio.src = playlist[index].src;
+      audio.load();
+      playPauseBtn.className = 'audio-btn play';
+      document.getElementById('track-info').textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+      audio.play().catch(err => console.error('Auto-play failed:', err));
+    }
 
   function togglePlayPause() {
     if (audio.paused) {
