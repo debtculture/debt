@@ -3380,7 +3380,7 @@ const playlist = [
   {
     title: "Debt Song 2",
     artist: "Unknown Artist", // Placeholder for second song
-    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_mp3/v1234567890/video1.mp3"
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1750800992/ambient2_d0gjlr.mp3"
   }
 ];
 let currentTrackIndex = 0;
@@ -3392,22 +3392,33 @@ function initializeAudioPlayer() {
   const nextTrackBtn = document.getElementById('next-track');
   const audioPlayer = document.getElementById('audio-player');
   const logoBtn = document.getElementById('logo-btn');
+  const trackInfoSpan = document.getElementById('track-info').querySelector('span');
 
   function loadTrack(index) {
-      audio.src = playlist[index].src;
-      audio.load();
+    audio.src = playlist[index].src;
+    audio.load();
+    playPauseBtn.className = 'audio-btn play';
+    trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+    trackInfoSpan.style.animationPlayState = 'paused'; // Start with marquee paused
+    audio.play().catch(err => {
+      console.error('Auto-play failed:', err);
       playPauseBtn.className = 'audio-btn play';
-      document.getElementById('track-info').querySelector('span').textContent = `${playlist[index].title} - ${playlist[index].artist}`;
-      audio.play().catch(err => console.error('Auto-play failed:', err));
-    }
+    });
+  }
 
   function togglePlayPause() {
     if (audio.paused) {
-      audio.play();
+      audio.play().catch(err => {
+        console.error('Play failed:', err);
+        playPauseBtn.className = 'audio-btn play';
+        trackInfoSpan.style.animationPlayState = 'paused';
+      });
       playPauseBtn.className = 'audio-btn pause';
+      trackInfoSpan.style.animationPlayState = 'running';
     } else {
       audio.pause();
       playPauseBtn.className = 'audio-btn play';
+      trackInfoSpan.style.animationPlayState = 'paused';
     }
   }
 
@@ -3431,6 +3442,12 @@ function initializeAudioPlayer() {
     loadTrack(currentTrackIndex);
   });
   audio.addEventListener('ended', () => {
+    audio.pause();
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  audio.addEventListener('error', (e) => {
+    console.error('Audio error:', e);
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     loadTrack(currentTrackIndex);
   });
