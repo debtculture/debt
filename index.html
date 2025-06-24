@@ -1617,36 +1617,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 .logo-btn.active {
   animation: pulseGlow 1.5s infinite ease-in-out;
 }
-.mobile-logo-container {
-  display: none;
-}
-@media (max-width: 768px) {
-  .mobile-logo-container {
-    display: block;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
-  }
-  .mobile-logo {
-    width: 60px;
-    height: 60px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .mobile-logo:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 10px #ff5555;
-  }
-  .mobile-logo.active {
-    animation: pulseGlow 1.5s infinite ease-in-out;
-  }
-  .audio-player {
-    top: unset !important;
-    bottom: 90px !important; /* Above mobile logo (60px height + 30px gap) */
-    left: 20px !important; /* Aligns with logo's left edge */
-    right: unset !important;
-  }
-}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
@@ -2572,10 +2542,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="section-connector faq-to-disclaimer"></div>
         </section>
 
-        <div class="mobile-logo-container">
-  <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="mobile-logo logo-btn" id="mobile-logo-btn" width="60" height="60" loading="eager" role="button" aria-label="Toggle audio player">
-</div>
-<div class="join-rebellion-container">
+        <div class="join-rebellion-container">
     <a class="join-rebellion" href="https://t.me/debtportal420" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false" style="animation: pulseGlow 1.5s infinite ease-in-out;">Join the Rebellion</a>
     <div class="social-bubbles">
         <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
@@ -3399,92 +3366,6 @@ function initializeAudioPlayer() {
   const nextTrackBtn = document.getElementById('next-track');
   const audioPlayer = document.getElementById('audio-player');
   const logoBtn = document.getElementById('logo-btn');
-  const mobileLogoBtn = document.getElementById('mobile-logo-btn');
-
-  function loadTrack(index) {
-    audio.src = playlist[index].src;
-    audio.load();
-    playPauseBtn.className = 'audio-btn play';
-    audio.play().catch(err => console.error('Auto-play failed:', err));
-  }
-
-  function togglePlayPause() {
-    if (audio.paused) {
-      audio.play();
-      playPauseBtn.className = 'audio-btn pause';
-    } else {
-      audio.pause();
-      playPauseBtn.className = 'audio-btn play';
-    }
-  }
-
-  function toggleAudioPlayer() {
-    const isActive = audioPlayer.classList.toggle('active');
-    logoBtn.classList.toggle('active', isActive);
-    logoBtn.setAttribute('aria-expanded', isActive);
-    if (mobileLogoBtn) {
-      mobileLogoBtn.classList.toggle('active', isActive);
-      mobileLogoBtn.setAttribute('aria-expanded', isActive);
-    }
-    if (isActive && !audio.src) {
-      loadTrack(currentTrackIndex);
-    }
-  }
-
-  logoBtn.addEventListener('click', toggleAudioPlayer);
-  if (mobileLogoBtn) {
-    mobileLogoBtn.addEventListener('click', toggleAudioPlayer);
-  }
-  playPauseBtn.addEventListener('click', togglePlayPause);
-  prevTrackBtn.addEventListener('click', () => {
-    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-  nextTrackBtn.addEventListener('click', () => {
-    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-  audio.addEventListener('ended', () => {
-    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-
-  // Keyboard accessibility
-  logoBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleAudioPlayer();
-    }
-  });
-  if (mobileLogoBtn) {
-    mobileLogoBtn.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleAudioPlayer();
-      }
-    });
-  }
-  playPauseBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      togglePlayPause();
-    }
-  });
-  prevTrackBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-      loadTrack(currentTrackIndex);
-    }
-  });
-  nextTrackBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-      loadTrack(currentTrackIndex);
-    }
-  });
-}
 
   function loadTrack(index) {
     audio.src = playlist[index].src;
