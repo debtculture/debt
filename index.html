@@ -1640,6 +1640,21 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
+.navbar-logo:not(.active) {
+    animation: neonPulse 1.5s infinite ease-in-out;
+}
+
+@keyframes neonPulse {
+    0% {
+        box-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555, 0 0 15px #ff5555;
+    }
+    50% {
+        box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+    }
+    100% {
+        box-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555, 0 0 15px #ff5555;
+    }
+}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
