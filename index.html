@@ -1581,6 +1581,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   border-radius: 10px;
   padding: 10px;
   z-index: 1000;
+  width: 180px; /* Fixed width to prevent resizing */
 }
 .audio-player.active {
   display: flex;
@@ -1589,6 +1590,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 .audio-controls {
   display: flex;
   gap: 10px;
+  justify-content: center; /* Center controls within fixed width */
 }
 .audio-btn {
   background: #333;
@@ -1619,10 +1621,24 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   animation: pulseGlow 1.5s infinite ease-in-out;
 }
 #track-info {
-  max-width: 200px;
+  max-width: 160px; /* Slightly less than audio-player width to account for padding */
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 5px;
+}
+#track-info span {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+}
+#track-info:hover span {
+  animation-play-state: paused; /* Pause animation on hover */
+}
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
@@ -1669,7 +1685,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                     <button id="play-pause" class="audio-btn play" aria-label="Play">▶</button>
                     <button id="next-track" class="audio-btn" aria-label="Next track">⏭</button>
                   </div>
-                  <div id="track-info" style="color: #fff; font-size: 14px; margin-top: 5px; text-align: center;"></div>
+                  <div id="track-info"><span></span></div>
                 </div>
                 <audio id="audio" preload="metadata">
                   <source src="" type="audio/mpeg">
@@ -3381,7 +3397,7 @@ function initializeAudioPlayer() {
       audio.src = playlist[index].src;
       audio.load();
       playPauseBtn.className = 'audio-btn play';
-      document.getElementById('track-info').textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+      document.getElementById('track-info').querySelector('span').textContent = `${playlist[index].title} - ${playlist[index].artist}`;
       audio.play().catch(err => console.error('Auto-play failed:', err));
     }
 
