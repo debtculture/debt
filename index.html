@@ -3399,10 +3399,11 @@ function initializeAudioPlayer() {
     audio.load();
     playPauseBtn.className = 'audio-btn play';
     trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
-    trackInfoSpan.style.animationPlayState = 'paused'; // Start with marquee paused
+    trackInfoSpan.style.animationPlayState = 'running'; // Start marquee when track loads
     audio.play().catch(err => {
       console.error('Auto-play failed:', err);
       playPauseBtn.className = 'audio-btn play';
+      trackInfoSpan.style.animationPlayState = 'paused';
     });
   }
 
@@ -3442,7 +3443,6 @@ function initializeAudioPlayer() {
     loadTrack(currentTrackIndex);
   });
   audio.addEventListener('ended', () => {
-    audio.pause();
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     loadTrack(currentTrackIndex);
   });
@@ -3450,6 +3450,16 @@ function initializeAudioPlayer() {
     console.error('Audio error:', e);
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     loadTrack(currentTrackIndex);
+  });
+
+  // Ensure marquee syncs with play state
+  audio.addEventListener('play', () => {
+    playPauseBtn.className = 'audio-btn pause';
+    trackInfoSpan.style.animationPlayState = 'running';
+  });
+  audio.addEventListener('pause', () => {
+    playPauseBtn.className = 'audio-btn play';
+    trackInfoSpan.style.animationPlayState = 'paused';
   });
 
   // Keyboard accessibility
@@ -3480,7 +3490,6 @@ function initializeAudioPlayer() {
     }
   });
 }
-
 window.addEventListener('load', async () => {
   initializeAudioPlayer();
     if (typeof solanaWeb3 === 'undefined') {
