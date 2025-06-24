@@ -1779,6 +1779,15 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 </div>
         <div id="walletInfo" style="display: none; position: fixed; text-align: center; padding: 10px; background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 10px rgba(255, 85, 85, 0.2); color: #fff; font-size: 0.9rem; z-index: 1100;">
+<style>
+@media (min-width: 769px) {
+  #walletInfo {
+    position: absolute !important;
+    top: 60px !important; /* Below wallet bubble (53px height + 7px gap) */
+    right: -10px !important; /* Aligns with wallet bubble's right edge */
+  }
+}
+</style>
     <button onclick="hideWalletInfo()" style="position: absolute; top: 5px; right: 5px; background: none; border: none; color: #ff5555; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" aria-label="Close wallet info">✕</button>
             <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
             <p id="debtBalance" style="margin: 0 0 10px;">Balance: <span>0 $DEBT</span></p>
