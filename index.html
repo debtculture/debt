@@ -1658,14 +1658,42 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 @media (max-width: 768px) {
     #audioPlayerMobile {
         position: fixed;
-        top: 15px; /* Moved down 5px */
-        left: calc(50% - 20px); /* Moved left 20px */
+        top: 15px;
+        left: calc(50% - 20px);
         transform: translateX(-50%);
         z-index: 1000;
-        padding: 8px 10px; /* Maintain padding */
-        width: calc(100% - 60px); /* Reduce width by 30px on each side */
-        max-width: 120px; /* Ensure button isn't too wide */
-        box-sizing: border-box; /* Ensure padding is included in width */
+        padding: 8px;
+        width: calc(100% - 60px);
+        max-width: 120px;
+        box-sizing: border-box;
+        background: #1e1e1e;
+        border: 1px solid #ff5555;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+    }
+    .audio-player-mobile .audio-controls {
+        display: flex;
+        gap: 5px;
+    }
+    .audio-player-mobile .audio-btn {
+        background: none;
+        border: none;
+        color: #ff5555;
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 2px;
+        transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+    .audio-player-mobile .audio-btn:hover {
+        transform: scale(1.2);
+        text-shadow: 0 0 10px #ff5555;
+    }
+    .audio-player-mobile .audio-btn.play::before {
+        content: '▶';
+    }
+    .audio-player-mobile .audio-btn.pause::before {
+        content: '⏸';
     }
 }
 </style>
@@ -1821,7 +1849,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     <div class="section-connector overview-to-roadmap"></div>
 </section>
 
-<button class="connect-wallet-mobile" id="audioPlayerMobile" role="button" aria-label="Toggle Audio Player">Audio Player</button>
+<div class="audio-player-mobile" id="audioPlayerMobile" role="region" aria-label="Mobile Audio Player">
+    <div class="audio-controls">
+        <button id="prev-track-mobile" class="audio-btn" aria-label="Previous track">⏮</button>
+        <button id="play-pause-mobile" class="audio-btn play" aria-label="Play">▶</button>
+        <button id="next-track-mobile" class="audio-btn" aria-label="Next track">⏭</button>
+    </div>
+</div>
 <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
 <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
     <div style="background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
