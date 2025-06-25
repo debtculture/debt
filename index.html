@@ -3458,9 +3458,10 @@ function initializeAudioPlayer() {
     loadTrack(currentTrackIndex);
   });
   audio.addEventListener('ended', () => {
+    console.log('Audio ended, currentTrackIndex:', currentTrackIndex, 'Moving to:', (currentTrackIndex + 1) % playlist.length);
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     loadTrack(currentTrackIndex);
-  });
+});
   audio.addEventListener('error', (e) => {
     console.error('Audio error:', e);
     currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
