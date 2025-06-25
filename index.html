@@ -1655,55 +1655,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         box-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555, 0 0 15px #ff5555;
     }
 }
-.audio-controls-mobile {
-    position: fixed;
-    bottom: 20px;
-    background: #ff5555;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.audio-controls-mobile:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px #ff5555;
-}
-
-.audio-btn-mobile {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-.audio-btn-mobile:hover {
-    transform: scale(1.2);
-    text-shadow: 0 0 10px #ff5555;
-}
-
-.audio-btn-mobile.play::after {
-    content: '▶';
-}
-
-.audio-btn-mobile.pause::after {
-    content: '❚❚';
-}
-
-@media (max-width: 768px) {
-    .audio-controls-mobile {
-        display: flex;
-    }
-}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
@@ -1857,13 +1808,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     <div class="section-connector overview-to-roadmap"></div>
 </section>
 
-<button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
-<div class="audio-controls-mobile" id="audioControlsMobile" role="button" aria-label="Audio controls">
-    <button class="audio-btn-mobile" aria-label="Previous track">⏮</button>
-    <button class="audio-btn-mobile play" id="playPauseMobile" aria-label="Play">▶</button>
-    <button class="audio-btn-mobile" aria-label="Next track">⏭</button>
-</div>
-<div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+        <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
 <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
     <div style="background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
         <h2 style="font-size: 1.5rem; color: #ff5555; margin: 0 0 15px;">Select a Wallet</h2>
@@ -3675,38 +3620,5 @@ function featureHost(hostName) {
         behavior: 'smooth'
     });
 }
-function positionAudioControlsMobile() {
-    const audioControls = document.getElementById('audioControlsMobile');
-    const connectWallet = document.getElementById('connectWalletMobile');
-    const hamburger = document.querySelector('.hamburger');
-    if (audioControls && connectWallet && hamburger) {
-        const walletRect = connectWallet.getBoundingClientRect();
-        const hamburgerRect = hamburger.getBoundingClientRect();
-        const audioRect = audioControls.getBoundingClientRect();
-        const totalSpace = hamburgerRect.left - (walletRect.left + walletRect.width);
-        const audioWidth = audioRect.width;
-        const leftPosition = walletRect.left + walletRect.width + (totalSpace - audioWidth) / 2;
-        audioControls.style.left = `${leftPosition}px`;
-    }
-}
-
-function togglePlayPauseMobile() {
-    const playPauseBtn = document.getElementById('playPauseMobile');
-    if (playPauseBtn.classList.contains('play')) {
-        playPauseBtn.classList.remove('play');
-        playPauseBtn.classList.add('pause');
-        playPauseBtn.setAttribute('aria-label', 'Pause');
-    } else {
-        playPauseBtn.classList.remove('pause');
-        playPauseBtn.classList.add('play');
-        playPauseBtn.setAttribute('aria-label', 'Play');
-    }
-}
-
-window.addEventListener('load', () => {
-    positionAudioControlsMobile();
-    document.getElementById('playPauseMobile').addEventListener('click', togglePlayPauseMobile);
-});
-window.addEventListener('resize', positionAudioControlsMobile);
 </script>
 </html>
