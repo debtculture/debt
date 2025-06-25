@@ -1659,9 +1659,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     #audioPlayerMobile {
         position: fixed;
         top: 10px;
-        left: 50%;
+        left: calc(50% - ((100vw - 140px) / 2)); /* Centers between hamburger (left: 10px) and Select Wallet (right: 10px), assuming 60px width each */
         transform: translateX(-50%);
         z-index: 1000;
+        padding: 8px 12px; /* Match Select Wallet padding */
+        width: auto; /* Prevent oversized container */
+        font-size: 0.9rem; /* Match Select Wallet font size */
     }
 }
 </style>
