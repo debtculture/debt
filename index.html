@@ -1696,18 +1696,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         content: '⏸';
     }
 }
-/* Hide any duplicate Select Wallet button on mobile */
-@media (max-width: 768px) {
-    #connectWalletMobile:not(#mobileMenu #connectWalletMobile) {
-        display: none !important;
-    }
-}
-/* Hide any unintended audio player above roadmap on desktop */
-@media (min-width: 769px) {
-    #audio-player:not(.navbar .audio-player) {
-        display: none !important;
-    }
-}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
