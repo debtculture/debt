@@ -1696,6 +1696,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         content: '⏸';
     }
 }
+/* Hide any duplicate Select Wallet button on mobile */
+@media (max-width: 768px) {
+    #connectWalletMobile:not(#mobileMenu #connectWalletMobile) {
+        display: none !important;
+    }
+}
 /* Hide any unintended audio player above roadmap on desktop */
 @media (min-width: 769px) {
     #audio-player:not(.navbar .audio-player) {
