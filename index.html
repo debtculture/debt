@@ -2961,10 +2961,17 @@ function updateCommunityCarousel() {
             } else if (badge.type === 'meme') {
                 emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/mememachine_vazxze.png';
             }
-            emblemImg.src = emblemSrc;
-            emblemImg.alt = `${badge.name} emblem`;
-            emblemImg.setAttribute('loading', 'lazy');
-            badgeEl.appendChild(emblemImg);
+            if (emblemSrc && window.innerWidth > 1024) {
+                emblemImg.src = emblemSrc;
+                emblemImg.alt = `${badge.name} emblem`;
+                emblemImg.setAttribute('loading', 'lazy');
+                badgeEl.appendChild(emblemImg);
+            } else if (window.innerWidth <= 1024) {
+                emblemImg.src = emblemSrc;
+                emblemImg.alt = `${badge.name} emblem`;
+                emblemImg.setAttribute('loading', 'lazy');
+                badgeEl.appendChild(emblemImg);
+            }
 
             let sharedTooltip = document.getElementById('shared-tooltip');
             if (!sharedTooltip) {
