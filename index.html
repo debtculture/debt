@@ -3494,9 +3494,6 @@ function initializeAudioPlayer() {
     audioPlayerMobile.classList.remove('playing');
     trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
     trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
-    // Ensure initial display on mobile
-    trackInfoMobileSpan.style.display = 'inline-block';
-    trackInfoMobileSpan.style.visibility = 'visible';
     trackInfoSpan.style.animationPlayState = 'running';
     trackInfoMobileSpan.style.animationPlayState = 'running';
     audio.play().catch(err => {
@@ -3506,14 +3503,8 @@ function initializeAudioPlayer() {
       audioPlayerMobile.classList.remove('playing');
       trackInfoSpan.style.animationPlayState = 'paused';
       trackInfoMobileSpan.style.animationPlayState = 'paused';
-      trackInfoMobileSpan.style.visibility = 'visible';
     });
-    // Force visibility after a short delay to ensure initial render
-    setTimeout(() => {
-      trackInfoMobileSpan.style.visibility = 'visible';
-    }, 100);
 }
-
   function togglePlayPause() {
     if (audio.paused) {
       audio.play().catch(err => {
@@ -3543,15 +3534,8 @@ function initializeAudioPlayer() {
     const isActive = audioPlayer.classList.toggle('active');
     logoBtn.classList.toggle('active', isActive);
     logoBtn.setAttribute('aria-expanded', isActive);
-    if (isActive) {
+    if (isActive && !audio.src) {
       loadTrack(currentTrackIndex);
-      // Force visibility for mobile track info on initial load
-      const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
-      trackInfoMobileSpan.style.display = 'inline-block';
-      trackInfoMobileSpan.style.visibility = 'visible';
-      setTimeout(() => {
-        trackInfoMobileSpan.style.visibility = 'visible';
-      }, 100);
     }
 }
 
