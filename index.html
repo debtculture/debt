@@ -3543,10 +3543,17 @@ function initializeAudioPlayer() {
     const isActive = audioPlayer.classList.toggle('active');
     logoBtn.classList.toggle('active', isActive);
     logoBtn.setAttribute('aria-expanded', isActive);
-    if (isActive && !audio.src) {
+    if (isActive) {
       loadTrack(currentTrackIndex);
+      // Force visibility for mobile track info on initial load
+      const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
+      trackInfoMobileSpan.style.display = 'inline-block';
+      trackInfoMobileSpan.style.visibility = 'visible';
+      setTimeout(() => {
+        trackInfoMobileSpan.style.visibility = 'visible';
+      }, 100);
     }
-  }
+}
 
     logoBtn.addEventListener('click', toggleAudioPlayer);
   audioPlayerMobile.addEventListener('click', toggleAudioPlayer);
