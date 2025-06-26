@@ -1667,7 +1667,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         left: calc(50% - 40px);
         transform: translateX(-50%);
         z-index: 1000;
-        padding: 8px;
+        padding: 10px;
         width: calc(100% - 60px);
         max-width: 120px;
         box-sizing: border-box;
@@ -1675,11 +1675,15 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         border: 1px solid #ff5555;
         border-radius: 5px;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     .audio-player-mobile .audio-controls {
         display: flex;
         gap: 5px;
+    }
+    #audioPlayerMobile.playing .audio-controls {
+        transform: translateY(-3px);
     }
     .audio-player-mobile .audio-btn {
         background: none;
@@ -1699,6 +1703,22 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
     .audio-player-mobile .audio-btn.pause::before {
         content: '⏸';
+    }
+    #track-info-mobile {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-top: 5px;
+    }
+    #track-info-mobile span {
+        display: inline-block;
+        color: #fff;
+        font-size: 12px;
+        animation: marquee 10s linear infinite;
+        animation-play-state: paused;
+    }
+    #audioPlayerMobile.playing #track-info-mobile span {
+        animation-play-state: running;
     }
 }
 </style>
@@ -1860,6 +1880,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <button id="play-pause-mobile" class="audio-btn play" aria-label="Play">▶</button>
         <button id="next-track-mobile" class="audio-btn" aria-label="Next track">⏭</button>
     </div>
+    <div id="track-info-mobile"><span></span></div>
 </div>
 <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
 <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
@@ -3470,17 +3491,25 @@ function initializeAudioPlayer() {
   const audioPlayerMobile = document.getElementById('audioPlayerMobile');
   const logoBtn = document.getElementById('logo-btn');
   const trackInfoSpan = document.getElementById('track-info').querySelector('span');
+  const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
 
   function loadTrack(index) {
     audio.src = playlist[index].src;
     audio.load();
     playPauseBtn.className = 'audio-btn play';
+    playPauseBtnMobile.className = 'audio-btn play';
+    audioPlayerMobile.classList.remove('playing');
     trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
-    trackInfoSpan.style.animationPlayState = 'running'; // Start marquee when track loads
+    trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+    trackInfoSpan.style.animationPlayState = 'running';
+    trackInfoMobileSpan.style.animationPlayState = 'running';
     audio.play().catch(err => {
       console.error('Auto-play failed:', err);
       playPauseBtn.className = 'audio-btn play';
+      playPauseBtnMobile.className = 'audio-btn play';
+      audioPlayerMobile.classList.remove('playing');
       trackInfoSpan.style.animationPlayState = 'paused';
+      trackInfoMobileSpan.style.animationPlayState = 'paused';
     });
   }
 
@@ -3489,14 +3518,23 @@ function initializeAudioPlayer() {
       audio.play().catch(err => {
         console.error('Play failed:', err);
         playPauseBtn.className = 'audio-btn play';
+        playPauseBtnMobile.className = 'audio-btn play';
+        audioPlayerMobile.classList.remove('playing');
         trackInfoSpan.style.animationPlayState = 'paused';
+        trackInfoMobileSpan.style.animationPlayState = 'paused';
       });
       playPauseBtn.className = 'audio-btn pause';
+      playPauseBtnMobile.className = 'audio-btn pause';
+      audioPlayerMobile.classList.add('playing');
       trackInfoSpan.style.animationPlayState = 'running';
+      trackInfoMobileSpan.style.animationPlayState = 'running';
     } else {
       audio.pause();
       playPauseBtn.className = 'audio-btn play';
+      playPauseBtnMobile.className = 'audio-btn play';
+      audioPlayerMobile.classList.remove('playing');
       trackInfoSpan.style.animationPlayState = 'paused';
+      trackInfoMobileSpan.style.animationPlayState = 'paused';
     }
   }
 
