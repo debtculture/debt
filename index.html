@@ -3665,6 +3665,15 @@ window.addEventListener('load', async () => {
     updateCommunityCarousel();
     initializeRoadmapPhases();
     window.dispatchEvent(new Event('scroll'));
+    // Force initial track info display on mobile
+    const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
+    trackInfoMobileSpan.textContent = `${playlist[0].title} - ${playlist[0].artist}`;
+    trackInfoMobileSpan.style.display = 'inline-block';
+    trackInfoMobileSpan.style.visibility = 'visible';
+    setTimeout(() => {
+      trackInfoMobileSpan.style.visibility = 'visible';
+    }, 100);
+});
 
     const mobileButton = document.getElementById('connectWalletMobile');
     const desktopBubble = document.getElementById('connectWalletDesktop');
