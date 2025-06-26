@@ -1583,6 +1583,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   z-index: 1000;
   width: 180px; /* Fixed width to prevent resizing */
 }
+
+/* Ensure only one audio-player instance is visible */
+.audio-player:not(#audio-player) {
+  display: none !important;
+}
 .audio-player.active {
   display: flex;
   flex-direction: column; /* Ensure vertical stacking for track-info */
