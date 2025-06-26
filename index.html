@@ -3494,6 +3494,8 @@ function initializeAudioPlayer() {
     audioPlayerMobile.classList.remove('playing');
     trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
     trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+    // Ensure initial display on mobile
+    trackInfoMobileSpan.style.display = 'inline-block';
     trackInfoSpan.style.animationPlayState = 'running';
     trackInfoMobileSpan.style.animationPlayState = 'running';
     audio.play().catch(err => {
@@ -3504,7 +3506,7 @@ function initializeAudioPlayer() {
       trackInfoSpan.style.animationPlayState = 'paused';
       trackInfoMobileSpan.style.animationPlayState = 'paused';
     });
-  }
+}
 
   function togglePlayPause() {
     if (audio.paused) {
