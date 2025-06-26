@@ -3496,6 +3496,7 @@ function initializeAudioPlayer() {
     trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
     // Ensure initial display on mobile
     trackInfoMobileSpan.style.display = 'inline-block';
+    trackInfoMobileSpan.style.visibility = 'visible';
     trackInfoSpan.style.animationPlayState = 'running';
     trackInfoMobileSpan.style.animationPlayState = 'running';
     audio.play().catch(err => {
@@ -3505,7 +3506,12 @@ function initializeAudioPlayer() {
       audioPlayerMobile.classList.remove('playing');
       trackInfoSpan.style.animationPlayState = 'paused';
       trackInfoMobileSpan.style.animationPlayState = 'paused';
+      trackInfoMobileSpan.style.visibility = 'visible';
     });
+    // Force visibility after a short delay to ensure initial render
+    setTimeout(() => {
+      trackInfoMobileSpan.style.visibility = 'visible';
+    }, 100);
 }
 
   function togglePlayPause() {
