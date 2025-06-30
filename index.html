@@ -2853,7 +2853,7 @@ function setPhantomLink() {
 
 function updateTokenomics() {
     const startingSupply = 1000000000;
-    const currentSupply = 942543636.05; // Update this manually each Saturday
+    const currentSupply = 941543636.05; // Update this manually each Saturday
     const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
     const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
