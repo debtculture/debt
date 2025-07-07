@@ -2464,13 +2464,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
                                     <!-- Spaces Badges (Bronze -> Silver -> Gold -> Amethyst) -->
             <div class="badge-row">
                 <div class="badge-wrapper">
-    <div class="badge-container">
-        <div class="badge badge-spaces badge-bronze" title="Orbiter: Consistently shows up to X Spaces." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">
-            <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1751911185/Orbiter1_d5b47d.png" alt="Orbiter emblem" class="badge-emblem" loading="lazy">
-        </div>
-    </div>
-    <span class="badge-name">Orbiter</span>
-</div>
+                    <div class="badge-container">
+                        <div class="badge badge-spaces badge-bronze" title="Orbiter: Consistently shows up to X Spaces." style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></div>
+                    </div>
+                    <span class="badge-name">Orbiter</span>
+                </div>
                 <span class="badge-arrow">➔</span>
                 <div class="badge-wrapper">
                     <div class="badge-container">
@@ -2970,7 +2968,7 @@ function updateCommunityCarousel() {
                 if (badge.tier === 'amethyst') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/moonwalker_bdgfiy.png';
                 if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/starcommander_knl5nq.png';
                 if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/orbitbreaker_dpnr2u.png';
-                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1751911185/Orbiter1_d5b47d.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/zerogravity_b7gsdc.png';
             } else if (badge.type === 'burn') {
                 if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/inferno_bj3z5x.png';
                 if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/pyromaniac_zqczjd.png';
@@ -2984,13 +2982,12 @@ function updateCommunityCarousel() {
             } else if (badge.type === 'meme') {
                 emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/mememachine_vazxze.png';
             }
-            // Add emblem for Orbiter badge on all devices, others on mobile only
-if (badge.name === 'Orbiter' || window.innerWidth <= 1024) {
-    emblemImg.src = badge.name === 'Orbiter' ? 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1751911185/Orbiter1_d5b47d.png' : emblemSrc;
-    emblemImg.alt = `${badge.name} emblem`;
-    emblemImg.setAttribute('loading', 'lazy');
-    badgeEl.appendChild(emblemImg);
-}
+            if (window.innerWidth <= 1024 && emblemSrc) {
+                emblemImg.src = emblemSrc;
+                emblemImg.alt = `${badge.name} emblem`;
+                emblemImg.setAttribute('loading', 'lazy');
+                badgeEl.appendChild(emblemImg);
+            }
 
             let sharedTooltip = document.getElementById('shared-tooltip');
             if (!sharedTooltip) {
