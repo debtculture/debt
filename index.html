@@ -1730,6 +1730,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 <script defer src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.js"></script>
 <script defer src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1906,7 +1910,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 }
 </style>
     <button onclick="hideWalletInfo()" style="position: absolute; top: 5px; right: 5px; background: none; border: none; color: #ff5555; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';" aria-label="Close wallet info">✕</button>
-            <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span></p>
+            <p id="walletAddress" style="margin: 0 0 5px;">Connected: <span></span> (<span id="walletUsername"></span>)</p>
             <p id="debtBalance" style="margin: 0 0 10px;">Balance: <span>0 $DEBT</span></p>
             <button onclick="disconnectWallet()" style="background: #ff5555; color: #fff; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 15px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Disconnect</button>
         </div>
@@ -2719,6 +2723,45 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 <script>
 window.ethereum = undefined;
 
+// Firebase configuration and initialization
+const firebaseConfig = {
+    apiKey: "AIzaSyD-VgOcwrPV3WWHeI0KD6CUGMs18tCbzN0",
+    authDomain: "debtculture-e0d4f.firebaseapp.com",
+    projectId: "debtculture-e0d4f",
+    storageBucket: "debtculture-e0d4f.firebasestorage.app",
+    messagingSenderId: "797516870401",
+    appId: "1:797516870401:web:8123a77d640c6a2b6ee100"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+async function checkAndPromptUsername(publicKey, walletName) {
+    try {
+        const userDoc = await db.collection('users').doc(publicKey).get();
+        if (userDoc.exists && userDoc.data().username) {
+            return userDoc.data().username;
+        } else {
+            let username = prompt(`Enter a username for your ${walletName} wallet:`);
+            if (!username || username.trim() === '') return null;
+            username = username.trim();
+            const usernameQuery = await db.collection('users').where('username', '==', username).get();
+            while (!usernameQuery.empty) {
+                alert('Username already taken. Please choose another.');
+                username = prompt(`Enter a different username for your ${walletName} wallet:`);
+                if (!username || username.trim() === '') return null;
+                username = username.trim();
+                usernameQuery = await db.collection('users').where('username', '==', username).get();
+            }
+            await db.collection('users').doc(publicKey).set({ username, walletAddress: publicKey }, { merge: true });
+            return username;
+        }
+    } catch (error) {
+        console.error('Error handling username:', error);
+        alert('Failed to save username. Please try again.');
+        return null;
+    }
+}
+
 function toggleMenu() {
     const menu = document.getElementById("mobileMenu");
     const hamburger = document.querySelector(".hamburger");
@@ -3285,6 +3328,7 @@ async function connectWallet(walletId) {
     const desktopBubble = document.getElementById('connectWalletDesktop');
     const walletInfo = document.getElementById('walletInfo');
     const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+    const walletUsernameEl = document.getElementById('walletUsername');
     const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
     closeWalletModal();
 
@@ -3358,6 +3402,23 @@ async function connectWallet(walletId) {
             throw new Error(`Failed to retrieve public key from ${walletName}`);
         }
 
+        // Sign a message to verify wallet ownership
+        const message = `Verify ownership for DebtCulture: ${publicKey}`;
+        let signature;
+        try {
+            if (walletId === 'phantom' || walletId === 'backpack') {
+                signature = await provider.signMessage(new TextEncoder().encode(message));
+            } else if (walletId === 'solflare') {
+                signature = await provider.signMessage(message, 'utf8');
+            }
+        } catch (err) {
+            throw new Error(`Signature verification failed: ${err.message}`);
+        }
+
+        // Log in anonymously with Firebase and set custom UID
+        await firebase.auth().signInAnonymously();
+        await firebase.auth().currentUser.updateProfile({ uid: publicKey });
+
         if (mobileButton) {
             mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
             mobileButton.classList.add('connected');
@@ -3369,6 +3430,8 @@ async function connectWallet(walletId) {
         }
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+        const username = await checkAndPromptUsername(publicKey, walletName);
+        walletUsernameEl.textContent = username || 'No username set';
         walletInfo.style.display = 'block';
 
         localStorage.setItem('walletAddress', publicKey);
@@ -3382,7 +3445,28 @@ async function connectWallet(walletId) {
         provider.on('accountChanged', async (newPublicKey) => {
             if (newPublicKey) {
                 const newKey = newPublicKey.toString();
+                // Sign a message for new account
+                const newMessage = `Verify ownership for DebtCulture: ${newKey}`;
+                let newSignature;
+                try {
+                    if (walletId === 'phantom' || walletId === 'backpack') {
+                        newSignature = await provider.signMessage(new TextEncoder().encode(newMessage));
+                    } else if (walletId === 'solflare') {
+                        newSignature = await provider.signMessage(newMessage, 'utf8');
+                    }
+                } catch (err) {
+                    console.error(`Signature verification failed for new account: ${err.message}`);
+                    disconnectWallet();
+                    return;
+                }
+
+                // Log in anonymously for new account
+                await firebase.auth().signInAnonymously();
+                await firebase.auth().currentUser.updateProfile({ uid: newKey });
+
                 walletAddressEl.textContent = `${newKey.slice(0, 4)}...${newKey.slice(-4)}`;
+                const newUsername = await checkAndPromptUsername(newKey, walletName);
+                walletUsernameEl.textContent = newUsername || 'No username set';
                 localStorage.setItem('walletAddress', newKey);
                 const balance = await getDebtBalance(newKey);
                 debtBalanceEl.textContent = balance;
@@ -3748,22 +3832,25 @@ window.addEventListener('load', async () => {
                 }
 
                 if (publicKey && publicKey === walletAddress) {
-                    const walletInfo = document.getElementById('walletInfo');
-                    const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
-                    const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
+    const walletInfo = document.getElementById('walletInfo');
+    const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+    const walletUsernameEl = document.getElementById('walletUsername');
+    const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
 
-                    mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-                    mobileButton.classList.add('connected');
-                    desktopBubble.classList.add('connected');
-                    desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-                    walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
-                    walletInfo.style.display = 'none';
+    mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+    mobileButton.classList.add('connected');
+    desktopBubble.classList.add('connected');
+    desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+    walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+    const username = await checkAndPromptUsername(publicKey, walletName);
+    walletUsernameEl.textContent = username || 'No username set';
+    walletInfo.style.display = 'none';
 
-                    const balance = await getDebtBalance(publicKey);
-                    debtBalanceEl.textContent = balance;
+    const balance = await getDebtBalance(publicKey);
+    debtBalanceEl.textContent = balance;
 
-                    console.log(`Restored ${walletName} connection:`, publicKey);
-                }
+    console.log(`Restored ${walletName} connection:`, publicKey);
+}
             }
         }
     } catch (error) {
