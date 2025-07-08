@@ -1884,5 +1884,37 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   setInterval(draw, 35);
 </script>
 
+<script>
+  const canvasBG = document.getElementById("matrix-bg");
+  const ctxBG = canvasBG.getContext("2d");
+  canvasBG.height = window.innerHeight;
+  canvasBG.width = window.innerWidth;
+
+  const charsBG = "01";
+  const fontSizeBG = 12;
+  const columnsBG = canvasBG.width / fontSizeBG;
+  const dropsBG = Array(Math.floor(columnsBG)).fill(1);
+
+  function drawBG() {
+    ctxBG.fillStyle = "rgba(0, 0, 0, 0.03)";
+    ctxBG.fillRect(0, 0, canvasBG.width, canvasBG.height);
+    ctxBG.fillStyle = "#444"; // gray color
+    ctxBG.font = fontSizeBG + "px monospace";
+
+    for (let i = 0; i < dropsBG.length; i++) {
+      const text = charsBG[Math.floor(Math.random() * charsBG.length)];
+      ctxBG.fillText(text, i * fontSizeBG, dropsBG[i] * fontSizeBG);
+
+      if (dropsBG[i] * fontSizeBG > canvasBG.height && Math.random() > 0.975) {
+        dropsBG[i] = 0;
+      }
+
+      dropsBG[i]++;
+    }
+  }
+
+  setInterval(drawBG, 40);
+</script>
+
 </body>
 </html>
