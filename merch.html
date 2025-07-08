@@ -1853,7 +1853,49 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 
 <script>
-
+// Matrix Background
+function initializeMatrix() {
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Recalculate columns for Matrix effect
+        columns = Math.ceil(canvas.width / fontSize);
+        drops.length = columns;
+        for (let i = 0; i < drops.length; i++) {
+            if (!drops[i]) drops[i] = 1;
+        }
+    }
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', resizeCanvas);
+    
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 14;
+    let columns = Math.ceil(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+    
+    function draw() {
+        ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ff5555';
+        ctx.font = `${fontSize}px monospace`;
+        
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+    
+    setInterval(draw, 50);
+}
 </script>
 
 </body>
