@@ -1853,67 +1853,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     </div>
 
 <script>
-  const canvas = document.getElementById("matrix-rain");
-  const ctx = canvas.getContext("2d");
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
 
-  const chars = "01";
-  const fontSize = 14;
-  const columns = canvas.width / fontSize;
-  const drops = Array(Math.floor(columns)).fill(1);
-
-  function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#ff5555";
-    ctx.font = fontSize + "px monospace";
-
-    for (let i = 0; i < drops.length; i++) {
-      const text = chars[Math.floor(Math.random() * chars.length)];
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-
-      drops[i]++;
-    }
-  }
-
-  setInterval(draw, 35);
-</script>
-
-<script>
-  const canvasBG = document.getElementById("matrix-bg");
-  const ctxBG = canvasBG.getContext("2d");
-  canvasBG.height = window.innerHeight;
-  canvasBG.width = window.innerWidth;
-
-  const charsBG = "01";
-  const fontSizeBG = 12;
-  const columnsBG = canvasBG.width / fontSizeBG;
-  const dropsBG = Array(Math.floor(columnsBG)).fill(1);
-
-  function drawBG() {
-    ctxBG.fillStyle = "rgba(0, 0, 0, 0.03)";
-    ctxBG.fillRect(0, 0, canvasBG.width, canvasBG.height);
-    ctxBG.fillStyle = "#444"; // gray color
-    ctxBG.font = fontSizeBG + "px monospace";
-
-    for (let i = 0; i < dropsBG.length; i++) {
-      const text = charsBG[Math.floor(Math.random() * charsBG.length)];
-      ctxBG.fillText(text, i * fontSizeBG, dropsBG[i] * fontSizeBG);
-
-      if (dropsBG[i] * fontSizeBG > canvasBG.height && Math.random() > 0.975) {
-        dropsBG[i] = 0;
-      }
-
-      dropsBG[i]++;
-    }
-  }
-
-  setInterval(drawBG, 40);
 </script>
 
 </body>
