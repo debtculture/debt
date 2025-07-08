@@ -22,8 +22,6 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
         canvas#matrix-bg {
             position: fixed;
@@ -49,7 +47,7 @@
             padding: 20px;
             position: relative;
             z-index: 1;
-            flex: 1;
+            padding-bottom: 60px; /* Space for fixed footer */
         }
         .section {
             text-align: center;
@@ -153,49 +151,18 @@
             50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
             100% { box-shadow: 0 0 5px #ff5555; }
         }
-        .join-rebellion-container {
+        .footer {
             position: fixed;
             bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            text-align: right;
-        }
-        .join-rebellion {
-            background: #ff5555;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: 700;
-            display: inline-block;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pulseGlow 1.5s infinite ease-in-out;
-        }
-        .join-rebellion:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px #ff5555;
-        }
-        .social-bubbles {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: flex-end;
-        }
-        .social-bubbles .icon {
-            display: inline-block;
-        }
-        .footer {
+            left: 0;
+            width: 100%;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             background: rgba(30, 30, 30, 0.8);
             color: #fff;
             font-size: 0.9rem;
             font-family: 'Courier New', Courier, monospace;
-            width: 100%;
-            position: relative;
-            bottom: 0;
+            z-index: 1000;
         }
         .footer-link {
             color: #ff5555;
@@ -225,25 +192,10 @@
                 font-size: 0.9rem;
                 padding: 8px 16px;
             }
-            .join-rebellion-container {
-                bottom: 10px;
-                right: 10px;
-            }
-            .join-rebellion {
-                font-size: 1rem;
-                padding: 10px 20px;
-            }
-            .social-bubbles {
-                display: none;
-            }
-            .join-rebellion.active + .social-bubbles {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-            }
             .footer {
                 font-size: 0.8rem;
-                padding: 15px;
+                padding: 8px;
+                bottom: 10px;
             }
         }
     </style>
@@ -268,15 +220,6 @@
                 </div>
             </div>
         </section>
-        <div class="join-rebellion-container">
-            <a class="join-rebellion" href="https://t.me/debtportal420" target="_blank" rel="noopener noreferrer" onclick="if(window.innerWidth <= 768) { toggleSocialBubbles(); return false; }" role="button" aria-label="Join Debt Culture on Telegram (toggles social media links on mobile)" aria-expanded="false">Join the Rebellion</a>
-            <div class="social-bubbles">
-                <a href="https://x.com/debtculture" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture X profile"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723033/X_olwxar.png" alt="X icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-                <a href="https://t.me/debtportal420" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Telegram_mvvdgw.png" alt="Telegram icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-                <a href="https://dexscreener.com/solana/gdq6x3ldvseaav5uh2kyq7ydptqNRitjWirsDGzaYdd8" target="_blank" rel="noopener noreferrer" class="icon" aria-label="DexScreener page"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Dexscreener_jt4scr.png" alt="DexScreener icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-                <a href="https://discord.gg/rA8H7AYhxq" target="_blank" rel="noopener noreferrer" class="icon" aria-label="Debt Culture Discord"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1750977177/Discord_fa0sy9.png" alt="Discord icon" width="60" height="60" loading="lazy" style="transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';"></a>
-            </div>
-        </div>
         <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
     </div>
     <script>
@@ -348,19 +291,6 @@
                 rainCanvas.height = window.innerHeight;
                 rainCanvas.width = window.innerWidth;
             });
-        }
-
-        function toggleSocialBubbles() {
-            const container = document.querySelector('.join-rebellion-container');
-            const button = document.querySelector('.join-rebellion');
-            const bubbles = document.querySelector('.social-bubbles');
-            if (!container || !button || !bubbles) {
-                console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
-                return;
-            }
-            const isActive = bubbles.classList.toggle('active');
-            button.classList.toggle('active', isActive);
-            button.setAttribute('aria-expanded', isActive);
         }
 
         window.addEventListener('load', () => {
