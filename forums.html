@@ -1805,6 +1805,1096 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 </script>
 
 </body>
+
+<script>
+window.ethereum = undefined;
+
+function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const isOpen = menu.style.display === "block";
+    menu.style.display = isOpen ? "none" : "block";
+    menu.setAttribute('aria-expanded', !isOpen);
+    hamburger.classList.toggle("active", !isOpen);
+}
+
+function closeMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = "none";
+    menu.setAttribute('aria-expanded', 'false');
+}
+
+function toggleDropdown() {
+    const dropdown = document.getElementById("mobileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function scrollToSection(selector) {
+    const element = document.querySelector(selector);
+    const headerOffset = 60; // Adjust for fixed header height
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+    });
+}
+
+function toggleAccordion(header) {
+    const content = header.nextElementSibling;
+    const isActive = content.classList.contains('active');
+    
+    document.querySelectorAll('.accordion-content').forEach(item => {
+        item.classList.remove('active');
+        item.style.maxHeight = '0';
+        item.style.padding = '0 15px';
+        item.previousElementSibling.classList.remove('active', 'pulse');
+        item.previousElementSibling.setAttribute('aria-expanded', 'false');
+    });
+    
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active', 'pulse');
+        header.setAttribute('aria-expanded', 'true');
+        setTimeout(() => header.classList.remove('pulse'), 1000);
+    }
+}
+
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.section');
+    const connectors = document.querySelectorAll('.section-connector');
+    const windowHeight = window.innerHeight;
+    const isMobile = window.innerWidth <= 768;
+
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const sectionBottom = section.getBoundingClientRect().bottom;
+        if (sectionTop < windowHeight * 0.75 && sectionBottom > 0) {
+            section.classList.add('visible');
+            if (section.id === 'roadmap') {
+                const phases = section.querySelectorAll('.phase, .future-teaser');
+                phases.forEach(phase => {
+                    const phaseTop = phase.getBoundingClientRect().top;
+                    if (phaseTop < windowHeight * 0.85) {
+                        phase.classList.add('visible');
+                    }
+                });
+            }
+            if (section.id === 'how-to-buy') {
+                const steps = section.querySelectorAll('.buy-step');
+                steps.forEach(step => step.classList.add('visible'));
+            }
+            if (section.id === 'faq') {
+                section.classList.add('visible');
+            }
+        }
+    });
+
+    connectors.forEach(connector => {
+        const connectorTop = connector.getBoundingClientRect().top;
+        const connectorBottom = connector.getBoundingClientRect().bottom;
+        if (connectorTop < windowHeight * 0.85 && connectorBottom > 0) {
+            connector.classList.add('visible');
+        }
+    });
+});
+
+function copyAddress(element) {
+    const addressText = element.querySelector('.address-text').textContent.trim();
+    navigator.clipboard.writeText(addressText).then(() => {
+        element.setAttribute('data-copied', 'true');
+        const copiedMessage = element.querySelector('.copied-message');
+        if (copiedMessage) {
+            copiedMessage.style.display = 'block';
+            copiedMessage.style.backgroundColor = '#00ff00';
+        }
+        setTimeout(() => {
+            element.setAttribute('data-copied', 'false');
+            if (copiedMessage) copiedMessage.style.display = 'none';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Clipboard not supported. Copy manually: ' + addressText);
+    });
+}
+
+function setPhantomLink() {
+    const phantomLink = document.getElementById('phantomLink');
+    if (!phantomLink) {
+        console.error('Phantom link element not found');
+        return;
+    }
+    try {
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        phantomLink.href = isMobile && /Android/i.test(navigator.userAgent)
+            ? 'https://play.google.com/store/apps/details?id=app.phantom'
+            : isMobile
+            ? 'https://apps.apple.com/app/phantom-crypto-wallet/id1598432977'
+            : 'https://phantom.app/download';
+        phantomLink.target = '_blank';
+    } catch (error) {
+        console.error('Error setting Phantom link:', error);
+        phantomLink.href = 'https://phantom.app/'; // Fallback URL
+        phantomLink.target = '_blank';
+    }
+}
+
+function updateTokenomics() {
+    const startingSupply = 1000000000;
+    const currentSupply = 940543636.05; // Update this manually each Saturday
+    const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
+    const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
+    document.getElementById('supply-change').textContent = `${changePercent}%`;
+}
+
+function getBadgeDescription(badgeName) {
+    const descriptions = {
+        'Orbiter': 'Consistently shows up to X Spaces.',
+        'Cosmonaut': 'Regularly engages in Spaces conversations.',
+        'Star Commander': 'Leads conversations in $DEBT Spaces.',
+        'Supernova': 'Hosts $DEBT-focused X Spaces.',
+        'Pyro': 'Burned 100,000+ $DEBT.',
+        'Arsonist': 'Burned 1,000,000+ $DEBT.',
+        'Inferno': 'Burned 10,000,000+ $DEBT.',
+        'Ashbringer': 'Burned 100,000,000+ $DEBT.',
+        'Cold Wallet': 'Held 1+ month.',
+        'Iron Grip': 'Held 3+ months.',
+        'Steel Reserve': 'Held 6+ months.',
+        'Diamond Hands': 'Held 12+ months.',
+        'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
+        'Meme Machine': 'Creates dank $DEBT memes.'
+    };
+    return descriptions[badgeName] || 'Badge earned for community contributions.';
+}
+
+// Community Carousel
+let currentCommunityIndex = 0;
+const communityMembers = document.querySelectorAll(
+    window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+);
+const totalNamedCommunityMembers = 24; // Only named members, excluding TBA placeholders
+const totalCommunityMembers = 24; // Total including TBA placeholders
+
+function updateCommunityCarousel() {
+    const sharedTooltip = document.getElementById('shared-tooltip');
+    if (sharedTooltip) {
+        sharedTooltip.style.display = 'none';
+    }
+    document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+        el.classList.remove('active-tooltip');
+    });
+
+    const communityMembers = document.querySelectorAll(
+        window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+    );
+    if (!communityMembers.length) {
+        console.error('No community members found for carousel');
+        return;
+    }
+
+    const featured = document.getElementById('hof-featured');
+    const description = document.getElementById('hof-description');
+    const currentMember = communityMembers[currentCommunityIndex];
+    const xLink = currentMember.getAttribute('data-x-link');
+
+    if (currentCommunityIndex >= totalNamedCommunityMembers) {
+        currentCommunityIndex = 0;
+    }
+
+    const members = [
+        { name: 'Autopsy', title: 'The Visionary', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png', desc: 'Placeholder description for Autopsy.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Inferno', tier: 'gold', type: 'burn' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Catavina', title: 'The Cheerleader', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg', desc: 'Placeholder description for Catavina.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Lou', title: 'The Rally', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg', desc: 'Placeholder description for Lou.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Nerf', title: 'The Professional', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg', desc: 'Placeholder description for Nerf.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'JPEG', title: 'The Youngblood', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg', desc: 'Placeholder description for JPEG.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: "Cold Blooded Shiller", tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Lunicking', title: 'The Spark', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg', desc: 'Placeholder description for Lunicking.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Tormund', title: 'The Oracle', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg', desc: 'Placeholder description for Tormund.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'STAYHIGH', title: 'The Unfiltered', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg', desc: 'Placeholder description for STAYHIGH.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Renee', title: 'The Support', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg', desc: 'Placeholder description for Renee.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'blu', title: 'The Warden', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg', desc: 'Placeholder description for blu.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Scrappy', title: 'The Goofball', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg', desc: 'Placeholder description for Scrappy.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }] },
+        { name: 'Mo', title: 'The Degen', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg', desc: 'Placeholder description for Mo.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }] },
+        { name: 'Cory B', title: 'The Bengal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg', desc: 'Placeholder description for Cory B.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Dan', title: 'The Vibes', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg', desc: 'Placeholder description for Dan.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Tom', title: 'The King', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg', desc: 'Placeholder description for Tom.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Marilyn', title: 'The Rockstar', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg', desc: 'Placeholder description for Marilyn.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Coinbud', title: 'The Expert', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg', desc: 'Placeholder description for Coinbud.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'ZOMBi', title: 'The Creative', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg', desc: 'Placeholder description for ZOMBi.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Cyanide', title: 'The Poison', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg', desc: 'Placeholder description for Cyanide.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'George', title: 'The Wise', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg', desc: 'Placeholder description for George.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Dog', title: 'The Loyal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748440557/Dog_iiq5g8.jpg', desc: 'Placeholder description for Dog.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Drinks', title: 'The Party', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906211/Drinks_tibhzd.jpg', desc: 'Placeholder description for Drinks.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Ambient', title: 'The Vibe', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906930/Ambient_jztyfi.jpg', desc: 'Placeholder description for Ambient.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'DK', title: 'The Maverick', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748911711/DK_umvnpw.jpg', desc: 'Placeholder description for DK.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] }
+    ];
+
+    const member = members[currentCommunityIndex];
+    const featuredCard = featured.querySelector('.trading-card');
+    const pfpLink = featuredCard.querySelector('.pfp-link');
+    featuredCard.setAttribute('data-x-link', xLink);
+    pfpLink.setAttribute('href', xLink);
+    featuredCard.querySelector('.card-pfp-square img').src = member.img;
+    featuredCard.querySelector('.card-pfp-square img').alt = `${member.name} profile picture`;
+    featuredCard.querySelector('.hof-name').textContent = member.name;
+
+    const badgesContainer = document.getElementById('hof-badges');
+    badgesContainer.innerHTML = '';
+    if (member.badges && member.badges.length > 0) {
+        member.badges.forEach(badge => {
+            const badgeEl = document.createElement('div');
+            badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
+            badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
+            if (window.innerWidth > 1024) {
+                badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+            }
+
+            const emblemImg = document.createElement('img');
+            emblemImg.className = 'badge-emblem';
+            let emblemSrc = '';
+            if (badge.type === 'spaces') {
+                if (badge.tier === 'amethyst') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/moonwalker_bdgfiy.png';
+                if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/starcommander_knl5nq.png';
+                if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/orbitbreaker_dpnr2u.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/zerogravity_b7gsdc.png';
+            } else if (badge.type === 'burn') {
+                if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/inferno_bj3z5x.png';
+                if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/pyromaniac_zqczjd.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/arsonist_ryglvo.png';
+            } else if (badge.type === 'holding') {
+                if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/steelreserve_xv5krq.png';
+                if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/irongrip_ypidgu.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/coldwallet_y7v5ja.png';
+            } else if (badge.type === 'shiller') {
+                emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/coldbloodedshiller_bmd8pu.png';
+            } else if (badge.type === 'meme') {
+                emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/mememachine_vazxze.png';
+            }
+            if (window.innerWidth <= 1024 && emblemSrc) {
+                emblemImg.src = emblemSrc;
+                emblemImg.alt = `${badge.name} emblem`;
+                emblemImg.setAttribute('loading', 'lazy');
+                badgeEl.appendChild(emblemImg);
+            }
+
+            let sharedTooltip = document.getElementById('shared-tooltip');
+            if (!sharedTooltip) {
+                sharedTooltip = document.createElement('div');
+                sharedTooltip.id = 'shared-tooltip';
+                sharedTooltip.className = 'shared-tooltip';
+                document.body.appendChild(sharedTooltip);
+            }
+            badgesContainer.appendChild(badgeEl);
+            if (window.innerWidth <= 1024) {
+                badgeEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+                        if (el !== badgeEl) el.classList.remove('active-tooltip');
+                    });
+                    badgeEl.classList.toggle('active-tooltip');
+                    if (badgeEl.classList.contains('active-tooltip')) {
+                        sharedTooltip.textContent = `${badge.name}: ${getBadgeDescription(badge.name)}`;
+                        const rect = badgeEl.getBoundingClientRect();
+                        sharedTooltip.style.left = `${rect.left + rect.width}px`;
+                        sharedTooltip.style.top = `${rect.bottom + 25}px`;
+                        sharedTooltip.style.display = 'block';
+                    } else {
+                        sharedTooltip.style.display = 'none';
+                    }
+                });
+            }
+        });
+    } else {
+        badgesContainer.innerHTML = '<span>No badges yet</span>';
+    }
+
+    description.textContent = `Placeholder description for ${member.name}.`;
+
+    communityMembers.forEach((member, index) => {
+        const bubble = member.querySelector('.hof-bubble');
+        bubble.onclick = () => {
+            if (index < totalNamedCommunityMembers) {
+                currentCommunityIndex = parseInt(member.getAttribute('data-index'));
+                updateCommunityCarousel();
+                resetCommunityAutoRotate();
+                if (window.innerWidth <= 768) {
+                    const featured = document.getElementById('hof-featured');
+                    const offset = 60;
+                    const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({
+                        top: featuredPosition - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        };
+        bubble.setAttribute('aria-label', `select ${member.getAttribute('data-name')}`);
+    });
+}
+
+function rotateHof(direction) {
+    if (direction === 'right') {
+        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+    } else if (direction === 'left') {
+        currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers;
+    }
+    updateCommunityCarousel();
+    resetCommunityAutoRotate();
+}
+
+// Hide tooltip on scroll for mobile
+window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 1024) {
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
+    }
+});
+
+function toggleBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    const isActive = content.classList.contains('active');
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        content.style.opacity = '1';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips();
+    } else {
+        content.style.maxHeight = '0';
+        content.style.padding = '0 15px';
+        content.style.opacity = '0';
+        setTimeout(() => {
+            content.classList.remove('active');
+        }, 300);
+        header.classList.remove('active');
+        header.setAttribute('aria-expanded', 'false');
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
+    }
+}
+
+function initializeBadgeGlossaryTooltips() {
+    const badges = document.querySelectorAll('.badge-glossary-content .badge');
+    let sharedTooltip = document.getElementById('shared-tooltip');
+    if (!sharedTooltip) {
+        sharedTooltip = document.createElement('div');
+        sharedTooltip.id = 'shared-tooltip';
+        sharedTooltip.className = 'shared-tooltip';
+        document.body.appendChild(sharedTooltip);
+    }
+
+    badges.forEach(badge => {
+        // Remove any existing event listeners to prevent duplicates
+        const newBadge = badge.cloneNode(true);
+        badge.parentNode.replaceChild(newBadge, badge);
+
+        // Add tap-to-toggle for mobile
+        if (window.innerWidth <= 1024) {
+            newBadge.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Close other open tooltips
+                document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+                    if (el !== newBadge) el.classList.remove('active-tooltip');
+                });
+                // Toggle tooltip on this badge
+                newBadge.classList.toggle('active-tooltip');
+
+                // Position and show shared tooltip
+                if (newBadge.classList.contains('active-tooltip')) {
+                    sharedTooltip.textContent = newBadge.getAttribute('title');
+                    const rect = newBadge.getBoundingClientRect();
+                    sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
+                    sharedTooltip.style.top = `${rect.bottom + 25}px`; // Position 25px below badge
+                    sharedTooltip.style.display = 'block';
+                } else {
+                    sharedTooltip.style.display = 'none';
+                }
+            });
+        }
+    });
+}
+
+// Also call initializeBadgeGlossaryTooltips when opening via FAQ link
+function openBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    if (!content.classList.contains('active')) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
+    }
+}
+
+function autoRotateCommunity() {
+    currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+    updateCommunityCarousel();
+}
+
+let communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
+
+function resetCommunityAutoRotate() {
+    clearInterval(communityAutoRotateInterval);
+    communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
+}
+
+const communityCarousel = document.querySelector('.hof-carousel');
+let communityTouchStartX = 0;
+communityCarousel.addEventListener('touchstart', (e) => {
+    communityTouchStartX = e.touches[0].clientX;
+    clearInterval(communityAutoRotateInterval); // Pause on touch
+});
+communityCarousel.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    if (communityTouchStartX - touchEndX > 50) rotateHof('right');
+    if (touchEndX - communityTouchStartX > 50) rotateHof('left');
+    resetCommunityAutoRotate(); // Resume after swipe
+});
+communityCarousel.addEventListener('mousedown', () => {
+    clearInterval(communityAutoRotateInterval); // Pause on click
+});
+communityCarousel.addEventListener('mouseup', () => {
+    resetCommunityAutoRotate(); // Resume after click
+});
+
+function initializeRoadmapPhases() {
+    const isMobile = window.innerWidth <= 768;
+    document.querySelectorAll('.future-phase').forEach(phase => {
+        // Ensure phases load blurred on both mobile and desktop
+        phase.classList.remove('active');
+        if (isMobile) {
+            localStorage.removeItem(`phase-${phase.querySelector('h2').textContent}`);
+        } else {
+            // Clear localStorage for desktop on load to ensure blurred state
+            localStorage.removeItem(`phase-${phase.querySelector('h2').textContent}`);
+        }
+        phase.addEventListener('click', () => {
+            const isActive = phase.classList.toggle('active');
+            // Save state only when toggling
+            localStorage.setItem(`phase-${phase.querySelector('h2').textContent}`, isActive);
+        });
+    });
+}
+
+function initializeMatrix() {
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Recalculate columns for Matrix effect
+        columns = Math.ceil(canvas.width / fontSize);
+        drops.length = columns;
+        for (let i = 0; i < drops.length; i++) {
+            if (!drops[i]) drops[i] = 1;
+        }
+    }
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', resizeCanvas);
+    
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 14;
+    let columns = Math.ceil(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+    
+    function draw() {
+        ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#ff5555';
+        ctx.font = `${fontSize}px monospace`;
+        
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+    
+    setInterval(draw, 50);
+}
+
+// Wallet connection logic
+const wallets = [
+    { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Phantom_Wallet_s3cahc.jpg' },
+    { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1749488428/Solflare_Wallet_nxcl95.jpg' },
+    { name: 'Backpack', id: 'backpack', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1750446379/backpack_rer24o.jpg' }
+];
+
+function openWalletModal() {
+    const walletModal = document.getElementById('walletModal');
+    const walletList = document.getElementById('walletList');
+    walletList.innerHTML = '';
+
+    wallets.forEach(wallet => {
+        const button = document.createElement('button');
+        button.className = 'wallet-option';
+        button.innerHTML = `
+            <img src="${wallet.icon}" alt="${wallet.name} icon" width="30" height="30" style="margin-right: 10px;">
+            ${wallet.name}
+        `;
+        button.style.cssText = 'display: flex; align-items: center; justify-content: center; padding: 10px; width: 100%; background: #333; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;';
+        button.onmouseover = () => button.style.background = '#ff5555';
+        button.onmouseout = () => button.style.background = '#333';
+        button.onclick = () => connectWallet(wallet.id);
+        walletList.appendChild(button);
+    });
+
+    walletModal.style.display = 'flex';
+}
+
+function closeWalletModal() {
+    const walletModal = document.getElementById('walletModal');
+    walletModal.style.display = 'none';
+}
+
+async function connectWallet(walletId) {
+    const mobileButton = document.getElementById('connectWalletMobile');
+    const desktopBubble = document.getElementById('connectWalletDesktop');
+    const walletInfo = document.getElementById('walletInfo');
+    const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+    const debtBalanceEl = document.getElementById('debtBalance').querySelector('span');
+    closeWalletModal();
+
+    try {
+        let provider = null;
+        let walletName = 'Unknown Wallet';
+        const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+        const isInAppBrowser = navigator.userAgent.includes('Phantom') || navigator.userAgent.includes('Solflare') || navigator.userAgent.includes('Backpack');
+
+        const deepLinks = {
+            phantom: 'phantom://',
+            solflare: 'solflare://',
+            backpack: 'backpack://'
+        };
+        const downloadUrls = {
+            phantom: 'https://phantom.app/download',
+            solflare: 'https://solflare.com/download',
+            backpack: 'https://backpack.app/download'
+        };
+
+        if (isMobile && !isInAppBrowser) {
+            const wallet = wallets.find(w => w.id === walletId);
+            const deepLink = deepLinks[walletId];
+            const prompt = `Connect with ${wallet.name}?`;
+            if (confirm(prompt)) {
+                window.location.href = deepLink;
+                setTimeout(() => {
+                    if (document.hasFocus()) {
+                        window.open(downloadUrls[walletId], '_blank');
+                    }
+                }, 1000);
+            }
+            return;
+        }
+
+        if (walletId === 'phantom' && (window.solana?.isPhantom || (isInAppBrowser && navigator.userAgent.includes('Phantom')))) {
+            provider = window.solana;
+            walletName = 'Phantom';
+        } else if (walletId === 'solflare' && (window.solflare?.isSolflare || (isInAppBrowser && navigator.userAgent.includes('Solflare')))) {
+            provider = window.solflare;
+            walletName = 'Solflare';
+        } else if (walletId === 'backpack' && window.backpack) {
+            provider = window.backpack;
+            walletName = 'Backpack';
+        } else {
+            const wallet = wallets.find(w => w.id === walletId);
+            const prompt = `No ${wallet.name} detected. Install it now?`;
+            if (confirm(prompt)) {
+                window.open(downloadUrls[walletId], '_blank');
+            }
+            return;
+        }
+
+        let publicKey;
+        try {
+            if (walletId === 'solflare') {
+                await provider.connect();
+                publicKey = provider.publicKey?.toString();
+            } else if (walletId === 'backpack') {
+                await provider.connect();
+                publicKey = provider.publicKey?.toString();
+            } else {
+                await provider.connect();
+                publicKey = provider.publicKey?.toString();
+            }
+        } catch (err) {
+            throw new Error(`${walletName} connection failed: ${err.message}`);
+        }
+
+        if (!publicKey) {
+            throw new Error(`Failed to retrieve public key from ${walletName}`);
+        }
+
+        if (mobileButton) {
+            mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+            mobileButton.classList.add('connected');
+        }
+        if (desktopBubble) {
+            desktopBubble.classList.add('connected');
+            const span = desktopBubble.querySelector('span');
+            span.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+        }
+
+        walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+        walletInfo.style.display = 'block';
+
+        localStorage.setItem('walletAddress', publicKey);
+        localStorage.setItem('walletType', walletId);
+
+        const balance = await getDebtBalance(publicKey);
+        debtBalanceEl.textContent = balance;
+
+        console.log(`${walletName} connected:`, publicKey);
+
+        provider.on('accountChanged', async (newPublicKey) => {
+            if (newPublicKey) {
+                const newKey = newPublicKey.toString();
+                walletAddressEl.textContent = `${newKey.slice(0, 4)}...${newKey.slice(-4)}`;
+                localStorage.setItem('walletAddress', newKey);
+                const balance = await getDebtBalance(newKey);
+                debtBalanceEl.textContent = balance;
+                console.log(`${walletName} account changed:`, newKey);
+            } else {
+                disconnectWallet();
+            }
+        });
+    } catch (error) {
+        console.error(`Error connecting ${walletId} wallet:`, error);
+        alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked and try again.`);
+    }
+}
+function hideWalletInfo() {
+    const walletInfo = document.getElementById('walletInfo');
+    walletInfo.style.display = 'none';
+}
+async function disconnectWallet() {
+    const mobileButton = document.getElementById('connectWalletMobile');
+    const desktopBubble = document.getElementById('connectWalletDesktop');
+    const walletInfo = document.getElementById('walletInfo');
+    const walletType = localStorage.getItem('walletType');
+
+    try {
+        let provider = null;
+        if (walletType === 'phantom' && window.solana?.isPhantom) {
+            provider = window.solana;
+        } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
+            provider = window.solflare;
+        } else if (walletType === 'backpack' && window.backpack) {
+            provider = window.backpack;
+        }
+
+        if (provider && provider.disconnect) {
+            await provider.disconnect();
+        }
+
+        if (mobileButton) {
+            mobileButton.textContent = 'Select Wallet';
+            mobileButton.classList.remove('connected');
+        }
+        if (desktopBubble) {
+            desktopBubble.classList.remove('connected');
+            const span = desktopBubble.querySelector('span');
+            span.textContent = 'Select Wallet';
+        }
+        walletInfo.style.display = 'none';
+        localStorage.removeItem('walletAddress');
+        localStorage.removeItem('walletType');
+        console.log('Wallet disconnected');
+    } catch (error) {
+        console.error('Error disconnecting wallet:', error);
+        alert('Failed to disconnect wallet. Please try again.');
+    }
+}
+
+async function getDebtBalance(publicKey) {
+    try {
+        const apiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
+        const url = `https://api.helius.xyz/v0/addresses/${publicKey}/balances?api-key=${apiKey}`;
+        
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        const token = data.tokens.find(t => t.mint === '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+        
+        if (token && token.amount) {
+            const balance = token.amount / Math.pow(10, token.decimals);
+            console.log('Token balance:', balance);
+            return `${balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $DEBT`;
+        } else {
+            console.log('No $DEBT token found.');
+            return '0 $DEBT';
+        }
+    } catch (error) {
+        console.error('Error fetching $DEBT balance:', error.message);
+        return '0 $DEBT';
+    }
+}
+
+function startMatrixRain() {
+    const rainCanvas = document.getElementById('matrix-rain');
+    const rainCtx = rainCanvas.getContext('2d');
+    rainCanvas.height = window.innerHeight;
+    rainCanvas.width = window.innerWidth;
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const fontSize = 14;
+    const columns = rainCanvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+    function drawRain() {
+        rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+        rainCtx.fillStyle = '#999999';
+        rainCtx.font = fontSize + 'px monospace';
+        drops.forEach((y, i) => {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            rainCtx.fillText(text, i * fontSize, y * fontSize);
+            if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }
+    setInterval(drawRain, 50); // Keep at 50ms
+    window.addEventListener('resize', () => {
+        rainCanvas.height = window.innerHeight;
+        rainCanvas.width = window.innerWidth;
+    });
+}
+
+// Audio Player Logic
+const playlist = [
+  {
+    title: "KABOOM!",
+    artist: "Ambient Sound", 
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1751151702/KABOOM_pac3lb.wav"
+  },
+  {
+    title: "D.E.B.T.",
+    artist: "Ambient Sound", 
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1751153796/D.E.B.T._nkijpl.wav"
+  },
+  {
+    title: "Burn",
+    artist: "Ambient Sound", 
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1751151703/Burn_c7qcmi.wav"
+  },
+  {
+    title: "Freedom Fighters",
+    artist: "Ambient Sound", 
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1751151703/Freedom_Fighters_somsv2.wav"
+  },
+  {
+    title: "Get Out",
+    artist: "Ambient Sound", 
+    src: "https://res.cloudinary.com/dpvptjn4t/video/upload/v1751151703/Get_Out_oor74k.wav"
+  }
+];
+let currentTrackIndex = 0;
+
+function initializeAudioPlayer() {
+  const audio = document.getElementById('audio');
+  const playPauseBtn = document.getElementById('play-pause');
+  const prevTrackBtn = document.getElementById('prev-track');
+  const nextTrackBtn = document.getElementById('next-track');
+  const playPauseBtnMobile = document.getElementById('play-pause-mobile');
+  const prevTrackBtnMobile = document.getElementById('prev-track-mobile');
+  const nextTrackBtnMobile = document.getElementById('next-track-mobile');
+  const audioPlayer = document.getElementById('audio-player');
+  const audioPlayerMobile = document.getElementById('audioPlayerMobile');
+  const logoBtn = document.getElementById('logo-btn');
+  const trackInfoSpan = document.getElementById('track-info').querySelector('span');
+  const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
+
+  function loadTrack(index) {
+    audio.src = playlist[index].src;
+    audio.load();
+    playPauseBtn.className = 'audio-btn play';
+    playPauseBtnMobile.className = 'audio-btn play';
+    audioPlayerMobile.classList.remove('playing');
+    trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+    trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+    trackInfoSpan.style.animationPlayState = 'running';
+    trackInfoMobileSpan.style.animationPlayState = 'running';
+    audio.play().catch(err => {
+      console.error('Auto-play failed:', err);
+      playPauseBtn.className = 'audio-btn play';
+      playPauseBtnMobile.className = 'audio-btn play';
+      audioPlayerMobile.classList.remove('playing');
+      trackInfoSpan.style.animationPlayState = 'paused';
+      trackInfoMobileSpan.style.animationPlayState = 'paused';
+    });
+}
+  function togglePlayPause() {
+    if (audio.paused) {
+      audio.play().catch(err => {
+        console.error('Play failed:', err);
+        playPauseBtn.className = 'audio-btn play';
+        playPauseBtnMobile.className = 'audio-btn play';
+        audioPlayerMobile.classList.remove('playing');
+        trackInfoSpan.style.animationPlayState = 'paused';
+        trackInfoMobileSpan.style.animationPlayState = 'paused';
+      });
+      playPauseBtn.className = 'audio-btn pause';
+      playPauseBtnMobile.className = 'audio-btn pause';
+      audioPlayerMobile.classList.add('playing');
+      trackInfoSpan.style.animationPlayState = 'running';
+      trackInfoMobileSpan.style.animationPlayState = 'running';
+    } else {
+      audio.pause();
+      playPauseBtn.className = 'audio-btn play';
+      playPauseBtnMobile.className = 'audio-btn play';
+      audioPlayerMobile.classList.remove('playing');
+      trackInfoSpan.style.animationPlayState = 'paused';
+      trackInfoMobileSpan.style.animationPlayState = 'paused';
+    }
+  }
+
+  function toggleAudioPlayer() {
+    const isActive = audioPlayer.classList.toggle('active');
+    logoBtn.classList.toggle('active', isActive);
+    logoBtn.setAttribute('aria-expanded', isActive);
+    if (isActive && !audio.src) {
+      loadTrack(currentTrackIndex);
+    }
+}
+
+    logoBtn.addEventListener('click', toggleAudioPlayer);
+  audioPlayerMobile.addEventListener('click', toggleAudioPlayer);
+  playPauseBtn.addEventListener('click', togglePlayPause);
+  playPauseBtnMobile.addEventListener('click', togglePlayPause);
+  prevTrackBtn.addEventListener('click', () => {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  prevTrackBtnMobile.addEventListener('click', () => {
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  nextTrackBtn.addEventListener('click', () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  nextTrackBtnMobile.addEventListener('click', () => {
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+  audio.addEventListener('ended', () => {
+    console.log('Audio ended, currentTrackIndex:', currentTrackIndex, 'Moving to:', (currentTrackIndex + 1) % playlist.length);
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+});
+  audio.addEventListener('error', (e) => {
+    console.error('Audio error:', e);
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+    loadTrack(currentTrackIndex);
+  });
+
+    // Ensure marquee syncs with play state
+  audio.addEventListener('play', () => {
+    playPauseBtn.className = 'audio-btn pause';
+    playPauseBtnMobile.className = 'audio-btn pause';
+    trackInfoSpan.style.animationPlayState = 'running';
+  });
+  audio.addEventListener('pause', () => {
+    playPauseBtn.className = 'audio-btn play';
+    playPauseBtnMobile.className = 'audio-btn play';
+    trackInfoSpan.style.animationPlayState = 'paused';
+  });
+
+    // Keyboard accessibility
+  logoBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleAudioPlayer();
+    }
+  });
+  audioPlayerMobile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleAudioPlayer();
+    }
+  });
+  playPauseBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      togglePlayPause();
+    }
+  });
+  playPauseBtnMobile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      togglePlayPause();
+    }
+  });
+  prevTrackBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrackIndex);
+    }
+  });
+  prevTrackBtnMobile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrackIndex);
+    }
+  });
+  nextTrackBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+      loadTrack(currentTrackIndex);
+    }
+  });
+  nextTrackBtnMobile.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+      loadTrack(currentTrackIndex);
+    }
+  });
+}
+window.addEventListener('load', async () => {
+  initializeAudioPlayer();
+    if (typeof solanaWeb3 === 'undefined') {
+        console.error('solanaWeb3 library is not loaded. Please include it via CDN.');
+    }
+    console.log('Load event fired');
+    initializeMatrix(); // Red matrix
+    startMatrixRain(); // Grey matrix
+    setPhantomLink();
+    updateTokenomics();
+    updateCommunityCarousel();
+    initializeRoadmapPhases();
+    window.dispatchEvent(new Event('scroll'));
+    const mobileButton = document.getElementById('connectWalletMobile');
+    const desktopBubble = document.getElementById('connectWalletDesktop');
+    mobileButton.addEventListener('click', () => {
+        if (mobileButton.classList.contains('connected')) {
+            const walletInfo = document.getElementById('walletInfo');
+            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
+        } else {
+            openWalletModal();
+        }
+    });
+    desktopBubble.addEventListener('click', () => {
+        if (desktopBubble.classList.contains('connected')) {
+            const walletInfo = document.getElementById('walletInfo');
+            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
+        } else {
+            openWalletModal();
+        }
+    });
+
+    try {
+        const walletType = localStorage.getItem('walletType');
+        const walletAddress = localStorage.getItem('walletAddress');
+        if (walletType && walletAddress) {
+            let provider = null;
+            let walletName = 'Unknown Wallet';
+            if (walletType === 'phantom' && window.solana?.isPhantom) {
+                provider = window.solana;
+                walletName = 'Phantom';
+            } else if (walletType === 'solflare' && window.solflare?.isSolflare) {
+                provider = window.solflare;
+                walletName = 'Solflare';
+            } else if (walletType === 'backpack' && window.backpack) {
+                provider = window.backpack;
+                walletName = 'Backpack';
+            }
+
+            if (provider) {
+                let publicKey;
+                if (walletType === 'solflare') {
+                    await provider.connect({ onlyIfTrusted: true });
+                    publicKey = provider.publicKey?.toString();
+                } else {
+                    const response = await provider.request({ method: 'connect', params: { onlyIfTrusted: true } });
+                    publicKey = response.publicKey?.toString() || provider.publicKey?.toString();
+                }
+
+                if (publicKey && publicKey === walletAddress) {
+                    const walletInfo = document.getElementById('walletInfo');
+                    const walletAddressEl = document.getElementById('walletAddress').querySelector('span');
+                    const debtBalanceEl = document.getElementById('walletInfo').querySelector('#debtBalance span');
+
+                    mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                    mobileButton.classList.add('connected');
+                    desktopBubble.classList.add('connected');
+                    desktopBubble.querySelector('span').textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                    walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+                    walletInfo.style.display = 'none';
+
+                    const balance = await getDebtBalance(publicKey);
+                    debtBalanceEl.textContent = balance;
+
+                    console.log(`Restored ${walletName} connection:`, publicKey);
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error restoring wallet connection:', error);
+    }
+});
+
+function toggleSocialBubbles() {
+    const container = document.querySelector('.join-rebellion-container');
+    const button = document.querySelector('.join-rebellion');
+    const bubbles = document.querySelector('.social-bubbles');
+    if (!container || !button || !bubbles) {
+        console.error('ToggleSocialBubbles: Element not found', { container, button, bubbles });
+        return;
+    }
+    const isActive = bubbles.classList.toggle('active');
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-expanded', isActive);
+    console.log('ToggleSocialBubbles: isActive =', isActive, 'Bubbles classList =', bubbles.classList.toString());
+}
+
+function featureHost(hostName) {
+    const memberIndex = {
+        'Autopsy': 0,
+        'Catavina': 1,
+        'Lou': 2
+    };
+    currentCommunityIndex = memberIndex[hostName] || 0;
+    updateCommunityCarousel();
+    resetCommunityAutoRotate();
+    const featured = document.getElementById('hof-featured');
+    const offset = 60; // Account for header
+    const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({
+        top: featuredPosition - offset,
+        behavior: 'smooth'
+    });
+}
+</script>
+</html>
+
 </html>
 
 
