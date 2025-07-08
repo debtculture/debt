@@ -21,6 +21,9 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         canvas#matrix-bg {
             position: fixed;
@@ -46,6 +49,7 @@
             padding: 20px;
             position: relative;
             z-index: 1;
+            flex: 1;
         }
         .section {
             text-align: center;
@@ -184,11 +188,14 @@
         }
         .footer {
             text-align: center;
-            padding: 40px 0;
-            background: transparent;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-family: 'Courier New', Courier, monospace;
+            width: 100%;
+            position: relative;
+            bottom: 0;
         }
         .footer-link {
             color: #ff5555;
@@ -233,6 +240,10 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
+            }
+            .footer {
+                font-size: 0.8rem;
+                padding: 15px;
             }
         }
     </style>
