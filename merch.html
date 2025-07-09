@@ -192,6 +192,66 @@
             color: #ff7777;
             text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
         }
+        .merch-carousel {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .merch-carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .merch-carousel img.active {
+            opacity: 1;
+        }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff5555;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10;
+        }
+        .carousel-arrow:hover {
+            background: #ff7777;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 10px #ff5555;
+        }
+        .carousel-arrow.left {
+            left: 10px;
+        }
+        .carousel-arrow.right {
+            right: 10px;
+        }
+        @media (max-width: 768px) {
+            .merch-carousel {
+                width: 100%;
+                max-width: 300px;
+                height: 300px;
+            }
+            .carousel-arrow {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+        }
         @media (max-width: 768px) {
             .section {
                 padding: 40px 10px;
@@ -233,21 +293,39 @@
             <h1>Merchandise</h1>
             <div class="merch-container">
                 <div class="merch-item">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="Debt Culture Trucker Hat" width="250" height="250" loading="lazy">
+                    <div class="merch-carousel">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1749663039/Trucker_kld9rv.jpg" alt="Debt Culture Trucker Hat" loading="lazy" class="active">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752022511/Trucker2_p0gh01.jpg" alt="Debt Culture Trucker Hat Side View" loading="lazy">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752022511/trucker3_i8wihj.jpg" alt="Debt Culture Trucker Hat Back View" loading="lazy">
+                        <button class="carousel-arrow left" aria-label="Previous Image">←</button>
+                        <button class="carousel-arrow right" aria-label="Next Image">→</button>
+                    </div>
                     <h3>Trucker Hat</h3>
                     <p>$19.99</p>
                     <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
                     <button disabled>Coming Soon</button>
                 </div>
                 <div class="merch-item">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752015848/candle1_bc7th0.jpg" alt="Debt Culture Candle" width="250" height="250" loading="lazy">
+                    <div class="merch-carousel">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752015848/candle1_bc7th0.jpg" alt="Debt Culture Candle" loading="lazy" class="active">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752022511/candle_l4mhuw.jpg" alt="Debt Culture Candle Side View" loading="lazy">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752022511/candle2_ln8awc.jpg" alt="Debt Culture Candle Top View" loading="lazy">
+                        <button class="carousel-arrow left" aria-label="Previous Image">←</button>
+                        <button class="carousel-arrow right" aria-label="Next Image">→</button>
+                    </div>
                     <h3>Candle</h3>
                     <p>$17.99</p>
                     <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
                     <button disabled>Coming Soon</button>
                 </div>
                 <div class="merch-item">
-                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752016446/Mug_tm7r7b.jpg" alt="Debt Culture Coffee Mug" width="250" height="250" loading="lazy">
+                    <div class="merch-carousel">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752016446/Mug_tm7r7b.jpg" alt="Debt Culture Coffee Mug" loading="lazy" class="active">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752022511/Mug2_rkfow9.jpg" alt="Debt Culture Coffee Mug Side View" loading="lazy">
+                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752022512/Mug3_zcnead.jpg" alt="Debt Culture Coffee Mug Handle View" loading="lazy">
+                        <button class="carousel-arrow left" aria-label="Previous Image">←</button>
+                        <button class="carousel-arrow right" aria-label="Next Image">→</button>
+                    </div>
                     <h3>Coffee Mug</h3>
                     <p>$13.99</p>
                     <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
@@ -327,10 +405,32 @@
                 rainCanvas.width = window.innerWidth;
             });
         }
-
+        function initializeCarousels() {
+            document.querySelectorAll('.merch-carousel').forEach(carousel => {
+                const images = carousel.querySelectorAll('img');
+                let currentIndex = 0;
+        
+                function showImage(index) {
+                    images.forEach((img, i) => {
+                        img.classList.toggle('active', i === index);
+                    });
+                }
+        
+                carousel.querySelector('.carousel-arrow.left').addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    showImage(currentIndex);
+                });
+        
+                carousel.querySelector('.carousel-arrow.right').addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    showImage(currentIndex);
+                });
+            });
+        }
         window.addEventListener('load', () => {
             initializeMatrix();
             startMatrixRain();
+            initializeCarousels();
         });
     </script>
 </body>
