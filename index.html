@@ -1830,15 +1830,40 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <h2>Tokenomics</h2>
         <p>No taxes, no lies—just $DEBT. Born on Pump.fun, LP torched, contract ditched. Deflationary and untamed.</p>
         <table class="tokenomics-table">
-            <tr><th>Metric</th><th>Value</th></tr>
-            <tr><td>Initial Supply</td><td>1,000,000,000 $DEBT</td></tr>
-            <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
-            <tr><td>Total Burned</td><td id="total-burned">Loading...</td></tr>
-            <tr><td>Liquidity Pool</td><td id="liquidity-pool">Loading...</td></tr>
-            <tr><td>Vaulted Tokens</td><td id="vaulted">0 $DEBT (Coming Soon)</td></tr>
-            <tr><td>Tradable Supply</td><td id="tradable-supply">Calculating...</td></tr>
-            <tr><td>% in Circulation</td><td id="percent-circulation">Calculating...</td></tr>
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Initial Supply</td><td id="initial-supply">1,000,000,000</td></tr>
+          <tr><td>Total Burned</td><td id="burned">Loading...</td></tr>
+          <tr><td>Current Supply</td><td id="current-supply">940,543,636.05</td></tr>
+          <tr><td>Liquidity Pool</td><td id="liquidity-pool">287,157,237</td></tr>
+          <tr><td>Vaulted Tokens</td><td id="vaulted">0</td></tr>
+          <tr><td>Tradable Supply</td><td id="tradable">Loading...</td></tr>
+          <tr><td>% in Circulation</td><td id="percent">Loading...</td></tr>
         </table>
+
+        <script>
+        function format(num) {
+          return Number(num).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function updateTokenomicsTable() {
+          const initial = 1_000_000_000;
+
+          const current = parseFloat(document.getElementById('current-supply').textContent.replace(/,/g, ''));
+          const lp = parseFloat(document.getElementById('liquidity-pool').textContent.replace(/,/g, ''));
+          const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, ''));
+
+          const burned = initial - current;
+          const tradable = current - lp - vaulted;
+          const percent = (tradable / current) * 100;
+
+          document.getElementById('burned').textContent = format(burned);
+          document.getElementById('tradable').textContent = format(tradable);
+          document.getElementById('percent').textContent = percent.toFixed(2) + '%';
+        }
+
+window.onload = updateTokenomicsTable;
+</script>
+
 
         <div class="burn-tracker">
             <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
