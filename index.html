@@ -2867,12 +2867,12 @@ async function updateTokenomics() {
 
     try {
         // 1. Fetch current token supply
-        const supplyRes = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusKey}&mint=${tokenMintAddress}`);
+        const supplyRes = await fetch(`https://corsproxy.io/?https://api.helius.xyz/v0/token-metadata?api-key=${heliusKey}&mint=${tokenMintAddress}`);
         const supplyData = await supplyRes.json();
         const currentSupply = parseFloat(supplyData.totalSupply) || initialSupply;
 
         // 2. Fetch LP wallet token balance
-        const lpRes = await fetch(`https://api.helius.xyz/v0/addresses/${lpWalletAddress}/balances?api-key=${heliusKey}`);
+        const lpRes = await fetch(`https://corsproxy.io/?https://api.helius.xyz/v0/addresses/${lpWalletAddress}/balances?api-key=${heliusKey}`);
         const lpData = await lpRes.json();
         const lpToken = lpData.tokens?.find(t => t.mint === tokenMintAddress);
         const lpAmount = parseFloat(lpToken?.amount || 0);
