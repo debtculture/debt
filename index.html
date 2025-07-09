@@ -1833,8 +1833,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <tr><th>Metric</th><th>Value</th></tr>
             <tr><td>Initial Supply</td><td>1,000,000,000 $DEBT</td></tr>
             <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
-            <tr><td>Change (%)</td><td id="supply-change">Calculating...</td></tr>
+            <tr><td>Total Burned</td><td id="total-burned">Loading...</td></tr>
+            <tr><td>Liquidity Pool</td><td id="liquidity-pool">Loading...</td></tr>
+            <tr><td>Vaulted Tokens</td><td id="vaulted">0 $DEBT (Coming Soon)</td></tr>
+            <tr><td>Tradable Supply</td><td id="tradable-supply">Calculating...</td></tr>
+            <tr><td>% in Circulation</td><td id="percent-circulation">Calculating...</td></tr>
         </table>
+
         <div class="burn-tracker">
             <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
         </div>
@@ -2853,14 +2858,42 @@ function setPhantomLink() {
     }
 }
 
-function updateTokenomics() {
-    const startingSupply = 1000000000;
-    const currentSupply = 940543636.05; // Update this manually each Saturday
-    const formattedCurrentSupply = currentSupply.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    document.getElementById('current-supply').textContent = `${formattedCurrentSupply} $DEBT`;
-    const changePercent = ((currentSupply - startingSupply) / startingSupply * 100).toFixed(2);
-    document.getElementById('supply-change').textContent = `${changePercent}%`;
+async function updateTokenomics() {
+    const heliusKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
+    const tokenMintAddress = '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
+    const lpWalletAddress = 'Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8';
+    const initialSupply = 1_000_000_000;
+    const vaultedTokens = 0;
+
+    try {
+        // 1. Fetch current token supply
+        const supplyRes = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusKey}&mint=${tokenMintAddress}`);
+        const supplyData = await supplyRes.json();
+        const currentSupply = parseFloat(supplyData.totalSupply) || initialSupply;
+
+        // 2. Fetch LP wallet token balance
+        const lpRes = await fetch(`https://api.helius.xyz/v0/addresses/${lpWalletAddress}/balances?api-key=${heliusKey}`);
+        const lpData = await lpRes.json();
+        const lpToken = lpData.tokens?.find(t => t.mint === tokenMintAddress);
+        const lpAmount = parseFloat(lpToken?.amount || 0);
+
+        // 3. Calculations
+        const totalBurned = initialSupply - currentSupply;
+        const tradableSupply = currentSupply - lpAmount - vaultedTokens;
+        const percentCirculation = ((tradableSupply / currentSupply) * 100).toFixed(1);
+
+        // 4. Populate DOM
+        document.getElementById('current-supply').textContent = `${currentSupply.toLocaleString()} $DEBT`;
+        document.getElementById('total-burned').textContent = `${totalBurned.toLocaleString()} $DEBT`;
+        document.getElementById('liquidity-pool').textContent = `${lpAmount.toLocaleString()} $DEBT`;
+        document.getElementById('tradable-supply').textContent = `${tradableSupply.toLocaleString()} $DEBT`;
+        document.getElementById('percent-circulation').textContent = `${percentCirculation}%`;
+    } catch (error) {
+        console.error("Tokenomics fetch failed:", error);
+    }
 }
+
+window.onload = updateTokenomics;
 
 function getBadgeDescription(badgeName) {
     const descriptions = {
