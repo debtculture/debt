@@ -1849,6 +1849,10 @@ async function fetchTokenomicsData() {
   document.getElementById('burned').textContent = 'Loading...';
   document.getElementById('tradable').textContent = 'Loading...';
   document.getElementById('percent').innerHTML = '<span class="glow-red">Loading...</span>';
+  document.getElementById('vaulted').textContent = 'Loading...';
+
+  let currentSupply = 940543636.05; // Default fallback
+  let liquidityPool = 287157237; // Default fallback
 
   try {
     // Fetch Current Supply from Helius API
@@ -1869,32 +1873,34 @@ async function fetchTokenomicsData() {
     if (!supply || decimals === undefined) {
       throw new Error('Invalid Helius API response: missing supply or decimals');
     }
-    const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
-
-    // Fetch Liquidity Pool ($DEBT in LP) from Raydium API
-const raydiumResponse = await fetch('https://api.raydium.io/v2/amm/pool/info/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
-if (!raydiumResponse.ok) {
-  throw new Error(`Raydium API error: ${raydiumResponse.status}`);
-}
-const raydiumData = await raydiumResponse.json();
-console.log('Raydium API response:', raydiumData); // Debug log
-if (!raydiumData.data?.baseReserve) {
-  throw new Error('Invalid Raydium API response: missing baseReserve for pool Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
-}
-const liquidityPool = parseFloat(raydiumData.data.baseReserve) / Math.pow(10, decimals); // Use same decimals as token
-
-    // Update tokenomics table with fetched data
-    updateTokenomicsTable(currentSupply, liquidityPool);
+    currentSupply = parseFloat(supply) / Math.pow(10, decimals);
   } catch (error) {
-    console.error('Error fetching tokenomics data:', error);
-    // Fallback to default values
-    updateTokenomicsTable(940543636.05, 287157237);
+    console.error('Error fetching Helius API data:', error);
   }
+
+  try {
+    // Fetch Liquidity Pool ($DEBT in LP) from Solscan API
+    const solscanResponse = await fetch('https://public-api.solscan.io/market/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+    if (!solscanResponse.ok) {
+      throw new Error(`Solscan API error: ${solscanResponse.status}`);
+    }
+    const solscanData = await solscanResponse.json();
+    console.log('Solscan API response:', solscanData); // Debug log
+    if (!solscanData.poolSize) {
+      throw new Error('Invalid Solscan API response: missing poolSize');
+    }
+    liquidityPool = parseFloat(solscanData.poolSize) / Math.pow(10, 6); // Use fixed decimals for $DEBT
+  } catch (error) {
+    console.error('Error fetching Solscan API data:', error);
+  }
+
+  // Update tokenomics table with fetched or fallback data
+  updateTokenomicsTable(currentSupply, liquidityPool);
 }
 
 function updateTokenomicsTable(currentSupply, liquidityPool) {
   const initial = 1_000_000_000;
-  const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, '')) || 0;
+  const vaulted = parseFloat(document.getElementById('vaulted').getAttribute('data-vaulted') || '0');
 
   const burned = initial - currentSupply;
   const tradable = currentSupply - liquidityPool - vaulted;
@@ -1908,6 +1914,7 @@ function updateTokenomicsTable(currentSupply, liquidityPool) {
   document.getElementById('tradable').textContent = format(tradable);
   document.getElementById('percent').innerHTML = '<span class="glow-red">' + percent.toFixed(2) + '%</span>';
 }
+
 window.onload = fetchTokenomicsData;
 </script>
 
