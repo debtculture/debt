@@ -1845,12 +1845,17 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
           try {
             // Fetch Current Supply from Helius API
             const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
-            const heliusResponse = await fetch(`https://api.helius.xyz/v0/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?api-key=${heliusApiKey}`);
+            const heliusResponse = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusApiKey}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ mintAccounts: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'] })
+            });
             if (!heliusResponse.ok) {
               throw new Error(`Helius API error: ${heliusResponse.status}`);
             }
             const heliusData = await heliusResponse.json();
-            const currentSupply = heliusData.supply ? heliusData.supply / Math.pow(10, heliusData.decimals) : 940543636.05;
+            const tokenData = heliusData[0];
+            const currentSupply = tokenData?.tokenInfo?.supply ? tokenData.tokenInfo.supply / Math.pow(10, tokenData.tokenInfo.decimals) : 940543636.05;
 
             // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
             const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
