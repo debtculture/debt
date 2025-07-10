@@ -1843,13 +1843,14 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 
         async function fetchTokenomicsData() {
           try {
-            // Fetch Current Supply from Solscan
-            const solscanResponse = await fetch('https://api.solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
-            if (!solscanResponse.ok) {
-              throw new Error(`Solscan API error: ${solscanResponse.status}`);
+            // Fetch Current Supply from Helius API
+            const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
+            const heliusResponse = await fetch(`https://api.helius.xyz/v0/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?api-key=${heliusApiKey}`);
+            if (!heliusResponse.ok) {
+              throw new Error(`Helius API error: ${heliusResponse.status}`);
             }
-            const solscanData = await solscanResponse.json();
-            const currentSupply = solscanData.data?.supply ? solscanData.data.supply / Math.pow(10, solscanData.data.decimals) : 940543636.05;
+            const heliusData = await heliusResponse.json();
+            const currentSupply = heliusData.supply ? heliusData.supply / Math.pow(10, heliusData.decimals) : 940543636.05;
 
             // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
             const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
