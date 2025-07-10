@@ -1872,17 +1872,16 @@ async function fetchTokenomicsData() {
     const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
 
     // Fetch Liquidity Pool ($DEBT in LP) from Raydium API
-const raydiumResponse = await fetch('https://api.raydium.io/v2/amm/pools');
+const raydiumResponse = await fetch('https://api.raydium.io/v2/amm/pool/info/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
 if (!raydiumResponse.ok) {
   throw new Error(`Raydium API error: ${raydiumResponse.status}`);
 }
 const raydiumData = await raydiumResponse.json();
 console.log('Raydium API response:', raydiumData); // Debug log
-const pool = raydiumData.data?.find(p => p.poolId === 'Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
-if (!pool?.baseReserve) {
+if (!raydiumData.data?.baseReserve) {
   throw new Error('Invalid Raydium API response: missing baseReserve for pool Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
 }
-const liquidityPool = parseFloat(pool.baseReserve) / Math.pow(10, decimals); // Use same decimals as token
+const liquidityPool = parseFloat(raydiumData.data.baseReserve) / Math.pow(10, decimals); // Use same decimals as token
 
     // Update tokenomics table with fetched data
     updateTokenomicsTable(currentSupply, liquidityPool);
