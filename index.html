@@ -225,18 +225,18 @@
     .debt-clock-container { margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; cursor: pointer; }
     .debt-clock-iframe { width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; pointer-events: none; }
 
-    /* Tracker Row Layout */
-.tracker-row {
+    /* Tracker Section: Vertical Layout */
+.tracker-section {
   display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin: 10px 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin: 20px 0;
 }
 
-/* Burn Tracker Styles */
 .burn-tracker,
 .vault-tracker {
+  text-align: center;
   font-size: 1.5rem;
 }
 
@@ -250,7 +250,6 @@
   text-shadow: 0 0 5px #ff5555;
 }
 
-/* Vault Tracker Styles */
 .vault-tracker a {
   color: #00c9a7;
   text-decoration: none;
@@ -260,6 +259,15 @@
   color: #00ffe0;
   text-shadow: 0 0 5px #00c9a7;
 }
+
+.tracker-blurb {
+  font-size: 1rem;
+  color: #ccc;
+  margin-top: 5px;
+  max-width: 600px;
+  line-height: 1.4;
+}
+
 
 
     /* How to Buy Specific Styles */
@@ -1942,14 +1950,18 @@ window.onload = fetchTokenomicsData;
 </script>
 
 
-        <div class="tracker-row">
+        <div class="tracker-section">
   <div class="burn-tracker">
     <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
+    <p class="tracker-blurb">Their debt balloons, ours burns to ash. 50 million+ $DEBT gone and counting.</p>
   </div>
+  
   <div class="vault-tracker">
-    <a href="https://app.streamflow.finance/project-dashboard/solana/mainnet/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">💎 Vault Tracker</a>
+    <a href="https://example.com/vault-tracker" target="_blank" rel="noopener noreferrer">💎 Vault Tracker</a>
+    <p class="tracker-blurb">Vaulted tokens represent community-aligned trust. Funds are locked transparently for future project development and decentralized initiatives.</p>
   </div>
 </div>
+
 
         <p>Their debt balloons. Ours burns to ash.</p>
         <p>50M+ $DEBT gone—and counting.</p>
