@@ -225,10 +225,42 @@
     .debt-clock-container { margin: 20px auto; width: 280px; height: 75px; background-color: #1e1e1e; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; position: relative; cursor: pointer; }
     .debt-clock-iframe { width: 400px; height: 225px; border: none; border-radius: 5px; margin-top: -150px; margin-left: -40px; pointer-events: none; }
 
-    /* Burn Tracker Styles */
-    .burn-tracker { font-size: 2rem; margin: 10px 0; }
-    .burn-tracker a { color: #ff5555; text-decoration: none; }
-    .burn-tracker a:hover { color: #ff7777; text-shadow: 0 0 5px #ff5555; }
+    /* Tracker Row Layout */
+.tracker-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+/* Burn Tracker Styles */
+.burn-tracker,
+.vault-tracker {
+  font-size: 1.5rem;
+}
+
+.burn-tracker a {
+  color: #ff5555;
+  text-decoration: none;
+}
+
+.burn-tracker a:hover {
+  color: #ff7777;
+  text-shadow: 0 0 5px #ff5555;
+}
+
+/* Vault Tracker Styles */
+.vault-tracker a {
+  color: #00c9a7;
+  text-decoration: none;
+}
+
+.vault-tracker a:hover {
+  color: #00ffe0;
+  text-shadow: 0 0 5px #00c9a7;
+}
+
 
     /* How to Buy Specific Styles */
     #how-to-buy { display: flex; flex-direction: column; align-items: center; padding: 40px 20px 10px; margin-top: -45px; }
@@ -1910,9 +1942,15 @@ window.onload = fetchTokenomicsData;
 </script>
 
 
-        <div class="burn-tracker">
-            <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
-        </div>
+        <div class="tracker-row">
+  <div class="burn-tracker">
+    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
+  </div>
+  <div class="vault-tracker">
+    <a href="https://example.com/vault-tracker" target="_blank" rel="noopener noreferrer">💎 Vault Tracker</a>
+  </div>
+</div>
+
         <p>Their debt balloons. Ours burns to ash.</p>
         <p>50M+ $DEBT gone—and counting.</p>
     </div>
