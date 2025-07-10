@@ -1838,7 +1838,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 
         <script>
 function format(num) {
-  return Number(num).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return Number(num).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+function formatPercent(num) {
+  return num.toFixed(2);
 }
 
 async function fetchTokenomicsData() {
@@ -1892,6 +1896,7 @@ async function fetchTokenomicsData() {
     liquidityPool = parseFloat(solscanData.poolSize) / Math.pow(10, 6); // Use fixed decimals for $DEBT
   } catch (error) {
     console.error('Error fetching Solscan API data:', error);
+    console.warn('Using fallback for Liquidity Pool. Verify the $DEBT/SOL pool address on Raydium or another DEX.');
   }
 
   // Update tokenomics table with fetched or fallback data
@@ -1912,7 +1917,7 @@ function updateTokenomicsTable(currentSupply, liquidityPool) {
   document.getElementById('vaulted').textContent = format(vaulted);
   document.getElementById('burned').textContent = format(burned);
   document.getElementById('tradable').textContent = format(tradable);
-  document.getElementById('percent').innerHTML = '<span class="glow-red">' + percent.toFixed(2) + '%</span>';
+  document.getElementById('percent').innerHTML = '<span class="glow-red">' + formatPercent(percent) + '%</span>';
 }
 
 window.onload = fetchTokenomicsData;
