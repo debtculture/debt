@@ -1829,36 +1829,80 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
           <tr><th>Metric</th><th>Value</th></tr>
           <tr><td>Initial Supply</td><td id="initial-supply">1,000,000,000</td></tr>
           <tr><td>Total Burned</td><td id="burned">Loading...</td></tr>
-          <tr><td>Current Supply</td><td id="current-supply">940,543,636.05</td></tr>
+          <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
           <tr><td>Liquidity Pool</td><td id="liquidity-pool">287,157,237</td></tr>
           <tr><td>Vaulted Tokens</td><td id="vaulted">0</td></tr>
           <tr><td>Tradable Supply</td><td id="tradable">Loading...</td></tr>
           <tr><td>% in Circulation</td><td id="percent">Loading...</td>
         </table>
 
-        <script>
-        function format(num) {
-          return Number(num).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
+      <script>
+          function format(num) {
+            return Number(num).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+          }
 
-        function updateTokenomicsTable() {
-          const initial = 1_000_000_000;
+          function updateTokenomicsTable() {
+            const initial = 1_000_000_000;
 
-          const current = parseFloat(document.getElementById('current-supply').textContent.replace(/,/g, ''));
-          const lp = parseFloat(document.getElementById('liquidity-pool').textContent.replace(/,/g, ''));
-          const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, ''));
+            const current = parseFloat(document.getElementById('current-supply').textContent.replace(/,/g, ''));
+            const lp = parseFloat(document.getElementById('liquidity-pool').textContent.replace(/,/g, ''));
+            const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, ''));
 
-          const burned = initial - current;
-          const tradable = current - lp - vaulted;
-          const percent = (tradable / current) * 100;
+            const burned = initial - current;
+            const tradable = current - lp - vaulted;
+            const percent = (tradable / current) * 100;
 
-          document.getElementById('burned').textContent = format(burned);
-          document.getElementById('tradable').textContent = format(tradable);
-          document.getElementById('percent').innerHTML = '<span class="glow-red">' + percent.toFixed(2) + '%</span>';
-        }
+            document.getElementById('burned').textContent = format(burned);
+            document.getElementById('tradable').textContent = format(tradable);
+            document.getElementById('percent').innerHTML =
+              '<span class="glow-red">' + percent.toFixed(2) + '%</span>';
+          }
 
-window.onload = updateTokenomicsTable;
-</script>
+          async function fetchCurrentSupply() {
+            const tokenMint = "9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump";
+            const heliusApiKey = "c57c8d55-3e55-4160-9d8c-00df2c3fb22e";
+
+            try {
+              const response = await fetch(`https://mainnet.helius.xyz/v1/token-metadata?api-key=${heliusApiKey}`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  mintAccounts: [tokenMint]
+                })
+              });
+
+              const data = await response.json();
+              const supplyRaw = data[0]?.supply?.toString();
+              const decimals = data[0]?.decimals || 9;
+              const readableSupply = supplyRaw
+                ? parseFloat(supplyRaw) / Math.pow(10, decimals)
+                : null;
+
+              if (readableSupply !== null) {
+                document.getElementById("current-supply").textContent = readableSupply.toLocaleString(undefined, {
+                  maximumFractionDigits: 2
+                });
+              } else {
+                document.getElementById("current-supply").textContent = "N/A";
+              }
+            } catch (error) {
+              console.error("Error fetching current supply:", error);
+              document.getElementById("current-supply").textContent = "Error";
+            }
+          }
+
+          window.onload = async function () {
+            await fetchCurrentSupply();
+            updateTokenomicsTable();
+            // We'll add fetchLiquidityPool() here next
+          };
+        </script>
+
 
 
         <div class="burn-tracker">
