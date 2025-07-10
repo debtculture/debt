@@ -1881,7 +1881,7 @@ async function fetchTokenomicsData() {
   try {
   // Fetch Liquidity Pool ($DEBT in LP) from Helius API (holder balance)
   const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
-  const holderResponse = await fetch(`https://api.helius.xyz/v0/addresses/5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1/account-info?api-key=${heliusApiKey}`);
+  const holderResponse = await fetch(`https://api.helius.xyz/v0/addresses/Hnpbt4yVSTc2LLrmuzZQaJbMomgae8fhEUMRPocYwxAa/account-info?api-key=${heliusApiKey}`);
   if (!holderResponse.ok) {
     throw new Error(`Helius Holder API error: ${holderResponse.status}`);
   }
@@ -1893,9 +1893,8 @@ async function fetchTokenomicsData() {
   liquidityPool = parseFloat(holderData.data.parsed.info.tokenAmount.amount) / Math.pow(10, decimals); // Use same decimals as token
 } catch (error) {
   console.error('Error fetching Helius Holder API data:', error);
-  console.warn('Using fallback for Liquidity Pool. Verify $DEBT/SOL holder address (5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1).');
+  console.warn('Using fallback for Liquidity Pool. Verify $DEBT/SOL holder address (Hnpbt4yVSTc2LLrmuzZQaJbMomgae8fhEUMRPocYwxAa).');
 }
-
   // Update tokenomics table with fetched or fallback data
   updateTokenomicsTable(currentSupply, liquidityPool);
 }
