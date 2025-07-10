@@ -1851,22 +1851,22 @@ async function fetchTokenomicsData() {
 
   try {
     // Fetch Current Supply from Helius API
-    const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
-    const heliusResponse = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusApiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mintAccounts: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'] })
-    });
-    if (!heliusResponse.ok) {
-      throw new Error(`Helius API error: ${heliusResponse.status}`);
-    }
-    const heliusData = await heliusResponse.json();
-    console.log('Helius API response:', heliusData); // Debug log
-    const tokenData = heliusData[0];
-    if (!tokenData?.onChainMetadata?.metadata?.tokenStandard?.supply || !tokenData?.onChainMetadata?.metadata?.tokenStandard?.decimals) {
-      throw new Error('Invalid Helius API response: missing supply or decimals');
-    }
-    const currentSupply = tokenData.onChainMetadata.metadata.tokenStandard.supply / Math.pow(10, tokenData.onChainMetadata.metadata.tokenStandard.decimals);
+const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
+const heliusResponse = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusApiKey}`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ mintAccounts: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'] })
+});
+if (!heliusResponse.ok) {
+  throw new Error(`Helius API error: ${heliusResponse.status}`);
+}
+const heliusData = await heliusResponse.json();
+console.log('Helius API response:', heliusData); // Debug log
+const tokenData = heliusData[0];
+if (!tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.supply || !tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.decimals) {
+  throw new Error('Invalid Helius API response: missing supply or decimals');
+}
+const currentSupply = parseFloat(tokenData.onChainAccountInfo.accountInfo.data.parsed.info.supply) / Math.pow(10, tokenData.onChainAccountInfo.accountInfo.data.parsed.info.decimals);
 
     // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
     const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
