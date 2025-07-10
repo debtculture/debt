@@ -1841,24 +1841,53 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
           return Number(num).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
-        function updateTokenomicsTable() {
+        async function fetchTokenomicsData() {
+          try {
+            // Fetch Current Supply from Solscan
+            const solscanResponse = await fetch('https://api.solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+            if (!solscanResponse.ok) {
+              throw new Error(`Solscan API error: ${solscanResponse.status}`);
+            }
+            const solscanData = await solscanResponse.json();
+            const currentSupply = solscanData.data?.supply ? solscanData.data.supply / Math.pow(10, solscanData.data.decimals) : 940543636.05;
+
+            // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
+            const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
+            if (!dexscreenerResponse.ok) {
+              throw new Error(`DexScreener API error: ${dexscreenerResponse.status}`);
+            }
+            const dexscreenerData = await dexscreenerResponse.json();
+            const liquidityPool = dexscreenerData.pair?.liquidity?.base ? dexscreenerData.pair.liquidity.base / Math.pow(10, 9) : 287157237;
+
+            // Update tokenomics table
+            updateTokenomicsTable(currentSupply, liquidityPool);
+          } catch (error) {
+            console.error('Error fetching tokenomics data:', error);
+            // Fallback to existing values in the table
+            updateTokenomicsTable(
+              parseFloat(document.getElementById('current-supply').textContent.replace(/,/g, '')) || 940543636.05,
+              parseFloat(document.getElementById('liquidity-pool').textContent.replace(/,/g, '')) || 287157237
+            );
+          }
+        }
+
+        function updateTokenomicsTable(currentSupply, liquidityPool) {
           const initial = 1_000_000_000;
+          const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, '')) || 0;
 
-          const current = parseFloat(document.getElementById('current-supply').textContent.replace(/,/g, ''));
-          const lp = parseFloat(document.getElementById('liquidity-pool').textContent.replace(/,/g, ''));
-          const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, ''));
+          const burned = initial - currentSupply;
+          const tradable = currentSupply - liquidityPool - vaulted;
+          const percent = (tradable / currentSupply) * 100;
 
-          const burned = initial - current;
-          const tradable = current - lp - vaulted;
-          const percent = (tradable / current) * 100;
-
+          document.getElementById('current-supply').textContent = format(currentSupply);
+          document.getElementById('liquidity-pool').textContent = format(liquidityPool);
           document.getElementById('burned').textContent = format(burned);
           document.getElementById('tradable').textContent = format(tradable);
           document.getElementById('percent').innerHTML = '<span class="glow-red">' + percent.toFixed(2) + '%</span>';
         }
 
-window.onload = updateTokenomicsTable;
-</script>
+        window.onload = fetchTokenomicsData;
+        </script>
 
 
         <div class="burn-tracker">
