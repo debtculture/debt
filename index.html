@@ -1871,17 +1871,17 @@ async function fetchTokenomicsData() {
     }
     const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
 
-    // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
-    const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
-    if (!dexscreenerResponse.ok) {
-      throw new Error(`DexScreener API error: ${dexscreenerResponse.status}`);
-    }
-    const dexscreenerData = await dexscreenerResponse.json();
-    console.log('DexScreener API response:', dexscreenerData); // Debug log
-    if (!dexscreenerData.pair?.liquidity?.base) {
-      throw new Error('Invalid DexScreener API response: missing liquidity.base');
-    }
-    const liquidityPool = dexscreenerData.pair.liquidity.base / Math.pow(10, 9);
+    // Fetch Liquidity Pool ($DEBT in LP) from Raydium API
+const raydiumResponse = await fetch('https://api.raydium.io/v2/main/pair/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
+if (!raydiumResponse.ok) {
+  throw new Error(`Raydium API error: ${raydiumResponse.status}`);
+}
+const raydiumData = await raydiumResponse.json();
+console.log('Raydium API response:', raydiumData); // Debug log
+if (!raydiumData.data?.baseReserve) {
+  throw new Error('Invalid Raydium API response: missing baseReserve');
+}
+const liquidityPool = parseFloat(raydiumData.data.baseReserve) / Math.pow(10, decimals); // Use same decimals as token
 
     // Update tokenomics table with fetched data
     updateTokenomicsTable(currentSupply, liquidityPool);
@@ -1903,11 +1903,11 @@ function updateTokenomicsTable(currentSupply, liquidityPool) {
   document.getElementById('initial-supply').textContent = format(initial);
   document.getElementById('current-supply').textContent = format(currentSupply);
   document.getElementById('liquidity-pool').textContent = format(liquidityPool);
+  document.getElementById('vaulted').textContent = format(vaulted);
   document.getElementById('burned').textContent = format(burned);
   document.getElementById('tradable').textContent = format(tradable);
   document.getElementById('percent').innerHTML = '<span class="glow-red">' + percent.toFixed(2) + '%</span>';
 }
-
 window.onload = fetchTokenomicsData;
 </script>
 
