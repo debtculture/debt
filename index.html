@@ -1827,11 +1827,11 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         <p>No taxes, no lies—just $DEBT. Born on Pump.fun, LP torched, contract ditched. Deflationary and untamed.</p>
         <table class="tokenomics-table">
           <tr><th>Metric</th><th>Value</th></tr>
-          <tr><td>Initial Supply</td><td id="initial-supply">1,000,000,000</td></tr>
+          <tr><td>Initial Supply</td><td id="initial-supply">Loading...</td></tr>
           <tr><td>Total Burned</td><td id="burned">Loading...</td></tr>
-          <tr><td>Current Supply</td><td id="current-supply">940,543,636.05</td></tr>
-          <tr><td>Liquidity Pool</td><td id="liquidity-pool">287,157,237</td></tr>
-          <tr><td>Vaulted Tokens</td><td id="vaulted">0</td></tr>
+          <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
+          <tr><td>Liquidity Pool</td><td id="liquidity-pool">Loading...</td></tr>
+          <tr><td>Vaulted Tokens</td><td id="vaulted">Loading...</td></tr>
           <tr><td>Tradable Supply</td><td id="tradable">Loading...</td></tr>
           <tr><td>% in Circulation</td><td id="percent">Loading...</td>
         </table>
@@ -1843,6 +1843,7 @@ function format(num) {
 
 async function fetchTokenomicsData() {
   // Set initial "Loading" state for all metrics
+  document.getElementById('initial-supply').textContent = 'Loading...';
   document.getElementById('current-supply').textContent = 'Loading...';
   document.getElementById('liquidity-pool').textContent = 'Loading...';
   document.getElementById('burned').textContent = 'Loading...';
@@ -1851,22 +1852,24 @@ async function fetchTokenomicsData() {
 
   try {
     // Fetch Current Supply from Helius API
-const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
-const heliusResponse = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusApiKey}`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ mintAccounts: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'] })
-});
-if (!heliusResponse.ok) {
-  throw new Error(`Helius API error: ${heliusResponse.status}`);
-}
-const heliusData = await heliusResponse.json();
-console.log('Helius API response:', heliusData); // Debug log
-const tokenData = heliusData[0];
-if (!tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.supply || !tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.decimals) {
-  throw new Error('Invalid Helius API response: missing supply or decimals');
-}
-const currentSupply = parseFloat(tokenData.onChainAccountInfo.accountInfo.data.parsed.info.supply) / Math.pow(10, tokenData.onChainAccountInfo.accountInfo.data.parsed.info.decimals);
+    const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
+    const heliusResponse = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusApiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mintAccounts: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'] })
+    });
+    if (!heliusResponse.ok) {
+      throw new Error(`Helius API error: ${heliusResponse.status}`);
+    }
+    const heliusData = await heliusResponse.json();
+    console.log('Helius API response:', heliusData); // Debug log
+    const tokenData = heliusData[0];
+    const supply = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.supply;
+    const decimals = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.decimals;
+    if (!supply || decimals === undefined) {
+      throw new Error('Invalid Helius API response: missing supply or decimals');
+    }
+    const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
 
     // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
     const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
@@ -1884,7 +1887,7 @@ const currentSupply = parseFloat(tokenData.onChainAccountInfo.accountInfo.data.p
     updateTokenomicsTable(currentSupply, liquidityPool);
   } catch (error) {
     console.error('Error fetching tokenomics data:', error);
-    // Fallback to default values (not table values)
+    // Fallback to default values
     updateTokenomicsTable(940543636.05, 287157237);
   }
 }
@@ -1897,6 +1900,7 @@ function updateTokenomicsTable(currentSupply, liquidityPool) {
   const tradable = currentSupply - liquidityPool - vaulted;
   const percent = (tradable / currentSupply) * 100;
 
+  document.getElementById('initial-supply').textContent = format(initial);
   document.getElementById('current-supply').textContent = format(currentSupply);
   document.getElementById('liquidity-pool').textContent = format(liquidityPool);
   document.getElementById('burned').textContent = format(burned);
@@ -1906,7 +1910,6 @@ function updateTokenomicsTable(currentSupply, liquidityPool) {
 
 window.onload = fetchTokenomicsData;
 </script>
-
 
         <div class="burn-tracker">
             <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
