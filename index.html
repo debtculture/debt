@@ -1895,7 +1895,7 @@ const liquidityPool = parseFloat(pool.baseReserve) / Math.pow(10, decimals); // 
 
 function updateTokenomicsTable(currentSupply, liquidityPool) {
   const initial = 1_000_000_000;
-  const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, '')) || 60,000,000;
+  const vaulted = parseFloat(document.getElementById('vaulted').textContent.replace(/,/g, '')) || 0;
 
   const burned = initial - currentSupply;
   const tradable = currentSupply - liquidityPool - vaulted;
