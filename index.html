@@ -1878,23 +1878,28 @@ async function fetchTokenomicsData() {
   }
   currentSupply = parseFloat(supply) / Math.pow(10, decimals);
 
-    try {
-    const lpTokenAccount = 'Hnpbt4yVSTc2LLrmuzZQaJbMomgae8fhEUMRPocYwxAa';
-    const lpResponse = await fetch(`https://api.helius.xyz/v0/addresses/${lpTokenAccount}/balances?api-key=${heliusApiKey}`);
-    if (!lpResponse.ok) {
-      throw new Error(`Helius LP balance API error: ${lpResponse.status}`);
+      try {
+    const rpcResponse = await fetch(`https://rpc.helius.xyz/?api-key=${heliusApiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'getTokenAccountBalance',
+        params: ['Hnpbt4yVSTc2LLrmuzZQaJbMomgae8fhEUMRPocYwxAa']
+      })
+    });
+
+    const rpcData = await rpcResponse.json();
+    if (!rpcData.result?.value?.uiAmount) {
+      throw new Error('No balance found in RPC response');
     }
-    const lpData = await lpResponse.json();
-    const lpToken = lpData.tokens.find(t => t.mint === '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
-    if (lpToken && lpToken.amount) {
-      liquidityPool = lpToken.amount / Math.pow(10, lpToken.decimals);
-    } else {
-      throw new Error('No $DEBT token found in LP token account.');
-    }
+    liquidityPool = rpcData.result.value.uiAmount;
   } catch (error) {
-    console.error('Error fetching Liquidity Pool balance:', error);
-    console.warn('Using fallback for Liquidity Pool. Verify $DEBT/SOL token account address.');
+    console.error('Error fetching LP token balance (RPC fallback):', error);
+    console.warn('Using fallback for Liquidity Pool.');
   }
+
 
   // Update tokenomics table with fetched or fallback data
   updateTokenomicsTable(currentSupply, liquidityPool);
