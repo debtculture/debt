@@ -1842,6 +1842,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         }
 
         async function fetchTokenomicsData() {
+          // Set initial "Loading" state for all metrics
+          document.getElementById('current-supply').textContent = 'Loading...';
+          document.getElementById('liquidity-pool').textContent = 'Loading...';
+          document.getElementById('burned').textContent = 'Loading...';
+          document.getElementById('tradable').textContent = 'Loading...';
+          document.getElementById('percent').innerHTML = '<span class="glow-red">Loading...</span>';
+
           try {
             // Fetch Current Supply from Helius API
             const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
@@ -1854,8 +1861,12 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
               throw new Error(`Helius API error: ${heliusResponse.status}`);
             }
             const heliusData = await heliusResponse.json();
+            console.log('Helius API response:', heliusData); // Debug log
             const tokenData = heliusData[0];
-            const currentSupply = tokenData?.tokenInfo?.supply ? tokenData.tokenInfo.supply / Math.pow(10, tokenData.tokenInfo.decimals) : 940543636.05;
+            if (!tokenData?.tokenInfo?.supply || !tokenData?.tokenInfo?.decimals) {
+              throw new Error('Invalid Helius API response: missing supply or decimals');
+            }
+            const currentSupply = tokenData.tokenInfo.supply / Math.pow(10, tokenData.tokenInfo.decimals);
 
             // Fetch Liquidity Pool ($DEBT in LP) from DexScreener
             const dexscreenerResponse = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8');
@@ -1863,17 +1874,18 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
               throw new Error(`DexScreener API error: ${dexscreenerResponse.status}`);
             }
             const dexscreenerData = await dexscreenerResponse.json();
-            const liquidityPool = dexscreenerData.pair?.liquidity?.base ? dexscreenerData.pair.liquidity.base / Math.pow(10, 9) : 287157237;
+            console.log('DexScreener API response:', dexscreenerData); // Debug log
+            if (!dexscreenerData.pair?.liquidity?.base) {
+              throw new Error('Invalid DexScreener API response: missing liquidity.base');
+            }
+            const liquidityPool = dexscreenerData.pair.liquidity.base / Math.pow(10, 9);
 
-            // Update tokenomics table
+            // Update tokenomics table with fetched data
             updateTokenomicsTable(currentSupply, liquidityPool);
           } catch (error) {
             console.error('Error fetching tokenomics data:', error);
-            // Fallback to existing values in the table
-            updateTokenomicsTable(
-              parseFloat(document.getElementById('current-supply').textContent.replace(/,/g, '')) || 940543636.05,
-              parseFloat(document.getElementById('liquidity-pool').textContent.replace(/,/g, '')) || 287157237
-            );
+            // Fallback to default values (not table values)
+            updateTokenomicsTable(940543636.05, 287157237);
           }
         }
 
