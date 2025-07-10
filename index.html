@@ -1863,43 +1863,28 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 
           async function fetchCurrentSupply() {
             const tokenMint = "9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump";
-            const heliusApiKey = "c57c8d55-3e55-4160-9d8c-00df2c3fb22e";
+            const url = `https://api.dexscreener.com/latest/dex/tokens/solana/${tokenMint}`;
 
             try {
-              const response = await fetch(`https://api.helius.xyz/v1/token-metadata?api-key=${heliusApiKey}`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                  mintAccounts: [tokenMint]
-                })
-              });
+              const resp = await fetch(url);
+              const json = await resp.json();
+              const pair = Array.isArray(json.pairs) && json.pairs[0];
+              const supply = pair?.baseToken?.circulatingSupply;
 
-              const data = await response.json();
-              const supplyRaw = data[0]?.supply?.toString();
-              const decimals = data[0]?.decimals || 9;
-              const readableSupply = supplyRaw
-                ? parseFloat(supplyRaw) / Math.pow(10, decimals)
-                : null;
+              document.getElementById("current-supply").textContent = supply
+                ? parseFloat(supply).toLocaleString(undefined, { maximumFractionDigits: 2 })
+                : "N/A";
 
-              if (readableSupply !== null) {
-                document.getElementById("current-supply").textContent = readableSupply.toLocaleString(undefined, {
-                  maximumFractionDigits: 2
-                });
-              } else {
-                document.getElementById("current-supply").textContent = "N/A";
-              }
-            } catch (error) {
-              console.error("Error fetching current supply:", error);
+              updateTokenomicsTable();
+            } catch (e) {
+              console.error("Sup Fetch Err:", e);
               document.getElementById("current-supply").textContent = "Error";
             }
           }
 
-          window.onload = async function () {
+          window.onload = async function() {
             await fetchCurrentSupply();
-            updateTokenomicsTable();
-            // We'll add fetchLiquidityPool() here next
+            // Add LP fetch next
           };
         </script>
 
