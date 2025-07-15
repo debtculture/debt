@@ -576,5 +576,422 @@
     </div>
 </div>
 
+<script>
+window.ethereum = undefined;
+
+function initializeMatrix() {
+            const canvas = document.getElementById('matrix-bg');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                columns = Math.ceil(canvas.width / fontSize);
+                drops.length = columns;
+                for (let i = 0; i < drops.length; i++) {
+                    if (!drops[i]) drops[i] = 1;
+                }
+            }
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            window.addEventListener('resize', resizeCanvas);
+            
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const fontSize = 14;
+            let columns = Math.ceil(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ff5555';
+                ctx.font = `${fontSize}px monospace`;
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 50);
+        }
+
+        function startMatrixRain() {
+            const rainCanvas = document.getElementById('matrix-rain');
+            const rainCtx = rainCanvas.getContext('2d');
+            rainCanvas.height = window.innerHeight;
+            rainCanvas.width = window.innerWidth;
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const fontSize = 14;
+            const columns = rainCanvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+            function drawRain() {
+                rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+                rainCtx.fillStyle = '#999999';
+                rainCtx.font = fontSize + 'px monospace';
+                drops.forEach((y, i) => {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    rainCtx.fillText(text, i * fontSize, y * fontSize);
+                    if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                });
+            }
+            setInterval(drawRain, 50);
+            window.addEventListener('resize', () => {
+                rainCanvas.height = window.innerHeight;
+                rainCanvas.width = window.innerWidth;
+            });
+        }
+
+function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const isOpen = menu.style.display === "block";
+    menu.style.display = isOpen ? "none" : "block";
+    menu.setAttribute('aria-expanded', !isOpen);
+    hamburger.classList.toggle("active", !isOpen);
+}
+
+function closeMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = "none";
+    menu.setAttribute('aria-expanded', 'false');
+}
+
+function toggleDropdown() {
+    const dropdown = document.getElementById("mobileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function getBadgeDescription(badgeName) {
+    const descriptions = {
+        'Orbiter': 'Consistently shows up to X Spaces.',
+        'Cosmonaut': 'Regularly engages in Spaces conversations.',
+        'Star Commander': 'Leads conversations in $DEBT Spaces.',
+        'Supernova': 'Hosts $DEBT-focused X Spaces.',
+        'Pyro': 'Burned 100,000+ $DEBT.',
+        'Arsonist': 'Burned 1,000,000+ $DEBT.',
+        'Inferno': 'Burned 10,000,000+ $DEBT.',
+        'Ashbringer': 'Burned 100,000,000+ $DEBT.',
+        'Cold Wallet': 'Held 1+ month.',
+        'Iron Grip': 'Held 3+ months.',
+        'Steel Reserve': 'Held 6+ months.',
+        'Diamond Hands': 'Held 12+ months.',
+        'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
+        'Meme Machine': 'Creates dank $DEBT memes.'
+    };
+    return descriptions[badgeName] || 'Badge earned for community contributions.';
+}
+
+// Community Carousel
+let currentCommunityIndex = 0;
+const communityMembers = document.querySelectorAll(
+    window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+);
+const totalNamedCommunityMembers = 24; // Only named members, excluding TBA placeholders
+const totalCommunityMembers = 24; // Total including TBA placeholders
+
+function updateCommunityCarousel() {
+    const sharedTooltip = document.getElementById('shared-tooltip');
+    if (sharedTooltip) {
+        sharedTooltip.style.display = 'none';
+    }
+    document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+        el.classList.remove('active-tooltip');
+    });
+
+    const communityMembers = document.querySelectorAll(
+        window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+    );
+    if (!communityMembers.length) {
+        console.error('No community members found for carousel');
+        return;
+    }
+
+    const featured = document.getElementById('hof-featured');
+    const description = document.getElementById('hof-description');
+    const currentMember = communityMembers[currentCommunityIndex];
+    const xLink = currentMember.getAttribute('data-x-link');
+
+    if (currentCommunityIndex >= totalNamedCommunityMembers) {
+        currentCommunityIndex = 0;
+    }
+
+    const members = [
+        { name: 'Autopsy', title: 'The Visionary', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png', desc: 'Placeholder description for Autopsy.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Inferno', tier: 'gold', type: 'burn' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Catavina', title: 'The Cheerleader', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg', desc: 'Placeholder description for Catavina.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Lou', title: 'The Rally', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg', desc: 'Placeholder description for Lou.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Nerf', title: 'The Professional', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg', desc: 'Placeholder description for Nerf.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'JPEG', title: 'The Youngblood', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg', desc: 'Placeholder description for JPEG.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: "Cold Blooded Shiller", tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Lunicking', title: 'The Spark', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg', desc: 'Placeholder description for Lunicking.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Tormund', title: 'The Oracle', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg', desc: 'Placeholder description for Tormund.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'STAYHIGH', title: 'The Unfiltered', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg', desc: 'Placeholder description for STAYHIGH.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+        { name: 'Renee', title: 'The Support', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg', desc: 'Placeholder description for Renee.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'blu', title: 'The Warden', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg', desc: 'Placeholder description for blu.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Scrappy', title: 'The Goofball', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg', desc: 'Placeholder description for Scrappy.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }] },
+        { name: 'Mo', title: 'The Degen', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg', desc: 'Placeholder description for Mo.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }] },
+        { name: 'Cory B', title: 'The Bengal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg', desc: 'Placeholder description for Cory B.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Dan', title: 'The Vibes', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg', desc: 'Placeholder description for Dan.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Tom', title: 'The King', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg', desc: 'Placeholder description for Tom.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Marilyn', title: 'The Rockstar', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg', desc: 'Placeholder description for Marilyn.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Coinbud', title: 'The Expert', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg', desc: 'Placeholder description for Coinbud.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'ZOMBi', title: 'The Creative', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg', desc: 'Placeholder description for ZOMBi.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Cyanide', title: 'The Poison', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg', desc: 'Placeholder description for Cyanide.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'George', title: 'The Wise', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg', desc: 'Placeholder description for George.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Dog', title: 'The Loyal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748440557/Dog_iiq5g8.jpg', desc: 'Placeholder description for Dog.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+        { name: 'Drinks', title: 'The Party', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906211/Drinks_tibhzd.jpg', desc: 'Placeholder description for Drinks.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'Ambient', title: 'The Vibe', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906930/Ambient_jztyfi.jpg', desc: 'Placeholder description for Ambient.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+        { name: 'DK', title: 'The Maverick', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748911711/DK_umvnpw.jpg', desc: 'Placeholder description for DK.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] }
+    ];
+
+    const member = members[currentCommunityIndex];
+    const featuredCard = featured.querySelector('.trading-card');
+    const pfpLink = featuredCard.querySelector('.pfp-link');
+    featuredCard.setAttribute('data-x-link', xLink);
+    pfpLink.setAttribute('href', xLink);
+    featuredCard.querySelector('.card-pfp-square img').src = member.img;
+    featuredCard.querySelector('.card-pfp-square img').alt = `${member.name} profile picture`;
+    featuredCard.querySelector('.hof-name').textContent = member.name;
+
+    const badgesContainer = document.getElementById('hof-badges');
+    badgesContainer.innerHTML = '';
+    if (member.badges && member.badges.length > 0) {
+        member.badges.forEach(badge => {
+            const badgeEl = document.createElement('div');
+            badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
+            badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
+            if (window.innerWidth > 1024) {
+                badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+            }
+
+            const emblemImg = document.createElement('img');
+            emblemImg.className = 'badge-emblem';
+            let emblemSrc = '';
+            if (badge.type === 'spaces') {
+                if (badge.tier === 'amethyst') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/moonwalker_bdgfiy.png';
+                if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/starcommander_knl5nq.png';
+                if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/orbitbreaker_dpnr2u.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/zerogravity_b7gsdc.png';
+            } else if (badge.type === 'burn') {
+                if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/inferno_bj3z5x.png';
+                if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/pyromaniac_zqczjd.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/arsonist_ryglvo.png';
+            } else if (badge.type === 'holding') {
+                if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/steelreserve_xv5krq.png';
+                if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/irongrip_ypidgu.png';
+                if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/coldwallet_y7v5ja.png';
+            } else if (badge.type === 'shiller') {
+                emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/coldbloodedshiller_bmd8pu.png';
+            } else if (badge.type === 'meme') {
+                emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/mememachine_vazxze.png';
+            }
+            if (window.innerWidth <= 1024 && emblemSrc) {
+                emblemImg.src = emblemSrc;
+                emblemImg.alt = `${badge.name} emblem`;
+                emblemImg.setAttribute('loading', 'lazy');
+                badgeEl.appendChild(emblemImg);
+            }
+
+            let sharedTooltip = document.getElementById('shared-tooltip');
+            if (!sharedTooltip) {
+                sharedTooltip = document.createElement('div');
+                sharedTooltip.id = 'shared-tooltip';
+                sharedTooltip.className = 'shared-tooltip';
+                document.body.appendChild(sharedTooltip);
+            }
+            badgesContainer.appendChild(badgeEl);
+            if (window.innerWidth <= 1024) {
+                badgeEl.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+                        if (el !== badgeEl) el.classList.remove('active-tooltip');
+                    });
+                    badgeEl.classList.toggle('active-tooltip');
+                    if (badgeEl.classList.contains('active-tooltip')) {
+                        sharedTooltip.textContent = `${badge.name}: ${getBadgeDescription(badge.name)}`;
+                        const rect = badgeEl.getBoundingClientRect();
+                        sharedTooltip.style.left = `${rect.left + rect.width}px`;
+                        sharedTooltip.style.top = `${rect.bottom + 25}px`;
+                        sharedTooltip.style.display = 'block';
+                    } else {
+                        sharedTooltip.style.display = 'none';
+                    }
+                });
+            }
+        });
+    } else {
+        badgesContainer.innerHTML = '<span>No badges yet</span>';
+    }
+
+    description.textContent = `Placeholder description for ${member.name}.`;
+
+    communityMembers.forEach((member, index) => {
+        const bubble = member.querySelector('.hof-bubble');
+        bubble.onclick = () => {
+            if (index < totalNamedCommunityMembers) {
+                currentCommunityIndex = parseInt(member.getAttribute('data-index'));
+                updateCommunityCarousel();
+                resetCommunityAutoRotate();
+                if (window.innerWidth <= 768) {
+                    const featured = document.getElementById('hof-featured');
+                    const offset = 60;
+                    const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({
+                        top: featuredPosition - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        };
+        bubble.setAttribute('aria-label', `select ${member.getAttribute('data-name')}`);
+    });
+}
+
+function rotateHof(direction) {
+    if (direction === 'right') {
+        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+    } else if (direction === 'left') {
+        currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers;
+    }
+    updateCommunityCarousel();
+    resetCommunityAutoRotate();
+}
+
+// Hide tooltip on scroll for mobile
+window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 1024) {
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
+    }
+});
+
+function toggleBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    const isActive = content.classList.contains('active');
+    if (!isActive) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        content.style.opacity = '1';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips();
+    } else {
+        content.style.maxHeight = '0';
+        content.style.padding = '0 15px';
+        content.style.opacity = '0';
+        setTimeout(() => {
+            content.classList.remove('active');
+        }, 300);
+        header.classList.remove('active');
+        header.setAttribute('aria-expanded', 'false');
+        const sharedTooltip = document.getElementById('shared-tooltip');
+        if (sharedTooltip) {
+            sharedTooltip.style.display = 'none';
+        }
+        document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+            el.classList.remove('active-tooltip');
+        });
+    }
+}
+
+function initializeBadgeGlossaryTooltips() {
+    const badges = document.querySelectorAll('.badge-glossary-content .badge');
+    let sharedTooltip = document.getElementById('shared-tooltip');
+    if (!sharedTooltip) {
+        sharedTooltip = document.createElement('div');
+        sharedTooltip.id = 'shared-tooltip';
+        sharedTooltip.className = 'shared-tooltip';
+        document.body.appendChild(sharedTooltip);
+    }
+
+    badges.forEach(badge => {
+        // Remove any existing event listeners to prevent duplicates
+        const newBadge = badge.cloneNode(true);
+        badge.parentNode.replaceChild(newBadge, badge);
+
+        // Add tap-to-toggle for mobile
+        if (window.innerWidth <= 1024) {
+            newBadge.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Close other open tooltips
+                document.querySelectorAll('.badge-glossary-content .badge.active-tooltip').forEach(el => {
+                    if (el !== newBadge) el.classList.remove('active-tooltip');
+                });
+                // Toggle tooltip on this badge
+                newBadge.classList.toggle('active-tooltip');
+
+                // Position and show shared tooltip
+                if (newBadge.classList.contains('active-tooltip')) {
+                    sharedTooltip.textContent = newBadge.getAttribute('title');
+                    const rect = newBadge.getBoundingClientRect();
+                    sharedTooltip.style.left = `${rect.left + rect.width / 2}px`;
+                    sharedTooltip.style.top = `${rect.bottom + 25}px`; // Position 25px below badge
+                    sharedTooltip.style.display = 'block';
+                } else {
+                    sharedTooltip.style.display = 'none';
+                }
+            });
+        }
+    });
+}
+
+// Also call initializeBadgeGlossaryTooltips when opening via FAQ link
+function openBadgeGlossary() {
+    const content = document.getElementById('badgeGlossary');
+    const header = content.previousElementSibling;
+    if (!content.classList.contains('active')) {
+        content.classList.add('active');
+        content.style.maxHeight = `${content.scrollHeight + 30}px`;
+        content.style.padding = '15px';
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        initializeBadgeGlossaryTooltips(); // Initialize tooltips when opening
+    }
+}
+
+function autoRotateCommunity() {
+    currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+    updateCommunityCarousel();
+}
+
+let communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
+
+function resetCommunityAutoRotate() {
+    clearInterval(communityAutoRotateInterval);
+    communityAutoRotateInterval = setInterval(autoRotateCommunity, 10000);
+}
+
+const communityCarousel = document.querySelector('.hof-carousel');
+let communityTouchStartX = 0;
+communityCarousel.addEventListener('touchstart', (e) => {
+    communityTouchStartX = e.touches[0].clientX;
+    clearInterval(communityAutoRotateInterval); // Pause on touch
+});
+communityCarousel.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    if (communityTouchStartX - touchEndX > 50) rotateHof('right');
+    if (touchEndX - communityTouchStartX > 50) rotateHof('left');
+    resetCommunityAutoRotate(); // Resume after swipe
+});
+communityCarousel.addEventListener('mousedown', () => {
+    clearInterval(communityAutoRotateInterval); // Pause on click
+});
+communityCarousel.addEventListener('mouseup', () => {
+    resetCommunityAutoRotate(); // Resume after click
+});
+
 </body>
 </html>
