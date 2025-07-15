@@ -1,1 +1,1496 @@
 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Debt Culture Community - Meet the $DEBT movement's core members and badge holders.">
+    <meta name="keywords" content="$DEBT, Debt Culture, Solana, memecoin, community, members, badges">
+    <meta name="author" content="Debt Culture">
+    <title>Debt Culture - Community</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        canvas#matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+        }
+        canvas#matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 60px; /* Space for fixed footer */
+        }
+        .section {
+            text-align: center;
+            padding: 60px 20px;
+            opacity: 1;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+            margin-bottom: 40px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+            animation: neon-flicker 1.5s infinite alternate;
+        }
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        .back-home-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff5555;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulseGlow 1.5s infinite ease-in-out;
+        }
+        .back-home:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ff5555;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px #ff5555; }
+            50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
+            100% { box-shadow: 0 0 5px #ff5555; }
+        }
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            background-color: rgba(18, 18, 18, 0.5);
+            backdrop-filter: blur(5px);
+            color: #eee;
+            text-align: center;
+            padding: 10px 20px;
+            z-index: 1000;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.2);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .footer-link {
+            color: #ff5555;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .footer-link:hover {
+            color: #ff7777;
+            text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
+        }
+        .hof-carousel {
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+            position: relative;
+        }
+        .hof-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hof-featured {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .trading-card {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(255, 85, 85, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .trading-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff5555;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .hof-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff5555;
+        }
+        .card-level {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        .card-pfp-square {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 2px solid #ff5555;
+        }
+        .card-pfp-square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .pfp-link {
+            display: block;
+        }
+        .card-stats {
+            margin-top: 10px;
+        }
+        .divider {
+            height: 1px;
+            background: #ff5555;
+            margin: 10px 0;
+        }
+        .special-ability {
+            text-align: left;
+        }
+        .ability-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff5555;
+        }
+        .ability-content {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        .hof-row-desktop, .hof-row-mobile {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .hof-row-mobile {
+            display: none;
+        }
+        .hof-member {
+            text-align: center;
+        }
+        .hof-bubble {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 85, 85, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hof-inner-bubble {
+            width: 90px;
+            height: 90px;
+            background: #121212;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hof-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hof-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ff5555;
+        }
+        .hof-title {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            color: #fff;
+        }
+        .hof-description {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 20px auto;
+            color: #ccc;
+        }
+        .hof-blurb {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff5555;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 0 10px #ff5555;
+        }
+        .hof-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff5555;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hof-arrow:hover {
+            background: #ff7777;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 10px #ff5555;
+        }
+        .hof-left-arrow {
+            left: 10px;
+        }
+        .hof-right-arrow {
+            right: 10px;
+        }
+        .hof-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .badge:hover {
+            transform: scale(1.2);
+        }
+        .badge-spaces.badge-bronze { background: #cd7f32; }
+        .badge-spaces.badge-silver { background: #c0c0c0; }
+        .badge-spaces.badge-gold { background: #ffd700; }
+        .badge-spaces.badge-amethyst { background: #9966cc; }
+        .badge-burn.badge-bronze { background: #cd7f32; }
+        .badge-burn.badge-silver { background: #c0c0c0; }
+        .badge-burn.badge-gold { background: #ffd700; }
+        .badge-burn.badge-amethyst { background: #9966cc; }
+        .badge-holding.badge-bronze { background: #cd7f32; }
+        .badge-holding.badge-silver { background: #c0c0c0; }
+        .badge-holding.badge-gold { background: #ffd700; }
+        .badge-holding.badge-amethyst { background: #9966cc; }
+        .badge-shiller.badge-single { background: #ff5555; }
+        .badge-meme.badge-single { background: #ff5555; }
+        .badge-year1.badge-single { background: #ff5555; }
+        .badge-new.badge-single { background: #555; }
+        .badge-emblem {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .shared-tooltip {
+            position: fixed;
+            background: rgba(18, 18, 18, 0.95);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            z-index: 2000;
+            display: none;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            box-shadow: 0 0 10px rgba(255, 85, 85, 0.5);
+        }
+        .badge.active-tooltip {
+            transform: scale(1.2);
+        }
+        .badge-glossary-header {
+            font-size: 1.5rem;
+            color: #ff5555;
+            margin: 20px 0;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .badge-glossary-header:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px #ff5555;
+        }
+        .badge-glossary-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+            padding: 0 15px;
+            opacity: 0;
+        }
+        .badge-glossary-content.active {
+            max-height: 500px;
+            padding: 15px;
+            opacity: 1;
+        }
+        .badge-grid {
+            display: grid;
+            gap: 20px;
+        }
+        .badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .badge-wrapper {
+            text-align: center;
+        }
+        .badge-container {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+        }
+        .badge-name {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 5px;
+            display: block;
+        }
+        .badge-arrow {
+            font-size: 1.2rem;
+            color: #ff5555;
+        }
+        .invisible-arrow {
+            visibility: hidden;
+        }
+        @media (max-width: 768px) {
+            .section {
+                padding: 40px 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .back-home-container {
+                top: 10px;
+                left: 10px;
+            }
+            .back-home {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+                gap: 5px;
+            }
+            .hof-row-desktop {
+                display: none;
+            }
+            .hof-row-mobile {
+                display: flex;
+            }
+            .hof-bubble {
+                width: 80px;
+                height: 80px;
+            }
+            .hof-inner-bubble {
+                width: 70px;
+                height: 70px;
+            }
+            .hof-title {
+                font-size: 0.8rem;
+            }
+            .hof-arrow {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+            }
+            .badge-glossary-content.active {
+                max-height: 800px;
+            }
+            .shared-tooltip {
+                transform: none;
+            }
+            .footer {
+                display: none;
+            }
+        }
+        @media (max-width: 1024px) {
+            .badge:not(.badge-single) {
+                background: transparent !important;
+            }
+            .hof-row-desktop {
+                display: none;
+            }
+            .hof-row-mobile {
+                display: flex;
+            }
+        }
+        @media (min-width: 1025px) {
+            .badge-emblem {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    <canvas id="matrix-rain"></canvas>
+    <div class="content-wrapper">
+        <div class="back-home-container">
+            <a class="back-home" href="index.html" aria-label="Back to Home">
+                <span style="font-size: 1.2rem;">⇠</span> Back
+            </a>
+        </div>
+        <section id="community" class="section">
+            <h1>Community</h1>
+            <div class="hof-carousel">
+                <button class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" aria-label="Previous Community member">←</button>
+                <div class="hof-container">
+                    <div class="hof-featured" id="hof-featured">
+                        <div class="trading-card" data-x-link="https://x.com/AutopsyT2">
+                            <div class="card-header">
+                                <div class="hof-name">Autopsy</div>
+                                <div class="card-level">Lv. 99</div>
+                            </div>
+                            <div class="card-pfp-square">
+                                <a href="https://x.com/AutopsyT2" target="_blank" class="pfp-link">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="150" height="150" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="card-stats">
+                                <div class="hof-badges" id="hof-badges"></div>
+                                <div class="divider"></div>
+                                <div class="special-ability">
+                                    <div class="ability-title">Special Ability</div>
+                                    <div class="ability-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hof-description" id="hof-description"></div>
+                    <!-- Desktop Rows (4 rows of 6) -->
+                    <div class="hof-row-desktop">
+                        <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Autopsy</div>
+                        </div>
+                        <div class="hof-member" data-index="1" data-title="Catavina" data-x-link="https://x.com/catavina17" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Catavina</div>
+                        </div>
+                        <div class="hof-member" data-index="2" data-title="Lou" data-x-link="https://x.com/louisedbegin" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Lou</div>
+                        </div>
+                        <div class="hof-member" data-index="3" data-title="Nerf" data-x-link="https://x.com/0xnerf" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Nerf</div>
+                        </div>
+                        <div class="hof-member" data-index="4" data-title="JPEG" data-x-link="https://x.com/jpegfein" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">JPEG</div>
+                        </div>
+                        <div class="hof-member" data-index="5" data-title="Lunicking" data-x-link="https://x.com/Lunicking178677" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Lunicking</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-desktop hof-row-desktop-2">
+                        <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Tormund</div>
+                        </div>
+                        <div class="hof-member" data-index="7" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">STAYHIGH</div>
+                        </div>
+                        <div class="hof-member" data-index="8" data-title="Renee" data-x-link="https://x.com/ReneeBush96829" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Renee</div>
+                        </div>
+                        <div class="hof-member" data-index="9" data-title="blu" data-x-link="https://x.com/blu_chek" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">blu</div>
+                        </div>
+                        <div class="hof-member" data-index="10" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Scrappy</div>
+                        </div>
+                        <div class="hof-member" data-index="11" data-title="Mo" data-x-link="https://x.com/MoDegen1369" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg" alt="Mo profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Mo</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-desktop hof-row-desktop-3">
+                        <div class="hof-member" data-index="12" data-title="Cory B" data-x-link="https://x.com/coryb410" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Cory B</div>
+                        </div>
+                        <div class="hof-member" data-index="13" data-title="Dan" data-x-link="https://x.com/DanVibes10" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Dan</div>
+                        </div>
+                        <div class="hof-member" data-index="14" data-title="Tom" data-x-link="https://x.com/tholson90" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Tom</div>
+                        </div>
+                        <div class="hof-member" data-index="15" data-title="Marilyn" data-x-link="https://x.com/Marilyn_Moanroe" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Marilyn</div>
+                        </div>
+                        <div class="hof-member" data-index="16" data-title="Coinbud" data-x-link="https://x.com/madgamer1979" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Coinbud</div>
+                        </div>
+                        <div class="hof-member" data-index="17" data-title="ZOMBi" data-x-link="https://x.com/HauskenHelge" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">ZOMBi</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-desktop hof-row-desktop-4">
+                        <div class="hof-member" data-index="18" data-title="Cyanide" data-x-link="https://x.com/ipoopcrypto" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Cyanide</div>
+                        </div>
+                        <div class="hof-member" data-index="19" data-title="George" data-x-link="https://x.com/GeorgeCdr28874" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">George</div>
+                        </div>
+                        <div class="hof-member" data-index="20" data-title="Dog" data-x-link="https://x.com/Dog66515910" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748440557/Dog_iiq5g8.jpg" alt="Dog profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Dog</div>
+                        </div>
+                        <div class="hof-member" data-index="21" data-title="Drinks" data-x-link="https://x.com/drinkonsaturday" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906211/Drinks_tibhzd.jpg" alt="Drinks profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Drinks</div>
+                        </div>
+                        <div class="hof-member" data-index="22" data-title="Ambient" data-x-link="https://x.com/AmbientSound" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906930/Ambient_jztyfi.jpg" alt="Ambient profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Ambient</div>
+                        </div>
+                        <div class="hof-member" data-index="23" data-title="DK" data-x-link="https://x.com/PgHYinzer86" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748911711/DK_umvnpw.jpg" alt="DK profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">DK</div>
+                        </div>
+                        <div class="hof-row-desktop hof-row-desktop-5">
+                        <div class="hof-member" data-index="24" data-title="Rankin" data-x-link="https://x.com/rankin56696" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608381/rankin_rtxpjb.jpg" alt="Rankin profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Rankin</div>
+                        </div>
+                        <div class="hof-member" data-index="25" data-title="Riddler" data-x-link="https://x.com/CryptoBULLiever" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752607536/riddler_lhjzxw.jpg" alt="Riddler profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Riddler</div>
+                        </div>
+                        <div class="hof-member" data-index="26" data-title="Michael" data-x-link="https://x.com/Mich_ipromotion" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608011/michael_prp7ml.jpg" alt="Michael profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Michael</div>
+                        </div>
+                        <div class="hof-member" data-index="27" data-title="Bstr" data-x-link="https://x.com/Bstr___" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608094/bstr_knv2eq.jpg" alt="Bstr profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Bstr</div>
+                        </div>
+                        <div class="hof-member" data-index="28" data-title="Elvis" data-x-link="https://x.com/ElpatronSFC" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608182/Elvis_yrnpxh.png" alt="Elvis profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Elvis</div>
+                        </div>
+                        <div class="hof-member" data-index="29" data-title="Demitrieus" data-x-link="https://x.com/RecklesUnicorn" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608298/Demitrieus_yfwnic.jpg" alt="Demitrieus profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Demitrieus</div>
+                        </div>
+                    </div>
+                    <!-- Mobile Rows (6 rows of 4) -->
+                    <div class="hof-row-mobile">
+                        <div class="hof-member" data-index="0" data-title="Autopsy" data-x-link="https://x.com/AutopsyT2" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png" alt="Autopsy profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Autopsy</div>
+                        </div>
+                        <div class="hof-member" data-index="1" data-title="Catavina" data-x-link="https://x.com/catavina17" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Catavina</div>
+                        </div>
+                        <div class="hof-member" data-index="2" data-title="Lou" data-x-link="https://x.com/louisedbegin" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Lou</div>
+                        </div>
+                        <div class="hof-member" data-index="3" data-title="Nerf" data-x-link="https://x.com/0xnerf" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg" alt="Nerf profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Nerf</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-mobile hof-row-mobile-2">
+                        <div class="hof-member" data-index="4" data-title="JPEG" data-x-link="https://x.com/jpegfein" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">JPEG</div>
+                        </div>
+                        <div class="hof-member" data-index="5" data-title="Lunicking" data-x-link="https://x.com/Lunicking178677" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Lunicking</div>
+                        </div>
+                        <div class="hof-member" data-index="6" data-title="Tormund" data-x-link="https://x.com/Tormund_17" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Tormund</div>
+                        </div>
+                        <div class="hof-member" data-index="7" data-title="STAYHIGH" data-x-link="https://x.com/0xSTAYHIGH" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg" alt="STAYHIGH profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">STAYHIGH</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-mobile hof-row-mobile-3">
+                        <div class="hof-member" data-index="8" data-title="Renee" data-x-link="https://x.com/ReneeBush96829" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Renee</div>
+                        </div>
+                        <div class="hof-member" data-index="9" data-title="blu" data-x-link="https://x.com/blu_chek" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">blu</div>
+                        </div>
+                        <div class="hof-member" data-index="10" data-title="Scrappy" data-x-link="https://x.com/bigsoup6_7" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Scrappy</div>
+                        </div>
+                        <div class="hof-member" data-index="11" data-title="Mo" data-x-link="https://x.com/MoDegen1369" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg" alt="Mo profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Mo</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-mobile hof-row-mobile-4">
+                        <div class="hof-member" data-index="12" data-title="Cory B" data-x-link="https://x.com/coryb410" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Cory B</div>
+                        </div>
+                        <div class="hof-member" data-index="13" data-title="Dan" data-x-link="https://x.com/DanVibes10" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Dan</div>
+                        </div>
+                        <div class="hof-member" data-index="14" data-title="Tom" data-x-link="https://x.com/tholson90" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Tom</div>
+                        </div>
+                        <div class="hof-member" data-index="15" data-title="Marilyn" data-x-link="https://x.com/Marilyn_Moanroe" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Marilyn</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-mobile hof-row-mobile-5">
+                        <div class="hof-member" data-index="16" data-title="Coinbud" data-x-link="https://x.com/madgamer1979" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Coinbud</div>
+                        </div>
+                        <div class="hof-member" data-index="17" data-title="ZOMBi" data-x-link="https://x.com/HauskenHelge" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">ZOMBi</div>
+                        </div>
+                        <div class="hof-member" data-index="18" data-title="Cyanide" data-x-link="https://x.com/ipoopcrypto" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Cyanide</div>
+                        </div>
+                        <div class="hof-member" data-index="19" data-title="George" data-x-link="https://x.com/GeorgeCdr28874" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">George</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-mobile hof-row-mobile-6">
+                        <div class="hof-member" data-index="20" data-title="Dog" data-x-link="https://x.com/Dog66515910" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748440557/Dog_iiq5g8.jpg" alt="Dog profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Dog</div>
+                        </div>
+                        <div class="hof-member" data-index="21" data-title="Drinks" data-x-link="https://x.com/drinkonsaturday" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906211/Drinks_tibhzd.jpg" alt="Drinks profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Drinks</div>
+                        </div>
+                        <div class="hof-member" data-index="22" data-title="Ambient" data-x-link="https://x.com/AmbientSound" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906930/Ambient_jztyfi.jpg" alt="Ambient profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Ambient</div>
+                        </div>
+                        <div class="hof-member" data-index="23" data-title="DK" data-x-link="https://x.com/PgHYinzer86" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748911711/DK_umvnpw.jpg" alt="DK profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">DK</div>
+                        </div>
+                    </div>
+                    <div class="hof-row-mobile hof-row-mobile-7">
+                        <div class="hof-member" data-index="24" data-title="Rankin" data-x-link="https://x.com/rankin56696" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608381/rankin_rtxpjb.jpg" alt="Rankin profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Rankin</div>
+                        </div>
+                        <div class="hof-member" data-index="25" data-title="Riddler" data-x-link="https://x.com/CryptoBULLiever" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752607536/riddler_lhjzxw.jpg" alt="Riddler profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Riddler</div>
+                        </div>
+                        <div class="hof-member" data-index="26" data-title="Michael" data-x-link="https://x.com/Mich_ipromotion" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608011/michael_prp7ml.jpg" alt="Michael profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Michael</div>
+                        </div>
+                        <div class="hof-member" data-index="27" data-title="Bstr" data-x-link="https://x.com/Bstr___" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608094/bstr_knv2eq.jpg" alt="Bstr profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Bstr</div>
+                        </div>
+                    </div>
+                        <div class="hof-row-mobile hof-row-mobile-8">
+                        <div class="hof-member" data-index="28" data-title="Elvis" data-x-link="https://x.com/ElpatronSFC" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608182/Elvis_yrnpxh.png" alt="Elvis profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Elvis</div>
+                        </div>
+                        <div class="hof-member" data-index="29" data-title="Demitrieus" data-x-link="https://x.com/RecklesUnicorn" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608298/Demitrieus_yfwnic.jpg" alt="Demitrieus profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">Demitrieus</div>
+                        </div>
+                        <div class="hof-member" data-index="30" data-title="TBA" data-x-link="#" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608451/Q_gifxhk.jpg" alt="TBA profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                        <div class="hof-member" data-index="31" data-title="TBA" data-x-link="#" onclick="featureMember(this)">
+                            <div class="hof-bubble">
+                                <div class="hof-inner-bubble">
+                                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608451/Q_gifxhk.jpg" alt="TBA profile picture" width="100" height="100" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hof-title">TBA</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" aria-label="Next Community member">→</button>
+            </div>
+            <p class="hof-blurb">Crave $DEBT Hall of Fame glory? Go hard in X Spaces, HODL $DEBT, spam memes, recruit rebels, and bring chaos! Whales, memers, champs—OWN IT!</p>
+            <div class="badge-glossary-header" onclick="toggleBadgeGlossary()">Badge Glossary</div>
+            <div class="badge-glossary-content" id="badgeGlossary">
+                <div class="badge-grid">
+                    <!-- Spaces Badges -->
+                    <div class="badge-row">
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-spaces badge-bronze" title="Orbiter: Consistently shows up to X Spaces."></div>
+                            </div>
+                            <span class="badge-name">Orbiter</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-spaces badge-silver" title="Cosmonaut: Regularly engages in Spaces conversations."></div>
+                            </div>
+                            <span class="badge-name">Cosmonaut</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-spaces badge-gold" title="Star Commander: Leads conversations in $DEBT Spaces."></div>
+                            </div>
+                            <span class="badge-name">Star Commander</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-spaces badge-amethyst" title="Supernova: Hosts $DEBT-focused X Spaces."></div>
+                            </div>
+                            <span class="badge-name">Supernova</span>
+                        </div>
+                    </div>
+                    <!-- Burn Badges -->
+                    <div class="badge-row">
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-burn badge-bronze" title="Pyro: Burned 100,000+ $DEBT."></div>
+                            </div>
+                            <span class="badge-name">Pyro</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-burn badge-silver" title="Arsonist: Burned 1,000,000+ $DEBT."></div>
+                            </div>
+                            <span class="badge-name">Arsonist</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-burn badge-gold" title="Inferno: Burned 10,000,000+ $DEBT."></div>
+                            </div>
+                            <span class="badge-name">Inferno</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-burn badge-amethyst" title="Ashbringer: Burned 100,000,000+ $DEBT."></div>
+                            </div>
+                            <span class="badge-name">Ashbringer</span>
+                        </div>
+                    </div>
+                    <!-- Holding Badges -->
+                    <div class="badge-row">
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-holding badge-bronze" title="Cold Wallet: Held $DEBT for 1+ month."></div>
+                            </div>
+                            <span class="badge-name">Cold Wallet</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-holding badge-silver" title="Iron Grip: Held $DEBT for 3+ months."></div>
+                            </div>
+                            <span class="badge-name">Iron Grip</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-holding badge-gold" title="Steel Reserve: Held $DEBT for 6+ months, solid stack."></div>
+                            </div>
+                            <span class="badge-name">Steel Reserve</span>
+                        </div>
+                        <span class="badge-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-holding badge-amethyst" title="Diamond Hands: Held $DEBT for 1 year+, unshakeable holder."></div>
+                            </div>
+                            <span class="badge-name">Diamond Hands</span>
+                        </div>
+                    </div>
+                    <!-- Shiller, Meme, Year 1, and Coming Soon -->
+                    <div class="badge-row">
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-shiller badge-single" title="Cold Blooded Shiller: Hardcore $DEBT promoter on social media."></div>
+                            </div>
+                            <span class="badge-name">Cold Blooded Shiller</span>
+                        </div>
+                        <span class="invisible-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-meme badge-single" title="Meme Machine: Creates dank $DEBT memes."></div>
+                            </div>
+                            <span class="badge-name">Meme Machine</span>
+                        </div>
+                        <span class="invisible-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-year1 badge-single" title="Year 1: Heavily involved in the project during its first year.">
+                                    <span class="badge-emblem">1</span>
+                                </div>
+                            </div>
+                            <span class="badge-name">Year 1</span>
+                        </div>
+                        <span class="invisible-arrow">➔</span>
+                        <div class="badge-wrapper">
+                            <div class="badge-container">
+                                <div class="badge badge-new badge-single" title="Coming Soon: Placeholder for a future badge."></div>
+                            </div>
+                            <span class="badge-name">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">© 2025 by <a href="https://x.com/DebtCulture" target="_blank" class="footer-link">Debt Culture</a>. All rights reserved.</footer>
+    </div>
+    <div id="shared-tooltip" class="shared-tooltip"></div>
+    <script>
+        function initializeMatrix() {
+            const canvas = document.getElementById('matrix-bg');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                columns = Math.ceil(canvas.width / fontSize);
+                drops.length = columns;
+                for (let i = 0; i < drops.length; i++) {
+                    if (!drops[i]) drops[i] = 1;
+                }
+            }
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            window.addEventListener('resize', resizeCanvas);
+            
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const fontSize = 14;
+            let columns = Math.ceil(canvas.width / fontSize);
+            const drops = Array(columns).fill(1);
+            
+            function draw() {
+                ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ff5555';
+                ctx.font = `${fontSize}px monospace`;
+                
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            
+            setInterval(draw, 50);
+        }
+
+        function startMatrixRain() {
+            const rainCanvas = document.getElementById('matrix-rain');
+            const rainCtx = rainCanvas.getContext('2d');
+            rainCanvas.height = window.innerHeight;
+            rainCanvas.width = window.innerWidth;
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const fontSize = 14;
+            const columns = rainCanvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+            function drawRain() {
+                rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+                rainCtx.fillStyle = '#999999';
+                rainCtx.font = fontSize + 'px monospace';
+                drops.forEach((y, i) => {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    rainCtx.fillText(text, i * fontSize, y * fontSize);
+                    if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                });
+            }
+            setInterval(drawRain, 50);
+            window.addEventListener('resize', () => {
+                rainCanvas.height = window.innerHeight;
+                rainCanvas.width = window.innerWidth;
+            });
+        }
+
+        function getBadgeDescription(badgeName) {
+            const descriptions = {
+                'Orbiter': 'Consistently shows up to X Spaces.',
+                'Cosmonaut': 'Regularly engages in Spaces conversations.',
+                'Star Commander': 'Leads conversations in $DEBT Spaces.',
+                'Supernova': 'Hosts $DEBT-focused X Spaces.',
+                'Pyro': 'Burned 100,000+ $DEBT.',
+                'Arsonist': 'Burned 1,000,000+ $DEBT.',
+                'Inferno': 'Burned 10,000,000+ $DEBT.',
+                'Ashbringer': 'Burned 100,000,000+ $DEBT.',
+                'Cold Wallet': 'Held 1+ month.',
+                'Iron Grip': 'Held 3+ months.',
+                'Steel Reserve': 'Held 6+ months.',
+                'Diamond Hands': 'Held 12+ months.',
+                'Cold Blooded Shiller': 'Hardcore $DEBT promoter on social media.',
+                'Meme Machine': 'Creates dank $DEBT memes.',
+                'Year 1': 'Heavily involved in the project during its first year.'
+            };
+            return descriptions[badgeName] || 'Badge earned for community contributions.';
+        }
+
+        let currentCommunityIndex = 0;
+        const totalNamedCommunityMembers = 30;
+
+        function featureMember(element) {
+            currentCommunityIndex = parseInt(element.getAttribute('data-index'));
+            updateCommunityCarousel();
+            resetCommunityAutoRotate();
+            if (window.innerWidth <= 768) {
+                const featured = document.getElementById('hof-featured');
+                const offset = 60;
+                const featuredPosition = featured.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                    top: featuredPosition - offset,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function updateCommunityCarousel() {
+            const sharedTooltip = document.getElementById('shared-tooltip');
+            if (sharedTooltip) {
+                sharedTooltip.style.display = 'none';
+            }
+            document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+                el.classList.remove('active-tooltip');
+            });
+
+            const communityMembers = document.querySelectorAll(
+                window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+            );
+            if (!communityMembers.length) {
+                console.error('No community members found for carousel');
+                return;
+            }
+
+            const featured = document.getElementById('hof-featured');
+            const description = document.getElementById('hof-description');
+            const currentMember = communityMembers[currentCommunityIndex];
+            const xLink = currentMember.getAttribute('data-x-link');
+
+            const members = [
+                { name: 'Autopsy', title: 'The Visionary', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748143230/Autopsy2_odqa7c.png', desc: 'Placeholder description for Autopsy.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Inferno', tier: 'gold', type: 'burn' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+                { name: 'Catavina', title: 'The Cheerleader', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/catavina_dfcvoe.jpg', desc: 'Placeholder description for Catavina.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+                { name: 'Lou', title: 'The Rally', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/lou_r9z01b.jpg', desc: 'Placeholder description for Lou.', badges: [{ name: 'Supernova', tier: 'amethyst', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'Nerf', title: 'The Professional', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/nerf_vzsf6x.jpg', desc: 'Placeholder description for Nerf.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'JPEG', title: 'The Youngblood', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/jpeg_djfhql.jpg', desc: 'Placeholder description for JPEG.', badges: [{ name: 'Star Commander', tier: 'gold', type: 'spaces' }, { name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+                { name: 'Lunicking', title: 'The Spark', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Lunic_k1ndzn.jpg', desc: 'Placeholder description for Lunicking.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+                { name: 'Tormund', title: 'The Oracle', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg', desc: 'Placeholder description for Tormund.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+                { name: 'STAYHIGH', title: 'The Unfiltered', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/STAYHIGH_peo1ov.jpg', desc: 'Placeholder description for STAYHIGH.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Meme Machine', tier: 'single', type: 'meme' }] },
+                { name: 'Renee', title: 'The Support', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg', desc: 'Placeholder description for Renee.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Orbiter', tier: 'bronze', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'blu', title: 'The Warden', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg', desc: 'Placeholder description for blu.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'Scrappy', title: 'The Goofball', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746733145/scrappy_xfukkb.jpg', desc: 'Placeholder description for Scrappy.', badges: [{ name: 'Iron Grip', tier: 'silver', type: 'holding' }, { name: 'Cosmonaut', tier: 'silver', type: 'spaces' }] },
+                { name: 'Mo', title: 'The Degen', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747419309/MoDegen_gl6zjo.jpg', desc: 'Placeholder description for Mo.', badges: [{ name: 'Steel Reserve', tier: 'gold', type: 'holding' }] },
+                { name: 'Cory B', title: 'The Bengal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg', desc: 'Placeholder description for Cory B.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Dan', title: 'The Vibes', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Dan_uu4sey.jpg', desc: 'Placeholder description for Dan.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Tom', title: 'The King', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Tom_aapace.jpg', desc: 'Placeholder description for Tom.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Marilyn', title: 'The Rockstar', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Marilyn_agdeot.jpg', desc: 'Placeholder description for Marilyn.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'Coinbud', title: 'The Expert', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg', desc: 'Placeholder description for Coinbud.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'ZOMBi', title: 'The Creative', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg', desc: 'Placeholder description for ZOMBi.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Cyanide', title: 'The Poison', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747416884/Cyanide_w72xvh.jpg', desc: 'Placeholder description for Cyanide.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'George', title: 'The Wise', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1747417142/George_q1e0c2.jpg', desc: 'Placeholder description for George.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Dog', title: 'The Loyal', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748440557/Dog_iiq5g8.jpg', desc: 'Placeholder description for Dog.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'Drinks', title: 'The Party', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906211/Drinks_tibhzd.jpg', desc: 'Placeholder description for Drinks.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Ambient', title: 'The Vibe', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748906930/Ambient_jztyfi.jpg', desc: 'Placeholder description for Ambient.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'DK', title: 'The Maverick', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1748911711/DK_umvnpw.jpg', desc: 'Placeholder description for DK.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Rankin', title: 'TBA', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608381/rankin_rtxpjb.jpg', desc: 'Placeholder description for Cyanide.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Riddler', title: 'TBA', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1752607536/riddler_lhjzxw.jpg', desc: 'Placeholder description for George.', badges: [{ name: 'Cosmonaut', tier: 'silver', type: 'spaces' }, { name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Michael', title: 'TBA', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608011/michael_prp7ml.jpg', desc: 'Placeholder description for Dog.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }, { name: 'Cold Blooded Shiller', tier: 'single', type: 'shiller' }] },
+                { name: 'Bstr', title: 'TBA', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608094/bstr_knv2eq.jpg', desc: 'Placeholder description for Drinks.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Elvis', title: 'TBA', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608182/Elvis_yrnpxh.png', desc: 'Placeholder description for Ambient.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] },
+                { name: 'Demitrieus', title: 'TBA', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608298/Demitrieus_yfwnic.jpg', desc: 'Placeholder description for DK.', badges: [{ name: 'Cold Wallet', tier: 'bronze', type: 'holding' }] }
+            ];
+
+            const member = members[currentCommunityIndex];
+            const featuredCard = featured.querySelector('.trading-card');
+            const pfpLink = featuredCard.querySelector('.pfp-link');
+            featuredCard.setAttribute('data-x-link', xLink);
+            pfpLink.setAttribute('href', xLink);
+            featuredCard.querySelector('.card-pfp-square img').src = member.img;
+            featuredCard.querySelector('.card-pfp-square img').alt = `${member.name} profile picture`;
+            featuredCard.querySelector('.hof-name').textContent = member.name;
+
+            const badgesContainer = document.getElementById('hof-badges');
+            badgesContainer.innerHTML = '';
+            if (member.badges && member.badges.length > 0) {
+                member.badges.forEach(badge => {
+                    const badgeEl = document.createElement('div');
+                    badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
+                    badgeEl.setAttribute('aria-label', `${badge.name} (${badge.tier} tier)`);
+                    if (window.innerWidth > 1024) {
+                        badgeEl.setAttribute('title', `${badge.name}: ${getBadgeDescription(badge.name)}`);
+                    }
+
+                    const emblemImg = document.createElement('img');
+                    emblemImg.className = 'badge-emblem';
+                    let emblemSrc = '';
+                    if (badge.type === 'spaces') {
+                        if (badge.tier === 'amethyst') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/moonwalker_bdgfiy.png';
+                        if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/starcommander_dfcvoe.png';
+                    if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/cosmonaut_k1ndzn.png';
+                    if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/orbiter_peo1ov.png';
+                } else if (badge.type === 'burn') {
+                    if (badge.tier === 'amethyst') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/ashbringer_r9z01b.png';
+                    if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/inferno_vzsf6x.png';
+                    if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/arsonist_djfhql.png';
+                    if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/pyro_pj4hwd.png';
+                } else if (badge.type === 'holding') {
+                    if (badge.tier === 'amethyst') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/diamondhands_fko02p.png';
+                    if (badge.tier === 'gold') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/steelreserve_xfukkb.png';
+                    if (badge.tier === 'silver') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/irongrip_gl6zjo.png';
+                    if (badge.tier === 'bronze') emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/coldwallet_qntp8y.png';
+                } else if (badge.type === 'shiller') {
+                    emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/shiller_uu4sey.png';
+                } else if (badge.type === 'meme') {
+                    emblemSrc = 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/meme_aapace.png';
+                }
+                if (emblemSrc) {
+                    emblemImg.src = emblemSrc;
+                    emblemImg.alt = `${badge.name} badge`;
+                    badgeEl.appendChild(emblemImg);
+                }
+                badgesContainer.appendChild(badgeEl);
+            });
+            }
+
+            featuredCard.querySelector('.card-level').textContent = `Lv. ${Math.floor(Math.random() * 100)}`;
+            featuredCard.querySelector('.ability-content').textContent = member.desc;
+            description.textContent = member.desc;
+
+            const currentTier = member.badges && member.badges.length > 0 ? member.badges[0].tier : 'bronze';
+            const colors = {
+                amethyst: '#9966cc',
+                gold: '#ffd700',
+                silver: '#c0c0c0',
+                bronze: '#cd7f32'
+            };
+            featuredCard.style.border = `2px solid ${colors[currentTier] || '#ff5555'}`;
+            featuredCard.querySelector('.card-pfp-square').style.border = `2px solid ${colors[currentTier] || '#ff5555'}`;
+        }
+
+        function rotateHof(direction) {
+            const communityMembers = document.querySelectorAll(
+                window.innerWidth > 768 ? '.hof-row-desktop .hof-member' : '.hof-row-mobile .hof-member'
+            );
+            if (direction === 'left') {
+                currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers;
+            } else {
+                currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+            }
+            updateCommunityCarousel();
+            resetCommunityAutoRotate();
+        }
+
+        function toggleBadgeGlossary() {
+            const glossary = document.getElementById('badgeGlossary');
+            glossary.classList.toggle('active');
+        }
+
+        function initializeBadgeGlossaryTooltips() {
+            const tooltip = document.getElementById('shared-tooltip');
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                document.querySelectorAll('.badge').forEach(badge => {
+                    badge.addEventListener('click', function (e) {
+                        const currentActive = document.querySelector('.badge.active-tooltip');
+                        if (currentActive && currentActive !== badge) {
+                            currentActive.classList.remove('active-tooltip');
+                            tooltip.style.display = 'none';
+                        }
+                        const badgeName = badge.getAttribute('title')?.split(':')[0]?.trim() || 'Unknown';
+                        const description = getBadgeDescription(badgeName);
+                        tooltip.textContent = `${badgeName}: ${description}`;
+                        tooltip.style.display = 'block';
+                        const rect = badge.getBoundingClientRect();
+                        tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+                        tooltip.style.left = `${rect.left + rect.width / 2}px`;
+                        badge.classList.toggle('active-tooltip');
+                    });
+                });
+                document.addEventListener('click', function (e) {
+                    if (!e.target.closest('.badge') && !e.target.closest('.shared-tooltip')) {
+                        tooltip.style.display = 'none';
+                        document.querySelectorAll('.badge.active-tooltip').forEach(el => {
+                            el.classList.remove('active-tooltip');
+                        });
+                    }
+                });
+            } else {
+                document.querySelectorAll('.badge').forEach(badge => {
+                    badge.addEventListener('mouseenter', function (e) {
+                        const badgeName = badge.getAttribute('title')?.split(':')[0]?.trim() || 'Unknown';
+                        const description = getBadgeDescription(badgeName);
+                        tooltip.textContent = `${badgeName}: ${description}`;
+                        tooltip.style.display = 'block';
+                        const rect = badge.getBoundingClientRect();
+                        tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+                        tooltip.style.left = `${rect.left + rect.width / 2}px`;
+                    });
+                    badge.addEventListener('mouseleave', function () {
+                        tooltip.style.display = 'none';
+                    });
+                });
+            }
+        }
+
+        function openBadgeGlossary() {
+            const glossary = document.getElementById('badgeGlossary');
+            if (!glossary.classList.contains('active')) {
+                toggleBadgeGlossary();
+            }
+        }
+
+        let autoRotateInterval;
+        function autoRotateCommunity() {
+            autoRotateInterval = setInterval(() => {
+                rotateHof('right');
+            }, 5000);
+        }
+
+        function resetCommunityAutoRotate() {
+            clearInterval(autoRotateInterval);
+            autoRotateCommunity();
+        }
+
+        window.addEventListener('load', () => {
+            initializeMatrix();
+            startMatrixRain();
+            updateCommunityCarousel();
+            initializeBadgeGlossaryTooltips();
+            autoRotateCommunity();
+        });
+    </script>
+</body>
+</html>
