@@ -1,86 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Debt Culture Merchandise - Join the rebellion with exclusive $DEBT gear.">
-    <meta name="keywords" content="Debt Culture, $DEBT, merchandise, crypto, memecoin, Solana">
-    <meta name="author" content="Autopsy">
-    <title>Debt Culture - Merchandise</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #121212;
-            color: #fff;
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Debt Culture Forum - Join the rebellion, share your voice." />
+  <meta name="keywords" content="Debt Culture, $DEBT, forum, crypto, memecoin, Solana" />
+  <meta name="author" content="Autopsy" />
+  <title>Debt Culture - Forum (Under Construction)</title>
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png"
+  />
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Back Home button - same style as merch */
+    .back-home-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+    .back-home {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ff5555;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 700;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulseGlow 1.5s infinite ease-in-out;
+    }
+    .back-home:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff5555;
+    }
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 5px #ff5555;
+      }
+      50% {
+        box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555;
+      }
+      100% {
+        box-shadow: 0 0 5px #ff5555;
+      }
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-top: 80px; /* leave space for fixed back button */
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #ff5555;
+      text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+      font-weight: 700;
+      animation: neon-flicker 1.5s infinite alternate;
+      user-select: none;
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #ff9999;
+      text-shadow: 0 0 5px #ff5555;
+      font-weight: 600;
+    }
+
+    @keyframes neon-flicker {
+      0%,
+      19%,
+      21%,
+      23%,
+      25%,
+      54%,
+      56%,
+      100% {
+        text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+      }
+      20%,
+      24%,
+      55% {
+        text-shadow: none;
+      }
+    }
+
+    /* Under Construction Banner */
+    .under-construction {
+      background: #330000;
+      border: 2px solid #ff5555;
+      color: #ff5555;
+      padding: 15px 30px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 12px;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 0 20px #ff5555;
+      user-select: none;
+    }
+
+    /* Forum Section */
+    #forum {
+      background: #1a1a1a;
+      border: 1px solid #ff5555;
+      border-radius: 15px;
+      padding: 30px 40px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 0 30px #ff5555;
+    }
+    #forum h2 {
+      color: #ff5555;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      text-shadow: 0 0 10px #ff5555;
+      user-select: none;
+    }
+    #forum p.description {
+      color: #ff9999;
+      margin-bottom: 25px;
+      font-weight: 600;
+      text-shadow: 0 0 5px #ff5555;
+    }
+    #forum textarea {
+      width: 100%;
+      height: 110px;
+      background-color: #222;
+      color: #fff;
+      border: 1.5px solid #ff5555;
+      border-radius: 10px;
+      padding: 15px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    #forum textarea:focus {
+      border-color: #ff7777;
+      box-shadow: 0 0 10px #ff5555;
+    }
+    #forum button {
+      margin-top: 15px;
+      padding: 12px 30px;
+      background-color: #ff5555;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #forum button:hover {
+      background-color: #ff7777;
+      box-shadow: 0 0 15px #ff5555;
+    }
+    #forum button:disabled {
+      background-color: #990000;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Messages container */
+    #forumMessages {
+      margin-top: 40px;
+      max-height: 350px;
+      overflow-y: auto;
+      border-top: 1px solid #ff5555;
+      padding-top: 20px;
+    }
+    #forumMessages div.message {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #444;
+      user-select: text;
+    }
+    #forumMessages div.message:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    #forumMessages div.message p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #fff;
+    }
+    #forumMessages div.message strong {
+      color: #ff5555;
+      user-select: text;
+    }
+    #forumMessages div.message em {
+      font-size: 0.75rem;
+      color: #ff9999;
+      user-select: text;
+    }
+
+    /* Scrollbar */
+    #forumMessages::-webkit-scrollbar {
+      width: 8px;
+    }
+    #forumMessages::-webkit-scrollbar-thumb {
+      background-color: #ff5555;
+      border-radius: 4px;
+    }
+    #forumMessages::-webkit-scrollbar-track {
+      background: #121212;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #forum {
+        padding: 20px 25px;
+      }
+      header h1 {
+        font-size: 2.2rem;
+      }
+      #forum h2 {
+        font-size: 1.5rem;
+      }
+      #forum textarea {
+        height: 90px;
+      }
+    }
+  </style>
 </head>
 <body>
-<canvas id="matrix-bg"></canvas>
-<canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
+  <div class="back-home-container">
+    <a href="index.html" class="back-home" aria-label="Back to Home">⇠ Back</a>
+  </div>
 
-<div class="navbar-links">
-    <a href="index.html" class="hover-underline">Home</a>
-</div>
-
-  <header style="padding: 20px; background-color: #0f0f0f; color: #fff; text-align: center;">
+  <header>
     <h1>📡 DEBT Forum</h1>
-    <p style="margin: 10px 0;">Where rebels write history.</p>
-    <a href="index.html" style="color: #e60000; text-decoration: none;">⬅ Back to Main Site</a>
+    <p>Where rebels write history.</p>
   </header>
 
-  <section id="forum" style="background-color: #111; color: #f5f5f5; padding: 40px; min-height: 80vh;">
-    <div class="container">
-      <h2 style="font-size: 32px; margin-bottom: 20px;">🗣️ Global Forum</h2>
-      <p style="margin-bottom: 20px;">Leave a message. We'll build on this soon.</p>
-      
-      <textarea id="forumInput" placeholder="Write your message here..." style="width: 100%; height: 100px; background-color: #222; color: #fff; border: 1px solid #555; padding: 10px;"></textarea>
-      <button onclick="submitForumPost()" style="margin-top: 10px; padding: 10px 20px; background-color: #e60000; color: white; border: none; cursor: pointer;">Post</button>
+  <div class="under-construction" role="alert" aria-live="polite">
+    ⚠️ Under Construction — Forum is a work in progress. Posts are local only and not shared globally.
+  </div>
 
-      <div id="forumMessages" style="margin-top: 40px;"></div>
-    </div>
+  <section id="forum" aria-label="Debt Culture Forum">
+    <h2>🗣️ Global Forum</h2>
+    <p class="description">Leave a message. We’ll build on this soon.</p>
+    <textarea
+      id="forumInput"
+      aria-label="Write your message here"
+      placeholder="Write your message here..."
+      maxlength="500"
+    ></textarea>
+    <button id="postBtn" onclick="submitForumPost()" disabled>Post</button>
+
+    <div id="forumMessages" aria-live="polite" aria-relevant="additions"></div>
   </section>
 
-<script>
-  const forumMessages = JSON.parse(localStorage.getItem("debtForumMessages") || "[]");
+  <script>
+    // Retrieve messages from localStorage or initialize empty
+    const forumMessages = JSON.parse(localStorage.getItem("debtForumMessages") || "[]");
 
-  function submitForumPost() {
+    // DOM Elements
     const input = document.getElementById("forumInput");
-    const message = input.value.trim();
-    if (!message) return;
-
-    const wallet = window?.solana?.publicKey?.toString() || "Anonymous";
-    const post = { user: wallet, text: message, time: new Date().toLocaleString() };
-    forumMessages.unshift(post);
-    localStorage.setItem("debtForumMessages", JSON.stringify(forumMessages));
-    input.value = "";
-    displayForumMessages();
-  }
-
-  function displayForumMessages() {
+    const postBtn = document.getElementById("postBtn");
     const forumDiv = document.getElementById("forumMessages");
-    forumDiv.innerHTML = "";
-    forumMessages.forEach((msg) => {
-      const el = document.createElement("div");
-      el.innerHTML = `<p><strong>${msg.user}</strong> <em style="font-size: 12px;">[${msg.time}]</em><br>${msg.text}</p><hr>`;
-      forumDiv.appendChild(el);
+
+    // Enable/disable post button based on input
+    input.addEventListener("input", () => {
+      postBtn.disabled = input.value.trim().length === 0;
     });
-  }
 
-  window.onload = () => {
-    displayForumMessages();
-  };
-</script>
+    // Submit post function
+    function submitForumPost() {
+      const message = input.value.trim();
+      if (!message) return;
 
+      // Using wallet address if available, else Anonymous
+      const wallet = window?.solana?.publicKey?.toString() || "Anonymous";
+
+      // Create post object with timestamp
+      const post = {
+        user: wallet,
+        text: message,
+        time: new Date().toLocaleString(),
+      };
+
+      forumMessages.unshift(post);
+      localStorage.setItem("debtForumMessages", JSON.stringify(forumMessages));
+
+      input.value = "";
+      postBtn.disabled = true;
+      displayForumMessages();
+    }
+
+    // Render posts to page
+    function displayForumMessages() {
+      forumDiv.innerHTML = "";
+      if (forumMessages.length === 0) {
+        forumDiv.innerHTML = '<p style="color:#ff5555; user-select:none;">No posts yet. Be the first rebel to speak up.</p>';
+        return;
+      }
+      forumMessages.forEach((msg) => {
+        const el = document.createElement("div");
+        el.classList.add("message");
+        el.innerHTML = `
+          <p><strong>${msg.user}</strong> <em>[${msg.time}]</em><br>${msg.text}</p>
+        `;
+        forumDiv.appendChild(el);
+      });
+    }
+
+    // On page load
+    window.onload = () => {
+      displayForumMessages();
+      postBtn.disabled = true; // start disabled
+    };
+  </script>
 </body>
 </html>
