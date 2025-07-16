@@ -46,6 +46,7 @@
     }
     #matrix-bg {
       opacity: 0.07;
+      z-index: -2;
     }
     #matrix-rain {
       opacity: 0.25;
@@ -318,72 +319,89 @@
   </section>
 
   <script>
-    // Matrix rain effect (two layers for depth)
-    const canvasBg = document.getElementById('matrix-bg');
-    const ctxBg = canvasBg.getContext('2d');
-    const canvasRain = document.getElementById('matrix-rain');
-    const ctxRain = canvasRain.getContext('2d');
+    // Matrix Background Layer
+    (function () {
+      const canvas = document.getElementById('matrix-bg');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      const fontSize = 14;
+      let columns;
+      let drops = [];
 
-    function setupCanvas(canvas, ctx) {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      ctx.fontSize = 14;
-      ctx.font = '14px Courier New';
-    }
-    setupCanvas(canvasBg, ctxBg);
-    setupCanvas(canvasRain, ctxRain);
-
-    // Characters - classic matrix glyphs (some kanji + numbers + letters)
-    const matrixChars = 'アァイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-    // Matrix rain streams for each canvas
-    class MatrixStream {
-      constructor(ctx, fontSize, opacity, speed) {
-        this.ctx = ctx;
-        this.fontSize = fontSize;
-        this.opacity = opacity;
-        this.speed = speed;
-        this.columns = Math.floor(window.innerWidth / this.fontSize);
-        this.drops = Array(this.columns).fill(1);
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        columns = Math.ceil(width / fontSize);
+        drops = new Array(columns).fill(1);
       }
-      draw() {
-        const ctx = this.ctx;
-        ctx.fillStyle = `rgba(0, 0, 0, ${this.opacity})`;
-        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      window.addEventListener('resize', resize);
+      resize();
 
-        ctx.fillStyle = `rgba(0, 255, 70, ${this.opacity})`;
-        ctx.font = `${this.fontSize}px Courier New`;
+      const chars = 'アァイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        for (let i = 0; i < this.drops.length; i++) {
-          const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-          ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
+      function draw() {
+        ctx.fillStyle = 'rgba(18, 18, 18, 0.93)'; // Dark with slight opacity to fade old chars
+        ctx.fillRect(0, 0, width, height);
 
-          if (this.drops[i] * this.fontSize > window.innerHeight && Math.random() > 0.975) {
-            this.drops[i] = 0;
+        ctx.fillStyle = '#ff5555';
+        ctx.font = fontSize + 'px Courier New';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > height && Math.random() > 0.975) {
+            drops[i] = 0;
           }
-          this.drops[i] += this.speed;
+          drops[i]++;
         }
       }
-    }
+      setInterval(draw, 50);
+    })();
 
-    let matrixBgStream = new MatrixStream(ctxBg, 14, 0.04, 1);
-    let matrixRainStream = new MatrixStream(ctxRain, 14, 0.18, 1.8);
+    // Matrix Rain Layer (top, lighter)
+    (function () {
+      const canvas = document.getElementById('matrix-rain');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      const fontSize = 14;
+      let columns;
+      let drops = [];
 
-    function animate() {
-      matrixBgStream.draw();
-      matrixRainStream.draw();
-      requestAnimationFrame(animate);
-    }
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        columns = Math.ceil(width / fontSize);
+        drops = new Array(columns).fill(1);
+      }
+      window.addEventListener('resize', resize);
+      resize();
 
-    animate();
+      const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    // Handle resize
-    window.addEventListener('resize', () => {
-      setupCanvas(canvasBg, ctxBg);
-      setupCanvas(canvasRain, ctxRain);
-      matrixBgStream = new MatrixStream(ctxBg, 14, 0.04, 1);
-      matrixRainStream = new MatrixStream(ctxRain, 14, 0.18, 1.8);
-    });
+      function draw() {
+        ctx.fillStyle = 'rgba(18, 18, 18, 0.9)'; // Slightly more opaque background fade for top layer
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = '#ff9999';
+        ctx.font = fontSize + 'px Courier New';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      setInterval(draw, 50);
+    })();
 
     // Forum functionality
     const forumMessages = JSON.parse(localStorage.getItem("debtForumMessages") || "[]");
