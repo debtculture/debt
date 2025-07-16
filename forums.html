@@ -30,7 +30,28 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
+    /* Matrix canvases */
+    #matrix-bg, #matrix-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      user-select: none;
+      z-index: -2;
+    }
+    #matrix-bg {
+      opacity: 0.07;
+    }
+    #matrix-rain {
+      opacity: 0.25;
+      z-index: -1;
+    }
+
     /* Back Home button - same style as merch */
     .back-home-container {
       position: fixed;
@@ -52,6 +73,7 @@
       font-weight: 700;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: pulseGlow 1.5s infinite ease-in-out;
+      user-select: none;
     }
     .back-home:hover {
       transform: scale(1.1);
@@ -74,6 +96,8 @@
       text-align: center;
       margin-top: 80px; /* leave space for fixed back button */
       margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
     }
     header h1 {
       font-size: 3rem;
@@ -124,6 +148,8 @@
       margin: 0 auto 40px auto;
       box-shadow: 0 0 20px #ff5555;
       user-select: none;
+      position: relative;
+      z-index: 1;
     }
 
     /* Forum Section */
@@ -135,6 +161,8 @@
       width: 100%;
       max-width: 700px;
       box-shadow: 0 0 30px #ff5555;
+      position: relative;
+      z-index: 1;
     }
     #forum h2 {
       color: #fff;
@@ -198,6 +226,8 @@
       overflow-y: auto;
       border-top: 1px solid #ff5555;
       padding-top: 20px;
+      position: relative;
+      z-index: 1;
     }
     #forumMessages div.message {
       margin-bottom: 20px;
@@ -255,6 +285,9 @@
   </style>
 </head>
 <body>
+  <canvas id="matrix-bg"></canvas>
+  <canvas id="matrix-rain"></canvas>
+
   <div class="back-home-container">
     <a href="index.html" class="back-home" aria-label="Back to Home">⇠ Back</a>
   </div>
@@ -283,28 +316,90 @@
   </section>
 
   <script>
-    // Retrieve messages from localStorage or initialize empty
+    // Matrix rain effect (two layers for depth)
+    const canvasBg = document.getElementById('matrix-bg');
+    const ctxBg = canvasBg.getContext('2d');
+    const canvasRain = document.getElementById('matrix-rain');
+    const ctxRain = canvasRain.getContext('2d');
+
+    function setupCanvas(canvas, ctx) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      ctx.fontSize = 14;
+      ctx.font = '14px Courier New';
+    }
+    setupCanvas(canvasBg, ctxBg);
+    setupCanvas(canvasRain, ctxRain);
+
+    // Characters - classic matrix glyphs (some kanji + numbers + letters)
+    const matrixChars = 'アァイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    // Matrix rain streams for each canvas
+    class MatrixStream {
+      constructor(ctx, fontSize, opacity, speed) {
+        this.ctx = ctx;
+        this.fontSize = fontSize;
+        this.opacity = opacity;
+        this.speed = speed;
+        this.columns = Math.floor(window.innerWidth / this.fontSize);
+        this.drops = Array(this.columns).fill(1);
+      }
+      draw() {
+        const ctx = this.ctx;
+        ctx.fillStyle = `rgba(0, 0, 0, ${this.opacity})`;
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+        ctx.fillStyle = `rgba(0, 255, 70, ${this.opacity})`;
+        ctx.font = `${this.fontSize}px Courier New`;
+
+        for (let i = 0; i < this.drops.length; i++) {
+          const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+          ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
+
+          if (this.drops[i] * this.fontSize > window.innerHeight && Math.random() > 0.975) {
+            this.drops[i] = 0;
+          }
+          this.drops[i] += this.speed;
+        }
+      }
+    }
+
+    let matrixBgStream = new MatrixStream(ctxBg, 14, 0.04, 1);
+    let matrixRainStream = new MatrixStream(ctxRain, 14, 0.18, 1.8);
+
+    function animate() {
+      matrixBgStream.draw();
+      matrixRainStream.draw();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      setupCanvas(canvasBg, ctxBg);
+      setupCanvas(canvasRain, ctxRain);
+      matrixBgStream = new MatrixStream(ctxBg, 14, 0.04, 1);
+      matrixRainStream = new MatrixStream(ctxRain, 14, 0.18, 1.8);
+    });
+
+    // Forum functionality
     const forumMessages = JSON.parse(localStorage.getItem("debtForumMessages") || "[]");
 
-    // DOM Elements
     const input = document.getElementById("forumInput");
     const postBtn = document.getElementById("postBtn");
     const forumDiv = document.getElementById("forumMessages");
 
-    // Enable/disable post button based on input
     input.addEventListener("input", () => {
       postBtn.disabled = input.value.trim().length === 0;
     });
 
-    // Submit post function
     function submitForumPost() {
       const message = input.value.trim();
       if (!message) return;
 
-      // Using wallet address if available, else Anonymous
       const wallet = window?.solana?.publicKey?.toString() || "Anonymous";
 
-      // Create post object with timestamp
       const post = {
         user: wallet,
         text: message,
@@ -319,7 +414,6 @@
       displayForumMessages();
     }
 
-    // Render posts to page
     function displayForumMessages() {
       forumDiv.innerHTML = "";
       if (forumMessages.length === 0) {
@@ -336,10 +430,9 @@
       });
     }
 
-    // On page load
     window.onload = () => {
       displayForumMessages();
-      postBtn.disabled = true; // start disabled
+      postBtn.disabled = true;
     };
   </script>
 </body>
