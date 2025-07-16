@@ -33,6 +33,31 @@
       position: relative;
       z-index: 1;
     }
+    .footer {
+            position: fixed; 
+            bottom: 15px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: auto; 
+            background-color: rgba(18, 18, 18, 0.5); 
+            backdrop-filter: blur(5px); 
+            color: #eee; 
+            text-align: center; 
+            padding: 10px 20px; 
+            z-index: 1000; 
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 85, 85, 0.3); 
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); 
+        }
+        .footer-link {
+            color: #ff5555;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .footer-link:hover {
+            color: #ff7777;
+            text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
+        }
 
     /* Back Home button */
     .back-home-container {
@@ -238,8 +263,11 @@
       #forum textarea {
         height: 90px;
       }
+      .footer {
+        display: none;
     }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div class="back-home-container">
@@ -268,7 +296,7 @@
 
     <div id="forumMessages" aria-live="polite" aria-relevant="additions"></div>
   </section>
-
+  <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
   <script>
     const forumMessages = JSON.parse(localStorage.getItem("debtForumMessages") || "[]");
 
