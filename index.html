@@ -177,10 +177,10 @@
     .buy-step { overflow-x: hidden; }
     .buy-step .step-content { overflow-y: hidden; }
     .copyable-address { display: inline-block; max-height: 2.2rem; overflow-y: hidden; }
-    #community { padding: 80px 0 60px; position: relative; z-index: 1;  }
+    #community { margin-top: -700px; padding-bottom: 60px; min-height: auto; }
     .hof-carousel { max-width: 600px; height: 450px; }
     .faq-container { max-width: 800px; }
-    .hof-blurb { margin: 0 auto 40px; }
+    .hof-blurb { margin: 670px auto 20px; }
 }
         @media (max-width: 768px) {
     #roadmap { margin-top: -150px; }
@@ -189,7 +189,7 @@
     .hof-to-faq { margin-bottom: 34px; }
     .community-to-faq { margin-top: -130px; } /* Move up 130px total */
     section#faq { margin-top: -30px; padding: 20px; } /* Move down 20px more from -50px */
-    .hof-blurb { margin: 880px auto 20px; }
+    .hof-blurb { margin: 980px auto 20px; }
     #community { margin-top: -90px; }
     .hof-row-mobile { gap: 10px; margin-top: 30px; margin-bottom: 10px; flex-wrap: nowrap; }
     .disclaimer { margin: 1px auto 15px; }
@@ -502,7 +502,7 @@
     font-size: 16px;
 } /* Laughing emoji */
 
-    #community { padding-bottom: 60px; clear: both; }
+    #community { padding-bottom: 60px; }
 .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; height: 500px; display: flex; align-items: center; justify-content: center; }
 @media (min-width: 769px) {
     .hof-carousel { max-width: 740px; }
@@ -726,7 +726,7 @@ body:not(:has(.social-bubbles.active))::before {
     .hof-arrow { font-size: 1.5rem; top: 80px; }
     .hof-left-arrow { left: 10px; }
     .hof-right-arrow { right: 10px; }
-    .hof-description { font-size: 1rem; max-width: 300px; margin: 15px auto; }
+    .hof-description { font-size: 1rem; max-width: 300px; margin: 0px auto; }
 }
 /* Badge Glossary Styles */
 .badge-glossary-container {
@@ -1042,6 +1042,10 @@ body:not(:has(.social-bubbles.active))::before {
     width: 24px;
     height: 24px;
 }
+}
+    @media (min-width: 769px) {
+    #hero { margin-top: 70px; }
+    #community { margin-top: -580px; padding-bottom: 60px; min-height: auto; }
 }
 .connect-wallet-mobile { 
     display: none; /* Hidden by default */
@@ -1949,7 +1953,7 @@ window.onload = fetchTokenomicsData;
         <div class="tracker-section">
   <div class="burn-tracker">
     <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer">🔥 Burn Tracker</a>
-    <p class="tracker-blurb">Their debt balloons, ours burns to ash. 60 million+ $DEBT gone and counting.</p>
+    <p class="tracker-blurb">Their debt balloons, ours burns to ash. 60M+ $DEBT gone and counting.</p>
   </div>
   
   <div class="vault-tracker">
