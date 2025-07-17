@@ -1696,27 +1696,62 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 }
 @media (max-width: 768px) {
-    #audioPlayerMobile {
+    .audio-player-mobile-wrapper {
         position: fixed;
         top: 6px;
         left: calc(50% - 40px);
         transform: translateX(-50%);
         z-index: 1000;
-        padding: 2px;
         width: calc(100% - 60px);
         max-width: 120px;
         box-sizing: border-box;
+    }
+
+    .single-play-button {
+        background: #ff5555;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin: 0 auto;
+    }
+
+    .single-play-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #ff5555;
+    }
+
+    .single-play-button:focus {
+        outline: 2px solid #ff7777;
+        outline-offset: 2px;
+    }
+
+    .audio-player-mobile {
         background: #1e1e1e;
         border: 1px solid #ff5555;
         border-radius: 5px;
-        display: flex;
+        padding: 2px;
+        display: none;
         flex-direction: column;
         align-items: center;
     }
+
+    .audio-player-mobile.active {
+        display: flex;
+    }
+
     .audio-player-mobile .audio-controls {
         display: flex;
         gap: 5px;
     }
+
     .audio-player-mobile .audio-btn {
         background: none;
         border: none;
@@ -1726,22 +1761,27 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         padding: 2px;
         transition: transform 0.3s ease, text-shadow 0.3s ease;
     }
+
     .audio-player-mobile .audio-btn:hover {
         transform: scale(1.2);
         text-shadow: 0 0 10px #ff5555;
     }
+
     .audio-player-mobile .audio-btn.play::before {
         content: '▶';
     }
+
     .audio-player-mobile .audio-btn.pause::before {
         content: '⏸';
     }
+
     #track-info-mobile {
         width: 100%;
         overflow: hidden;
         white-space: nowrap;
         margin-top: 2px;
     }
+
     #track-info-mobile span {
         display: inline-block;
         color: #fff;
@@ -1749,6 +1789,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         animation: marquee 8s linear infinite;
         animation-play-state: paused;
     }
+
     #audioPlayerMobile.playing #track-info-mobile span {
         animation-play-state: running;
     }
@@ -1998,13 +2039,16 @@ window.onload = fetchTokenomicsData;
     <div class="section-connector overview-to-roadmap"></div>
 </section>
 
-<div class="audio-player-mobile" id="audioPlayerMobile" role="region" aria-label="Mobile Audio Player">
-    <div class="audio-controls">
-        <button id="prev-track-mobile" class="audio-btn" aria-label="Previous track">⏮</button>
-        <button id="play-pause-mobile" class="audio-btn play" aria-label="Play">▶</button>
-        <button id="next-track-mobile" class="audio-btn" aria-label="Next track">⏭</button>
+<div class="audio-player-mobile-wrapper" id="audioPlayerMobileWrapper">
+    <button id="single-play-button" class="single-play-button" aria-label="Show audio player and play">▶</button>
+    <div class="audio-player-mobile" id="audioPlayerMobile" role="region" aria-label="Mobile Audio Player" style="display: none;">
+        <div class="audio-controls">
+            <button id="prev-track-mobile" class="audio-btn" aria-label="Previous track">⏮</button>
+            <button id="play-pause-mobile" class="audio-btn play" aria-label="Play">▶</button>
+            <button id="next-track-mobile" class="audio-btn" aria-label="Next track">⏭</button>
+        </div>
+        <div id="track-info-mobile"><span></span></div>
     </div>
-    <div id="track-info-mobile"><span></span></div>
 </div>
 <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
 <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
@@ -3758,168 +3802,186 @@ const playlist = [
 let currentTrackIndex = 0;
 
 function initializeAudioPlayer() {
-  const audio = document.getElementById('audio');
-  const playPauseBtn = document.getElementById('play-pause');
-  const prevTrackBtn = document.getElementById('prev-track');
-  const nextTrackBtn = document.getElementById('next-track');
-  const playPauseBtnMobile = document.getElementById('play-pause-mobile');
-  const prevTrackBtnMobile = document.getElementById('prev-track-mobile');
-  const nextTrackBtnMobile = document.getElementById('next-track-mobile');
-  const audioPlayer = document.getElementById('audio-player');
-  const audioPlayerMobile = document.getElementById('audioPlayerMobile');
-  const logoBtn = document.getElementById('logo-btn');
-  const trackInfoSpan = document.getElementById('track-info').querySelector('span');
-  const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('play-pause');
+    const prevTrackBtn = document.getElementById('prev-track');
+    const nextTrackBtn = document.getElementById('next-track');
+    const playPauseBtnMobile = document.getElementById('play-pause-mobile');
+    const prevTrackBtnMobile = document.getElementById('prev-track-mobile');
+    const nextTrackBtnMobile = document.getElementById('next-track-mobile');
+    const audioPlayer = document.getElementById('audio-player');
+    const audioPlayerMobile = document.getElementById('audioPlayerMobile');
+    const audioPlayerMobileWrapper = document.getElementById('audioPlayerMobileWrapper');
+    const singlePlayButton = document.getElementById('single-play-button');
+    const logoBtn = document.getElementById('logo-btn');
+    const trackInfoSpan = document.getElementById('track-info').querySelector('span');
+    const trackInfoMobileSpan = document.getElementById('track-info-mobile').querySelector('span');
 
-  function loadTrack(index) {
-    audio.src = playlist[index].src;
-    audio.load();
-    playPauseBtn.className = 'audio-btn play';
-    playPauseBtnMobile.className = 'audio-btn play';
-    audioPlayerMobile.classList.remove('playing');
-    trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
-    trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
-    trackInfoSpan.style.animationPlayState = 'running';
-    trackInfoMobileSpan.style.animationPlayState = 'running';
-    audio.play().catch(err => {
-      console.error('Auto-play failed:', err);
-      playPauseBtn.className = 'audio-btn play';
-      playPauseBtnMobile.className = 'audio-btn play';
-      audioPlayerMobile.classList.remove('playing');
-      trackInfoSpan.style.animationPlayState = 'paused';
-      trackInfoMobileSpan.style.animationPlayState = 'paused';
-    });
-}
-  function togglePlayPause() {
-    if (audio.paused) {
-      audio.play().catch(err => {
-        console.error('Play failed:', err);
+    function loadTrack(index) {
+        audio.src = playlist[index].src;
+        audio.load();
         playPauseBtn.className = 'audio-btn play';
         playPauseBtnMobile.className = 'audio-btn play';
         audioPlayerMobile.classList.remove('playing');
-        trackInfoSpan.style.animationPlayState = 'paused';
-        trackInfoMobileSpan.style.animationPlayState = 'paused';
-      });
-      playPauseBtn.className = 'audio-btn pause';
-      playPauseBtnMobile.className = 'audio-btn pause';
-      audioPlayerMobile.classList.add('playing');
-      trackInfoSpan.style.animationPlayState = 'running';
-      trackInfoMobileSpan.style.animationPlayState = 'running';
-    } else {
-      audio.pause();
-      playPauseBtn.className = 'audio-btn play';
-      playPauseBtnMobile.className = 'audio-btn play';
-      audioPlayerMobile.classList.remove('playing');
-      trackInfoSpan.style.animationPlayState = 'paused';
-      trackInfoMobileSpan.style.animationPlayState = 'paused';
+        trackInfoSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+        trackInfoMobileSpan.textContent = `${playlist[index].title} - ${playlist[index].artist}`;
+        trackInfoSpan.style.animationPlayState = 'running';
+        trackInfoMobileSpan.style.animationPlayState = 'running';
+        audio.play().catch(err => {
+            console.error('Auto-play failed:', err);
+            playPauseBtn.className = 'audio-btn play';
+            playPauseBtnMobile.className = 'audio-btn play';
+            audioPlayerMobile.classList.remove('playing');
+            trackInfoSpan.style.animationPlayState = 'paused';
+            trackInfoMobileSpan.style.animationPlayState = 'paused';
+        });
     }
-  }
 
-  function toggleAudioPlayer() {
-    const isActive = audioPlayer.classList.toggle('active');
-    logoBtn.classList.toggle('active', isActive);
-    logoBtn.setAttribute('aria-expanded', isActive);
-    if (isActive && !audio.src) {
-      loadTrack(currentTrackIndex);
+    function togglePlayPause() {
+        if (audio.paused) {
+            audio.play().catch(err => {
+                console.error('Play failed:', err);
+                playPauseBtn.className = 'audio-btn play';
+                playPauseBtnMobile.className = 'audio-btn play';
+                audioPlayerMobile.classList.remove('playing');
+                trackInfoSpan.style.animationPlayState = 'paused';
+                trackInfoMobileSpan.style.animationPlayState = 'paused';
+            });
+            playPauseBtn.className = 'audio-btn pause';
+            playPauseBtnMobile.className = 'audio-btn pause';
+            audioPlayerMobile.classList.add('playing');
+            trackInfoSpan.style.animationPlayState = 'running';
+            trackInfoMobileSpan.style.animationPlayState = 'running';
+        } else {
+            audio.pause();
+            playPauseBtn.className = 'audio-btn play';
+            playPauseBtnMobile.className = 'audio-btn play';
+            audioPlayerMobile.classList.remove('playing');
+            trackInfoSpan.style.animationPlayState = 'paused';
+            trackInfoMobileSpan.style.animationPlayState = 'paused';
+        }
     }
-}
+
+    function toggleAudioPlayer() {
+        const isActive = audioPlayer.classList.toggle('active');
+        logoBtn.classList.toggle('active', isActive);
+        logoBtn.setAttribute('aria-expanded', isActive);
+        if (isActive && !audio.src) {
+            loadTrack(currentTrackIndex);
+        }
+    }
+
+    function showFullPlayerAndPlay() {
+        if (window.innerWidth <= 768) {
+            singlePlayButton.style.display = 'none';
+            audioPlayerMobile.classList.add('active');
+            audioPlayerMobile.style.display = 'block';
+            if (!audio.src) {
+                loadTrack(currentTrackIndex);
+            } else {
+                togglePlayPause();
+            }
+        }
+    }
 
     logoBtn.addEventListener('click', toggleAudioPlayer);
-  audioPlayerMobile.addEventListener('click', toggleAudioPlayer);
-  playPauseBtn.addEventListener('click', togglePlayPause);
-  playPauseBtnMobile.addEventListener('click', togglePlayPause);
-  prevTrackBtn.addEventListener('click', () => {
-    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-  prevTrackBtnMobile.addEventListener('click', () => {
-    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-  nextTrackBtn.addEventListener('click', () => {
-    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-  nextTrackBtnMobile.addEventListener('click', () => {
-    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
-  audio.addEventListener('ended', () => {
-    console.log('Audio ended, currentTrackIndex:', currentTrackIndex, 'Moving to:', (currentTrackIndex + 1) % playlist.length);
-    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadTrack(currentTrackIndex);
-});
-  audio.addEventListener('error', (e) => {
-    console.error('Audio error:', e);
-    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-    loadTrack(currentTrackIndex);
-  });
+    singlePlayButton.addEventListener('click', showFullPlayerAndPlay);
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    playPauseBtnMobile.addEventListener('click', togglePlayPause);
+    prevTrackBtn.addEventListener('click', () => {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrackIndex);
+    });
+    prevTrackBtnMobile.addEventListener('click', () => {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrackIndex);
+    });
+    nextTrackBtn.addEventListener('click', () => {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+    });
+    nextTrackBtnMobile.addEventListener('click', () => {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+    });
+    audio.addEventListener('ended', () => {
+        console.log('Audio ended, currentTrackIndex:', currentTrackIndex, 'Moving to:', (currentTrackIndex + 1) % playlist.length);
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+    });
+    audio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex);
+    });
 
     // Ensure marquee syncs with play state
-  audio.addEventListener('play', () => {
-    playPauseBtn.className = 'audio-btn pause';
-    playPauseBtnMobile.className = 'audio-btn pause';
-    trackInfoSpan.style.animationPlayState = 'running';
-  });
-  audio.addEventListener('pause', () => {
-    playPauseBtn.className = 'audio-btn play';
-    playPauseBtnMobile.className = 'audio-btn play';
-    trackInfoSpan.style.animationPlayState = 'paused';
-  });
+    audio.addEventListener('play', () => {
+        playPauseBtn.className = 'audio-btn pause';
+        playPauseBtnMobile.className = 'audio-btn pause';
+        trackInfoSpan.style.animationPlayState = 'running';
+        trackInfoMobileSpan.style.animationPlayState = 'running';
+    });
+    audio.addEventListener('pause', () => {
+        playPauseBtn.className = 'audio-btn play';
+        playPauseBtnMobile.className = 'audio-btn play';
+        trackInfoSpan.style.animationPlayState = 'paused';
+        trackInfoMobileSpan.style.animationPlayState = 'paused';
+    });
 
     // Keyboard accessibility
-  logoBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleAudioPlayer();
-    }
-  });
-  audioPlayerMobile.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleAudioPlayer();
-    }
-  });
-  playPauseBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      togglePlayPause();
-    }
-  });
-  playPauseBtnMobile.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      togglePlayPause();
-    }
-  });
-  prevTrackBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-      loadTrack(currentTrackIndex);
-    }
-  });
-  prevTrackBtnMobile.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-      loadTrack(currentTrackIndex);
-    }
-  });
-  nextTrackBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-      loadTrack(currentTrackIndex);
-    }
-  });
-  nextTrackBtnMobile.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-      loadTrack(currentTrackIndex);
-    }
-  });
+    logoBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleAudioPlayer();
+        }
+    });
+    singlePlayButton.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            showFullPlayerAndPlay();
+        }
+    });
+    playPauseBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            togglePlayPause();
+        }
+    });
+    playPauseBtnMobile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            togglePlayPause();
+        }
+    });
+    prevTrackBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrackIndex);
+        }
+    });
+    prevTrackBtnMobile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrackIndex);
+        }
+    });
+    nextTrackBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+        }
+    });
+    nextTrackBtnMobile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+        }
+    });
 }
 window.addEventListener('load', async () => {
   initializeAudioPlayer();
