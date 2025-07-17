@@ -1696,63 +1696,86 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 }
 @media (max-width: 768px) {
-    #audioPlayerMobile {
-        position: fixed;
-        top: 6px;
-        left: calc(50% - 40px);
-        transform: translateX(-50%);
-        z-index: 1000;
-        padding: 2px;
-        width: calc(100% - 60px);
-        max-width: 120px;
-        box-sizing: border-box;
-        background: #1e1e1e;
-        border: 1px solid #ff5555;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .audio-player-mobile .audio-controls {
-        display: flex;
-        gap: 5px;
-    }
-    .audio-player-mobile .audio-btn {
-        background: none;
-        border: none;
-        color: #ff5555;
-        font-size: 1rem;
-        cursor: pointer;
-        padding: 2px;
-        transition: transform 0.3s ease, text-shadow 0.3s ease;
-    }
-    .audio-player-mobile .audio-btn:hover {
-        transform: scale(1.2);
-        text-shadow: 0 0 10px #ff5555;
-    }
-    .audio-player-mobile .audio-btn.play::before {
-        content: '▶';
-    }
-    .audio-player-mobile .audio-btn.pause::before {
-        content: '⏸';
-    }
-    #track-info-mobile {
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        margin-top: 2px;
-    }
-    #track-info-mobile span {
-        display: inline-block;
-        color: #fff;
-        font-size: 12px;
-        animation: marquee 8s linear infinite;
-        animation-play-state: paused;
-    }
-    #audioPlayerMobile.playing #track-info-mobile span {
-        animation-play-state: running;
-    }
+  /* NEW: Hide actual player on load */
+  .hidden-on-mobile {
+    display: none;
+  }
+
+  /* NEW: Emoji play button styling */
+  .mobile-play-button {
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px auto;
+    color: #fff;
+  }
+
+  #audioPlayerMobile {
+    position: fixed;
+    top: 6px;
+    left: calc(50% - 40px);
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 2px;
+    width: calc(100% - 60px);
+    max-width: 120px;
+    box-sizing: border-box;
+    background: #1e1e1e;
+    border: 1px solid #ff5555;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .audio-player-mobile .audio-controls {
+    display: flex;
+    gap: 5px;
+  }
+
+  .audio-player-mobile .audio-btn {
+    background: none;
+    border: none;
+    color: #ff5555;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .audio-player-mobile .audio-btn:hover {
+    transform: scale(1.2);
+    text-shadow: 0 0 10px #ff5555;
+  }
+
+  .audio-player-mobile .audio-btn.play::before {
+    content: '▶';
+  }
+
+  .audio-player-mobile .audio-btn.pause::before {
+    content: '⏸';
+  }
+
+  #track-info-mobile {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  #track-info-mobile span {
+    display: inline-block;
+    color: #fff;
+    font-size: 12px;
+    animation: marquee 8s linear infinite;
+    animation-play-state: paused;
+  }
+
+  #audioPlayerMobile.playing #track-info-mobile span {
+    animation-play-state: running;
+  }
 }
+
 .badge-year1 .badge-emblem {
     display: flex;
     align-items: center;
@@ -1998,14 +2021,19 @@ window.onload = fetchTokenomicsData;
     <div class="section-connector overview-to-roadmap"></div>
 </section>
 
-<div class="audio-player-mobile" id="audioPlayerMobile" role="region" aria-label="Mobile Audio Player">
+<div class="audio-wrapper-mobile">
+  <div class="mobile-play-button" onclick="revealMobileAudio()">🔊 Play</div>
+
+  <div class="audio-player-mobile hidden-on-mobile" id="audioPlayerMobile" role="region" aria-label="Mobile Audio Player">
     <div class="audio-controls">
         <button id="prev-track-mobile" class="audio-btn" aria-label="Previous track">⏮</button>
         <button id="play-pause-mobile" class="audio-btn play" aria-label="Play">▶</button>
         <button id="next-track-mobile" class="audio-btn" aria-label="Next track">⏭</button>
     </div>
     <div id="track-info-mobile"><span></span></div>
-</div>
+  </div> <!-- audio-player-mobile -->
+</div> <!-- audio-wrapper-mobile -->
+
 <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
 <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
     <div style="background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
@@ -3823,6 +3851,21 @@ function initializeAudioPlayer() {
       loadTrack(currentTrackIndex);
     }
 }
+
+function revealMobileAudio() {
+    const player = document.getElementById('audioPlayerMobile');
+    const button = document.querySelector('.mobile-play-button');
+
+    if (player && button) {
+      player.classList.remove('hidden-on-mobile');
+      button.style.display = 'none';
+
+      const playBtn = document.getElementById('play-pause-mobile');
+      if (playBtn) {
+        playBtn.click();
+      }
+    }
+  }
 
     logoBtn.addEventListener('click', toggleAudioPlayer);
   audioPlayerMobile.addEventListener('click', toggleAudioPlayer);
