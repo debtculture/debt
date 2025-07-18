@@ -1956,7 +1956,7 @@ try {
   const streamRes = await fetch('https://api.streamflow.finance/v1/project/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
   const streamData = await streamRes.json();
   const tokenEntry = streamData.tokenDistributions.find(t => t.tokenMint === '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
-  vaultedTokens = tokenEntry ? parseFloat(tokenEntry.totalAmount) : 0 (Soon);
+  vaultedTokens = tokenEntry ? parseFloat(tokenEntry.totalAmount) : 0;
 } catch (e) {
   console.error('Vaulted fetch failed', e);
 }
