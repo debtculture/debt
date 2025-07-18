@@ -1991,7 +1991,7 @@ function updateTokenomicsTable(currentSupply, liquidityPool) {
   document.getElementById('initial-supply').textContent = format(initial);
   document.getElementById('current-supply').textContent = format(currentSupply);
   document.getElementById('liquidity-pool').textContent = format(liquidityPool);
-  document.getElementById('vaulted').textContent = format(vaulted);
+  document.getElementById('vaulted').textContent = vaulted === 0 ? '0 (soon)' : format(vaulted);
   document.getElementById('burned').textContent = format(burned);
   document.getElementById('tradable').textContent = format(tradable);
   document.getElementById('percent').innerHTML = '<span class="glow-red">' + formatPercent(percent) + '%</span>';
