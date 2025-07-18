@@ -1911,7 +1911,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
           <tr><td>Total Burned</td><td id="burned">Loading...</td></tr>
           <tr><td>Current Supply</td><td id="current-supply">Loading...</td></tr>
           <tr><td>Liquidity Pool</td><td id="liquidity-pool">Loading...</td></tr>
-          <tr><td>Vaulted Tokens</td><td id="vaulted" data-vaulted="50065578.114744">Loading...</td></tr>
+          <tr><td>Vaulted Tokens</td><td id="vaulted">Loading...</td></tr>
           <tr><td>Tradable Supply</td><td id="tradable">Loading...</td></tr>
           <tr><td>% in Circulation</td><td id="percent">Loading...</td>
         </table>
@@ -1950,6 +1950,18 @@ async function fetchTokenomicsData() {
   const decimals = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.decimals;
   const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
 
+// Fetch Vaulted Tokens from Streamflow
+let vaultedTokens = 0;
+try {
+  const streamRes = await fetch('https://api.streamflow.finance/v1/project/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+  const streamData = await streamRes.json();
+  const tokenEntry = streamData.tokenDistributions.find(t => t.tokenMint === '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+  vaultedTokens = tokenEntry ? parseFloat(tokenEntry.totalAmount) : 0;
+} catch (e) {
+  console.error('Vaulted fetch failed', e);
+}
+window.vaultedTokens = vaultedTokens;
+
   // Fetch Liquidity Pool balance from LP token account using RPC
   const rpcResponse = await fetch(`https://rpc.helius.xyz/?api-key=${heliusApiKey}`, {
     method: 'POST',
@@ -1971,8 +1983,7 @@ async function fetchTokenomicsData() {
 
 function updateTokenomicsTable(currentSupply, liquidityPool) {
   const initial = 1_000_000_000;
-  const vaulted = parseFloat(document.getElementById('vaulted').getAttribute('data-vaulted') || '0');
-
+  const vaulted = window.vaultedTokens || 0;
   const burned = initial - currentSupply;
   const tradable = currentSupply - liquidityPool - vaulted;
   const percent = (tradable / currentSupply) * 100;
