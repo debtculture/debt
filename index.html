@@ -1971,7 +1971,7 @@ async function fetchTokenomicsData() {
 
 function updateTokenomicsTable(currentSupply, liquidityPool) {
   const initial = 1_000_000_000;
-  const vaulted = 181_111_108
+  const vaulted = 173_333_331
   const burned = initial - currentSupply;
   const tradable = currentSupply - liquidityPool - vaulted;
   const percent = (tradable / currentSupply) * 100;
