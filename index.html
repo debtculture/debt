@@ -285,15 +285,7 @@
     .buy-step:hover { transform: translateY(-3px); transition: transform 0.3s ease; }
     .buy-blurb { margin: 10px auto 0; font-size: 1.5rem; text-align: center; }
     @keyframes slideFade { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
-    .copyable-address {
-    cursor: pointer;
-    background: #333;
-    padding: 2px 5px;
-    border-radius: 3px;
-    position: relative;
-    transition: background 0.3s ease;
-    animation: none !important;
-}
+    .copyable-address { cursor: pointer; background: #333; padding: 2px 5px; border-radius: 3px; position: relative; transition: background 0.3s ease; animation: none !important; vertical-align: middle; }
     .copyable-address:hover { background: #444; }
     .copyable-address.copied { background: #55ff55; color: #000; }
     .copyable-address::after { content: 'Copied!'; position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #55ff55; color: #000; padding: 5px 10px; border-radius: 3px; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s ease; z-index: 2000; pointer-events: none; } /* Increased z-index to 2000, added pointer-events */
