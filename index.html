@@ -1214,6 +1214,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 <script defer src="https://unpkg.com/@solana/wallet-adapter-react@0.15.35/dist/umd/index.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.js"></script>
 <script defer src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script type="application/ld+json">
 {
@@ -1703,6 +1704,11 @@ window.onload = fetchTokenomicsData;
 </style>
 
 <script>
+    // Initialize Supabase
+    const supabaseUrl = 'https://ewptttudghjpxrqfznlh.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3cHR0dHVkZ2hqcHhycWZ6bmxoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxMTM4MTYsImV4cCI6MjA3MzY4OTgxNn0.jvS3pjMDdPR1npVaJikAIW07w8_lOqWL2mqek5KEdyY';
+    const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
 window.ethereum = undefined;
 
 function toggleMenu() {
@@ -1961,8 +1967,7 @@ async function connectWallet(walletId) {
         if (isMobile && !isInAppBrowser) {
             const wallet = wallets.find(w => w.id === walletId);
             const deepLink = deepLinks[walletId];
-            const prompt = `Connect with ${wallet.name}?`;
-            if (confirm(prompt)) {
+            if (confirm(`Connect with ${wallet.name}?`)) {
                 window.location.href = deepLink;
                 setTimeout(() => {
                     if (document.hasFocus()) {
@@ -1984,41 +1989,67 @@ async function connectWallet(walletId) {
             walletName = 'Backpack';
         } else {
             const wallet = wallets.find(w => w.id === walletId);
-            const prompt = `No ${wallet.name} detected. Install it now?`;
-            if (confirm(prompt)) {
+            if (confirm(`No ${wallet.name} detected. Install it now?`)) {
                 window.open(downloadUrls[walletId], '_blank');
             }
             return;
         }
 
-        let publicKey;
-        try {
-            if (walletId === 'solflare') {
-                await provider.connect();
-                publicKey = provider.publicKey?.toString();
-            } else if (walletId === 'backpack') {
-                await provider.connect();
-                publicKey = provider.publicKey?.toString();
-            } else {
-                await provider.connect();
-                publicKey = provider.publicKey?.toString();
-            }
-        } catch (err) {
-            throw new Error(`${walletName} connection failed: ${err.message}`);
+        if (!provider.connected) {
+            await provider.connect();
+        }
+        const publicKey = provider.publicKey.toString();
+
+        // --- NEW SUPABASE LOGIC STARTS HERE ---
+
+        // 1. Check if a profile exists for this wallet
+        let { data: profile, error } = await supabase
+            .from('profiles')
+            .select('username')
+            .eq('wallet_address', publicKey)
+            .single(); // .single() gets one record or null
+
+        if (error && error.code !== 'PGRST116') { // PGRST116 means "no rows found", which is a normal outcome
+            console.error('Error checking profile:', error);
+            throw new Error('Could not check profile.');
         }
 
-        if (!publicKey) {
-            throw new Error(`Failed to retrieve public key from ${walletName}`);
+        // 2. If no profile exists, create one
+        if (!profile) {
+            const username = prompt("Welcome! It looks like you're new here. Please choose a username:");
+            if (username && username.trim() !== '') { // If user provides a username and doesn't cancel
+                const { data: newProfile, error: insertError } = await supabase
+                    .from('profiles')
+                    .insert([{ wallet_address: publicKey, username: username }])
+                    .select()
+                    .single();
+
+                if (insertError) {
+                    console.error('Error creating profile:', insertError);
+                    alert('Could not create profile. The username might be taken, or it may be too short.');
+                    return; // Stop execution
+                }
+                profile = newProfile;
+                alert(`Profile created! Welcome, ${profile.username}!`);
+            } else {
+                // User cancelled the prompt or entered an empty username
+                alert("Profile creation cancelled. You can connect your wallet again to create a profile.");
+                return; // Stop execution if they cancel
+            }
         }
+        
+        // --- UI UPDATE LOGIC ---
+        
+        console.log(`User ${profile.username} logged in.`);
 
         if (mobileButton) {
-            mobileButton.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+            mobileButton.textContent = profile.username; // Display username
             mobileButton.classList.add('connected');
         }
         if (desktopBubble) {
             desktopBubble.classList.add('connected');
             const span = desktopBubble.querySelector('span');
-            span.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
+            span.textContent = profile.username; // Display username
         }
 
         walletAddressEl.textContent = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
@@ -2026,27 +2057,14 @@ async function connectWallet(walletId) {
 
         localStorage.setItem('walletAddress', publicKey);
         localStorage.setItem('walletType', walletId);
+        localStorage.setItem('username', profile.username);
 
         const balance = await getDebtBalance(publicKey);
         debtBalanceEl.textContent = balance;
 
-        console.log(`${walletName} connected:`, publicKey);
-
-        provider.on('accountChanged', async (newPublicKey) => {
-            if (newPublicKey) {
-                const newKey = newPublicKey.toString();
-                walletAddressEl.textContent = `${newKey.slice(0, 4)}...${newKey.slice(-4)}`;
-                localStorage.setItem('walletAddress', newKey);
-                const balance = await getDebtBalance(newKey);
-                debtBalanceEl.textContent = balance;
-                console.log(`${walletName} account changed:`, newKey);
-            } else {
-                disconnectWallet();
-            }
-        });
     } catch (error) {
         console.error(`Error connecting ${walletId} wallet:`, error);
-        alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked and try again.`);
+        alert(`Failed to connect wallet. Please ensure your wallet is unlocked and try again.`);
     }
 }
 function hideWalletInfo() {
