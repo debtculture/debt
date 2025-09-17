@@ -10,12 +10,20 @@
     {
       "src": "https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
