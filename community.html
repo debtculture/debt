@@ -119,6 +119,7 @@
             border-radius: 8px;
             border: 1px solid rgba(255, 85, 85, 0.3);
             box-shadow: 0 0 15px rgba(255, 85, 85, 0.2);
+            font-family: 'Inter', Arial, sans-serif;
         }
         .footer-link {
             color: #ff5555;
@@ -142,12 +143,12 @@
         .hof-bubble.active-member { border: 2px solid #ff5555; box-shadow: 0 0 15px #ff5555; transform: scale(1.1); }
         .hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
-        .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 100%; font-weight: bold; }
+        .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 100%; font-weight: bold; font-family: 'Inter', Arial, sans-serif; }
         .hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
         .hof-arrow:hover { color: #ff7777; }
         .hof-left-arrow { left: 20px; }
         .hof-right-arrow { right: 20px; }
-        .hof-blurb { margin: 40px auto 20px; color: #eee; max-width: 600px; font-size: 1.1rem; }
+        .hof-blurb { margin: 40px auto 20px; color: #eee; max-width: 600px; font-size: 1.1rem; font-family: 'Inter', Arial, sans-serif; }
 
         /* Trading Card Styles */
         .trading-card { background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%); border: 5px solid #ffd700; border-radius: 10px; width: 210px; height: 294px; margin: 0 auto; padding: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
@@ -190,7 +191,7 @@
         .trading-card .hof-badges .badge-single, .trading-card .hof-badges .badge-shiller, .trading-card .hof-badges .badge-meme { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border: 1px solid #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
         
         /* Badge Glossary Styles */
-        .badge-glossary-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 600px; width: 100%; box-sizing: border-box; margin: 0 auto; }
+        .badge-glossary-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 600px; width: 100%; box-sizing: border-box; margin: 0 auto; font-family: 'Inter', Arial, sans-serif; }
         .badge-glossary-header:hover { background: linear-gradient(90deg, #ff7777, #ff9999); }
         .badge-glossary-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
         .badge-glossary-header.active::after { transform: rotate(180deg); }
@@ -199,7 +200,7 @@
         .badge-grid { display: flex; flex-direction: column; gap: 20px; }
         .badge-row { display: flex; justify-content: space-around; align-items: center; gap: 8px; flex-wrap: nowrap; max-width: 480px; margin: 0 auto; }
         .badge-wrapper { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 100px; height: 90px; }
-        .badge-name { font-size: 0.8rem; max-width: 80px; height: 40px; line-height: 1.3; padding-top: 4px; }
+        .badge-name { font-size: 0.8rem; max-width: 80px; height: 40px; line-height: 1.3; padding-top: 4px; font-family: 'Inter', Arial, sans-serif; }
         .badge-glossary-content .badge { width: 40px; height: 40px; flex-shrink: 0; }
         .badge-wrapper .badge-container { display: flex; justify-content: center; align-items: center; height: 40px; width: 100%; }
         .badge-arrow { font-size: 1.2rem; color: #ff5555; margin: 0 5px; width: 20px; display: flex; align-items: center; justify-content: center; height: 40px; transform: translateY(-23px); }
@@ -234,7 +235,7 @@
             .card-level { font-size: 10px; padding: 1px 6px; }
             .trading-card .hof-badges .badge { width: 24px; height: 24px; }
             .badge-glossary-container { max-width: 100%; padding: 0 5px; }
-            .badge-row { gap: 2px; max-width: 340px; margin: 0 auto; margin-left: -10px; }
+            .badge-row { gap: 2px; max-width: 340px; margin: 0 auto; margin-left: -20px; }
             .badge-wrapper { width: 105px; height: 92px; }
             .badge-name { font-size: 0.7rem; max-width: 105px; height: 42px; line-height: 1.2; }
             .badge-arrow, .invisible-arrow { font-size: 1rem; width: 18px; margin: 0; height: 44px; transform: translateY(-24px); }
@@ -365,25 +366,34 @@
         ];
 
         function updateCommunityCarousel() {
-            const featuredCard = document.querySelector('#hof-featured .trading-card');
-            const memberData = members[currentCommunityIndex];
-            
-            featuredCard.querySelector('.pfp-link').href = memberData.xLink;
-            featuredCard.querySelector('.card-pfp-square img').src = memberData.img;
-            featuredCard.querySelector('.card-pfp-square img').alt = `${memberData.name} profile picture`;
-            featuredCard.querySelector('.hof-name').textContent = memberData.name;
-            featuredCard.querySelector('.ability-content').textContent = memberData.holderSince;
+            const featuredCard = document.querySelector('#hof-featured .trading-card');
+            const memberData = members[currentCommunityIndex];
+            
+            featuredCard.querySelector('.pfp-link').href = memberData.xLink;
+            featuredCard.querySelector('.card-pfp-square img').src = memberData.img;
+            featuredCard.querySelector('.card-pfp-square img').alt = `${memberData.name} profile picture`;
+            featuredCard.querySelector('.hof-name').textContent = memberData.name;
+            featuredCard.querySelector('.ability-content').textContent = memberData.holderSince;
 
-            const badgesContainer = featuredCard.querySelector('.hof-badges');
-            badgesContainer.innerHTML = '';
-            if (memberData.badges && memberData.badges.length > 0) {
-                memberData.badges.forEach(badge => {
-                    const badgeEl = document.createElement('div');
-                    badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
-                    badgesContainer.appendChild(badgeEl);
-                });
-            }
-        }
+            const badgesContainer = featuredCard.querySelector('.hof-badges');
+            badgesContainer.innerHTML = '';
+            if (memberData.badges && memberData.badges.length > 0) {
+                memberData.badges.forEach(badge => {
+                    const badgeEl = document.createElement('div');
+                    badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
+                    badgesContainer.appendChild(badgeEl);
+                });
+            }
+
+            // Highlight the active member bubble
+            document.querySelectorAll('.hof-member .hof-bubble').forEach(bubble => {
+                bubble.classList.remove('active-member');
+            });
+            const activeMemberEl = document.querySelector(`.hof-member[data-index="${currentCommunityIndex}"] .hof-bubble`);
+            if (activeMemberEl) {
+                activeMemberEl.classList.add('active-member');
+            }
+        }
 
         function rotateHof(direction) {
             if (direction === 'right') { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; } 
