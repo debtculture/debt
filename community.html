@@ -389,10 +389,8 @@
             document.querySelectorAll('.hof-member .hof-bubble').forEach(bubble => {
                 bubble.classList.remove('active-member');
             });
-            const activeMemberEl = document.querySelector(`.hof-member[data-index="${currentCommunityIndex}"] .hof-bubble`);
-            if (activeMemberEl) {
-                activeMemberEl.classList.add('active-member');
-            }
+            const activeMemberElements = document.querySelectorAll(`.hof-member[data-index="${currentCommunityIndex}"] .hof-bubble`);
+            activeMemberElements.forEach(el => el.classList.add('active-member'));
         }
 
         function rotateHof(direction) {
@@ -424,12 +422,15 @@
             resetCommunityAutoRotate();
             
             document.querySelectorAll('.hof-member').forEach(memberEl => {
-                memberEl.addEventListener('click', () => {
-                    currentCommunityIndex = parseInt(memberEl.dataset.index);
-                    updateCommunityCarousel();
-                    resetCommunityAutoRotate();
-                });
-            });
+                memberEl.addEventListener('click', () => {
+                    currentCommunityIndex = parseInt(memberEl.dataset.index);
+                    updateCommunityCarousel();
+                    resetCommunityAutoRotate();
+                    if (window.innerWidth <= 768) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
         });
     </script>
 </body>
