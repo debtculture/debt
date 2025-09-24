@@ -89,7 +89,7 @@
 .dropdown-content a:hover { background: rgba(18, 18, 18, 0.5) !important; backdrop-filter: blur(5px); color: #ff5555; }
     .navbar a { color: #eee; text-decoration: none; padding: 10px 15px; display: flex; align-items: center; }
     .navbar a:hover { background-color: #555; }
-    .navbar-links { display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
+    .navbar-links { position: relative; display: flex; justify-content: center; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
     .navbar-logo { width: 100px; height: 100px; margin: 0; object-fit: contain; flex-shrink: 0; }
     .dropdown { position: relative; z-index: 1100; }
     .dropbtn { color: #eee; padding: 10px 15px; text-decoration: none; display: flex; align-items: center; cursor: pointer; }
@@ -490,6 +490,17 @@ body:not(:has(.social-bubbles.active))::before {
     0% { box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; }
     50% { box-shadow: 0 0 30px #ff5555, 0 0 60px #ff5555; }
     100% { box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; }
+}
+@keyframes subtlePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
     @media (max-width: 768px) {
     .navbar { display: none; }
@@ -1022,7 +1033,8 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   display: none;
   position: absolute;
   top: 90px; /* Moved 20px closer to the logo (100px logo height - 10px gap) */
-  left: -40px; /* This is the corrected value to center the player */
+  left: 50px; /* Position the player's left edge at the logo's center */
+  transform: translateX(-50%); /* Pull the player left by half its own width */
   background: #121212;
   border: 2px solid #ff5555;
   border-radius: 10px;
@@ -1066,7 +1078,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .logo-btn.active {
-  animation: pulseGlow 1.5s infinite ease-in-out;
+  animation: subtlePulse 2s infinite ease-in-out;
 }
 #track-info {
   max-width: 160px; /* Slightly less than audio-player width to account for padding */
@@ -1080,6 +1092,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 #track-info span {
   display: inline-block;
   animation: marquee 10s linear infinite;
+  animation-play-state: paused; /* <-- Add this line */
 }
 #track-info:hover span {
   animation-play-state: paused; /* Pause animation on hover */
