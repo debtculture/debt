@@ -1221,6 +1221,22 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     font-size: 1.2rem;
     color: #fff;
 }
+@media (prefers-reduced-motion: reduce) {
+  /* Turn off all animations and transitions for users who prefer less motion */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Specifically disable the named keyframe animations */
+  h1, .pulse-neon, .join-rebellion, .disclaimer, .contract-address, .logo-btn.active, .back-home, .cta-button, .tokenomics, .phase:hover, .future-teaser:hover {
+    animation: none !important;
+  }
+}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
