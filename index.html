@@ -1022,7 +1022,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
   display: none;
   position: absolute;
   top: 90px; /* Moved 20px closer to the logo (100px logo height - 10px gap) */
-  left: -70px; /* Moves 70px to the left from the logo's left edge */
+  left: -40px; /* This is the corrected value to center the player */
   background: #121212;
   border: 2px solid #ff5555;
   border-radius: 10px;
@@ -2247,8 +2247,16 @@ function initializeAudioPlayer() {
         const isActive = audioPlayer.classList.toggle('active');
         logoBtn.classList.toggle('active', isActive);
         logoBtn.setAttribute('aria-expanded', isActive);
+        // This block prepares the first track without playing it
         if (isActive && !audio.src) {
-            loadTrack(currentTrackIndex);
+            const audio = document.getElementById('audio');
+            const playPauseBtn = document.getElementById('play-pause');
+            const trackInfoSpan = document.getElementById('track-info').querySelector('span');
+
+            audio.src = playlist[currentTrackIndex].src;
+            audio.load();
+            playPauseBtn.className = 'audio-btn play'; // Ensure it shows 'play' icon
+            trackInfoSpan.textContent = `${playlist[currentTrackIndex].title} - ${playlist[currentTrackIndex].artist}`;
         }
     }
 
