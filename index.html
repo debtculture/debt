@@ -1951,34 +1951,57 @@ function initializeMatrix() {
 }
 
 async function checkConnectionOnFocus() {
-            // Check if the tab is visible and a wallet was previously used
-            if (document.visibilityState === 'visible') {
-                const previouslySelectedWallet = localStorage.getItem('walletType');
-                const mobileButton = document.getElementById('connectWalletMobile');
+            // Only run this check if the tab is visible and we aren't already connected
+            if (document.visibilityState !== 'visible') return;
 
-                // If a wallet was chosen but the button doesn't show "connected", try to reconnect
-                if (previouslySelectedWallet && !mobileButton.classList.contains('connected')) {
-                    console.log('Tab refocused, attempting to restore wallet connection...');
-                    // This is a simplified version of the connect logic for silent reconnection
-                    try {
-                        let provider;
-                        if (previouslySelectedWallet === 'phantom' && window.solana?.isPhantom) provider = window.solana;
-                        else if (previouslySelectedWallet === 'solflare' && window.solflare) provider = window.solflare;
-                        else if (previouslySelectedWallet === 'backpack' && window.backpack) provider = window.backpack;
+            const mobileButton = document.getElementById('connectWalletMobile');
+            if (mobileButton.classList.contains('connected')) return;
+            
+            const previouslySelectedWallet = localStorage.getItem('walletType');
+            if (!previouslySelectedWallet) return;
+            
+            console.log('Tab refocused, checking for wallet connection...');
 
-                        if (provider) {
-                            const response = await provider.connect({ onlyIfTrusted: true });
-                            if (response.publicKey) {
-                                // If successful, manually call the main connect function to update UI
-                                // This reuses our existing code to show balance, address, etc.
-                                connectWallet(previouslySelectedWallet);
-                            }
+            // Try to connect multiple times to handle the delay from the wallet app
+            let attempts = 0;
+            const maxAttempts = 5;
+            const attemptInterval = setInterval(async () => {
+                attempts++;
+
+                try {
+                    let provider;
+                    if (previouslySelectedWallet === 'phantom' && window.solana?.isPhantom) provider = window.solana;
+                    else if (previouslySelectedWallet === 'solflare' && window.solflare) provider = window.solflare;
+                    else if (previouslySelectedWallet === 'backpack' && window.backpack) provider = window.backpack;
+
+                    if (provider) {
+                        // Check if already connected without needing a prompt
+                        if (provider.publicKey) {
+                             console.log('Connection found on attempt ' + attempts);
+                             clearInterval(attemptInterval);
+                             connectWallet(previouslySelectedWallet);
+                             return;
                         }
-                    } catch (error) {
-                        console.error('Silent reconnect failed:', error);
+
+                        // Try a silent reconnect
+                        const response = await provider.connect({ onlyIfTrusted: true });
+                        if (response.publicKey) {
+                            console.log('Silent reconnect successful on attempt ' + attempts);
+                            clearInterval(attemptInterval);
+                            connectWallet(previouslySelectedWallet);
+                            return;
+                        }
                     }
+                } catch (error) {
+                    // This is expected if the user is not yet connected, so we can ignore the error for now
                 }
-            }
+
+                if (attempts >= maxAttempts) {
+                    clearInterval(attemptInterval);
+                    console.log('Could not establish connection after ' + maxAttempts + ' attempts.');
+                }
+
+            }, 500); // Check every 500ms
         }
     
 // Wallet connection logic
