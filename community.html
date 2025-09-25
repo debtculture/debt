@@ -1,621 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Debt Culture Community - Meet the rebels in the Hall of Fame and track event leaderboards.">
-    <meta name="keywords" content="Debt Culture, $DEBT, community, leaderboard, trivia, poker, crypto, memecoin, Solana, Hall of Fame">
-    <meta name="author" content="Autopsy">
-    <title>Debt Culture - Community</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Debt Culture Community - Meet the rebels in the Hall of Fame.">
+    <meta name="keywords" content="Debt Culture, $DEBT, community, crypto, memecoin, Solana, Hall of Fame">
+    <meta name="author" content="Autopsy">
+    <title>Debt Culture - Community</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #121212;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
-        canvas#matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        canvas#matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .content-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-            padding-bottom: 60px; /* Space for fixed footer */
-        }
-        .section {
-            text-align: center;
-            padding: 60px 20px;
-            opacity: 1;
-        }
-        h1 {
-             font-size: 3rem;
-             color: #fff;
-             text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
-             margin-bottom: 40px;
-             font-family: 'Inter', sans-serif;
-             font-weight: 900;
-             animation: neon-flicker 1.5s infinite alternate;
-        }
-        @keyframes neon-flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-            }
-        }
-        .back-home-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-        .back-home {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #ff5555;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pulseGlow 1.5s infinite ease-in-out;
-        }
-        .back-home:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px #ff5555;
-        }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px #ff5555; }
-            50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
-            100% { box-shadow: 0 0 5px #ff5555; }
-        }
-        .footer {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            background-color: rgba(18, 18, 18, 0.5);
-            backdrop-filter: blur(5px);
-            color: #eee;
-            text-align: center;
-            padding: 10px 20px;
-            z-index: 1000;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 85, 85, 0.3);
-            box-shadow: 0 0 15px rgba(255, 85, 85, 0.2);
-            font-family: 'Inter', Arial, sans-serif;
-        }
-        .footer-link {
-            color: #ff5555;
-            text-decoration: none;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-        .footer-link:hover {
-            color: #ff7777;
-            text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
-        }
-
-        /* --- NEW LEADERBOARD STYLES START --- */
-        .leaderboard-section {
-            background: rgba(26, 26, 26, 0.7);
-            border: 1px solid #ff5555;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 60px; /* Space between leaderboard and HOF */
-            backdrop-filter: blur(4px);
-            box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        .leaderboard-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .leaderboard-tab-btn {
-            background: #1e1e1e;
-            color: #eee;
-            border: 1px solid #ff5555;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+        body {
+            background: #121212;
+            color: #fff;
             font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        canvas#matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        canvas#matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 60px; /* Space for fixed footer */
+        }
+        .section {
+            text-align: center;
+            padding: 60px 20px;
+            opacity: 1;
+        }
+        h1 {
+             font-size: 3rem;
+             color: #fff;
+             text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+             margin-bottom: 40px;
+             font-family: 'Inter', sans-serif;
+             font-weight: 900;
+             animation: neon-flicker 1.5s infinite alternate;
+        }
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        .back-home-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff5555;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
             font-weight: 700;
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulseGlow 1.5s infinite ease-in-out;
         }
-
-        .leaderboard-tab-btn:hover {
-            background-color: #ff5555;
-            color: #fff;
-        }
-
-        .leaderboard-tab-btn.active {
-            background-color: #ff5555;
-            color: #fff;
+        .back-home:hover {
+            transform: scale(1.1);
             box-shadow: 0 0 15px #ff5555;
         }
-
-        .leaderboard-table-container {
-            overflow-x: auto;
-            max-height: 400px; /* Makes table scrollable if it gets too long */
-            overflow-y: auto;
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px #ff5555; }
+            50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
+            100% { box-shadow: 0 0 5px #ff5555; }
         }
-
-        .leaderboard-table {
-            width: 100%;
-            border-collapse: collapse;
-            color: #ccc;
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            background-color: rgba(18, 18, 18, 0.5);
+            backdrop-filter: blur(5px);
+            color: #eee;
+            text-align: center;
+            padding: 10px 20px;
+            z-index: 1000;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.2);
+            font-family: 'Inter', Arial, sans-serif;
         }
-
-        .leaderboard-table th, .leaderboard-table td {
-            padding: 12px 15px;
-            text-align: left;
-        }
-
-        .leaderboard-table thead th {
-            background-color: #1e1e1e;
+        .footer-link {
             color: #ff5555;
-            font-size: 1.1rem;
-            font-weight: 700;
-            position: sticky;
-            top: 0;
-            z-index: 2;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+        .footer-link:hover {
+            color: #ff7777;
+            text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
         }
 
-        .leaderboard-table tbody tr {
-            border-bottom: 1px solid #333;
-        }
+        /* Community Section Styles */
+        #community { padding-bottom: 60px; }
+        .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; min-height: 350px; display: flex; align-items: center; justify-content: center; }
+        .hof-rows-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
+        .hof-row-desktop, .hof-row-mobile { display: flex; justify-content: center; gap: 20px; flex-wrap: nowrap; margin-bottom: 40px; }
+        @media (min-width: 769px) { .hof-row-mobile { display: none; } }
+        @media (max-width: 768px) { .hof-row-desktop { display: none; } .hof-row-mobile { gap: 10px; } }
+        .hof-member { position: relative; width: 100px; height: 100px; }
+        .hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
+        .hof-bubble.active-member { border: 2px solid #ff5555; box-shadow: 0 0 15px #ff5555; transform: scale(1.1); }
+        .hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
+        .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 100%; font-weight: bold; font-family: 'Inter', Arial, sans-serif; }
+        .hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
+        .hof-arrow:hover { color: #ff7777; }
+        .hof-left-arrow { left: 20px; }
+        .hof-right-arrow { right: 20px; }
+        .hof-blurb { margin: 40px auto 20px; color: #eee; max-width: 600px; font-size: 1.1rem; font-family: 'Inter', Arial, sans-serif; }
 
-        .leaderboard-table tbody tr:last-child {
-            border-bottom: none;
-        }
+        /* Trading Card Styles */
+        .trading-card { background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%); border: 5px solid #ffd700; border-radius: 10px; width: 210px; height: 294px; margin: 0 auto; padding: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+        .trading-card:hover { transform: scale(1.05); box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .card-level { background: #ff5555; color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 5px; font-weight: bold; font-family: 'Arial', sans-serif; line-height: 1; }
+        .card-pfp-square { width: 147px; height: 147px; margin: 0 auto; border: 3px solid #000; border-radius: 5px; overflow: hidden; box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); flex-shrink: 0; }
+        .pfp-link { display: block; width: 100%; height: 100%; }
+        .card-pfp-square img { width: 100%; height: 100%; object-fit: cover; }
+        .card-stats { text-align: center; margin-top: 5px; display: flex; flex-direction: column; flex-grow: 1; padding-bottom: 5px; }
+        .hof-name { font-size: 18px; font-weight: bold; color: #000; font-family: 'Arial', sans-serif; }
+        .divider { width: 80%; height: 1px; background: #000; margin: 0 auto; margin-top: auto; }
+        .special-ability { margin-top: 5px; }
+        .ability-title { font-size: 12px; font-weight: bold; color: #000; font-family: 'Arial', sans-serif; text-align: center; }
+        .ability-content { font-size: 12px; color: #333; font-family: 'Arial', sans-serif; text-align: center; min-height: 15px; }
         
-        .leaderboard-table td {
-            font-size: 1rem;
+        /* Badge Styles */
+        .hof-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 5px 0; flex-grow: 1; overflow-y: auto; }
+        .trading-card .hof-badges .badge { width: 28px; height: 28px; }
+        .badge { width: 40px; height: 40px; position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255, 85, 85, 0.5); box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
+        .badge[class*='badge-'], .trading-card .hof-badges .badge { background: none !important; background-color: transparent !important; background-image: none !important; }
+        .badge::after { content: attr(title); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #eee; padding: 6px 12px; border-radius: 5px; font-size: 0.9rem; white-space: normal; max-width: 160px; text-align: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; z-index: 100; border: 1px solid #ff5555; box-shadow: 0 0 10px #ff5555; }
+        .badge:hover { transform: scale(1.2); box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555; }
+        .badge:hover::after { opacity: 1; visibility: visible; pointer-events: none; }
+        .shared-tooltip { display: none; position: fixed; background: #1a1a1a; color: #eee; padding: 6px 12px; border-radius: 5px; font-size: 0.9rem; white-space: normal; max-width: 160px; text-align: center; z-index: 1000; border: 1px solid #ff5555; box-shadow: 0 0 10px #ff5555; transform: translateX(-50%); line-height: 1.2; pointer-events: none; }
+        
+        /* Badge Icons (via CSS pseudo-elements) */
+        .badge-spaces::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 16px; background: #eee; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .badge-burn::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 12px; background: #eee; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+        .badge-holding::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 10px; background: #eee; }
+        .badge-shiller::before { content: 'X'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 14px; font-weight: bold; }
+        .badge-meme::before { content: '😂'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 16px; }
+        .badge-year1::before { content: '1'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 16px; font-weight: bold; }
+
+        /* Badge Colors on Trading Card */
+        .trading-card .hof-badges .badge-amethyst { background: linear-gradient(145deg, #9966cc, #7a52a3) !important; border: 1px solid #9966cc !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc !important; }
+        .trading-card .hof-badges .badge-gold { background: linear-gradient(145deg, #ffd700, #ccac00) !important; border: 1px solid #ffd700 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important; }
+        .trading-card .hof-badges .badge-silver { background: linear-gradient(145deg, #c0c0c0, #808080) !important; border: 1px solid #c0c0c0 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important; }
+        .trading-card .hof-badges .badge-bronze { background: linear-gradient(145deg, #cd7f32, #8c5523) !important; border: 1px solid #cd7f32 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important; }
+        .trading-card .hof-badges .badge-single, .trading-card .hof-badges .badge-shiller, .trading-card .hof-badges .badge-meme { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border: 1px solid #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
+        
+        /* Badge Glossary Styles */
+        .badge-glossary-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 600px; width: 100%; box-sizing: border-box; margin: 0 auto; font-family: 'Inter', Arial, sans-serif; }
+        .badge-glossary-header:hover { background: linear-gradient(90deg, #ff7777, #ff9999); }
+        .badge-glossary-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
+        .badge-glossary-header.active::after { transform: rotate(180deg); }
+        .badge-glossary-content { max-height: 0; overflow: hidden; background: #1e1e1e; border-radius: 5px; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease; padding: 0 15px; box-sizing: border-box; max-width: 600px; width: 100%; margin: 0 auto; }
+        .badge-glossary-content.active { padding: 15px; }
+        .badge-grid { display: flex; flex-direction: column; gap: 20px; }
+        .badge-row { display: flex; justify-content: space-around; align-items: center; gap: 8px; flex-wrap: nowrap; max-width: 480px; margin: 0 auto; }
+        .badge-wrapper { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 100px; height: 90px; }
+        .badge-name { font-size: 0.8rem; max-width: 80px; height: 40px; line-height: 1.3; padding-top: 4px; font-family: 'Inter', Arial, sans-serif; }
+        .badge-glossary-content .badge { width: 40px; height: 40px; flex-shrink: 0; }
+        .badge-wrapper .badge-container { display: flex; justify-content: center; align-items: center; height: 40px; width: 100%; }
+        .badge-arrow { font-size: 1.2rem; color: #ff5555; margin: 0 5px; width: 20px; display: flex; align-items: center; justify-content: center; height: 40px; transform: translateY(-23px); }
+        .badge-row .invisible-arrow { width: 20px; margin: 0 5px; visibility: hidden; display: flex; align-items: center; height: 40px; transform: translateY(-23px); }
+        .badge-glossary-content .badge-bronze { background: linear-gradient(145deg, #cd7f32, #8c5523) !important; border-color: #cd7f32 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important; }
+        .badge-glossary-content .badge-silver { background: linear-gradient(145deg, #c0c0c0, #808080) !important; border-color: #c0c0c0 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important; }
+        .badge-glossary-content .badge-gold { background: linear-gradient(145deg, #ffd700, #ccac00) !important; border-color: #ffd700 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important; }
+        .badge-glossary-content .badge-amethyst { background: linear-gradient(145deg, #9966cc, #7a52a3) !important; border: 1px solid #9966cc !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc !important; }
+        .badge-glossary-content .badge-single { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border-color: #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
+        
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+            .badge:hover::after, .badge.active-tooltip::after { display: none; }
+            .badge:hover { transform: none; box-shadow: none; }
+            .badge.active-tooltip { transform: scale(1.2); box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555; z-index: 50; }
+            .badge { width: 44px; height: 44px; }
         }
-
-        .rank-1 .rank-cell, .rank-1 .user-cell, .rank-1 .points-cell { color: #ffd700; text-shadow: 0 0 5px #ffd700; }
-        .rank-2 .rank-cell, .rank-2 .user-cell, .rank-2 .points-cell { color: #c0c0c0; text-shadow: 0 0 5px #c0c0c0; }
-        .rank-3 .rank-cell, .rank-3 .user-cell, .rank-3 .points-cell { color: #cd7f32; text-shadow: 0 0 5px #cd7f32; }
-
-        .rank-cell { font-weight: 700; width: 15%; }
-        .user-cell { font-weight: 600; width: 55%; }
-        .points-cell { font-weight: 700; width: 30%; }
-
-        #leaderboard-loading {
-            font-size: 1.1rem;
-            color: #ff9999;
-            padding: 40px 0;
+        @media (max-width: 768px) {
+            .section { padding: 40px 10px; }
+            h1 { font-size: 2rem; }
+            .back-home-container { top: 10px; left: 10px; }
+            .back-home { font-size: 0.8rem; padding: 6px 12px; gap: 5px; }
+            .footer { display: none; }
+            .hof-carousel { min-height: 280px; }
+            .hof-member { width: 80px; height: 80px; }
+            .hof-arrow { font-size: 1.5rem; top: 50%; }
+            .hof-left-arrow { left: 10px; }
+            .hof-right-arrow { right: 10px; }
+            .trading-card { width: 180px; height: 252px; }
+            .card-pfp-square { width: 126px; height: 126px; }
+            .hof-name { font-size: 14px; }
+            .card-level { font-size: 10px; padding: 1px 6px; }
+            .trading-card .hof-badges .badge { width: 24px; height: 24px; }
+            .badge-glossary-container { max-width: 100%; padding: 0 5px; }
+            .badge-row { gap: 2px; max-width: 340px; margin: 0 auto; margin-left: -20px; }
+            .badge-wrapper { width: 105px; height: 92px; }
+            .badge-name { font-size: 0.7rem; max-width: 105px; height: 42px; line-height: 1.2; }
+            .badge-arrow, .invisible-arrow { font-size: 1rem; width: 18px; margin: 0; height: 44px; transform: translateY(-24px); }
+            .badge-glossary-header { font-size: 1.1rem; padding: 10px; }
         }
-        /* --- NEW LEADERBOARD STYLES END --- */
+        @media (prefers-reduced-motion: reduce) {
+          /* Turn off all animations and transitions */
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
 
-
-        /* Community Section Styles */
-        #community { padding-bottom: 60px; }
-        .hof-carousel { position: relative; max-width: 600px; margin: 0 auto; min-height: 350px; display: flex; align-items: center; justify-content: center; }
-        .hof-rows-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
-        .hof-row-desktop, .hof-row-mobile { display: flex; justify-content: center; gap: 20px; flex-wrap: nowrap; margin-bottom: 40px; }
-        @media (min-width: 769px) { .hof-row-mobile { display: none; } }
-        @media (max-width: 768px) { .hof-row-desktop { display: none; } .hof-row-mobile { gap: 10px; } }
-        .hof-member { position: relative; width: 100px; height: 100px; }
-        .hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
-        .hof-bubble.active-member { border: 2px solid #ff5555; box-shadow: 0 0 15px #ff5555; transform: scale(1.1); }
-        .hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
-        .hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 100%; font-weight: bold; font-family: 'Inter', Arial, sans-serif; }
-        .hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
-        .hof-arrow:hover { color: #ff7777; }
-        .hof-left-arrow { left: 20px; }
-        .hof-right-arrow { right: 20px; }
-        .hof-blurb { margin: 40px auto 20px; color: #eee; max-width: 600px; font-size: 1.1rem; font-family: 'Inter', Arial, sans-serif; }
-
-        /* Trading Card Styles */
-        .trading-card { background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%); border: 5px solid #ffd700; border-radius: 10px; width: 210px; height: 294px; margin: 0 auto; padding: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
-        .trading-card:hover { transform: scale(1.05); box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .card-level { background: #ff5555; color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 5px; font-weight: bold; font-family: 'Arial', sans-serif; line-height: 1; }
-        .card-pfp-square { width: 147px; height: 147px; margin: 0 auto; border: 3px solid #000; border-radius: 5px; overflow: hidden; box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); flex-shrink: 0; }
-        .pfp-link { display: block; width: 100%; height: 100%; }
-        .card-pfp-square img { width: 100%; height: 100%; object-fit: cover; }
-        .card-stats { text-align: center; margin-top: 5px; display: flex; flex-direction: column; flex-grow: 1; padding-bottom: 5px; }
-        .hof-name { font-size: 18px; font-weight: bold; color: #000; font-family: 'Arial', sans-serif; }
-        .divider { width: 80%; height: 1px; background: #000; margin: 0 auto; margin-top: auto; }
-        .special-ability { margin-top: 5px; }
-        .ability-title { font-size: 12px; font-weight: bold; color: #000; font-family: 'Arial', sans-serif; text-align: center; }
-        .ability-content { font-size: 12px; color: #333; font-family: 'Arial', sans-serif; text-align: center; min-height: 15px; }
-        
-        /* Badge Styles */
-        .hof-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 5px 0; flex-grow: 1; overflow-y: auto; }
-        .trading-card .hof-badges .badge { width: 28px; height: 28px; }
-        .badge { width: 40px; height: 40px; position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255, 85, 85, 0.5); box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
-        .badge[class*='badge-'], .trading-card .hof-badges .badge { background: none !important; background-color: transparent !important; background-image: none !important; }
-        .badge::after { content: attr(title); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #eee; padding: 6px 12px; border-radius: 5px; font-size: 0.9rem; white-space: normal; max-width: 160px; text-align: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; z-index: 100; border: 1px solid #ff5555; box-shadow: 0 0 10px #ff5555; }
-        .badge:hover { transform: scale(1.2); box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555; }
-        .badge:hover::after { opacity: 1; visibility: visible; pointer-events: none; }
-        .shared-tooltip { display: none; position: fixed; background: #1a1a1a; color: #eee; padding: 6px 12px; border-radius: 5px; font-size: 0.9rem; white-space: normal; max-width: 160px; text-align: center; z-index: 1000; border: 1px solid #ff5555; box-shadow: 0 0 10px #ff5555; transform: translateX(-50%); line-height: 1.2; pointer-events: none; }
-        
-        /* Badge Icons (via CSS pseudo-elements) */
-        .badge-spaces::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 16px; background: #eee; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
-        .badge-burn::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 12px; background: #eee; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
-        .badge-holding::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 10px; background: #eee; }
-        .badge-shiller::before { content: 'X'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 14px; font-weight: bold; }
-        .badge-meme::before { content: '😂'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 16px; }
-        .badge-year1::before { content: '1'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 16px; font-weight: bold; }
-
-        /* Badge Colors on Trading Card */
-        .trading-card .hof-badges .badge-amethyst { background: linear-gradient(145deg, #9966cc, #7a52a3) !important; border: 1px solid #9966cc !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc !important; }
-        .trading-card .hof-badges .badge-gold { background: linear-gradient(145deg, #ffd700, #ccac00) !important; border: 1px solid #ffd700 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important; }
-        .trading-card .hof-badges .badge-silver { background: linear-gradient(145deg, #c0c0c0, #808080) !important; border: 1px solid #c0c0c0 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important; }
-        .trading-card .hof-badges .badge-bronze { background: linear-gradient(145deg, #cd7f32, #8c5523) !important; border: 1px solid #cd7f32 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important; }
-        .trading-card .hof-badges .badge-single, .trading-card .hof-badges .badge-shiller, .trading-card .hof-badges .badge-meme { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border: 1px solid #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
-        
-        /* Badge Glossary Styles */
-        .badge-glossary-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 600px; width: 100%; box-sizing: border-box; margin: 0 auto; font-family: 'Inter', Arial, sans-serif; }
-        .badge-glossary-header:hover { background: linear-gradient(90deg, #ff7777, #ff9999); }
-        .badge-glossary-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
-        .badge-glossary-header.active::after { transform: rotate(180deg); }
-        .badge-glossary-content { max-height: 0; overflow: hidden; background: #1e1e1e; border-radius: 5px; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease; padding: 0 15px; box-sizing: border-box; max-width: 600px; width: 100%; margin: 0 auto; }
-        .badge-glossary-content.active { padding: 15px; }
-        .badge-grid { display: flex; flex-direction: column; gap: 20px; }
-        .badge-row { display: flex; justify-content: space-around; align-items: center; gap: 8px; flex-wrap: nowrap; max-width: 480px; margin: 0 auto; }
-        .badge-wrapper { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 100px; height: 90px; }
-        .badge-name { font-size: 0.8rem; max-width: 80px; height: 40px; line-height: 1.3; padding-top: 4px; font-family: 'Inter', Arial, sans-serif; }
-        .badge-glossary-content .badge { width: 40px; height: 40px; flex-shrink: 0; }
-        .badge-wrapper .badge-container { display: flex; justify-content: center; align-items: center; height: 40px; width: 100%; }
-        .badge-arrow { font-size: 1.2rem; color: #ff5555; margin: 0 5px; width: 20px; display: flex; align-items: center; justify-content: center; height: 40px; transform: translateY(-23px); }
-        .badge-row .invisible-arrow { width: 20px; margin: 0 5px; visibility: hidden; display: flex; align-items: center; height: 40px; transform: translateY(-23px); }
-        .badge-glossary-content .badge-bronze { background: linear-gradient(145deg, #cd7f32, #8c5523) !important; border-color: #cd7f32 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important; }
-        .badge-glossary-content .badge-silver { background: linear-gradient(145deg, #c0c0c0, #808080) !important; border-color: #c0c0c0 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important; }
-        .badge-glossary-content .badge-gold { background: linear-gradient(145deg, #ffd700, #ccac00) !important; border-color: #ffd700 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important; }
-        .badge-glossary-content .badge-amethyst { background: linear-gradient(145deg, #9966cc, #7a52a3) !important; border: 1px solid #9966cc !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc !important; }
-        .badge-glossary-content .badge-single { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border-color: #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
-        
-        /* Mobile Adjustments */
-        @media (max-width: 1024px) {
-            .badge:hover::after, .badge.active-tooltip::after { display: none; }
-            .badge:hover { transform: none; box-shadow: none; }
-            .badge.active-tooltip { transform: scale(1.2); box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555; z-index: 50; }
-            .badge { width: 44px; height: 44px; }
-        }
-        @media (max-width: 768px) {
-            .section { padding: 40px 10px; }
-            h1 { font-size: 2rem; }
-            .back-home-container { top: 10px; left: 10px; }
-            .back-home { font-size: 0.8rem; padding: 6px 12px; gap: 5px; }
-            .footer { display: none; }
-            .hof-carousel { min-height: 280px; }
-            .hof-member { width: 80px; height: 80px; }
-            .hof-arrow { font-size: 1.5rem; top: 50%; }
-            .hof-left-arrow { left: 10px; }
-            .hof-right-arrow { right: 10px; }
-            .trading-card { width: 180px; height: 252px; }
-            .card-pfp-square { width: 126px; height: 126px; }
-            .hof-name { font-size: 14px; }
-            .card-level { font-size: 10px; padding: 1px 6px; }
-            .trading-card .hof-badges .badge { width: 24px; height: 24px; }
-            .badge-glossary-container { max-width: 100%; padding: 0 5px; }
-            .badge-row { gap: 2px; max-width: 340px; margin: 0 auto; margin-left: -20px; }
-            .badge-wrapper { width: 105px; height: 92px; }
-            .badge-name { font-size: 0.7rem; max-width: 105px; height: 42px; line-height: 1.2; }
-            .badge-arrow, .invisible-arrow { font-size: 1rem; width: 18px; margin: 0; height: 44px; transform: translateY(-24px); }
-            .badge-glossary-header { font-size: 1.1rem; padding: 10px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          /* Turn off all animations and transitions */
-          *,
-          *::before,
-          *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-          }
-
-          /* Specifically disable the named keyframe animations */
-          h1, .back-home {
-            animation: none !important;
-          }
-        }
-    </style>
+          /* Specifically disable the named keyframe animations */
+          h1, .back-home {
+            animation: none !important;
+          }
+        }
+    </style>
 </head>
 <body>
-    <canvas id="matrix-bg"></canvas>
-    <canvas id="matrix-rain"></canvas>
-    <div class="content-wrapper">
-        <div class="back-home-container">
-            <a class="back-home" href="index.html" aria-label="Back to Home">
-                <span style="font-size: 1.2rem;">⇠</span> Back
-            </a>
-        </div>
+    <canvas id="matrix-bg"></canvas>
+    <canvas id="matrix-rain"></canvas>
+    <div class="content-wrapper">
+        <div class="back-home-container">
+            <a class="back-home" href="index.html" aria-label="Back to Home">
+                <span style="font-size: 1.2rem;">⇠</span> Back
+            </a>
+        </div>
 
-        <section id="community" class="section">
-            <h1>Community</h1>
-
-            <div class="leaderboard-section">
-                <div class="leaderboard-tabs">
-                    <button class="leaderboard-tab-btn active" data-period="monthly">Monthly</button>
-                    <button class="leaderboard-tab-btn" data-period="yearly">Yearly</button>
-                    <button class="leaderboard-tab-btn" data-period="all-time">All-time</button>
+        <section id="community" class="section">
+            <h1>Community</h1>
+            <div class="hof-carousel">
+                <button class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" aria-label="Previous Community member">⇠</button>
+                <div id="hof-featured">
+                    <div class="trading-card">
+                        <div class="card-header">
+                            <div class="hof-name"></div>
+                            <div class="card-level">Lv. 99</div>
+                        </div>
+                        <div class="card-pfp-square">
+                            <a href="#" target="_blank" class="pfp-link">
+                                <img src="" alt="" width="150" height="150" loading="lazy">
+                            </a>
+                        </div>
+                        <div class="card-stats">
+                            <div class="hof-badges"></div>
+                            <div class="divider"></div>
+                            <div class="special-ability">
+                                <div class="ability-title">Holder Since:</div>
+                                <div class="ability-content"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="leaderboard-table-container">
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th class="rank-cell">Rank</th>
-                                <th class="user-cell">Username</th>
-                                <th class="points-cell">Points</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboard-body">
-                            </tbody>
-                    </table>
-                    <p id="leaderboard-loading">Loading Rebel Standings...</p>
+                <button class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" aria-label="Next Community member">⇢</button>
+            </div>
+            
+            <div class="hof-rows-wrapper">
+                <div class="hof-row-desktop"><div class="hof-member" data-index="0" data-x-link="https://x.com/AutopsyT2"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Autopsy</div></div><div class="hof-member" data-index="1" data-x-link="https://x.com/catavina17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Catavina</div></div><div class="hof-member" data-index="2" data-x-link="https://x.com/louisedbegin"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lou</div></div><div class="hof-member" data-index="3" data-x-link="https://x.com/Tormund_17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tormund</div></div><div class="hof-member" data-index="4" data-x-link="https://x.com/jpegfein"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">JPEG</div></div><div class="hof-member" data-index="5" data-x-link="https://x.com/blu_chek"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">blu</div></div></div>
+                <div class="hof-row-desktop"><div class="hof-member" data-index="6" data-x-link="https://x.com/drinkonsaturday"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg" alt="Drinks profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Drinks</div></div><div class="hof-member" data-index="7" data-x-link="https://x.com/ReneeBush96829"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Renee</div></div><div class="hof-member" data-index="8" data-x-link="https://x.com/AmbientSound"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg" alt="Ambient profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ambient</div></div><div class="hof-member" data-index="9" data-x-link="https://x.com/deadend_king"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758111318/tom_firsei.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tom</div></div><div class="hof-member" data-index="10" data-x-link="https://x.com/Lunicking178677"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lunicking</div></div><div class="hof-member" data-index="11" data-x-link="https://x.com/coryb410"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cory B</div></div></div>
+                <div class="hof-row-desktop"><div class="hof-member" data-index="12" data-x-link="https://x.com/DanVibes10"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dan</div></div><div class="hof-member" data-index="13" data-x-link="https://x.com/PgHYinzer86"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg" alt="DK profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">DK</div></div><div class="hof-member" data-index="14" data-x-link="https://x.com/CodyMarmaduke"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg" alt="Cody profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cody</div></div><div class="hof-member" data-index="15" data-x-link="https://x.com/rankin56696"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758111531/rankin_mnn26k.jpg" alt="Rankin profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Rankin</div></div><div class="hof-member" data-index="16" data-x-link="https://x.com/bigsoup6_7"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Scrappy</div></div><div class="hof-member" data-index="17" data-x-link="https://x.com/GirlMia9079"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1754610304/KNg3MAIS_400x400_tmabka.jpg" alt="Mia profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Mia</div></div></div>
+                <div class="hof-row-desktop"><div class="hof-member" data-index="18" data-x-link="https://x.com/ElpatronSFC"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png" alt="Elvis profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Elvis</div></div><div class="hof-member" data-index="19" data-x-link="https://x.com/Bstr___"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg" alt="Bstr profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Bstr</div></div><div class="hof-member" data-index="20" data-x-link="https://x.com/GeorgeCdr28874"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George</div></div><div class="hof-member" data-index="21" data-x-link="https://x.com/Dog66515910"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752948926/Dog2_sb9l5v.jpg" alt="Dog profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dog</div></div><div class="hof-member" data-index="22" data-x-link="https://x.com/Marilyn_Moanroe"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Marilyn2_gzdbq2.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Marilyn</div></div><div class="hof-member" data-index="23" data-x-link="https://x.com/HauskenHelge"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">ZOMBi</div></div></div>
+                <div class="hof-row-desktop"><div class="hof-member" data-index="24" data-x-link="https://x.com/ipoopcrypto"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cyanide</div></div><div class="hof-member" data-index="25" data-x-link="https://x.com/RecklesUnicorn"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg" alt="Demitrieus profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Demitrieus</div></div><div class="hof-member" data-index="26" data-x-link="https://x.com/0x_Ugo"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg" alt="Ugo profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ugo</div></div><div class="hof-member" data-index="27" data-x-link="https://x.com/madgamer1979"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Coinbud</div></div><div class="hof-member" data-index="28" data-x-link="https://x.com/AngelaPatt86456"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111841/momma_tvdmop.jpg" alt="Momma Blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Momma Blu</div></div><div class="hof-member" data-index="29" data-x-link="https://x.com/ThurstonWaffles"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032869/Thurston_n6zd2i.jpg" alt="Thurston profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Thurston</div></div></div>
+                <div class="hof-row-desktop"><div class="hof-member" data-index="30" data-x-link="https://x.com/p_r_o_m_o__"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg" alt="Michael profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Michael</div></div><div class="hof-member" data-index="31" data-x-link="https://x.com/medraresteaker"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758112105/gnomie_epet05.jpg" alt="Gnomie profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Gnomie</div></div><div class="hof-member" data-index="32" data-x-link="https://x.com/blaze_mb21"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png" alt="AJ profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">AJ</div></div><div class="hof-member" data-index="33" data-x-link="https://x.com/edition1"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032568/George_Eager_ckxq9y.jpg" alt="George Eager profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George Eager</div></div><div class="hof-member" data-index="34" data-x-link="https://x.com/0xDnxl"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg" alt="Denzel profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Denzel</div></div><div class="hof-member" data-index="35" data-x-link="https://x.com/TheresaWeik"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032771/Tree_bggo4f.jpg" alt="Tree profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tree</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="0" data-x-link="https://x.com/AutopsyT2"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Autopsy</div></div><div class="hof-member" data-index="1" data-x-link="https://x.com/catavina17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Catavina</div></div><div class="hof-member" data-index="2" data-x-link="https://x.com/louisedbegin"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lou</div></div><div class="hof-member" data-index="3" data-x-link="https://x.com/Tormund_17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tormund</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="4" data-x-link="https://x.com/jpegfein"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">JPEG</div></div><div class="hof-member" data-index="5" data-x-link="https://x.com/blu_chek"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">blu</div></div><div class="hof-member" data-index="6" data-x-link="https://x.com/drinkonsaturday"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg" alt="Drinks profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Drinks</div></div><div class="hof-member" data-index="7" data-x-link="https://x.com/ReneeBush96829"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Renee</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="8" data-x-link="https://x.com/AmbientSound"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg" alt="Ambient profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ambient</div></div><div class="hof-member" data-index="9" data-x-link="https://x.com/deadend_king"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111318/tom_firsei.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tom</div></div><div class="hof-member" data-index="10" data-x-link="https://x.com/Lunicking178677"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lunicking</div></div><div class="hof-member" data-index="11" data-x-link="https://x.com/coryb410"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cory B</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="12" data-x-link="https://x.com/DanVibes10"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dan</div></div><div class="hof-member" data-index="13" data-x-link="https://x.com/PgHYinzer86"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg" alt="DK profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">DK</div></div><div class="hof-member" data-index="14" data-x-link="https://x.com/CodyMarmaduke"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg" alt="Cody profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cody</div></div><div class="hof-member" data-index="15" data-x-link="https://x.com/rankin56696"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758111531/rankin_mnn26k.jpg" alt="Rankin profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Rankin</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="16" data-x-link="https://x.com/bigsoup6_7"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Scrappy</div></div><div class="hof-member" data-index="17" data-x-link="https://x.com/GirlMia9079"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg" alt="Mia profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Mia</div></div><div class="hof-member" data-index="18" data-x-link="https://x.com/ElpatronSFC"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png" alt="Elvis profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Elvis</div></div><div class="hof-member" data-index="19" data-x-link="https://x.com/Bstr___"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608094/bstr_knv2eq.jpg" alt="Bstr profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Bstr</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="20" data-x-link="https://x.com/GeorgeCdr28874"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George</div></div><div class="hof-member" data-index="21" data-x-link="https://x.com/Dog66515910"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg" alt="Dog profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dog</div></div><div class="hof-member" data-index="22" data-x-link="https://x.com/Marilyn_Moanroe"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Marilyn2_gzdbq2.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Marilyn</div></div><div class="hof-member" data-index="23" data-x-link="https://x.com/HauskenHelge"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">ZOMBi</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="24" data-x-link="https://x.com/ipoopcrypto"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cyanide</div></div><div class="hof-member" data-index="25" data-x-link="https://x.com/RecklesUnicorn"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg" alt="Demitrieus profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Demitrieus</div></div><div class="hof-member" data-index="26" data-x-link="https://x.com/0x_Ugo"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg" alt="Ugo profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ugo</div></div><div class="hof-member" data-index="27" data-x-link="https://x.com/madgamer1979"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Coinbud</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="28" data-x-link="https://x.com/AngelaPatt86456"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111841/momma_tvdmop.jpg" alt="Momma Blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Momma Blu</div></div><div class="hof-member" data-index="29" data-x-link="https://x.com/ThurstonWaffles"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032869/Thurston_n6zd2i.jpg" alt="Thurston profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Thurston</div></div><div class="hof-member" data-index="30" data-x-link="https://x.com/p_r_o_m_o__"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg" alt="Michael profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Michael</div></div><div class="hof-member" data-index="31" data-x-link="https://x.com/medraresteaker"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758112105/gnomie_epet05.jpg" alt="Gnomie profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Gnomie</div></div></div>
+                <div class="hof-row-mobile"><div class="hof-member" data-index="32" data-x-link="https://x.com/blaze_mb21"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png" alt="AJ profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">AJ</div></div><div class="hof-member" data-index="33" data-x-link="https://x.com/edition1"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032568/George_Eager_ckxq9y.jpg" alt="George Eager profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George Eager</div></div><div class="hof-member" data-index="34" data-x-link="https://x.com/0xDnxl"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg" alt="Denzel profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Denzel</div></div><div class="hof-member" data-index="35" data-x-link="https://x.com/TheresaWeik"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032771/Tree_bggo4f.jpg" alt="Tree profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tree</div></div></div>
+            </div>
+
+            <p class="hof-blurb">Want your name in the $DEBT Hall of Fame? Hold strong, hit Spaces, drop memes, & recruit maniacs.</p>
+            
+            <div class="badge-glossary-header" onclick="toggleBadgeGlossary()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Badge Glossary">
+                Badge Glossary
+            </div>
+            <div class="badge-glossary-content" id="badgeGlossary">
+                <div class="badge-grid">
+                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-bronze" title="Orbiter: Consistently shows up to X Spaces."></div></div><span class="badge-name">Orbiter</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-silver" title="Cosmonaut: Regularly engages in Spaces conversations."></div></div><span class="badge-name">Cosmonaut</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-gold" title="Star Commander: Leads conversations in $DEBT Spaces."></div></div><span class="badge-name">Star Commander</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-amethyst" title="Supernova: Hosts $DEBT-focused X Spaces."></div></div><span class="badge-name">Supernova</span></div></div>
+                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-bronze" title="Pyro: Burned 100,000+ $DEBT."></div></div><span class="badge-name">Pyro</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-silver" title="Arsonist: Burned 1,000,000+ $DEBT."></div></div><span class="badge-name">Arsonist</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-gold" title="Inferno: Burned 10,000,000+ $DEBT."></div></div><span class="badge-name">Inferno</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-amethyst" title="Ashbringer: Burned 100,000,000+ $DEBT."></div></div><span class="badge-name">Ashbringer</span></div></div>
+                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-bronze" title="Cold Wallet: Held $DEBT for 1+ month."></div></div><span class="badge-name">Cold Wallet</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-silver" title="Iron Grip: Held $DEBT for 3+ months."></div></div><span class="badge-name">Iron Grip</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-gold" title="Steel Reserve: Held $DEBT for 6+ months, solid stack."></div></div><span class="badge-name">Steel Reserve</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-amethyst" title="Diamond Hands: Held $DEBT for 1 year+, unshakeable holder."></div></div><span class="badge-name">Diamond Hands</span></div></div>
+                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-shiller badge-single" title="Cold Blooded Shiller: Hardcore $DEBT promoter on social media."></div></div><span class="badge-name">Cold Blooded Shiller</span></div><span class="invisible-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-meme badge-single" title="Meme Machine: Creates dank $DEBT memes."></div></div><span class="badge-name">Meme Machine</span></div><span class="invisible-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-year1 badge-single" title="Year 1: Heavily involved in the project during its first year."></div></div><span class="badge-name">Year 1</span></div><span class="invisible-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-new badge-single" title="Coming Soon: Placeholder for a future badge."></div></div><span class="badge-name">Coming Soon</span></div></div>
                 </div>
             </div>
-                        <div class="hof-carousel">
-                <button class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" aria-label="Previous Community member">⇠</button>
-                <div id="hof-featured">
-                    <div class="trading-card">
-                        <div class="card-header">
-                            <div class="hof-name"></div>
-                            <div class="card-level">Lv. 99</div>
-                        </div>
-                        <div class="card-pfp-square">
-                            <a href="#" target="_blank" class="pfp-link">
-                                <img src="" alt="" width="150" height="150" loading="lazy">
-                            </a>
-                        </div>
-                        <div class="card-stats">
-                            <div class="hof-badges"></div>
-                            <div class="divider"></div>
-                            <div class="special-ability">
-                                <div class="ability-title">Holder Since:</div>
-                                <div class="ability-content"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="hof-arrow hof-right-arrow" onclick="rotateHof('right')" aria-label="Next Community member">⇢</button>
-            </div>
-            
-            <div class="hof-rows-wrapper">
-                <div class="hof-row-desktop"><div class="hof-member" data-index="0" data-x-link="https://x.com/AutopsyT2"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Autopsy</div></div><div class="hof-member" data-index="1" data-x-link="https://x.com/catavina17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Catavina</div></div><div class="hof-member" data-index="2" data-x-link="https://x.com/louisedbegin"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lou</div></div><div class="hof-member" data-index="3" data-x-link="https://x.com/Tormund_17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tormund</div></div><div class="hof-member" data-index="4" data-x-link="https://x.com/jpegfein"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">JPEG</div></div><div class="hof-member" data-index="5" data-x-link="https://x.com/blu_chek"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">blu</div></div></div>
-                <div class="hof-row-desktop"><div class="hof-member" data-index="6" data-x-link="https://x.com/drinkonsaturday"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg" alt="Drinks profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Drinks</div></div><div class="hof-member" data-index="7" data-x-link="https://x.com/ReneeBush96829"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Renee</div></div><div class="hof-member" data-index="8" data-x-link="https://x.com/AmbientSound"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg" alt="Ambient profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ambient</div></div><div class="hof-member" data-index="9" data-x-link="https://x.com/deadend_king"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758111318/tom_firsei.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tom</div></div><div class="hof-member" data-index="10" data-x-link="https://x.com/Lunicking178677"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lunicking</div></div><div class="hof-member" data-index="11" data-x-link="https://x.com/coryb410"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cory B</div></div></div>
-                <div class="hof-row-desktop"><div class="hof-member" data-index="12" data-x-link="https://x.com/DanVibes10"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dan</div></div><div class="hof-member" data-index="13" data-x-link="https://x.com/PgHYinzer86"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg" alt="DK profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">DK</div></div><div class="hof-member" data-index="14" data-x-link="https://x.com/CodyMarmaduke"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg" alt="Cody profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cody</div></div><div class="hof-member" data-index="15" data-x-link="https://x.com/rankin56696"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758111531/rankin_mnn26k.jpg" alt="Rankin profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Rankin</div></div><div class="hof-member" data-index="16" data-x-link="https://x.com/bigsoup6_7"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Scrappy</div></div><div class="hof-member" data-index="17" data-x-link="https://x.com/GirlMia9079"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1754610304/KNg3MAIS_400x400_tmabka.jpg" alt="Mia profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Mia</div></div></div>
-                <div class="hof-row-desktop"><div class="hof-member" data-index="18" data-x-link="https://x.com/ElpatronSFC"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png" alt="Elvis profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Elvis</div></div><div class="hof-member" data-index="19" data-x-link="https://x.com/Bstr___"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg" alt="Bstr profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Bstr</div></div><div class="hof-member" data-index="20" data-x-link="https://x.com/GeorgeCdr28874"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George</div></div><div class="hof-member" data-index="21" data-x-link="https://x.com/Dog66515910"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752948926/Dog2_sb9l5v.jpg" alt="Dog profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dog</div></div><div class="hof-member" data-index="22" data-x-link="https://x.com/Marilyn_Moanroe"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Marilyn2_gzdbq2.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Marilyn</div></div><div class="hof-member" data-index="23" data-x-link="https://x.com/HauskenHelge"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">ZOMBi</div></div></div>
-                <div class="hof-row-desktop"><div class="hof-member" data-index="24" data-x-link="https://x.com/ipoopcrypto"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cyanide</div></div><div class="hof-member" data-index="25" data-x-link="https://x.com/RecklesUnicorn"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg" alt="Demitrieus profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Demitrieus</div></div><div class="hof-member" data-index="26" data-x-link="https://x.com/0x_Ugo"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg" alt="Ugo profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ugo</div></div><div class="hof-member" data-index="27" data-x-link="https://x.com/madgamer1979"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Coinbud</div></div><div class="hof-member" data-index="28" data-x-link="https://x.com/AngelaPatt86456"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111841/momma_tvdmop.jpg" alt="Momma Blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Momma Blu</div></div><div class="hof-member" data-index="29" data-x-link="https://x.com/ThurstonWaffles"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032869/Thurston_n6zd2i.jpg" alt="Thurston profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Thurston</div></div></div>
-                <div class="hof-row-desktop"><div class="hof-member" data-index="30" data-x-link="https://x.com/p_r_o_m_o__"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg" alt="Michael profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Michael</div></div><div class="hof-member" data-index="31" data-x-link="https://x.com/medraresteaker"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758112105/gnomie_epet05.jpg" alt="Gnomie profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Gnomie</div></div><div class="hof-member" data-index="32" data-x-link="https://x.com/blaze_mb21"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png" alt="AJ profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">AJ</div></div><div class="hof-member" data-index="33" data-x-link="https://x.com/edition1"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032568/George_Eager_ckxq9y.jpg" alt="George Eager profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George Eager</div></div><div class="hof-member" data-index="34" data-x-link="https://x.com/0xDnxl"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg" alt="Denzel profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Denzel</div></div><div class="hof-member" data-index="35" data-x-link="https://x.com/TheresaWeik"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032771/Tree_bggo4f.jpg" alt="Tree profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tree</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="0" data-x-link="https://x.com/AutopsyT2"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg" alt="Autopsy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Autopsy</div></div><div class="hof-member" data-index="1" data-x-link="https://x.com/catavina17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg" alt="Catavina profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Catavina</div></div><div class="hof-member" data-index="2" data-x-link="https://x.com/louisedbegin"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg" alt="Lou profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lou</div></div><div class="hof-member" data-index="3" data-x-link="https://x.com/Tormund_17"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1746723031/Tormund_pj4hwd.jpg" alt="Tormund profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tormund</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="4" data-x-link="https://x.com/jpegfein"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg" alt="JPEG profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">JPEG</div></div><div class="hof-member" data-index="5" data-x-link="https://x.com/blu_chek"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/blu_fko02p.jpg" alt="blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">blu</div></div><div class="hof-member" data-index="6" data-x-link="https://x.com/drinkonsaturday"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg" alt="Drinks profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Drinks</div></div><div class="hof-member" data-index="7" data-x-link="https://x.com/ReneeBush96829"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747850503/Renee_eekhuh.jpg" alt="Renee profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Renee</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="8" data-x-link="https://x.com/AmbientSound"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg" alt="Ambient profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ambient</div></div><div class="hof-member" data-index="9" data-x-link="https://x.com/deadend_king"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111318/tom_firsei.jpg" alt="Tom profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tom</div></div><div class="hof-member" data-index="10" data-x-link="https://x.com/Lunicking178677"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg" alt="Lunicking profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Lunicking</div></div><div class="hof-member" data-index="11" data-x-link="https://x.com/coryb410"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Cory_qntp8y.jpg" alt="Cory B profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cory B</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="12" data-x-link="https://x.com/DanVibes10"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg" alt="Dan profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dan</div></div><div class="hof-member" data-index="13" data-x-link="https://x.com/PgHYinzer86"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg" alt="DK profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">DK</div></div><div class="hof-member" data-index="14" data-x-link="https://x.com/CodyMarmaduke"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg" alt="Cody profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cody</div></div><div class="hof-member" data-index="15" data-x-link="https://x.com/rankin56696"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758111531/rankin_mnn26k.jpg" alt="Rankin profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Rankin</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="16" data-x-link="https://x.com/bigsoup6_7"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg" alt="Scrappy profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Scrappy</div></div><div class="hof-member" data-index="17" data-x-link="https://x.com/GirlMia9079"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg" alt="Mia profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Mia</div></div><div class="hof-member" data-index="18" data-x-link="https://x.com/ElpatronSFC"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png" alt="Elvis profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Elvis</div></div><div class="hof-member" data-index="19" data-x-link="https://x.com/Bstr___"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1752608094/bstr_knv2eq.jpg" alt="Bstr profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Bstr</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="20" data-x-link="https://x.com/GeorgeCdr28874"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg" alt="George profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George</div></div><div class="hof-member" data-index="21" data-x-link="https://x.com/Dog66515910"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg" alt="Dog profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Dog</div></div><div class="hof-member" data-index="22" data-x-link="https://x.com/Marilyn_Moanroe"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Marilyn2_gzdbq2.jpg" alt="Marilyn profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Marilyn</div></div><div class="hof-member" data-index="23" data-x-link="https://x.com/HauskenHelge"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/ZOMBi_obepxi.jpg" alt="ZOMBi profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">ZOMBi</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="24" data-x-link="https://x.com/ipoopcrypto"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg" alt="Cyanide profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Cyanide</div></div><div class="hof-member" data-index="25" data-x-link="https://x.com/RecklesUnicorn"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg" alt="Demitrieus profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Demitrieus</div></div><div class="hof-member" data-index="26" data-x-link="https://x.com/0x_Ugo"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg" alt="Ugo profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Ugo</div></div><div class="hof-member" data-index="27" data-x-link="https://x.com/madgamer1979"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1747354104/Coinbud_uwjumu.jpg" alt="Coinbud profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Coinbud</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="28" data-x-link="https://x.com/AngelaPatt86456"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111841/momma_tvdmop.jpg" alt="Momma Blu profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Momma Blu</div></div><div class="hof-member" data-index="29" data-x-link="https://x.com/ThurstonWaffles"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032869/Thurston_n6zd2i.jpg" alt="Thurston profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Thurston</div></div><div class="hof-member" data-index="30" data-x-link="https://x.com/p_r_o_m_o__"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg" alt="Michael profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Michael</div></div><div class="hof-member" data-index="31" data-x-link="https://x.com/medraresteaker"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1758112105/gnomie_epet05.jpg" alt="Gnomie profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Gnomie</div></div></div>
-                <div class="hof-row-mobile"><div class="hof-member" data-index="32" data-x-link="https://x.com/blaze_mb21"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png" alt="AJ profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">AJ</div></div><div class="hof-member" data-index="33" data-x-link="https://x.com/edition1"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032568/George_Eager_ckxq9y.jpg" alt="George Eager profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">George Eager</div></div><div class="hof-member" data-index="34" data-x-link="https://x.com/0xDnxl"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg" alt="Denzel profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Denzel</div></div><div class="hof-member" data-index="35" data-x-link="https://x.com/TheresaWeik"><div class="hof-bubble"><div class="hof-inner-bubble"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1755032771/Tree_bggo4f.jpg" alt="Tree profile picture" width="100" height="100" loading="lazy"></div></div><div class="hof-title">Tree</div></div></div>
-            </div>
+        </section>
 
-            <p class="hof-blurb">Want your name in the $DEBT Hall of Fame? Hold strong, hit Spaces, drop memes, & recruit maniacs.</p>
-            
-            <div class="badge-glossary-header" onclick="toggleBadgeGlossary()" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle Badge Glossary">
-                Badge Glossary
-            </div>
-            <div class="badge-glossary-content" id="badgeGlossary">
-                <div class="badge-grid">
-                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-bronze" title="Orbiter: Consistently shows up to X Spaces."></div></div><span class="badge-name">Orbiter</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-silver" title="Cosmonaut: Regularly engages in Spaces conversations."></div></div><span class="badge-name">Cosmonaut</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-gold" title="Star Commander: Leads conversations in $DEBT Spaces."></div></div><span class="badge-name">Star Commander</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-spaces badge-amethyst" title="Supernova: Hosts $DEBT-focused X Spaces."></div></div><span class="badge-name">Supernova</span></div></div>
-                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-bronze" title="Pyro: Burned 100,000+ $DEBT."></div></div><span class="badge-name">Pyro</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-silver" title="Arsonist: Burned 1,000,000+ $DEBT."></div></div><span class="badge-name">Arsonist</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-gold" title="Inferno: Burned 10,000,000+ $DEBT."></div></div><span class="badge-name">Inferno</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-burn badge-amethyst" title="Ashbringer: Burned 100,000,000+ $DEBT."></div></div><span class="badge-name">Ashbringer</span></div></div>
-                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-bronze" title="Cold Wallet: Held $DEBT for 1+ month."></div></div><span class="badge-name">Cold Wallet</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-silver" title="Iron Grip: Held $DEBT for 3+ months."></div></div><span class="badge-name">Iron Grip</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-gold" title="Steel Reserve: Held $DEBT for 6+ months, solid stack."></div></div><span class="badge-name">Steel Reserve</span></div><span class="badge-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-holding badge-amethyst" title="Diamond Hands: Held $DEBT for 1 year+, unshakeable holder."></div></div><span class="badge-name">Diamond Hands</span></div></div>
-                    <div class="badge-row"><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-shiller badge-single" title="Cold Blooded Shiller: Hardcore $DEBT promoter on social media."></div></div><span class="badge-name">Cold Blooded Shiller</span></div><span class="invisible-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-meme badge-single" title="Meme Machine: Creates dank $DEBT memes."></div></div><span class="badge-name">Meme Machine</span></div><span class="invisible-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-year1 badge-single" title="Year 1: Heavily involved in the project during its first year."></div></div><span class="badge-name">Year 1</span></div><span class="invisible-arrow">➔</span><div class="badge-wrapper"><div class="badge-container"><div class="badge badge-new badge-single" title="Coming Soon: Placeholder for a future badge."></div></div><span class="badge-name">Coming Soon</span></div></div>
-                </div>
-            </div>
-        </section>
+        <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
+    </div>
+    <script>
+        // Matrix Background Scripts
+        function initializeMatrix() { const canvas = document.getElementById('matrix-bg'); if (!canvas) return; const ctx = canvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = Math.ceil(canvas.width / fontSize); drops = Array(columns).fill(1).map((_, i) => (Math.random() * canvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; function draw() { ctx.fillStyle = 'rgba(18, 18, 18, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#ff5555'; ctx.font = `${fontSize}px monospace`; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; } drops[i]++; } } setInterval(draw, 50); }
+        function startMatrixRain() { const rainCanvas = document.getElementById('matrix-rain'); if (!rainCanvas) return; const rainCtx = rainCanvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; columns = Math.ceil(rainCanvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; function drawRain() { rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)'; rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height); rainCtx.fillStyle = '#999999'; rainCtx.font = fontSize + 'px monospace'; drops.forEach((y, i) => { const text = chars.charAt(Math.floor(Math.random() * chars.length)); rainCtx.fillText(text, i * fontSize, y * fontSize); if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }); } setInterval(drawRain, 50); }
 
-        <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
-    </div>
-    <script>
-        // Matrix Background Scripts
-        function initializeMatrix() { const canvas = document.getElementById('matrix-bg'); if (!canvas) return; const ctx = canvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = Math.ceil(canvas.width / fontSize); drops = Array(columns).fill(1).map((_, i) => (Math.random() * canvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; function draw() { ctx.fillStyle = 'rgba(18, 18, 18, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#ff5555'; ctx.font = `${fontSize}px monospace`; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; } drops[i]++; } } setInterval(draw, 50); }
-        function startMatrixRain() { const rainCanvas = document.getElementById('matrix-rain'); if (!rainCanvas) return; const rainCtx = rainCanvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; columns = Math.ceil(rainCanvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; function drawRain() { rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)'; rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height); rainCtx.fillStyle = '#999999'; rainCtx.font = fontSize + 'px monospace'; drops.forEach((y, i) => { const text = chars.charAt(Math.floor(Math.random() * chars.length)); rainCtx.fillText(text, i * fontSize, y * fontSize); if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }); } setInterval(drawRain, 50); }
+        // Community Carousel Logic
+        let currentCommunityIndex = 0;
+        const totalNamedCommunityMembers = 36;
+        let communityAutoRotateInterval;
 
-        // --- NEW LEADERBOARD SCRIPT START ---
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
-        let allData = [];
+        const members = [
+            { name: 'Autopsy', holderSince: '05/10/2024', xLink: 'https://x.com/AutopsyT2', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg', badges: [{ type: 'spaces', tier: 'amethyst' }, { type: 'burn', tier: 'gold' }, { type: 'holding', tier: 'gold' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
+            { name: 'Catavina', holderSince: '05/10/2024', xLink: 'https://x.com/catavina17', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg', badges: [{ type: 'spaces', tier: 'amethyst' }, { type: 'holding', tier: 'gold' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
+            { name: 'Lou', holderSince: '05/10/2024', xLink: 'https://x.com/louisedbegin', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg', badges: [{ type: 'spaces', tier: 'amethyst' }, { type: 'holding', tier: 'silver' }, { type: 'shiller', tier: 'single' }] },
+            { name: 'Tormund', holderSince: '05/10/2024', xLink: 'https://x.com/Tormund_17', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tormund_pj4hwd.jpg', badges: [{ type: 'holding', tier: 'gold' }, { type: 'spaces', tier: 'silver' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
+            { name: 'JPEG', holderSince: '05/10/2024', xLink: 'https://x.com/jpegfein', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg', badges: [{ type: 'spaces', tier: 'gold' }, { type: 'holding', tier: 'gold' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
+            { name: 'blu', holderSince: '05/10/2024', xLink: 'https://x.com/blu_chek', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/blu_fko02p.jpg', badges: [{ type: 'holding', tier: 'silver' }, { type: 'spaces', tier: 'silver' }, { type: 'shiller', tier: 'single' }] },
+            { name: 'Drinks', holderSince: '05/10/2024', xLink: 'https://x.com/drinkonsaturday', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Renee', holderSince: '05/10/2024', xLink: 'https://x.com/ReneeBush96829', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747850503/Renee_eekhuh.jpg', badges: [{ type: 'holding', tier: 'silver' }, { type: 'spaces', tier: 'bronze' }, { type: 'shiller', tier: 'single' }] },
+            { name: 'Ambient', holderSince: '05/10/2024', xLink: 'https://x.com/AmbientSound', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Tom', holderSince: '05/10/2024', xLink: 'https://x.com/deadend_king', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111318/tom_firsei.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'shiller', tier: 'single' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Lunicking', holderSince: '05/10/2024', xLink: 'https://x.com/Lunicking178677', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg', badges: [{ type: 'holding', tier: 'gold' }, { type: 'spaces', tier: 'bronze' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
+            { name: 'Cory B', holderSince: '05/10/2024', xLink: 'https://x.com/coryb410', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Cory_qntp8y.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Dan', holderSince: '05/10/2024', xLink: 'https://x.com/DanVibes10', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'DK', holderSince: '05/10/2024', xLink: 'https://x.com/PgHYinzer86', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Cody', holderSince: '05/10/2024', xLink: 'https://x.com/CodyMarmaduke', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Rankin', holderSince: '05/10/2024', xLink: 'https://x.com/rankin56696', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111531/rankin_mnn26k.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Scrappy', holderSince: '05/10/2024', xLink: 'https://x.com/bigsoup6_7', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg', badges: [{ type: 'holding', tier: 'silver' }, { type: 'spaces', tier: 'silver' }] },
+            { name: 'Mia', holderSince: '05/10/2024', xLink: 'https://x.com/GirlMia9079', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Elvis', holderSince: '05/10/2024', xLink: 'https://x.com/ElpatronSFC', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Bstr', holderSince: '05/10/2024', xLink: 'https://x.com/Bstr___', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'George', holderSince: '05/10/2024', xLink: 'https://x.com/GeorgeCdr28874', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Dog', holderSince: '05/10/2024', xLink: 'https://x.com/Dog66515910', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg', badges: [{ type: 'holding', tier: 'bronze' }, { type: 'shiller', tier: 'single' }] },
+            { name: 'Marilyn', holderSince: '05/10/2024', xLink: 'https://x.com/Marilyn_Moanroe', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Marilyn2_gzdbq2.jpg', badges: [{ type: 'holding', tier: 'bronze' }, { type: 'shiller', tier: 'single' }] },
+            { name: 'ZOMBi', holderSince: '05/10/2024', xLink: 'https://x.com/HauskenHelge', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/ZOMBi_obepxi.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Cyanide', holderSince: '05/10/2024', xLink: 'https://x.com/ipoopcrypto', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Demitrieus', holderSince: '05/10/2024', xLink: 'https://x.com/RecklesUnicorn', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
+            { name: 'Ugo', holderSince: '05/10/2024', xLink: 'https://x.com/0x_Ugo', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg', badges: [{ type: 'holding', tier: 'gold' }] },
+            { name: 'Coinbud', holderSince: '05/10/2024', xLink: 'https://x.com/madgamer1979', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Coinbud_uwjumu.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Momma Blu', holderSince: '05/10/2024', xLink: 'https://x.com/AngelaPatt86456', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111841/momma_tvdmop.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Thurston', holderSince: '05/10/2024', xLink: 'https://x.com/ThurstonWaffles', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032869/Thurston_n6zd2i.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Michael', holderSince: '05/10/2024', xLink: 'https://x.com/p_r_o_m_o__', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Gnomie', holderSince: '05/10/2024', xLink: 'https://x.com/medraresteaker', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758112105/gnomie_epet05.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'AJ', holderSince: '05/10/2024', xLink: 'https://x.com/blaze_mb21', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'George Eager', holderSince: '05/10/2024', xLink: 'https://x.com/edition1', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032568/George_Eager_ckxq9y.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Denzel', holderSince: '05/10/2024', xLink: 'https://x.com/0xDnxl', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
+            { name: 'Tree', holderSince: '05/10/2024', xLink: 'https://x.com/TheresaWeik', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032771/Tree_bggo4f.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] }
+        ];
 
-        async function fetchLeaderboardData() {
-            try {
-                const response = await fetch(SHEET_URL);
-                const csvText = await response.text();
-                const rows = csvText.split('\n').slice(1); // Skip header row
-                
-                allData = rows.map(row => {
-                    const [username, event, points, date] = row.split(',').map(s => s.trim());
-                    return {
-                        username,
-                        event,
-                        points: parseInt(points, 10),
-                        date: new Date(date)
-                    };
-                }).filter(row => row.username && !isNaN(row.points) && row.date instanceof Date && !isNaN(row.date));
-                
-                return allData;
-            } catch (error) {
-                console.error("Error fetching or parsing leaderboard data:", error);
-                document.getElementById('leaderboard-loading').textContent = 'Error loading data. Please try again later.';
-                return [];
-            }
-        }
-
-        function calculateScores(data) {
-            const scores = data.reduce((acc, record) => {
-                acc[record.username] = (acc[record.username] || 0) + record.points;
-                return acc;
-            }, {});
-
-            return Object.entries(scores)
-                .map(([username, points]) => ({ username, points }))
-                .sort((a, b) => b.points - a.points);
-        }
-
-        function renderLeaderboard(scores) {
-            const tbody = document.getElementById('leaderboard-body');
-            const loadingEl = document.getElementById('leaderboard-loading');
-            
-            tbody.innerHTML = ''; // Clear existing rows
-
-            if (scores.length === 0) {
-                loadingEl.textContent = 'No data available for this period.';
-                loadingEl.style.display = 'block';
-                return;
-            }
-
-            loadingEl.style.display = 'none';
-
-            scores.forEach((score, index) => {
-                const rank = index + 1;
-                const row = document.createElement('tr');
-                
-                let rankClass = '';
-                if (rank === 1) rankClass = 'rank-1';
-                else if (rank === 2) rankClass = 'rank-2';
-                else if (rank === 3) rankClass = 'rank-3';
-                if(rankClass) row.classList.add(rankClass);
-
-                let rankContent = rank;
-                if (rank === 1) rankContent = '🥇 ' + rank;
-                else if (rank === 2) rankContent = '🥈 ' + rank;
-                else if (rank === 3) rankContent = '🥉 ' + rank;
-
-                row.innerHTML = `
-                    <td class="rank-cell">${rankContent}</td>
-                    <td class="user-cell">${score.username}</td>
-                    <td class="points-cell">${score.points}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        async function updateLeaderboard(period) {
-            document.getElementById('leaderboard-loading').textContent = 'Calculating...';
-            document.getElementById('leaderboard-loading').style.display = 'block';
-            document.getElementById('leaderboard-body').innerHTML = '';
-
-            const now = new Date();
-            const currentMonth = now.getMonth();
-            const currentYear = now.getFullYear();
-
-            let filteredData = [];
-            if (period === 'monthly') {
-                filteredData = allData.filter(d => d.date.getFullYear() === currentYear && d.date.getMonth() === currentMonth);
-            } else if (period === 'yearly') {
-                filteredData = allData.filter(d => d.date.getFullYear() === currentYear);
-            } else { // 'all-time'
-                filteredData = allData;
-            }
-            
-            const scores = calculateScores(filteredData);
-            renderLeaderboard(scores);
-        }
-
-        function setupTabListeners() {
-            const tabs = document.querySelectorAll('.leaderboard-tab-btn');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    updateLeaderboard(tab.dataset.period);
-                });
-            });
-        }
-        // --- NEW LEADERBOARD SCRIPT END ---
-
-
-        // Community Carousel Logic
-        let currentCommunityIndex = 0;
-        const totalNamedCommunityMembers = 36;
-        let communityAutoRotateInterval;
-
-        const members = [
-            { name: 'Autopsy', holderSince: '05/10/2024', xLink: 'https://x.com/AutopsyT2', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg', badges: [{ type: 'spaces', tier: 'amethyst' }, { type: 'burn', tier: 'gold' }, { type: 'holding', tier: 'gold' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
-            { name: 'Catavina', holderSince: '05/10/2024', xLink: 'https://x.com/catavina17', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg', badges: [{ type: 'spaces', tier: 'amethyst' }, { type: 'holding', tier: 'gold' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
-            { name: 'Lou', holderSince: '05/10/2024', xLink: 'https://x.com/louisedbegin', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg', badges: [{ type: 'spaces', tier: 'amethyst' }, { type: 'holding', tier: 'silver' }, { type: 'shiller', tier: 'single' }] },
-            { name: 'Tormund', holderSince: '05/10/2024', xLink: 'https://x.com/Tormund_17', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tormund_pj4hwd.jpg', badges: [{ type: 'holding', tier: 'gold' }, { type: 'spaces', tier: 'silver' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
-            { name: 'JPEG', holderSince: '05/10/2024', xLink: 'https://x.com/jpegfein', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg', badges: [{ type: 'spaces', tier: 'gold' }, { type: 'holding', tier: 'gold' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
-            { name: 'blu', holderSince: '05/10/2024', xLink: 'https://x.com/blu_chek', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/blu_fko02p.jpg', badges: [{ type: 'holding', tier: 'silver' }, { type: 'spaces', tier: 'silver' }, { type: 'shiller', tier: 'single' }] },
-            { name: 'Drinks', holderSince: '05/10/2024', xLink: 'https://x.com/drinkonsaturday', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Renee', holderSince: '05/10/2024', xLink: 'https://x.com/ReneeBush96829', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747850503/Renee_eekhuh.jpg', badges: [{ type: 'holding', tier: 'silver' }, { type: 'spaces', tier: 'bronze' }, { type: 'shiller', tier: 'single' }] },
-            { name: 'Ambient', holderSince: '05/10/2024', xLink: 'https://x.com/AmbientSound', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Tom', holderSince: '05/10/2024', xLink: 'https://x.com/deadend_king', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111318/tom_firsei.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'shiller', tier: 'single' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Lunicking', holderSince: '05/10/2024', xLink: 'https://x.com/Lunicking178677', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg', badges: [{ type: 'holding', tier: 'gold' }, { type: 'spaces', tier: 'bronze' }, { type: 'shiller', tier: 'single' }, { type: 'meme', tier: 'single' }] },
-            { name: 'Cory B', holderSince: '05/10/2024', xLink: 'https://x.com/coryb410', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Cory_qntp8y.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Dan', holderSince: '05/10/2024', xLink: 'https://x.com/DanVibes10', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'DK', holderSince: '05/10/2024', xLink: 'https://x.com/PgHYinzer86', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Cody', holderSince: '05/10/2024', xLink: 'https://x.com/CodyMarmaduke', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Rankin', holderSince: '05/10/2024', xLink: 'https://x.com/rankin56696', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111531/rankin_mnn26k.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Scrappy', holderSince: '05/10/2024', xLink: 'https://x.com/bigsoup6_7', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg', badges: [{ type: 'holding', tier: 'silver' }, { type: 'spaces', tier: 'silver' }] },
-            { name: 'Mia', holderSince: '05/10/2024', xLink: 'https://x.com/GirlMia9079', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Elvis', holderSince: '05/10/2024', xLink: 'https://x.com/ElpatronSFC', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Bstr', holderSince: '05/10/2024', xLink: 'https://x.com/Bstr___', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'George', holderSince: '05/10/2024', xLink: 'https://x.com/GeorgeCdr28874', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Dog', holderSince: '05/10/2024', xLink: 'https://x.com/Dog66515910', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg', badges: [{ type: 'holding', tier: 'bronze' }, { type: 'shiller', tier: 'single' }] },
-            { name: 'Marilyn', holderSince: '05/10/2024', xLink: 'https://x.com/Marilyn_Moanroe', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Marilyn2_gzdbq2.jpg', badges: [{ type: 'holding', tier: 'bronze' }, { type: 'shiller', tier: 'single' }] },
-            { name: 'ZOMBi', holderSince: '05/10/2024', xLink: 'https://x.com/HauskenHelge', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/ZOMBi_obepxi.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Cyanide', holderSince: '05/10/2024', xLink: 'https://x.com/ipoopcrypto', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Demitrieus', holderSince: '05/10/2024', xLink: 'https://x.com/RecklesUnicorn', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg', badges: [{ type: 'holding', tier: 'bronze' }] },
-            { name: 'Ugo', holderSince: '05/10/2024', xLink: 'https://x.com/0x_Ugo', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg', badges: [{ type: 'holding', tier: 'gold' }] },
-            { name: 'Coinbud', holderSince: '05/10/2024', xLink: 'https://x.com/madgamer1979', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Coinbud_uwjumu.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Momma Blu', holderSince: '05/10/2024', xLink: 'https://x.com/AngelaPatt86456', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111841/momma_tvdmop.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Thurston', holderSince: '05/10/2024', xLink: 'https://x.com/ThurstonWaffles', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032869/Thurston_n6zd2i.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Michael', holderSince: '05/10/2024', xLink: 'https://x.com/p_r_o_m_o__', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Gnomie', holderSince: '05/10/2024', xLink: 'https://x.com/medraresteaker', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758112105/gnomie_epet05.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'AJ', holderSince: '05/10/2024', xLink: 'https://x.com/blaze_mb21', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'George Eager', holderSince: '05/10/2024', xLink: 'https://x.com/edition1', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032568/George_Eager_ckxq9y.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Denzel', holderSince: '05/10/2024', xLink: 'https://x.com/0xDnxl', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] },
-            { name: 'Tree', holderSince: '05/10/2024', xLink: 'https://x.com/TheresaWeik', img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032771/Tree_bggo4f.jpg', badges: [{ type: 'spaces', tier: 'silver' }, { type: 'holding', tier: 'bronze' }] }
-        ];
-
-        function updateCommunityCarousel() {
+        function updateCommunityCarousel() {
             const featuredCard = document.querySelector('#hof-featured .trading-card');
             const memberData = members[currentCommunityIndex];
             
@@ -643,40 +409,35 @@
             activeMemberElements.forEach(el => el.classList.add('active-member'));
         }
 
-        function rotateHof(direction) {
-            if (direction === 'right') { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; } 
-            else { currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers; }
-            updateCommunityCarousel();
-            resetCommunityAutoRotate();
-        }
+        function rotateHof(direction) {
+            if (direction === 'right') { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; } 
+            else { currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers; }
+            updateCommunityCarousel();
+            resetCommunityAutoRotate();
+        }
 
-        function resetCommunityAutoRotate() {
-            clearInterval(communityAutoRotateInterval);
-            communityAutoRotateInterval = setInterval(() => { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; updateCommunityCarousel(); }, 10000);
-        }
+        function resetCommunityAutoRotate() {
+            clearInterval(communityAutoRotateInterval);
+            communityAutoRotateInterval = setInterval(() => { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; updateCommunityCarousel(); }, 10000);
+        }
 
-        function toggleBadgeGlossary() {
-            const content = document.getElementById('badgeGlossary');
-            const header = content.previousElementSibling;
-            const isActive = content.classList.toggle('active');
-            header.classList.toggle('active', isActive);
-            header.setAttribute('aria-expanded', isActive);
-            if (isActive) { content.style.maxHeight = content.scrollHeight + 30 + 'px'; content.style.padding = '15px'; } 
-            else { content.style.maxHeight = '0'; content.style.padding = '0 15px'; }
-        }
+        function toggleBadgeGlossary() {
+            const content = document.getElementById('badgeGlossary');
+            const header = content.previousElementSibling;
+            const isActive = content.classList.toggle('active');
+            header.classList.toggle('active', isActive);
+            header.setAttribute('aria-expanded', isActive);
+            if (isActive) { content.style.maxHeight = content.scrollHeight + 30 + 'px'; content.style.padding = '15px'; } 
+            else { content.style.maxHeight = '0'; content.style.padding = '0 15px'; }
+        }
 
-        window.addEventListener('load', async () => {
-            initializeMatrix();
-            startMatrixRain();
-            updateCommunityCarousel();
-            resetCommunityAutoRotate();
-
-            // --- LEADERBOARD INITIALIZATION ---
-            setupTabListeners();
-            await fetchLeaderboardData();
-            updateLeaderboard('monthly'); // Load monthly data by default
-            
-            document.querySelectorAll('.hof-member').forEach(memberEl => {
+        window.addEventListener('load', () => {
+            initializeMatrix();
+            startMatrixRain();
+            updateCommunityCarousel();
+            resetCommunityAutoRotate();
+            
+            document.querySelectorAll('.hof-member').forEach(memberEl => {
                 memberEl.addEventListener('click', () => {
                     currentCommunityIndex = parseInt(memberEl.dataset.index);
                     updateCommunityCarousel();
@@ -686,7 +447,7 @@
                     }
                 });
             });
-        });
-    </script>
+        });
+    </script>
 </body>
 </html>
