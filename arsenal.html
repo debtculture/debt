@@ -607,6 +607,23 @@
             const filterButtons = document.querySelectorAll('.filter-btn');
             const mediaItems = document.querySelectorAll('.media-item');
 
+            // --- Dynamically Add Item Counts to Filter Buttons ---
+            const allItems = document.querySelectorAll('.media-item');
+            filterButtons.forEach(button => {
+                const filter = button.dataset.filter;
+                let count = 0;
+                if (filter === 'all') {
+                    count = allItems.length;
+                } else {
+                    count = document.querySelectorAll(`.media-item[data-category="${filter}"]`).length;
+                }
+                // Add the count only if it's greater than 0
+                if (count > 0) {
+                    button.textContent += ` (${count})`;
+                }
+            });
+            // --- End of New Code ---
+
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     filterButtons.forEach(btn => btn.classList.remove('active'));
