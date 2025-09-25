@@ -241,6 +241,22 @@
             .badge-arrow, .invisible-arrow { font-size: 1rem; width: 18px; margin: 0; height: 44px; transform: translateY(-24px); }
             .badge-glossary-header { font-size: 1.1rem; padding: 10px; }
         }
+        @media (prefers-reduced-motion: reduce) {
+          /* Turn off all animations and transitions */
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+
+          /* Specifically disable the named keyframe animations */
+          h1, .back-home {
+            animation: none !important;
+          }
+        }
     </style>
 </head>
 <body>
