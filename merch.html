@@ -63,6 +63,14 @@
             font-weight: 700;
             animation: neon-flicker 1.5s infinite alternate;
         }
+        .merch-tagline {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #ff9999;
+          text-shadow: 0 0 5px #ff5555;
+          margin-top: -30px;
+          margin-bottom: 60px;
+        }
         @keyframes neon-flicker {
             0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
                 text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
@@ -145,17 +153,24 @@
         }
 
         .merch-submit-btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            background-color: #ff5555;
-            border: none;
-            text-decoration: none;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 10px #ff5555;
-            opacity: 1;
+          /* --- Appearance --- */
+          display: inline-block;
+          background: #ff5555;
+          color: #fff;
+          border: 2px solid #ff7777;
+          border-radius: 5px;
+          text-decoration: none;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+
+          /* --- Size & Spacing --- */
+          padding: 15px 35px;
+          font-size: 1.2rem;
+          font-weight: 700;
+
+          /* --- Effects --- */
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          animation: pulseGlow 2s infinite ease-in-out;
         }
 
         .submit-btn-container {
@@ -163,7 +178,9 @@
         }
 
         .merch-submit-btn:hover {
-            background-color: #ff7777; /* add a hover effect if you want */
+            background-color: #ff7777;
+          transform: scale(1.1);
+          box-shadow: 0 0 25px #ff5555, 0 0 50px #ff5555;
         }
 
         .back-home-container {
@@ -318,7 +335,22 @@
         display: none;
     }
 }
+    @media (prefers-reduced-motion: reduce) {
+      /* Turn off all animations and transitions for users who prefer less motion */
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
 
+      /* Specifically disable the named keyframe animations on this page */
+      h1, .back-home, .merch-submit-btn {
+        animation: none !important;
+      }
+    }
     </style>
 </head>
 <body>
@@ -332,6 +364,7 @@
         </div>
         <section id="merch" class="section">
             <h1>Merchandise</h1>
+            <p class="merch-tagline">Wear the rebellion.</p>
             <div class="merch-container">
                 <div class="merch-item">
                     <div class="merch-carousel">
