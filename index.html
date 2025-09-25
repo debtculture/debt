@@ -1222,18 +1222,16 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     color: #fff;
 }
 @media (prefers-reduced-motion: reduce) {
-  /* Turn off all animations and transitions for users who prefer less motion */
+  /* Reduce, but don't completely eliminate, transition speeds */
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 
-  /* Specifically disable the named keyframe animations */
-  h1, .pulse-neon, .join-rebellion, .disclaimer, .contract-address, .logo-btn.active, .back-home, .cta-button, .tokenomics, .phase:hover, .future-teaser:hover {
+  /* Only disable the most intense animations */
+  .join-rebellion, .disclaimer, .contract-address, .cta-button, .tokenomics {
     animation: none !important;
   }
 }
