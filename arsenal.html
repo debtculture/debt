@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The official media arsenal for the Debt Culture ($DEBT) community. Find memes, GIFs, and videos to join the rebellion.">
+    <meta name="keywords" content="Debt Culture, $DEBT, memes, GIFs, videos, content, arsenal, crypto, Solana">
+    <meta name="author" content="Autopsy">
+    <title>Debt Culture - Media Arsenal</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base & Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        /* --- Matrix Background --- */
+        canvas#matrix-bg, canvas#matrix-rain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none;
+        }
+        canvas#matrix-rain { z-index: -1; opacity: 0.6; }
+
+        /* --- Main Content Wrapper --- */
+        .content-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 80px 20px 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Header & Title --- */
+        header { text-align: center; margin-bottom: 40px; }
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+            animation: neon-flicker 1.5s infinite alternate;
+            font-weight: 900;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff9999;
+            text-shadow: 0 0 5px #ff5555;
+            margin-top: 10px;
+        }
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555; }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+        
+        /* --- Filter Menu --- */
+        .filter-menu {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            background: #1e1e1e;
+            color: #eee;
+            border: 1px solid #ff5555;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .filter-btn:hover {
+            background-color: #ff5555;
+            color: #fff;
+        }
+        .filter-btn.active {
+            background-color: #ff5555;
+            color: #fff;
+            box-shadow: 0 0 15px #ff5555;
+        }
+
+        /* --- Media Grid --- */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .media-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            aspect-ratio: 1 / 1; /* Makes items square */
+        }
+        .media-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease;
+            opacity: 0; /* Hidden until lazy loaded */
+        }
+        .media-item img.loaded {
+            opacity: 1;
+        }
+        .media-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- Item Overlay & Buttons --- */
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .media-item:hover .media-overlay {
+            opacity: 1;
+        }
+        .overlay-btn {
+            background: #ff5555;
+            color: #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .overlay-btn:hover {
+            transform: scale(1.2);
+        }
+        .video-play-icon {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        /* --- Back Home & Footer --- */
+        .back-home-container { position: fixed; top: 20px; left: 20px; z-index: 1000; }
+        .back-home { display: flex; align-items: center; gap: 10px; background: #ff5555; color: #fff; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-size: 1rem; font-weight: 700; animation: pulseGlow 1.5s infinite ease-in-out; }
+        .back-home:hover { transform: scale(1.1); box-shadow: 0 0 15px #ff5555; }
+        .footer { position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); padding: 10px 20px; z-index: 1000; border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); }
+        .footer-link { color: #ff5555; text-decoration: none; font-weight: 700; transition: all 0.3s ease; }
+        .footer-link:hover { color: #ff7777; text-shadow: 0 0 6px #ff5555; }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; }
+            50% { box-shadow: 0 0 25px #ff5555, 0 0 50px #ff5555; }
+            100% { box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; }
+        }
+
+        /* --- Responsive & Accessibility --- */
+        @media (max-width: 768px) {
+            .content-wrapper { padding: 80px 10px 60px 10px; }
+            h1 { font-size: 2.2rem; }
+            .media-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .back-home { font-size: 0.8rem; padding: 6px 12px; }
+            .footer { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+            h1, .back-home, .cta-button { animation: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    <canvas id="matrix-rain"></canvas>
+
+    <div class="back-home-container">
+        <a href="index.html" class="back-home" aria-label="Back to Home">⇠ Back</a>
+    </div>
+
+    <div class="content-wrapper">
+        <header>
+            <h1>Media Arsenal</h1>
+            <p class="subtitle">The official propaganda hub of the $DEBT rebellion.</p>
+        </header>
+
+        <div class="filter-menu">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="image">Images & Memes</button>
+            <button class="filter-btn" data-filter="gif">GIFs</button>
+            <button class="filter-btn" data-filter="video">Videos</button>
+        </div>
+
+        <div class="media-grid">
+            <div class="media-item" data-category="image">
+                <img data-src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="DEBT Logo Meme">
+                <div class="media-overlay">
+                    <a href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" download class="overlay-btn" title="Download">⬇️</a>
+                </div>
+            </div>
+
+            <div class="media-item" data-category="gif">
+                <img data-src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejE2d2J2dm56aG5ub2M1bzdqbWRwYnA4ejh2dzJjZ2JtZWp1amwzYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oKIPEh5Lk3fA02f2U/giphy.gif" alt="Funny GIF">
+                <div class="media-overlay">
+                    <a href="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejE2d2J2dm56aG5ub2M1bzdqbWRwYnA4ejh2dzJjZ2JtZWp1amwzYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oKIPEh5Lk3fA02f2U/giphy.gif" download class="overlay-btn" title="Download">⬇️</a>
+                </div>
+            </div>
+
+            <div class="media-item" data-category="video" data-video-src="https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1758095395/Pandemic_compressed_rzwz8z.mp4">
+                <img data-src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758107634/thumbnail_rzaokw.jpg" alt="Pandemic Video Thumbnail">
+                <div class="media-overlay">
+                    <span class="overlay-btn video-play-icon">▶</span>
+                </div>
+            </div>
+            
+            </div>
+    </div>
+
+    <footer class="footer">
+        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
+    </footer>
+
+    <script>
+        // Matrix Background Scripts
+        function initializeMatrix() { const canvas = document.getElementById('matrix-bg'); if (!canvas) return; const ctx = canvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = Math.ceil(canvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * canvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; function draw() { ctx.fillStyle = 'rgba(18, 18, 18, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#ff5555'; ctx.font = `${fontSize}px monospace`; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; } drops[i]++; } } setInterval(draw, 50); }
+        function startMatrixRain() { const rainCanvas = document.getElementById('matrix-rain'); if (!rainCanvas) return; const rainCtx = rainCanvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; columns = Math.ceil(rainCanvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; function drawRain() { rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)'; rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height); rainCtx.fillStyle = '#999999'; rainCtx.font = fontSize + 'px monospace'; drops.forEach((y, i) => { const text = chars.charAt(Math.floor(Math.random() * chars.length)); rainCtx.fillText(text, i * fontSize, y * fontSize); if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }); } setInterval(drawRain, 50); }
+
+        window.addEventListener('load', () => {
+            initializeMatrix();
+            startMatrixRain();
+
+            // --- Filter Logic ---
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const mediaItems = document.querySelectorAll('.media-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filter = button.dataset.filter;
+
+                    mediaItems.forEach(item => {
+                        if (filter === 'all' || item.dataset.category === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // --- Lazy Loading Logic ---
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            const imgObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.onload = () => {
+                            img.classList.add('loaded');
+                        };
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            lazyImages.forEach(img => imgObserver.observe(img));
+        });
+    </script>
+</body>
+</html>
