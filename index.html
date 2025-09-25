@@ -1240,25 +1240,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     display: none;
   }
 }
-/* --- Manual Wallet Refresh Button Style --- */
-#manualRefreshBtn {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 70px; /* Position it below the other buttons */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1101; /* Above other UI */
-    background-color: #ff5555;
-    color: #fff;
-    border: 1px solid #ff7777;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 0 20px #ff5555;
-    animation: pulseGlow 1.5s infinite ease-in-out;
-}
+
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
@@ -1530,7 +1512,6 @@ window.onload = fetchTokenomicsData;
     </div>
 </div>
 <button class="connect-wallet-mobile" id="connectWalletMobile" role="button" aria-label="Select Wallet">Select Wallet</button>
-<button id="manualRefreshBtn" style="display: none;">Click to Complete Connection</button>
 <div id="walletModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
     <div style="background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
         <h2 style="font-size: 1.5rem; color: #ff5555; margin: 0 0 15px;">Select a Wallet</h2>
@@ -1968,19 +1949,6 @@ function initializeMatrix() {
     }
     
     setInterval(draw, 50);
-}
-
-function checkConnectionOnFocus() {
-    if (document.visibilityState !== 'visible') return;
-
-    const mobileButton = document.getElementById('connectWalletMobile');
-    if (mobileButton.classList.contains('connected')) return;
-
-    const previouslySelectedWallet = localStorage.getItem('walletType');
-    if (previouslySelectedWallet) {
-        console.log('Tab refocused, showing manual refresh button.');
-        document.getElementById('manualRefreshBtn').style.display = 'block';
-    }
 }
     
 // Wallet connection logic
@@ -2477,7 +2445,6 @@ window.addEventListener('load', async () => {
             openWalletModal();
         }
     });
-    document.addEventListener('visibilitychange', checkConnectionOnFocus);
     const manualRefreshButton = document.getElementById('manualRefreshBtn');
     manualRefreshButton.addEventListener('click', () => {
         manualRefreshButton.style.display = 'none'; // Hide the button
