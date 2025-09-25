@@ -805,7 +805,7 @@
                     updateCommunityCarousel();
                     resetCommunityAutoRotate();
                     if (window.innerWidth <= 768) {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        document.querySelector('.hof-carousel').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 });
             });
