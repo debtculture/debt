@@ -1240,6 +1240,22 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     display: none;
   }
 }
+.mobile-wallet-notice {
+    display: none; /* Hidden by default */
+    background-color: rgba(255, 85, 85, 0.1);
+    border: 1px solid rgba(255, 85, 85, 0.3);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #eee;
+}
+@media (max-width: 768px) {
+    .mobile-wallet-notice {
+        display: block; /* Only show on mobile devices */
+    }
+}
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
@@ -1515,8 +1531,8 @@ window.onload = fetchTokenomicsData;
     <div style="background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 300px; width: 90%; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
         <h2 style="font-size: 1.5rem; color: #ff5555; margin: 0 0 15px;">Select a Wallet</h2>
         <div class="mobile-wallet-notice">
-            📱 <b>For Mobile:</b> For the best experience, please open debtculture.xyz directly in your wallet's built-in browser.
-        </div>
+            📱 <b>For Mobile:</b> For the best experience, please open debtculture.xyz directly in your wallet's built-in browser.
+        </div>
         <div id="walletList" style="display: flex; flex-direction: column; gap: 10px;">
             </div>
         <button onclick="closeWalletModal()" style="background: #ff5555; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; margin-top: 15px; transition: background-color 0.3s;" onmouseover="this.style.background='#ff7777';" onmouseout="this.style.background='#ff5555';">Close</button>
