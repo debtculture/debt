@@ -8,18 +8,17 @@
     <meta name="author" content="Autopsy" />
     <title>Debt Culture - Forums</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* --- Reset & Base Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background: #121212;
             color: #fff;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
@@ -69,6 +68,7 @@
             text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
             margin-bottom: 20px;
             animation: neon-flicker 1.5s infinite alternate;
+            font-weight: 900;
         }
 
         @keyframes neon-flicker {
@@ -168,11 +168,12 @@
             color: #ff5555;
             text-decoration: none;
             transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-weight: 700;
         }
         
         .footer-link:hover {
             color: #ff7777;
-            text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
+            text-shadow: 0 0 6px #ff5555;
         }
 
         /* --- Accessibility & Responsive --- */
@@ -217,65 +218,8 @@
 
     <script>
         // Matrix Background Scripts (same as other pages for consistency)
-        function initializeMatrix() {
-            const canvas = document.getElementById('matrix-bg');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let columns, drops, fontSize = 14;
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                columns = Math.ceil(canvas.width / fontSize);
-                drops = Array(columns).fill(1).map(() => (Math.random() * canvas.height / fontSize));
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            function draw() {
-                ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#ff5555';
-                ctx.font = `${fontSize}px monospace`;
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-            setInterval(draw, 50);
-        }
-
-        function startMatrixRain() {
-            const rainCanvas = document.getElementById('matrix-rain');
-            if (!rainCanvas) return;
-            const rainCtx = rainCanvas.getContext('2d');
-            let columns, drops, fontSize = 14;
-            function resizeCanvas() {
-                rainCanvas.width = window.innerWidth;
-                rainCanvas.height = window.innerHeight;
-                columns = Math.ceil(rainCanvas.width / fontSize);
-                drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height / fontSize));
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            function drawRain() {
-                rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
-                rainCtx.fillStyle = '#999999';
-                rainCtx.font = fontSize + 'px monospace';
-                drops.forEach((y, i) => {
-                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    rainCtx.fillText(text, i * fontSize, y * fontSize);
-                    if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                });
-            }
-            setInterval(drawRain, 50);
-        }
+        function initializeMatrix() { const canvas = document.getElementById('matrix-bg'); if (!canvas) return; const ctx = canvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = Math.ceil(canvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * canvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; function draw() { ctx.fillStyle = 'rgba(18, 18, 18, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#ff5555'; ctx.font = `${fontSize}px monospace`; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; } drops[i]++; } } setInterval(draw, 50); }
+        function startMatrixRain() { const rainCanvas = document.getElementById('matrix-rain'); if (!rainCanvas) return; const rainCtx = rainCanvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; columns = Math.ceil(rainCanvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; function drawRain() { rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)'; rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height); rainCtx.fillStyle = '#999999'; rainCtx.font = fontSize + 'px monospace'; drops.forEach((y, i) => { const text = chars.charAt(Math.floor(Math.random() * chars.length)); rainCtx.fillText(text, i * fontSize, y * fontSize); if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }); } setInterval(drawRain, 50); }
 
         window.addEventListener('load', () => {
             initializeMatrix();
