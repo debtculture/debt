@@ -813,39 +813,36 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 }
 #walletInfo {
-    display: none; /* Controlled by JavaScript */
-    text-align: center;
-    padding: 8px 12px;
-    background-color: rgba(18, 18, 18, 0.8);
-    backdrop-filter: blur(5px);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 85, 85, 0.5);
-    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
-    color: #fff;
-    font-size: 0.8rem;
-    z-index: 1200;
-    max-width: 180px;
-    width: max-content;
+    display: none; /* Controlled by JavaScript */
+    text-align: center;
+    padding: 8px 12px;
+    background-color: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 85, 85, 0.5);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+    color: #fff;
+    font-size: 0.8rem;
+    z-index: 1200;
+    max-width: 180px;
+    width: max-content;
 }
-    </style>
-<style>
+
 @media (max-width: 768px) {
-    #walletInfo {
-        position: fixed;
-        top: 60px !important;
-        right: 15px !important;
-        left: auto !important;
-        transform: none !important;
-        font-size: 0.75rem;
-    }
+    #walletInfo {
+        position: fixed;
+        top: 60px;
+        right: 15px;
+    }
 }
+
 @media (min-width: 769px) {
     #walletInfo {
         position: absolute;
-        top: 95px; /* Pushes it 5px below the 90px tall icon */
-        left: 50%; /* Aligns the box's left edge to the icon's center */
-        transform: translateX(-50%); /* Shifts the box left by half its own width */
-        right: auto;
+        top: 100%; /* Position the top of the pop-up at the bottom of the icon */
+        margin-top: 10px; /* Add a 10px gap, same as the audio player */
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 .x-space-schedule {
@@ -1297,15 +1294,15 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
             <div class="navbar-links">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo logo-btn" id="logo-btn" width="100" height="100" loading="eager" role="button" aria-label="Toggle audio player">
                 <div id="audio-player" class="audio-player">
-                  <div class="audio-controls">
-                    <button id="prev-track" class="audio-btn" aria-label="Previous track">⏮</button>
-                    <button id="play-pause" class="audio-btn play" aria-label="Play">▶</button>
-                    <button id="next-track" class="audio-btn" aria-label="Next track">⏭</button>
-                  </div>
-                  <div id="track-info"><span></span></div>
+                    <div class="audio-controls">
+                        <button id="prev-track" class="audio-btn" aria-label="Previous track">⏮</button>
+                        <button id="play-pause" class="audio-btn play" aria-label="Play">▶</button>
+                        <button id="next-track" class="audio-btn" aria-label="Next track">⏭</button>
+                    </div>
+                    <div id="track-info"><span></span></div>
                 </div>
                 <audio id="audio" preload="metadata">
-                  <source src="" type="audio/mpeg">
+                    <source src="" type="audio/mpeg">
                 </audio>
                 <a href="#hero" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Home</a>
                 <a href="litepaper.html" class="hover-underline" style="transition: transform 0.3s ease, text-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.textShadow='0 0 10px #ff5555';" onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';">Litepaper</a>
