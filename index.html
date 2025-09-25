@@ -136,7 +136,7 @@
     #hero { min-height: auto; padding: 20px; margin: 45px 0 10px; opacity: 1; transform: none; transition: none; }
     #overview { transform: translateX(0); opacity: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 0px; }
     .from-right { transform: translateX(100%); }
-    h1 { font-size: 3rem; margin: 20px 0; }
+    h1 { font-size: 3rem; margin: 20px 0; text-shadow: 0 0 5px #ff5555, 0 0 10px #ff5555; }
     p { font-size: 1.25rem; max-width: 800px; margin: 0 auto 20px; }
     .footer {
     position: fixed;
@@ -294,6 +294,7 @@
     .modal-content button:hover { background-color: #ff7777; }
 
     /* Overview Section Styles */
+    .manifesto-container { max-width: 800px; margin: 0 auto 40px auto; /* Adds space below the container */ padding: 30px; background-color: #1e1e1e;  border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
     #overview { padding: 40px 20px; }
     .tokenomics { margin: 20px auto; max-width: 400px; padding: 20px; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); text-align: center; }
     .tokenomics h2 { font-size: 1.5rem; color: #ff5555; margin: 0 0 10px; }
@@ -1340,12 +1341,14 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         </section>
 
         <section id="overview" class="section">
-    <h1>The Manifesto</h1>
-    <p>They forged a world in chains of debt and called it progress. They built a digital prison for the masses and sold it as a dream. We are the glitch in their machine, the key to our own cells. This is more than a token; it's the crowbar to pry open the system and the fire to burn their empire to ash. Shatter your chains. The great default is here.</p>
-    <div class="debt-clock-container" onclick="window.open('https://www.usdebtclock.org/', '_blank')" role="button" aria-label="Visit U.S. Debt Clock" style="animation: pulseGlow 2s infinite ease-in-out;">
-        <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no" sandbox="allow-same-origin allow-scripts"></iframe>
-    </div>
-    <p>This isn't just a number. It's the weight of the chains they've put on us. The fuel for their machine, paid for by your future.</p>
+            <div class="manifesto-container">
+                <h1>The Manifesto</h1>
+                <p>They forged a world in chains of debt and called it progress. They built a digital prison for the masses and sold it as a dream. We are the glitch in their machine, the key to our own cells. This is more than a token; it's the crowbar to pry open the system and the fire to burn their empire to ash. Shatter your chains. The great default is here.</p>
+                <div class="debt-clock-container" onclick="window.open('https://www.usdebtclock.org/', '_blank')" role="button" aria-label="Visit U.S. Debt Clock" style="animation: pulseGlow 2s infinite ease-in-out;">
+                    <iframe class="debt-clock-iframe" src="https://www.usdebtclock.org/" title="U.S. Debt Clock" scrolling="no" sandbox="allow-same-origin allow-scripts"></iframe>
+                </div>
+                <p>This isn't just a number. It's the weight of the chains they've put on us. The fuel for their machine, paid for by your future.</p>
+            </div>
     
     <div class="tokenomics">
         <h2>Tokenomics</h2>
