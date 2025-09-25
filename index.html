@@ -840,13 +840,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     }
 }
 @media (min-width: 769px) {
-    #walletInfo {
-        position: fixed;
-        top: 120px !important; /* Below 90px bubble */
-        right: 45px !important; /* Adjusted to center under 90px bubble */
-        left: auto !important;
-        transform: none !important;
-    }
+    #walletInfo {
+        position: absolute;
+        top: 95px; /* Pushes it 5px below the 90px tall icon */
+        left: 50%; /* Aligns the box's left edge to the icon's center */
+        transform: translateX(-50%); /* Shifts the box left by half its own width */
+        right: auto;
+    }
 }
 .x-space-schedule {
     text-align: center;
