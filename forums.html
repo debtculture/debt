@@ -1,353 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Debt Culture Forum - Join the rebellion, share your voice." />
-  <meta name="keywords" content="Debt Culture, $DEBT, forum, crypto, memecoin, Solana" />
-  <meta name="author" content="Autopsy" />
-  <title>Debt Culture - Forums (Under Construction)</title>
-  <link
-    rel="icon"
-    type="image/png"
-    href="https://res.cloudinary.com/dpvptjn4t/image/upload/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png"
-  />
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: #121212;
-      color: #fff;
-      font-family: 'Courier New', Courier, monospace;
-      line-height: 1.6;
-      overflow-x: hidden;
-      min-height: 100vh;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-    .footer {
-            position: fixed; 
-            bottom: 15px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: auto; 
-            background-color: rgba(18, 18, 18, 0.5); 
-            backdrop-filter: blur(5px); 
-            color: #eee; 
-            text-align: center; 
-            padding: 10px 20px; 
-            z-index: 1000; 
-            border-radius: 8px; 
-            border: 1px solid rgba(255, 85, 85, 0.3); 
-            box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Debt Culture Forum - Join the rebellion, share your voice." />
+    <meta name="keywords" content="Debt Culture, $DEBT, forum, community, crypto, memecoin, Solana" />
+    <meta name="author" content="Autopsy" />
+    <title>Debt Culture - Forums</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" />
+    <style>
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* --- Matrix Background --- */
+        canvas#matrix-bg,
+        canvas#matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        canvas#matrix-rain {
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* --- Content Wrapper --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.7);
+            border: 1px solid #ff5555;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(255, 85, 85, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Header --- */
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+            margin-bottom: 20px;
+            animation: neon-flicker 1.5s infinite alternate;
+        }
+
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        
+        /* --- Description Text --- */
+        p {
+            font-size: 1.2rem;
+            color: #ff9999;
+            text-shadow: 0 0 5px #ff5555;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- Call-to-Action Button --- */
+        .cta-button {
+            display: inline-block;
+            background: #ff5555;
+            color: #fff;
+            border: 2px solid #ff7777;
+            border-radius: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ff5555, 0 0 50px #ff5555;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; }
+            50% { box-shadow: 0 0 25px #ff5555, 0 0 50px #ff5555; }
+            100% { box-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555; }
+        }
+
+        /* --- Back Home & Footer (Shared Styles) --- */
+        .back-home-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ff5555;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulseGlow 1.5s infinite ease-in-out;
+        }
+        
+        .back-home:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #ff5555;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            background-color: rgba(18, 18, 18, 0.5);
+            backdrop-filter: blur(5px);
+            color: #eee;
+            text-align: center;
+            padding: 10px 20px;
+            z-index: 1000;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.2);
+        }
+
         .footer-link {
             color: #ff5555;
             text-decoration: none;
             transition: color 0.3s ease, text-shadow 0.3s ease;
         }
+        
         .footer-link:hover {
             color: #ff7777;
             text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
         }
 
-    /* Back Home button */
-    .back-home-container {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-    }
-    .back-home {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #ff5555;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 700;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulseGlow 1.5s infinite ease-in-out;
-      user-select: none;
-    }
-    .back-home:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px #ff5555;
-    }
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 5px #ff5555; }
-      50% { box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
-      100% { box-shadow: 0 0 5px #ff5555; }
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      margin-top: 80px;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-    header h1 {
-      font-size: 3rem;
-      color: #fff;
-      text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
-      font-weight: 700;
-      animation: neon-flicker 1.5s infinite alternate;
-      user-select: none;
-    }
-    header p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #ff9999;
-      text-shadow: 0 0 5px #ff5555;
-      font-weight: 600;
-    }
-
-    @keyframes neon-flicker {
-      0%,19%,21%,23%,25%,54%,56%,100% {
-        text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
-      }
-      20%,24%,55% {
-        text-shadow: none;
-      }
-    }
-
-    /* Under Construction */
-    .under-construction {
-      background: #330000;
-      border: 2px solid #ff5555;
-      color: #ff5555;
-      padding: 15px 30px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      border-radius: 12px;
-      text-align: center;
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto 40px auto;
-      box-shadow: 0 0 20px #ff5555;
-      user-select: none;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Forum */
-    #forum {
-      background: #1a1a1a;
-      border: 1px solid #ff5555;
-      border-radius: 15px;
-      padding: 30px 40px;
-      width: 100%;
-      max-width: 700px;
-      box-shadow: 0 0 30px #ff5555;
-      position: relative;
-      z-index: 1;
-    }
-    #forum h2 {
-      color: #fff;
-      font-size: 2rem;
-      margin-bottom: 15px;
-      font-weight: 700;
-      text-shadow: 0 0 10px #ff5555;
-      user-select: none;
-    }
-    #forum p.description {
-      color: #ff9999;
-      margin-bottom: 25px;
-      font-weight: 600;
-      text-shadow: 0 0 5px #ff5555;
-    }
-    #forum textarea {
-      width: 100%;
-      height: 110px;
-      background-color: #222;
-      color: #fff;
-      border: 1.5px solid #ff5555;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 1.1rem;
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-    #forum textarea:focus {
-      border-color: #ff7777;
-      box-shadow: 0 0 10px #ff5555;
-    }
-    #forum button {
-      margin-top: 15px;
-      padding: 12px 30px;
-      background-color: #ff5555;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    #forum button:hover {
-      background-color: #ff7777;
-      box-shadow: 0 0 15px #ff5555;
-    }
-    #forum button:disabled {
-      background-color: #990000;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    #forumMessages {
-      margin-top: 40px;
-      max-height: 350px;
-      overflow-y: auto;
-      border-top: 1px solid #ff5555;
-      padding-top: 20px;
-    }
-    #forumMessages div.message {
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #444;
-      user-select: text;
-    }
-    #forumMessages div.message:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-    #forumMessages div.message p {
-      font-size: 1rem;
-      line-height: 1.4;
-      color: #fff;
-    }
-    #forumMessages div.message strong {
-      color: #ff5555;
-    }
-    #forumMessages div.message em {
-      font-size: 0.75rem;
-      color: #ff9999;
-    }
-
-    #forumMessages::-webkit-scrollbar {
-      width: 8px;
-    }
-    #forumMessages::-webkit-scrollbar-thumb {
-      background-color: #ff5555;
-      border-radius: 4px;
-    }
-    #forumMessages::-webkit-scrollbar-track {
-      background: #121212;
-    }
-
-    @media (max-width: 768px) {
-      #forum {
-        padding: 20px 25px;
-      }
-      header h1 {
-        font-size: 2.2rem;
-      }
-      #forum h2 {
-        font-size: 1.5rem;
-      }
-      #forum textarea {
-        height: 90px;
-      }
-      .footer {
-        display: none;
-    }
-  }
-</style>
+        /* --- Accessibility & Responsive --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
+            .content-wrapper { padding: 30px 20px; }
+            .back-home { font-size: 0.8rem; padding: 6px 12px; }
+            .footer { display: none; }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            h1, .back-home, .cta-button {
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="back-home-container">
-    <a href="index.html" class="back-home" aria-label="Back to Home">⇠ Back</a>
-  </div>
+    <canvas id="matrix-bg"></canvas>
+    <canvas id="matrix-rain"></canvas>
 
-  <header>
-    <h1>📡 DEBT Forums</h1>
-    <p>Where rebels write history.</p>
-  </header>
+    <div class="back-home-container">
+        <a href="index.html" class="back-home" aria-label="Back to Home">⇠ Back</a>
+    </div>
 
-  <div class="under-construction" role="alert" aria-live="polite">
-    ⚠️ Under Construction — Forum is a work in progress. Posts are local only and not shared globally (yet).
-  </div>
+    <div class="content-wrapper">
+        <h1>Under Construction</h1>
+        <p>The Rebellion's command center is being built. Global forums are coming soon. Until then, coordinate the attack and share intel in our official Telegram.</p>
+        <a href="https://t.me/debtportal420" target="_blank" rel="noopener noreferrer" class="cta-button">Join the Telegram</a>
+    </div>
 
-  <section id="forum" aria-label="Debt Culture Forum">
-    <h2>🗣️ Global Forums Coming Soon</h2>
-    <p class="description">Leave a message. We’re currently building on this.</p>
-    <textarea
-      id="forumInput"
-      aria-label="Write your message here"
-      placeholder="Write your message here..."
-      maxlength="500"
-    ></textarea>
-    <button id="postBtn" onclick="submitForumPost()" disabled>Post</button>
+    <footer class="footer">
+        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.
+    </footer>
 
-    <div id="forumMessages" aria-live="polite" aria-relevant="additions"></div>
-  </section>
-  <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
-  <script>
-    const forumMessages = JSON.parse(localStorage.getItem("debtForumMessages") || "[]");
+    <script>
+        // Matrix Background Scripts (same as other pages for consistency)
+        function initializeMatrix() {
+            const canvas = document.getElementById('matrix-bg');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let columns, drops, fontSize = 14;
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                columns = Math.ceil(canvas.width / fontSize);
+                drops = Array(columns).fill(1).map(() => (Math.random() * canvas.height / fontSize));
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            function draw() {
+                ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ff5555';
+                ctx.font = `${fontSize}px monospace`;
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            setInterval(draw, 50);
+        }
 
-    const input = document.getElementById("forumInput");
-    const postBtn = document.getElementById("postBtn");
-    const forumDiv = document.getElementById("forumMessages");
+        function startMatrixRain() {
+            const rainCanvas = document.getElementById('matrix-rain');
+            if (!rainCanvas) return;
+            const rainCtx = rainCanvas.getContext('2d');
+            let columns, drops, fontSize = 14;
+            function resizeCanvas() {
+                rainCanvas.width = window.innerWidth;
+                rainCanvas.height = window.innerHeight;
+                columns = Math.ceil(rainCanvas.width / fontSize);
+                drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height / fontSize));
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            function drawRain() {
+                rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
+                rainCtx.fillStyle = '#999999';
+                rainCtx.font = fontSize + 'px monospace';
+                drops.forEach((y, i) => {
+                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                    rainCtx.fillText(text, i * fontSize, y * fontSize);
+                    if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                });
+            }
+            setInterval(drawRain, 50);
+        }
 
-    input.addEventListener("input", () => {
-      postBtn.disabled = input.value.trim().length === 0;
-    });
-
-    function submitForumPost() {
-      const message = input.value.trim();
-      if (!message) return;
-
-      const wallet = window?.solana?.publicKey?.toString() || "Anonymous";
-
-      const post = {
-        user: wallet,
-        text: message,
-        time: new Date().toLocaleString(),
-      };
-
-      forumMessages.unshift(post);
-      localStorage.setItem("debtForumMessages", JSON.stringify(forumMessages));
-
-      input.value = "";
-      postBtn.disabled = true;
-      displayForumMessages();
-    }
-
-    function displayForumMessages() {
-      forumDiv.innerHTML = "";
-      if (forumMessages.length === 0) {
-        forumDiv.innerHTML = '<p style="color:#ff5555; user-select:none;">No posts yet. Be the first rebel to speak up.</p>';
-        return;
-      }
-      forumMessages.forEach((msg) => {
-        const el = document.createElement("div");
-        el.classList.add("message");
-        el.innerHTML = `
-          <p><strong>${msg.user}</strong> <em>[${msg.time}]</em><br>${msg.text}</p>
-        `;
-        forumDiv.appendChild(el);
-      });
-    }
-
-    window.onload = () => {
-      displayForumMessages();
-      postBtn.disabled = true;
-    };
-  </script>
+        window.addEventListener('load', () => {
+            initializeMatrix();
+            startMatrixRain();
+        });
+    </script>
 </body>
 </html>
