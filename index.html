@@ -1950,6 +1950,37 @@ function initializeMatrix() {
     setInterval(draw, 50);
 }
 
+    async function checkConnectionOnFocus() {
+            // Check if the tab is visible and a wallet was previously used
+            if (document.visibilityState === 'visible') {
+                const previouslySelectedWallet = localStorage.getItem('walletType');
+                const mobileButton = document.getElementById('connectWalletMobile');
+
+                // If a wallet was chosen but the button doesn't show "connected", try to reconnect
+                if (previouslySelectedWallet && !mobileButton.classList.contains('connected')) {
+                    console.log('Tab refocused, attempting to restore wallet connection...');
+                    // This is a simplified version of the connect logic for silent reconnection
+                    try {
+                        let provider;
+                        if (previouslySelectedWallet === 'phantom' && window.solana?.isPhantom) provider = window.solana;
+                        else if (previouslySelectedWallet === 'solflare' && window.solflare) provider = window.solflare;
+                        else if (previouslySelectedWallet === 'backpack' && window.backpack) provider = window.backpack;
+
+                        if (provider) {
+                            const response = await provider.connect({ onlyIfTrusted: true });
+                            if (response.publicKey) {
+                                // If successful, manually call the main connect function to update UI
+                                // This reuses our existing code to show balance, address, etc.
+                                connectWallet(previouslySelectedWallet);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Silent reconnect failed:', error);
+                    }
+                }
+            }
+        }
+    
 // Wallet connection logic
 const wallets = [
     { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749488428/Phantom_Wallet_s3cahc.jpg' },
