@@ -1950,7 +1950,7 @@ function initializeMatrix() {
     setInterval(draw, 50);
 }
 
-    async function checkConnectionOnFocus() {
+async function checkConnectionOnFocus() {
             // Check if the tab is visible and a wallet was previously used
             if (document.visibilityState === 'visible') {
                 const previouslySelectedWallet = localStorage.getItem('walletType');
@@ -2475,6 +2475,7 @@ window.addEventListener('load', async () => {
             openWalletModal();
         }
     });
+    document.addEventListener('visibilitychange', checkConnectionOnFocus);
     desktopBubble.addEventListener('click', () => {
         if (desktopBubble.classList.contains('connected')) {
             const walletInfo = document.getElementById('walletInfo');
