@@ -1240,24 +1240,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     display: none;
   }
 }
-
-.mobile-wallet-notice {
-    display: none; /* Hidden by default */
-    background-color: rgba(255, 85, 85, 0.1);
-    border: 1px solid rgba(255, 85, 85, 0.3);
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #eee;
-}
-@media (max-width: 768px) {
-    .mobile-wallet-notice {
-        display: block; /* Only show on mobile devices */
-    }
-}
-
 </style>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-base@0.9.23/dist/umd/index.js"></script>
 <script defer src="https://unpkg.com/@solana/wallet-adapter-wallets@0.19.32/dist/umd/index.js"></script>
@@ -1970,7 +1952,7 @@ function initializeMatrix() {
     
     setInterval(draw, 50);
 }
-    
+
 // Wallet connection logic
 const wallets = [
     { name: 'Phantom', id: 'phantom', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749488428/Phantom_Wallet_s3cahc.jpg' },
@@ -2463,15 +2445,6 @@ window.addEventListener('load', async () => {
             walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
         } else {
             openWalletModal();
-        }
-    });
-    const manualRefreshButton = document.getElementById('manualRefreshBtn');
-    manualRefreshButton.addEventListener('click', () => {
-        manualRefreshButton.style.display = 'none'; // Hide the button
-        const previouslySelectedWallet = localStorage.getItem('walletType');
-        if (previouslySelectedWallet) {
-            console.log('Manual refresh clicked, attempting to connect...');
-            connectWallet(previouslySelectedWallet);
         }
     });
     desktopBubble.addEventListener('click', () => {
