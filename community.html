@@ -355,6 +355,89 @@
             padding: 40px 0;
         }
         /* --- NEW LEADERBOARD STYLES END --- */
+        /* --- NEW LEADERBOARD GLOSSARY STYLES START --- */
+        .leaderboard-glossary-header {
+            background: linear-gradient(90deg, #ff5555, #ff7777);
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+            transition: background 0.3s ease;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: -40px auto 60px auto; /* Pulls it up to the leaderboard, adds space below */
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        .leaderboard-glossary-header:hover {
+            background: linear-gradient(90deg, #ff7777, #ff9999);
+        }
+
+        .leaderboard-glossary-header::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .leaderboard-glossary-header.active::after {
+            transform: rotate(180deg);
+        }
+
+        .leaderboard-glossary-content {
+            max-height: 0;
+            overflow: hidden;
+            background: #1e1e1e;
+            border-radius: 5px;
+            transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+            padding: 0 25px;
+            box-sizing: border-box;
+            max-width: 800px;
+            width: 100%;
+            margin: -60px auto 60px auto; /* Match positioning */
+            text-align: left;
+        }
+
+        .leaderboard-glossary-content.active {
+            padding: 25px;
+        }
+
+        .leaderboard-glossary-content h4 {
+            color: #ff7777;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .leaderboard-glossary-content p, .leaderboard-glossary-content li {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .leaderboard-glossary-content ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        
+        .leaderboard-glossary-content ul li::marker {
+            color: #ff5555;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .leaderboard-glossary-header {
+                font-size: 1.1rem;
+                padding: 10px;
+            }
+        }
+        /* --- NEW LEADERBOARD GLOSSARY STYLES END --- */
     </style>
 </head>
 <body>
@@ -390,6 +473,31 @@
                     <p id="leaderboard-loading">Loading Rebel Standings...</p>
                 </div>
             </div>
+            <div class="leaderboard-glossary-header" onclick="toggleLeaderboardGlossary()" tabindex="0" role="button" aria-expanded="false" aria-controls="leaderboardGlossary">
+                Leaderboard: How It Works
+            </div>
+            <div class="leaderboard-glossary-content" id="leaderboardGlossary">
+                <h4>Earning Points</h4>
+                <p>Points are awarded for participation and top performance in official weekly community events like Trivia and Poker.</p>
+                <ul>
+                    <li><strong>1st Place:</strong> 10 Points</li>
+                    <li><strong>2nd Place:</strong> 7 Points</li>
+                    <li><strong>3rd Place:</strong> 5 Points</li>
+                    <li><strong>Participation:</strong> 1 Point</li>
+                </ul>
+
+                <h4>Monthly Payouts</h4>
+                <p>The "Monthly" leaderboard resets at the beginning of each month. Payouts for the previous month's final standings will be distributed within the first three days of the new month.</p>
+                <ul>
+                    <li><strong>🥇 1st Place:</strong> 100,000 $DEBT</li>
+                    <li><strong>🥈 2nd Place:</strong> 50,000 $DEBT</li>
+                    <li><strong>🥉 3rd Place:</strong> 25,000 $DEBT</li>
+                </ul>
+
+                <h4>Yearly & All-Time</h4>
+                <p>The "Yearly" and "All-Time" tabs track your long-term performance and legacy within the community. A special "Player of the Year" prize will be introduced for the 2026 season.</p>
+            </div>
+           
             <div class="hof-carousel">
                 <button class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" aria-label="Previous Community member">⇠</button>
                 <div id="hof-featured">
@@ -652,6 +760,21 @@
         function resetCommunityAutoRotate() {
             clearInterval(communityAutoRotateInterval);
             communityAutoRotateInterval = setInterval(() => { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; updateCommunityCarousel(); }, 10000);
+        }
+
+        function toggleLeaderboardGlossary() {
+            const content = document.getElementById('leaderboardGlossary');
+            const header = content.previousElementSibling;
+            const isActive = content.classList.toggle('active');
+            header.classList.toggle('active', isActive);
+            header.setAttribute('aria-expanded', isActive);
+            if (isActive) { 
+                content.style.maxHeight = content.scrollHeight + 50 + 'px'; 
+                content.style.padding = '25px'; 
+            } else { 
+                content.style.maxHeight = '0'; 
+                content.style.padding = '0 25px'; 
+            }
         }
 
         function toggleBadgeGlossary() {
