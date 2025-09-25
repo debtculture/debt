@@ -257,6 +257,104 @@
             animation: none !important;
           }
         }
+        /* --- NEW LEADERBOARD STYLES START --- */
+        .leaderboard-section {
+            background: rgba(26, 26, 26, 0.7);
+            border: 1px solid #ff5555;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 60px; /* Space between leaderboard and HOF */
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .leaderboard-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard-tab-btn {
+            background: #1e1e1e;
+            color: #eee;
+            border: 1px solid #ff5555;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .leaderboard-tab-btn:hover {
+            background-color: #ff5555;
+            color: #fff;
+        }
+
+        .leaderboard-tab-btn.active {
+            background-color: #ff5555;
+            color: #fff;
+            box-shadow: 0 0 15px #ff5555;
+        }
+
+        .leaderboard-table-container {
+            overflow-x: auto;
+            max-height: 400px; /* Makes table scrollable if it gets too long */
+            overflow-y: auto;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #ccc;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .leaderboard-table thead th {
+            background-color: #1e1e1e;
+            color: #ff5555;
+            font-size: 1.1rem;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .leaderboard-table tbody tr {
+            border-bottom: 1px solid #333;
+        }
+
+        .leaderboard-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .leaderboard-table td {
+            font-size: 1rem;
+        }
+
+        .rank-1 .rank-cell, .rank-1 .user-cell, .rank-1 .points-cell { color: #ffd700; text-shadow: 0 0 5px #ffd700; }
+        .rank-2 .rank-cell, .rank-2 .user-cell, .rank-2 .points-cell { color: #c0c0c0; text-shadow: 0 0 5px #c0c0c0; }
+        .rank-3 .rank-cell, .rank-3 .user-cell, .rank-3 .points-cell { color: #cd7f32; text-shadow: 0 0 5px #cd7f32; }
+
+        .rank-cell { font-weight: 700; width: 15%; }
+        .user-cell { font-weight: 600; width: 55%; }
+        .points-cell { font-weight: 700; width: 30%; }
+
+        #leaderboard-loading {
+            font-size: 1.1rem;
+            color: #ff9999;
+            padding: 40px 0;
+        }
+        /* --- NEW LEADERBOARD STYLES END --- */
     </style>
 </head>
 <body>
@@ -271,6 +369,27 @@
 
         <section id="community" class="section">
             <h1>Community</h1>
+            <div class="leaderboard-section">
+                <div class="leaderboard-tabs">
+                    <button class="leaderboard-tab-btn active" data-period="monthly">Monthly</button>
+                    <button class="leaderboard-tab-btn" data-period="yearly">Yearly</button>
+                    <button class="leaderboard-tab-btn" data-period="all-time">All-time</button>
+                </div>
+                <div class="leaderboard-table-container">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th class="rank-cell">Rank</th>
+                                <th class="user-cell">Username</th>
+                                <th class="points-cell">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                        </tbody>
+                    </table>
+                    <p id="leaderboard-loading">Loading Rebel Standings...</p>
+                </div>
+            </div>
             <div class="hof-carousel">
                 <button class="hof-arrow hof-left-arrow" onclick="rotateHof('left')" aria-label="Previous Community member">⇠</button>
                 <div id="hof-featured">
@@ -333,6 +452,120 @@
         <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
     </div>
     <script>
+        // --- NEW LEADERBOARD SCRIPT START ---
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
+        let allData = [];
+
+        async function fetchLeaderboardData() {
+            try {
+                const response = await fetch(SHEET_URL);
+                const csvText = await response.text();
+                // Check if the response is the Google sign-in page (indicates a permission issue)
+                if (csvText.includes('<title>Google Sheets</title>')) {
+                    throw new Error("Failed to fetch data. Please ensure your Google Sheet is published to the web as a CSV.");
+                }
+                const rows = csvText.split('\n').slice(1); // Skip header row
+                
+                allData = rows.map(row => {
+                    const [username, event, points, date] = row.split(',').map(s => s.trim());
+                    return {
+                        username,
+                        event,
+                        points: parseInt(points, 10),
+                        date: new Date(date)
+                    };
+                }).filter(row => row.username && !isNaN(row.points) && row.date instanceof Date && !isNaN(row.date));
+                
+                return allData;
+            } catch (error) {
+                console.error("Error fetching or parsing leaderboard data:", error);
+                document.getElementById('leaderboard-loading').textContent = 'Error loading data. Please try again later.';
+                return [];
+            }
+        }
+
+        function calculateScores(data) {
+            const scores = data.reduce((acc, record) => {
+                acc[record.username] = (acc[record.username] || 0) + record.points;
+                return acc;
+            }, {});
+
+            return Object.entries(scores)
+                .map(([username, points]) => ({ username, points }))
+                .sort((a, b) => b.points - a.points);
+        }
+
+        function renderLeaderboard(scores) {
+            const tbody = document.getElementById('leaderboard-body');
+            const loadingEl = document.getElementById('leaderboard-loading');
+            
+            tbody.innerHTML = ''; // Clear existing rows
+
+            if (scores.length === 0) {
+                loadingEl.textContent = 'No data available for this period.';
+                loadingEl.style.display = 'block';
+                return;
+            }
+
+            loadingEl.style.display = 'none';
+
+            scores.forEach((score, index) => {
+                const rank = index + 1;
+                const row = document.createElement('tr');
+                
+                let rankClass = '';
+                if (rank === 1) rankClass = 'rank-1';
+                else if (rank === 2) rankClass = 'rank-2';
+                else if (rank === 3) rankClass = 'rank-3';
+                if(rankClass) row.classList.add(rankClass);
+
+                let rankContent = rank;
+                if (rank === 1) rankContent = '🥇 ' + rank;
+                else if (rank === 2) rankContent = '🥈 ' + rank;
+                else if (rank === 3) rankContent = '🥉 ' + rank;
+
+                row.innerHTML = `
+                    <td class="rank-cell">${rankContent}</td>
+                    <td class="user-cell">${score.username}</td>
+                    <td class="points-cell">${score.points}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        async function updateLeaderboard(period) {
+            document.getElementById('leaderboard-loading').textContent = 'Calculating...';
+            document.getElementById('leaderboard-loading').style.display = 'block';
+            document.getElementById('leaderboard-body').innerHTML = '';
+
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+
+            let filteredData = [];
+            if (period === 'monthly') {
+                filteredData = allData.filter(d => d.date.getFullYear() === currentYear && d.date.getMonth() === currentMonth);
+            } else if (period === 'yearly') {
+                filteredData = allData.filter(d => d.date.getFullYear() === currentYear);
+            } else { // 'all-time'
+                filteredData = allData;
+            }
+            
+            const scores = calculateScores(filteredData);
+            renderLeaderboard(scores);
+        }
+
+        function setupTabListeners() {
+            const tabs = document.querySelectorAll('.leaderboard-tab-btn');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    updateLeaderboard(tab.dataset.period);
+                });
+            });
+        }
+        // --- NEW LEADERBOARD SCRIPT END ---
         // Matrix Background Scripts
         function initializeMatrix() { const canvas = document.getElementById('matrix-bg'); if (!canvas) return; const ctx = canvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = Math.ceil(canvas.width / fontSize); drops = Array(columns).fill(1).map((_, i) => (Math.random() * canvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; function draw() { ctx.fillStyle = 'rgba(18, 18, 18, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#ff5555'; ctx.font = `${fontSize}px monospace`; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; } drops[i]++; } } setInterval(draw, 50); }
         function startMatrixRain() { const rainCanvas = document.getElementById('matrix-rain'); if (!rainCanvas) return; const rainCtx = rainCanvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; columns = Math.ceil(rainCanvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; function drawRain() { rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)'; rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height); rainCtx.fillStyle = '#999999'; rainCtx.font = fontSize + 'px monospace'; drops.forEach((y, i) => { const text = chars.charAt(Math.floor(Math.random() * chars.length)); rainCtx.fillText(text, i * fontSize, y * fontSize); if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }); } setInterval(drawRain, 50); }
@@ -431,22 +664,28 @@
             else { content.style.maxHeight = '0'; content.style.padding = '0 15px'; }
         }
 
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => { // <-- ADD 'async' HERE
             initializeMatrix();
             startMatrixRain();
             updateCommunityCarousel();
             resetCommunityAutoRotate();
-            
+
+            // --- PASTE THESE 3 NEW LINES ---
+            setupTabListeners();
+            await fetchLeaderboardData();
+            updateLeaderboard('monthly'); // Load monthly data by default
+            // --- END OF NEW LINES ---
+
             document.querySelectorAll('.hof-member').forEach(memberEl => {
-                memberEl.addEventListener('click', () => {
-                    currentCommunityIndex = parseInt(memberEl.dataset.index);
-                    updateCommunityCarousel();
-                    resetCommunityAutoRotate();
-                    if (window.innerWidth <= 768) {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-            });
+                memberEl.addEventListener('click', () => {
+                    currentCommunityIndex = parseInt(memberEl.dataset.index);
+                    updateCommunityCarousel();
+                    resetCommunityAutoRotate();
+                    if (window.innerWidth <= 768) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
         });
     </script>
 </body>
