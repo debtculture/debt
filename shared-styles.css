@@ -1,4 +1,4 @@
-/* --- Reset & Base Styles --- */
+/* --- RESET & BASE STYLES --- */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@ body {
     min-height: 100vh;
 }
 
-/* --- Matrix Background --- */
+/* --- MATRIX BACKGROUND --- */
 canvas#matrix-bg,
 #matrix-rain {
     position: fixed;
@@ -37,7 +37,7 @@ canvas#matrix-bg,
     opacity: 0.6;
 }
 
-/* --- Main Header --- */
+/* --- SHARED TYPOGRAPHY --- */
 h1 {
     font-size: 3rem;
     color: #fff;
@@ -48,7 +48,7 @@ h1 {
     animation: neon-flicker 1.5s infinite alternate;
 }
 
-/* --- Shared Components --- */
+/* --- SHARED COMPONENTS --- */
 .back-home-container {
     position: fixed;
     top: 20px;
@@ -132,7 +132,7 @@ h1 {
     box-shadow: 0 0 25px #ff5555, 0 0 50px #ff5555;
 }
 
-/* --- Shared Animations --- */
+/* --- SHARED ANIMATIONS --- */
 @keyframes neon-flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
         text-shadow: 0 0 10px #ff5555, 0 0 20px #ff5555, 0 0 30px #ff5555;
@@ -152,7 +152,7 @@ h1 {
     100% { transform: translateY(20px) scaleY(1); }
 }
 
-/* --- Shared Accessibility & Interaction --- */
+/* --- SHARED ACCESSIBILITY & INTERACTION --- */
 a, button, [role="button"] {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="none" stroke="%23ff5555" stroke-width="2" opacity="0.8"/><circle cx="16" cy="16" r="5" fill="%23ff5555"/></svg>') 16 16, pointer;
 }
@@ -162,7 +162,7 @@ a:focus, button:focus, [role="button"]:focus {
     box-shadow: 0 0 10px #ff5555;
 }
 
-/* --- Shared Responsive Adjustments --- */
+/* --- SHARED RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
     .back-home {
         font-size: 0.8rem;
