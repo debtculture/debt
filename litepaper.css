@@ -1,0 +1,83 @@
+/* --- Page-Specific Content Wrapper --- */
+.content-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 40px 60px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Page-Specific Header & Title --- */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.subtitle {
+    font-size: 1.2rem;
+    color: #ff9999;
+    text-shadow: 0 0 5px #ff5555;
+    margin-top: 10px;
+}
+
+/* --- Page-Specific Section Styling --- */
+.paper-section {
+    background: rgba(26, 26, 26, 0.7);
+    border: 1px solid #ff5555;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+}
+.paper-section h2 {
+    font-size: 2rem;
+    color: #ff5555;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ff5555;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+.paper-section p, .paper-section li {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+.paper-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+.paper-section li::before {
+    content: '»';
+    color: #ff5555;
+    margin-right: 10px;
+    font-weight: 700;
+}
+.paper-section strong {
+    color: #fff;
+    font-weight: 700;
+}
+.paper-section a {
+    color: #ff5555;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.paper-section a:hover {
+    color: #ff7777;
+    text-shadow: 0 0 6px #ff5555;
+}
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* --- Page-Specific Responsive --- */
+@media (max-width: 768px) {
+    .content-wrapper { padding: 80px 15px 60px 15px; }
+    h1 { font-size: 2.2rem; } /* Overrides shared h1 size for mobile */
+    .paper-section h2 { font-size: 1.5rem; }
+    .paper-section p, .paper-section li { font-size: 1rem; }
+    .two-column { grid-template-columns: 1fr; }
+}
