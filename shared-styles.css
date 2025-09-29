@@ -128,3 +128,14 @@ h1 {
     animation: none !important;
   }
 }
+
+/* --- Shared Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .back-home {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+    .footer {
+        display: none;
+    }
+}
