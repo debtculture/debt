@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="shared-styles.css">
     <style>
+        /* --- Page-Specific Content Wrapper & Section --- */
         .content-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -24,7 +25,6 @@
         .section {
             text-align: center;
             padding: 60px 20px;
-            opacity: 1;
         }
         .merch-tagline {
             font-size: 1.2rem;
@@ -34,6 +34,8 @@
             margin-top: -30px;
             margin-bottom: 60px;
         }
+
+        /* --- Page-Specific Merch Styles --- */
         .merch-container {
             display: flex;
             flex-wrap: wrap;
@@ -64,13 +66,11 @@
             font-size: 1.5rem;
             margin: 10px 0;
             color: #fff;
-            font-family: 'Inter', sans-serif;
         }
         .merch-item p {
             font-size: 1.2rem;
             color: #ff5555;
             margin-bottom: 10px;
-            font-family: 'Inter', sans-serif;
         }
         .merch-item button {
             background: #333;
@@ -80,13 +80,62 @@
             border-radius: 5px;
             cursor: not-allowed;
             font-size: 1rem;
-            font-family: 'Inter', sans-serif;
             font-weight: 700;
             transition: background 0.3s ease;
         }
         .merch-item button:not(:disabled):hover {
             background: #ff5555;
         }
+
+        /* --- Page-Specific Carousel --- */
+        .merch-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .merch-carousel img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .merch-carousel img.active {
+            opacity: 1;
+        }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 85, 85, 0.8);
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer !important;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 10;
+            line-height: 1;
+        }
+        .carousel-arrow.left {
+            left: 10px;
+        }
+        .carousel-arrow.right {
+            right: 10px;
+        }
+
+        /* --- Page-Specific Blurb & Submission --- */
         .merch-blurb {
             text-align: center;
             margin-top: 100px;
@@ -130,7 +179,6 @@
         .credit-tag {
             font-size: 0.8rem;
             color: #fff;
-            font-family: 'Inter', sans-serif;
             margin-bottom: 10px;
             display: block;
         }
@@ -143,53 +191,8 @@
             color: #ff7777;
             text-shadow: 0 0 6px #ff5555, 0 0 12px #ff5555;
         }
-        .merch-carousel {
-            position: relative;
-            width: 100%;
-            max-width: 250px;
-            height: 250px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .merch-carousel img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 5px;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .merch-carousel img.active {
-            opacity: 1;
-        }
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 85, 85, 0.8);
-            color: #fff;
-            border: 1px solid #fff;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer !important;
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            z-index: 10;
-            line-height: 1;
-        }
-        .carousel-arrow.left {
-            left: 10px;
-        }
-        .carousel-arrow.right {
-            right: 10px;
-        }
+
+        /* --- Page-Specific Responsive --- */
         @media (max-width: 768px) {
             .merch-carousel {
                 width: 100%;
@@ -211,31 +214,21 @@
                 width: 100%;
                 max-width: 300px;
             }
-            .back-home-container {
-                top: 10px;
-                left: 10px;
-            }
-            .back-home {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-                gap: 5px;
-            }
-            .footer {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain"></canvas>
-    <div class="content-wrapper">
-        <div class="back-home-container">
-            <a class="back-home" href="index.html" aria-label="Back to Home">
-                <span style="font-size: 1.2rem;">⇠</span> Back
-            </a>
-        </div>
-        <section id="merch" class="section">
+
+    <div class="back-home-container">
+        <a class="back-home" href="index.html" aria-label="Back to Home">
+            <span style="font-size: 1.2rem;">⇠</span> Back
+        </a>
+    </div>
+
+    <main class="content-wrapper">
+        <header class="section">
             <h1>Merchandise</h1>
             <p class="merch-tagline">Wear the rebellion.</p>
             <div class="merch-container">
@@ -285,111 +278,50 @@
                     Got a $DEBT-inspired merch idea? If it’s approved by the Council, we’ll feature it in the store with credit and commissions.
                 </div>
                 <div class="submit-btn-container">
-                  <a href="https://forms.gle/wyr7Ub3dHJuqSs3SA" target="_blank" class="merch-submit-btn">Submit Designs</a>
+                    <a href="https://forms.gle/wyr7Ub3dHJuqSs3SA" target="_blank" class="merch-submit-btn">Submit Designs</a>
                 </div>
-
             </div>
+        </header>
+    </main>
 
-        </section>
-        <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.</footer>
-    </div>
+    <footer class="footer">
+        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
+    </footer>
+
+    <script defer src="shared-scripts.js"></script>
     <script>
-        function initializeMatrix() {
-            const canvas = document.getElementById('matrix-bg');
-            const ctx = canvas.getContext('2d');
-            
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                columns = Math.ceil(canvas.width / fontSize);
-                drops.length = columns;
-                for (let i = 0; i < drops.length; i++) {
-                    if (!drops[i]) drops[i] = 1;
-                }
-            }
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            window.addEventListener('resize', resizeCanvas);
-            
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            const fontSize = 14;
-            let columns = Math.ceil(canvas.width / fontSize);
-            const drops = Array(columns).fill(1);
-            
-            function draw() {
-                ctx.fillStyle = 'rgba(18, 18, 18, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#ff5555';
-                ctx.font = `${fontSize}px monospace`;
-                
-                for (let i = 0; i < drops.length; i++) {
-                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-            
-            setInterval(draw, 50);
-        }
+        // This script now only contains logic specific to the merchandise page.
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCarousels();
+        });
 
-        function startMatrixRain() {
-            const rainCanvas = document.getElementById('matrix-rain');
-            const rainCtx = rainCanvas.getContext('2d');
-            rainCanvas.height = window.innerHeight;
-            rainCanvas.width = window.innerWidth;
-            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const fontSize = 14;
-            const columns = rainCanvas.width / fontSize;
-            const drops = Array(Math.floor(columns)).fill(1);
-            function drawRain() {
-                rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
-                rainCtx.fillStyle = '#999999';
-                rainCtx.font = fontSize + 'px monospace';
-                drops.forEach((y, i) => {
-                    const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                    rainCtx.fillText(text, i * fontSize, y * fontSize);
-                    if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                });
-            }
-            setInterval(drawRain, 50);
-            window.addEventListener('resize', () => {
-                rainCanvas.height = window.innerHeight;
-                rainCanvas.width = window.innerWidth;
-            });
-        }
         function initializeCarousels() {
             document.querySelectorAll('.merch-carousel').forEach(carousel => {
                 const images = carousel.querySelectorAll('img');
+                const leftArrow = carousel.querySelector('.carousel-arrow.left');
+                const rightArrow = carousel.querySelector('.carousel-arrow.right');
                 let currentIndex = 0;
-        
+
                 function showImage(index) {
                     images.forEach((img, i) => {
                         img.classList.toggle('active', i === index);
                     });
                 }
-        
-                carousel.querySelector('.carousel-arrow.left').addEventListener('click', () => {
+
+                leftArrow.addEventListener('click', () => {
                     currentIndex = (currentIndex - 1 + images.length) % images.length;
                     showImage(currentIndex);
                 });
-        
-                carousel.querySelector('.carousel-arrow.right').addEventListener('click', () => {
+
+                rightArrow.addEventListener('click', () => {
                     currentIndex = (currentIndex + 1) % images.length;
                     showImage(currentIndex);
                 });
+
+                // Initialize the first image
+                showImage(currentIndex);
             });
         }
-        window.addEventListener('load', () => {
-            initializeMatrix();
-            startMatrixRain();
-            initializeCarousels();
-        });
     </script>
 </body>
 </html>
