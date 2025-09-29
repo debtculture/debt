@@ -1,0 +1,151 @@
+/* --- Page-Specific Content Wrapper & Section --- */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 60px;
+}
+.section {
+    text-align: center;
+    padding-top: 60px;
+    opacity: 1;
+}
+
+/* --- Hall of Fame Carousel Styles --- */
+.hof-carousel { position: relative; max-width: 600px; margin: 0 auto; min-height: 350px; display: flex; align-items: center; justify-content: center; }
+.hof-rows-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; }
+.hof-row-desktop, .hof-row-mobile { display: flex; justify-content: center; gap: 20px; flex-wrap: nowrap; margin-bottom: 40px; }
+@media (min-width: 769px) { .hof-row-mobile { display: none; } }
+@media (max-width: 768px) { .hof-row-desktop { display: none; } .hof-row-mobile { gap: 10px; } }
+.hof-member { position: relative; width: 100px; height: 100px; }
+.hof-bubble { width: 100%; height: 100%; background-color: #333; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden; border: 2px solid #555; cursor: pointer; position: relative; }
+.hof-bubble.active-member { border: 2px solid #ff5555; box-shadow: 0 0 15px #ff5555; transform: scale(1.1); }
+.hof-inner-bubble { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hof-inner-bubble img { width: 100%; height: 100%; object-fit: cover; }
+.hof-title { font-size: 0.8rem; color: #fff; margin-top: 5px; text-shadow: 0 0 3px #ff5555; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 100%; font-weight: bold; font-family: 'Inter', Arial, sans-serif; }
+.hof-arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2rem; color: #ff5555; cursor: pointer; user-select: none; z-index: 10; transition: color 0.3s ease; }
+.hof-arrow:hover { color: #ff7777; }
+.hof-left-arrow { left: 20px; }
+.hof-right-arrow { right: 20px; }
+.hof-blurb { margin: 40px auto 20px; color: #eee; max-width: 600px; font-size: 1.1rem; font-family: 'Inter', Arial, sans-serif; }
+
+/* Trading Card Styles */
+.trading-card { background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%); border: 5px solid #ffd700; border-radius: 10px; width: 210px; height: 294px; margin: 0 auto; padding: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+.trading-card:hover { transform: scale(1.05); box-shadow: 0 0 20px #ff5555, 0 0 30px #ff5555; }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.card-level { background: #ff5555; color: #fff; font-size: 12px; padding: 2px 8px; border-radius: 5px; font-weight: bold; font-family: 'Arial', sans-serif; line-height: 1; }
+.card-pfp-square { width: 147px; height: 147px; margin: 0 auto; border: 3px solid #000; border-radius: 5px; overflow: hidden; box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); flex-shrink: 0; }
+.pfp-link { display: block; width: 100%; height: 100%; }
+.card-pfp-square img { width: 100%; height: 100%; object-fit: cover; }
+.card-stats { text-align: center; margin-top: 5px; display: flex; flex-direction: column; flex-grow: 1; padding-bottom: 5px; }
+.hof-name { font-size: 18px; font-weight: bold; color: #000; font-family: 'Arial', sans-serif; }
+.divider { width: 80%; height: 1px; background: #000; margin: 0 auto; margin-top: auto; }
+.special-ability { margin-top: 5px; }
+.ability-title { font-size: 12px; font-weight: bold; color: #000; font-family: 'Arial', sans-serif; text-align: center; }
+.ability-content { font-size: 12px; color: #333; font-family: 'Arial', sans-serif; text-align: center; min-height: 15px; }
+
+/* Badge Styles */
+.hof-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 5px 0; flex-grow: 1; overflow-y: auto; }
+.trading-card .hof-badges .badge { width: 28px; height: 28px; }
+.badge { width: 40px; height: 40px; position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255, 85, 85, 0.5); box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
+.badge[class*='badge-'], .trading-card .hof-badges .badge { background: none !important; background-color: transparent !important; background-image: none !important; }
+.badge::after { content: attr(title); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #eee; padding: 6px 12px; border-radius: 5px; font-size: 0.9rem; white-space: normal; max-width: 160px; text-align: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; z-index: 100; border: 1px solid #ff5555; box-shadow: 0 0 10px #ff5555; }
+.badge:hover { transform: scale(1.2); box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555; }
+.badge:hover::after { opacity: 1; visibility: visible; pointer-events: none; }
+.shared-tooltip { display: none; position: fixed; background: #1a1a1a; color: #eee; padding: 6px 12px; border-radius: 5px; font-size: 0.9rem; white-space: normal; max-width: 160px; text-align: center; z-index: 1000; border: 1px solid #ff5555; box-shadow: 0 0 10px #ff5555; transform: translateX(-50%); line-height: 1.2; pointer-events: none; }
+.badge-spaces::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 16px; background: #eee; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+.badge-burn::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 12px; background: #eee; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+.badge-holding::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 10px; height: 10px; background: #eee; }
+.badge-shiller::before { content: 'X'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 14px; font-weight: bold; }
+.badge-meme::before { content: '😂'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 16px; }
+.badge-year1::before { content: '1'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #eee; font-size: 16px; font-weight: bold; }
+.trading-card .hof-badges .badge-amethyst { background: linear-gradient(145deg, #9966cc, #7a52a3) !important; border: 1px solid #9966cc !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc !important; }
+.trading-card .hof-badges .badge-gold { background: linear-gradient(145deg, #ffd700, #ccac00) !important; border: 1px solid #ffd700 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important; }
+.trading-card .hof-badges .badge-silver { background: linear-gradient(145deg, #c0c0c0, #808080) !important; border: 1px solid #c0c0c0 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important; }
+.trading-card .hof-badges .badge-bronze { background: linear-gradient(145deg, #cd7f32, #8c5523) !important; border: 1px solid #cd7f32 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important; }
+.trading-card .hof-badges .badge-single, .trading-card .hof-badges .badge-shiller, .trading-card .hof-badges .badge-meme { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border: 1px solid #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
+
+/* Badge Glossary Styles */
+.badge-glossary-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 600px; width: 100%; box-sizing: border-box; margin: 0 auto; }
+.badge-glossary-header:hover { background: linear-gradient(90deg, #ff7777, #ff9999); }
+.badge-glossary-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
+.badge-glossary-header.active::after { transform: rotate(180deg); }
+.badge-glossary-content { max-height: 0; overflow: hidden; background: #1e1e1e; border-radius: 5px; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease; padding: 0 15px; box-sizing: border-box; max-width: 600px; width: 100%; margin: 0 auto; }
+.badge-glossary-content.active { padding: 15px; }
+.badge-grid { display: flex; flex-direction: column; gap: 20px; }
+.badge-row { display: flex; justify-content: space-around; align-items: center; gap: 8px; flex-wrap: nowrap; max-width: 480px; margin: 0 auto; }
+.badge-wrapper { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 100px; height: 90px; }
+.badge-name { font-size: 0.8rem; max-width: 80px; height: 40px; line-height: 1.3; padding-top: 4px; font-family: 'Inter', Arial, sans-serif; }
+.badge-glossary-content .badge { width: 40px; height: 40px; flex-shrink: 0; }
+.badge-wrapper .badge-container { display: flex; justify-content: center; align-items: center; height: 40px; width: 100%; }
+.badge-arrow { font-size: 1.2rem; color: #ff5555; margin: 0 5px; width: 20px; display: flex; align-items: center; justify-content: center; height: 40px; transform: translateY(-23px); }
+.badge-row .invisible-arrow { width: 20px; margin: 0 5px; visibility: hidden; display: flex; align-items: center; height: 40px; transform: translateY(-23px); }
+.badge-glossary-content .badge-bronze { background: linear-gradient(145deg, #cd7f32, #8c5523) !important; border-color: #cd7f32 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #cd7f32 !important; }
+.badge-glossary-content .badge-silver { background: linear-gradient(145deg, #c0c0c0, #808080) !important; border-color: #c0c0c0 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #c0c0c0 !important; }
+.badge-glossary-content .badge-gold { background: linear-gradient(145deg, #ffd700, #ccac00) !important; border-color: #ffd700 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ffd700 !important; }
+.badge-glossary-content .badge-amethyst { background: linear-gradient(145deg, #9966cc, #7a52a3) !important; border: 1px solid #9966cc !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #9966cc !important; }
+.badge-glossary-content .badge-single { background: linear-gradient(145deg, #ff5555, #cc4444) !important; border-color: #ff5555 !important; box-shadow: inset 0 0 5px rgba(0,0,0,0.5), 0 0 5px #ff5555 !important; }
+
+/* Leaderboard Styles */
+.leaderboard-section { background: rgba(26, 26, 26, 0.7); border: 1px solid #ff5555; border-radius: 10px; padding: 25px; margin-bottom: 60px; backdrop-filter: blur(4px); box-shadow: 0 0 15px rgba(255, 85, 85, 0.3); max-width: 800px; margin-left: auto; margin-right: auto; }
+.leaderboard-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.leaderboard-tab-btn { background: #1e1e1e; color: #eee; border: 1px solid #ff5555; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; }
+.leaderboard-tab-btn:hover { background-color: #ff5555; color: #fff; }
+.leaderboard-tab-btn.active { background-color: #ff5555; color: #fff; box-shadow: 0 0 15px #ff5555; }
+.leaderboard-table-container { overflow-x: auto; max-height: 400px; overflow-y: auto; }
+.leaderboard-table { width: 100%; border-collapse: collapse; color: #ccc; }
+.leaderboard-table th, .leaderboard-table td { padding: 12px 15px; text-align: left; }
+.leaderboard-table thead th { background-color: #1e1e1e; color: #ff5555; font-size: 1.1rem; font-weight: 700; position: sticky; top: 0; z-index: 2; }
+.leaderboard-table tbody tr { border-bottom: 1px solid #333; }
+.leaderboard-table tbody tr:last-child { border-bottom: none; }
+.leaderboard-table td { font-size: 1rem; }
+.rank-1 .rank-cell, .rank-1 .user-cell, .rank-1 .points-cell { color: #ffd700; text-shadow: 0 0 5px #ffd700; }
+.rank-2 .rank-cell, .rank-2 .user-cell, .rank-2 .points-cell { color: #c0c0c0; text-shadow: 0 0 5px #c0c0c0; }
+.rank-3 .rank-cell, .rank-3 .user-cell, .rank-3 .points-cell { color: #cd7f32; text-shadow: 0 0 5px #cd7f32; }
+.rank-cell { font-weight: 700; width: 15%; }
+.user-cell { font-weight: 600; width: 55%; }
+.points-cell { font-weight: 700; width: 30%; }
+#leaderboard-loading { font-size: 1.1rem; color: #ff9999; padding: 40px 0; }
+
+/* Leaderboard Glossary Styles */
+.leaderboard-glossary-header { background: linear-gradient(90deg, #ff5555, #ff7777); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 800px; width: 100%; box-sizing: border-box; margin: -40px auto 60px auto; }
+.leaderboard-glossary-header:hover { background: linear-gradient(90deg, #ff7777, #ff9999); }
+.leaderboard-glossary-header::after { content: '▼'; position: absolute; right: 15px; font-size: 1rem; transition: transform 0.3s ease; }
+.leaderboard-glossary-header.active::after { transform: rotate(180deg); }
+.leaderboard-glossary-content { max-height: 0; overflow: hidden; background: #1e1e1e; border-radius: 5px; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease; padding: 0 25px; box-sizing: border-box; max-width: 800px; width: 100%; margin: -60px auto 60px auto; text-align: left; }
+.leaderboard-glossary-content.active { padding: 25px; }
+.leaderboard-glossary-content h4 { color: #ff7777; font-weight: 700; margin-top: 15px; margin-bottom: 5px; }
+.leaderboard-glossary-content p, .leaderboard-glossary-content li { font-size: 1rem; color: #ccc; margin-bottom: 10px; }
+.leaderboard-glossary-content ul { list-style-position: inside; padding-left: 0; }
+.leaderboard-glossary-content ul li::marker { color: #ff5555; font-weight: bold; }
+
+/* --- Page-Specific Responsive --- */
+@media (max-width: 1024px) {
+    .badge:hover::after, .badge.active-tooltip::after { display: none; }
+    .badge:hover { transform: none; box-shadow: none; }
+    .badge.active-tooltip { transform: scale(1.2); box-shadow: 0 0 15px #ff5555, 0 0 25px #ff5555; z-index: 50; }
+    .badge { width: 44px; height: 44px; }
+}
+@media (max-width: 768px) {
+    .section { padding: 40px 10px; }
+    h1 { font-size: 2rem; }
+    .hof-carousel { min-height: 280px; }
+    .hof-member { width: 80px; height: 80px; }
+    .hof-arrow { font-size: 1.5rem; top: 50%; }
+    .hof-left-arrow { left: 10px; }
+    .hof-right-arrow { right: 10px; }
+    .trading-card { width: 180px; height: 252px; }
+    .card-pfp-square { width: 126px; height: 126px; }
+    .hof-name { font-size: 14px; }
+    .card-level { font-size: 10px; padding: 1px 6px; }
+    .trading-card .hof-badges .badge { width: 24px; height: 24px; }
+    .badge-glossary-container { max-width: 100%; padding: 0 5px; }
+    .badge-row { gap: 2px; max-width: 340px; margin: 0 auto; margin-left: -20px; }
+    .badge-wrapper { width: 105px; height: 92px; }
+    .badge-name { font-size: 0.7rem; max-width: 105px; height: 42px; line-height: 1.2; }
+    .badge-arrow, .invisible-arrow { font-size: 1rem; width: 18px; margin: 0; height: 44px; transform: translateY(-24px); }
+    .badge-glossary-header { font-size: 1.1rem; padding: 10px; }
+    .leaderboard-glossary-header { font-size: 1.1rem; padding: 10px; }
+}
