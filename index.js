@@ -232,26 +232,44 @@ function hideWalletInfo() {
 
 async function connectWallet(walletId) {
     closeWalletModal();
+    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+    const provider = getWalletProvider(walletId);
+    // This checks if we are on a mobile device but NOT inside a wallet's built-in browser.
+    const isMobileWebBrowser = isMobile && !provider;
+
+    // ** THIS IS THE RESTORED LOGIC FOR MOBILE **
+    if (isMobileWebBrowser) {
+        const wallet = wallets.find(w => w.id === walletId);
+        // Universal Links are more reliable for opening apps from a mobile browser.
+        const deepLink = {
+            phantom: `https://phantom.app/ul/browse/${window.location.href}`,
+            solflare: `https://solflare.com/ul/v1/browse/${window.location.href}`,
+            backpack: `https://backpack.app/ul/browse/${window.location.href}`
+        }[walletId];
+        
+        // This will try to open the app.
+        window.location.href = deepLink;
+        return; // We stop here because the app will take over.
+    }
+    
+    // This is the original logic for Desktop and In-App browsers, which works correctly.
     try {
-        const provider = getWalletProvider(walletId);
         if (!provider) {
             promptToInstallWallet(walletId);
             return;
         }
-
         await provider.connect();
         const publicKey = provider.publicKey.toString();
-        
-        if (!publicKey) throw new Error(`Failed to retrieve public key from ${walletId}`);
+        if (!publicKey) throw new Error('Public key not found.');
 
         updateUIForConnectedState(publicKey);
         localStorage.setItem('walletAddress', publicKey);
         localStorage.setItem('walletType', walletId);
-
         provider.on('accountChanged', handleAccountChange);
+
     } catch (error) {
-        console.error(`Error connecting ${walletId} wallet:`, error);
-        alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked and try again.`);
+        console.error(`Error connecting ${walletId}:`, error);
+        alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked.`);
     }
 }
 
