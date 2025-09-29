@@ -72,8 +72,6 @@
             h1 { font-size: 2.2rem; }
             p { font-size: 1rem; }
             .content-wrapper { padding: 30px 20px; }
-            .back-home { font-size: 0.8rem; padding: 6px 12px; }
-            .footer { display: none; }
         }
     </style>
 </head>
@@ -81,29 +79,20 @@
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain"></canvas>
 
-    <div class="back-home-container">
+    <nav class="back-home-container">
         <a href="index.html" class="back-home" aria-label="Back to Home">⇠ Back</a>
-    </div>
+    </nav>
 
-    <div class="content-wrapper">
+    <main class="content-wrapper">
         <h1>Under Construction</h1>
         <p>The Rebellion's command center is being built. Global forums are coming soon. Until then, coordinate the attack and share intel in our official Telegram.</p>
         <a href="https://t.me/debtportal420" target="_blank" rel="noopener noreferrer" class="cta-button">Join the Telegram</a>
-    </div>
+    </main>
 
     <footer class="footer">
-        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" class="footer-link">Autopsy</a>. All rights reserved.
+        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
     </footer>
 
-    <script>
-        // Matrix Background Scripts (same as other pages for consistency)
-        function initializeMatrix() { const canvas = document.getElementById('matrix-bg'); if (!canvas) return; const ctx = canvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; columns = Math.ceil(canvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * canvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; function draw() { ctx.fillStyle = 'rgba(18, 18, 18, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#ff5555'; ctx.font = `${fontSize}px monospace`; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) { drops[i] = 0; } drops[i]++; } } setInterval(draw, 50); }
-        function startMatrixRain() { const rainCanvas = document.getElementById('matrix-rain'); if (!rainCanvas) return; const rainCtx = rainCanvas.getContext('2d'); let columns, drops, fontSize = 14; function resizeCanvas() { rainCanvas.width = window.innerWidth; rainCanvas.height = window.innerHeight; columns = Math.ceil(rainCanvas.width / fontSize); drops = Array(columns).fill(1).map(() => (Math.random() * rainCanvas.height/fontSize)); } resizeCanvas(); window.addEventListener('resize', resizeCanvas); const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; function drawRain() { rainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)'; rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height); rainCtx.fillStyle = '#999999'; rainCtx.font = fontSize + 'px monospace'; drops.forEach((y, i) => { const text = chars.charAt(Math.floor(Math.random() * chars.length)); rainCtx.fillText(text, i * fontSize, y * fontSize); if (y * fontSize > rainCanvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }); } setInterval(drawRain, 50); }
-
-        window.addEventListener('load', () => {
-            initializeMatrix();
-            startMatrixRain();
-        });
-    </script>
+    <script defer src="shared-scripts.js"></script>
 </body>
 </html>
