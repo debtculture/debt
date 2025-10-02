@@ -13,6 +13,12 @@ function initializeMatrix() {
     const ctx = canvas.getContext('2d');
     let columns, drops, fontSize = 14;
 
+    // --- Animation Speed Control ---
+    // We set a target FPS to keep the speed the same as before. 1000ms / 50ms = 20 FPS.
+    const fps = 20;
+    const interval = 1000 / fps;
+    let lastTime = 0;
+
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -38,7 +44,22 @@ function initializeMatrix() {
             drops[i]++;
         }
     }
-    setInterval(draw, 50);
+
+    // --- New Animation Loop using requestAnimationFrame ---
+    function animate(timestamp) {
+        const deltaTime = timestamp - lastTime;
+
+        // Only draw a new frame if enough time has passed
+        if (deltaTime > interval) {
+            lastTime = timestamp - (deltaTime % interval);
+            draw();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Start the animation loop
+    animate(0);
 }
 
 function startMatrixRain() {
@@ -46,6 +67,11 @@ function startMatrixRain() {
     if (!rainCanvas) return;
     const rainCtx = rainCanvas.getContext('2d');
     let columns, drops, fontSize = 14;
+
+    // --- Animation Speed Control ---
+    const fps = 20;
+    const interval = 1000 / fps;
+    let lastTime = 0;
 
     function resizeCanvas() {
         rainCanvas.width = window.innerWidth;
@@ -70,5 +96,19 @@ function startMatrixRain() {
             drops[i]++;
         });
     }
-    setInterval(drawRain, 50);
+
+    // --- New Animation Loop using requestAnimationFrame ---
+    function animate(timestamp) {
+        const deltaTime = timestamp - lastTime;
+
+        if (deltaTime > interval) {
+            lastTime = timestamp - (deltaTime % interval);
+            drawRain();
+        }
+        
+        requestAnimationFrame(animate);
+    }
+
+    // Start the animation loop
+    animate(0);
 }
