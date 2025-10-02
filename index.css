@@ -162,18 +162,8 @@ html {
     .phase-1 .completed { right: -100px; }
     .completed::before { content: "✔"; font-size: 1.8rem; margin-right: 10px; color: #55ff55; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-    .roadmap-blur {
-        filter: blur(3px);
-        opacity: 0.6;
-        cursor: pointer;
-        transition: filter 0.3s ease, opacity 0.3s ease;
-    }
-
-    .roadmap-blur:hover,
-    .roadmap-blur.active {
-        filter: blur(0);
-        opacity: 1;
-    }
+    .future-phase { filter: blur(3px); opacity: 0.6; cursor: pointer; }
+    .future-phase:hover, .future-phase.active { filter: blur(0); opacity: 1; }
     .phase-1 ul { list-style: none; padding-left: 40px; }
     .phase-1 li::before { content: "✔"; color: #55ff55; position: absolute; left: -20px; font-size: 1rem; }
     @media (max-width: 768px) {
