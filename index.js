@@ -321,19 +321,21 @@ async function restoreWalletSession() {
 
 async function getDebtBalance(publicKey) {
     try {
-        const apiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
-        const url = `https://api.helius.xyz/v0/addresses/${publicKey}/balances?api-key=${apiKey}`;
+        // We call our new secure endpoint, passing the public key
+        const url = `/api/token-data?type=balance&publicKey=${publicKey}`;
         const response = await fetch(url);
+
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
         const data = await response.json();
+
+        // The rest of this function remains exactly the same
         const token = data.tokens.find(t => t.mint === '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
-        
         if (token && token.amount) {
             const balance = token.amount / Math.pow(10, token.decimals);
             return `${balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $DEBT`;
         }
         return '0 $DEBT';
+
     } catch (error) {
         console.error('Error fetching $DEBT balance:', error.message);
         return 'Balance unavailable';

@@ -175,62 +175,42 @@ function formatPercent(num) {
 }
 
 async function fetchTokenomicsData() {
-  // Set initial "Loading" state for all metrics
-  document.getElementById('initial-supply').textContent = 'Loading...';
-  document.getElementById('current-supply').textContent = 'Loading...';
-  document.getElementById('liquidity-pool').textContent = 'Loading...';
-  document.getElementById('burned').textContent = 'Loading...';
-  document.getElementById('tradable').textContent = 'Loading...';
-  document.getElementById('percent').innerHTML = '<span class="glow-red">Loading...</span>';
-  document.getElementById('vaulted').textContent = 'Loading...';
+    // Set initial "Loading" state for all metrics
+    document.getElementById('initial-supply').textContent = 'Loading...';
+    document.getElementById('current-supply').textContent = 'Loading...';
+    document.getElementById('liquidity-pool').textContent = 'Loading...';
+    document.getElementById('burned').textContent = 'Loading...';
+    document.getElementById('tradable').textContent = 'Loading...';
+    document.getElementById('percent').innerHTML = '<span class="glow-red">Loading...</span>';
+    document.getElementById('vaulted').textContent = 'Loading...';
 
-  try {
-    const heliusApiKey = 'c57c8d55-3e55-4160-9d8c-00df2c3fb22e';
+    try {
+        // This now calls your new, secure API endpoint instead of Helius directly.
+        const response = await fetch('/api/token-data?type=tokenomics');
+        
+        if (!response.ok) throw new Error('Failed to fetch from our API');
+        const { supplyData, lpData } = await response.json();
 
-    // Fetch Current Supply from Helius
-    const heliusResponse = await fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${heliusApiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mintAccounts: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'] })
-    });
+        // The rest of the logic uses the data we received from our own API
+        const tokenData = supplyData[0];
+        const supply = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.supply;
+        const decimals = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.decimals;
+        const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
+        const liquidityPool = lpData.result.value.uiAmount;
+        
+        updateTokenomicsTable(currentSupply, liquidityPool);
 
-    if (!heliusResponse.ok) throw new Error('Helius metadata fetch failed');
-    const heliusData = await heliusResponse.json();
-    const tokenData = heliusData[0];
-    const supply = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.supply;
-    const decimals = tokenData?.onChainAccountInfo?.accountInfo?.data?.parsed?.info?.decimals;
-    const currentSupply = parseFloat(supply) / Math.pow(10, decimals);
-
-    // Fetch Liquidity Pool balance from LP token account using RPC
-    const rpcResponse = await fetch(`https://rpc.helius.xyz/?api-key=${heliusApiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'getTokenAccountBalance',
-        params: ['Hnpbt4yVSTc2LLrmuzZQaJbMomgae8fhEUMRPocYwxAa']
-      })
-    });
-
-    if (!rpcResponse.ok) throw new Error('Helius RPC fetch failed');
-    const rpcData = await rpcResponse.json();
-    const liquidityPool = rpcData.result.value.uiAmount;
-
-    // Update table with fetched data
-    updateTokenomicsTable(currentSupply, liquidityPool);
-
-  } catch (error) {
-    console.error("Failed to fetch tokenomics data:", error);
-    const unavailableText = "Data Unavailable";
-    document.getElementById('initial-supply').textContent = unavailableText;
-    document.getElementById('current-supply').textContent = unavailableText;
-    document.getElementById('liquidity-pool').textContent = unavailableText;
-    document.getElementById('burned').textContent = unavailableText;
-    document.getElementById('tradable').textContent = unavailableText;
-    document.getElementById('percent').innerHTML = `<span class="glow-red">${unavailableText}</span>`;
-    document.getElementById('vaulted').textContent = unavailableText;
-  }
+    } catch (error) {
+        console.error("Failed to fetch tokenomics data:", error);
+        const unavailableText = "Data Unavailable";
+        document.getElementById('initial-supply').textContent = unavailableText;
+        document.getElementById('current-supply').textContent = unavailableText;
+        document.getElementById('liquidity-pool').textContent = unavailableText;
+        document.getElementById('burned').textContent = unavailableText;
+        document.getElementById('tradable').textContent = unavailableText;
+        document.getElementById('percent').innerHTML = `<span class="glow-red">${unavailableText}</span>`;
+        document.getElementById('vaulted').textContent = unavailableText;
+    }
 }
 
 function updateTokenomicsTable(currentSupply, liquidityPool) {
