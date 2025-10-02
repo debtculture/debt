@@ -147,16 +147,22 @@ function setPhantomLink() {
     }
 }
 
-function initializeRoadmapPhases() {
-    const isMobile = window.innerWidth <= 768;
+function initializeRoadmapInteraction() {
     document.querySelectorAll('.roadmap-blur').forEach(phase => {
-        phase.classList.remove('active');
-        const phaseKey = `phase-${phase.querySelector('h2').textContent.trim()}`;
-        localStorage.removeItem(phaseKey); // Ensure blurred state on load
+        // Clear any saved state on page load to ensure they always start blurred
+        const phaseKey = `phase-revealed-${phase.querySelector('h2').textContent.trim()}`;
+        localStorage.removeItem(phaseKey);
+        phase.classList.remove('active'); // Explicitly remove .active class on load
 
+        // Add the click listener
         phase.addEventListener('click', () => {
             const isActive = phase.classList.toggle('active');
-            localStorage.setItem(phaseKey, isActive);
+            // Save the new state so it persists if the user scrolls away and back
+            if (isActive) {
+                localStorage.setItem(phaseKey, 'true');
+            } else {
+                localStorage.removeItem(phaseKey);
+            }
         });
     });
 }
