@@ -1,3 +1,8 @@
+// --- Initialize Supabase Client ---
+const supabaseUrl = 'https://pvbguojrkigzvnuwjawy.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw';
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
+let userWalletAddress = null;
 // This event listener initializes all the scripts for the main page once the HTML is ready.
 window.addEventListener('load', async () => {
     // Check for Solana library
@@ -37,6 +42,12 @@ window.addEventListener('load', async () => {
 
     // Trigger scroll animations on load
     window.dispatchEvent(new Event('scroll'));
+
+    // Add a click listener for our new profile button
+    const createProfileButton = document.getElementById('create-profile-btn');
+    if (createProfileButton) {
+        createProfileButton.addEventListener('click', handleSignUp);
+    }
 });
 
 
@@ -377,6 +388,10 @@ async function updateUIForConnectedState(publicKey) {
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
     document.getElementById('walletInfo').style.display = 'block';
+
+    // Saves wallet address whenever a user connects
+    userWalletAddress = publicKey;
+    document.getElementById('create-profile-btn').style.display = 'inline-block';
 }
 
 function updateUIForDisconnectedState() {
@@ -388,6 +403,10 @@ function updateUIForDisconnectedState() {
 
     // Hide wallet info box
     document.getElementById('walletInfo').style.display = 'none';
+
+    // Clear address when user disconnects
+    userWalletAddress = null;
+    document.getElementById('create-profile-btn').style.display = 'none';
 }
 
 async function handleAccountChange(newPublicKey) {
@@ -502,4 +521,49 @@ function initializeAudioPlayer() {
         console.error('Audio error:', e);
         changeTrack(1); // Try next track on error
     });
+}
+// --- Profile Creation Logic ---
+
+async function handleSignUp() {
+    // 1. Check if a wallet is connected using our new variable
+    if (!userWalletAddress) {
+        alert('Please connect your wallet first!');
+        return;
+    }
+
+    // 2. Prompt the user for a username (a simple pop-up box)
+    const username = prompt('Please enter your desired username:');
+    if (!username) { // User clicked cancel or left it blank
+        return;
+    }
+
+    // 3. Try to save the new profile to the 'profiles' table in Supabase
+    try {
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .insert({
+                wallet_address: userWalletAddress,
+                username: username
+            })
+            .select()
+            .single();
+
+        if (error) {
+            // Handle potential errors, like a duplicate username
+            if (error.message.includes('duplicate key')) {
+                alert('This username or wallet address is already taken. Please try another.');
+            } else {
+                // For other errors, show the technical message
+                throw error;
+            }
+        } else if (data) {
+            alert(`Success! Your profile "${data.username}" has been created.`);
+            // Now that a profile is created, we can hide the button
+            document.getElementById('create-profile-btn').style.display = 'none';
+        }
+
+    } catch (error) {
+        console.error('Error creating profile:', error);
+        alert('An error occurred while creating your profile. Please try again.');
+    }
 }

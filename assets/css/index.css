@@ -1250,3 +1250,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
         display: block; /* Only show on mobile devices */
     }
 }
+#create-profile-btn {
+    display: none; /* Hidden by default */
+}
