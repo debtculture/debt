@@ -42,6 +42,17 @@ html {
 .mobile-dropdown .hover-underline:hover::after {
     left: 15px; width: calc(100% - 30px);
 }
+/* --- Navigation Link Hover Effects --- */
+.navbar-links a {
+    /* This handles the smooth transition, replacing the inline style */
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navbar-links a:hover {
+    /* This handles the effects on hover, replacing onmouseover/onmouseout */
+    transform: scale(1.05);
+    text-shadow: 0 0 10px #ff5555;
+}
 .dropbtn { position: relative; background: transparent !important; color: #eee; padding: 5px 10px; transition: color 0.3s ease; }
 .dropbtn:hover { background: transparent !important; color: #ff5555; }
 .dropdown-content { background-color: rgba(18, 18, 18, 0.5); backdrop-filter: blur(5px); border-radius: 8px; border: 1px solid rgba(255, 85, 85, 0.3); box-shadow: 0 0 15px rgba(255, 85, 85, 0.2); top: 100%; }
