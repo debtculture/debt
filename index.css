@@ -43,15 +43,28 @@ html {
     left: 15px; width: calc(100% - 30px);
 }
 /* --- Navigation Link Hover Effects --- */
-.navbar-links a {
-    /* This handles the smooth transition, replacing the inline style */
+.navbar-links a,
+.navbar-links .dropbtn {
+    /* This handles the smooth transition for all links and the dropdown button */
     transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
-.navbar-links a:hover {
-    /* This handles the effects on hover, replacing onmouseover/onmouseout */
+.navbar-links a:hover,
+.navbar-links .dropbtn:hover {
+    /* This handles the hover effects, replacing onmouseover/onmouseout */
     transform: scale(1.05);
     text-shadow: 0 0 10px #ff5555;
+}
+
+/* This handles the hover effect for the wallet icon */
+.connect-wallet-bubble img {
+    margin-top: -5px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.connect-wallet-bubble:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2) drop-shadow(0 0 10px #ff5555);
 }
 .dropbtn { position: relative; background: transparent !important; color: #eee; padding: 5px 10px; transition: color 0.3s ease; }
 .dropbtn:hover { background: transparent !important; color: #ff5555; }
