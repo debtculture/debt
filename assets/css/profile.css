@@ -1,0 +1,24 @@
+.content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+#profile-content {
+    background: rgba(26, 26, 26, 0.7);
+    border: 1px solid #ff5555;
+    border-radius: 10px;
+    padding: 30px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+    min-height: 200px;
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+}

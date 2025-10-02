@@ -353,6 +353,29 @@ async function getDebtBalance(publicKey) {
     }
 }
 
+// --- Profile Check Logic ---
+async function checkUserProfile(walletAddress) {
+    try {
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .select('username') // We only need one field to see if a row exists
+            .eq('wallet_address', walletAddress)
+            .single();
+
+        // Supabase returns an error if no rows are found. That's normal for us,
+        // so we only care about other, real errors.
+        if (error && error.code !== 'PGRST116') {
+            throw error;
+        }
+        
+        // Return the profile data if found, or null if not.
+        return data; 
+    } catch (error) {
+        console.error('Error checking user profile:', error);
+        return null;
+    }
+}
+
 // --- WALLET HELPER FUNCTIONS ---
 
 function getWalletProvider(walletId) {
@@ -377,21 +400,31 @@ function promptToInstallWallet(walletId) {
 async function updateUIForConnectedState(publicKey) {
     const shortAddress = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
     
-    // Update buttons
+    // --- Update UI elements (this part is the same) ---
     document.getElementById('connectWalletMobile').textContent = shortAddress;
     document.getElementById('connectWalletMobile').classList.add('connected');
     document.getElementById('connectWalletDesktop').querySelector('span').textContent = shortAddress;
     document.getElementById('connectWalletDesktop').classList.add('connected');
 
-    // Update and show wallet info box
     document.getElementById('walletAddress').querySelector('span').textContent = shortAddress;
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
     document.getElementById('walletInfo').style.display = 'block';
 
-    // Saves wallet address whenever a user connects
     userWalletAddress = publicKey;
-    document.getElementById('create-profile-btn').style.display = 'inline-block';
+
+    // --- NEW LOGIC: Check for a profile and show the correct button/link ---
+    const profile = await checkUserProfile(publicKey);
+
+    if (profile) {
+        // If a profile exists, show the 'Profile' link and hide the 'Create Profile' button.
+        document.getElementById('profile-nav-link').style.display = 'block';
+        document.getElementById('create-profile-btn').style.display = 'none';
+    } else {
+        // If no profile exists, show the 'Create Profile' button and hide the 'Profile' link.
+        document.getElementById('profile-nav-link').style.display = 'none';
+        document.getElementById('create-profile-btn').style.display = 'inline-block';
+    }
 }
 
 function updateUIForDisconnectedState() {
@@ -401,12 +434,13 @@ function updateUIForDisconnectedState() {
     document.getElementById('connectWalletDesktop').querySelector('span').textContent = 'Select Wallet';
     document.getElementById('connectWalletDesktop').classList.remove('connected');
 
-    // Hide wallet info box
+    // Hide everything
     document.getElementById('walletInfo').style.display = 'none';
+    document.getElementById('create-profile-btn').style.display = 'none';
+    document.getElementById('profile-nav-link').style.display = 'none';
 
     // Clear address when user disconnects
     userWalletAddress = null;
-    document.getElementById('create-profile-btn').style.display = 'none';
 }
 
 async function handleAccountChange(newPublicKey) {

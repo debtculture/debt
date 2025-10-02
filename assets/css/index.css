@@ -1253,3 +1253,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 #create-profile-btn {
     display: none; /* Hidden by default */
 }
+#profile-nav-link {
+    display: none; /* Hidden by default */
+}
