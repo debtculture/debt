@@ -149,7 +149,7 @@ function setPhantomLink() {
 
 function initializeRoadmapPhases() {
     const isMobile = window.innerWidth <= 768;
-    document.querySelectorAll('.future-phase').forEach(phase => {
+    document.querySelectorAll('.roadmap-blur').forEach(phase => {
         phase.classList.remove('active');
         const phaseKey = `phase-${phase.querySelector('h2').textContent.trim()}`;
         localStorage.removeItem(phaseKey); // Ensure blurred state on load
