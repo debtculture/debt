@@ -409,7 +409,9 @@ async function updateUIForConnectedState(publicKey) {
     document.getElementById('walletAddress').querySelector('span').textContent = shortAddress;
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
-    document.getElementById('walletInfo').style.display = 'block';
+    if (window.innerWidth > 768) { // Only show automatically on desktop
+        document.getElementById('walletInfo').style.display = 'block';
+    }
 
     userWalletAddress = publicKey;
 
@@ -419,10 +421,12 @@ async function updateUIForConnectedState(publicKey) {
     if (profile) {
         // If a profile exists, show the 'Profile' link and hide the 'Create Profile' button.
         document.getElementById('profile-nav-link').style.display = 'block';
+        document.getElementById('profile-nav-link-mobile').style.display = 'block';
         document.getElementById('create-profile-btn').style.display = 'none';
     } else {
         // If no profile exists, show the 'Create Profile' button and hide the 'Profile' link.
         document.getElementById('profile-nav-link').style.display = 'none';
+        document.getElementById('profile-nav-link-mobile').style.display = 'none';
         document.getElementById('create-profile-btn').style.display = 'inline-block';
     }
 }
@@ -438,6 +442,7 @@ function updateUIForDisconnectedState() {
     document.getElementById('walletInfo').style.display = 'none';
     document.getElementById('create-profile-btn').style.display = 'none';
     document.getElementById('profile-nav-link').style.display = 'none';
+    document.getElementById('profile-nav-link-mobile').style.display = 'none';
 
     // Clear address when user disconnects
     userWalletAddress = null;

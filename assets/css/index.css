@@ -1256,3 +1256,13 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 #profile-nav-link {
     display: none; /* Hidden by default */
 }
+/* --- Mobile Menu Link Hover Effects --- */
+.mobile-menu a,
+.mobile-menu .expand {
+    transition: text-shadow 0.3s ease;
+}
+
+.mobile-menu a:hover,
+.mobile-menu .expand:hover {
+    text-shadow: 0 0 10px #ff5555;
+}
