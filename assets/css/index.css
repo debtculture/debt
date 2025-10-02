@@ -1266,3 +1266,10 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
 .mobile-menu .expand:hover {
     text-shadow: 0 0 10px #ff5555;
 }
+.hero-buttons {
+    display: flex;
+    justify-content: center; /* Centers the buttons */
+    align-items: center;    /* Vertically aligns them */
+    gap: 15px;              /* Creates space between them */
+    flex-wrap: wrap;        /* Allows them to stack on small screens */
+}

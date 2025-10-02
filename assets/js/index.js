@@ -400,31 +400,34 @@ function promptToInstallWallet(walletId) {
 async function updateUIForConnectedState(publicKey) {
     const shortAddress = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
     
-    // --- Update UI elements (this part is the same) ---
+    // Update buttons
     document.getElementById('connectWalletMobile').textContent = shortAddress;
     document.getElementById('connectWalletMobile').classList.add('connected');
     document.getElementById('connectWalletDesktop').querySelector('span').textContent = shortAddress;
     document.getElementById('connectWalletDesktop').classList.add('connected');
 
+    // Update wallet info box content
     document.getElementById('walletAddress').querySelector('span').textContent = shortAddress;
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
-    if (window.innerWidth > 768) { // Only show automatically on desktop
+    
+    // THIS IS THE FIX: Only show the info box automatically on desktop
+    if (window.innerWidth > 768) {
         document.getElementById('walletInfo').style.display = 'block';
     }
 
     userWalletAddress = publicKey;
 
-    // --- NEW LOGIC: Check for a profile and show the correct button/link ---
+    // Check for a profile and show the correct button/link
     const profile = await checkUserProfile(publicKey);
 
     if (profile) {
-        // If a profile exists, show the 'Profile' link and hide the 'Create Profile' button.
+        // If a profile exists, show the 'Profile' link
         document.getElementById('profile-nav-link').style.display = 'block';
         document.getElementById('profile-nav-link-mobile').style.display = 'block';
         document.getElementById('create-profile-btn').style.display = 'none';
     } else {
-        // If no profile exists, show the 'Create Profile' button and hide the 'Profile' link.
+        // If no profile exists, show the 'Create Profile' button
         document.getElementById('profile-nav-link').style.display = 'none';
         document.getElementById('profile-nav-link-mobile').style.display = 'none';
         document.getElementById('create-profile-btn').style.display = 'inline-block';
