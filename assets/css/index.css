@@ -1273,3 +1273,6 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     gap: 15px;              /* Creates space between them */
     flex-wrap: wrap;        /* Allows them to stack on small screens */
 }
+#walletInfo.visible {
+    display: block;
+}

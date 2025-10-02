@@ -20,18 +20,9 @@ window.addEventListener('load', async () => {
     const desktopBubble = document.getElementById('connectWalletDesktop');
     
     mobileButton.addEventListener('click', () => {
-        console.log('--- Mobile wallet button clicked! ---'); // Log #1
-
         if (mobileButton.classList.contains('connected')) {
-            console.log('The button has the "connected" class.'); // Log #2
-            const walletInfo = document.getElementById('walletInfo');
-            console.log('Before toggle, walletInfo.style.display is:', `'${walletInfo.style.display}'`); // Log #3
-        
-            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
-        
-            console.log('After toggle, walletInfo.style.display is:', `'${walletInfo.style.display}'`); // Log #4
+            document.getElementById('walletInfo').classList.toggle('visible');
         } else {
-            console.log('The button does NOT have the "connected" class. Opening modal.'); // Log #5
             openWalletModal();
         }
     });
