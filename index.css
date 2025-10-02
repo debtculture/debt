@@ -520,7 +520,6 @@ body:not(:has(.social-bubbles.active))::before {
     font-size: 0.9rem;
     transform: scale(0.6);
 }
- { display: none; }
     .modal-content button { background-color: #ff5555; color: #fff; }
     .buy-step:nth-child(3) .copyable-address { font-size: 0.9rem; word-wrap: break-word; max-width: 100%; }
     #roadmap { overflow: visible; min-height: auto; margin-top: -3px; }
