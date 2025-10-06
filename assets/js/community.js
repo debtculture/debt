@@ -183,7 +183,7 @@ function updateCommunityCarousel() {
     const featuredCard = document.querySelector('#hof-featured .trading-card');
     const memberData = members[currentCommunityIndex];
     
-    featuredCard.querySelector('.pfp-link').href = memberData.xLink;
+    featuredCard.querySelector('.pfp-link').href = \profile.html?user=${memberData.walletAddress}`;`
     featuredCard.querySelector('.card-pfp-square img').src = memberData.img;
     featuredCard.querySelector('.card-pfp-square img').alt = `${memberData.name} profile picture`;
     featuredCard.querySelector('.hof-name').textContent = memberData.name;
