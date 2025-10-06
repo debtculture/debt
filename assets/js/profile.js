@@ -62,7 +62,6 @@ async function loadUserProfile() {
  */
 function renderProfileView(posts) {
     const profileContent = document.getElementById('profile-content');
-    const joinDate = new Date(currentUserProfile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
 
     const pfpHtml = currentUserProfile.pfp_url 
@@ -80,15 +79,22 @@ function renderProfileView(posts) {
     if (posts.length > 0) {
         postsHtml = posts.map(post => {
             const postDate = new Date(post.created_at).toLocaleString();
-            // We use single quotes for the string and double quotes inside for the HTML attributes
+            
+            // --- THIS IS THE NEW PART ---
+            // Check if updated_at exists and create the display text for it.
+            const updatedDateHtml = post.updated_at
+                ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>`
+                : '';
+
+            const btnStyle = `background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s;`;
             return `
                 <div class="post-item" style="border-bottom: 1px solid #333; padding: 15px 5px; text-align: left; margin-bottom: 15px;">
                     <p style="margin: 0; color: #eee; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                        <small style="color: #888;">${postDate}</small>
+                        <small style="color: #888;">${postDate}${updatedDateHtml}</small>
                         <div>
-                            <button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button>
-                            <button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>
+                            <button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' style="${btnStyle}">Edit</button>
+                            <button onclick="deletePost(${post.id})" style="${btnStyle} background: #552222;" onmouseover="this.style.background='#ff5555'; this.style.color='#fff';" onmouseout="this.style.background='#552222'; this.style.color='#eee';">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -99,11 +105,6 @@ function renderProfileView(posts) {
     }
 
     profileContent.innerHTML = `
-        <style>
-            .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; }
-            .post-action-btn:hover { background: #444; }
-            .post-action-btn.delete:hover { background: #ff5555; color: #fff; }
-        </style>
         ${pfpHtml}
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
         <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div>
@@ -127,14 +128,13 @@ function renderProfileView(posts) {
 }
 
 
+// --- All other functions remain the same. They are included below for completeness. ---
+
 /**
  * Renders a form for EDITING an existing post.
- * @param {number} postId - The ID of the post to edit.
- * @param {string} currentContent - The current content of the post.
  */
 function renderEditPostView(postId, currentContent) {
     const postsSection = document.getElementById('posts-section');
-    // We decode the content that was encoded for the onclick handler
     const decodedContent = decodeURIComponent(currentContent);
     postsSection.innerHTML = `
         <h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3>
@@ -150,7 +150,6 @@ function renderEditPostView(postId, currentContent) {
 
 /**
  * Updates an existing post in the database.
- * @param {number} postId - The ID of the post to update.
  */
 async function updatePost(postId) {
     const newContent = document.getElementById('post-edit-input').value;
@@ -158,18 +157,11 @@ async function updatePost(postId) {
         alert("Post content cannot be empty.");
         return;
     }
-
     try {
-        const { error } = await supabaseClient
-            .from('posts')
-            .update({ content: newContent })
-            .eq('id', postId);
-        
+        const { error } = await supabaseClient.from('posts').update({ content: newContent }).eq('id', postId);
         if (error) throw error;
-        
         alert('Post updated successfully!');
         loadUserProfile();
-
     } catch (error) {
         console.error('Error updating post:', error);
         alert(`Could not update post: ${error.message}`);
@@ -178,35 +170,24 @@ async function updatePost(postId) {
 
 /**
  * Deletes a post from the database.
- * @param {number} postId - The ID of the post to delete.
  */
 async function deletePost(postId) {
-    // A confirmation prompt is CRITICAL for delete actions.
     const isConfirmed = confirm("Are you sure you want to permanently delete this post?");
-
-    if (!isConfirmed) {
-        return; // Stop if the user clicks "Cancel"
-    }
-
+    if (!isConfirmed) return;
     try {
-        const { error } = await supabaseClient
-            .from('posts')
-            .delete()
-            .eq('id', postId);
-        
+        const { error } = await supabaseClient.from('posts').delete().eq('id', postId);
         if (error) throw error;
-        
         alert('Post deleted successfully.');
         loadUserProfile();
-
     } catch (error) {
         console.error('Error deleting post:', error);
         alert(`Could not delete post: ${error.message}`);
     }
 }
 
-
-// --- Functions for Creating Posts (no changes needed) ---
+/**
+ * Renders a form for creating a new post.
+ */
 function renderCreatePostView() {
     const postsSection = document.getElementById('posts-section');
     postsSection.innerHTML = `
@@ -222,6 +203,10 @@ function renderCreatePostView() {
     document.getElementById('submit-post-btn').addEventListener('click', saveNewPost);
     document.getElementById('cancel-post-btn').addEventListener('click', loadUserProfile);
 }
+
+/**
+ * Saves a new post to the Supabase database.
+ */
 async function saveNewPost() {
     const submitButton = document.getElementById('submit-post-btn');
     submitButton.disabled = true;
@@ -246,37 +231,32 @@ async function saveNewPost() {
     }
 }
 
-
-// --- Functions for Editing Profile Details (no changes needed) ---
+/**
+ * Renders the "edit" mode for the PROFILE DETAILS.
+ */
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2>
         <div style="text-align: left; margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 15px;">
-            <div>
-                <label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label>
-                <input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">
-            </div>
-            <div>
-                <label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label>
-                <textarea id="bio-input" style="width: 100%; height: 120px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${currentUserProfile.bio || ''}</textarea>
-            </div>
-            <hr style="border-color: #333;">
-            <h3 style="margin-bottom: 10px;">Social Handles & URLs</h3>
+            <div><label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label><input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></div>
+            <div><label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label><textarea id="bio-input" style="width: 100%; height: 120px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${currentUserProfile.bio || ''}</textarea></div>
+            <hr style="border-color: #333;"><h3 style="margin-bottom: 10px;">Social Handles & URLs</h3>
             <div><label for="twitter-input" style="display: block; margin-bottom: 5px;">X / Twitter Handle:</label><input type="text" id="twitter-input" value="${currentUserProfile.twitter_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div>
             <div><label for="telegram-input" style="display: block; margin-bottom: 5px;">Telegram Handle:</label><input type="text" id="telegram-input" value="${currentUserProfile.telegram_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div>
             <div><label for="discord-input" style="display: block; margin-bottom: 5px;">Discord Handle:</label><input type="text" id="discord-input" value="${currentUserProfile.discord_handle || ''}" placeholder="username" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div>
             <div><label for="youtube-input" style="display: block; margin-bottom: 5px;">YouTube Channel URL:</label><input type="text" id="youtube-input" value="${currentUserProfile.youtube_url || ''}" placeholder="https://youtube.com/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div>
             <div><label for="magiceden-input" style="display: block; margin-bottom: 5px;">Magic Eden Profile URL:</label><input type="text" id="magiceden-input" value="${currentUserProfile.magiceden_url || ''}" placeholder="https://magiceden.io/u/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div>
         </div>
-        <div style="margin-top: 30px;">
-            <button id="save-profile-btn" class="cta-button">Save Changes</button>
-            <button id="cancel-edit-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
-        </div>
+        <div style="margin-top: 30px;"><button id="save-profile-btn" class="cta-button">Save Changes</button><button id="cancel-edit-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>
     `;
     document.getElementById('save-profile-btn').addEventListener('click', saveProfileChanges);
     document.getElementById('cancel-edit-btn').addEventListener('click', renderProfileView);
 }
+
+/**
+ * Saves PROFILE changes from the edit form to Supabase.
+ */
 async function saveProfileChanges() {
     const saveButton = document.getElementById('save-profile-btn');
     saveButton.disabled = true;
