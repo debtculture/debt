@@ -38,8 +38,8 @@ async function loadUserProfile() {
         if (error && error.code !== 'PGRST116') throw error;
         
         if (data) {
-            currentUserProfile = data; // Save the loaded profile data
-            renderProfileView(); // A new function to display the profile
+            currentUserProfile = data;
+            renderProfileView();
         } else {
             profileContent.innerHTML = `
                 <h2>Profile Not Found</h2>
@@ -61,10 +61,9 @@ function renderProfileView() {
     const joinDate = new Date(currentUserProfile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
 
-    // Check for a profile picture URL. If it exists, create an <img> tag. If not, create a placeholder.
     const pfpHtml = currentUserProfile.pfp_url 
         ? `<img src="${currentUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">`
-        : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777;">No PFP</div>`;
+        : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
 
     profileContent.innerHTML = `
         ${pfpHtml}
@@ -89,14 +88,13 @@ function renderProfileView() {
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
     const currentBio = currentUserProfile.bio || '';
-    const currentPfpUrl = currentUserProfile.pfp_url || '';
-
+    
     profileContent.innerHTML = `
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2>
         
         <div style="text-align: left; margin-top: 20px;">
-            <label for="pfp-url-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Profile Picture URL:</label>
-            <input type="text" id="pfp-url-input" value="${currentPfpUrl}" placeholder="https://..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">
+            <label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label>
+            <input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">
         </div>
 
         <div style="text-align: left; margin-top: 20px;">
@@ -115,34 +113,62 @@ function renderEditView() {
 }
 
 /**
- * Saves the changes from the edit form to Supabase.
+ * Handles the file upload and saves all changes to Supabase.
  */
 async function saveProfileChanges() {
     const saveButton = document.getElementById('save-profile-btn');
     saveButton.disabled = true;
     saveButton.textContent = 'Saving...';
 
-    const newBio = document.getElementById('bio-input').value;
-    const newPfpUrl = document.getElementById('pfp-url-input').value;
+    const bioInput = document.getElementById('bio-input');
+    const pfpUploadInput = document.getElementById('pfp-upload');
     const userWalletAddress = localStorage.getItem('walletAddress');
 
     try {
-        const { data, error } = await supabaseClient
+        const newBio = bioInput.value;
+        const file = pfpUploadInput.files[0];
+        let pfpUrlToSave = currentUserProfile.pfp_url; // Default to the existing URL
+
+        // --- Step 1: Handle the File Upload (if a new file was selected) ---
+        if (file) {
+            saveButton.textContent = 'Uploading Image...';
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${userWalletAddress}.${fileExt}`;
+            const filePath = `${fileName}`;
+
+            // Upload the file to the 'profile-pictures' bucket
+            const { error: uploadError } = await supabaseClient.storage
+                .from('profile-pictures')
+                .upload(filePath, file, { upsert: true }); // 'upsert: true' overwrites the file if it already exists
+
+            if (uploadError) throw uploadError;
+
+            // Get the public URL of the file we just uploaded
+            const { data: urlData } = supabaseClient.storage
+                .from('profile-pictures')
+                .getPublicUrl(filePath);
+            
+            pfpUrlToSave = urlData.publicUrl;
+        }
+
+        // --- Step 2: Update the database with the new bio and/or PFP URL ---
+        saveButton.textContent = 'Saving Profile...';
+        const { error: dbError } = await supabaseClient
             .from('profiles')
             .update({ 
                 bio: newBio,
-                pfp_url: newPfpUrl 
+                pfp_url: pfpUrlToSave
             })
             .eq('wallet_address', userWalletAddress);
 
-        if (error) throw error;
+        if (dbError) throw dbError;
 
         alert('Profile saved successfully!');
-        loadUserProfile();
+        loadUserProfile(); // Reload the profile to show all changes
 
     } catch (error) {
         console.error('Error saving profile:', error);
-        alert('Could not save profile. Please try again.');
+        alert(`Could not save profile: ${error.message}`);
         saveButton.disabled = false;
         saveButton.textContent = 'Save Changes';
     }
