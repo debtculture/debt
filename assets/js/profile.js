@@ -80,8 +80,6 @@ function renderProfileView(posts) {
         postsHtml = posts.map(post => {
             const postDate = new Date(post.created_at).toLocaleString();
             
-            // --- THIS IS THE NEW PART ---
-            // Check if updated_at exists and create the display text for it.
             const updatedDateHtml = post.updated_at
                 ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>`
                 : '';
@@ -105,6 +103,9 @@ function renderProfileView(posts) {
     }
 
     profileContent.innerHTML = `
+        <style>
+            .post-action-btn:hover { background: #444; }
+        </style>
         ${pfpHtml}
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
         <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div>
@@ -127,8 +128,6 @@ function renderProfileView(posts) {
     document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
 }
 
-
-// --- All other functions remain the same. They are included below for completeness. ---
 
 /**
  * Renders a form for EDITING an existing post.
