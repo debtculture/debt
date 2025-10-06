@@ -584,7 +584,7 @@ async function handleSignUp() {
             .from('profiles')
             .insert({
                 wallet_address: userWalletAddress,
-                username: username
+                username: username.toLowerCase()
             })
             .select()
             .single();
