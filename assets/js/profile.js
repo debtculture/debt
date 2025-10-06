@@ -21,14 +21,12 @@ async function loadPageData() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `<p>Loading profile...</p>`;
 
-    // --- Step 1: Identify the logged-in user (from localStorage) ---
     const loggedInUserWallet = localStorage.getItem('walletAddress');
     if (loggedInUserWallet) {
         const { data, error } = await supabaseClient.from('profiles').select('*').eq('wallet_address', loggedInUserWallet).single();
         if (data) loggedInUserProfile = data;
     }
 
-    // --- Step 2: Identify which profile to display (from URL or fallback to logged-in user) ---
     const urlParams = new URLSearchParams(window.location.search);
     let addressToLoad = urlParams.get('user') || loggedInUserWallet;
 
@@ -38,19 +36,9 @@ async function loadPageData() {
     }
 
     try {
-        // --- Step 3: Fetch the profile, its posts, and all comments/commenter profiles ---
         const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
-            .select(`
-                *,
-                posts (
-                    *,
-                    comments (
-                        *,
-                        profiles ( username, pfp_url, wallet_address )
-                    )
-                )
-            `)
+            .select(`*, posts (*, comments (*, profiles (*)))`)
             .eq('wallet_address', addressToLoad)
             .order('created_at', { foreignTable: 'posts', ascending: false })
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
@@ -64,7 +52,6 @@ async function loadPageData() {
         } else {
             profileContent.innerHTML = `<h2>Profile Not Found</h2><p>A profile for this wallet address does not exist.</p>`;
         }
-
     } catch (error) {
         console.error('Error loading page data:', error);
         profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile.</p>`;
@@ -82,15 +69,27 @@ function renderProfileView() {
     if (viewedUserProfile.posts.length > 0) {
         postsHtml = viewedUserProfile.posts.map(post => {
             const commentsHtml = post.comments.map(comment => {
+                const isCommentOwner = loggedInUserProfile && (loggedInUserProfile.id === comment.author_id);
+                const isPostOwner = loggedInUserProfile && (loggedInUserProfile.id === post.author_id);
+
                 const commenterPfp = comment.profiles.pfp_url 
                     ? `<img src="${comment.profiles.pfp_url}" alt="${comment.profiles.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">`
                     : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
-                
+
+                const commentAdminButtons = (isCommentOwner || isPostOwner) ? 
+                    `<div style="margin-left: auto; display: flex; gap: 5px;">
+                        ${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}
+                        <button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button>
+                    </div>` : '';
+
                 return `
-                    <div class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">
+                    <div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">
                         ${commenterPfp}
                         <div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;">
-                            <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
+                                ${commentAdminButtons}
+                            </div>
                             <p style="margin: 5px 0 0; color: #ddd;">${comment.content}</p>
                         </div>
                     </div>
@@ -99,27 +98,21 @@ function renderProfileView() {
 
             const postDate = new Date(post.created_at).toLocaleString();
             const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
-            const adminButtonsHtml = isOwner ? `<div><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button></div>` : '';
+            const postAdminButtons = isOwner ? `<div><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button></div>` : '';
 
             return `
                 <div class="post-item" style="background: #1a1a1a; border: 1px solid #333; border-radius: 5px; padding: 15px; text-align: left; margin-bottom: 20px;">
                     <p style="margin: 0; color: #eee; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #333;">
                         <small style="color: #888;">${postDate}${updatedDateHtml}</small>
-                        ${adminButtonsHtml}
+                        ${postAdminButtons}
                     </div>
                     <div class="comments-section">${commentsHtml}</div>
-                    ${loggedInUserProfile ? `
-                    <div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;">
-                        <input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;">
-                        <button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button>
-                    </div>` : ''}
+                    ${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}
                 </div>
             `;
         }).join('');
-    } else {
-        postsHtml = `<p style="color: #888;"><i>No posts yet.</i></p>`;
-    }
+    } else { postsHtml = `<p style="color: #888;"><i>No posts yet.</i></p>`; }
 
     const bioText = viewedUserProfile.bio ? viewedUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
     const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
@@ -130,25 +123,7 @@ function renderProfileView() {
     if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
-    profileContent.innerHTML = `
-        <style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; }</style>
-        ${pfpHtml}
-        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>
-        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div>
-        <div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;">
-            <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
-            <p style="text-align: left; min-height: 50px;">${bioText}</p>
-        </div>
-        ${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}
-        <hr style="border-color: #333; margin: 40px 0;">
-        <div id="posts-section">
-            <div class="posts-header">
-                <h3>Posts</h3>
-                ${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}
-            </div>
-            <div id="posts-list">${postsHtml}</div>
-        </div>
-    `;
+    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; }</style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2><div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px;">${bioText}</p></div>${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}<hr style="border-color: #333; margin: 40px 0;"><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
 
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
@@ -156,9 +131,6 @@ function renderProfileView() {
     }
 }
 
-/**
- * Submits a new comment for a given post.
- */
 async function submitComment(postId) {
     const input = document.getElementById(`comment-input-${postId}`);
     const content = input.value;
@@ -171,13 +143,40 @@ async function submitComment(postId) {
     } catch (error) { console.error('Error submitting comment:', error); alert(`Could not submit comment: ${error.message}`); }
 }
 
-// --- All other functions (renderEditView, saveProfileChanges, etc.) remain exactly the same. ---
-
-function renderEditPostView(postId, currentContent) {
-    const postsSection = document.getElementById('posts-section');
-    const decodedContent = decodeURIComponent(currentContent);
-    postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3><div style="text-align: left; margin-top: 20px;"><textarea id="post-edit-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${decodedContent}</textarea></div><div style="margin-top: 20px;"><button onclick="updatePost(${postId})" class="cta-button">Save Update</button><button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
+async function deleteComment(commentId) {
+    if (!confirm("Are you sure you want to delete this comment?")) return;
+    try {
+        const { error } = await supabaseClient.from('comments').delete().eq('id', commentId);
+        if (error) throw error;
+        alert('Comment deleted.');
+        loadPageData();
+    } catch (error) { console.error('Error deleting comment:', error); alert(`Could not delete comment: ${error.message}`); }
 }
+
+function renderEditCommentView(commentId, currentContent) {
+    const commentElement = document.getElementById(`comment-${commentId}`);
+    const decodedContent = decodeURIComponent(currentContent);
+    commentElement.innerHTML = `
+        <div style="width: 100%; text-align: left;">
+            <textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea>
+            <div style="margin-top: 10px;">
+                <button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button>
+                <button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button>
+            </div>
+        </div>
+    `;
+}
+
+async function updateComment(commentId) {
+    const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
+    if (!newContent.trim()) { alert("Comment cannot be empty."); return; }
+    try {
+        const { error } = await supabaseClient.from('comments').update({ content: newContent }).eq('id', commentId);
+        if (error) throw error;
+        loadPageData();
+    } catch (error) { console.error('Error updating comment:', error); alert(`Could not update comment: ${error.message}`); }
+}
+
 async function updatePost(postId) {
     const newContent = document.getElementById('post-edit-input').value;
     if (!newContent.trim()) { alert("Post content cannot be empty."); return; }
@@ -188,6 +187,13 @@ async function updatePost(postId) {
         loadPageData();
     } catch (error) { console.error('Error updating post:', error); alert(`Could not update post: ${error.message}`); }
 }
+
+function renderEditPostView(postId, currentContent) {
+    const postsSection = document.getElementById('posts-section');
+    const decodedContent = decodeURIComponent(currentContent);
+    postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3><div style="text-align: left; margin-top: 20px;"><textarea id="post-edit-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${decodedContent}</textarea></div><div style="margin-top: 20px;"><button onclick="updatePost(${postId})" class="cta-button">Save Update</button><button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
+}
+
 async function deletePost(postId) {
     if (!confirm("Are you sure you want to permanently delete this post?")) return;
     try {
@@ -197,24 +203,27 @@ async function deletePost(postId) {
         loadPageData();
     } catch (error) { console.error('Error deleting post:', error); alert(`Could not delete post: ${error.message}`); }
 }
+
 function renderCreatePostView() {
     const postsSection = document.getElementById('posts-section');
     postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">New Post</h3><div style="text-align: left; margin-top: 20px;"><textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;"></textarea></div><div style="margin-top: 20px;"><button id="submit-post-btn" class="cta-button">Submit Post</button><button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
     document.getElementById('submit-post-btn').addEventListener('click', saveNewPost);
     document.getElementById('cancel-post-btn').addEventListener('click', loadPageData);
 }
+
 async function saveNewPost() {
     const btn = document.getElementById('submit-post-btn');
     btn.disabled = true; btn.textContent = 'Submitting...';
     const content = document.getElementById('post-content-input').value;
     if (!content.trim()) { alert("Post content cannot be empty."); btn.disabled = false; btn.textContent = 'Submit Post'; return; }
     try {
-        const { error } = await supabaseClient.from('posts').insert({ content: content, author_id: loggedInUserProfile.id });
+        const { error } = await supabaseClient.from('posts').insert({ content: content, author_id: viewedUserProfile.id });
         if (error) throw error;
         alert('Post submitted successfully!');
         loadPageData();
     } catch (error) { console.error('Error submitting post:', error); alert(`Could not submit post: ${error.message}`); btn.disabled = false; btn.textContent = 'Submit Post'; }
 }
+
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2><div style="text-align: left; margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 15px;"><div><label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label><input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></div><div><label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label><textarea id="bio-input" style="width: 100%; height: 120px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${viewedUserProfile.bio || ''}</textarea></div><hr style="border-color: #333;"><h3 style="margin-bottom: 10px;">Social Handles & URLs</h3><div><label for="twitter-input" style="display: block; margin-bottom: 5px;">X / Twitter Handle:</label><input type="text" id="twitter-input" value="${viewedUserProfile.twitter_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="telegram-input" style="display: block; margin-bottom: 5px;">Telegram Handle:</label><input type="text" id="telegram-input" value="${viewedUserProfile.telegram_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="discord-input" style="display: block; margin-bottom: 5px;">Discord Handle:</label><input type="text" id="discord-input" value="${viewedUserProfile.discord_handle || ''}" placeholder="username" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="youtube-input" style="display: block; margin-bottom: 5px;">YouTube Channel URL:</label><input type="text" id="youtube-input" value="${viewedUserProfile.youtube_url || ''}" placeholder="https://youtube.com/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="magiceden-input" style="display: block; margin-bottom: 5px;">Magic Eden Profile URL:</label><input type="text" id="magiceden-input" value="${viewedUserProfile.magiceden_url || ''}" placeholder="https://magiceden.io/u/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div></div><div style="margin-top: 30px;"><button id="save-profile-btn" class="cta-button">Save Changes</button><button id="cancel-edit-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
