@@ -22,3 +22,30 @@ header {
 @media (max-width: 768px) {
     h1 { font-size: 2.2rem; }
 }
+/* --- Profile Posts Section --- */
+.posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.posts-header h3 {
+    font-size: 2rem;
+    color: #ff5555;
+    margin: 0;
+}
+
+/* On mobile screens, stack the title and button */
+@media (max-width: 768px) {
+    .posts-header {
+        flex-direction: column;
+        gap: 15px; /* Adds space between the title and button */
+    }
+
+    /* Make the button take up more width on mobile for a better look */
+    .posts-header .cta-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
