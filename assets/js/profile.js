@@ -14,49 +14,56 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Fetches and displays the current user's profile data.
+ * Fetches both the profile data and the user's posts.
  */
 async function loadUserProfile() {
     const profileContent = document.getElementById('profile-content');
     const userWalletAddress = localStorage.getItem('walletAddress');
 
     if (!userWalletAddress) {
-        profileContent.innerHTML = `
-            <h2>No User Connected</h2>
-            <p>Please connect your wallet on the <a href="index.html" class="footer-link">main page</a> to view your profile.</p>
-        `;
+        profileContent.innerHTML = `<h2>No User Connected</h2><p>Please connect your wallet on the <a href="index.html" class="footer-link">main page</a> to view your profile.</p>`;
         return;
     }
 
     try {
-        const { data, error } = await supabaseClient
+        // --- Step 1: Fetch the profile data ---
+        const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
             .select('*')
             .eq('wallet_address', userWalletAddress)
             .single();
 
-        if (error && error.code !== 'PGRST116') throw error;
+        if (profileError && profileError.code !== 'PGRST116') throw profileError;
         
-        if (data) {
-            currentUserProfile = data;
-            renderProfileView();
+        if (profileData) {
+            currentUserProfile = profileData;
+
+            // --- Step 2: Fetch the posts for this profile ---
+            const { data: postsData, error: postsError } = await supabaseClient
+                .from('posts')
+                .select('*')
+                .eq('author_id', currentUserProfile.id) // Match posts where author_id is the profile's id
+                .order('created_at', { ascending: false }); // Show newest posts first
+
+            if (postsError) throw postsError;
+
+            // --- Step 3: Display everything ---
+            renderProfileView(postsData || []); // Pass the posts to the render function
         } else {
-            profileContent.innerHTML = `
-                <h2>Profile Not Found</h2>
-                <p>We couldn't find a profile for this wallet. Please create one on the <a href="index.html" class="footer-link">main page</a>.</p>
-            `;
+            profileContent.innerHTML = `<h2>Profile Not Found</h2><p>Please create a profile on the <a href="index.html" class="footer-link">main page</a>.</p>`;
         }
 
     } catch (error) {
-        console.error('Error fetching profile:', error);
-        profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile.</p>`;
+        console.error('Error loading page data:', error);
+        profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile and posts.</p>`;
     }
 }
 
 /**
- * Renders the standard "view" mode of the profile.
+ * Renders the profile and the list of posts.
+ * @param {Array} posts - An array of post objects to display.
  */
-function renderProfileView() {
+function renderProfileView(posts) {
     const profileContent = document.getElementById('profile-content');
     const joinDate = new Date(currentUserProfile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
@@ -82,10 +89,30 @@ function renderProfileView() {
         socialsHtml += `<a href="${currentUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden" style="width: 40px; height: 40px;"></a>`;
     }
 
-    // --- THIS IS THE FIX ---
-    // Shorten the wallet address for display
-    const fullAddress = currentUserProfile.wallet_address;
-    const shortAddress = `${fullAddress.slice(0, 4)}...${fullAddress.slice(-4)}`;
+    let postsHtml = '';
+    if (posts.length > 0) {
+        postsHtml = posts.map(post => {
+            const postDate = new Date(post.created_at).toLocaleString();
+            // Simple inline style for the post action buttons
+            const btnStyle = `background: #333; color: #999; border: 1px solid #555; border-radius: 3px; padding: 2px 6px; font-size: 0.8rem; cursor: not-allowed; margin-right: 5px;`;
+            return `
+                <div class="post-item" style="border-bottom: 1px solid #333; padding: 15px 5px; text-align: left; margin-bottom: 15px;">
+                    <p style="margin: 0; color: #eee; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                        <small style="color: #888;">${postDate}</small>
+                        <div>
+                            <button style="${btnStyle}" disabled>Edit</button>
+                            <button style="${btnStyle}" disabled>Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } else {
+        postsHtml = `<p style="color: #888;"><i>No posts yet.</i></p>`;
+    }
+
+    const shortAddress = `${currentUserProfile.wallet_address.slice(0, 4)}...${currentUserProfile.wallet_address.slice(-4)}`;
 
     profileContent.innerHTML = `
         ${pfpHtml}
@@ -99,18 +126,29 @@ function renderProfileView() {
             <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
             <p style="text-align: left; min-height: 50px;">${bioText}</p>
         </div>
-        <div style="margin-top: 20px; font-family: monospace; color: #aaa; font-size: 0.9rem; word-break: break-all; padding: 0 10px;">
-            <p><strong>Wallet:</strong> ${shortAddress}</p>
-            <p><strong>Joined:</strong> ${joinDate}</p>
+        
+        <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>
+
+        <hr style="border-color: #333; margin: 40px 0;">
+
+        <div id="posts-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="font-size: 2rem; color: #ff5555; margin: 0;">Posts</h3>
+                <button id="create-post-btn" class="cta-button">Create New Post</button>
+            </div>
+            <div id="posts-list">
+                ${postsHtml}
+            </div>
         </div>
-        <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px;">Edit Profile</button>
     `;
 
     document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
+    document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
 }
 
+
 /**
- * Renders the "edit" mode of the profile with a form.
+ * Renders the "edit" mode for the PROFILE DETAILS.
  */
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
@@ -161,8 +199,9 @@ function renderEditView() {
     document.getElementById('cancel-edit-btn').addEventListener('click', renderProfileView);
 }
 
+
 /**
- * Handles the file upload and saves all changes to Supabase.
+ * Saves PROFILE changes from the edit form to Supabase.
  */
 async function saveProfileChanges() {
     const saveButton = document.getElementById('save-profile-btn');
@@ -220,5 +259,64 @@ async function saveProfileChanges() {
         alert(`Could not save profile: ${error.message}`);
         saveButton.disabled = false;
         saveButton.textContent = 'Save Changes';
+    }
+}
+
+
+/**
+ * Renders a form for creating a new post.
+ */
+function renderCreatePostView() {
+    const postsSection = document.getElementById('posts-section');
+    postsSection.innerHTML = `
+        <h3 style="font-size: 2rem; color: #ff5555;">New Post</h3>
+        <div style="text-align: left; margin-top: 20px;">
+            <textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;"></textarea>
+        </div>
+        <div style="margin-top: 20px;">
+            <button id="submit-post-btn" class="cta-button">Submit Post</button>
+            <button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
+        </div>
+    `;
+
+    document.getElementById('submit-post-btn').addEventListener('click', saveNewPost);
+    document.getElementById('cancel-post-btn').addEventListener('click', loadUserProfile); // Reloads the profile
+}
+
+/**
+ * Saves a new post to the Supabase database.
+ */
+async function saveNewPost() {
+    const submitButton = document.getElementById('submit-post-btn');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+
+    const content = document.getElementById('post-content-input').value;
+
+    if (!content.trim()) {
+        alert("Post content cannot be empty.");
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Post';
+        return;
+    }
+
+    try {
+        const { error } = await supabaseClient
+            .from('posts')
+            .insert({
+                content: content,
+                author_id: currentUserProfile.id // Link the post to the current user's profile ID
+            });
+
+        if (error) throw error;
+
+        alert('Post submitted successfully!');
+        loadUserProfile(); // Refresh the whole page to show the new post
+
+    } catch (error) {
+        console.error('Error submitting post:', error);
+        alert(`Could not submit post: ${error.message}`);
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Post';
     }
 }
