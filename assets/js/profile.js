@@ -116,8 +116,8 @@ function renderProfileView(posts) {
         <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>
         <hr style="border-color: #333; margin: 40px 0;">
         <div id="posts-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="font-size: 2rem; color: #ff5555; margin: 0;">Posts</h3>
+            <div class="posts-header">
+                <h3>Posts</h3>
                 <button id="create-post-btn" class="cta-button">Create New Post</button>
             </div>
             <div id="posts-list">${postsHtml}</div>
