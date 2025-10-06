@@ -59,11 +59,15 @@ async function loadUserProfile() {
 function renderProfileView() {
     const profileContent = document.getElementById('profile-content');
     const joinDate = new Date(currentUserProfile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    
-    // Check if the bio exists, otherwise display a default message
     const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
 
+    // Check for a profile picture URL. If it exists, create an <img> tag. If not, create a placeholder.
+    const pfpHtml = currentUserProfile.pfp_url 
+        ? `<img src="${currentUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">`
+        : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777;">No PFP</div>`;
+
     profileContent.innerHTML = `
+        ${pfpHtml}
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
         <div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;">
             <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
@@ -76,7 +80,6 @@ function renderProfileView() {
         <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px;">Edit Profile</button>
     `;
 
-    // Add an event listener to the new "Edit Profile" button
     document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
 }
 
@@ -85,13 +88,17 @@ function renderProfileView() {
  */
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
-    
-    // The || '' ensures that if the bio is null, we put an empty string in the textarea
     const currentBio = currentUserProfile.bio || '';
+    const currentPfpUrl = currentUserProfile.pfp_url || '';
 
     profileContent.innerHTML = `
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2>
         
+        <div style="text-align: left; margin-top: 20px;">
+            <label for="pfp-url-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Profile Picture URL:</label>
+            <input type="text" id="pfp-url-input" value="${currentPfpUrl}" placeholder="https://..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">
+        </div>
+
         <div style="text-align: left; margin-top: 20px;">
             <label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label>
             <textarea id="bio-input" style="width: 100%; height: 150px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${currentBio}</textarea>
@@ -103,7 +110,6 @@ function renderEditView() {
         </div>
     `;
 
-    // Add event listeners to the new Save and Cancel buttons
     document.getElementById('save-profile-btn').addEventListener('click', saveProfileChanges);
     document.getElementById('cancel-edit-btn').addEventListener('click', renderProfileView);
 }
@@ -117,17 +123,20 @@ async function saveProfileChanges() {
     saveButton.textContent = 'Saving...';
 
     const newBio = document.getElementById('bio-input').value;
+    const newPfpUrl = document.getElementById('pfp-url-input').value;
     const userWalletAddress = localStorage.getItem('walletAddress');
 
     try {
         const { data, error } = await supabaseClient
             .from('profiles')
-            .update({ bio: newBio }) // The data we want to change
-            .eq('wallet_address', userWalletAddress); // The row we want to change
+            .update({ 
+                bio: newBio,
+                pfp_url: newPfpUrl 
+            })
+            .eq('wallet_address', userWalletAddress);
 
         if (error) throw error;
 
-        // If save is successful, reload the profile to show the new data
         alert('Profile saved successfully!');
         loadUserProfile();
 
