@@ -1,14 +1,14 @@
 // This script contains all the logic for the user profile page.
 
 // --- Initialize Supabase Client ---
-// We need to initialize the Supabase client here, just like we do in index.js,
-// so this page can communicate with our database.
 const supabaseUrl = 'https://pvbguojrkigzvnuwjawy.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
+// --- Global Variable ---
+let currentUserProfile = null; // To store the profile data
+
 // --- Main Logic ---
-// This runs our main function once the HTML document is fully loaded.
 document.addEventListener('DOMContentLoaded', () => {
     loadUserProfile();
 });
@@ -18,72 +18,123 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function loadUserProfile() {
     const profileContent = document.getElementById('profile-content');
-    
-    // 1. Get the connected wallet address from localStorage.
-    // When a user connects on the main page, we save their address in the browser's storage.
     const userWalletAddress = localStorage.getItem('walletAddress');
 
-    // 2. Check if a user is "logged in".
     if (!userWalletAddress) {
         profileContent.innerHTML = `
             <h2>No User Connected</h2>
             <p>Please connect your wallet on the <a href="index.html" class="footer-link">main page</a> to view your profile.</p>
         `;
-        return; // Stop the function here if no wallet is connected.
+        return;
     }
 
-    // 3. Fetch the profile from the Supabase database.
     try {
         const { data, error } = await supabaseClient
-            .from('profiles') // The name of our table in Supabase
-            .select('*') // Get all columns for the user
-            .eq('wallet_address', userWalletAddress) // Find the row where the wallet_address matches
-            .single(); // We expect only one result
+            .from('profiles')
+            .select('*')
+            .eq('wallet_address', userWalletAddress)
+            .single();
 
-        // Handle any errors during the fetch
-        if (error) {
-            // A specific error 'PGRST116' means 0 rows were found. This is a normal case we can handle.
-            // For any other error, we should display a technical message.
-            if (error.code === 'PGRST116') {
-                 profileContent.innerHTML = `
-                    <h2>Profile Not Found</h2>
-                    <p>We couldn't find a profile for this wallet. Please create one on the <a href="index.html" class="footer-link">main page</a>.</p>
-                `;
-                return;
-            } else {
-                // For other, unexpected errors
-                throw error;
-            }
-        }
-
-        // 4. If data is found, display it on the page.
+        if (error && error.code !== 'PGRST116') throw error;
+        
         if (data) {
-            // Format the 'created_at' timestamp into a more readable date.
-            const joinDate = new Date(data.created_at).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
-            // We use template literals (the backticks ``) to create an HTML block.
-            // This will replace the "Loading profile..." message.
+            currentUserProfile = data; // Save the loaded profile data
+            renderProfileView(); // A new function to display the profile
+        } else {
             profileContent.innerHTML = `
-                <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555; margin-bottom: 15px;">${data.username}</h2>
-                <p style="font-family: monospace; color: #ccc; margin-bottom: 5px;"><strong>Wallet:</strong> ${data.wallet_address}</p>
-                <p style="color: #ccc;"><strong>Joined On:</strong> ${joinDate}</p>
-                
-                <div style="margin-top: 30px; border-top: 1px solid #ff5555; padding-top: 20px;">
-                    <p><i>Profile customization and features coming soon...</i></p>
-                </div>
+                <h2>Profile Not Found</h2>
+                <p>We couldn't find a profile for this wallet. Please create one on the <a href="index.html" class="footer-link">main page</a>.</p>
             `;
         }
 
     } catch (error) {
         console.error('Error fetching profile:', error);
-        profileContent.innerHTML = `
-            <h2>Error</h2>
-            <p>There was an error loading the profile. Please try again later.</p>
-            <p style="font-size: 0.8rem; color: #888;">${error.message}</p>
-        `;
+        profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile.</p>`;
+    }
+}
+
+/**
+ * Renders the standard "view" mode of the profile.
+ */
+function renderProfileView() {
+    const profileContent = document.getElementById('profile-content');
+    const joinDate = new Date(currentUserProfile.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    
+    // Check if the bio exists, otherwise display a default message
+    const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
+
+    profileContent.innerHTML = `
+        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
+        <div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;">
+            <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
+            <p style="text-align: left; min-height: 50px;">${bioText}</p>
+        </div>
+        <div style="margin-top: 20px; font-family: monospace; color: #aaa; font-size: 0.9rem;">
+            <p><strong>Wallet:</strong> ${currentUserProfile.wallet_address}</p>
+            <p><strong>Joined:</strong> ${joinDate}</p>
+        </div>
+        <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px;">Edit Profile</button>
+    `;
+
+    // Add an event listener to the new "Edit Profile" button
+    document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
+}
+
+/**
+ * Renders the "edit" mode of the profile with a form.
+ */
+function renderEditView() {
+    const profileContent = document.getElementById('profile-content');
+    
+    // The || '' ensures that if the bio is null, we put an empty string in the textarea
+    const currentBio = currentUserProfile.bio || '';
+
+    profileContent.innerHTML = `
+        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2>
+        
+        <div style="text-align: left; margin-top: 20px;">
+            <label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label>
+            <textarea id="bio-input" style="width: 100%; height: 150px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${currentBio}</textarea>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button id="save-profile-btn" class="cta-button">Save Changes</button>
+            <button id="cancel-edit-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
+        </div>
+    `;
+
+    // Add event listeners to the new Save and Cancel buttons
+    document.getElementById('save-profile-btn').addEventListener('click', saveProfileChanges);
+    document.getElementById('cancel-edit-btn').addEventListener('click', renderProfileView);
+}
+
+/**
+ * Saves the changes from the edit form to Supabase.
+ */
+async function saveProfileChanges() {
+    const saveButton = document.getElementById('save-profile-btn');
+    saveButton.disabled = true;
+    saveButton.textContent = 'Saving...';
+
+    const newBio = document.getElementById('bio-input').value;
+    const userWalletAddress = localStorage.getItem('walletAddress');
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .update({ bio: newBio }) // The data we want to change
+            .eq('wallet_address', userWalletAddress); // The row we want to change
+
+        if (error) throw error;
+
+        // If save is successful, reload the profile to show the new data
+        alert('Profile saved successfully!');
+        loadUserProfile();
+
+    } catch (error) {
+        console.error('Error saving profile:', error);
+        alert('Could not save profile. Please try again.');
+        saveButton.disabled = false;
+        saveButton.textContent = 'Save Changes';
     }
 }
