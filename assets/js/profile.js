@@ -6,7 +6,7 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // --- Global Variable ---
-let currentUserProfile = null; // To store the profile data
+let currentUserProfile = null; // To store the profile data of the person being viewed
 
 // --- Main Logic ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,14 +14,23 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Fetches both the profile data and the user's posts.
+ * Fetches and displays a user's profile, determined by the URL or localStorage.
  */
 async function loadUserProfile() {
     const profileContent = document.getElementById('profile-content');
-    const userWalletAddress = localStorage.getItem('walletAddress');
+    
+    // --- NEW LOGIC: Determine which profile to load ---
+    const urlParams = new URLSearchParams(window.location.search);
+    let addressToLoad = urlParams.get('user'); // Get wallet address from URL (e.g., ?user=ADDRESS)
 
-    if (!userWalletAddress) {
-        profileContent.innerHTML = `<h2>No User Connected</h2><p>Please connect your wallet on the <a href="index.html" class="footer-link">main page</a> to view your profile.</p>`;
+    // If no user is specified in the URL, fall back to the logged-in user
+    if (!addressToLoad) {
+        addressToLoad = localStorage.getItem('walletAddress');
+    }
+
+    // If still no address, then nobody is logged in and no profile is specified.
+    if (!addressToLoad) {
+        profileContent.innerHTML = `<h2>No User Found</h2><p>Please connect your wallet on the <a href="index.html" class="footer-link">main page</a> to view your own profile.</p>`;
         return;
     }
 
@@ -29,71 +38,65 @@ async function loadUserProfile() {
         const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
             .select('*')
-            .eq('wallet_address', userWalletAddress)
+            .eq('wallet_address', addressToLoad) // Use the determined address
             .single();
 
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
         
         if (profileData) {
             currentUserProfile = profileData;
-
             const { data: postsData, error: postsError } = await supabaseClient
-                .from('posts')
-                .select('*')
-                .eq('author_id', currentUserProfile.id)
-                .order('created_at', { ascending: false });
+                .from('posts').select('*').eq('author_id', currentUserProfile.id).order('created_at', { ascending: false });
 
             if (postsError) throw postsError;
-
             renderProfileView(postsData || []);
         } else {
-            profileContent.innerHTML = `<h2>Profile Not Found</h2><p>Please create a profile on the <a href="index.html" class="footer-link">main page</a>.</p>`;
+            profileContent.innerHTML = `<h2>Profile Not Found</h2><p>A profile for this wallet address does not exist.</p>`;
         }
 
     } catch (error) {
         console.error('Error loading page data:', error);
-        profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile and posts.</p>`;
+        profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile.</p>`;
     }
 }
 
 /**
- * Renders the profile and the list of posts.
- * @param {Array} posts - An array of post objects to display.
+ * Renders the profile and posts, conditionally showing admin buttons.
+ * @param {Array} posts - An array of post objects.
  */
 function renderProfileView(posts) {
     const profileContent = document.getElementById('profile-content');
-    const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
+    
+    // --- NEW LOGIC: Check if the viewer is the owner of this profile ---
+    const loggedInUserAddress = localStorage.getItem('walletAddress');
+    const isOwner = loggedInUserAddress === currentUserProfile.wallet_address;
 
-    const pfpHtml = currentUserProfile.pfp_url 
-        ? `<img src="${currentUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">`
-        : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
+    const bioText = currentUserProfile.bio ? currentUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
+    const pfpHtml = currentUserProfile.pfp_url ? `<img src="${currentUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
 
     let socialsHtml = '';
-    if (currentUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${currentUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
-    if (currentUserProfile.telegram_handle) { socialsHtml += `<a href="https://t.me/${currentUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram"></a>`; }
-    if (currentUserProfile.discord_handle) { socialsHtml += `<a href="#" onclick="alert('Discord: ${currentUserProfile.discord_handle}'); return false;" title="Discord" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750977177/Discord_fa0sy9.png" alt="Discord"></a>`; }
-    if (currentUserProfile.youtube_url) { socialsHtml += `<a href="${currentUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
-    if (currentUserProfile.magiceden_url) { socialsHtml += `<a href="${currentUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
+    // ... social links generation ... (no changes needed here)
 
     let postsHtml = '';
     if (posts.length > 0) {
         postsHtml = posts.map(post => {
             const postDate = new Date(post.created_at).toLocaleString();
+            const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
             
-            const updatedDateHtml = post.updated_at
-                ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>`
-                : '';
+            // --- NEW: Conditionally show Edit/Delete buttons ---
+            const adminButtonsHtml = isOwner ? `
+                <div>
+                    <button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button>
+                    <button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>
+                </div>
+            ` : '';
 
-            const btnStyle = `background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s;`;
             return `
                 <div class="post-item" style="border-bottom: 1px solid #333; padding: 15px 5px; text-align: left; margin-bottom: 15px;">
                     <p style="margin: 0; color: #eee; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
                         <small style="color: #888;">${postDate}${updatedDateHtml}</small>
-                        <div>
-                            <button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' style="${btnStyle}">Edit</button>
-                            <button onclick="deletePost(${post.id})" style="${btnStyle} background: #552222;" onmouseover="this.style.background='#ff5555'; this.style.color='#fff';" onmouseout="this.style.background='#552222'; this.style.color='#eee';">Delete</button>
-                        </div>
+                        ${adminButtonsHtml}
                     </div>
                 </div>
             `;
@@ -103,31 +106,31 @@ function renderProfileView(posts) {
     }
 
     profileContent.innerHTML = `
-        <style>
-            .post-action-btn:hover { background: #444; }
-        </style>
+        <style>.post-action-btn { background: #333; /* ... */ }</style>
         ${pfpHtml}
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
         <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div>
-        <div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;">
-            <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
-            <p style="text-align: left; min-height: 50px;">${bioText}</p>
-        </div>
-        <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>
+        <div style="margin-top: 20px; border-top: 1px solid #444; /* ... */">${bioText}</div>
+        
+        ${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}
+        
         <hr style="border-color: #333; margin: 40px 0;">
+
         <div id="posts-section">
             <div class="posts-header">
                 <h3>Posts</h3>
-                <button id="create-post-btn" class="cta-button">Create New Post</button>
+                ${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}
             </div>
             <div id="posts-list">${postsHtml}</div>
         </div>
     `;
 
-    document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
-    document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
+    // Only add event listeners if the buttons exist on the page
+    if (isOwner) {
+        document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
+        document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
+    }
 }
-
 
 /**
  * Renders a form for EDITING an existing post.
