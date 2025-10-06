@@ -599,8 +599,9 @@ async function handleSignUp() {
             }
         } else if (data) {
             alert(`Success! Your profile "${data.username}" has been created.`);
-            // Now that a profile is created, we can hide the button
-            document.getElementById('create-profile-btn').style.display = 'none';
+            // Now that a profile is created, we re-run our main UI update function.
+            // This will hide the 'Create Profile' button AND show the 'Profile' links.
+            updateUIForConnectedState(userWalletAddress);
         }
 
     } catch (error) {
