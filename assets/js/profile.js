@@ -65,7 +65,6 @@ function renderProfileView() {
         ? `<img src="${currentUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">`
         : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
 
-    // --- NEW: Generate Social Links HTML ---
     let socialsHtml = '';
     if (currentUserProfile.twitter_handle) {
         socialsHtml += `<a href="https://x.com/${currentUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X" style="width: 40px; height: 40px;"></a>`;
@@ -83,11 +82,16 @@ function renderProfileView() {
         socialsHtml += `<a href="${currentUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden" style="width: 40px; height: 40px;"></a>`;
     }
 
+    // --- THIS IS THE FIX ---
+    // Shorten the wallet address for display
+    const fullAddress = currentUserProfile.wallet_address;
+    const shortAddress = `${fullAddress.slice(0, 4)}...${fullAddress.slice(-4)}`;
+
     profileContent.innerHTML = `
         ${pfpHtml}
-        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555; margin-bottom: 20px;">${currentUserProfile.username}</h2>
+        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
         
-        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">
             ${socialsHtml}
         </div>
 
@@ -95,8 +99,8 @@ function renderProfileView() {
             <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
             <p style="text-align: left; min-height: 50px;">${bioText}</p>
         </div>
-        <div style="margin-top: 20px; font-family: monospace; color: #aaa; font-size: 0.9rem;">
-            <p><strong>Wallet:</strong> ${currentUserProfile.wallet_address}</p>
+        <div style="margin-top: 20px; font-family: monospace; color: #aaa; font-size: 0.9rem; word-break: break-all; padding: 0 10px;">
+            <p><strong>Wallet:</strong> ${shortAddress}</p>
             <p><strong>Joined:</strong> ${joinDate}</p>
         </div>
         <button id="edit-profile-btn" class="cta-button" style="margin-top: 30px;">Edit Profile</button>
@@ -191,7 +195,6 @@ async function saveProfileChanges() {
 
         saveButton.textContent = 'Saving Profile...';
         
-        // --- NEW: Get all social values ---
         const newProfileData = {
             bio: document.getElementById('bio-input').value,
             pfp_url: pfpUrlToSave,
