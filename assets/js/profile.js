@@ -2,7 +2,7 @@
 
 // --- Initialize Supabase Client ---
 const supabaseUrl = 'https://pvbguojrkigzvnuwjawy.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI_NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // --- Global Variable ---
@@ -65,9 +65,32 @@ function renderProfileView() {
         ? `<img src="${currentUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">`
         : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
 
+    // --- NEW: Generate Social Links HTML ---
+    let socialsHtml = '';
+    if (currentUserProfile.twitter_handle) {
+        socialsHtml += `<a href="https://x.com/${currentUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X" style="width: 40px; height: 40px;"></a>`;
+    }
+    if (currentUserProfile.telegram_handle) {
+        socialsHtml += `<a href="https://t.me/${currentUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram" style="width: 40px; height: 40px;"></a>`;
+    }
+    if (currentUserProfile.discord_handle) {
+        socialsHtml += `<a href="#" onclick="alert('Discord: ${currentUserProfile.discord_handle}'); return false;" title="Discord"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750977177/Discord_fa0sy9.png" alt="Discord" style="width: 40px; height: 40px;"></a>`;
+    }
+    if (currentUserProfile.youtube_url) {
+        socialsHtml += `<a href="${currentUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube" style="width: 40px; height: 40px;"></a>`;
+    }
+    if (currentUserProfile.magiceden_url) {
+        socialsHtml += `<a href="${currentUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden" style="width: 40px; height: 40px;"></a>`;
+    }
+
     profileContent.innerHTML = `
         ${pfpHtml}
-        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${currentUserProfile.username}</h2>
+        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555; margin-bottom: 20px;">${currentUserProfile.username}</h2>
+        
+        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+            ${socialsHtml}
+        </div>
+
         <div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;">
             <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
             <p style="text-align: left; min-height: 50px;">${bioText}</p>
@@ -87,19 +110,41 @@ function renderProfileView() {
  */
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
-    const currentBio = currentUserProfile.bio || '';
     
     profileContent.innerHTML = `
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2>
         
-        <div style="text-align: left; margin-top: 20px;">
-            <label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label>
-            <input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">
-        </div>
-
-        <div style="text-align: left; margin-top: 20px;">
-            <label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label>
-            <textarea id="bio-input" style="width: 100%; height: 150px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${currentBio}</textarea>
+        <div style="text-align: left; margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 15px;">
+            <div>
+                <label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label>
+                <input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">
+            </div>
+            <div>
+                <label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label>
+                <textarea id="bio-input" style="width: 100%; height: 120px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${currentUserProfile.bio || ''}</textarea>
+            </div>
+            <hr style="border-color: #333;">
+            <h3 style="margin-bottom: 10px;">Social Handles & URLs</h3>
+            <div>
+                <label for="twitter-input" style="display: block; margin-bottom: 5px;">X / Twitter Handle:</label>
+                <input type="text" id="twitter-input" value="${currentUserProfile.twitter_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;">
+            </div>
+            <div>
+                <label for="telegram-input" style="display: block; margin-bottom: 5px;">Telegram Handle:</label>
+                <input type="text" id="telegram-input" value="${currentUserProfile.telegram_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;">
+            </div>
+            <div>
+                <label for="discord-input" style="display: block; margin-bottom: 5px;">Discord Handle:</label>
+                <input type="text" id="discord-input" value="${currentUserProfile.discord_handle || ''}" placeholder="username" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;">
+            </div>
+             <div>
+                <label for="youtube-input" style="display: block; margin-bottom: 5px;">YouTube Channel URL:</label>
+                <input type="text" id="youtube-input" value="${currentUserProfile.youtube_url || ''}" placeholder="https://youtube.com/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;">
+            </div>
+            <div>
+                <label for="magiceden-input" style="display: block; margin-bottom: 5px;">Magic Eden Profile URL:</label>
+                <input type="text" id="magiceden-input" value="${currentUserProfile.magiceden_url || ''}" placeholder="https://magiceden.io/u/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;">
+            </div>
         </div>
 
         <div style="margin-top: 30px;">
@@ -120,51 +165,52 @@ async function saveProfileChanges() {
     saveButton.disabled = true;
     saveButton.textContent = 'Saving...';
 
-    const bioInput = document.getElementById('bio-input');
-    const pfpUploadInput = document.getElementById('pfp-upload');
     const userWalletAddress = localStorage.getItem('walletAddress');
 
     try {
-        const newBio = bioInput.value;
-        const file = pfpUploadInput.files[0];
-        let pfpUrlToSave = currentUserProfile.pfp_url; // Default to the existing URL
+        const file = document.getElementById('pfp-upload').files[0];
+        let pfpUrlToSave = currentUserProfile.pfp_url;
 
-        // --- Step 1: Handle the File Upload (if a new file was selected) ---
         if (file) {
             saveButton.textContent = 'Uploading Image...';
             const fileExt = file.name.split('.').pop();
             const fileName = `${userWalletAddress}.${fileExt}`;
-            const filePath = `${fileName}`;
-
-            // Upload the file to the 'profile-pictures' bucket
+            
             const { error: uploadError } = await supabaseClient.storage
                 .from('profile-pictures')
-                .upload(filePath, file, { upsert: true }); // 'upsert: true' overwrites the file if it already exists
+                .upload(fileName, file, { upsert: true });
 
             if (uploadError) throw uploadError;
 
-            // Get the public URL of the file we just uploaded
             const { data: urlData } = supabaseClient.storage
                 .from('profile-pictures')
-                .getPublicUrl(filePath);
+                .getPublicUrl(fileName);
             
             pfpUrlToSave = urlData.publicUrl;
         }
 
-        // --- Step 2: Update the database with the new bio and/or PFP URL ---
         saveButton.textContent = 'Saving Profile...';
+        
+        // --- NEW: Get all social values ---
+        const newProfileData = {
+            bio: document.getElementById('bio-input').value,
+            pfp_url: pfpUrlToSave,
+            twitter_handle: document.getElementById('twitter-input').value,
+            telegram_handle: document.getElementById('telegram-input').value,
+            discord_handle: document.getElementById('discord-input').value,
+            youtube_url: document.getElementById('youtube-input').value,
+            magiceden_url: document.getElementById('magiceden-input').value,
+        };
+
         const { error: dbError } = await supabaseClient
             .from('profiles')
-            .update({ 
-                bio: newBio,
-                pfp_url: pfpUrlToSave
-            })
+            .update(newProfileData)
             .eq('wallet_address', userWalletAddress);
 
         if (dbError) throw dbError;
 
         alert('Profile saved successfully!');
-        loadUserProfile(); // Reload the profile to show all changes
+        loadUserProfile();
 
     } catch (error) {
         console.error('Error saving profile:', error);
