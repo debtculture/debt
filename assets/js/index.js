@@ -408,11 +408,6 @@ async function updateUIForConnectedState(publicKey) {
     document.getElementById('walletAddress').querySelector('span').textContent = shortAddress;
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
-    
-    // THIS IS THE FIX: Only show the info box automatically on desktop
-    if (window.innerWidth > 768) {
-        document.getElementById('walletInfo').style.display = 'block';
-    }
 
     userWalletAddress = publicKey;
 
