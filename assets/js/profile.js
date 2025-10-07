@@ -119,6 +119,7 @@ function renderProfileView() {
 
     let postsHtml = '';
     if (viewedUserProfile.posts.length > 0) {
+        const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
         postsHtml = viewedUserProfile.posts.map(post => {
             const commentsHtml = post.comments.map(comment => {
                 const isCommentOwner = loggedInUserProfile && (loggedInUserProfile.id === comment.author_id);
@@ -148,12 +149,20 @@ function renderProfileView() {
             const postAdminButtons = isOwner ? `<div><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button></div>` : '';
 
             return `
-                <div class="post-item" style="background: #1a1a1a; border: 1px solid #333; border-radius: 5px; padding: 15px; text-align: left; margin-bottom: 20px;">
-                    <h4 style="color: #eee; margin: 0 0 10px 0; font-size: 1.2rem;">${escapeHTML(post.title)}</h4>
-                    <p style="margin: 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(post.content)}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #333;">
-                        <small style="color: #888;">${postDate}${updatedDateHtml}</small>
-                        ${postAdminButtons}
+                <div class="post-item">
+                    <div class="post-header">
+                        ${postAuthorPfp}
+                        <div class="post-author-info">
+                            <a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a>
+                            <small class="post-timestamp">${postDate}${updatedDateHtml}</small>
+                        </div>
+                        <div class="post-actions">
+                            ${postAdminButtons}
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <h4 class="post-title">${escapeHTML(post.title)}</h4>
+                        <p class="post-content">${parseFormatting(post.content)}</p>
                     </div>
                     <div class="comments-section">${commentsHtml}</div>
                     ${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}
