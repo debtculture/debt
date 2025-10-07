@@ -243,7 +243,7 @@ function renderEditPostView(postId, currentTitle, currentContent) {
 
 async function updatePost(postId) {
     const newTitle = document.getElementById('post-title-input').value;
-    const newContent = document.getElementById('post-edit-input').value;
+    const newContent = document.getElementById('post-content-input').value;
     if (!newTitle.trim() || !newContent.trim()) { alert("Title and content cannot be empty."); return; }
     try {
         const { error } = await supabaseClient.from('posts').update({ title: newTitle, content: newContent }).eq('id', postId);
