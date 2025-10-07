@@ -110,96 +110,6 @@ async function loadPageData() {
     }
 }
 
-/**
- * Renders the entire profile page, including posts and comments.
- */
-function renderProfileView() {
-    const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
-    const profileContent = document.getElementById('profile-content');
-
-    let postsHtml = '';
-    if (viewedUserProfile.posts.length > 0) {
-        const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
-        postsHtml = viewedUserProfile.posts.map(post => {
-            const commentsHtml = post.comments.map(comment => {
-                const isCommentOwner = loggedInUserProfile && (loggedInUserProfile.id === comment.author_id);
-                const isPostOwner = loggedInUserProfile && (loggedInUserProfile.id === post.author_id);
-                const commenterPfp = comment.profiles.pfp_url ? `<img src="${comment.profiles.pfp_url}" alt="${comment.profiles.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">` : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
-                const commentAdminButtons = (isCommentOwner || isPostOwner) ? `<div style="margin-left: auto; display: flex; gap: 5px;">${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}<button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button></div>` : '';
-                const commentDate = new Date(comment.created_at).toLocaleString();
-                const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
-                
-                return `
-                    <div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">
-                        ${commenterPfp}
-                        <div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;">
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
-                                ${commentAdminButtons}
-                            </div>
-                            <p style="margin: 5px 0 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(comment.content)}</p>
-                            <small style="color: #888; margin-top: 8px; display: block; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            const postDate = new Date(post.created_at).toLocaleString();
-            const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
-            const postAdminButtons = isOwner ? `<div><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button></div>` : '';
-
-            return `
-                <div class="post-item">
-                    <div class="post-header">
-                        ${postAuthorPfp}
-                        <div class="post-author-info">
-                            <a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a>
-                            <small class="post-timestamp">${postDate}${updatedDateHtml}</small>
-                        </div>
-                        <div class="post-actions">
-                            ${postAdminButtons}
-                        </div>
-                    </div>
-                    <div class="post-body">
-                        <h4 class="post-title">${escapeHTML(post.title)}</h4>
-                        <p class="post-content">${parseFormatting(post.content)}</p>
-                    </div>
-                    <div class="comments-section">${commentsHtml}</div>
-                    ${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}
-                </div>
-            `;
-        }).join('');
-    } else { postsHtml = `<p style="color: #888;"><i>No posts yet.</i></p>`; }
-
-    const bioText = viewedUserProfile.bio ? viewedUserProfile.bio.replace(/\n/g, '<br>') : '<i>User has not written a bio yet.</i>';
-    const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
-    let socialsHtml = '';
-    if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
-    if (viewedUserProfile.telegram_handle) { socialsHtml += `<a href="https://t.me/${viewedUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram"></a>`; }
-    if (viewedUserProfile.discord_handle) { socialsHtml += `<a href="#" onclick="alert('Discord: ${viewedUserProfile.discord_handle}'); return false;" title="Discord" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750977177/Discord_fa0sy9.png" alt="Discord"></a>`; }
-    if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
-    if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
-    
-    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; } </style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}<div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px;">${bioText}</p></div><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
-
-    if (isOwner) {
-        document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
-        document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
-    }
-}
-
-async function submitComment(postId) {
-    const input = document.getElementById(`comment-input-${postId}`);
-    const content = input.value;
-    if (!content.trim()) { alert("Comment cannot be empty."); return; }
-    if (!loggedInUserProfile) { alert("You must be logged in to comment."); return; }
-    try {
-        const { error } = await supabaseClient.from('comments').insert({ content: content, author_id: loggedInUserProfile.id, post_id: postId });
-        if (error) throw error;
-        loadPageData();
-    } catch (error) { console.error('Error submitting comment:', error); alert(`Could not submit comment: ${error.message}`); }
-}
-
 async function deleteComment(commentId) {
     if (!confirm("Are you sure you want to delete this comment?")) return;
     try {
@@ -208,12 +118,6 @@ async function deleteComment(commentId) {
         alert('Comment deleted.');
         loadPageData();
     } catch (error) { console.error('Error deleting comment:', error); alert(`Could not delete comment: ${error.message}`); }
-}
-
-function renderEditCommentView(commentId, currentContent) {
-    const commentElement = document.getElementById(`comment-${commentId}`);
-    const decodedContent = decodeURIComponent(currentContent);
-    commentElement.innerHTML = `<div style="width: 100%; text-align: left;"><textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea><div style="margin-top: 10px;"><button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button><button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button></div></div>`;
 }
 
 async function updateComment(commentId) {
@@ -362,5 +266,160 @@ async function saveProfileChanges() {
         alert(`Could not save profile: ${error.message}`);
         saveButton.disabled = false;
         saveButton.textContent = 'Save Changes';
+    }
+}
+
+// --- NEW HELPER FUNCTIONS FOR NESTED COMMENTS ---
+
+// Turns a flat array of comments into a nested tree structure
+function buildCommentTree(comments) {
+    const commentMap = {};
+    const commentTree = [];
+
+    // First, map all comments by their ID
+    comments.forEach(comment => {
+        commentMap[comment.id] = { ...comment, children: [] };
+    });
+
+    // Then, build the tree by linking children to their parents
+    Object.values(commentMap).forEach(comment => {
+        if (comment.parent_comment_id) {
+            if (commentMap[comment.parent_comment_id]) {
+                commentMap[comment.parent_comment_id].children.push(comment);
+            }
+        } else {
+            commentTree.push(comment);
+        }
+    });
+
+    return commentTree;
+}
+
+// Recursively renders the HTML for comments and their replies
+function renderCommentsHtml(comments, postId, isPostOwner, loggedInUserProfile) {
+    if (!comments || comments.length === 0) return '';
+    return comments.map(comment => {
+        const isCommentOwner = loggedInUserProfile && (loggedInUserProfile.id === comment.author_id);
+        const commenterPfp = comment.profiles.pfp_url ? `<img src="${comment.profiles.pfp_url}" alt="${comment.profiles.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">` : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
+        const commentAdminButtons = (isCommentOwner || isPostOwner) ? `<div style="margin-left: auto; display: flex; gap: 5px;">${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}<button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button></div>` : '';
+        const commentDate = new Date(comment.created_at).toLocaleString();
+        const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
+        
+        // Recursively render children comments
+        const childrenHtml = renderCommentsHtml(comment.children, postId, isPostOwner, loggedInUserProfile);
+
+        return `
+            <div id="comment-${comment.id}" class="comment-item">
+                <div class="comment-main" style="display: flex; align-items: flex-start;">
+                    ${commenterPfp}
+                    <div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
+                            ${commentAdminButtons}
+                        </div>
+                        <p class="comment-content" style="margin: 5px 0 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(comment.content)}</p>
+                        <div class="comment-footer" style="display: flex; align-items: center; margin-top: 8px; gap: 15px;">
+                            <small style="color: #888; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small>
+                            ${loggedInUserProfile ? `<button onclick="showReplyForm(${comment.id}, ${postId})" class="post-action-btn">Reply</button>` : ''}
+                        </div>
+                    </div>
+                </div>
+                <div id="reply-form-container-${comment.id}"></div>
+                <div class="comment-children">${childrenHtml}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function showReplyForm(parentCommentId, postId) {
+    // Close any other open reply forms
+    document.querySelectorAll('[id^="reply-form-container-"]').forEach(container => container.innerHTML = '');
+
+    const container = document.getElementById(`reply-form-container-${parentCommentId}`);
+    container.innerHTML = `
+        <div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 10px; margin-left: 40px;">
+            <input type="text" id="comment-input-reply-${parentCommentId}" placeholder="Write a reply..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;">
+            <button onclick="submitComment(${postId}, ${parentCommentId})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button>
+            <button onclick="this.parentElement.innerHTML = ''" class="cta-button" style="background: #555; font-size: 0.8rem; padding: 8px 12px; margin: 0;">Cancel</button>
+        </div>
+    `;
+    document.getElementById(`comment-input-reply-${parentCommentId}`).focus();
+}
+
+// --- UPDATED CORE FUNCTIONS ---
+
+// Renders the view to edit an existing comment
+function renderEditCommentView(commentId, currentContent) {
+    const commentContentEl = document.querySelector(`#comment-${commentId} .comment-content`);
+    const commentFooterEl = document.querySelector(`#comment-${commentId} .comment-footer`);
+    const decodedContent = decodeURIComponent(currentContent);
+    
+    // Hide original content and footer, show edit form
+    commentContentEl.style.display = 'none';
+    commentFooterEl.style.display = 'none';
+    
+    const editForm = document.createElement('div');
+    editForm.className = 'edit-comment-form';
+    editForm.innerHTML = `
+        <textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-top: 5px;">${decodedContent}</textarea>
+        <div style="margin-top: 10px;">
+            <button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button>
+            <button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button>
+        </div>
+    `;
+    commentContentEl.parentNode.insertBefore(editForm, commentContentEl.nextSibling);
+}
+
+// Renders the entire profile, now with nested comments
+function renderProfileView() {
+    const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
+    const profileContent = document.getElementById('profile-content');
+
+    let postsHtml = '';
+    if (viewedUserProfile.posts.length > 0) {
+        const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
+        postsHtml = viewedUserProfile.posts.map(post => {
+            const commentTree = buildCommentTree(post.comments);
+            const commentsHtml = renderCommentsHtml(commentTree, post.id, isOwner, loggedInUserProfile);
+
+            const postDate = new Date(post.created_at).toLocaleString();
+            const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
+            const postAdminButtons = isOwner ? `<button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
+
+            return `
+                <div class="post-item">
+                    <div class="post-header">
+                        ${postAuthorPfp}
+                        <div class="post-author-info">
+                            <a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a>
+                            <small class="post-timestamp">${postDate}${updatedDateHtml}</small>
+                        </div>
+                        <div class="post-actions">${postAdminButtons}</div>
+                    </div>
+                    <div class="post-body">
+                        <h4 class="post-title">${escapeHTML(post.title)}</h4>
+                        <p class="post-content">${parseFormatting(post.content)}</p>
+                    </div>
+                    <div class="comments-section">${commentsHtml}</div>
+                    ${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}
+                </div>
+            `;
+        }).join('');
+    } else { postsHtml = `<p style="color: #888;"><i>No posts yet.</i></p>`; }
+
+    const bioText = viewedUserProfile.bio ? parseFormatting(viewedUserProfile.bio) : '<i>User has not written a bio yet.</i>';
+    const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
+    let socialsHtml = '';
+    if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
+    if (viewedUserProfile.telegram_handle) { socialsHtml += `<a href="https://t.me/${viewedUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram"></a>`; }
+    if (viewedUserProfile.discord_handle) { socialsHtml += `<a href="#" onclick="alert('Discord: ${viewedUserProfile.discord_handle}'); return false;" title="Discord" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750977177/Discord_fa0sy9.png" alt="Discord"></a>`; }
+    if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
+    if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
+    
+    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; } </style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}<div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px; white-space: pre-wrap; word-wrap: break-word;">${bioText}</p></div><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
+
+    if (isOwner) {
+        document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
+        document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
     }
 }
