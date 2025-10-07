@@ -16,7 +16,7 @@ header {
 .subtitle {
     font-size: 1.2rem;
     color: #ff9999;
-    text-shadow: 0 0 5px #ff5555;
+    text-shadow: 0 0 5px var(--main-red);
     margin-top: 10px;
 }
 
@@ -28,7 +28,7 @@ header {
 .filter-btn {
     background: #1e1e1e;
     color: #eee;
-    border: 1px solid #ff5555;
+    border: 1px solid var(--main-red);
     padding: 10px 20px;
     margin: 5px;
     border-radius: 5px;
@@ -39,13 +39,13 @@ header {
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 .filter-btn:hover {
-    background-color: #ff5555;
+    background-color: var(--main-red);
     color: #fff;
 }
 .filter-btn.active {
-    background-color: #ff5555;
+    background-color: var(--main-red);
     color: #fff;
-    box-shadow: 0 0 15px #ff5555;
+    box-shadow: 0 0 15px var(--main-red);
 }
 
 /* --- Page-Specific Media Grid --- */
@@ -59,7 +59,7 @@ header {
     overflow: hidden;
     border-radius: 10px;
     background: #1e1e1e;
-    border: 1px solid #333;
+    border: 1px solid var(--border-dark);
     display: flex;
     flex-direction: column;
 }
@@ -86,7 +86,7 @@ header {
     padding: 10px;
     font-size: 0.9rem;
     font-weight: 700;
-    color: #ccc;
+    color: var(--text-medium);
     text-align: center;
     background-color: #1e1e1e;
     flex-shrink: 0;
@@ -109,7 +109,7 @@ header {
     opacity: 1;
 }
 .overlay-btn {
-    background: #ff5555;
+    background: var(--main-red);
     color: #fff;
     border-radius: 50%;
     width: 50px;
