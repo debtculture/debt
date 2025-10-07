@@ -104,3 +104,71 @@ header {
     background-color: #ff5555;
     box-shadow: 0 0 10px #ff5555;
 }
+
+/* --- New Post Item Styles --- */
+.post-item {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 15px;
+}
+
+.post-author-pfp, .post-author-pfp-placeholder {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #444;
+    flex-shrink: 0;
+}
+
+.post-author-pfp-placeholder {
+    background-color: #333;
+}
+
+.post-author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-author-name {
+    font-weight: 700;
+    color: #eee;
+    font-size: 1.1rem;
+}
+
+.post-timestamp {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.post-actions {
+    margin-left: auto; /* Pushes Edit/Delete buttons to the right */
+}
+
+.post-title {
+    color: #eee;
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.post-content {
+    margin: 0;
+    color: #ddd;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.6;
+}
