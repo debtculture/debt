@@ -348,6 +348,30 @@ function showReplyForm(parentCommentId, postId) {
 
 // --- UPDATED CORE FUNCTIONS ---
 
+// Submits a new comment OR a reply
+async function submitComment(postId, parentCommentId = null) {
+    const inputId = parentCommentId ? `comment-input-reply-${parentCommentId}` : `comment-input-${postId}`;
+    const input = document.getElementById(inputId);
+    const content = input.value;
+
+    if (!content.trim()) { alert("Comment cannot be empty."); return; }
+    if (!loggedInUserProfile) { alert("You must be logged in to comment."); return; }
+    
+    try {
+        const { error } = await supabaseClient.from('comments').insert({ 
+            content: content, 
+            author_id: loggedInUserProfile.id, 
+            post_id: postId,
+            parent_comment_id: parentCommentId // This is the new part!
+        });
+        if (error) throw error;
+        loadPageData(); // Reload everything to show the new comment/reply
+    } catch (error) { 
+        console.error('Error submitting comment:', error); 
+        alert(`Could not submit comment: ${error.message}`); 
+    }
+}
+
 // Renders the view to edit an existing comment
 function renderEditCommentView(commentId, currentContent) {
     const commentContentEl = document.querySelector(`#comment-${commentId} .comment-content`);
