@@ -71,43 +71,21 @@ function renderProfileView() {
             const commentsHtml = post.comments.map(comment => {
                 const isCommentOwner = loggedInUserProfile && (loggedInUserProfile.id === comment.author_id);
                 const isPostOwner = loggedInUserProfile && (loggedInUserProfile.id === post.author_id);
-
-                const commenterPfp = comment.profiles.pfp_url 
-                    ? `<img src="${comment.profiles.pfp_url}" alt="${comment.profiles.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">`
-                    : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
-
-                const commentAdminButtons = (isCommentOwner || isPostOwner) ? 
-                    `<div style="margin-left: auto; display: flex; gap: 5px;">
-                        ${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}
-                        <button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button>
-                    </div>` : '';
-                
-                // --- NEW: Add created and updated timestamps for comments ---
+                const commenterPfp = comment.profiles.pfp_url ? `<img src="${comment.profiles.pfp_url}" alt="${comment.profiles.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">` : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
+                const commentAdminButtons = (isCommentOwner || isPostOwner) ? `<div style="margin-left: auto; display: flex; gap: 5px;">${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}<button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button></div>` : '';
                 const commentDate = new Date(comment.created_at).toLocaleString();
                 const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
-
-                return `
-                    <div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">
-                        ${commenterPfp}
-                        <div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;">
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
-                                ${commentAdminButtons}
-                            </div>
-                            <p style="margin: 5px 0 0; color: #ddd;">${comment.content}</p>
-                            <small style="color: #888; margin-top: 8px; display: block; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small>
-                        </div>
-                    </div>
-                `;
+                return `<div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">${commenterPfp}<div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;"><div style="display: flex; align-items: center; justify-content: space-between;"><a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>${commentAdminButtons}</div><p style="margin: 5px 0 0; color: #ddd;">${comment.content}</p><small style="color: #888; margin-top: 8px; display: block; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small></div></div>`;
             }).join('');
 
             const postDate = new Date(post.created_at).toLocaleString();
             const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
-            const postAdminButtons = isOwner ? `<div><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button></div>` : '';
+            const postAdminButtons = isOwner ? `<div><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button></div>` : '';
 
             return `
                 <div class="post-item" style="background: #1a1a1a; border: 1px solid #333; border-radius: 5px; padding: 15px; text-align: left; margin-bottom: 20px;">
-                    <p style="margin: 0; color: #eee; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
+                    <h4 style="color: #eee; margin: 0 0 10px 0; font-size: 1.2rem;">${post.title}</h4>
+                    <p style="margin: 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #333;">
                         <small style="color: #888;">${postDate}${updatedDateHtml}</small>
                         ${postAdminButtons}
@@ -161,45 +139,48 @@ async function deleteComment(commentId) {
 function renderEditCommentView(commentId, currentContent) {
     const commentElement = document.getElementById(`comment-${commentId}`);
     const decodedContent = decodeURIComponent(currentContent);
-    commentElement.innerHTML = `
-        <div style="width: 100%; text-align: left;">
-            <textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea>
-            <div style="margin-top: 10px;">
-                <button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button>
-                <button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button>
-            </div>
-        </div>
-    `;
+    commentElement.innerHTML = `<div style="width: 100%; text-align: left;"><textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea><div style="margin-top: 10px;"><button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button><button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button></div></div>`;
 }
 
 async function updateComment(commentId) {
     const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
     if (!newContent.trim()) { alert("Comment cannot be empty."); return; }
     try {
-        // --- THIS IS THE ONE LINE CHANGE ---
-        // We add updated_at, but the database trigger will overwrite this with the correct time.
-        // Sending it just ensures the trigger has a change to detect.
         const { error } = await supabaseClient.from('comments').update({ content: newContent, updated_at: new Date() }).eq('id', commentId);
         if (error) throw error;
         loadPageData();
     } catch (error) { console.error('Error updating comment:', error); alert(`Could not update comment: ${error.message}`); }
 }
 
+function renderEditPostView(postId, currentTitle, currentContent) {
+    const postsSection = document.getElementById('posts-section');
+    const decodedTitle = decodeURIComponent(currentTitle);
+    const decodedContent = decodeURIComponent(currentContent);
+    postsSection.innerHTML = `
+        <h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3>
+        <div style="text-align: left; margin-top: 20px;">
+            <label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
+            <input type="text" id="post-title-input" value="${decodedTitle}" style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;">
+            <label for="post-edit-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
+            <textarea id="post-edit-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea>
+        </div>
+        <div style="margin-top: 20px;">
+            <button onclick="updatePost(${postId})" class="cta-button">Save Update</button>
+            <button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
+        </div>
+    `;
+}
+
 async function updatePost(postId) {
+    const newTitle = document.getElementById('post-title-input').value;
     const newContent = document.getElementById('post-edit-input').value;
-    if (!newContent.trim()) { alert("Post content cannot be empty."); return; }
+    if (!newTitle.trim() || !newContent.trim()) { alert("Title and content cannot be empty."); return; }
     try {
-        const { error } = await supabaseClient.from('posts').update({ content: newContent }).eq('id', postId);
+        const { error } = await supabaseClient.from('posts').update({ title: newTitle, content: newContent }).eq('id', postId);
         if (error) throw error;
         alert('Post updated successfully!');
         loadPageData();
     } catch (error) { console.error('Error updating post:', error); alert(`Could not update post: ${error.message}`); }
-}
-
-function renderEditPostView(postId, currentContent) {
-    const postsSection = document.getElementById('posts-section');
-    const decodedContent = decodeURIComponent(currentContent);
-    postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3><div style="text-align: left; margin-top: 20px;"><textarea id="post-edit-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${decodedContent}</textarea></div><div style="margin-top: 20px;"><button onclick="updatePost(${postId})" class="cta-button">Save Update</button><button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
 }
 
 async function deletePost(postId) {
@@ -214,7 +195,19 @@ async function deletePost(postId) {
 
 function renderCreatePostView() {
     const postsSection = document.getElementById('posts-section');
-    postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">New Post</h3><div style="text-align: left; margin-top: 20px;"><textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;"></textarea></div><div style="margin-top: 20px;"><button id="submit-post-btn" class="cta-button">Submit Post</button><button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
+    postsSection.innerHTML = `
+        <h3 style="font-size: 2rem; color: #ff5555;">New Post</h3>
+        <div style="text-align: left; margin-top: 20px;">
+            <label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
+            <input type="text" id="post-title-input" placeholder="Enter a title..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;">
+            <label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
+            <textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></textarea>
+        </div>
+        <div style="margin-top: 20px;">
+            <button id="submit-post-btn" class="cta-button">Submit Post</button>
+            <button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
+        </div>
+    `;
     document.getElementById('submit-post-btn').addEventListener('click', saveNewPost);
     document.getElementById('cancel-post-btn').addEventListener('click', loadPageData);
 }
@@ -222,14 +215,25 @@ function renderCreatePostView() {
 async function saveNewPost() {
     const btn = document.getElementById('submit-post-btn');
     btn.disabled = true; btn.textContent = 'Submitting...';
+    const title = document.getElementById('post-title-input').value;
     const content = document.getElementById('post-content-input').value;
-    if (!content.trim()) { alert("Post content cannot be empty."); btn.disabled = false; btn.textContent = 'Submit Post'; return; }
+    if (!title.trim() || !content.trim()) {
+        alert("Title and content cannot be empty.");
+        btn.disabled = false;
+        btn.textContent = 'Submit Post';
+        return;
+    }
     try {
-        const { error } = await supabaseClient.from('posts').insert({ content: content, author_id: viewedUserProfile.id });
+        const { error } = await supabaseClient.from('posts').insert({ title: title, content: content, author_id: viewedUserProfile.id });
         if (error) throw error;
         alert('Post submitted successfully!');
         loadPageData();
-    } catch (error) { console.error('Error submitting post:', error); alert(`Could not submit post: ${error.message}`); btn.disabled = false; btn.textContent = 'Submit Post'; }
+    } catch (error) {
+        console.error('Error submitting post:', error);
+        alert(`Could not submit post: ${error.message}`);
+        btn.disabled = false;
+        btn.textContent = 'Submit Post';
+    }
 }
 
 function renderEditView() {
