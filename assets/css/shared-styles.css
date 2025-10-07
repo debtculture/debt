@@ -3,10 +3,14 @@
     --main-red: #ff5555;
     --hover-red: #ff7777;
     --light-red: #ff9999;
+    --dark-red: #cc4444; 
     --content-dark: #1e1e1e;
     --text-light: #eee;
     --text-medium: #ccc;
+    --text-white: #fff; 
+    --text-dark: #000; 
     --border-dark: #333;
+    --border-medium: #555; 
 }
 
 * {
