@@ -34,13 +34,11 @@ function escapeHTML(str) {
  */
 function parseFormatting(text) {
     if (!text) return '';
-    // First, escape any potential HTML the user typed in.
     let safeText = escapeHTML(text);
-    // Then, replace our safe tags with real HTML tags.
     return safeText
-        .replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>')
-        .replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>')
-        .replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
+        .replace(/\[b\](.*?)\[\/b\]/gs, '<strong>$1</strong>')
+        .replace(/\[i\](.*?)\[\/i\]/gs, '<em>$1</em>')
+        .replace(/\[u\](.*?)\[\/u\]/gs, '<u>$1</u>');
 }
 
 /**
@@ -59,7 +57,6 @@ function formatText(tag, textareaId) {
     if (selectedText) {
         textarea.value = `${beforeText}[${tag}]${selectedText}[/${tag}]${afterText}`;
         textarea.focus();
-        // Place cursor after the newly inserted tags
         textarea.selectionStart = start + `[${tag}]`.length;
         textarea.selectionEnd = end + `[${tag}]`.length;
     }
@@ -171,7 +168,7 @@ function renderProfileView() {
     if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
-    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; } </style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2><div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px;">${bioText}</p></div>${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}<hr class="profile-divider"><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
+    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; } </style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2><div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px;">${bioText}</p></div>${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}<hr style="border-color: #333; margin: 40px 0;"><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
 
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
@@ -204,14 +201,14 @@ async function deleteComment(commentId) {
 function renderEditCommentView(commentId, currentContent) {
     const commentElement = document.getElementById(`comment-${commentId}`);
     const decodedContent = decodeURIComponent(currentContent);
-    commentElement.innerHTML = `<div style="width: 100%; text-align: left;"><textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea><div style="margin-top: 10px;"><button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button><button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button></div></div>`;
+    commentElement.innerHTML = `<div style="width: 100%; text-align: left;"><div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;"><button onclick="formatText('b', 'comment-edit-input-${commentId}')">B</button><button onclick="formatText('i', 'comment-edit-input-${commentId}')" style="font-style: italic;">I</button><button onclick="formatText('u', 'comment-edit-input-${commentId}')" style="text-decoration: underline;">U</button></div><textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea><div style="margin-top: 10px;"><button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button><button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button></div></div>`;
 }
 
 async function updateComment(commentId) {
     const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
     if (!newContent.trim()) { alert("Comment cannot be empty."); return; }
     try {
-        const { error } = await supabaseClient.from('comments').update({ content: newContent, updated_at: new Date() }).eq('id', commentId);
+        const { error } = await supabaseClient.from('comments').update({ content: newContent }).eq('id', commentId);
         if (error) throw error;
         loadPageData();
     } catch (error) { console.error('Error updating comment:', error); alert(`Could not update comment: ${error.message}`); }
@@ -221,24 +218,7 @@ function renderEditPostView(postId, currentTitle, currentContent) {
     const postsSection = document.getElementById('posts-section');
     const decodedTitle = decodeURIComponent(currentTitle);
     const decodedContent = decodeURIComponent(currentContent);
-    postsSection.innerHTML = `
-        <h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3>
-        <div style="text-align: left; margin-top: 20px;">
-            <label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
-            <input type="text" id="post-title-input" value="${decodedTitle}" style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;">
-            <label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
-            <div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;">
-                <button onclick="formatText('b', 'post-content-input')">B</button>
-                <button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button>
-                <button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button>
-            </div>
-            <textarea id="post-content-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea>
-        </div>
-        <div style="margin-top: 20px;">
-            <button onclick="updatePost(${postId})" class="cta-button">Save Update</button>
-            <button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
-        </div>
-    `;
+    postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3><div style="text-align: left; margin-top: 20px;"><label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label><input type="text" id="post-title-input" value="${decodedTitle}" style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;"><label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label><div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;"><button onclick="formatText('b', 'post-content-input')">B</button><button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button><button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button></div><textarea id="post-content-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea></div><div style="margin-top: 20px;"><button onclick="updatePost(${postId})" class="cta-button">Save Update</button><button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
 }
 
 async function updatePost(postId) {
@@ -265,24 +245,7 @@ async function deletePost(postId) {
 
 function renderCreatePostView() {
     const postsSection = document.getElementById('posts-section');
-    postsSection.innerHTML = `
-        <h3 style="font-size: 2rem; color: #ff5555;">New Post</h3>
-        <div style="text-align: left; margin-top: 20px;">
-            <label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
-            <input type="text" id="post-title-input" placeholder="Enter a title..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;">
-            <label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
-            <div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;">
-                <button onclick="formatText('b', 'post-content-input')">B</button>
-                <button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button>
-                <button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button>
-            </div>
-            <textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></textarea>
-        </div>
-        <div style="margin-top: 20px;">
-            <button id="submit-post-btn" class="cta-button">Submit Post</button>
-            <button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button>
-        </div>
-    `;
+    postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">New Post</h3><div style="text-align: left; margin-top: 20px;"><label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label><input type="text" id="post-title-input" placeholder="Enter a title..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;"><label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label><div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;"><button onclick="formatText('b', 'post-content-input')">B</button><button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button><button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button></div><textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></textarea></div><div style="margin-top: 20px;"><button id="submit-post-btn" class="cta-button">Submit Post</button><button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
     document.getElementById('submit-post-btn').addEventListener('click', saveNewPost);
     document.getElementById('cancel-post-btn').addEventListener('click', loadPageData);
 }
@@ -292,23 +255,13 @@ async function saveNewPost() {
     btn.disabled = true; btn.textContent = 'Submitting...';
     const title = document.getElementById('post-title-input').value;
     const content = document.getElementById('post-content-input').value;
-    if (!title.trim() || !content.trim()) {
-        alert("Title and content cannot be empty.");
-        btn.disabled = false;
-        btn.textContent = 'Submit Post';
-        return;
-    }
+    if (!title.trim() || !content.trim()) { alert("Title and content cannot be empty."); btn.disabled = false; btn.textContent = 'Submit Post'; return; }
     try {
         const { error } = await supabaseClient.from('posts').insert({ title: title, content: content, author_id: viewedUserProfile.id });
         if (error) throw error;
         alert('Post submitted successfully!');
         loadPageData();
-    } catch (error) {
-        console.error('Error submitting post:', error);
-        alert(`Could not submit post: ${error.message}`);
-        btn.disabled = false;
-        btn.textContent = 'Submit Post';
-    }
+    } catch (error) { console.error('Error submitting post:', error); alert(`Could not submit post: ${error.message}`); btn.disabled = false; btn.textContent = 'Submit Post'; }
 }
 
 function renderEditView() {
