@@ -107,7 +107,7 @@
 .rank-cell { font-weight: 700; width: 15%; }
 .user-cell { font-weight: 600; width: 55%; }
 .points-cell { font-weight: 700; width: 30%; }
-#leaderboard-loading { font-size: 1.1rem; color: var(--light-red; padding: 40px 0; }
+#leaderboard-loading { font-size: 1.1rem; color: var(--light-red); padding: 40px 0; }
 
 /* Leaderboard Glossary Styles */
 .leaderboard-glossary-header { background: linear-gradient(90deg, var(--main-red), var(--hover-red)); color: #fff; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; font-weight: bold; text-align: center; position: relative; transition: background 0.3s ease; max-width: 800px; width: 100%; box-sizing: border-box; margin: -40px auto 60px auto; }
