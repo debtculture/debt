@@ -81,6 +81,10 @@ function renderProfileView() {
                         ${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}
                         <button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button>
                     </div>` : '';
+                
+                // --- NEW: Add created and updated timestamps for comments ---
+                const commentDate = new Date(comment.created_at).toLocaleString();
+                const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
 
                 return `
                     <div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">
@@ -91,6 +95,7 @@ function renderProfileView() {
                                 ${commentAdminButtons}
                             </div>
                             <p style="margin: 5px 0 0; color: #ddd;">${comment.content}</p>
+                            <small style="color: #888; margin-top: 8px; display: block; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small>
                         </div>
                     </div>
                 `;
@@ -171,7 +176,10 @@ async function updateComment(commentId) {
     const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
     if (!newContent.trim()) { alert("Comment cannot be empty."); return; }
     try {
-        const { error } = await supabaseClient.from('comments').update({ content: newContent }).eq('id', commentId);
+        // --- THIS IS THE ONE LINE CHANGE ---
+        // We add updated_at, but the database trigger will overwrite this with the correct time.
+        // Sending it just ensures the trigger has a change to detect.
+        const { error } = await supabaseClient.from('comments').update({ content: newContent, updated_at: new Date() }).eq('id', commentId);
         if (error) throw error;
         loadPageData();
     } catch (error) { console.error('Error updating comment:', error); alert(`Could not update comment: ${error.message}`); }
