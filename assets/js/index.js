@@ -29,8 +29,7 @@ window.addEventListener('load', async () => {
     
     desktopBubble.addEventListener('click', () => {
         if (desktopBubble.classList.contains('connected')) {
-            const walletInfo = document.getElementById('walletInfo');
-            walletInfo.style.display = walletInfo.style.display === 'block' ? 'none' : 'block';
+            document.getElementById('walletInfo').classList.toggle('visible');
         } else {
             openWalletModal();
         }
