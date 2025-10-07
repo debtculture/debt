@@ -78,3 +78,29 @@ header {
 .social-icon-link[title="X / Twitter"] img {
     filter: invert(1); /* Invert colors to make white on dark */
 }
+
+/* Make the profile content a reference for absolute positioning */
+#profile-content {
+    position: relative;
+}
+
+/* New style for the smaller 'Edit' button */
+.edit-profile-icon-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-profile-icon-btn:hover {
+    background-color: #ff5555;
+    box-shadow: 0 0 10px #ff5555;
+}
