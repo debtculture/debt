@@ -15,7 +15,7 @@ header {
 }
 .subtitle {
     font-size: 1.2rem;
-    color: #ff9999;
+    color: var(--light-red);
     text-shadow: 0 0 5px var(--main-red);
     margin-top: 10px;
 }
