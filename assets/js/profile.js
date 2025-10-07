@@ -296,17 +296,27 @@ function buildCommentTree(comments) {
 }
 
 // Recursively renders the HTML for comments and their replies
+
+// NEW: Renders the HTML for a single comment or a full tree
 function renderCommentsHtml(comments, postId, isPostOwner, loggedInUserProfile) {
     if (!comments || comments.length === 0) return '';
-    return comments.map(comment => {
+    
+    // If 'comments' isn't an array, wrap it in one so we can reuse the logic
+    const commentsArray = Array.isArray(comments) ? comments : [comments];
+
+    return commentsArray.map(comment => {
         const isCommentOwner = loggedInUserProfile && (loggedInUserProfile.id === comment.author_id);
-        const commenterPfp = comment.profiles.pfp_url ? `<img src="${comment.profiles.pfp_url}" alt="${comment.profiles.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">` : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
+        
+        // Use comment.profiles if it exists, otherwise fall back to loggedInUserProfile for new comments
+        const profile = comment.profiles || loggedInUserProfile;
+        if (!profile) return ''; // Skip if we can't identify the commenter
+
+        const commenterPfp = profile.pfp_url ? `<img src="${profile.pfp_url}" alt="${profile.username}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-right: 10px;">` : `<div style="width: 30px; height: 30px; border-radius: 50%; background: #555; margin-right: 10px;"></div>`;
         const commentAdminButtons = (isCommentOwner || isPostOwner) ? `<div style="margin-left: auto; display: flex; gap: 5px;">${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}<button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button></div>` : '';
         const commentDate = new Date(comment.created_at).toLocaleString();
         const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
         
-        // Recursively render children comments
-        const childrenHtml = renderCommentsHtml(comment.children, postId, isPostOwner, loggedInUserProfile);
+        const childrenHtml = comment.children ? renderCommentsHtml(comment.children, postId, isPostOwner, loggedInUserProfile) : '';
 
         return `
             <div id="comment-${comment.id}" class="comment-item">
@@ -314,7 +324,7 @@ function renderCommentsHtml(comments, postId, isPostOwner, loggedInUserProfile) 
                     ${commenterPfp}
                     <div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;">
                         <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
+                            <a href="profile.html?user=${profile.wallet_address}" class="footer-link" style="font-weight: bold;">${profile.username}</a>
                             ${commentAdminButtons}
                         </div>
                         <p class="comment-content" style="margin: 5px 0 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(comment.content)}</p>
@@ -329,6 +339,54 @@ function renderCommentsHtml(comments, postId, isPostOwner, loggedInUserProfile) 
             </div>
         `;
     }).join('');
+}
+
+
+// UPGRADED: Submits comments and dynamically adds them to the page
+async function submitComment(postId, parentCommentId = null) {
+    const inputId = parentCommentId ? `comment-input-reply-${parentCommentId}` : `comment-input-${postId}`;
+    const input = document.getElementById(inputId);
+    const content = input.value;
+
+    if (!content.trim()) { alert("Comment cannot be empty."); return; }
+    if (!loggedInUserProfile) { alert("You must be logged in to comment."); return; }
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('comments')
+            .insert({ 
+                content: content, 
+                author_id: loggedInUserProfile.id, 
+                post_id: postId,
+                parent_comment_id: parentCommentId
+            })
+            .select() // Ask Supabase to return the new comment
+            .single();
+
+        if (error) throw error;
+        
+        // --- This is the new "magic" part ---
+        const newCommentHtml = renderCommentsHtml(data, postId, (loggedInUserProfile.id === viewedUserProfile.id), loggedInUserProfile);
+        
+        if (parentCommentId) {
+            // It's a reply, append it to the parent's children container
+            const parentContainer = document.querySelector(`#comment-${parentCommentId} .comment-children`);
+            parentContainer.insertAdjacentHTML('beforeend', newCommentHtml);
+            // Close the reply form
+            document.getElementById(`reply-form-container-${parentCommentId}`).innerHTML = '';
+        } else {
+            // It's a top-level comment, append it to the main comments section
+            const postContainer = input.closest('.post-item');
+            const commentsSection = postContainer.querySelector('.comments-section');
+            commentsSection.insertAdjacentHTML('beforeend', newCommentHtml);
+        }
+
+        input.value = ''; // Clear the input field
+
+    } catch (error) { 
+        console.error('Error submitting comment:', error); 
+        alert(`Could not submit comment: ${error.message}`); 
+    }
 }
 
 function showReplyForm(parentCommentId, postId) {
@@ -347,30 +405,6 @@ function showReplyForm(parentCommentId, postId) {
 }
 
 // --- UPDATED CORE FUNCTIONS ---
-
-// Submits a new comment OR a reply
-async function submitComment(postId, parentCommentId = null) {
-    const inputId = parentCommentId ? `comment-input-reply-${parentCommentId}` : `comment-input-${postId}`;
-    const input = document.getElementById(inputId);
-    const content = input.value;
-
-    if (!content.trim()) { alert("Comment cannot be empty."); return; }
-    if (!loggedInUserProfile) { alert("You must be logged in to comment."); return; }
-    
-    try {
-        const { error } = await supabaseClient.from('comments').insert({ 
-            content: content, 
-            author_id: loggedInUserProfile.id, 
-            post_id: postId,
-            parent_comment_id: parentCommentId // This is the new part!
-        });
-        if (error) throw error;
-        loadPageData(); // Reload everything to show the new comment/reply
-    } catch (error) { 
-        console.error('Error submitting comment:', error); 
-        alert(`Could not submit comment: ${error.message}`); 
-    }
-}
 
 // Renders the view to edit an existing comment
 function renderEditCommentView(commentId, currentContent) {
