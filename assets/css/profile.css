@@ -78,3 +78,9 @@ header {
 .social-icon-link[title="X / Twitter"] img {
     filter: invert(1); /* Invert colors to make white on dark */
 }
+
+.profile-divider {
+    border: none;
+    border-top: 1px solid #333;
+    margin: 40px 0;
+}
