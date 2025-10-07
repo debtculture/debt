@@ -6,13 +6,65 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // --- Global Variables ---
-let viewedUserProfile = null; // To store the profile data of the person being viewed
-let loggedInUserProfile = null; // To store the profile data of the person who is logged in
+let viewedUserProfile = null;
+let loggedInUserProfile = null;
 
 // --- Main Logic ---
 document.addEventListener('DOMContentLoaded', () => {
     loadPageData();
 });
+
+// --- HELPER FUNCTIONS ---
+
+/**
+ * A crucial security function to prevent XSS attacks.
+ * It escapes HTML characters so user input is treated as plain text.
+ * @param {string} str - The raw string from the user.
+ * @returns {string} The sanitized string.
+ */
+function escapeHTML(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+/**
+ * Parses our simple formatting tags ([b], [i], [u]) into HTML.
+ * @param {string} text - The text from the database.
+ * @returns {string} The formatted HTML string.
+ */
+function parseFormatting(text) {
+    if (!text) return '';
+    // First, escape any potential HTML the user typed in.
+    let safeText = escapeHTML(text);
+    // Then, replace our safe tags with real HTML tags.
+    return safeText
+        .replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>')
+        .replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>')
+        .replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
+}
+
+/**
+ * Wraps selected text in a textarea with formatting tags.
+ * @param {string} tag - The tag to use ('b', 'i', or 'u').
+ * @param {string} textareaId - The ID of the textarea element.
+ */
+function formatText(tag, textareaId) {
+    const textarea = document.getElementById(textareaId);
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
+    const beforeText = textarea.value.substring(0, start);
+    const afterText = textarea.value.substring(end);
+
+    if (selectedText) {
+        textarea.value = `${beforeText}[${tag}]${selectedText}[/${tag}]${afterText}`;
+        textarea.focus();
+        // Place cursor after the newly inserted tags
+        textarea.selectionStart = start + `[${tag}]`.length;
+        textarea.selectionEnd = end + `[${tag}]`.length;
+    }
+}
+
 
 /**
  * Main function to fetch all necessary data for the page.
@@ -75,7 +127,20 @@ function renderProfileView() {
                 const commentAdminButtons = (isCommentOwner || isPostOwner) ? `<div style="margin-left: auto; display: flex; gap: 5px;">${isCommentOwner ? `<button onclick='renderEditCommentView(${comment.id}, "${encodeURIComponent(comment.content)}")' class="post-action-btn">Edit</button>` : ''}<button onclick="deleteComment(${comment.id})" class="post-action-btn delete">Delete</button></div>` : '';
                 const commentDate = new Date(comment.created_at).toLocaleString();
                 const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
-                return `<div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">${commenterPfp}<div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;"><div style="display: flex; align-items: center; justify-content: space-between;"><a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>${commentAdminButtons}</div><p style="margin: 5px 0 0; color: #ddd;">${comment.content}</p><small style="color: #888; margin-top: 8px; display: block; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small></div></div>`;
+                
+                return `
+                    <div id="comment-${comment.id}" class="comment-item" style="display: flex; align-items: flex-start; margin-top: 15px;">
+                        ${commenterPfp}
+                        <div style="background: #222; padding: 8px 12px; border-radius: 10px; width: 100%;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <a href="profile.html?user=${comment.profiles.wallet_address}" class="footer-link" style="font-weight: bold;">${comment.profiles.username}</a>
+                                ${commentAdminButtons}
+                            </div>
+                            <p style="margin: 5px 0 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(comment.content)}</p>
+                            <small style="color: #888; margin-top: 8px; display: block; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small>
+                        </div>
+                    </div>
+                `;
             }).join('');
 
             const postDate = new Date(post.created_at).toLocaleString();
@@ -84,8 +149,8 @@ function renderProfileView() {
 
             return `
                 <div class="post-item" style="background: #1a1a1a; border: 1px solid #333; border-radius: 5px; padding: 15px; text-align: left; margin-bottom: 20px;">
-                    <h4 style="color: #eee; margin: 0 0 10px 0; font-size: 1.2rem;">${post.title}</h4>
-                    <p style="margin: 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${post.content}</p>
+                    <h4 style="color: #eee; margin: 0 0 10px 0; font-size: 1.2rem;">${escapeHTML(post.title)}</h4>
+                    <p style="margin: 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(post.content)}</p>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #333;">
                         <small style="color: #888;">${postDate}${updatedDateHtml}</small>
                         ${postAdminButtons}
@@ -106,7 +171,7 @@ function renderProfileView() {
     if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
-    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; }</style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2><div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px;">${bioText}</p></div>${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}<hr style="border-color: #333; margin: 40px 0;"><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
+    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; } </style>${pfpHtml}<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2><div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; border-bottom: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px;">${bioText}</p></div>${isOwner ? `<button id="edit-profile-btn" class="cta-button" style="margin-top: 30px; font-size: 1rem; padding: 10px 20px;">Edit Profile Details</button>` : ''}<hr style="border-color: #333; margin: 40px 0;"><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
 
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
@@ -161,8 +226,13 @@ function renderEditPostView(postId, currentTitle, currentContent) {
         <div style="text-align: left; margin-top: 20px;">
             <label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
             <input type="text" id="post-title-input" value="${decodedTitle}" style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;">
-            <label for="post-edit-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
-            <textarea id="post-edit-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea>
+            <label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
+            <div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;">
+                <button onclick="formatText('b', 'post-content-input')">B</button>
+                <button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button>
+                <button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button>
+            </div>
+            <textarea id="post-content-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea>
         </div>
         <div style="margin-top: 20px;">
             <button onclick="updatePost(${postId})" class="cta-button">Save Update</button>
@@ -201,6 +271,11 @@ function renderCreatePostView() {
             <label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label>
             <input type="text" id="post-title-input" placeholder="Enter a title..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;">
             <label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label>
+            <div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;">
+                <button onclick="formatText('b', 'post-content-input')">B</button>
+                <button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button>
+                <button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button>
+            </div>
             <textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></textarea>
         </div>
         <div style="margin-top: 20px;">
@@ -242,6 +317,7 @@ function renderEditView() {
     document.getElementById('save-profile-btn').addEventListener('click', saveProfileChanges);
     document.getElementById('cancel-edit-btn').addEventListener('click', renderProfileView);
 }
+
 async function saveProfileChanges() {
     const saveButton = document.getElementById('save-profile-btn');
     saveButton.disabled = true; saveButton.textContent = 'Saving...';
