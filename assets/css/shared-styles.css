@@ -1,4 +1,14 @@
 /* --- RESET & BASE STYLES --- */
+:root {
+    --main-red: #ff5555;
+    --hover-red: #ff7777;
+    --light-red: #ff9999;
+    --content-dark: #1e1e1e;
+    --text-light: #eee;
+    --text-medium: #ccc;
+    --border-dark: #333;
+}
+
 * {
     margin: 0;
     padding: 0;
