@@ -569,27 +569,55 @@ function onYouTubeIframeAPIReady() {
 }
 
 // This function extracts the video ID and creates the player
-function initYouTubePlayer(youtubeUrl) {
-  try {
-    const url = new URL(youtubeUrl);
-    const videoId = url.searchParams.get("v");
-    if (videoId) {
-      // Check if the YT API is ready
-      if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-        // If not, set up this function to be called once the API is ready
-        window.onYouTubeIframeAPIReady = function() {
-          createYouTubePlayer(videoId);
-        };
-      } else {
-        // If it is ready, create the player immediately
-        createYouTubePlayer(videoId);
-      }
+async function initYouTubePlayer(youtubeUrl) {
+    const titleElement = document.getElementById('profile-song-title');
+    const containerElement = document.getElementById('profile-song-title-container');
+
+    try {
+        const url = new URL(youtubeUrl);
+        const videoId = url.searchParams.get("v");
+
+        if (videoId) {
+            // --- NEW LOGIC: Fetch title immediately without waiting for the player ---
+            try {
+                // We use a public oEmbed endpoint to get video info without an API key.
+                const response = await fetch(`https://www.youtube.com/oembed?url=${youtubeUrl}&format=json`);
+                const data = await response.json();
+                
+                if (data.title && titleElement) {
+                    titleElement.textContent = data.title;
+
+                    // This logic checks if the title is short and disables the animation if it fits.
+                    // A short delay helps the browser calculate the width correctly.
+                    setTimeout(() => {
+                        if (titleElement && containerElement && titleElement.scrollWidth <= containerElement.clientWidth) {
+                            titleElement.style.animation = 'none';
+                            titleElement.style.paddingLeft = '0';
+                            containerElement.style.textAlign = 'center';
+                        }
+                    }, 250); // Increased delay for better reliability on desktop.
+                }
+            } catch (fetchError) {
+                console.error("Could not fetch YouTube title:", fetchError);
+                if (titleElement) titleElement.textContent = "Could not load song title";
+            }
+            // --- END NEW LOGIC ---
+
+            // The rest of the function creates the player in the background as before.
+            if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+                window.onYouTubeIframeAPIReady = function() {
+                    createYouTubePlayer(videoId);
+                };
+            } else {
+                createYouTubePlayer(videoId);
+            }
+        } else {
+             if (titleElement) titleElement.textContent = "Invalid YouTube URL";
+        }
+    } catch (e) {
+        console.error("Invalid YouTube URL for profile song:", e);
+        if (titleElement) titleElement.textContent = "Invalid URL";
     }
-  } catch (e) {
-    console.error("Invalid YouTube URL for profile song:", e);
-    const titleEl = document.getElementById('profile-song-title');
-    if(titleEl) titleEl.textContent = "Invalid URL";
-  }
 }
 
 function createYouTubePlayer(videoId) {
@@ -611,15 +639,8 @@ function createYouTubePlayer(videoId) {
 }
 
 function onPlayerReady(event) {
-    const titleElement = document.getElementById('profile-song-title');
-    if (!titleElement) return;
-
-    // Get the song title from the YouTube player data
-    const songTitle = event.target.getVideoData().title;
-
-    // Set the text content of our span element.
-    // This ensures the title is visible as soon as the player is ready.
-    titleElement.textContent = songTitle;
+    // This function's only job now is to ensure the player is ready.
+    // The title is already displayed by initYouTubePlayer.
 }
 
 function onPlayerStateChange(event) {
