@@ -525,17 +525,13 @@ function renderProfileView() {
     if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
-    profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; }
-/* Marquee Animation */
-#profile-song-title { display: inline-block; padding-left: 100%; animation: marquee 12s linear infinite; animation-play-state: paused; }
-@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-100%); } }
-</style>${pfpHtml}
+    profileContent.innerHTML = `${pfpHtml}
     <span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span>
     <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}
     ${viewedUserProfile.profile_song_url ? `
       <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
         <button id="profile-audio-play-pause" onclick="toggleProfileAudio()" style="background: #ff5555; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; flex-shrink: 0;">▶️</button>
-        <div id="profile-song-title-container" style="overflow: hidden; white-space: nowrap;">
+        <div id="profile-song-title-container">
           <span id="profile-song-title" style="font-size: 0.9rem;">Loading song...</span>
         </div>
       </div>
