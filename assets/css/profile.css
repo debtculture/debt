@@ -376,18 +376,31 @@ header {
 
 /* --- Profile Song Marquee --- */
 #profile-song-title-container {
-    overflow: hidden;
-    white-space: nowrap;
+    overflow: hidden; /* This clips the content that overflows */
+    white-space: nowrap; /* Prevents the text from wrapping to a new line */
     flex-grow: 1;
+    text-align: left; /* Ensures text starts from the left by default */
 }
 
 #profile-song-title {
+    /* This is the default, stationary state */
     display: inline-block;
-    animation: marquee 12s linear infinite;
-    animation-play-state: paused;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if the text is too long */
+    white-space: nowrap;
+    vertical-align: middle; /* Helps with alignment */
+    max-width: 100%; /* Ensures the text doesn't push its container */
 }
 
-/* This is the corrected animation */
+#profile-song-title.scrolling {
+    /* This class is added by JavaScript to activate the scroll */
+    animation: marquee 12s linear infinite;
+    max-width: none; /* Allows the element to be wider than its container for scrolling */
+    overflow: visible; /* Lets the animation handle the positioning */
+    text-overflow: clip; /* Removes the "..." during the scroll */
+}
+
+/* The keyframes remain the same */
 @keyframes marquee {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
