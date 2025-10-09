@@ -558,7 +558,11 @@ function renderProfileView() {
     }
 
     if (viewedUserProfile.profile_song_url) {
-        initYouTubePlayer(viewedUserProfile.profile_song_url);
+        // This setTimeout is the crucial fix. It ensures the HTML above is fully rendered
+        // before we try to find and update the song title element.
+        setTimeout(() => {
+            initYouTubePlayer(viewedUserProfile.profile_song_url);
+        }, 0);
     }
 }
 
@@ -568,16 +572,14 @@ function onYouTubeIframeAPIReady() {
     // This is intentionally left blank. We initialize the player when the profile renders.
 }
 
-// This function extracts the video ID and creates the player
+// This function now has one job: get the title and create the player.
 async function initYouTubePlayer(youtubeUrl) {
     const titleElement = document.getElementById('profile-song-title');
 
-    // --- Step 1: Immediately fetch and display the title ---
+    // --- Fetch and display the title ---
     try {
-        // Use YouTube's official oEmbed endpoint. It's the most reliable way to get video data.
         const response = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`);
         const data = await response.json();
-
         if (data && data.title && titleElement) {
             titleElement.textContent = data.title;
         } else {
@@ -588,24 +590,19 @@ async function initYouTubePlayer(youtubeUrl) {
         if (titleElement) titleElement.textContent = "Error Loading Title";
     }
 
-    // --- Step 2: Create the YouTube player in the background ---
-    // This part runs separately from the title fetching.
+    // --- Create the YouTube player in the background ---
     try {
         const url = new URL(youtubeUrl);
         const videoId = url.searchParams.get("v");
-
         if (videoId) {
             if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
                 window.onYouTubeIframeAPIReady = function() { createYouTubePlayer(videoId); };
             } else {
                 createYouTubePlayer(videoId);
             }
-        } else if (titleElement) {
-             titleElement.textContent = "Invalid YouTube URL";
         }
     } catch (e) {
         console.error("Error initializing YouTube player:", e);
-        if (titleElement) titleElement.textContent = "Invalid URL";
     }
 }
 
