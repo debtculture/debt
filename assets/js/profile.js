@@ -1,6 +1,7 @@
 // This script contains all the logic for the user profile page.
 
 let isInitialLoad = true;
+let currentSortOrder = 'newest'; // Can be 'newest' or 'oldest'
 
 // --- Initialize Supabase Client ---
 const supabaseUrl = 'https://pvbguojrkigzvnuwjawy.supabase.co';
@@ -95,7 +96,7 @@ async function loadPageData() {
             .select(`*, posts (*, comments (*, profiles (*)))`)
             .eq('wallet_address', addressToLoad)
             .order('is_pinned', { foreignTable: 'posts', ascending: false })
-            .order('created_at', { foreignTable: 'posts', ascending: false })
+            .order('created_at', { foreignTable: 'posts', ascending: currentSortOrder === 'oldest' })
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
             .single();
 
@@ -212,6 +213,13 @@ async function togglePinPost(postId, currentStatus) {
     console.error('Error toggling pin status:', error);
     alert(`Could not update pin status: ${error.message}`);
   }
+}
+
+function handleSortChange(newOrder) {
+  currentSortOrder = newOrder;
+  // We don't want to increment the view count when just sorting, so we set the flag to false first.
+  isInitialLoad = false; 
+  loadPageData();
 }
 
 function renderCreatePostView() {
@@ -513,7 +521,15 @@ function renderProfileView() {
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
     profileContent.innerHTML = `<style> .post-action-btn { background: #333; color: #eee; border: 1px solid #555; border-radius: 3px; padding: 3px 8px; font-size: 0.8rem; cursor: pointer; margin-left: 5px; transition: background 0.2s; } .post-action-btn:hover { background: #444; } .post-action-btn.delete:hover { background: #ff5555; color: #fff; } .format-toolbar button { font-weight: bold; width: 30px; height: 30px; border: 1px solid #555; background: #333; color: #eee; cursor: pointer; } .format-toolbar button:hover { background: #ff5555; } </style>${pfpHtml}<span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span>
-<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}<div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px; white-space: pre-wrap; word-wrap: break-word;">${bioText}</p></div><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div id="posts-list">${postsHtml}</div></div>`;
+<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}<div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px; white-space: pre-wrap; word-wrap: break-word;">${bioText}</p></div><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div class="sort-container" style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-bottom: 20px;">
+    <label for="sort-posts" style="font-weight: bold; font-size: 0.9rem;">Sort by:</label>
+    <select id="sort-posts" onchange="handleSortChange(this.value)" style="background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 5px;">
+        <option value="newest" ${currentSortOrder === 'newest' ? 'selected' : ''}>Newest</option>
+        <option value="oldest" ${currentSortOrder === 'oldest' ? 'selected' : ''}>Oldest</option>
+        <option value="top" disabled>Top Rated (Soon)</option>
+    </select>
+</div>
+<div id="posts-list">${postsHtml}</div></div>`;
 
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
