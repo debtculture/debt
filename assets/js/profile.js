@@ -48,7 +48,7 @@ async function loadPageData() {
     try {
         const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
-            .select(`*, posts (*, comments (*, profiles (*)))`)
+            .select(`*, posts (*, comments (*, profiles (*)), post_votes (*))`) // <-- This line is updated to include post_votes
             .eq('wallet_address', addressToLoad)
             .order('is_pinned', { foreignTable: 'posts', ascending: false })
             .order('created_at', { foreignTable: 'posts', ascending: currentSortOrder === 'oldest' ? true : false })
@@ -58,18 +58,17 @@ async function loadPageData() {
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
         
         if (profileData) {
-            // On the very first load of the page, increment the view count.
             if (isInitialLoad) {
                 supabaseClient.rpc('increment_view_count', {
                     wallet_address_to_increment: addressToLoad
                 }).then(({ error }) => {
                     if (error) console.error('Error incrementing view count:', error);
                 });
-                isInitialLoad = false; // Prevents this from running on subsequent reloads (e.g., sorting)
+                isInitialLoad = false;
             }
 
             viewedUserProfile = profileData;
-            renderProfileView(); // Render the main profile view
+            renderProfileView();
         } else {
             profileContent.innerHTML = `<h2>Profile Not Found</h2><p>A profile for this wallet address does not exist.</p>`;
         }
@@ -102,6 +101,21 @@ function renderProfileView() {
             const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
             const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
 
+            // --- NEW VOTE LOGIC ---
+            const voteTotal = post.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
+            const userVote = loggedInUserProfile ? post.post_votes.find(v => v.user_id === loggedInUserProfile.id) : null;
+            const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
+            const downvoteClass = userVote && userVote.vote_type === -1 ? 'down active' : 'down';
+            
+            const voteHtml = loggedInUserProfile ? `
+                <div class="vote-container">
+                    <button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">▲</button>
+                    <span class="vote-count">${voteTotal}</span>
+                    <button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">▼</button>
+                </div>
+            ` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`; // Show score for non-logged-in users
+            // --- END NEW VOTE LOGIC ---
+
             return `
                 <div class="post-item">
                     <div class="post-header">
@@ -115,6 +129,7 @@ function renderProfileView() {
                     <div class="post-body">
                         <h4 class="post-title">${escapeHTML(post.title)}</h4>
                         <p class="post-content">${parseFormatting(post.content)}</p>
+                        ${voteHtml}
                     </div>
                     <div class="comments-section">${commentsHtml}</div>
                     ${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}
@@ -123,7 +138,7 @@ function renderProfileView() {
         }).join('');
     }
 
-    // Build Profile Header HTML
+    // Build Profile Header HTML (This part remains unchanged)
     const bioText = viewedUserProfile.bio ? parseFormatting(viewedUserProfile.bio) : '<i>User has not written a bio yet.</i>';
     const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
     let socialsHtml = '';
@@ -169,15 +184,12 @@ function renderProfileView() {
             <div id="posts-list">${postsHtml}</div>
         </div>`;
 
-    // Add event listeners for the newly created buttons
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
         document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
     }
 
-    // Initialize the YouTube player if a song URL exists
     if (viewedUserProfile.profile_song_url) {
-        // This setTimeout ensures the browser has rendered the HTML above before we run the script
         setTimeout(() => {
             initYouTubePlayer(viewedUserProfile.profile_song_url);
         }, 0);
@@ -461,6 +473,50 @@ async function updatePost(postId) {
     } catch (error) {
         console.error('Error updating post:', error);
         alert(`Could not update post: ${error.message}`);
+    }
+}
+
+/**
+ * Handles upvoting or downvoting a post.
+ */
+async function handleVote(postId, voteType) {
+    if (!loggedInUserProfile) {
+        alert("You must be logged in to vote.");
+        return;
+    }
+
+    // Find the specific vote by the current user on this post
+    const post = viewedUserProfile.posts.find(p => p.id === postId);
+    const existingVote = post.post_votes.find(v => v.user_id === loggedInUserProfile.id);
+
+    try {
+        if (existingVote) {
+            // Case 1: User has an existing vote
+            if (existingVote.vote_type === voteType) {
+                // User is clicking the same button again (e.g., upvoting an upvoted post), so we un-vote.
+                const { error } = await supabaseClient.from('post_votes').delete().match({ id: existingVote.id });
+                if (error) throw error;
+            } else {
+                // User is changing their vote (e.g., from up to down).
+                const { error } = await supabaseClient.from('post_votes').update({ vote_type: voteType }).match({ id: existingVote.id });
+                if (error) throw error;
+            }
+        } else {
+            // Case 2: User has no existing vote, so we insert a new one.
+            const { error } = await supabaseClient.from('post_votes').insert({
+                post_id: postId,
+                user_id: loggedInUserProfile.id,
+                vote_type: voteType
+            });
+            if (error) throw error;
+        }
+        
+        // Refresh the page data to show the new vote count
+        loadPageData();
+
+    } catch (error) {
+        console.error('Error handling vote:', error);
+        alert(`Failed to process vote: ${error.message}`);
     }
 }
 
