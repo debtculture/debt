@@ -1,4 +1,4 @@
-html {
+<html {
     box-sizing: border-box;
 }
 *, *:before, *:after {
@@ -820,8 +820,7 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     max-width: 180px;
     width: max-content;
 }
-    </style>
-<style>
+    
 @media (max-width: 768px) {
     #walletInfo {
         position: fixed;
