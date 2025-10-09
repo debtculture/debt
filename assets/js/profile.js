@@ -1,5 +1,7 @@
 // This script contains all the logic for the user profile page.
 
+let isInitialLoad = true;
+
 // --- Initialize Supabase Client ---
 const supabaseUrl = 'https://pvbguojrkigzvnuwjawy.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw';
@@ -100,12 +102,15 @@ async function loadPageData() {
         if (profileError) throw profileError;
         
         if (profileData) {
-            // As soon as we know the profile exists, increment its view count in the background
-            supabaseClient.rpc('increment_view_count', {
-              wallet_address_to_increment: addressToLoad
-            }).then(({ error }) => {
-              if (error) console.error('Error incrementing view count:', error);
-            });
+            // On the very first load of the page, increment the view count.
+            if (isInitialLoad) {
+              supabaseClient.rpc('increment_view_count', {
+                wallet_address_to_increment: addressToLoad
+              }).then(({ error }) => {
+                if (error) console.error('Error incrementing view count:', error);
+              });
+              isInitialLoad = false; // Set the flag so this doesn't run again on refreshes.
+            }
 
             viewedUserProfile = profileData;
             renderProfileView();
