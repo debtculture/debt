@@ -411,6 +411,17 @@ async function updateUIForConnectedState(publicKey) {
 
     userWalletAddress = publicKey;
 
+    // --- NEW LOGIC ADDED HERE ---
+    // Update the 'last_seen' timestamp for the connected user
+    supabaseClient
+        .from('profiles')
+        .update({ last_seen: new Date().toISOString() })
+        .eq('wallet_address', publicKey)
+        .then(({ error }) => {
+            if (error) console.error('Error updating last_seen:', error);
+        });
+    // --- END OF NEW LOGIC ---
+
     // Check for a profile and show the correct button/link
     const profile = await checkUserProfile(publicKey);
 
