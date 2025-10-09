@@ -129,7 +129,6 @@ function renderProfileView() {
     const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
     const profileContent = document.getElementById('profile-content');
 
-    // --- Build Follow Button, Stats, and Last Seen HTML ---
     let followButtonHtml = '';
     if (loggedInUserProfile && !isOwner) {
         const buttonText = viewedUserProfile.isFollowedByCurrentUser ? 'Unfollow' : 'Follow';
@@ -145,7 +144,6 @@ function renderProfileView() {
     const lastSeenHtml = viewedUserProfile.last_seen ? 
         `<p style="color: #888; font-size: 0.9rem; margin-top: -10px; margin-bottom: 20px;">Last seen: ${new Date(viewedUserProfile.last_seen).toLocaleString()}</p>` 
         : '';
-    // --- END ---
 
     let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
@@ -167,8 +165,15 @@ function renderProfileView() {
         }).join('');
     }
 
-    const bioText = parseUserTags(parseFormatting(viewedUserProfile.bio || '<i>User has not written a bio yet.</i>'));
-    const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
+    // --- FIX FOR BIO TEXT ---
+    const bioText = viewedUserProfile.bio ? parseUserTags(parseFormatting(viewedUserProfile.bio)) : '<i>User has not written a bio yet.</i>';
+    
+    // --- FIX FOR PFP ALIGNMENT ---
+    const pfpHtml = `<div class="pfp-container">${viewedUserProfile.pfp_url ? 
+        `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555;">` : 
+        `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`
+    }</div>`;
+
     let socialsHtml = '';
     if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
     if (viewedUserProfile.telegram_handle) { socialsHtml += `<a href="https://t.me/${viewedUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram"></a>`; }
@@ -225,7 +230,6 @@ function renderProfileView() {
         }, 0);
     }
 }
-
 /**
  * Renders the HTML for a single comment or a full tree recursively.
  */
