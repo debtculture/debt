@@ -340,3 +340,10 @@ header {
     border-color: #ff5555;
     text-shadow: 0 0 5px #ff5555;
 }
+
+/* --- Profile Picture Container --- */
+.pfp-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
