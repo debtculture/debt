@@ -29,14 +29,12 @@ async function loadPageData() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `<p>Loading profile...</p>`;
 
-    // Get the currently logged-in user's profile, if any
     const loggedInUserWallet = localStorage.getItem('walletAddress');
     if (loggedInUserWallet) {
         const { data } = await supabaseClient.from('profiles').select('*').eq('wallet_address', loggedInUserWallet).single();
         if (data) loggedInUserProfile = data;
     }
 
-    // Determine which profile to load from the URL or fallback to the logged-in user
     const urlParams = new URLSearchParams(window.location.search);
     let addressToLoad = urlParams.get('user') || loggedInUserWallet;
 
@@ -46,18 +44,45 @@ async function loadPageData() {
     }
 
     try {
+        // We set a default sort order for the database query.
+        let sortAscending = currentSortOrder === 'oldest';
+        
+        // If sorting by 'top', we'll fetch by newest first, then sort client-side.
+        if (currentSortOrder === 'top') {
+            sortAscending = false; 
+        }
+
         const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
-            .select(`*, posts (*, comments (*, profiles (*)), post_votes (*))`) // <-- This line is updated to include post_votes
+            .select(`*, posts (*, comments (*, profiles (*)), post_votes (*))`)
             .eq('wallet_address', addressToLoad)
             .order('is_pinned', { foreignTable: 'posts', ascending: false })
-            .order('created_at', { foreignTable: 'posts', ascending: currentSortOrder === 'oldest' ? true : false })
+            .order('created_at', { foreignTable: 'posts', ascending: sortAscending })
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
             .single();
 
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
         
         if (profileData) {
+            // --- NEW TOP-RATED SORT LOGIC ---
+            if (currentSortOrder === 'top' && profileData.posts) {
+                profileData.posts.sort((a, b) => {
+                    // Calculate vote score for post b
+                    const scoreB = b.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
+                    // Calculate vote score for post a
+                    const scoreA = a.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
+
+                    // If scores are different, sort by score descending
+                    if (scoreB !== scoreA) {
+                        return scoreB - scoreA;
+                    }
+                    
+                    // If scores are the same, sort by newest post first
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+            }
+            // --- END NEW LOGIC ---
+
             if (isInitialLoad) {
                 supabaseClient.rpc('increment_view_count', {
                     wallet_address_to_increment: addressToLoad
@@ -138,7 +163,6 @@ function renderProfileView() {
         }).join('');
     }
 
-    // The rest of the function remains unchanged
     const bioText = viewedUserProfile.bio ? parseFormatting(viewedUserProfile.bio) : '<i>User has not written a bio yet.</i>';
     const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
     let socialsHtml = '';
@@ -177,7 +201,7 @@ function renderProfileView() {
                 <select id="sort-posts" onchange="handleSortChange(this.value)" style="background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 5px;">
                     <option value="newest" ${currentSortOrder === 'newest' ? 'selected' : ''}>Newest</option>
                     <option value="oldest" ${currentSortOrder === 'oldest' ? 'selected' : ''}>Oldest</option>
-                    <option value="top">Top Rated</option>
+                    <option value="top" ${currentSortOrder === 'top' ? 'selected' : ''}>Top Rated</option>
                 </select>
             </div>
             <div id="posts-list">${postsHtml}</div>
