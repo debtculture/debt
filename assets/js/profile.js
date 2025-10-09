@@ -177,7 +177,7 @@ function renderProfileView() {
                 <select id="sort-posts" onchange="handleSortChange(this.value)" style="background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 5px;">
                     <option value="newest" ${currentSortOrder === 'newest' ? 'selected' : ''}>Newest</option>
                     <option value="oldest" ${currentSortOrder === 'oldest' ? 'selected' : ''}>Oldest</option>
-                    <option value="top" disabled>Top Rated (Soon)</option>
+                    <option value="top">Top Rated</option>
                 </select>
             </div>
             <div id="posts-list">${postsHtml}</div>
