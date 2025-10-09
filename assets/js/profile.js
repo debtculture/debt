@@ -611,22 +611,15 @@ function createYouTubePlayer(videoId) {
 }
 
 function onPlayerReady(event) {
-  const titleElement = document.getElementById('profile-song-title');
-  const containerElement = document.getElementById('profile-song-title-container');
-  if (!titleElement || !containerElement) return;
+    const titleElement = document.getElementById('profile-song-title');
+    if (!titleElement) return;
 
-  const songTitle = event.target.getVideoData().title;
-  titleElement.textContent = songTitle;
+    // Get the song title from the YouTube player data
+    const songTitle = event.target.getVideoData().title;
 
-  // A short delay to allow the browser to calculate the width of the new text
-  setTimeout(() => {
-    if (titleElement.scrollWidth <= containerElement.clientWidth) {
-      // If text is not long enough to scroll, disable animation and center it
-      titleElement.style.animation = 'none';
-      titleElement.style.paddingLeft = '0';
-      containerElement.style.textAlign = 'center';
-    }
-  }, 100);
+    // Set the text content of our span element.
+    // This ensures the title is visible as soon as the player is ready.
+    titleElement.textContent = songTitle;
 }
 
 function onPlayerStateChange(event) {
