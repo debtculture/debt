@@ -129,21 +129,23 @@ function renderProfileView() {
     const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
     const profileContent = document.getElementById('profile-content');
 
-    // --- NEW: Build Follow Button & Stats HTML ---
+    // --- Build Follow Button, Stats, and Last Seen HTML ---
     let followButtonHtml = '';
     if (loggedInUserProfile && !isOwner) {
         const buttonText = viewedUserProfile.isFollowedByCurrentUser ? 'Unfollow' : 'Follow';
         const buttonClass = viewedUserProfile.isFollowedByCurrentUser ? 'follow-btn unfollow' : 'follow-btn';
         followButtonHtml = `<button class="${buttonClass}" onclick="handleFollow()">${buttonText}</button>`;
     }
-    // This is the updated line with the order swapped
     const statsHtml = `
         <div class="profile-stats">
-            <div class="stat-item"><strong>${viewedUserProfile.followingCount}</strong> Following</div>
-            <div class="stat-item"><strong>${viewedUserProfile.followerCount}</strong> Followers</div>
+            <div class="stat-item"><strong>${viewedUserProfile.followingCount || 0}</strong> Following</div>
+            <div class="stat-item"><strong>${viewedUserProfile.followerCount || 0}</strong> Followers</div>
         </div>
     `;
-    // --- END NEW ---
+    const lastSeenHtml = viewedUserProfile.last_seen ? 
+        `<p style="color: #888; font-size: 0.9rem; margin-top: -10px; margin-bottom: 20px;">Last seen: ${new Date(viewedUserProfile.last_seen).toLocaleString()}</p>` 
+        : '';
+    // --- END ---
 
     let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
@@ -180,6 +182,7 @@ function renderProfileView() {
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>
         ${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}
         ${statsHtml}
+        ${lastSeenHtml}
         ${followButtonHtml}
         ${viewedUserProfile.profile_song_url ? `
           <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
