@@ -572,23 +572,29 @@ function onYouTubeIframeAPIReady() {
     // This is intentionally left blank. We initialize the player when the profile renders.
 }
 
-// This function now has one job: get the title and create the player.
 async function initYouTubePlayer(youtubeUrl) {
-    const titleElement = document.getElementById('profile-song-title');
-
-    // --- Fetch and display the title ---
-    try {
-        const response = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`);
-        const data = await response.json();
-        if (data && data.title && titleElement) {
-            titleElement.textContent = data.title;
-        } else {
-            titleElement.textContent = "Song Title Unavailable";
+    // This setTimeout is our main attempt to fix the timing issue.
+    // It waits 100 milliseconds for the browser to finish rendering before running.
+    setTimeout(async () => {
+        const titleElement = document.getElementById('profile-song-title');
+        if (!titleElement) {
+            console.error("Marquee title element not found in DOM.");
+            return;
         }
-    } catch (fetchError) {
-        console.error("Could not fetch YouTube title:", fetchError);
-        if (titleElement) titleElement.textContent = "Error Loading Title";
-    }
+
+        // --- Attempt to fetch and display the title immediately ---
+        try {
+            const response = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`);
+            const data = await response.json();
+            if (data && data.title) {
+                titleElement.textContent = data.title;
+            } else {
+                console.warn("oEmbed fetch did not return a title. Player will attempt to get it on play.");
+            }
+        } catch (fetchError) {
+            console.error("Could not fetch YouTube title. Player will attempt to get it on play.", fetchError);
+        }
+    }, 100);
 
     // --- Create the YouTube player in the background ---
     try {
@@ -605,7 +611,6 @@ async function initYouTubePlayer(youtubeUrl) {
         console.error("Error initializing YouTube player:", e);
     }
 }
-
 function createYouTubePlayer(videoId) {
   if (profileYouTubePlayer) {
     profileYouTubePlayer.destroy();
@@ -625,25 +630,35 @@ function createYouTubePlayer(videoId) {
 }
 
 function onPlayerReady(event) {
-    // This function's only job now is to ensure the player is ready.
-    // The title is already displayed by initYouTubePlayer.
+    // This function is intentionally left blank.
 }
 
 function onPlayerStateChange(event) {
-  const playButton = document.getElementById('profile-audio-play-pause');
-  const titleElement = document.getElementById('profile-song-title');
-  if (!playButton || !titleElement) return;
+    const playButton = document.getElementById('profile-audio-play-pause');
+    const titleElement = document.getElementById('profile-song-title');
+    if (!playButton || !titleElement) return;
 
-  if (event.data == YT.PlayerState.PLAYING) {
-    playButton.textContent = '⏸️';
-    // Only run animation if it hasn't been disabled for short titles
-    if (titleElement.style.animationName !== 'none') {
-      titleElement.style.animationPlayState = 'running';
+    const isPlaying = event.data === YT.PlayerState.PLAYING;
+
+    // --- FALLBACK LOGIC ---
+    // If the title is still the default "Loading..." text when play is hit for the first time,
+    // this will grab it directly from the player data and display it.
+    if (isPlaying && (titleElement.textContent.includes("Loading song") || titleElement.textContent.includes("Error"))) {
+        const songTitle = event.target.getVideoData().title;
+        if (songTitle) {
+            titleElement.textContent = songTitle;
+        }
     }
-  } else {
-    playButton.textContent = '▶️';
-    titleElement.style.animationPlayState = 'paused';
-  }
+    // --- END FALLBACK ---
+
+    // This now unconditionally handles the animation and play/pause button text.
+    if (isPlaying) {
+        playButton.textContent = '⏸️';
+        titleElement.style.animationPlayState = 'running';
+    } else {
+        playButton.textContent = '▶️';
+        titleElement.style.animationPlayState = 'paused';
+    }
 }
 
 function toggleProfileAudio() {
