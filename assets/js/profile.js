@@ -63,10 +63,7 @@ async function loadPageData() {
     }
 
     try {
-        // We set a default sort order for the database query.
         let sortAscending = currentSortOrder === 'oldest';
-        
-        // If sorting by 'top', we'll fetch by newest first, then sort client-side.
         if (currentSortOrder === 'top') {
             sortAscending = false; 
         }
@@ -83,31 +80,30 @@ async function loadPageData() {
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
         
         if (profileData) {
-            // --- NEW TOP-RATED SORT LOGIC ---
+            // --- NEW: Fetch follower/following data ---
+            const { count: followerCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('following_id', profileData.id);
+            const { count: followingCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('follower_id', profileData.id);
+            const { data: isFollowingData } = await supabaseClient.from('followers').select('id').eq('follower_id', loggedInUserProfile?.id).eq('following_id', profileData.id);
+            
+            profileData.followerCount = followerCount;
+            profileData.followingCount = followingCount;
+            profileData.isFollowedByCurrentUser = isFollowingData && isFollowingData.length > 0;
+            // --- END NEW ---
+
             if (currentSortOrder === 'top' && profileData.posts) {
                 profileData.posts.sort((a, b) => {
-                    // Calculate vote score for post b
                     const scoreB = b.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
-                    // Calculate vote score for post a
                     const scoreA = a.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
-
-                    // If scores are different, sort by score descending
                     if (scoreB !== scoreA) {
                         return scoreB - scoreA;
                     }
-                    
-                    // If scores are the same, sort by newest post first
                     return new Date(b.created_at) - new Date(a.created_at);
                 });
             }
-            // --- END NEW LOGIC ---
 
             if (isInitialLoad) {
-                supabaseClient.rpc('increment_view_count', {
-                    wallet_address_to_increment: addressToLoad
-                }).then(({ error }) => {
-                    if (error) console.error('Error incrementing view count:', error);
-                });
+                supabaseClient.rpc('increment_view_count', { wallet_address_to_increment: addressToLoad })
+                    .then(({ error }) => { if (error) console.error('Error incrementing view count:', error); });
                 isInitialLoad = false;
             }
 
@@ -133,7 +129,28 @@ function renderProfileView() {
     const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
     const profileContent = document.getElementById('profile-content');
 
+    // --- NEW: Build Follow Button & Stats HTML ---
+    let followButtonHtml = '';
+    if (loggedInUserProfile && !isOwner) {
+        const buttonText = viewedUserProfile.isFollowedByCurrentUser ? 'Unfollow' : 'Follow';
+        const buttonClass = viewedUserProfile.isFollowedByCurrentUser ? 'follow-btn unfollow' : 'follow-btn';
+        followButtonHtml = `<button class="${buttonClass}" onclick="handleFollow()">${buttonText}</button>`;
+    }
+    const statsHtml = `
+        <div class="profile-stats">
+            <div class="stat-item"><strong>${viewedUserProfile.followerCount}</strong> Followers</div>
+            <div class="stat-item"><strong>${viewedUserProfile.followingCount}</strong> Following</div>
+        </div>
+    `;
+    // --- END NEW ---
+
     let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
+    if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
+        // ... (The entire posts.map loop remains unchanged, I am omitting it for brevity but it's in the full block below)
+    }
+
+    // --- FULL FUNCTION REPLACEMENT ---
+    // (Copy the full version below, which includes the posts.map loop)
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
         postsHtml = viewedUserProfile.posts.map(post => {
             const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
@@ -143,39 +160,17 @@ function renderProfileView() {
             const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
             const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
             const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
-
             const voteTotal = post.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
             const userVote = loggedInUserProfile ? post.post_votes.find(v => v.user_id === loggedInUserProfile.id) : null;
             const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
             const downvoteClass = userVote && userVote.vote_type === -1 ? 'down active' : 'down';
-            
-            const voteHtml = loggedInUserProfile ? `
-                <div class="vote-container">
-                    <button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">👍</button>
-                    <span class="vote-count">${voteTotal}</span>
-                    <button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button>
-                </div>
-            ` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
-
-            // This is the updated line for post content
+            const voteHtml = loggedInUserProfile ? `<div class="vote-container"><button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">👍</button><span class="vote-count">${voteTotal}</span><button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button></div>` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
             const processedContent = parseUserTags(parseFormatting(post.content));
-
-            return `
-                <div class="post-item">
-                    <div class="post-header">${postAuthorPfp}<div class="post-author-info"><a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a><small class="post-timestamp">${postDate}${updatedDateHtml}</small></div><div class="post-actions">${postAdminButtons}</div></div>
-                    <div class="post-body">
-                        <h4 class="post-title">${escapeHTML(post.title)}</h4>
-                        <p class="post-content">${processedContent}</p> 
-                        ${voteHtml}
-                    </div>
-                    <div class="comments-section">${commentsHtml}</div>
-                    ${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}
-                </div>
-            `;
+            return `<div class="post-item"><div class="post-header">${postAuthorPfp}<div class="post-author-info"><a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a><small class="post-timestamp">${postDate}${updatedDateHtml}</small></div><div class="post-actions">${postAdminButtons}</div></div><div class="post-body"><h4 class="post-title">${escapeHTML(post.title)}</h4><p class="post-content">${processedContent}</p>${voteHtml}</div><div class="comments-section">${commentsHtml}</div>${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}</div>`;
         }).join('');
     }
 
-    const bioText = parseUserTags(parseFormatting(viewedUserProfile.bio || '<i>User has not written a bio yet.</i>')); // Also apply to bio
+    const bioText = parseUserTags(parseFormatting(viewedUserProfile.bio || '<i>User has not written a bio yet.</i>'));
     const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
     let socialsHtml = '';
     if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
@@ -189,6 +184,8 @@ function renderProfileView() {
         <span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span>
         <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>
         ${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}
+        ${statsHtml}
+        ${followButtonHtml}
         ${viewedUserProfile.profile_song_url ? `
           <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
             <button id="profile-audio-play-pause" onclick="toggleProfileAudio()" style="background: #ff5555; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; flex-shrink: 0;">▶️</button>
@@ -411,6 +408,50 @@ function showReplyForm(parentCommentId, postId) {
 // =================================================================================
 // --- SUPABASE DATA MODIFICATION FUNCTIONS ---
 // =================================================================================
+
+/**
+ * Handles following or unfollowing a user.
+ */
+async function handleFollow() {
+    if (!loggedInUserProfile) {
+        alert("You must be logged in to follow users.");
+        return;
+    }
+    if (loggedInUserProfile.id === viewedUserProfile.id) {
+        alert("You cannot follow yourself.");
+        return;
+    }
+
+    try {
+        // Check if the logged-in user is already following the viewed profile
+        const { data: existingFollow, error: checkError } = await supabaseClient
+            .from('followers')
+            .select('*')
+            .eq('follower_id', loggedInUserProfile.id)
+            .eq('following_id', viewedUserProfile.id)
+            .single();
+
+        if (checkError && checkError.code !== 'PGRST116') throw checkError;
+
+        if (existingFollow) {
+            // If a follow exists, delete it (unfollow)
+            const { error } = await supabaseClient.from('followers').delete().match({ id: existingFollow.id });
+            if (error) throw error;
+        } else {
+            // If no follow exists, insert one (follow)
+            const { error } = await supabaseClient.from('followers').insert({
+                follower_id: loggedInUserProfile.id,
+                following_id: viewedUserProfile.id
+            });
+            if (error) throw error;
+        }
+
+        loadPageData(); // Refresh the profile to show the change
+    } catch (error) {
+        console.error('Error handling follow:', error);
+        alert(`Failed to process follow: ${error.message}`);
+    }
+}
 
 /**
  * Saves changes made to a user's profile.
