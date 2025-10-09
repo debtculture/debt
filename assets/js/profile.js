@@ -101,7 +101,7 @@ function renderProfileView() {
             const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
             const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
 
-            // --- NEW VOTE LOGIC ---
+            // --- VOTE LOGIC ---
             const voteTotal = post.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
             const userVote = loggedInUserProfile ? post.post_votes.find(v => v.user_id === loggedInUserProfile.id) : null;
             const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
@@ -109,12 +109,12 @@ function renderProfileView() {
             
             const voteHtml = loggedInUserProfile ? `
                 <div class="vote-container">
-                    <button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">▲</button>
+                    <button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">👍</button>
                     <span class="vote-count">${voteTotal}</span>
-                    <button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">▼</button>
+                    <button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button>
                 </div>
-            ` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`; // Show score for non-logged-in users
-            // --- END NEW VOTE LOGIC ---
+            ` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
+            // --- END VOTE LOGIC ---
 
             return `
                 <div class="post-item">
@@ -138,7 +138,7 @@ function renderProfileView() {
         }).join('');
     }
 
-    // Build Profile Header HTML (This part remains unchanged)
+    // The rest of the function remains unchanged
     const bioText = viewedUserProfile.bio ? parseFormatting(viewedUserProfile.bio) : '<i>User has not written a bio yet.</i>';
     const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
     let socialsHtml = '';
@@ -148,7 +148,6 @@ function renderProfileView() {
     if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
-    // Assemble Full Page HTML
     profileContent.innerHTML = `
         ${pfpHtml}
         <span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span>
