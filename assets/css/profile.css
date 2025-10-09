@@ -179,3 +179,216 @@ header {
     padding-left: 25px;
     border-left: 2px solid #333;
 }
+
+/* --- Profile Posts Section --- */
+.posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.posts-header h3 {
+    font-size: 2rem;
+    color: #ff5555;
+    margin: 0;
+}
+
+/* On mobile screens, stack the title and button */
+@media (max-width: 768px) {
+    .posts-header {
+        flex-direction: column;
+        gap: 15px; /* Adds space between the title and button */
+    }
+
+    /* Make the button take up more width on mobile for a better look */
+    .posts-header .cta-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* --- Social Icon Styling --- */
+.social-icon-link {
+    display: inline-flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    width: 45px; /* Size of the bubble */
+    height: 45px; /* Size of the bubble */
+    border-radius: 50%; /* Make it a circle */
+    background-color: #222; /* Dark background for visibility */
+    border: 1px solid #444; /* Subtle border */
+    transition: background-color 0.2s ease, border-color 0.2s ease; /* Smooth transition */
+}
+
+.social-icon-link:hover {
+    background-color: #333; /* Slightly lighter on hover */
+    border-color: #ff5555; /* Highlight border on hover */
+}
+
+.social-icon-link img {
+    width: 30px; /* Adjust icon size within the bubble */
+    height: 30px; /* Adjust icon size within the bubble */
+    object-fit: contain; /* Ensure the image fits */
+}
+
+/* Specific styling for the X icon to make it stand out against its dark bubble */
+.social-icon-link[title="X / Twitter"] img {
+    filter: invert(1); /* Invert colors to make white on dark */
+}
+
+/* Make the profile content a reference for absolute positioning */
+#profile-content {
+    position: relative;
+}
+
+/* New style for the smaller 'Edit' button */
+.edit-profile-icon-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.edit-profile-icon-btn:hover {
+    background-color: #ff5555;
+    box-shadow: 0 0 10px #ff5555;
+}
+
+/* --- New Post Item Styles --- */
+.post-item {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 15px;
+}
+
+.post-author-pfp, .post-author-pfp-placeholder {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #444;
+    flex-shrink: 0;
+}
+
+.post-author-pfp-placeholder {
+    background-color: #333;
+}
+
+.post-author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-author-name {
+    font-weight: 700;
+    color: #eee;
+    font-size: 1.1rem;
+}
+
+.post-timestamp {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.post-actions {
+    margin-left: auto; /* Pushes Edit/Delete buttons to the right */
+}
+
+.post-title {
+    color: #eee;
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.post-content {
+    margin: 0;
+    color: #ddd;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.6;
+}
+
+/* --- Nested Comment Styles --- */
+.comment-children {
+    margin-left: 25px;
+    padding-left: 25px;
+    border-left: 2px solid #333;
+}
+
+/* --- Styles Moved from profile.js --- */
+.post-action-btn {
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: background 0.2s;
+}
+
+.post-action-btn:hover {
+    background: #444;
+}
+
+.post-action-btn.delete:hover {
+    background: #ff5555;
+    color: #fff;
+}
+
+.format-toolbar button {
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #555;
+    background: #333;
+    color: #eee;
+    cursor: pointer;
+}
+
+.format-toolbar button:hover {
+    background: #ff5555;
+}
+
+/* --- Profile Song Marquee --- */
+#profile-song-title-container {
+    overflow: hidden;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+#profile-song-title {
+    display: inline-block;
+    animation: marquee 12s linear infinite;
+    animation-play-state: paused;
+}
+
+/* This is the corrected animation */
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
