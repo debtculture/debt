@@ -13,14 +13,33 @@ let loggedInUserProfile = null;
 let isInitialLoad = true;
 let currentSortOrder = 'newest'; // Can be 'newest' or 'oldest'
 let profileYouTubePlayer;
+let allUsersCache = []
 
 // =================================================================================
 // --- MAIN LOGIC & DATA LOADING ---
 // =================================================================================
 
+/**
+ * Fetches all users and stores them in a cache for @tagging.
+ */
+async function fetchAllUsers() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('profiles')
+            .select('username, wallet_address');
+        if (error) throw error;
+        if (data) {
+            allUsersCache = data;
+        }
+    } catch (error) {
+        console.error('Error fetching all users for cache:', error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    fetchAllUsers(); // Fetch all users for the @tagging cache
     loadPageData();
-});
+});;
 
 /**
  * Main function to fetch all necessary data for the page from Supabase.
@@ -114,7 +133,6 @@ function renderProfileView() {
     const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
     const profileContent = document.getElementById('profile-content');
 
-    // Build Posts HTML
     let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
         postsHtml = viewedUserProfile.posts.map(post => {
@@ -126,7 +144,6 @@ function renderProfileView() {
             const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
             const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
 
-            // --- VOTE LOGIC ---
             const voteTotal = post.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
             const userVote = loggedInUserProfile ? post.post_votes.find(v => v.user_id === loggedInUserProfile.id) : null;
             const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
@@ -139,21 +156,16 @@ function renderProfileView() {
                     <button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button>
                 </div>
             ` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
-            // --- END VOTE LOGIC ---
+
+            // This is the updated line for post content
+            const processedContent = parseUserTags(parseFormatting(post.content));
 
             return `
                 <div class="post-item">
-                    <div class="post-header">
-                        ${postAuthorPfp}
-                        <div class="post-author-info">
-                            <a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a>
-                            <small class="post-timestamp">${postDate}${updatedDateHtml}</small>
-                        </div>
-                        <div class="post-actions">${postAdminButtons}</div>
-                    </div>
+                    <div class="post-header">${postAuthorPfp}<div class="post-author-info"><a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a><small class="post-timestamp">${postDate}${updatedDateHtml}</small></div><div class="post-actions">${postAdminButtons}</div></div>
                     <div class="post-body">
                         <h4 class="post-title">${escapeHTML(post.title)}</h4>
-                        <p class="post-content">${parseFormatting(post.content)}</p>
+                        <p class="post-content">${processedContent}</p> 
                         ${voteHtml}
                     </div>
                     <div class="comments-section">${commentsHtml}</div>
@@ -163,7 +175,7 @@ function renderProfileView() {
         }).join('');
     }
 
-    const bioText = viewedUserProfile.bio ? parseFormatting(viewedUserProfile.bio) : '<i>User has not written a bio yet.</i>';
+    const bioText = parseUserTags(parseFormatting(viewedUserProfile.bio || '<i>User has not written a bio yet.</i>')); // Also apply to bio
     const pfpHtml = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555; margin-bottom: 20px;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`;
     let socialsHtml = '';
     if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
@@ -237,6 +249,8 @@ function renderCommentsHtml(comments, postId, isPostOwner, loggedInUserProfile) 
         const commentDate = new Date(comment.created_at).toLocaleString();
         const commentEditedDate = comment.updated_at ? `<span style="font-style: italic;">&nbsp;• Edited: ${new Date(comment.updated_at).toLocaleString()}</span>` : '';
         
+        // This is the updated line for comment content
+        const processedContent = parseUserTags(parseFormatting(comment.content));
         const childrenHtml = comment.children ? renderCommentsHtml(comment.children, postId, isPostOwner, loggedInUserProfile) : '';
 
         return `
@@ -248,7 +262,7 @@ function renderCommentsHtml(comments, postId, isPostOwner, loggedInUserProfile) 
                             <a href="profile.html?user=${profile.wallet_address}" class="footer-link" style="font-weight: bold;">${profile.username}</a>
                             ${commentAdminButtons}
                         </div>
-                        <p class="comment-content" style="margin: 5px 0 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${parseFormatting(comment.content)}</p>
+                        <p class="comment-content" style="margin: 5px 0 0; color: #ddd; white-space: pre-wrap; word-wrap: break-word;">${processedContent}</p>
                         <div class="comment-footer" style="display: flex; align-items: center; margin-top: 8px; gap: 15px;">
                             <small style="color: #888; font-size: 0.7rem;">${commentDate}${commentEditedDate}</small>
                             ${loggedInUserProfile ? `<button onclick="showReplyForm(${comment.id}, ${postId})" class="post-action-btn">Reply</button>` : ''}
@@ -650,6 +664,23 @@ async function deleteComment(commentId) {
 // =================================================================================
 // --- UTILITY & HELPER FUNCTIONS ---
 // =================================================================================
+
+/**
+ * Parses text for @username tags and converts them to profile links.
+ */
+function parseUserTags(text) {
+    if (!text || !allUsersCache.length) return text;
+
+    // The regex looks for @ followed by one or more word characters (a-z, A-Z, 0-9, _)
+    return text.replace(/@(\w+)/g, (match, username) => {
+        const user = allUsersCache.find(u => u.username.toLowerCase() === username.toLowerCase());
+        if (user) {
+            return `<a href="profile.html?user=${user.wallet_address}" class="footer-link">@${user.username}</a>`;
+        }
+        // If no user is found, return the original text (e.g., "@username")
+        return match;
+    });
+}
 
 /**
  * A crucial security function to prevent XSS attacks.
