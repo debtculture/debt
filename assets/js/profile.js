@@ -92,6 +92,7 @@ async function loadPageData() {
             .from('profiles')
             .select(`*, posts (*, comments (*, profiles (*)))`)
             .eq('wallet_address', addressToLoad)
+            .order('is_pinned', { foreignTable: 'posts', ascending: false })
             .order('created_at', { foreignTable: 'posts', ascending: false })
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
             .single();
@@ -181,6 +182,31 @@ async function deletePost(postId) {
         alert('Post deleted successfully.');
         loadPageData();
     } catch (error) { console.error('Error deleting post:', error); alert(`Could not delete post: ${error.message}`); }
+}
+
+async function togglePinPost(postId, currentStatus) {
+  try {
+    // To ensure only one post is ever pinned, we first unpin all other posts for this user.
+    // This only runs when we are about to PIN a new post.
+    if (!currentStatus) {
+      await supabaseClient
+        .from('posts')
+        .update({ is_pinned: false })
+        .eq('author_id', viewedUserProfile.id);
+    }
+
+    // Now, toggle the selected post to the opposite of its current status.
+    const { error } = await supabaseClient
+      .from('posts')
+      .update({ is_pinned: !currentStatus })
+      .eq('id', postId);
+
+    if (error) throw error;
+    loadPageData(); // Reload the profile to show the change
+  } catch (error) {
+    console.error('Error toggling pin status:', error);
+    alert(`Could not update pin status: ${error.message}`);
+  }
 }
 
 function renderCreatePostView() {
@@ -449,8 +475,8 @@ function renderProfileView() {
 
             const postDate = new Date(post.created_at).toLocaleString();
             const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
-            const postAdminButtons = isOwner ? `<button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
-
+            const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
+            const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
             return `
                 <div class="post-item">
                     <div class="post-header">
