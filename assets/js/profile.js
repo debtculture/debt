@@ -573,8 +573,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 async function initYouTubePlayer(youtubeUrl) {
-    // This setTimeout is our main attempt to fix the timing issue.
-    // It waits 100 milliseconds for the browser to finish rendering before running.
+    // This setTimeout ensures the browser has finished rendering before running.
     setTimeout(async () => {
         const titleElement = document.getElementById('profile-song-title');
         if (!titleElement) {
@@ -589,10 +588,11 @@ async function initYouTubePlayer(youtubeUrl) {
             if (data && data.title) {
                 titleElement.textContent = data.title;
             } else {
-                console.warn("oEmbed fetch did not return a title. Player will attempt to get it on play.");
+                console.warn("oEmbed fetch did not return a title.");
             }
         } catch (fetchError) {
-            console.error("Could not fetch YouTube title. Player will attempt to get it on play.", fetchError);
+            console.error("Could not fetch YouTube title via oEmbed.", fetchError);
+            if (titleElement) titleElement.textContent = "Error Loading Title";
         }
     }, 100);
 
@@ -611,6 +611,7 @@ async function initYouTubePlayer(youtubeUrl) {
         console.error("Error initializing YouTube player:", e);
     }
 }
+
 function createYouTubePlayer(videoId) {
   if (profileYouTubePlayer) {
     profileYouTubePlayer.destroy();
@@ -640,24 +641,21 @@ function onPlayerStateChange(event) {
 
     const isPlaying = event.data === YT.PlayerState.PLAYING;
 
-    // --- FALLBACK LOGIC ---
-    // If the title is still the default "Loading..." text when play is hit for the first time,
-    // this will grab it directly from the player data and display it.
-    if (isPlaying && (titleElement.textContent.includes("Loading song") || titleElement.textContent.includes("Error"))) {
+    // Fallback to grab title on first play, just in case the initial fetch fails.
+    if (isPlaying && (titleElement.textContent.includes("Loading") || titleElement.textContent.includes("Error"))) {
         const songTitle = event.target.getVideoData().title;
         if (songTitle) {
             titleElement.textContent = songTitle;
         }
     }
-    // --- END FALLBACK ---
 
-    // This now unconditionally handles the animation and play/pause button text.
+    // This is the new logic: Add or remove the 'scrolling' class.
     if (isPlaying) {
         playButton.textContent = '⏸️';
-        titleElement.style.animationPlayState = 'running';
+        titleElement.classList.add('scrolling');
     } else {
         playButton.textContent = '▶️';
-        titleElement.style.animationPlayState = 'paused';
+        titleElement.classList.remove('scrolling');
     }
 }
 
