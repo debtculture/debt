@@ -136,21 +136,16 @@ function renderProfileView() {
         const buttonClass = viewedUserProfile.isFollowedByCurrentUser ? 'follow-btn unfollow' : 'follow-btn';
         followButtonHtml = `<button class="${buttonClass}" onclick="handleFollow()">${buttonText}</button>`;
     }
+    // This is the updated line with the order swapped
     const statsHtml = `
         <div class="profile-stats">
-            <div class="stat-item"><strong>${viewedUserProfile.followerCount}</strong> Followers</div>
             <div class="stat-item"><strong>${viewedUserProfile.followingCount}</strong> Following</div>
+            <div class="stat-item"><strong>${viewedUserProfile.followerCount}</strong> Followers</div>
         </div>
     `;
     // --- END NEW ---
 
     let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
-    if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
-        // ... (The entire posts.map loop remains unchanged, I am omitting it for brevity but it's in the full block below)
-    }
-
-    // --- FULL FUNCTION REPLACEMENT ---
-    // (Copy the full version below, which includes the posts.map loop)
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
         postsHtml = viewedUserProfile.posts.map(post => {
             const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
