@@ -62,6 +62,9 @@ async function loadPostData() {
 }
 
 function renderPost(post) {
+    // THIS IS THE NEW LINE
+    document.title = `${escapeHTML(post.title)} - Debt Culture`;
+
     const postContainer = document.getElementById('post-container');
     const isOwner = loggedInUserProfile && loggedInUserProfile.id === post.author.id;
     const postAuthorPfp = post.author.pfp_url ? `<img src="${post.author.pfp_url}" alt="${post.author.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
