@@ -113,8 +113,8 @@ function renderProfileView() {
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
         postsHtml = viewedUserProfile.posts.map(post => {
             const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
-            const commentTree = buildCommentTree(post.comments); // From social-helpers.js
-            const commentsHtml = renderCommentsHtml(commentTree, post.id, isOwner, loggedInUserProfile); // From social-helpers.js
+            const commentTree = buildCommentTree(post.comments);
+            const commentsHtml = renderCommentsHtml(commentTree, post.id, isOwner, loggedInUserProfile);
             const postDate = new Date(post.created_at).toLocaleString();
             const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
             const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
@@ -124,12 +124,14 @@ function renderProfileView() {
             const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
             const downvoteClass = userVote && userVote.vote_type === -1 ? 'down active' : 'down';
             const voteHtml = loggedInUserProfile ? `<div class="vote-container"><button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">👍</button><span class="vote-count">${voteTotal}</span><button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button></div>` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
-            const processedContent = parseUserTags(parseFormatting(post.content)); // From social-helpers.js
+            const processedContent = parseUserTags(parseFormatting(post.content));
             return `<div class="post-item"><div class="post-header">${postAuthorPfp}<div class="post-author-info"><a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a><small class="post-timestamp">${postDate}${updatedDateHtml}</small></div><div class="post-actions">${postAdminButtons}</div></div><div class="post-body"><h4 class="post-title">${escapeHTML(post.title)}</h4><p class="post-content">${processedContent}</p>${voteHtml}</div><div class="comments-section">${commentsHtml}</div>${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}</div>`;
         }).join('');
     }
 
-    const bioText = parseUserTags(parseFormatting(viewedUserProfile.bio || '<i>User has not written a bio yet.</i>'));
+    // --- THIS IS THE CORRECTED LOGIC FOR THE BIO ---
+    const bioText = viewedUserProfile.bio ? parseUserTags(parseFormatting(viewedUserProfile.bio)) : '<i>User has not written a bio yet.</i>';
+    
     const pfpHtml = `<div class="pfp-container">${viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`}</div>`;
     let socialsHtml = '';
     if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
@@ -138,7 +140,43 @@ function renderProfileView() {
     if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     
-    profileContent.innerHTML = `${pfpHtml}<span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span><h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}${statsHtml}${lastSeenHtml}${followButtonHtml}${viewedUserProfile.profile_song_url ? `<div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;"><button id="profile-audio-play-pause" onclick="toggleProfileAudio()" style="background: #ff5555; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; flex-shrink: 0;">▶️</button><div id="profile-song-title-container"><span id="profile-song-title" style="font-size: 0.9rem;">Loading song...</span></div></div><div id="youtube-player-container" style="display: none;"></div>` : ''}<div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div><div style="margin-top: 20px; border-top: 1px solid #444; padding: 20px 0;"><p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p><p style="text-align: left; min-height: 50px; white-space: pre-wrap; word-wrap: break-word;">${bioText}</p></div><div id="posts-section"><div class="posts-header"><h3>Posts</h3>${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}</div><div class="sort-container" style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-bottom: 20px;"><label for="sort-posts" style="font-weight: bold; font-size: 0.9rem;">Sort by:</label><select id="sort-posts" onchange="handleSortChange(this.value)" style="background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 5px;"><option value="newest" ${currentSortOrder === 'newest' ? 'selected' : ''}>Newest</option><option value="oldest" ${currentSortOrder === 'oldest' ? 'selected' : ''}>Oldest</option><option value="top" ${currentSortOrder === 'top' ? 'selected' : ''}>Top Rated</option></select></div><div id="posts-list">${postsHtml}</div></div>`;
+    profileContent.innerHTML = `
+        ${pfpHtml}
+        <span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span>
+        <h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">${viewedUserProfile.username}</h2>
+        ${isOwner ? `<button id="edit-profile-btn" class="edit-profile-icon-btn">Edit</button>` : ''}
+        ${statsHtml}
+        ${lastSeenHtml}
+        ${followButtonHtml}
+        ${viewedUserProfile.profile_song_url ? `
+          <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
+            <button id="profile-audio-play-pause" onclick="toggleProfileAudio()" style="background: #ff5555; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; flex-shrink: 0;">▶️</button>
+            <div id="profile-song-title-container">
+              <span id="profile-song-title" style="font-size: 0.9rem;">Loading song...</span>
+            </div>
+          </div>
+          <div id="youtube-player-container" style="display: none;"></div>
+        ` : ''}
+        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div>
+        <div style="margin-top: 20px; border-top: 1px solid #444; padding: 20px 0;">
+            <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
+            <p style="text-align: left; min-height: 50px; white-space: pre-wrap; word-wrap: break-word;">${bioText}</p>
+        </div>
+        <div id="posts-section">
+            <div class="posts-header">
+                <h3>Posts</h3>
+                ${isOwner ? `<button id="create-post-btn" class="cta-button">Create New Post</button>` : ''}
+            </div>
+            <div class="sort-container" style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <label for="sort-posts" style="font-weight: bold; font-size: 0.9rem;">Sort by:</label>
+                <select id="sort-posts" onchange="handleSortChange(this.value)" style="background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 5px;">
+                    <option value="newest" ${currentSortOrder === 'newest' ? 'selected' : ''}>Newest</option>
+                    <option value="oldest" ${currentSortOrder === 'oldest' ? 'selected' : ''}>Oldest</option>
+                    <option value="top" ${currentSortOrder === 'top' ? 'selected' : ''}>Top Rated</option>
+                </select>
+            </div>
+            <div id="posts-list">${postsHtml}</div>
+        </div>`;
 
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
@@ -146,7 +184,9 @@ function renderProfileView() {
     }
 
     if (viewedUserProfile.profile_song_url) {
-        setTimeout(() => { initYouTubePlayer(viewedUserProfile.profile_song_url); }, 0);
+        setTimeout(() => {
+            initYouTubePlayer(viewedUserProfile.profile_song_url);
+        }, 0);
     }
 }
 
