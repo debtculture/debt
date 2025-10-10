@@ -1,79 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Debt Culture Forum - Join the rebellion, share your voice." />
-    <meta name="keywords" content="Debt Culture, $DEBT, forum, community, crypto, memecoin, Solana" />
-    <meta name="author" content="Autopsy" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Debt Culture Forum - Join the rebellion, share your voice.">
     <title>Debt Culture - Forums</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" />
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/shared-styles.css">
-    <style>
-        /* --- Page-Specific Layout for Centering --- */
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* --- Page-Specific Content Wrapper --- */
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-            width: 100%;
-            background: rgba(18, 18, 18, 0.7);
-            border: 1px solid #ff5555;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 0 30px rgba(255, 85, 85, 0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        /* --- Page-Specific Text & Button --- */
-        p {
-            font-size: 1.2rem;
-            color: #ff9999;
-            text-shadow: 0 0 5px #ff5555;
-            margin-bottom: 30px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .cta-button {
-            display: inline-block;
-            background: #ff5555;
-            color: #fff;
-            border: 2px solid #ff7777;
-            border-radius: 5px;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 15px 35px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
-        .cta-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #ff5555, 0 0 50px #ff5555;
-        }
-
-        /* --- Page-Specific Responsive Adjustments --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            p { font-size: 1rem; }
-            .content-wrapper { padding: 30px 20px; }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/forums.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
@@ -84,9 +22,22 @@
     </nav>
 
     <main class="content-wrapper">
-        <h1>Under Construction</h1>
-        <p>The Rebellion's command center is being built. Global forums are coming soon. Until then, coordinate the attack and share intel in our official Telegram.</p>
-        <a href="https://t.me/debtportal420" target="_blank" rel="noopener noreferrer" class="cta-button">Join the Telegram</a>
+        <header class="forum-header">
+            <h1>Forums</h1>
+            <button class="cta-button" id="create-post-btn" style="display: none;">Create New Post</button>
+        </header>
+
+        <div class="post-list-container">
+            <div class="post-list-header">
+                <div class="post-title-header">Topic</div>
+                <div class="post-author-header">Author</div>
+                <div class="post-replies-header">Replies</div>
+                <div class="post-activity-header">Last Activity</div>
+            </div>
+            <div id="post-list">
+                <p id="loading-posts">Loading posts...</p>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -94,5 +45,6 @@
     </footer>
 
     <script defer src="assets/js/shared-scripts.js"></script>
+    <script defer src="assets/js/forums.js"></script>
 </body>
 </html>
