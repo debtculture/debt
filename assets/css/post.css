@@ -1,0 +1,15 @@
+.content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+/* We reuse .post-item and other styles from profile.css */
+/* This ensures our post and comments look consistent */
+
+#post-container .post-item {
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+}
