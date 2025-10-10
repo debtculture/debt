@@ -1,0 +1,96 @@
+/* --- Forum Page Layout --- */
+.content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.forum-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ff5555;
+}
+
+.forum-header h1 {
+    margin-bottom: 0;
+}
+
+/* --- Post List Styles --- */
+.post-list-container {
+    background: rgba(26, 26, 26, 0.7);
+    border: 1px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.post-list-header, .post-row {
+    display: grid;
+    grid-template-columns: 5fr 1.5fr 1fr 2.5fr;
+    gap: 15px;
+    padding: 15px 20px;
+    align-items: center;
+}
+
+.post-list-header {
+    background-color: #111;
+    color: #ff5555;
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom: 1px solid #333;
+}
+
+.post-row {
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.post-row:last-child {
+    border-bottom: none;
+}
+
+.post-row:hover {
+    background-color: rgba(255, 85, 85, 0.1);
+}
+
+.post-title a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.post-title a:hover {
+    color: #ff5555;
+    text-shadow: 0 0 5px #ff5555;
+}
+
+.post-author a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.post-author a:hover {
+    color: #ff7777;
+}
+
+.post-replies, .post-activity {
+    color: #aaa;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.post-author {
+    text-align: center;
+}
+
+#loading-posts {
+    padding: 40px;
+    text-align: center;
+    color: #ff9999;
+}
