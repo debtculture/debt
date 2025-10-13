@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const mediaGrid = document.querySelector('.media-grid');
+    const shillContainer = document.querySelector('.shill-posts-container');
     const mediaItems = mediaGrid.querySelectorAll('.media-item');
 
     // --- Sort Grid Items Alphabetically on Load ---
@@ -31,16 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
-            sortedItems.forEach(item => {
-                if (filter === 'all' || item.dataset.category === filter) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+    
+            const filter = button.dataset.filter;
+
+            if (filter === 'shill') {
+                mediaGrid.style.display = 'none';
+                shillContainer.style.display = 'block';
+            } else {
+                shillContainer.style.display = 'none';
+                mediaGrid.style.display = 'grid';
+        
+                sortedItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
         });
-    });
 
     // --- Lazy Loading Logic ---
     const lazyImages = document.querySelectorAll('img[data-src]');
@@ -58,3 +68,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     lazyImages.forEach(img => imgObserver.observe(img));
 });
+
+                          function copyToClipboard(elementId) {
+    const preElement = document.getElementById(elementId);
+    if (!preElement) return;
+    const textToCopy = preElement.innerText;
+    
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // Find the button associated with this text block to provide feedback
+        const button = preElement.nextElementSibling;
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+        alert('Failed to copy.');
+    });
+}
