@@ -22,9 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let count = 0;
         if (filter === 'all') {
             count = mediaItems.length;
-        } else {
+        } else if (filter !== 'shill') { // Don't count "Shill Posts"
             count = document.querySelectorAll(`.media-item[data-category="${filter}"]`).length;
         }
+        
+        // Add count only if it's a media category and has items
         if (count > 0) {
             button.textContent += ` (${count})`;
         }
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('active');
     
             const filter = button.dataset.filter;
-
+    
             if (filter === 'shill') {
                 mediaGrid.style.display = 'none';
                 shillContainer.style.display = 'block';
@@ -51,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+    });
 
     // --- Lazy Loading Logic ---
     const lazyImages = document.querySelectorAll('img[data-src]');
@@ -67,23 +70,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     lazyImages.forEach(img => imgObserver.observe(img));
-});
 
-                          function copyToClipboard(elementId) {
-    const preElement = document.getElementById(elementId);
-    if (!preElement) return;
-    const textToCopy = preElement.innerText;
-    
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        // Find the button associated with this text block to provide feedback
-        const button = preElement.nextElementSibling;
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        setTimeout(() => {
-            button.textContent = originalText;
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy text: ', err);
-        alert('Failed to copy.');
-    });
-}
+    // --- HELPER FUNCTIONS FOR THIS PAGE ---
+    window.copyToClipboard = function(elementId) {
+        const preElement = document.getElementById(elementId);
+        if (!preElement) return;
+        const textToCopy = preElement.innerText;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const button = preElement.nextElementSibling;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+            alert('Failed to copy.');
+        });
+    }
+
+}); // <-- The DOMContentLoaded listener now correctly wraps everything.
