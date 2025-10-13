@@ -178,3 +178,12 @@ header {
 .copy-btn:hover {
     background-color: var(--hover-red);
 }
+
+/* --- Spacing for Shill Variants --- */
+.shill-item .copy-btn {
+    margin-bottom: 25px; /* Adds space below each copy button */
+}
+
+.shill-item .copy-btn:last-of-type {
+    margin-bottom: 0; /* Removes space from the very last button in a group */
+}
