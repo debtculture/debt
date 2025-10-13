@@ -396,12 +396,28 @@ function promptToInstallWallet(walletId) {
 async function updateUIForConnectedState(publicKey) {
     const shortAddress = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
     
-    // Check for a profile first
     const profile = await checkUserProfile(publicKey);
     
-    // --- THIS IS THE UPDATED LOGIC ---
-    // If a profile exists, use the username. Otherwise, use the short address.
     const displayName = profile ? profile.username : shortAddress;
+
+    // --- NEW LOGIC FOR PFP ---
+    const walletIcon = document.getElementById('connectWalletDesktop').querySelector('img');
+    if (profile && profile.pfp_url) {
+        // If user has a profile AND a pfp_url, display it
+        walletIcon.src = profile.pfp_url;
+        walletIcon.style.borderRadius = '50%';
+        walletIcon.style.objectFit = 'cover';
+        walletIcon.style.width = '53px';
+        walletIcon.style.height = '53px';
+    } else {
+        // Otherwise, show the default wallet icon
+        walletIcon.src = 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748890233/Wallet_PNG_sxrfdx.png';
+        walletIcon.style.borderRadius = '';
+        walletIcon.style.objectFit = 'contain';
+        walletIcon.style.width = '53px';
+        walletIcon.style.height = '53px';
+    }
+    // --- END OF NEW LOGIC ---
 
     // Update buttons with the correct display name
     document.getElementById('connectWalletMobile').textContent = displayName;
@@ -410,7 +426,7 @@ async function updateUIForConnectedState(publicKey) {
     document.getElementById('connectWalletDesktop').classList.add('connected');
     
     // Update wallet info box content
-    document.getElementById('walletAddress').querySelector('span').textContent = shortAddress; // This can remain the short address
+    document.getElementById('walletAddress').querySelector('span').textContent = shortAddress;
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
 
@@ -443,6 +459,15 @@ function updateUIForDisconnectedState() {
     document.getElementById('connectWalletMobile').classList.remove('connected');
     document.getElementById('connectWalletDesktop').querySelector('span').textContent = 'Select Wallet';
     document.getElementById('connectWalletDesktop').classList.remove('connected');
+
+    // --- NEW LOGIC TO RESET PFP ---
+    const walletIcon = document.getElementById('connectWalletDesktop').querySelector('img');
+    walletIcon.src = 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748890233/Wallet_PNG_sxrfdx.png';
+    walletIcon.style.borderRadius = '';
+    walletIcon.style.objectFit = 'contain';
+    walletIcon.style.width = '53px';
+    walletIcon.style.height = '53px';
+    // --- END OF NEW LOGIC ---
 
     // Hide everything
     document.getElementById('walletInfo').style.display = 'none';
