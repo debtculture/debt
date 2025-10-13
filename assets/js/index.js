@@ -356,18 +356,16 @@ async function checkUserProfile(walletAddress) {
     try {
         const { data, error } = await supabaseClient
             .from('profiles')
-            .select('username') // We only need one field to see if a row exists
+            // Fetch username and pfp_url. This is more efficient for our next task.
+            .select('username, pfp_url') 
             .eq('wallet_address', walletAddress)
             .single();
 
-        // Supabase returns an error if no rows are found. That's normal for us,
-        // so we only care about other, real errors.
         if (error && error.code !== 'PGRST116') {
             throw error;
         }
         
-        // Return the profile data if found, or null if not.
-        return data; 
+        return data;  
     } catch (error) {
         console.error('Error checking user profile:', error);
         return null;
@@ -398,20 +396,26 @@ function promptToInstallWallet(walletId) {
 async function updateUIForConnectedState(publicKey) {
     const shortAddress = `${publicKey.slice(0, 4)}...${publicKey.slice(-4)}`;
     
-    // Update buttons
-    document.getElementById('connectWalletMobile').textContent = shortAddress;
-    document.getElementById('connectWalletMobile').classList.add('connected');
-    document.getElementById('connectWalletDesktop').querySelector('span').textContent = shortAddress;
-    document.getElementById('connectWalletDesktop').classList.add('connected');
+    // Check for a profile first
+    const profile = await checkUserProfile(publicKey);
+    
+    // --- THIS IS THE UPDATED LOGIC ---
+    // If a profile exists, use the username. Otherwise, use the short address.
+    const displayName = profile ? profile.username : shortAddress;
 
+    // Update buttons with the correct display name
+    document.getElementById('connectWalletMobile').textContent = displayName;
+    document.getElementById('connectWalletMobile').classList.add('connected');
+    document.getElementById('connectWalletDesktop').querySelector('span').textContent = displayName;
+    document.getElementById('connectWalletDesktop').classList.add('connected');
+    
     // Update wallet info box content
-    document.getElementById('walletAddress').querySelector('span').textContent = shortAddress;
+    document.getElementById('walletAddress').querySelector('span').textContent = shortAddress; // This can remain the short address
     const balance = await getDebtBalance(publicKey);
     document.getElementById('debtBalance').querySelector('span').textContent = balance;
 
     userWalletAddress = publicKey;
 
-    // --- NEW LOGIC ADDED HERE ---
     // Update the 'last_seen' timestamp for the connected user
     supabaseClient
         .from('profiles')
@@ -420,18 +424,13 @@ async function updateUIForConnectedState(publicKey) {
         .then(({ error }) => {
             if (error) console.error('Error updating last_seen:', error);
         });
-    // --- END OF NEW LOGIC ---
 
-    // Check for a profile and show the correct button/link
-    const profile = await checkUserProfile(publicKey);
-
+    // Show the correct button/link based on whether a profile exists
     if (profile) {
-        // If a profile exists, show the 'Profile' link
         document.getElementById('profile-nav-link').style.display = 'block';
         document.getElementById('profile-nav-link-mobile').style.display = 'block';
         document.getElementById('create-profile-btn').style.display = 'none';
     } else {
-        // If no profile exists, show the 'Create Profile' button
         document.getElementById('profile-nav-link').style.display = 'none';
         document.getElementById('profile-nav-link-mobile').style.display = 'none';
         document.getElementById('create-profile-btn').style.display = 'inline-block';
