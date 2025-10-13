@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filter === 'all') {
             count = mediaItems.length;
         } else if (filter === 'shill') {
-            count = shillContainer.querySelectorAll('.shill-item').length;
+            count = shillContainer.querySelectorAll('.copy-btn').length;
         } else {
             count = document.querySelectorAll(`.media-item[data-category="${filter}"]`).length;
         }
