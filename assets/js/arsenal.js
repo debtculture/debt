@@ -20,13 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     filterButtons.forEach(button => {
         const filter = button.dataset.filter;
         let count = 0;
+        
         if (filter === 'all') {
             count = mediaItems.length;
-        } else if (filter !== 'shill') { // Don't count "Shill Posts"
+        } else if (filter === 'shill') {
+            count = shillContainer.querySelectorAll('.shill-item').length;
+        } else {
             count = document.querySelectorAll(`.media-item[data-category="${filter}"]`).length;
         }
         
-        // Add count only if it's a media category and has items
+        // Add count if it's greater than 0
         if (count > 0) {
             button.textContent += ` (${count})`;
         }
@@ -35,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
     
-            const filter = button.dataset.filter;
+            const clickedFilter = button.dataset.filter;
     
-            if (filter === 'shill') {
+            if (clickedFilter === 'shill') {
                 mediaGrid.style.display = 'none';
                 shillContainer.style.display = 'block';
             } else {
@@ -45,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 mediaGrid.style.display = 'grid';
         
                 sortedItems.forEach(item => {
-                    if (filter === 'all' || item.dataset.category === filter) {
+                    if (clickedFilter === 'all' || item.dataset.category === clickedFilter) {
                         item.style.display = 'flex';
                     } else {
                         item.style.display = 'none';
@@ -90,4 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-}); // <-- The DOMContentLoaded listener now correctly wraps everything.
+});
