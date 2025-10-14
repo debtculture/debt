@@ -257,4 +257,12 @@ a:focus, button:focus, [role="button"]:focus {
     h1:not(.glitch), .back-home, .merch-submit-btn, .cta-button, .join-rebellion, .disclaimer, .contract-address {
         animation: none !important;
     }
+
+    /* --- ADDED EXCEPTION FOR GLITCH --- */
+    .glitch::before {
+        animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important;
+    }
+    .glitch::after {
+        animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important;
+    }
 }
