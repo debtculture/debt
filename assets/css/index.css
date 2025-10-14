@@ -1034,3 +1034,251 @@ a:hover, button:hover, .hover-underline:hover, .join-rebellion:hover, .hof-arrow
     #how-to-buy { margin-top: -42px; }
     .x-space-schedule .schedule-list li { grid-template-columns: 1fr 0.5fr 1fr 1.5fr; gap: 5px; font-size: clamp(10px, 1.2vw, 12px); }
 }
+
+/* --- RESTORED STYLES --- */
+
+.social-bubbles {
+    position: fixed;
+    bottom: 55px;
+    right: 55px;
+    width: 0;
+    height: 0;
+    display: none;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+.social-bubbles.active {
+    display: block;
+    pointer-events: auto;
+    z-index: 2100;
+}
+
+.social-bubbles.active .icon {
+    opacity: 1;
+    transform: scale(1);
+    animation: neonGlow 1.5s infinite ease-in-out;
+}
+
+.social-bubbles.active .icon:nth-child(1) { transform: translate(-120px, 0px) scale(1); transition-delay: 0.1s; }
+.social-bubbles.active .icon:nth-child(2) { transform: translate(-104px, -60px) scale(1); transition-delay: 0.2s; }
+.social-bubbles.active .icon:nth-child(3) { transform: translate(-60px, -104px) scale(1); transition-delay: 0.3s; }
+.social-bubbles.active .icon:nth-child(4) { transform: translate(0px, -120px) scale(1); transition-delay: 0.4s; }
+
+.icon {
+    width: 54px;
+    height: 54px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    position: absolute;
+}
+
+.icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.join-rebellion-container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2100;
+}
+
+.join-rebellion {
+    width: 90px;
+    height: 90px;
+    background-color: #ff5555;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.2;
+    padding: 5px;
+    animation: pulseGlow 2s infinite ease-in-out;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 2101;
+}
+
+.join-rebellion:hover { background-color: #ff7777; }
+
+.join-rebellion.active {
+    background: radial-gradient(circle at center, rgba(255, 85, 85, 0.8), rgba(204, 68, 68, 0.8));
+    border-radius: 50%;
+    transform: scale(0.6);
+}
+
+.connect-wallet-bubble {
+    cursor: pointer;
+    position: relative;
+    margin-left: 10px;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle at center, #ff5555, #cc4444);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pulseGlow 2s infinite ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.connect-wallet-bubble img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(1.2) drop-shadow(0 0 5px #fff);
+    margin-top: -5px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.connect-wallet-bubble:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff5555, 0 0 40px #ff5555;
+}
+
+.connect-wallet-bubble:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2) drop-shadow(0 0 10px #ff5555);
+}
+
+.connect-wallet-bubble.connected {
+    background: radial-gradient(circle at center, #00cc00, #009900);
+}
+
+.connect-wallet-bubble.connected:hover {
+    box-shadow: 0 0 20px #00cc00, 0 0 40px #00cc00;
+}
+
+.connect-wallet-mobile {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(18, 18, 18, 0.5);
+    backdrop-filter: blur(5px);
+    color: #eee;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 85, 85, 0.3);
+    box-shadow: 0 0 10px rgba(255, 85, 85, 0.2);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    z-index: 1100;
+    cursor: pointer;
+}
+
+#walletInfo {
+    display: none;
+    text-align: center;
+    padding: 8px 12px;
+    background-color: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 85, 85, 0.5);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+    color: #fff;
+    font-size: 0.8rem;
+    z-index: 1200;
+    max-width: 180px;
+    width: max-content;
+}
+
+#walletInfo.visible {
+    display: block;
+}
+
+.audio-player {
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: 50px;
+    transform: translateX(-50%);
+    background: #121212;
+    border: 2px solid #ff5555;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+    width: 180px;
+}
+
+.audio-player.active {
+    display: flex;
+    flex-direction: column;
+}
+.audio-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.audio-btn {
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.audio-btn:hover {
+    background: #ff5555;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #ff5555;
+}
+.audio-btn.play::before { content: '▶'; }
+.audio-btn.pause::before { content: '⏸'; }
+
+.logo-btn {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.logo-btn.active {
+    animation: subtlePulse 2s infinite ease-in-out;
+}
+#track-info {
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 5px;
+}
+#track-info span {
+    display: inline-block;
+    animation: marquee 10s linear infinite;
+    animation-play-state: paused;
+}
+#track-info:hover span {
+    animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+    .join-rebellion-container { bottom: 16px; right: 16px; }
+    .join-rebellion { width: 72px; height: 72px; font-size: 0.72rem; line-height: 1.2; padding: 4px; }
+    .join-rebellion.active { width: 90px; height: 90px; font-size: 0.9rem; transform: scale(0.6); }
+    .connect-wallet-bubble { display: none; }
+    #walletInfo { position: fixed; top: 60px !important; right: 15px !important; left: auto !important; transform: none !important; font-size: 0.75rem; }
+}
+
+@media (min-width: 769px) {
+    .social-bubbles { bottom: 65px; }
+    #walletInfo { position: fixed; top: 120px !important; right: 45px !important; left: auto !important; transform: none !important; }
+}
