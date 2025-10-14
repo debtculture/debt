@@ -197,3 +197,154 @@ a:focus, button:focus, [role="button"]:focus {
     animation: none !important;
   }
 }
+
+/* --- V3 NAVBAR STYLES (NEW) --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #333;
+    transition: top 0.3s ease;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 70px;
+}
+
+.nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-logo img {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo img:hover {
+    transform: scale(1.1);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #ff5555;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff5555;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-actions .cta-button {
+    background-color: #ff5555;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.nav-actions .cta-button:hover {
+    background-color: #ff7777;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #ff5555;
+}
+
+/* Mobile Navbar Styles */
+.hamburger {
+    display: none; /* Hidden on desktop */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: #eee;
+    border-radius: 5px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+.mobile-nav {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 70px; /* Below navbar */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(15px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.mobile-nav a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .nav-actions {
+        margin-left: auto;
+    }
+    .nav-actions .cta-button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 1rem;
+    }
+}
