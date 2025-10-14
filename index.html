@@ -69,50 +69,40 @@
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none;"></canvas>
 
-    <div class="content-wrapper" id="contentWrapper">
-        <div class="navbar">
-            <div class="navbar-links">
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="Debt Culture logo with red text" class="navbar-logo logo-btn" id="logo-btn" width="100" height="100" loading="eager" role="button" aria-label="Toggle audio player">
-                <div id="audio-player" class="audio-player">
-                    <div class="audio-controls">
-                        <button id="prev-track" class="audio-btn" aria-label="Previous track">⏮</button>
-                        <button id="play-pause" class="audio-btn play" aria-label="Play">▶</button>
-                        <button id="next-track" class="audio-btn" aria-label="Next track">⏭</button>
-                    </div>
-                    <div id="track-info"><span></span></div>
-                </div>
-                <audio id="audio" preload="metadata">
-                    <source src="" type="audio/mpeg">
-                </audio>
-                <a href="#hero" class="hover-underline">Home</a>
-                <a href="litepaper.html" class="hover-underline">Litepaper</a>
-                <a href="arsenal.html" class="hover-underline">Arsenal</a>
-                <a href="community.html" class="hover-underline">Community</a>
-                <a href="forums.html" onclick="closeMenu();" class="hover-underline">Forums</a>
-                <a href="merch.html" onclick="closeMenu();" class="hover-underline">Merch</a>
-                <a href="profile.html" id="profile-nav-link" class="hover-underline">Profile</a>
-                <div class="dropdown">
-                    <div class="dropbtn hover-underline" tabindex="0" role="button" aria-label="Resources menu">Resources ▼</div>
-                    <div class="dropdown-content">
-                        <a href="https://www.dextools.io/app/en/solana/pair-explorer/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexTools</a>
-                        <a href="https://www.geckoterminal.com/solana/pools/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">GeckoTerminal</a>
-                        <a href="https://dexscreener.com/solana/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">DexScreener</a>
-                        <a href="https://rugcheck.xyz/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">RugCheck</a>
-                        <a href="https://photon-sol.tinyastro.io/en/lp/Gdq6x3LDVsEaAv5UH2kyQ7ydptqNRitjWirsDGzaYDD8" target="_blank" rel="noopener noreferrer" class="hover-underline">Photon</a>
-                        <a href="https://www.birdeye.so/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?chain=solana" target="_blank" rel="noopener noreferrer" class="hover-underline">Birdeye</a>
-                        <a href="https://gmgn.ai/sol/token/solscan_9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">GMGN</a>
-                        <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Raydium</a>
-                        <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="hover-underline">Solscan</a>
-                    </div>
-                </div>
-                <div class="connect-wallet-bubble" id="connectWalletDesktop" role="button" aria-label="Select Wallet">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748890233/Wallet_PNG_sxrfdx.png" alt="Select Wallet" width="53" height="53" loading="eager">
-                        <span style="color: #fff; font-size: 12px; margin-top: -5px;">Select Wallet</span>
-                    </div>
-                </div>
+    <header class="main-header">
+        <nav class="navbar">
+            <button class="hamburger" aria-label="Toggle Menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </button>
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/v1760451752/PFP_PNG_megrgp.png" alt="$DEBT Logo">
+                </a>
             </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="litepaper.html">Litepaper</a>
+                <a href="arsenal.html">Arsenal</a>
+                <a href="community.html">Community</a>
+                <a href="forums.html">Forums</a>
+                <a href="merch.html">Merch</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="cta-button">Buy $DEBT</a>
+            </div>
+        </nav>
+        <div class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="litepaper.html">Litepaper</a>
+            <a href="arsenal.html">Arsenal</a>
+            <a href="community.html">Community</a>
+            <a href="forums.html">Forums</a>
+            <a href="merch.html">Merch</a>
         </div>
+    </header>
+    <div class="content-wrapper" id="contentWrapper">
 
         <section id="hero" class="section">
             <h1>$DEBT: Don’t Ever Believe Them</h1>
