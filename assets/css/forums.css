@@ -9,11 +9,6 @@
 }
 
 /* --- Forum Page Layout --- */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
 .content-wrapper {
     max-width: 1000px;
     margin: 0 auto;
