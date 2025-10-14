@@ -254,7 +254,7 @@ a:focus, button:focus, [role="button"]:focus {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-    h1, .back-home, .merch-submit-btn, .cta-button, .join-rebellion, .disclaimer, .contract-address {
+    h1:not(.glitch), .back-home, .merch-submit-btn, .cta-button, .join-rebellion, .disclaimer, .contract-address {
         animation: none !important;
     }
 }
