@@ -1,11 +1,8 @@
 /* --- V2 Glitch Title Style --- */
 .content-wrapper header h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
-    text-shadow: none;
-    animation: none;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
 }
 
 /* --- Page-Specific Content Wrapper --- */
