@@ -143,6 +143,13 @@ h1 {
     animation: neon-flicker 1.5s infinite alternate;
 }
 
+/* --- SHARED GLITCH H1 OVERRIDE --- */
+h1.glitch {
+    font-weight: 900;       /* This restores the bold font weight */
+    text-shadow: none;      /* This correctly resets the neon shadow */
+    animation: none;        /* This correctly resets the neon animation */
+}
+
 /* --- SHARED COMPONENTS (ADAPTED FROM V1) --- */
 .footer {
     position: fixed;
