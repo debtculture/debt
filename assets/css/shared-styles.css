@@ -133,7 +133,7 @@ canvas#matrix-bg,
 
 
 /* --- SHARED TYPOGRAPHY (ADAPTED FROM V1) --- */
-h1:not(.glitch) {
+h1 {
     font-size: 3rem;
     color: #fff;
     text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
