@@ -1,268 +1,268 @@
 /* --- ROOT VARIABLES & GLOBAL STYLES (FROM V2) --- */
 :root {
-    --dark-bg: #0d0d0d;
-    --content-bg: #1a1a1a;
-    --main-red: #ff3b3b;
-    --hover-red: #ff5c5c;
-    --text-primary: #f0f0f0;
-    --text-secondary: #a0a0a0;
-    --border-color: #333333;
-    --font-main: 'Inter', sans-serif;
+    --dark-bg: #0d0d0d;
+    --content-bg: #1a1a1a;
+    --main-red: #ff3b3b;
+    --hover-red: #ff5c5c;
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0a0;
+    --border-color: #333333;
+    --font-main: 'Inter', sans-serif;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 *, *:before, *:after {
-    box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
-    background-color: var(--dark-bg);
-    color: var(--text-primary);
-    font-family: var(--font-main);
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-    padding-top: 70px; /* Added to prevent content from hiding under the new fixed header */
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    padding-top: 70px; /* Added to prevent content from hiding under the new fixed header */
 }
 
 /* --- MATRIX BACKGROUND --- */
 canvas#matrix-bg,
 #matrix-rain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
 }
 #matrix-rain {
-    z-index: -1;
-    opacity: 0.6;
+    z-index: -1;
+    opacity: 0.6;
 }
 
 /* --- HEADER & NAVIGATION (FROM V2) --- */
 .main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: rgba(13, 13, 13, 0.8);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    height: 70px;
 }
 
 .nav-logo img {
-    height: 45px;
-    transition: transform 0.3s ease;
+    height: 45px;
+    transition: transform 0.3s ease;
 }
 
 .nav-logo img:hover {
-    transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .nav-links {
-    display: flex;
-    gap: 2.5rem;
+    display: flex;
+    gap: 2.5rem;
 }
 
 .nav-links a {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 700;
-    position: relative;
-    transition: color 0.3s ease;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: var(--main-red);
+    color: var(--main-red);
 }
 
 .nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--main-red);
-    transition: width 0.3s ease;
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--main-red);
+    transition: width 0.3s ease;
 }
 
 .nav-links a:hover::after {
-    width: 100%;
+    width: 100%;
 }
 
 .nav-actions .cta-button {
-    background-color: var(--main-red);
-    color: var(--text-primary);
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: var(--main-red);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-actions .cta-button:hover {
-    background-color: var(--hover-red);
-    transform: translateY(-2px);
+    background-color: var(--hover-red);
+    transform: translateY(-2px);
 }
 
 
 /* --- SHARED TYPOGRAPHY (ADAPTED FROM V1) --- */
 h1 {
-    font-size: 3rem;
-    color: #fff;
-    text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
-    margin-bottom: 40px;
-    font-family: var(--font-main);
-    font-weight: 900;
-    animation: neon-flicker 1.5s infinite alternate;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
+    margin-bottom: 40px;
+    font-family: var(--font-main);
+    font-weight: 900;
+    animation: neon-flicker 1.5s infinite alternate;
 }
 
 /* --- SHARED COMPONENTS (ADAPTED FROM V1) --- */
 .footer {
-    position: fixed;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    background-color: rgba(18, 18, 18, 0.5);
-    backdrop-filter: blur(5px);
-    color: var(--text-primary);
-    text-align: center;
-    padding: 10px 20px;
-    z-index: 1000;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 59, 59, 0.3);
-    box-shadow: 0 0 15px rgba(255, 59, 59, 0.2);
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    background-color: rgba(18, 18, 18, 0.5);
+    backdrop-filter: blur(5px);
+    color: var(--text-primary);
+    text-align: center;
+    padding: 10px 20px;
+    z-index: 1000;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 59, 59, 0.3);
+    box-shadow: 0 0 15px rgba(255, 59, 59, 0.2);
 }
 .footer-link {
-    color: var(--main-red);
-    text-decoration: none;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    color: var(--main-red);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 .footer-link:hover {
-    color: var(--hover-red);
-    text-shadow: 0 0 6px var(--main-red);
+    color: var(--hover-red);
+    text-shadow: 0 0 6px var(--main-red);
 }
 .section-connector {
-    display: block;
-    width: 6px;
-    height: 50px;
-    background: linear-gradient(to bottom, var(--main-red), #555);
-    margin: 30px auto;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    animation: wind 2s infinite ease-in-out;
+    display: block;
+    width: 6px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--main-red), #555);
+    margin: 30px auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    animation: wind 2s infinite ease-in-out;
 }
 .section-connector.visible {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 .cta-button {
-    padding: 15px 35px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-top: 20px;
-    background: var(--main-red);
-    color: #fff;
-    border: 2px solid var(--hover-red);
-    border-radius: 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: pulseGlow 2s infinite ease-in-out;
-    text-decoration: none; /* Added for consistency */
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 20px;
+    background: var(--main-red);
+    color: #fff;
+    border: 2px solid var(--hover-red);
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: pulseGlow 2s infinite ease-in-out;
+    text-decoration: none; /* Added for consistency */
 }
 .cta-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px var(--main-red), 0 0 50px var(--main-red);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--main-red), 0 0 50px var(--main-red);
 }
 
 
 /* --- SHARED ANIMATIONS --- */
 @keyframes neon-flicker {
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
-    }
-    20%, 24%, 55% {
-        text-shadow: none;
-    }
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
 }
 @keyframes pulseGlow {
-    0% { box-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red); }
-    50% { box-shadow: 0 0 25px var(--main-red), 0 0 50px var(--main-red); }
-    100% { box-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red); }
+    0% { box-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red); }
+    50% { box-shadow: 0 0 25px var(--main-red), 0 0 50px var(--main-red); }
+    100% { box-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red); }
 }
 @keyframes wind {
-    0% { transform: translateY(20px) scaleY(1); }
-    50% { transform: translateY(0) scaleY(1.1) skewX(5deg); }
-    100% { transform: translateY(20px) scaleY(1); }
+    0% { transform: translateY(20px) scaleY(1); }
+    50% { transform: translateY(0) scaleY(1.1) skewX(5deg); }
+    100% { transform: translateY(20px) scaleY(1); }
 }
 
 /* --- SHARED ACCESSIBILITY & INTERACTION --- */
 a, button, [role="button"] {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="none" stroke="%23ff3b3b" stroke-width="2" opacity="0.8"/><circle cx="16" cy="16" r="5" fill="%23ff3b3b"/></svg>') 16 16, pointer;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="none" stroke="%23ff3b3b" stroke-width="2" opacity="0.8"/><circle cx="16" cy="16" r="5" fill="%23ff3b3b"/></svg>') 16 16, pointer;
 }
 a:focus, button:focus, [role="button"]:focus {
-    outline: 2px solid var(--main-red);
-    outline-offset: 2px;
-    box-shadow: 0 0 10px var(--main-red);
+    outline: 2px solid var(--main-red);
+    outline-offset: 2px;
+    box-shadow: 0 0 10px var(--main-red);
 }
 
 /* --- SHARED RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
-    .nav-links, .nav-actions {
-        display: none; /* Hides main nav on mobile */
-    }
-    .navbar {
-        justify-content: center; /* Centers the logo on mobile */
-    }
-    .footer {
-        display: none;
-    }
+    .nav-links, .nav-actions {
+        display: none; /* Hides main nav on mobile */
+    }
+    .navbar {
+        justify-content: center; /* Centers the logo on mobile */
+    }
+    .footer {
+        display: none;
+    }
 }
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-    h1:not(.glitch), .back-home, .merch-submit-btn, .cta-button, .join-rebellion, .disclaimer, .contract-address {
-        animation: none !important;
-    }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    h1:not(.glitch), .back-home, .merch-submit-btn, .cta-button, .join-rebellion, .disclaimer, .contract-address {
+        animation: none !important;
+    }
 
-    /* --- ADDED EXCEPTION FOR GLITCH --- */
-    .glitch::before {
-        animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important;
-    }
-    .glitch::after {
-        animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important;
-    }
+    /* --- ADDED EXCEPTION FOR GLITCH --- */
+    .glitch::before {
+        animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important;
+    }
+    .glitch::after {
+        animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important;
+    }
 }
