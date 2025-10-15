@@ -133,14 +133,14 @@ canvas#matrix-bg,
 
 
 /* --- SHARED TYPOGRAPHY (ADAPTED FROM V1) --- */
-h1 {
-    font-size: 3rem;
-    color: #fff;
-    text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
-    margin-bottom: 40px;
-    font-family: var(--font-main);
-    font-weight: 900;
-    animation: neon-flicker 1.5s infinite alternate;
+h1:not(.glitch) {
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 10px var(--main-red), 0 0 20px var(--main-red), 0 0 30px var(--main-red);
+    margin-bottom: 40px;
+    font-family: var(--font-main);
+    font-weight: 900;
+    animation: neon-flicker 1.5s infinite alternate;
 }
 
 /* --- SHARED COMPONENTS (ADAPTED FROM V1) --- */
@@ -286,13 +286,13 @@ a:focus, button:focus, [role="button"]:focus {
 .glitch::before {
     left: 2px;
     text-shadow: -2px 0 var(--main-red);
-    animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important; /* <-- ADDED !important */
+    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
 
 .glitch::after {
     left: -2px;
     text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
-    animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important; 
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim-1 {
