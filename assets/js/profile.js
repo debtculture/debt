@@ -211,6 +211,18 @@ function renderEditPostView(postId, currentTitle, currentContent) {
     postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3><div style="text-align: left; margin-top: 20px;"><label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label><input type="text" id="post-title-input" value="${decodedTitle}" style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;"><label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label><div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;"><button onclick="formatText('b', 'post-content-input')">B</button><button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button><button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button></div><textarea id="post-content-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea></div><div style="margin-top: 20px;"><button onclick="updatePost(${postId})" class="cta-button">Save Update</button><button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
 }
 
+function renderEditCommentView(commentId, currentContent) {
+    const commentContentEl = document.querySelector(`#comment-${commentId} .comment-content`);
+    const commentFooterEl = document.querySelector(`#comment-${commentId} .comment-footer`);
+    const decodedContent = decodeURIComponent(currentContent);
+    commentContentEl.style.display = 'none';
+    commentFooterEl.style.display = 'none';
+    const editForm = document.createElement('div');
+    editForm.className = 'edit-comment-form';
+    editForm.innerHTML = `<textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-top: 5px;">${decodedContent}</textarea><div style="margin-top: 10px;"><button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button><button onclick="loadPageData()" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button></div>`;
+    commentContentEl.parentNode.insertBefore(editForm, commentContentEl.nextSibling);
+}
+
 // =================================================================================
 // --- SUPABASE DATA MODIFICATION FUNCTIONS (Profile-Specific) ---
 // =================================================================================
@@ -313,6 +325,26 @@ async function togglePinPost(postId, currentStatus) {
     } catch (error) { console.error('Error toggling pin status:', error); alert(`Could not update pin status: ${error.message}`); }
 }
 
+async function updateComment(commentId) {
+    const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
+    if (!newContent.trim()) { return alert("Comment cannot be empty."); }
+    try {
+        const { error } = await supabaseClient.from('comments').update({ content: newContent, updated_at: new Date() }).eq('id', commentId);
+        if (error) throw error;
+        loadPageData();
+    } catch (error) { console.error('Error updating comment:', error); alert(`Could not update comment: ${error.message}`); }
+}
+
+async function deleteComment(commentId) {
+    if (!confirm("Are you sure you want to delete this comment?")) return;
+    try {
+        const { error } = await supabaseClient.from('comments').delete().eq('id', commentId);
+        if (error) throw error;
+        alert('Comment deleted.');
+        loadPageData();
+    } catch (error) { console.error('Error deleting comment:', error); alert(`Could not delete comment: ${error.message}`); }
+}
+
 async function handleFollow() {
     if (!loggedInUserProfile) { return alert("You must be logged in to follow users."); }
     if (loggedInUserProfile.id === viewedUserProfile.id) { return alert("You cannot follow yourself."); }
@@ -404,19 +436,3 @@ function toggleProfileAudio() {
         profileYouTubePlayer.pauseVideo();
     } else { profileYouTubePlayer.playVideo(); }
 }
-
-// --- Mobile Menu Toggle Functions ---
-    window.toggleMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        const isOpen = menu.style.display === "block";
-        menu.style.display = isOpen ? "none" : "block";
-        hamburger.classList.toggle("active", !isOpen);
-    }
-
-    window.closeMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        menu.style.display = "none";
-        hamburger.classList.remove("active");
-    }
