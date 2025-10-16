@@ -31,10 +31,26 @@ async function submitComment(postId, parentCommentId = null) {
     const input = document.getElementById(inputId);
     if (!input || !input.value.trim()) { return alert("Comment cannot be empty."); }
     if (!loggedInUserProfile) { return alert("You must be logged in to comment."); }
+
     try {
-        await supabaseClient.from('comments').insert({ content: input.value, author_id: loggedInUserProfile.id, post_id: postId, parent_comment_id: parentCommentId });
-        loadPageData(); // Assumes a function with this name exists on the page
-    } catch (error) { console.error('Error submitting comment:', error); }
+        await supabaseClient.from('comments').insert({ 
+            content: input.value, 
+            author_id: loggedInUserProfile.id, 
+            post_id: postId, 
+            parent_comment_id: parentCommentId 
+        });
+
+        // This checks which refresh function is available and calls the correct one.
+        if (typeof loadPostData === 'function') {
+            loadPostData();
+        } else if (typeof loadPageData === 'function') {
+            loadPageData();
+        }
+
+    } catch (error) { 
+        console.error('Error submitting comment:', error);
+        alert('There was an error submitting your comment. Please try again.');
+    }
 }
 
 // --- RENDERING & UTILITY HELPERS ---
