@@ -92,3 +92,5 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Failed to copy.');
         });
     }
+
+});
