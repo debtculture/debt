@@ -282,7 +282,8 @@
 }
 
 .forum-header .cta-button {
-    padding: 8px 25px;
-    font-size: 0.9rem;
-    margin-top: 0;
+    padding: 8px 25px;
+    font-size: 0.9rem;
+    display: block;
+    margin: 0 auto;
 }
