@@ -6,24 +6,42 @@
 async function handleVote(postId, voteType) {
     if (!loggedInUserProfile) { return alert("You must be logged in to vote."); }
     
-    // Determine which data object to look in (currentPostData for post page, viewedUserProfile for profile page)
-    const dataObject = typeof currentPostData !== 'undefined' ? currentPostData : viewedUserProfile.posts.find(p => p.id === postId);
-    if (!dataObject) return console.error('Could not find post data to handle vote.');
+    // Determine which data object to look in
+    const postData = typeof currentPostData !== 'undefined' 
+        ? currentPostData 
+        : (viewedUserProfile && viewedUserProfile.posts) 
+            ? viewedUserProfile.posts.find(p => p.id === postId) 
+            : null;
 
-    const existingVote = dataObject.post_votes.find(v => v.user_id === loggedInUserProfile.id);
+    if (!postData) return console.error('Could not find post data to handle vote.');
+
+    const existingVote = postData.post_votes.find(v => v.user_id === loggedInUserProfile.id);
 
     try {
         if (existingVote) {
             if (existingVote.vote_type === voteType) {
+                // User is clicking the same vote button again, so remove the vote
                 await supabaseClient.from('post_votes').delete().match({ id: existingVote.id });
             } else {
+                // User is changing their vote (e.g., from up to down)
                 await supabaseClient.from('post_votes').update({ vote_type: voteType }).match({ id: existingVote.id });
             }
         } else {
+            // User is casting a new vote
             await supabaseClient.from('post_votes').insert({ post_id: postId, user_id: loggedInUserProfile.id, vote_type: voteType });
         }
-        loadPageData(); // Assumes a function with this name exists on the page
-    } catch (error) { console.error('Error handling vote:', error); }
+
+        // CORRECTED: This now checks which refresh function is available and calls the correct one.
+        if (typeof loadPostData === 'function') {
+            loadPostData();
+        } else if (typeof loadPageData === 'function') {
+            loadPageData();
+        }
+
+    } catch (error) { 
+        console.error('Error handling vote:', error); 
+        alert('There was an error processing your vote.');
+    }
 }
 
 async function submitComment(postId, parentCommentId = null) {
@@ -31,10 +49,26 @@ async function submitComment(postId, parentCommentId = null) {
     const input = document.getElementById(inputId);
     if (!input || !input.value.trim()) { return alert("Comment cannot be empty."); }
     if (!loggedInUserProfile) { return alert("You must be logged in to comment."); }
+    
     try {
-        await supabaseClient.from('comments').insert({ content: input.value, author_id: loggedInUserProfile.id, post_id: postId, parent_comment_id: parentCommentId });
-        loadPageData(); // Assumes a function with this name exists on the page
-    } catch (error) { console.error('Error submitting comment:', error); }
+        await supabaseClient.from('comments').insert({ 
+            content: input.value, 
+            author_id: loggedInUserProfile.id, 
+            post_id: postId, 
+            parent_comment_id: parentCommentId 
+        });
+
+        // This checks which refresh function is available and calls the correct one.
+        if (typeof loadPostData === 'function') {
+            loadPostData();
+        } else if (typeof loadPageData === 'function') {
+            loadPageData();
+        }
+
+    } catch (error) { 
+        console.error('Error submitting comment:', error);
+        alert('There was an error submitting your comment. Please try again.');
+    }
 }
 
 // --- RENDERING & UTILITY HELPERS ---
@@ -103,4 +137,59 @@ function parseFormatting(text) {
     if (!text) return '';
     let safeText = escapeHTML(text);
     return safeText.replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>').replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>').replace(/\[u\](.*?)\[\/u\]/g, '<u>$1</u>');
+}
+
+function renderEditCommentView(commentId, currentContent) {
+    const commentContentEl = document.querySelector(`#comment-${commentId} .comment-content`);
+    const commentFooterEl = document.querySelector(`#comment-${commentId} .comment-footer`);
+    const decodedContent = decodeURIComponent(currentContent);
+    commentContentEl.style.display = 'none';
+    commentFooterEl.style.display = 'none';
+    const editForm = document.createElement('div');
+    editForm.className = 'edit-comment-form';
+    const cancelAction = "typeof loadPostData === 'function' ? loadPostData() : loadPageData()";
+    editForm.innerHTML = `<textarea id="comment-edit-input-${commentId}" style="width: 100%; height: 80px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-top: 5px;">${decodedContent}</textarea><div style="margin-top: 10px;"><button onclick="updateComment(${commentId})" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0;">Save</button><button onclick="${cancelAction}" class="cta-button" style="font-size: 0.8rem; padding: 6px 10px; margin: 0; background: #555; border-color: #777; margin-left: 10px;">Cancel</button></div>`;
+    commentContentEl.parentNode.insertBefore(editForm, commentContentEl.nextSibling);
+}
+
+async function updateComment(commentId) {
+    const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
+    if (!newContent.trim()) { return alert("Comment cannot be empty."); }
+
+    try {
+        const { error } = await supabaseClient
+            .from('comments')
+            .update({ content: newContent, updated_at: new Date() })
+            .eq('id', commentId);
+
+        if (error) throw error;
+
+        // This checks which refresh function is available and calls the correct one.
+        if (typeof loadPostData === 'function') {
+            loadPostData();
+        } else if (typeof loadPageData === 'function') {
+            loadPageData();
+        }
+    } catch (error) { 
+        console.error('Error updating comment:', error); 
+        alert(`Could not update comment: ${error.message}`); 
+    }
+}
+
+async function deleteComment(commentId) {
+    if (!confirm("Are you sure you want to delete this comment?")) return;
+    try {
+        const { error } = await supabaseClient.from('comments').delete().eq('id', commentId);
+        if (error) throw error;
+        alert('Comment deleted.');
+        // This checks which refresh function is available and calls the correct one.
+        if (typeof loadPostData === 'function') {
+            loadPostData();
+        } else if (typeof loadPageData === 'function') {
+            loadPageData();
+        }
+    } catch (error) { 
+        console.error('Error deleting comment:', error); 
+        alert(`Could not delete comment: ${error.message}`); 
+    }
 }
