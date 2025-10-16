@@ -1,12 +1,44 @@
+/* --- Back Button Styling --- */
+.back-home-container {
+    max-width: 800px; /* Match content-wrapper width */
+    margin: 0 auto;
+    padding: 20px 20px 0 20px; /* Spacing for the button */
+}
+
+.back-home {
+    background-color: var(--main-red);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.back-home:hover {
+    background-color: var(--hover-red);
+}
+
+/* --- Main Page Layout --- */
 .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 20px; /* Adjusted padding */
 }
 
-/* We reuse .post-item and other styles from profile.css */
-/* This ensures our post and comments look consistent */
+/* --- Post Container Styling --- */
+#post-container {
+    background: rgba(26, 26, 26, 0.7);
+    border: 1px solid var(--main-red);
+    border-radius: 10px;
+    padding: 30px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+}
 
+/* --- This rule prevents a "box-within-a-box" look --- */
 #post-container .post-item {
     border: none;
     background: none;
