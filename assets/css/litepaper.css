@@ -269,3 +269,24 @@ header {
         justify-content: center;
     }
 }
+
+/* --- COMPACT SPACING FOR ROADMAP & DISCLAIMER --- */
+#roadmap h3, #disclaimer h3 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+#roadmap ul, #disclaimer p {
+    margin-bottom: 10px;
+}
+
+#roadmap ul li {
+    margin-bottom: 8px;
+}
+
+/* Remove margin from the very last element in each section */
+#roadmap > *:last-child,
+#disclaimer > *:last-child {
+    margin-bottom: 0;
+}
