@@ -18,6 +18,23 @@
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain"></canvas>
 
+    <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
+        <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
+        <a href="community.html" onclick="closeMenu()">Community</a>
+        <a href="forums.html" onclick="closeMenu()">Forums</a>
+        <a href="profile.html" id="profile-nav-link-mobile" style="display: none;" onclick="closeMenu()">Profile</a>
+    </div>
+
     <header class="main-header">
         <nav class="navbar">
             <a href="index.html" class="nav-logo">
