@@ -1,261 +1,146 @@
-/* --- V2 Glitch Title Style --- */
-.content-wrapper header h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
-    text-shadow: none;
-    animation: none;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The official Litepaper for the Debt Culture ($DEBT) token, outlining our mission, tokenomics, and roadmap.">
+    <meta name="keywords" content="Debt Culture, $DEBT, litepaper, whitepaper, tokenomics, roadmap, Solana">
+    <meta name="author" content="Autopsy">
+    <title>Debt Culture - Litepaper</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/shared-styles.css">
+    <link rel="stylesheet" href="assets/css/litepaper.css">
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+    <canvas id="matrix-rain"></canvas>
 
-/* --- Page-Specific Content Wrapper --- */
-.content-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 80px 40px 60px 40px;
-    position: relative;
-    z-index: 1;
-}
+    <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 
-/* --- Page-Specific Header & Title --- */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-.subtitle {
-    font-size: 1.2rem;
-    color: #ff9999;
-    text-shadow: 0 0 5px #ff5555;
-    margin-top: 10px;
-}
+    <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
 
-/* --- Page-Specific Section Styling --- */
-.paper-section {
-    background: rgba(26, 26, 26, 0.7);
-    border: 1px solid #ff5555;
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 30px;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
-}
-.paper-section h2 {
-    font-size: 2rem;
-    color: #ff5555;
-    margin-bottom: 15px;
-    text-align: center;
-    border-bottom: 1px solid #ff5555;
-    padding-bottom: 10px;
-    font-weight: 700;
-}
-.paper-section p, .paper-section li {
-    font-size: 1.1rem;
-    color: #ccc;
-    margin-bottom: 15px;
-}
-.paper-section ul {
-    list-style: none;
-    padding-left: 0;
-}
-.paper-section li::before {
-    content: '»';
-    color: #ff5555;
-    margin-right: 10px;
-    font-weight: 700;
-}
-.paper-section strong {
-    color: #fff;
-    font-weight: 700;
-}
-.paper-section a {
-    color: #ff5555;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-.paper-section a:hover {
-    color: #ff7777;
-    text-shadow: 0 0 6px #ff5555;
-}
-.two-column {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-}
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
+        <a href="community.html" onclick="closeMenu()">Community</a>
+        <a href="forums.html" onclick="closeMenu()">Forums</a>
+        <a href="merch.html" onclick="closeMenu()">Merch</a>
+        <a href="profile.html" id="profile-nav-link-mobile" style="display: none;" onclick="closeMenu()">Profile</a>
+    </div>
 
-/* --- Page-Specific Responsive --- */
-@media (max-width: 768px) {
-    .content-wrapper { padding: 80px 15px 60px 15px; }
-    h1 { font-size: 2.2rem; } /* Overrides shared h1 size for mobile */
-    .paper-section h2 { font-size: 1.5rem; }
-    .paper-section p, .paper-section li { font-size: 1rem; }
-    .two-column { grid-template-columns: 1fr; }
-}
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">
+                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="$DEBT Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="arsenal.html">Arsenal</a>
+                <a href="community.html">Community</a>
+                <a href="forums.html">Forums</a>
+                <a href="merch.html">Merch</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="cta-button">Buy $DEBT</a>
+            </div>
+        </nav>
+    </header>
 
-/* --- V2 Glitch Effect & Animations --- */
-.glitch {
-    position: relative;
-}
+    <main class="content-wrapper">
+        <header>
+            <h1 class="glitch" data-text="LITEPAPER">LITEPAPER</h1>
+            <p class="subtitle">Version 1.0 - September 24, 2025</p>
+        </header>
 
-.glitch::before, .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--dark-bg);
-    overflow: hidden;
-}
+        <section class="paper-section">
+            <h2>Abstract: The Rebellion's Blueprint</h2>
+            <p>$DEBT, an acronym for "Don't Ever Believe Them," is more than a memecoin; it is a decentralized cultural movement on the Solana blockchain. Launched on July 21, 2024, by founder <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>, its purpose is to serve as a digital symbol of defiance against a predatory global financial system built on debt. Through a combination of deflationary tokenomics, community empowerment, and a weaponized meme culture, $DEBT aims to build a self-sustaining ecosystem that rejects the status quo and champions financial sovereignty for the 99%.</p>
+        </section>
 
-.glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 var(--main-red);
-    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
-}
+        <section class="paper-section">
+            <h2>The Manifesto: The Problem</h2>
+            <p>The modern world is built on a lie sold to us as progress: a system of inescapable, generational debt designed to enrich the few at the expense of the many. Financial institutions forge digital chains, central banks print currency into worthlessness, and the masses are told this is the only way. This system is a prison disguised as a dream. $DEBT was created as a glitch in this machine—a crowbar to pry open the system and a testament to the power of a collective that refuses to comply. The great default is not just a market crash; it is a conscious decision to reject the terms of our enslavement.</p>
+        </section>
 
-.glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
-    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
-}
+        <section class="paper-section">
+            <h2>Tokenomics: The Arsenal of the Rebellion</h2>
+            <div class="two-column">
+                <div>
+                    <ul>
+                        <li><strong>Token Name:</strong> Debt Culture</li>
+                        <li><strong>Ticker:</strong> $DEBT</li>
+                        <li><strong>Blockchain:</strong> Solana</li>
+                        <li><strong>Initial Supply:</strong> 1,000,000,000</li>
+                        <li><strong>Contract Address:</strong> <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">9NQc...pump</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><strong>Transaction Tax:</strong> 0% Buy / 0% Sell</li>
+                        <li><strong>Contract:</strong> Renounced</li>
+                        <li><strong>Liquidity Pool:</strong> Burned</li>
+                        <li><strong>Supply:</strong> Immutable & Deflationary</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="color: #ff7777; font-weight: 700; margin-top: 20px; margin-bottom: 10px;">Deflationary by Design</h3>
+            <p>Unlike fiat currencies which inflate into infinity, $DEBT is designed to become scarcer over time. To date, over <strong>66 Million tokens have been permanently burned</strong>. Future burns are planned to commemorate community-driven milestones, forever reducing the total supply.</p>
+            
+            <h3 style="color: #ff7777; font-weight: 700; margin-top: 20px; margin-bottom: 10px;">Community-First Distribution</h3>
+            <p>From its inception, $DEBT has been a project for the people. Over <strong>100 Million tokens</strong> have been distributed directly to community members through airdrops and events, including the "Debtmas" airdrop of 30 Million tokens to holders.</p>
 
-@keyframes glitch-anim-1 {
-    0% { clip: rect(42px, 9999px, 44px, 0); }
-    5% { clip: rect(12px, 9999px, 60px, 0); }
-    10% { clip: rect(40px, 9999px, 40px, 0); }
-    15% { clip: rect(30px, 9999px, 50px, 0); }
-    20% { clip: rect(50px, 9999px, 20px, 0); }
-    25% { clip: rect(35px, 9999px, 55px, 0); }
-    30% { clip: rect(45px, 9999px, 45px, 0); }
-    35% { clip: rect(55px, 9999px, 35px, 0); }
-    40% { clip: rect(45px, 9999px, 65px, 0); }
-    45% { clip: rect(65px, 9999px, 45px, 0); }
-    50% { clip: rect(25px, 9999px, 55px, 0); }
-    55% { clip: rect(60px, 9999px, 30px, 0); }
-    60% { clip: rect(30px, 9999px, 70px, 0); }
-    65% { clip: rect(70px, 9999px, 50px, 0); }
-    70% { clip: rect(50px, 9999px, 80px, 0); }
-    75% { clip: rect(80px, 9999px, 60px, 0); }
-    80% { clip: rect(60px, 9999px, 90px, 0); }
-    85% { clip: rect(90px, 9999px, 70px, 0); }
-    90% { clip: rect(70px, 9999px, 100px, 0); }
-    95% { clip: rect(100px, 9999px, 80px, 0); }
-    100% { clip: rect(80px, 9999px, 120px, 0); }
-}
+            <h3 style="color: #ff7777; font-weight: 700; margin-top: 20px; margin-bottom: 10px;">The Treasury: A War Chest for the Future</h3>
+            <p>A total of <strong>150 Million tokens</strong> are secured in a time-locked contract, set to unlock on July 21, 2026, and return to the treasury wallet (`debtculture.sol`). The locked funds are publicly viewable on the <a href="https://app.streamflow.finance/project-dashboard/solana/mainnet/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Vault Tracker</a> and are reserved exclusively to propel the project forward through DAO-voted initiatives, staking rewards, strategic airdrops, and marketing campaigns.</p>
+        </section>
 
-@keyframes glitch-anim-2 {
-    0% { clip: rect(85px, 9999px, 90px, 0); }
-    5% { clip: rect(35px, 9999px, 95px, 0); }
-    10% { clip: rect(90px, 9999px, 25px, 0); }
-    15% { clip: rect(25px, 9999px, 65px, 0); }
-    20% { clip: rect(65px, 9999px, 15px, 0); }
-    25% { clip: rect(15px, 9999px, 75px, 0); }
-    30% { clip: rect(75px, 9999px, 5px, 0); }
-    35% { clip: rect(5px, 9999px, 85px, 0); }
-    40% { clip: rect(85px, 9999px, 25px, 0); }
-    45% { clip: rect(25px, 9999px, 95px, 0); }
-    50% { clip: rect(95px, 9999px, 35px, 0); }
-    55% { clip: rect(35px, 9999px, 105px, 0); }
-    60% { clip: rect(105px, 9999px, 45px, 0); }
-    65% { clip: rect(45px, 9999px, 115px, 0); }
-    70% { clip: rect(115px, 9999px, 55px, 0); }
-    75% { clip: rect(55px, 9999px, 125px, 0); }
-    80% { clip: rect(125px, 9999px, 65px, 0); }
-    85% { clip: rect(65px, 9999px, 135px, 0); }
-    90% { clip: rect(135px, 9999px, 75px, 0); }
-    95% { clip: rect(75px, 9999px, 145px, 0); }
-    100% { clip: rect(145px, 9999px, 85px, 0); }
-}
+        <section class="paper-section">
+            <h2>Roadmap: The Path to Victory</h2>
+            <ul>
+                <li><strong>Phase 1: IGNITION (Completed)</strong> - Launched the token, renounced the contract, burned liquidity, and established our digital command center at DebtCulture.xyz and core social channels. Initial airdrops and meme offensives were deployed.</li>
+                <li><strong>Phase 2: ESCALATION (Current)</strong> - Focus on expanding the ecosystem's utility and reach. This phase is defined by the launch of the official NFT collection, strategic partnerships, and the rollout of the first merchandise line.</li>
+                <li><strong>Phase 3: THE GREAT DEFAULT (Future)</strong> - The full decentralization of the project. This phase will see the deployment of a community-governed DAO, the integration of $DEBT as a utility token in games and platforms, and a mainstream push to awaken the masses to our cause.</li>
+            </ul>
+        </section>
+        
+        <section class="paper-section">
+            <h2>Project Escalation: The NFT Collection</h2>
+            <p>The next major offensive in our rebellion is the launch of a <strong>777-piece NFT collection</strong> (official name to be revealed). These are not just profile pictures; they are symbols of status within the rebellion and keys to earning within our ecosystem.</p>
+            <ul>
+                <li><strong>Utility:</strong> Holders will be able to stake their NFTs to earn passive $DEBT rewards, creating a powerful synergy between holding the token and the NFT.</li>
+                <li><strong>Distribution Strategy:</strong>
+                    <ul style="margin-top: 15px; margin-bottom: 15px; padding-left: 20px;">
+                        <li><strong>277 Airdropped/Claimable:</strong> Rewarded to loyal $DEBT holders based on a tiered snapshot of holdings.</li>
+                        <li><strong>100 Presale:</strong> Available for purchase at a discount exclusively using $DEBT.</li>
+                        <li><strong>100 Marketing & Giveaways:</strong> Reserved for partnerships and community contests.</li>
+                        <li><strong>300 Public Mint:</strong> The remaining supply will be available for public minting.</li>
+                    </ul>
+                </li>
+                 <li><strong>Economic Engine:</strong> All proceeds from the NFT sale will be used to propel the token's growth. All secondary market royalties will be used to execute <strong>$DEBT buybacks</strong>, creating continuous buying pressure. The $DEBT collected from the presale will be strategically split: <strong>50% will be permanently burned</strong> and <strong>50% will be added to the NFT staking rewards pool</strong>.</li>
+            </ul>
+        </section>
 
-/* --- MOBILE NAVIGATION STYLES --- */
+        <section class="paper-section">
+            <h2>Disclaimer</h2>
+            <p>$DEBT is a memecoin created for entertainment and as an experimental, community-driven project. It has no intrinsic value or expectation of financial return. The content of this document is for informational purposes only and does not constitute financial, legal, or investment advice. All participation is at your own risk. Do Your Own Research (DYOR).</p>
+        </section>
+    </main>
 
-/* The 'Buy $DEBT' button for mobile */
-.buy-btn-mobile {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1100;
-    background-color: var(--main-red);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-.buy-btn-mobile:hover {
-    background-color: var(--hover-red);
-}
+    <footer class="footer">
+        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
+    </footer>
 
-/* The hamburger icon */
-.hamburger {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 22px;
-    cursor: pointer;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    padding: 5px;
-    background-color: rgba(13, 13, 13, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-}
-.hamburger div {
-    width: 20px;
-    height: 2px;
-    background-color: #eee;
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-
-/* Hamburger animation when active */
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active div:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(4px, -4px);
-}
-
-/* The slide-out menu panel */
-.mobile-menu {
-    display: none;
-    position: fixed;
-    top: 60px;
-    left: 15px;
-    width: 180px;
-    background-color: rgba(13, 13, 13, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    z-index: 1099;
-    padding: 10px 0;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-.mobile-menu a {
-    display: block;
-    color: var(--text-primary);
-    padding: 12px 20px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s, background-color 0.3s;
-}
-.mobile-menu a:hover {
-    color: var(--main-red);
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
+    <script defer src="assets/js/shared-scripts.js"></script>
+    <script defer src="assets/js/litepaper.js"></script>
+</body>
+</html>
 /* Media query to activate the mobile navigation */
 @media (max-width: 768px) {
     .hamburger,
