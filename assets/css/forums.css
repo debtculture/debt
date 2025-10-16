@@ -1,283 +1,284 @@
 /* --- V2 Glitch Title Style --- */
 .content-wrapper header h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
-    text-shadow: none;
-    animation: none;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    /* Resets to remove the old neon flicker effect */
+    text-shadow: none;
+    animation: none;
 }
 
 /* --- Forum Page Layout --- */
 .content-wrapper {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 80px 20px;
-    position: relative;
-    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .forum-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 2px solid #ff5555;
 }
 
+.forum-header h1 {
+    margin-bottom: 20px;
+}
+
 /* --- Post List Styles --- */
 .post-list-container {
-    background: rgba(26, 26, 26, 0.7);
-    border: 1px solid #333;
-    border-radius: 10px;
-    overflow: hidden;
+    background: rgba(26, 26, 26, 0.7);
+    border: 1px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .post-list-header, .post-row {
-    display: grid;
-    grid-template-columns: 5fr 1.5fr 1fr 2.5fr;
-    gap: 15px;
-    padding: 15px 20px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 5fr 1.5fr 1fr 2.5fr;
+    gap: 15px;
+    padding: 15px 20px;
+    align-items: center;
 }
 
 .post-list-header {
-    background-color: #111;
-    color: #ff5555;
-    font-weight: 700;
-    font-size: 1rem;
-    border-bottom: 1px solid #333;
+    background-color: #111;
+    color: #ff5555;
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom: 1px solid #333;
 }
 
 .post-row {
-    border-bottom: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
 }
 
 .post-row:last-child {
-    border-bottom: none;
+    border-bottom: none;
 }
 
 .post-row:hover {
-    background-color: rgba(255, 85, 85, 0.1);
+    background-color: rgba(255, 85, 85, 0.1);
 }
 
 .post-title a {
-    color: #eee;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: color 0.2s ease;
+    color: #eee;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
 }
 
 .post-title a:hover {
-    color: #ff5555;
-    text-shadow: 0 0 5px #ff5555;
+    color: #ff5555;
+    text-shadow: 0 0 5px #ff5555;
 }
 
 .post-author a {
-    color: #ccc;
-    text-decoration: none;
-    transition: color 0.2s ease;
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .post-author a:hover {
-    color: #ff7777;
+    color: #ff7777;
 }
 
 .post-replies, .post-activity {
-    color: #aaa;
-    font-size: 0.9rem;
-    text-align: center;
+    color: #aaa;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .post-author {
-    text-align: center;
+    text-align: center;
 }
 
 #loading-posts {
-    padding: 40px;
-    text-align: center;
-    color: #ff9999;
+    padding: 40px;
+    text-align: center;
+    color: #ff9999;
 }
 
 /* --- V2 Glitch Effect & Animations --- */
 .glitch {
-    position: relative;
+    position: relative;
 }
 
 .glitch::before, .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--dark-bg);
-    overflow: hidden;
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    overflow: hidden;
 }
 
 .glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 var(--main-red);
-    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+    left: 2px;
+    text-shadow: -2px 0 var(--main-red);
+    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
 
 .glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
-    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+    left: -2px;
+    text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
+    animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim-1 {
-    0% { clip: rect(42px, 9999px, 44px, 0); }
-    5% { clip: rect(12px, 9999px, 60px, 0); }
-    10% { clip: rect(40px, 9999px, 40px, 0); }
-    15% { clip: rect(30px, 9999px, 50px, 0); }
-    20% { clip: rect(50px, 9999px, 20px, 0); }
-    25% { clip: rect(35px, 9999px, 55px, 0); }
-    30% { clip: rect(45px, 9999px, 45px, 0); }
-    35% { clip: rect(55px, 9999px, 35px, 0); }
-    40% { clip: rect(45px, 9999px, 65px, 0); }
-    45% { clip: rect(65px, 9999px, 45px, 0); }
-    50% { clip: rect(25px, 9999px, 55px, 0); }
-    55% { clip: rect(60px, 9999px, 30px, 0); }
-    60% { clip: rect(30px, 9999px, 70px, 0); }
-    65% { clip: rect(70px, 9999px, 50px, 0); }
-    70% { clip: rect(50px, 9999px, 80px, 0); }
-    75% { clip: rect(80px, 9999px, 60px, 0); }
-    80% { clip: rect(60px, 9999px, 90px, 0); }
-    85% { clip: rect(90px, 9999px, 70px, 0); }
-    90% { clip: rect(70px, 9999px, 100px, 0); }
-    95% { clip: rect(100px, 9999px, 80px, 0); }
-    100% { clip: rect(80px, 9999px, 120px, 0); }
+    0% { clip: rect(42px, 9999px, 44px, 0); }
+    5% { clip: rect(12px, 9999px, 60px, 0); }
+    10% { clip: rect(40px, 9999px, 40px, 0); }
+    15% { clip: rect(30px, 9999px, 50px, 0); }
+    20% { clip: rect(50px, 9999px, 20px, 0); }
+    25% { clip: rect(35px, 9999px, 55px, 0); }
+    30% { clip: rect(45px, 9999px, 45px, 0); }
+    35% { clip: rect(55px, 9999px, 35px, 0); }
+    40% { clip: rect(45px, 9999px, 65px, 0); }
+    45% { clip: rect(65px, 9999px, 45px, 0); }
+    50% { clip: rect(25px, 9999px, 55px, 0); }
+    55% { clip: rect(60px, 9999px, 30px, 0); }
+    60% { clip: rect(30px, 9999px, 70px, 0); }
+    65% { clip: rect(70px, 9999px, 50px, 0); }
+    70% { clip: rect(50px, 9999px, 80px, 0); }
+    75% { clip: rect(80px, 9999px, 60px, 0); }
+    80% { clip: rect(60px, 9999px, 90px, 0); }
+    85% { clip: rect(90px, 9999px, 70px, 0); }
+    90% { clip: rect(70px, 9999px, 100px, 0); }
+    95% { clip: rect(100px, 9999px, 80px, 0); }
+    100% { clip: rect(80px, 9999px, 120px, 0); }
 }
 
 @keyframes glitch-anim-2 {
-    0% { clip: rect(85px, 9999px, 90px, 0); }
-    5% { clip: rect(35px, 9999px, 95px, 0); }
-    10% { clip: rect(90px, 9999px, 25px, 0); }
-    15% { clip: rect(25px, 9999px, 65px, 0); }
-    20% { clip: rect(65px, 9999px, 15px, 0); }
-    25% { clip: rect(15px, 9999px, 75px, 0); }
-    30% { clip: rect(75px, 9999px, 5px, 0); }
-    35% { clip: rect(5px, 9999px, 85px, 0); }
-    40% { clip: rect(85px, 9999px, 25px, 0); }
-    45% { clip: rect(25px, 9999px, 95px, 0); }
-    50% { clip: rect(95px, 9999px, 35px, 0); }
-    55% { clip: rect(35px, 9999px, 105px, 0); }
-    60% { clip: rect(105px, 9999px, 45px, 0); }
-    65% { clip: rect(45px, 9999px, 115px, 0); }
-    70% { clip: rect(115px, 9999px, 55px, 0); }
-    75% { clip: rect(55px, 9999px, 125px, 0); }
-    80% { clip: rect(125px, 9999px, 65px, 0); }
-    85% { clip: rect(65px, 9999px, 135px, 0); }
-    90% { clip: rect(135px, 9999px, 75px, 0); }
-    95% { clip: rect(75px, 9999px, 145px, 0); }
-    100% { clip: rect(145px, 9999px, 85px, 0); }
+    0% { clip: rect(85px, 9999px, 90px, 0); }
+    5% { clip: rect(35px, 9999px, 95px, 0); }
+    10% { clip: rect(90px, 9999px, 25px, 0); }
+    15% { clip: rect(25px, 9999px, 65px, 0); }
+    20% { clip: rect(65px, 9999px, 15px, 0); }
+    25% { clip: rect(15px, 9999px, 75px, 0); }
+    30% { clip: rect(75px, 9999px, 5px, 0); }
+    35% { clip: rect(5px, 9999px, 85px, 0); }
+    40% { clip: rect(85px, 9999px, 25px, 0); }
+    45% { clip: rect(25px, 9999px, 95px, 0); }
+    50% { clip: rect(95px, 9999px, 35px, 0); }
+    55% { clip: rect(35px, 9999px, 105px, 0); }
+    60% { clip: rect(105px, 9999px, 45px, 0); }
+    65% { clip: rect(45px, 9999px, 115px, 0); }
+    70% { clip: rect(115px, 9999px, 55px, 0); }
+    75% { clip: rect(55px, 9999px, 125px, 0); }
+    80% { clip: rect(125px, 9999px, 65px, 0); }
+    85% { clip: rect(65px, 9999px, 135px, 0); }
+    90% { clip: rect(135px, 9999px, 75px, 0); }
+    95% { clip: rect(75px, 9999px, 145px, 0); }
+    100% { clip: rect(145px, 9999px, 85px, 0); }
 }
 
 /* --- MOBILE NAVIGATION STYLES --- */
 
 /* The 'Buy $DEBT' button for mobile */
 .buy-btn-mobile {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1100;
-    background-color: var(--main-red);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1100;
+    background-color: var(--main-red);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
 }
 .buy-btn-mobile:hover {
-    background-color: var(--hover-red);
+    background-color: var(--hover-red);
 }
 
 /* The hamburger icon */
 .hamburger {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 22px;
-    cursor: pointer;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    padding: 5px;
-    background-color: rgba(13, 13, 13, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    padding: 5px;
+    background-color: rgba(13, 13, 13, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
 }
 .hamburger div {
-    width: 20px;
-    height: 2px;
-    background-color: #eee;
-    margin: 0 auto;
-    transition: all 0.3s ease;
+    width: 20px;
+    height: 2px;
+    background-color: #eee;
+    margin: 0 auto;
+    transition: all 0.3s ease;
 }
 
 /* Hamburger animation when active */
 .hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(5px, 5px);
 }
 .hamburger.active div:nth-child(2) {
-    opacity: 0;
+    opacity: 0;
 }
 .hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(4px, -4px);
+    transform: rotate(-45deg) translate(4px, -4px);
 }
 
 /* The slide-out menu panel */
 .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 60px;
-    left: 15px;
-    width: 180px;
-    background-color: rgba(13, 13, 13, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    z-index: 1099;
-    padding: 10px 0;
-    max-height: 80vh;
-    overflow-y: auto;
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 15px;
+    width: 180px;
+    background-color: rgba(13, 13, 13, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    z-index: 1099;
+    padding: 10px 0;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 .mobile-menu a {
-    display: block;
-    color: var(--text-primary);
-    padding: 12px 20px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s, background-color 0.3s;
+    display: block;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s, background-color 0.3s;
 }
 .mobile-menu a:hover {
-    color: var(--main-red);
-    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--main-red);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Media query to activate the mobile navigation */
 @media (max-width: 768px) {
-    .hamburger,
-    .buy-btn-mobile {
-        display: flex; /* Show the hamburger and mobile buy button */
-        align-items: center;
-    }
+    .hamburger,
+    .buy-btn-mobile {
+        display: flex; /* Show the hamburger and mobile buy button */
+        align-items: center;
+    }
 
-    /* This keeps the logo centered between the two fixed buttons */
-    .navbar {
-        justify-content: center;
-    }
+    /* This keeps the logo centered between the two fixed buttons */
+    .navbar {
+        justify-content: center;
+    }
 }
 
 .forum-header .cta-button {
