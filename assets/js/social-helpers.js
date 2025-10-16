@@ -155,9 +155,15 @@ function renderEditCommentView(commentId, currentContent) {
 async function updateComment(commentId) {
     const newContent = document.getElementById(`comment-edit-input-${commentId}`).value;
     if (!newContent.trim()) { return alert("Comment cannot be empty."); }
+
     try {
-        const { error } = await supabaseClient.from('comments').update({ content: newContent, updated_at: new Date() }).eq('id', commentId);
+        const { error } = await supabaseClient
+            .from('comments')
+            .update({ content: newContent, updated_at: new Date() })
+            .eq('id', commentId);
+
         if (error) throw error;
+
         // This checks which refresh function is available and calls the correct one.
         if (typeof loadPostData === 'function') {
             loadPostData();
