@@ -10,15 +10,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 // =================================================================================
 document.addEventListener('DOMContentLoaded', () => {
     loadForumPosts();
-    checkLoginStatus();
 });
-
-function checkLoginStatus() {
-    const walletAddress = localStorage.getItem('walletAddress');
-    if (walletAddress) {
-        document.getElementById('create-post-btn').style.display = 'block';
-    }
-}
 
 async function loadForumPosts() {
     try {
