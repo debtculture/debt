@@ -424,3 +424,22 @@ window.closeMenu = function() {
     menu.style.display = "none";
     hamburger.classList.remove("active");
 }
+
+// Inserts BBCode tags around selected text in a textarea
+function formatText(tag, textareaId) {
+    const textarea = document.getElementById(textareaId);
+    if (!textarea) return;
+    
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
+    
+    // Insert [tag]selected[/tag]
+    const replacement = `[${tag}]${selectedText}[/${tag}]`;
+    textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
+    
+    // Refocus and reposition cursor inside the tags
+    textarea.focus();
+    textarea.selectionStart = start + `[${tag}]`.length;
+    textarea.selectionEnd = textarea.selectionStart + selectedText.length;
+}
