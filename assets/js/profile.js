@@ -10,7 +10,6 @@ let isInitialLoad = true;
 let currentSortOrder = 'newest';
 let profileYouTubePlayer;
 let allUsersCache = []; // This will be populated by the shared helper script
-
 // Utility to debounce functions (e.g., for sort changes)
 function debounce(func, delay) {
     let timer;
@@ -19,7 +18,6 @@ function debounce(func, delay) {
         timer = setTimeout(() => func(...args), delay);
     };
 }
-
 // =================================================================================
 // --- MAIN LOGIC & DATA LOADING ---
 // =================================================================================
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAllUsers(); // This function now lives in social-helpers.js
     loadPageData();
 });
-
 async function loadPageData() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `<p>Loading profile...</p>`;
@@ -56,7 +53,7 @@ async function loadPageData() {
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
             .single();
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
-       
+      
         if (profileData) {
             if (currentSortOrder === 'top' && profileData.posts) {
                 profileData.posts.sort((a, b) => {
@@ -69,7 +66,7 @@ async function loadPageData() {
             const { count: followerCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('following_id', profileData.id);
             const { count: followingCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('follower_id', profileData.id);
             const { data: isFollowingData } = await supabaseClient.from('followers').select('id').eq('follower_id', loggedInUserProfile?.id).eq('following_id', profileData.id);
-           
+          
             profileData.followerCount = followerCount;
             profileData.followingCount = followingCount;
             profileData.isFollowedByCurrentUser = isFollowingData && isFollowingData.length > 0;
@@ -88,7 +85,6 @@ async function loadPageData() {
         profileContent.innerHTML = `<h2>Error</h2><p>There was an error loading the profile.</p>`;
     }
 }
-
 // =================================================================================
 // --- VIEW RENDERING FUNCTIONS (Profile-Specific) ---
 // =================================================================================
@@ -103,10 +99,10 @@ function renderProfileView() {
     }
     const statsHtml = renderStats();
     const lastSeenHtml = viewedUserProfile.last_seen ? `<p style="color: #888; font-size: 0.9rem; margin-top: -10px; margin-bottom: 20px;">Last seen: ${new Date(viewedUserProfile.last_seen).toLocaleString()}</p>` : '';
-    const postsHtml = renderPostsList();
+    const postsHtml = renderPostsList(isOwner);
     // --- THIS IS THE CORRECTED LOGIC FOR THE BIO ---
     const bioText = viewedUserProfile.bio ? parseUserTags(parseFormatting(viewedUserProfile.bio)) : '<i>User has not written a bio yet.</i>';
-   
+  
     const pfpHtml = `<div class="pfp-container">${viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`}</div>`;
     let socialsHtml = renderSocials();
     profileContent.innerHTML = `
@@ -148,11 +144,9 @@ function renderProfileView() {
         }, 0);
     }
 }
-
 function renderStats() {
     return `<div class="profile-stats"><div class="stat-item"><strong>${viewedUserProfile.followingCount || 0}</strong> Following</div><div class="stat-item"><strong>${viewedUserProfile.followerCount || 0}</strong> Followers</div></div>`;
 }
-
 function renderSocials() {
     let socialsHtml = '';
     if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
@@ -162,7 +156,6 @@ function renderSocials() {
     if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
     return socialsHtml;
 }
-
 function renderSongPlayer() {
     return `
           <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
@@ -174,8 +167,7 @@ function renderSongPlayer() {
           <div id="youtube-player-container" style="display: none;"></div>
     `;
 }
-
-function renderPostsList() {
+function renderPostsList(isOwner) {
     let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
     if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
         postsHtml = viewedUserProfile.posts.map(post => {
@@ -197,28 +189,24 @@ function renderPostsList() {
     }
     return postsHtml;
 }
-
 function renderEditView() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `<h2 style="font-size: 2.5rem; color: #ff5555; text-shadow: 0 0 10px #ff5555;">Editing Profile</h2><div style="text-align: left; margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 15px;"><div><label for="pfp-upload" style="display: block; margin-bottom: 10px; font-weight: bold;">Upload New Profile Picture:</label><input type="file" id="pfp-upload" accept="image/png, image/jpeg, image/gif" style="width: 100%; color: #eee; background: #111; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></div><div><label for="bio-input" style="display: block; margin-bottom: 10px; font-weight: bold;">Your Bio:</label><textarea id="bio-input" style="width: 100%; height: 120px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; font-family: 'Inter', sans-serif;">${viewedUserProfile.bio || ''}</textarea></div><hr style="border-color: #333;"><h3 style="margin-bottom: 10px;">Social Handles & URLs</h3><div><label for="twitter-input" style="display: block; margin-bottom: 5px;">X / Twitter Handle:</label><input type="text" id="twitter-input" value="${viewedUserProfile.twitter_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="telegram-input" style="display: block; margin-bottom: 5px;">Telegram Handle:</label><input type="text" id="telegram-input" value="${viewedUserProfile.telegram_handle || ''}" placeholder="YourHandle (no @)" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="discord-input" style="display: block; margin-bottom: 5px;">Discord Handle:</label><input type="text" id="discord-input" value="${viewedUserProfile.discord_handle || ''}" placeholder="username" style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="youtube-input" style="display: block; margin-bottom: 5px;">YouTube Channel URL:</label><input type="text" id="youtube-input" value="${viewedUserProfile.youtube_url || ''}" placeholder="https://youtube.com/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><div><label for="magiceden-input" style="display: block; margin-bottom: 5px;">Magic Eden Profile URL:</label><input type="text" id="magiceden-input" value="${viewedUserProfile.magiceden_url || ''}" placeholder="https://magiceden.io/u/..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"></div><hr style="border-color: #333;"><h3 style="margin-bottom: 10px;">Profile Song</h3><div><label for="song-url-input" style="display: block; margin-bottom: 5px;">YouTube URL:</label><input type="text" id="song-url-input" value="${viewedUserProfile.profile_song_url || ''}" placeholder="Paste a YouTube video link here..." style="width: 100%; background: #111; color: #eee; border: 1px solid #555; border-radius: 5px; padding: 10px;"><small style="color: #888; font-size: 0.8rem;">The audio will play from the video. We are not responsible for copyrighted content.</small></div></div><div style="margin-top: 30px;"><button id="save-profile-btn" class="cta-button">Save Changes</button><button id="cancel-edit-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
     document.getElementById('save-profile-btn').addEventListener('click', saveProfileChanges);
     document.getElementById('cancel-edit-btn').addEventListener('click', renderProfileView);
 }
-
 function renderCreatePostView() {
     const postsSection = document.getElementById('posts-section');
     postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">New Post</h3><div style="text-align: left; margin-top: 20px;"><label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label><input type="text" id="post-title-input" placeholder="Enter a title..." style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;"><label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label><div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;"><button onclick="formatText('b', 'post-content-input')">B</button><button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button><button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button></div><textarea id="post-content-input" placeholder="What's on your mind?" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;"></textarea></div><div style="margin-top: 20px;"><button id="submit-post-btn" class="cta-button">Submit Post</button><button id="cancel-post-btn" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
     document.getElementById('submit-post-btn').addEventListener('click', saveNewPost);
     document.getElementById('cancel-post-btn').addEventListener('click', loadPageData);
 }
-
 function renderEditPostView(postId, currentTitle, currentContent) {
     const postsSection = document.getElementById('posts-section');
     const decodedTitle = decodeURIComponent(currentTitle);
     const decodedContent = decodeURIComponent(currentContent);
     postsSection.innerHTML = `<h3 style="font-size: 2rem; color: #ff5555;">Edit Post</h3><div style="text-align: left; margin-top: 20px;"><label for="post-title-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Title:</label><input type="text" id="post-title-input" value="${decodedTitle}" style="width: 100%; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px; margin-bottom: 15px;"><label for="post-content-input" style="display: block; margin-bottom: 5px; font-weight: bold;">Content:</label><div class="format-toolbar" style="margin-bottom: 5px; display: flex; gap: 5px;"><button onclick="formatText('b', 'post-content-input')">B</button><button onclick="formatText('i', 'post-content-input')" style="font-style: italic;">I</button><button onclick="formatText('u', 'post-content-input')" style="text-decoration: underline;">U</button></div><textarea id="post-content-input" style="width: 100%; height: 200px; background: #111; color: #eee; border: 1px solid #ff5555; border-radius: 5px; padding: 10px;">${decodedContent}</textarea></div><div style="margin-top: 20px;"><button onclick="updatePost(${postId})" class="cta-button">Save Update</button><button onclick="loadPageData()" class="cta-button" style="background: #555; border-color: #777; margin-left: 15px;">Cancel</button></div>`;
 }
-
 // =================================================================================
 // --- SUPABASE DATA MODIFICATION FUNCTIONS (Profile-Specific) ---
 // =================================================================================
@@ -261,7 +249,6 @@ async function saveProfileChanges() {
         saveButton.textContent = 'Save Changes';
     }
 }
-
 async function saveNewPost() {
     const btn = document.getElementById('submit-post-btn');
     btn.disabled = true;
@@ -286,7 +273,6 @@ async function saveNewPost() {
         btn.textContent = 'Submit Post';
     }
 }
-
 async function updatePost(postId) {
     const newTitle = document.getElementById('post-title-input').value;
     const newContent = document.getElementById('post-content-input').value;
@@ -298,7 +284,6 @@ async function updatePost(postId) {
         loadPageData();
     } catch (error) { console.error('Error updating post:', error); alert(`Could not update post: ${error.message}`); }
 }
-
 async function deletePost(postId) {
     if (!confirm("Are you sure you want to permanently delete this post?")) return;
     try {
@@ -308,7 +293,6 @@ async function deletePost(postId) {
         loadPageData();
     } catch (error) { console.error('Error deleting post:', error); alert(`Could not delete post: ${error.message}`); }
 }
-
 async function togglePinPost(postId, currentStatus) {
     try {
         if (!currentStatus) {
@@ -319,7 +303,6 @@ async function togglePinPost(postId, currentStatus) {
         loadPageData();
     } catch (error) { console.error('Error toggling pin status:', error); alert(`Could not update pin status: ${error.message}`); }
 }
-
 async function handleFollow() {
     if (!loggedInUserProfile) { return alert("You must be logged in to follow users."); }
     if (loggedInUserProfile.id === viewedUserProfile.id) { return alert("You cannot follow yourself."); }
@@ -336,14 +319,12 @@ async function handleFollow() {
         loadPageData();
     } catch (error) { console.error('Error handling follow:', error); alert(`Failed to process follow: ${error.message}`); }
 }
-
 function handleSortChange(newOrder) {
     currentSortOrder = newOrder;
     isInitialLoad = false;
     loadPageData = debounce(loadPageData, 300); // Debounce reloads
     loadPageData();
 }
-
 // =================================================================================
 // --- YOUTUBE PLAYER LOGIC (Profile-Specific) ---
 // =================================================================================
@@ -372,7 +353,6 @@ async function initYouTubePlayer(youtubeUrl) {
         }
     } catch (e) { console.error("Error initializing YouTube player:", e); }
 }
-
 function createYouTubePlayer(videoId) {
     if (profileYouTubePlayer) { profileYouTubePlayer.destroy(); }
     profileYouTubePlayer = new YT.Player('youtube-player-container', {
@@ -381,9 +361,7 @@ function createYouTubePlayer(videoId) {
         events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
     });
 }
-
 function onPlayerReady(event) {}
-
 function onPlayerStateChange(event) {
     const playButton = document.getElementById('profile-audio-play-pause');
     const titleElement = document.getElementById('profile-song-title');
@@ -401,7 +379,6 @@ function onPlayerStateChange(event) {
         titleElement.classList.remove('scrolling');
     }
 }
-
 function toggleProfileAudio() {
     if (!profileYouTubePlayer || typeof profileYouTubePlayer.getPlayerState !== 'function') { return console.error("YouTube player not ready yet."); }
     const playerState = profileYouTubePlayer.getPlayerState();
@@ -409,7 +386,6 @@ function toggleProfileAudio() {
         profileYouTubePlayer.pauseVideo();
     } else { profileYouTubePlayer.playVideo(); }
 }
-
 // --- Mobile Menu Toggle Functions ---
 window.toggleMenu = function() {
     const menu = document.getElementById("mobileMenu");
@@ -424,7 +400,6 @@ window.closeMenu = function() {
     menu.style.display = "none";
     hamburger.classList.remove("active");
 }
-
 // Inserts BBCode tags around selected text in a textarea
 function formatText(tag, textareaId) {
     const textarea = document.getElementById(textareaId);
