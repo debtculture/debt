@@ -1,11 +1,9 @@
 // =================================================================================
 // --- INITIALIZATION ---
 // =================================================================================
-
 const supabaseUrl = 'https://pvbguojrkigzvnuwjawy.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
-
 let viewedUserProfile = null;
 let loggedInUserProfile = null;
 let isInitialLoad = true;
@@ -13,10 +11,18 @@ let currentSortOrder = 'newest';
 let profileYouTubePlayer;
 let allUsersCache = []; // This will be populated by the shared helper script
 
+// Utility to debounce functions (e.g., for sort changes)
+function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => func(...args), delay);
+    };
+}
+
 // =================================================================================
 // --- MAIN LOGIC & DATA LOADING ---
 // =================================================================================
-
 document.addEventListener('DOMContentLoaded', () => {
     fetchAllUsers(); // This function now lives in social-helpers.js
     loadPageData();
@@ -25,27 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadPageData() {
     const profileContent = document.getElementById('profile-content');
     profileContent.innerHTML = `<p>Loading profile...</p>`;
-
     const loggedInUserWallet = localStorage.getItem('walletAddress');
     if (loggedInUserWallet) {
         const { data } = await supabaseClient.from('profiles').select('*').eq('wallet_address', loggedInUserWallet).single();
         if (data) loggedInUserProfile = data;
     }
-
     const urlParams = new URLSearchParams(window.location.search);
     let addressToLoad = urlParams.get('user') || loggedInUserWallet;
-
     if (!addressToLoad) {
         profileContent.innerHTML = `<h2>No User Found</h2><p>Please connect your wallet on the <a href="index.html" class="footer-link">main page</a> to view your own profile.</p>`;
         return;
     }
-
     try {
         let sortAscending = currentSortOrder === 'oldest';
         if (currentSortOrder === 'top') {
-            sortAscending = false; 
+            sortAscending = false;
         }
-
         const { data: profileData, error: profileError } = await supabaseClient
             .from('profiles')
             .select(`*, posts (*, comments (*, profiles (*)), post_votes (*))`)
@@ -54,9 +55,8 @@ async function loadPageData() {
             .order('created_at', { foreignTable: 'posts', ascending: sortAscending })
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
             .single();
-
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
-        
+       
         if (profileData) {
             if (currentSortOrder === 'top' && profileData.posts) {
                 profileData.posts.sort((a, b) => {
@@ -66,21 +66,18 @@ async function loadPageData() {
                     return new Date(b.created_at) - new Date(a.created_at);
                 });
             }
-
             const { count: followerCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('following_id', profileData.id);
             const { count: followingCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('follower_id', profileData.id);
             const { data: isFollowingData } = await supabaseClient.from('followers').select('id').eq('follower_id', loggedInUserProfile?.id).eq('following_id', profileData.id);
-            
+           
             profileData.followerCount = followerCount;
             profileData.followingCount = followingCount;
             profileData.isFollowedByCurrentUser = isFollowingData && isFollowingData.length > 0;
-
             if (isInitialLoad) {
                 supabaseClient.rpc('increment_view_count', { wallet_address_to_increment: addressToLoad })
                     .then(({ error }) => { if (error) console.error('Error incrementing view count:', error); });
                 isInitialLoad = false;
             }
-
             viewedUserProfile = profileData;
             renderProfileView();
         } else {
@@ -95,51 +92,23 @@ async function loadPageData() {
 // =================================================================================
 // --- VIEW RENDERING FUNCTIONS (Profile-Specific) ---
 // =================================================================================
-
 function renderProfileView() {
     const isOwner = loggedInUserProfile && (loggedInUserProfile.wallet_address === viewedUserProfile.wallet_address);
     const profileContent = document.getElementById('profile-content');
-
     let followButtonHtml = '';
     if (loggedInUserProfile && !isOwner) {
         const buttonText = viewedUserProfile.isFollowedByCurrentUser ? 'Unfollow' : 'Follow';
         const buttonClass = viewedUserProfile.isFollowedByCurrentUser ? 'follow-btn unfollow' : 'follow-btn';
         followButtonHtml = `<button class="${buttonClass}" onclick="handleFollow()">${buttonText}</button>`;
     }
-    const statsHtml = `<div class="profile-stats"><div class="stat-item"><strong>${viewedUserProfile.followingCount || 0}</strong> Following</div><div class="stat-item"><strong>${viewedUserProfile.followerCount || 0}</strong> Followers</div></div>`;
+    const statsHtml = renderStats();
     const lastSeenHtml = viewedUserProfile.last_seen ? `<p style="color: #888; font-size: 0.9rem; margin-top: -10px; margin-bottom: 20px;">Last seen: ${new Date(viewedUserProfile.last_seen).toLocaleString()}</p>` : '';
-
-    let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
-    if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
-        postsHtml = viewedUserProfile.posts.map(post => {
-            const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
-            const commentTree = buildCommentTree(post.comments);
-            const commentsHtml = renderCommentsHtml(commentTree, post.id, isOwner, loggedInUserProfile);
-            const postDate = new Date(post.created_at).toLocaleString();
-            const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
-            const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
-            const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
-            const voteTotal = post.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
-            const userVote = loggedInUserProfile ? post.post_votes.find(v => v.user_id === loggedInUserProfile.id) : null;
-            const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
-            const downvoteClass = userVote && userVote.vote_type === -1 ? 'down active' : 'down';
-            const voteHtml = loggedInUserProfile ? `<div class="vote-container"><button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">👍</button><span class="vote-count">${voteTotal}</span><button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button></div>` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
-            const processedContent = parseUserTags(parseFormatting(post.content));
-            return `<div class="post-item"><div class="post-header">${postAuthorPfp}<div class="post-author-info"><a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a><small class="post-timestamp">${postDate}${updatedDateHtml}</small></div><div class="post-actions">${postAdminButtons}</div></div><div class="post-body"><h4 class="post-title">${escapeHTML(post.title)}</h4><p class="post-content">${processedContent}</p>${voteHtml}</div><div class="comments-section">${commentsHtml}</div>${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}</div>`;
-        }).join('');
-    }
-
+    const postsHtml = renderPostsList();
     // --- THIS IS THE CORRECTED LOGIC FOR THE BIO ---
     const bioText = viewedUserProfile.bio ? parseUserTags(parseFormatting(viewedUserProfile.bio)) : '<i>User has not written a bio yet.</i>';
-    
+   
     const pfpHtml = `<div class="pfp-container">${viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`}</div>`;
-    let socialsHtml = '';
-    if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
-    if (viewedUserProfile.telegram_handle) { socialsHtml += `<a href="https://t.me/${viewedUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram"></a>`; }
-    if (viewedUserProfile.discord_handle) { socialsHtml += `<a href="#" onclick="alert('Discord: ${viewedUserProfile.discord_handle}'); return false;" title="Discord" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750977177/Discord_fa0sy9.png" alt="Discord"></a>`; }
-    if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
-    if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
-    
+    let socialsHtml = renderSocials();
     profileContent.innerHTML = `
         ${pfpHtml}
         <span style="position: absolute; top: 30px; left: 30px; color: #ccc; font-size: 0.9rem;">👁️ ${viewedUserProfile.view_count || 0}</span>
@@ -148,15 +117,7 @@ function renderProfileView() {
         ${statsHtml}
         ${lastSeenHtml}
         ${followButtonHtml}
-        ${viewedUserProfile.profile_song_url ? `
-          <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
-            <button id="profile-audio-play-pause" onclick="toggleProfileAudio()" style="background: #ff5555; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; flex-shrink: 0;">▶️</button>
-            <div id="profile-song-title-container">
-              <span id="profile-song-title" style="font-size: 0.9rem;">Loading song...</span>
-            </div>
-          </div>
-          <div id="youtube-player-container" style="display: none;"></div>
-        ` : ''}
+        ${viewedUserProfile.profile_song_url ? renderSongPlayer() : ''}
         <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;">${socialsHtml}</div>
         <div style="margin-top: 20px; border-top: 1px solid #444; padding: 20px 0;">
             <p style="text-align: left; color: #ccc;"><strong>Bio:</strong></p>
@@ -177,17 +138,64 @@ function renderProfileView() {
             </div>
             <div id="posts-list">${postsHtml}</div>
         </div>`;
-
     if (isOwner) {
         document.getElementById('edit-profile-btn').addEventListener('click', renderEditView);
         document.getElementById('create-post-btn').addEventListener('click', renderCreatePostView);
     }
-
     if (viewedUserProfile.profile_song_url) {
         setTimeout(() => {
             initYouTubePlayer(viewedUserProfile.profile_song_url);
         }, 0);
     }
+}
+
+function renderStats() {
+    return `<div class="profile-stats"><div class="stat-item"><strong>${viewedUserProfile.followingCount || 0}</strong> Following</div><div class="stat-item"><strong>${viewedUserProfile.followerCount || 0}</strong> Followers</div></div>`;
+}
+
+function renderSocials() {
+    let socialsHtml = '';
+    if (viewedUserProfile.twitter_handle) { socialsHtml += `<a href="https://x.com/${viewedUserProfile.twitter_handle}" target="_blank" rel="noopener noreferrer" title="X / Twitter" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723033/X_olwxar.png" alt="X"></a>`; }
+    if (viewedUserProfile.telegram_handle) { socialsHtml += `<a href="https://t.me/${viewedUserProfile.telegram_handle}" target="_blank" rel="noopener noreferrer" title="Telegram" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Telegram_mvvdgw.png" alt="Telegram"></a>`; }
+    if (viewedUserProfile.discord_handle) { socialsHtml += `<a href="#" onclick="alert('Discord: ${viewedUserProfile.discord_handle}'); return false;" title="Discord" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750977177/Discord_fa0sy9.png" alt="Discord"></a>`; }
+    if (viewedUserProfile.youtube_url) { socialsHtml += `<a href="${viewedUserProfile.youtube_url}" target="_blank" rel="noopener noreferrer" title="YouTube" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747358/YouTube_PNG_jt7lcg.png" alt="YouTube"></a>`; }
+    if (viewedUserProfile.magiceden_url) { socialsHtml += `<a href="${viewedUserProfile.magiceden_url}" target="_blank" rel="noopener noreferrer" title="Magic Eden" class="social-icon-link"><img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762140417/Magic_Eden_gl926b.png" alt="Magic Eden"></a>`; }
+    return socialsHtml;
+}
+
+function renderSongPlayer() {
+    return `
+          <div id="profile-audio-player" style="margin-top: 15px; background: #2a2a2a; border-radius: 5px; padding: 8px 12px; display: flex; align-items: center; gap: 10px; max-width: 350px; margin-left: auto; margin-right: auto;">
+            <button id="profile-audio-play-pause" onclick="toggleProfileAudio()" style="background: #ff5555; color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 1rem; cursor: pointer; flex-shrink: 0;">▶️</button>
+            <div id="profile-song-title-container">
+              <span id="profile-song-title" style="font-size: 0.9rem;">Loading song...</span>
+            </div>
+          </div>
+          <div id="youtube-player-container" style="display: none;"></div>
+    `;
+}
+
+function renderPostsList() {
+    let postsHtml = '<p style="color: #888;"><i>No posts yet.</i></p>';
+    if (viewedUserProfile.posts && viewedUserProfile.posts.length > 0) {
+        postsHtml = viewedUserProfile.posts.map(post => {
+            const postAuthorPfp = viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="${viewedUserProfile.username}" class="post-author-pfp">` : `<div class="post-author-pfp-placeholder"></div>`;
+            const commentTree = buildCommentTree(post.comments);
+            const commentsHtml = renderCommentsHtml(commentTree, post.id, isOwner, loggedInUserProfile);
+            const postDate = new Date(post.created_at).toLocaleString();
+            const updatedDateHtml = post.updated_at ? `<span style="color: #aaa; font-style: italic;">&nbsp;• Edited: ${new Date(post.updated_at).toLocaleString()}</span>` : '';
+            const pinButtonText = post.is_pinned ? 'Unpin' : 'Pin';
+            const postAdminButtons = isOwner ? `<button onclick="togglePinPost(${post.id}, ${post.is_pinned})" class="post-action-btn">${pinButtonText}</button><button onclick='renderEditPostView(${post.id}, "${encodeURIComponent(post.title)}", "${encodeURIComponent(post.content)}")' class="post-action-btn">Edit</button><button onclick="deletePost(${post.id})" class="post-action-btn delete">Delete</button>` : '';
+            const voteTotal = post.post_votes.reduce((acc, vote) => acc + vote.vote_type, 0);
+            const userVote = loggedInUserProfile ? post.post_votes.find(v => v.user_id === loggedInUserProfile.id) : null;
+            const upvoteClass = userVote && userVote.vote_type === 1 ? 'up active' : 'up';
+            const downvoteClass = userVote && userVote.vote_type === -1 ? 'down active' : 'down';
+            const voteHtml = loggedInUserProfile ? `<div class="vote-container"><button onclick="handleVote(${post.id}, 1)" class="vote-btn ${upvoteClass}" aria-label="Upvote">👍</button><span class="vote-count">${voteTotal}</span><button onclick="handleVote(${post.id}, -1)" class="vote-btn ${downvoteClass}" aria-label="Downvote">👎</button></div>` : `<div class="vote-container"><span class="vote-count">${voteTotal} points</span></div>`;
+            const processedContent = parseUserTags(parseFormatting(post.content));
+            return `<div class="post-item"><div class="post-header">${postAuthorPfp}<div class="post-author-info"><a href="profile.html?user=${viewedUserProfile.wallet_address}" class="post-author-name footer-link">${viewedUserProfile.username}</a><small class="post-timestamp">${postDate}${updatedDateHtml}</small></div><div class="post-actions">${postAdminButtons}</div></div><div class="post-body"><h4 class="post-title">${escapeHTML(post.title)}</h4><p class="post-content">${processedContent}</p>${voteHtml}</div><div class="comments-section">${commentsHtml}</div>${loggedInUserProfile ? `<div class="add-comment-form" style="display: flex; gap: 10px; margin-top: 15px;"><input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="width: 100%; background: #222; color: #eee; border: 1px solid #444; border-radius: 5px; padding: 8px;"><button onclick="submitComment(${post.id})" class="cta-button" style="font-size: 0.8rem; padding: 8px 12px; margin: 0;">Submit</button></div>` : ''}</div>`;
+        }).join('');
+    }
+    return postsHtml;
 }
 
 function renderEditView() {
@@ -214,7 +222,6 @@ function renderEditPostView(postId, currentTitle, currentContent) {
 // =================================================================================
 // --- SUPABASE DATA MODIFICATION FUNCTIONS (Profile-Specific) ---
 // =================================================================================
-
 async function saveProfileChanges() {
     const saveButton = document.getElementById('save-profile-btn');
     saveButton.disabled = true;
@@ -333,15 +340,14 @@ async function handleFollow() {
 function handleSortChange(newOrder) {
     currentSortOrder = newOrder;
     isInitialLoad = false;
+    loadPageData = debounce(loadPageData, 300); // Debounce reloads
     loadPageData();
 }
 
 // =================================================================================
 // --- YOUTUBE PLAYER LOGIC (Profile-Specific) ---
 // =================================================================================
-
 function onYouTubeIframeAPIReady() {}
-
 async function initYouTubePlayer(youtubeUrl) {
     setTimeout(async () => {
         const titleElement = document.getElementById('profile-song-title');
@@ -349,14 +355,13 @@ async function initYouTubePlayer(youtubeUrl) {
         try {
             const response = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`);
             const data = await response.json();
-            if (data && data.title) { titleElement.textContent = data.title; } 
+            if (data && data.title) { titleElement.textContent = data.title; }
             else { console.warn("oEmbed fetch did not return a title."); }
         } catch (fetchError) {
             console.error("Could not fetch YouTube title via oEmbed.", fetchError);
             if (titleElement) titleElement.textContent = "Error Loading Title";
         }
     }, 100);
-
     try {
         const url = new URL(youtubeUrl);
         const videoId = url.searchParams.get("v");
@@ -406,17 +411,16 @@ function toggleProfileAudio() {
 }
 
 // --- Mobile Menu Toggle Functions ---
-    window.toggleMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        const isOpen = menu.style.display === "block";
-        menu.style.display = isOpen ? "none" : "block";
-        hamburger.classList.toggle("active", !isOpen);
-    }
-
-    window.closeMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        menu.style.display = "none";
-        hamburger.classList.remove("active");
-    }
+window.toggleMenu = function() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const isOpen = menu.style.display === "block";
+    menu.style.display = isOpen ? "none" : "block";
+    hamburger.classList.toggle("active", !isOpen);
+}
+window.closeMenu = function() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    menu.style.display = "none";
+    hamburger.classList.remove("active");
+}
