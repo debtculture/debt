@@ -351,3 +351,15 @@
 .card-level {
     color: #fff !important; /* Keep white */
 }
+
+.badge-glossary-content {
+    background: rgba(26, 26, 26, 0.9); /* Higher opacity to reduce matrix bleed */
+    border: 1px solid #ff5555; /* Optional red border for definition */
+}
+
+.badge-single::before {
+    background-color: transparent !important; /* Ensure icon background doesn't override */
+}
+.badge-single {
+    opacity: 1 !important; /* Force full opacity if transparent */
+}
