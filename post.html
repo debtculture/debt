@@ -9,23 +9,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/shared-styles.css">
-    <link rel="stylesheet" href="assets/css/profile.css"> <link rel="stylesheet" href="assets/css/post.css">
+    <link rel="stylesheet" href="assets/css/profile.css"> 
+    <link rel="stylesheet" href="assets/css/post.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+    <!-- Matrix Background Canvases -->
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain"></canvas>
 
+    <!-- Back Navigation -->
     <nav class="back-home-container">
         <a href="forums.html" class="back-home" aria-label="Back to Forums">⇠ Forums</a>
     </nav>
 
-    <main class="content-wrapper">
-        <div id="post-container">
+    <!-- Main Content -->
+    <main class="content-wrapper" role="main">
+        <div id="post-container" aria-live="polite">
             <p id="loading-message">Loading post...</p>
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
     </footer>
