@@ -1,14 +1,23 @@
-// This script contains logic specific to the community page.
+// =================================================================================
+// --- INITIALIZATION ---
+// =================================================================================
+let currentCommunityIndex = 0;
+const totalNamedCommunityMembers = members.length; // From community-data.js
+let communityAutoRotateInterval;
+let allData = [];
+
+// =================================================================================
+// --- MAIN LOGIC ---
+// =================================================================================
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize Hall of Fame Carousel
+    renderHofRows();
     updateCommunityCarousel();
     resetCommunityAutoRotate();
-
     // Initialize Leaderboard
     setupTabListeners();
     await fetchLeaderboardData();
     updateLeaderboard('monthly'); // Load monthly data by default
-
     // Add click listeners to all HOF member bubbles
     document.querySelectorAll('.hof-member').forEach(memberEl => {
         memberEl.addEventListener('click', () => {
@@ -22,9 +31,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
+// Utility to debounce functions (e.g., for tab changes)
+function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => func(...args), delay);
+    };
+}
+
+// =================================================================================
 // --- LEADERBOARD LOGIC ---
+// =================================================================================
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
-let allData = [];
 
 async function fetchLeaderboardData() {
     try {
@@ -34,7 +53,7 @@ async function fetchLeaderboardData() {
             throw new Error("Failed to fetch data. Please ensure your Google Sheet is published to the web as a CSV.");
         }
         const rows = csvText.split('\n').slice(1); // Skip header row
-        
+       
         allData = rows.map(row => {
             const [username, event, points, date] = row.split(',').map(s => s.trim());
             return {
@@ -44,7 +63,7 @@ async function fetchLeaderboardData() {
                 date: new Date(date)
             };
         }).filter(row => row.username && !isNaN(row.points) && row.date instanceof Date && !isNaN(row.date));
-        
+       
         return allData;
     } catch (error) {
         console.error("Error fetching or parsing leaderboard data:", error);
@@ -58,7 +77,6 @@ function calculateScores(data) {
         acc[record.username] = (acc[record.username] || 0) + record.points;
         return acc;
     }, {});
-
     return Object.entries(scores)
         .map(([username, points]) => ({ username, points }))
         .sort((a, b) => b.points - a.points);
@@ -67,32 +85,27 @@ function calculateScores(data) {
 function renderLeaderboard(scores) {
     const tbody = document.getElementById('leaderboard-body');
     const loadingEl = document.getElementById('leaderboard-loading');
-    
+   
     tbody.innerHTML = ''; // Clear existing rows
-
     if (scores.length === 0) {
         loadingEl.textContent = 'No data available for this period. The rebellion is just beginning.';
         loadingEl.style.display = 'block';
         return;
     }
-
     loadingEl.style.display = 'none';
-
     scores.forEach((score, index) => {
         const rank = index + 1;
         const row = document.createElement('tr');
-        
+       
         let rankClass = '';
         if (rank === 1) rankClass = 'rank-1';
         else if (rank === 2) rankClass = 'rank-2';
         else if (rank === 3) rankClass = 'rank-3';
         if(rankClass) row.classList.add(rankClass);
-
         let rankContent = rank;
         if (rank === 1) rankContent = '🥇 ' + rank;
         else if (rank === 2) rankContent = '🥈 ' + rank;
         else if (rank === 3) rankContent = '🥉 ' + rank;
-
         row.innerHTML = `
             <td class="rank-cell">${rankContent}</td>
             <td class="user-cell">${score.username}</td>
@@ -106,11 +119,9 @@ async function updateLeaderboard(period) {
     document.getElementById('leaderboard-loading').textContent = 'Calculating...';
     document.getElementById('leaderboard-loading').style.display = 'block';
     document.getElementById('leaderboard-body').innerHTML = '';
-
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
-
     let filteredData = [];
     if (period === 'monthly') {
         filteredData = allData.filter(d => d.date.getFullYear() === currentYear && d.date.getMonth() === currentMonth);
@@ -119,7 +130,7 @@ async function updateLeaderboard(period) {
     } else { // 'all-time'
         filteredData = allData;
     }
-    
+   
     const scores = calculateScores(filteredData);
     renderLeaderboard(scores);
 }
@@ -127,23 +138,64 @@ async function updateLeaderboard(period) {
 function setupTabListeners() {
     const tabs = document.querySelectorAll('.leaderboard-tab-btn');
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', debounce(() => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             updateLeaderboard(tab.dataset.period);
-        });
+        }, 300));
     });
 }
 
+// =================================================================================
 // --- HALL OF FAME LOGIC ---
-let currentCommunityIndex = 0;
-const totalNamedCommunityMembers = 36;
-let communityAutoRotateInterval;
+// =================================================================================
+function renderHofRows() {
+    const desktopWrapper = document.getElementById('hof-rows-desktop');
+    const mobileWrapper = document.getElementById('hof-rows-mobile');
+    desktopWrapper.innerHTML = '';
+    mobileWrapper.innerHTML = '';
+    // Render desktop rows (6 per row)
+    for (let i = 0; i < members.length; i += 6) {
+        const rowMembers = members.slice(i, i + 6);
+        const rowHtml = rowMembers.map((member, index) => `
+            <div class="hof-member" data-index="${i + index}" data-x-link="${member.xLink}">
+                <div class="hof-bubble">
+                    <div class="hof-inner-bubble">
+                        <img src="${member.img}" alt="${member.name} profile picture" width="100" height="100" loading="lazy">
+                    </div>
+                </div>
+                <div class="hof-title">${member.name}</div>
+            </div>
+        `).join('');
+        const rowEl = document.createElement('div');
+        rowEl.className = 'hof-row-desktop';
+        rowEl.innerHTML = rowHtml;
+        desktopWrapper.appendChild(rowEl);
+    }
+    // Render mobile rows (4 per row)
+    for (let i = 0; i < members.length; i += 4) {
+        const rowMembers = members.slice(i, i + 4);
+        const rowHtml = rowMembers.map((member, index) => `
+            <div class="hof-member" data-index="${i + index}" data-x-link="${member.xLink}">
+                <div class="hof-bubble">
+                    <div class="hof-inner-bubble">
+                        <img src="${member.img}" alt="${member.name} profile picture" width="100" height="100" loading="lazy">
+                    </div>
+                </div>
+                <div class="hof-title">${member.name}</div>
+            </div>
+        `).join('');
+        const rowEl = document.createElement('div');
+        rowEl.className = 'hof-row-mobile';
+        rowEl.innerHTML = rowHtml;
+        mobileWrapper.appendChild(rowEl);
+    }
+}
 
 function updateCommunityCarousel() {
     const featuredCard = document.querySelector('#hof-featured .trading-card');
     const memberData = members[currentCommunityIndex];
-    
+   
     // --- THIS IS THE MODIFIED LINE ---
     // It now links to the profile page using the member's wallet address.
     const pfpLink = featuredCard.querySelector('.pfp-link');
@@ -152,12 +204,11 @@ function updateCommunityCarousel() {
     } else {
         pfpLink.href = memberData.xLink; // Fallback to X profile if no wallet is set
     }
-    
+   
     featuredCard.querySelector('.card-pfp-square img').src = memberData.img;
     featuredCard.querySelector('.card-pfp-square img').alt = `${memberData.name} profile picture`;
     featuredCard.querySelector('.hof-name').textContent = memberData.name;
     featuredCard.querySelector('.ability-content').textContent = memberData.holderSince;
-
     const badgesContainer = featuredCard.querySelector('.hof-badges');
     badgesContainer.innerHTML = '';
     if (memberData.badges && memberData.badges.length > 0) {
@@ -167,7 +218,6 @@ function updateCommunityCarousel() {
             badgesContainer.appendChild(badgeEl);
         });
     }
-
     document.querySelectorAll('.hof-member .hof-bubble').forEach(bubble => {
         bubble.classList.remove('active-member');
     });
@@ -176,7 +226,7 @@ function updateCommunityCarousel() {
 }
 
 function rotateHof(direction) {
-    if (direction === 'right') { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; } 
+    if (direction === 'right') { currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; }
     else { currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers; }
     updateCommunityCarousel();
     resetCommunityAutoRotate();
@@ -184,9 +234,9 @@ function rotateHof(direction) {
 
 function resetCommunityAutoRotate() {
     clearInterval(communityAutoRotateInterval);
-    communityAutoRotateInterval = setInterval(() => { 
-        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers; 
-        updateCommunityCarousel(); 
+    communityAutoRotateInterval = setInterval(() => {
+        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
+        updateCommunityCarousel();
     }, 10000);
 }
 
@@ -196,12 +246,12 @@ function toggleLeaderboardGlossary() {
     const isActive = content.classList.toggle('active');
     header.classList.toggle('active', isActive);
     header.setAttribute('aria-expanded', isActive);
-    if (isActive) { 
-        content.style.maxHeight = content.scrollHeight + 50 + 'px'; 
-        content.style.padding = '25px'; 
-    } else { 
-        content.style.maxHeight = '0'; 
-        content.style.padding = '0 25px'; 
+    if (isActive) {
+        content.style.maxHeight = content.scrollHeight + 50 + 'px';
+        content.style.padding = '25px';
+    } else {
+        content.style.maxHeight = '0';
+        content.style.padding = '0 25px';
     }
 }
 
@@ -211,27 +261,26 @@ function toggleBadgeGlossary() {
     const isActive = content.classList.toggle('active');
     header.classList.toggle('active', isActive);
     header.setAttribute('aria-expanded', isActive);
-    if (isActive) { 
-        content.style.maxHeight = content.scrollHeight + 30 + 'px'; 
-        content.style.padding = '15px'; 
-    } else { 
-        content.style.maxHeight = '0'; 
-        content.style.padding = '0 15px'; 
+    if (isActive) {
+        content.style.maxHeight = content.scrollHeight + 30 + 'px';
+        content.style.padding = '15px';
+    } else {
+        content.style.maxHeight = '0';
+        content.style.padding = '0 15px';
     }
 }
 
 // --- Mobile Menu Toggle Functions ---
-    window.toggleMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        const isOpen = menu.style.display === "block";
-        menu.style.display = isOpen ? "none" : "block";
-        hamburger.classList.toggle("active", !isOpen);
-    }
-
-    window.closeMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        menu.style.display = "none";
-        hamburger.classList.remove("active");
-    }
+window.toggleMenu = function() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const isOpen = menu.style.display === "block";
+    menu.style.display = isOpen ? "none" : "block";
+    hamburger.classList.toggle("active", !isOpen);
+}
+window.closeMenu = function() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    menu.style.display = "none";
+    hamburger.classList.remove("active");
+}
