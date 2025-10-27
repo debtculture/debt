@@ -137,7 +137,7 @@ function setupTabListeners() {
 
 // --- HALL OF FAME LOGIC ---
 let currentCommunityIndex = 0;
-const totalNamedCommunityMembers = 36;
+const totalNamedCommunityMembers = 48;
 let communityAutoRotateInterval;
 
 function updateCommunityCarousel() {
