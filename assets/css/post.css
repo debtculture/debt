@@ -4,7 +4,6 @@
     margin: 0 auto;
     padding: 20px 20px 0 20px; /* Spacing for the button */
 }
-
 .back-home {
     background-color: var(--main-red);
     color: #fff;
@@ -16,7 +15,6 @@
     display: inline-block;
     transition: background-color 0.3s ease;
 }
-
 .back-home:hover {
     background-color: var(--hover-red);
 }
@@ -44,4 +42,17 @@
     background: none;
     box-shadow: none;
     padding: 0;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 10px;
+    }
+    #post-container {
+        padding: 20px;
+    }
+    .add-comment-form input {
+        font-size: 0.9rem; /* Smaller for mobile */
+    }
 }
