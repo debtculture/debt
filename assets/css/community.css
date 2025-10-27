@@ -337,3 +337,17 @@
         justify-content: center;
     }
 }
+
+.leaderboard-table thead th {
+    background-color: #111; /* Solid dark background to prevent overlap */
+    z-index: 2; /* Already there, but ensures on top */
+}
+
+.hof-name,
+.ability-title,
+.ability-content {
+    color: #000 !important; /* Black for better contrast on yellow */
+}
+.card-level {
+    color: #fff !important; /* Keep white */
+}
