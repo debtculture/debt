@@ -3,11 +3,9 @@
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
     text-shadow: none;
     animation: none;
 }
-
 /* --- Page-Specific Content Wrapper & Section --- */
 .content-wrapper {
     max-width: 900px;
@@ -16,7 +14,6 @@
     position: relative;
     z-index: 1;
 }
-
 /* --- Page-Specific Header & Title --- */
 header {
     text-align: center;
@@ -28,7 +25,6 @@ header {
     text-shadow: 0 0 5px #ff5555;
     margin-top: 10px;
 }
-
 /* --- Page-Specific Section Styling --- */
 .paper-section {
     background: rgba(26, 26, 26, 0.7);
@@ -82,7 +78,6 @@ header {
     grid-template-columns: 1fr 1fr;
     gap: 25px;
 }
-
 /* --- Extracted Inline Styles (from HTML) --- */
 .section-title {
     color: #ff7777;
@@ -106,21 +101,18 @@ header {
 .section-ul li {
     margin-bottom: 8px;
 }
-
 /* --- Remove margin from last element in sections --- */
 .paper-section > *:last-child {
     margin-bottom: 0;
 }
-
 /* --- Page-Specific Responsive --- */
 @media (max-width: 768px) {
     .content-wrapper { padding: 80px 15px 60px 15px; }
-    h1 { font-size: 2.2rem; } /* Overrides shared h1 size for mobile */
+    h1 { font-size: 2rem; }
     .paper-section h2 { font-size: 1.5rem; }
     .paper-section p, .paper-section li { font-size: 1rem; }
     .two-column { grid-template-columns: 1fr; }
 }
-
 /* --- V2 Glitch Effect & Animations --- */
 .glitch {
     position: relative;
@@ -191,66 +183,11 @@ header {
     95% { clip: rect(75px, 9999px, 145px, 0); }
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
-
-/* --- MOBILE NAVIGATION STYLES --- */
-/* The 'Buy $DEBT' button for mobile */
-.buy-btn-mobile {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1100;
-    background-color: var(--main-red);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-.buy-btn-mobile:hover {
-    background-color: var(--hover-red);
-}
-
-/* The hamburger icon */
+/* --- Mobile Navigation: Base Styles (Hidden on Desktop) --- */
+.buy-btn-mobile,
 .hamburger {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 22px;
-    cursor: pointer;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    padding: 5px;
-    background-color: rgba(13, 13, 13, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    display: none;
 }
-.hamburger div {
-    width: 20px;
-    height: 2px;
-    background-color: #eee;
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-
-/* Hamburger animation when active */
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active div:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(4px, -4px);
-}
-
-/* The slide-out menu panel */
 .mobile-menu {
     display: none;
     position: fixed;
@@ -278,22 +215,66 @@ header {
     color: var(--main-red);
     background-color: rgba(255, 255, 255, 0.05);
 }
-
-/* Media query to activate the mobile navigation */
+/* --- Mobile Navigation: Show on Mobile --- */
 @media (max-width: 768px) {
-    .hamburger,
-    .buy-btn-mobile {
-        display: flex; /* Show the hamburger and mobile buy button */
+    .buy-btn-mobile,
+    .hamburger {
+        display: flex;
         align-items: center;
     }
-    /* This keeps the logo centered between the two fixed buttons */
+    .buy-btn-mobile {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1100;
+        background-color: var(--main-red);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+    }
+    .buy-btn-mobile:hover {
+        background-color: var(--hover-red);
+    }
+    .hamburger {
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1100;
+        padding: 5px;
+        background-color: rgba(13, 13, 13, 0.8);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+    }
+    .hamburger div {
+        width: 20px;
+        height: 2px;
+        background-color: #eee;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+    .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+    }
     .navbar {
         justify-content: center;
     }
-}
-
-/* --- Responsive Styles --- */
-@media (max-width: 768px) {
+    /* --- Responsive Styles --- */
     .content-wrapper {
         padding: 60px 10px;
     }
