@@ -17,15 +17,12 @@
 <body>
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain"></canvas>
-
     <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
         <div></div>
         <div></div>
         <div></div>
     </div>
-
     <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
-
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" onclick="closeMenu()">Home</a>
         <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
@@ -34,7 +31,6 @@
         <a href="forums.html" onclick="closeMenu()">Forums</a>
         <a href="profile.html" id="profile-nav-link-mobile" style="display: none;" onclick="closeMenu()">Profile</a>
     </div>
-
     <header class="main-header">
         <nav class="navbar">
             <a href="index.html" class="nav-logo">
@@ -52,11 +48,12 @@
             </div>
         </nav>
     </header>
-
     <main class="content-wrapper">
         <header class="section">
+            <!-- Merch Header -->
             <h1 class="glitch" data-text="MERCHANDISE">MERCHANDISE</h1>
             <p class="merch-tagline">Wear the rebellion.</p>
+            <!-- Merch Items -->
             <div class="merch-container">
                 <div class="merch-item">
                     <div class="merch-carousel">
@@ -69,7 +66,7 @@
                     <h3>Trucker Hat</h3>
                     <p>$19.99</p>
                     <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
-                    <button disabled>Coming Soon</button>
+                    <button disabled aria-disabled="true">Coming Soon</button>
                 </div>
                 <div class="merch-item">
                     <div class="merch-carousel">
@@ -82,7 +79,7 @@
                     <h3>Candle</h3>
                     <p>$17.99</p>
                     <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
-                    <button disabled>Coming Soon</button>
+                    <button disabled aria-disabled="true">Coming Soon</button>
                 </div>
                 <div class="merch-item">
                     <div class="merch-carousel">
@@ -95,25 +92,22 @@
                     <h3>Coffee Mug</h3>
                     <p>$13.99</p>
                     <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
-                    <button disabled>Coming Soon</button>
+                    <button disabled aria-disabled="true">Coming Soon</button>
                 </div>
             </div>
+            <!-- Submission Blurb -->
             <div class="merch-blurb">
                 <div class="merch-blurb-title">Are you creative?</div>
-                <div class="merch-blurb-body">
-                    Got a $DEBT-inspired merch idea? If it’s approved by the Council, we’ll feature it in the store with credit and commissions.
-                </div>
+                <div class="merch-blurb-body">Got a $DEBT-inspired merch idea? If it’s approved by the Council, we’ll feature it in the store with credit and commissions. Profits fuel the rebellion via $DEBT buybacks.</div>
                 <div class="submit-btn-container">
                     <a href="https://forms.gle/wyr7Ub3dHJuqSs3SA" target="_blank" class="merch-submit-btn">Submit Designs</a>
                 </div>
             </div>
         </header>
     </main>
-
     <footer class="footer">
         © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
     </footer>
-
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/merch.js"></script>
 </body>
