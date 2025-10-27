@@ -1,8 +1,8 @@
 /* --- Back Button Styling --- */
 .back-home-container {
-    max-width: 800px; /* Match content-wrapper width */
+    max-width: 800px;
     margin: 0 auto;
-    padding: 20px 20px 0 20px; /* Spacing for the button */
+    padding: 20px 20px 0 20px;
 }
 .back-home {
     background-color: var(--main-red);
@@ -18,14 +18,12 @@
 .back-home:hover {
     background-color: var(--hover-red);
 }
-
 /* --- Main Page Layout --- */
 .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px; /* Adjusted padding */
+    padding: 20px;
 }
-
 /* --- Post Container Styling --- */
 #post-container {
     background: rgba(26, 26, 26, 0.7);
@@ -35,7 +33,6 @@
     backdrop-filter: blur(4px);
     box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
 }
-
 /* --- This rule prevents a "box-within-a-box" look --- */
 #post-container .post-item {
     border: none;
@@ -43,7 +40,6 @@
     box-shadow: none;
     padding: 0;
 }
-
 /* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
     .content-wrapper {
@@ -53,6 +49,6 @@
         padding: 20px;
     }
     .add-comment-form input {
-        font-size: 0.9rem; /* Smaller for mobile */
+        font-size: 0.9rem;
     }
 }
