@@ -9,8 +9,7 @@ let loggedInUserProfile = null;
 let isInitialLoad = true;
 let currentSortOrder = 'newest';
 let profileYouTubePlayer;
-let allUsersCache = []; // This will be populated by the shared helper script
-// Utility to debounce functions (e.g., for sort changes)
+let allUsersCache = [];
 function debounce(func, delay) {
     let timer;
     return (...args) => {
@@ -22,7 +21,7 @@ function debounce(func, delay) {
 // --- MAIN LOGIC & DATA LOADING ---
 // =================================================================================
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAllUsers(); // This function now lives in social-helpers.js
+    fetchAllUsers();
     loadPageData();
 });
 async function loadPageData() {
@@ -53,7 +52,7 @@ async function loadPageData() {
             .order('created_at', { foreignTable: 'posts.comments', ascending: true })
             .single();
         if (profileError && profileError.code !== 'PGRST116') throw profileError;
-      
+     
         if (profileData) {
             if (currentSortOrder === 'top' && profileData.posts) {
                 profileData.posts.sort((a, b) => {
@@ -66,7 +65,7 @@ async function loadPageData() {
             const { count: followerCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('following_id', profileData.id);
             const { count: followingCount } = await supabaseClient.from('followers').select('*', { count: 'exact', head: true }).eq('follower_id', profileData.id);
             const { data: isFollowingData } = await supabaseClient.from('followers').select('id').eq('follower_id', loggedInUserProfile?.id).eq('following_id', profileData.id);
-          
+         
             profileData.followerCount = followerCount;
             profileData.followingCount = followingCount;
             profileData.isFollowedByCurrentUser = isFollowingData && isFollowingData.length > 0;
@@ -100,9 +99,8 @@ function renderProfileView() {
     const statsHtml = renderStats();
     const lastSeenHtml = viewedUserProfile.last_seen ? `<p style="color: #888; font-size: 0.9rem; margin-top: -10px; margin-bottom: 20px;">Last seen: ${new Date(viewedUserProfile.last_seen).toLocaleString()}</p>` : '';
     const postsHtml = renderPostsList(isOwner);
-    // --- THIS IS THE CORRECTED LOGIC FOR THE BIO ---
     const bioText = viewedUserProfile.bio ? parseUserTags(parseFormatting(viewedUserProfile.bio)) : '<i>User has not written a bio yet.</i>';
-  
+ 
     const pfpHtml = `<div class="pfp-container">${viewedUserProfile.pfp_url ? `<img src="${viewedUserProfile.pfp_url}" alt="User Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #ff5555;">` : `<div style="width: 150px; height: 150px; border-radius: 50%; background: #333; border: 3px solid #ff5555; display: flex; align-items: center; justify-content: center; color: #777; font-size: 0.9rem; text-align: center;">No Profile<br>Picture</div>`}</div>`;
     let socialsHtml = renderSocials();
     profileContent.innerHTML = `
@@ -322,7 +320,7 @@ async function handleFollow() {
 function handleSortChange(newOrder) {
     currentSortOrder = newOrder;
     isInitialLoad = false;
-    loadPageData = debounce(loadPageData, 300); // Debounce reloads
+    loadPageData = debounce(loadPageData, 300);
     loadPageData();
 }
 // =================================================================================
@@ -404,16 +402,14 @@ window.closeMenu = function() {
 function formatText(tag, textareaId) {
     const textarea = document.getElementById(textareaId);
     if (!textarea) return;
-    
+   
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const selectedText = textarea.value.substring(start, end);
-    
-    // Insert [tag]selected[/tag]
+   
     const replacement = `[${tag}]${selectedText}[/${tag}]`;
     textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
-    
-    // Refocus and reposition cursor inside the tags
+   
     textarea.focus();
     textarea.selectionStart = start + `[${tag}]`.length;
     textarea.selectionEnd = textarea.selectionStart + selectedText.length;
