@@ -1,4 +1,4 @@
-/* --- V2 Glitch Title Style --- */
+ /* --- V2 Glitch Title Style --- */
 .content-wrapper header h1 {
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
@@ -123,6 +123,10 @@
     z-index: 10;
     line-height: 1;
 }
+.carousel-arrow:hover {
+    background: rgba(255, 119, 119, 0.8);
+    transform: scale(1.1);
+}
 .carousel-arrow.left {
     left: 10px;
 }
@@ -148,6 +152,10 @@
     color: #ff9999;
     text-shadow: 0 0 5px #ff5555;
 }
+.submit-btn-container {
+    margin-top: 100px;
+    text-align: center;
+}
 .merch-submit-btn {
     display: inline-block;
     background: #ff5555;
@@ -162,9 +170,6 @@
     font-weight: 700;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: pulseGlow 2s infinite ease-in-out;
-}
-.submit-btn-container {
-    margin-top: 100px;
 }
 .merch-submit-btn:hover {
     background-color: #ff7777;
@@ -215,7 +220,6 @@
 .glitch {
     position: relative;
 }
-
 .glitch::before, .glitch::after {
     content: attr(data-text);
     position: absolute;
@@ -226,19 +230,16 @@
     background: var(--dark-bg);
     overflow: hidden;
 }
-
 .glitch::before {
     left: 2px;
     text-shadow: -2px 0 var(--main-red);
     animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
-
 .glitch::after {
     left: -2px;
     text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
     animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
-
 @keyframes glitch-anim-1 {
     0% { clip: rect(42px, 9999px, 44px, 0); }
     5% { clip: rect(12px, 9999px, 60px, 0); }
@@ -262,7 +263,6 @@
     95% { clip: rect(100px, 9999px, 80px, 0); }
     100% { clip: rect(80px, 9999px, 120px, 0); }
 }
-
 @keyframes glitch-anim-2 {
     0% { clip: rect(85px, 9999px, 90px, 0); }
     5% { clip: rect(35px, 9999px, 95px, 0); }
@@ -288,7 +288,6 @@
 }
 
 /* --- MOBILE NAVIGATION STYLES --- */
-
 /* The 'Buy $DEBT' button for mobile */
 .buy-btn-mobile {
     display: none; /* Hidden by default */
@@ -382,7 +381,6 @@
         display: flex; /* Show the hamburger and mobile buy button */
         align-items: center;
     }
-
     /* This keeps the logo centered between the two fixed buttons */
     .navbar {
         justify-content: center;
