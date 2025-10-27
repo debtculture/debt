@@ -3,11 +3,9 @@
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
     text-shadow: none;
     animation: none;
 }
-
 /* --- Forum Page Layout --- */
 .content-wrapper {
     max-width: 1000px;
@@ -25,7 +23,6 @@
 .forum-header h1 {
     margin-bottom: 20px;
 }
-
 /* --- Post List Styles --- */
 .post-list-container {
     background: rgba(26, 26, 26, 0.7);
@@ -90,7 +87,6 @@
     text-align: center;
     color: #ff9999;
 }
-
 /* --- V2 Glitch Effect & Animations --- */
 .glitch {
     position: relative;
@@ -161,66 +157,11 @@
     95% { clip: rect(75px, 9999px, 145px, 0); }
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
-
-/* --- MOBILE NAVIGATION STYLES --- */
-/* The 'Buy $DEBT' button for mobile */
-.buy-btn-mobile {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1100;
-    background-color: var(--main-red);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-.buy-btn-mobile:hover {
-    background-color: var(--hover-red);
-}
-
-/* The hamburger icon */
+/* --- Mobile Navigation: Base Styles (Hidden on Desktop) --- */
+.buy-btn-mobile,
 .hamburger {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 22px;
-    cursor: pointer;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    padding: 5px;
-    background-color: rgba(13, 13, 13, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    display: none;
 }
-.hamburger div {
-    width: 20px;
-    height: 2px;
-    background-color: #eee;
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-
-/* Hamburger animation when active */
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active div:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(4px, -4px);
-}
-
-/* The slide-out menu panel */
 .mobile-menu {
     display: none;
     position: fixed;
@@ -248,31 +189,72 @@
     color: var(--main-red);
     background-color: rgba(255, 255, 255, 0.05);
 }
-
-/* Media query to activate the mobile navigation */
+/* --- Mobile Navigation: Show on Mobile --- */
 @media (max-width: 768px) {
-    .hamburger,
-    .buy-btn-mobile {
-        display: flex; /* Show the hamburger and mobile buy button */
+    .buy-btn-mobile,
+    .hamburger {
+        display: flex;
         align-items: center;
     }
-    /* This keeps the logo centered between the two fixed buttons */
+    .buy-btn-mobile {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1100;
+        background-color: var(--main-red);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+    }
+    .buy-btn-mobile:hover {
+        background-color: var(--hover-red);
+    }
+    .hamburger {
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1100;
+        padding: 5px;
+        background-color: rgba(13, 13, 13, 0.8);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+    }
+    .hamburger div {
+        width: 20px;
+        height: 2px;
+        background-color: #eee;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+    .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+    }
     .navbar {
         justify-content: center;
     }
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-    .content-wrapper {
-        padding: 60px 10px;
-    }
+    /* --- Responsive Adjustments --- */
     .post-list-header, .post-row {
-        grid-template-columns: 4fr 2fr 1fr; /* Collapse for mobile, hide last activity if needed */
+        grid-template-columns: 4fr 2fr 1fr;
         gap: 10px;
         padding: 10px;
     }
     .post-activity-header, .post-activity {
-        display: none; /* Optional: Hide last activity on mobile to save space */
+        display: none;
     }
 }
