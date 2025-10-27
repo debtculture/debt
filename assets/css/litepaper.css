@@ -8,7 +8,7 @@
     animation: none;
 }
 
-/* --- Page-Specific Content Wrapper --- */
+/* --- Page-Specific Content Wrapper & Section --- */
 .content-wrapper {
     max-width: 900px;
     margin: 0 auto;
@@ -83,6 +83,35 @@ header {
     gap: 25px;
 }
 
+/* --- Extracted Inline Styles (from HTML) --- */
+.section-title {
+    color: #ff7777;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+.section-p {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #ccc;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 25px;
+}
+.section-ul {
+    margin-bottom: 25px;
+    padding-left: 20px;
+}
+.section-ul li {
+    margin-bottom: 8px;
+}
+
+/* --- Remove margin from last element in sections --- */
+.paper-section > *:last-child {
+    margin-bottom: 0;
+}
+
 /* --- Page-Specific Responsive --- */
 @media (max-width: 768px) {
     .content-wrapper { padding: 80px 15px 60px 15px; }
@@ -96,7 +125,6 @@ header {
 .glitch {
     position: relative;
 }
-
 .glitch::before, .glitch::after {
     content: attr(data-text);
     position: absolute;
@@ -107,19 +135,16 @@ header {
     background: var(--dark-bg);
     overflow: hidden;
 }
-
 .glitch::before {
     left: 2px;
     text-shadow: -2px 0 var(--main-red);
     animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
-
 .glitch::after {
     left: -2px;
     text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
     animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
-
 @keyframes glitch-anim-1 {
     0% { clip: rect(42px, 9999px, 44px, 0); }
     5% { clip: rect(12px, 9999px, 60px, 0); }
@@ -143,7 +168,6 @@ header {
     95% { clip: rect(100px, 9999px, 80px, 0); }
     100% { clip: rect(80px, 9999px, 120px, 0); }
 }
-
 @keyframes glitch-anim-2 {
     0% { clip: rect(85px, 9999px, 90px, 0); }
     5% { clip: rect(35px, 9999px, 95px, 0); }
@@ -169,7 +193,6 @@ header {
 }
 
 /* --- MOBILE NAVIGATION STYLES --- */
-
 /* The 'Buy $DEBT' button for mobile */
 .buy-btn-mobile {
     display: none; /* Hidden by default */
@@ -263,30 +286,37 @@ header {
         display: flex; /* Show the hamburger and mobile buy button */
         align-items: center;
     }
-
     /* This keeps the logo centered between the two fixed buttons */
     .navbar {
         justify-content: center;
     }
 }
 
-/* --- COMPACT SPACING FOR ROADMAP & DISCLAIMER --- */
-#roadmap h3, #disclaimer h3 {
-    margin-top: 20px;
-    margin-bottom: 8px;
-    text-align: left;
-}
-
-#roadmap ul, #disclaimer p {
-    margin-bottom: 10px;
-}
-
-#roadmap ul li {
-    margin-bottom: 8px;
-}
-
-/* Remove margin from the very last element in each section */
-#roadmap > *:last-child,
-#disclaimer > *:last-child {
-    margin-bottom: 0;
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 60px 10px;
+    }
+    .posts-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .posts-header .cta-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    .social-icon-link {
+        width: 40px;
+        height: 40px;
+    }
+    .social-icon-link img {
+        width: 25px;
+        height: 25px;
+    }
+    .edit-profile-icon-btn {
+        top: 20px;
+        right: 20px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
 }
