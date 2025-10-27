@@ -22,30 +22,28 @@ async function loadForumPosts() {
                 comments(count)
             `)
             .order('created_at', { ascending: false });
-
         if (error) throw error;
-
         renderPosts(posts);
-
     } catch (error) {
         console.error('Error fetching forum posts:', error);
         document.getElementById('post-list').innerHTML = '<p style="color: #ff5555; padding: 40px; text-align: center;">Error loading posts.</p>';
     }
 }
 
+// =================================================================================
+// --- RENDERING FUNCTIONS ---
+// =================================================================================
 function renderPosts(posts) {
     const postList = document.getElementById('post-list');
     if (posts.length === 0) {
         postList.innerHTML = '<p style="padding: 40px; text-align: center; color: #888;">No posts have been created yet.</p>';
         return;
     }
-
     const postHtml = posts.map(post => {
         const lastActivity = new Date(post.created_at).toLocaleString();
         const replyCount = post.comments[0]?.count || 0;
         const authorUsername = post.author?.username || 'Unknown';
         const authorWallet = post.author?.wallet_address || '#';
-
         return `
             <div class="post-row">
                 <div class="post-title">
@@ -59,7 +57,6 @@ function renderPosts(posts) {
             </div>
         `;
     }).join('');
-
     postList.innerHTML = postHtml;
 }
 
@@ -69,17 +66,16 @@ function escapeHTML(str) {
 }
 
 // --- Mobile Menu Toggle Functions ---
-    window.toggleMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        const isOpen = menu.style.display === "block";
-        menu.style.display = isOpen ? "none" : "block";
-        hamburger.classList.toggle("active", !isOpen);
-    }
-
-    window.closeMenu = function() {
-        const menu = document.getElementById("mobileMenu");
-        const hamburger = document.querySelector(".hamburger");
-        menu.style.display = "none";
-        hamburger.classList.remove("active");
-    }
+window.toggleMenu = function() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    const isOpen = menu.style.display === "block";
+    menu.style.display = isOpen ? "none" : "block";
+    hamburger.classList.toggle("active", !isOpen);
+}
+window.closeMenu = function() {
+    const menu = document.getElementById("mobileMenu");
+    const hamburger = document.querySelector(".hamburger");
+    menu.style.display = "none";
+    hamburger.classList.remove("active");
+}
