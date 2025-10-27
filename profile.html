@@ -11,17 +11,17 @@
     <script defer src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
+    <!-- Matrix Background Canvases -->
     <canvas id="matrix-bg"></canvas>
     <canvas id="matrix-rain"></canvas>
 
+    <!-- Mobile Navigation -->
     <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
         <div></div>
         <div></div>
         <div></div>
     </div>
-
     <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
-
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" onclick="closeMenu()">Home</a>
         <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
@@ -31,6 +31,7 @@
         <a href="merch.html" onclick="closeMenu()">Merch</a>
     </div>
 
+    <!-- Main Header -->
    <header class="main-header">
         <nav class="navbar">
             <a href="index.html" class="nav-logo">
@@ -49,16 +50,17 @@
         </nav>
     </header>
 
-    <main class="content-wrapper">
+    <!-- Main Content -->
+    <main class="content-wrapper" role="main">
         <header>
             <h1 class="glitch" data-text="USER PROFILE">USER PROFILE</h1>
         </header>
-
-        <section id="profile-content">
+        <section id="profile-content" aria-live="polite">
             <p id="loading-message">Loading profile...</p>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
     </footer>
