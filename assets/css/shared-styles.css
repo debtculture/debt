@@ -1,4 +1,4 @@
-/* --- ROOT VARIABLES & GLOBAL STYLES (FROM V2) --- */
+ /* --- ROOT VARIABLES & GLOBAL STYLES (FROM V2) --- */
 :root {
     --dark-bg: #0d0d0d;
     --content-bg: #1a1a1a;
@@ -9,22 +9,18 @@
     --border-color: #333333;
     --font-main: 'Inter', sans-serif;
 }
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 html {
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
-
 *, *:before, *:after {
     box-sizing: inherit;
 }
-
 body {
     background-color: var(--dark-bg);
     color: var(--text-primary);
@@ -34,6 +30,8 @@ body {
     position: relative;
     min-height: 100vh;
     padding-top: 70px; /* Added to prevent content from hiding under the new fixed header */
+    /* Test rule to confirm CSS loaded: Body background turns slightly green if applied */
+    background-color: #0d0d0f; /* Slight change from #0d0d0d */
 }
 
 /* --- MATRIX BACKGROUND --- */
@@ -63,7 +61,6 @@ canvas#matrix-bg,
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
 }
-
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -73,21 +70,17 @@ canvas#matrix-bg,
     padding: 1rem;
     height: 70px;
 }
-
 .nav-logo img {
     height: 45px;
     transition: transform 0.3s ease;
 }
-
 .nav-logo img:hover {
     transform: scale(1.1);
 }
-
 .nav-links {
     display: flex;
     gap: 2.5rem;
 }
-
 .nav-links a {
     color: var(--text-primary);
     text-decoration: none;
@@ -95,11 +88,9 @@ canvas#matrix-bg,
     position: relative;
     transition: color 0.3s ease;
 }
-
 .nav-links a:hover {
     color: var(--main-red);
 }
-
 .nav-links a::after {
     content: '';
     position: absolute;
@@ -111,11 +102,9 @@ canvas#matrix-bg,
     background-color: var(--main-red);
     transition: width 0.3s ease;
 }
-
 .nav-links a:hover::after {
     width: 100%;
 }
-
 .nav-actions .cta-button {
     background-color: var(--main-red);
     color: var(--text-primary);
@@ -125,12 +114,10 @@ canvas#matrix-bg,
     font-weight: 700;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .nav-actions .cta-button:hover {
     background-color: var(--hover-red);
     transform: translateY(-2px);
 }
-
 
 /* --- SHARED TYPOGRAPHY (ADAPTED FROM V1) --- */
 h1 {
@@ -204,7 +191,6 @@ h1 {
     box-shadow: 0 0 25px var(--main-red), 0 0 50px var(--main-red);
 }
 
-
 /* --- SHARED ANIMATIONS --- */
 @keyframes neon-flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
@@ -238,13 +224,16 @@ a:focus, button:focus, [role="button"]:focus {
 /* --- SHARED RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
     .nav-links, .nav-actions {
-        display: none; /* Hides main nav on mobile */
+        display: none !important;
     }
     .navbar {
-        justify-content: center; /* Centers the logo on mobile */
+        justify-content: center !important;
+    }
+    .hamburger, .buy-btn-mobile {
+        display: flex !important;
     }
     .footer {
-        display: none;
+        display: none !important;
     }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -257,7 +246,6 @@ a:focus, button:focus, [role="button"]:focus {
     h1:not(.glitch), .back-home, .merch-submit-btn, .cta-button, .join-rebellion, .disclaimer, .contract-address {
         animation: none !important;
     }
-
     /* --- ADDED EXCEPTION FOR GLITCH --- */
     .glitch::before {
         animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important;
