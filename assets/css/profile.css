@@ -3,11 +3,9 @@
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
     text-shadow: none;
     animation: none;
 }
-
 /* --- Base Profile Layout --- */
 .content-wrapper {
     max-width: 800px;
@@ -26,9 +24,8 @@ header {
     backdrop-filter: blur(4px);
     box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
     min-height: 200px;
-    position: relative; /* Consolidated from multiple definitions */
+    position: relative;
 }
-
 /* --- Social Icon Styling --- */
 .social-icon-link {
     display: inline-flex;
@@ -53,7 +50,6 @@ header {
 .social-icon-link[title="X / Twitter"] img {
     filter: invert(1);
 }
-
 /* --- Follow & Stats Styles --- */
 .profile-stats {
     display: flex;
@@ -93,7 +89,6 @@ header {
     background-color: #777;
     box-shadow: none;
 }
-
 /* --- Edit Profile Button --- */
 .edit-profile-icon-btn {
     position: absolute;
@@ -113,7 +108,6 @@ header {
     background-color: #ff5555;
     box-shadow: 0 0 10px #ff5555;
 }
-
 /* --- Posts Section --- */
 .posts-header {
     display: flex;
@@ -126,7 +120,6 @@ header {
     color: #ff5555;
     margin: 0;
 }
-
 /* --- Post Item Styles --- */
 .post-item {
     background: #1a1a1a;
@@ -170,7 +163,7 @@ header {
     color: #888;
 }
 .post-actions {
-    margin-left: auto; /* Pushes Edit/Delete buttons to the right */
+    margin-left: auto;
 }
 .post-title {
     color: #eee;
@@ -185,14 +178,12 @@ header {
     word-wrap: break-word;
     line-height: 1.6;
 }
-
 /* --- Comment Styles --- */
 .comment-children {
     margin-left: 25px;
     padding-left: 25px;
     border-left: 2px solid #333;
 }
-
 /* --- Styles Moved from profile.js --- */
 .post-action-btn {
     background: #333;
@@ -224,35 +215,31 @@ header {
 .format-toolbar button:hover {
     background: #ff5555;
 }
-
 /* --- Profile Song Marquee --- */
 #profile-song-title-container {
-    overflow: hidden; /* This clips the content that overflows */
-    white-space: nowrap; /* Prevents the text from wrapping to a new line */
+    overflow: hidden;
+    white-space: nowrap;
     flex-grow: 1;
-    text-align: left; /* Ensures text starts from the left by default */
+    text-align: left;
 }
 #profile-song-title {
-    /* This is the default, stationary state */
     display: inline-block;
     overflow: hidden;
-    text-overflow: ellipsis; /* Adds "..." if the text is too long */
+    text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: middle; /* Helps with alignment */
-    max-width: 100%; /* Ensures the text doesn't push its container */
+    vertical-align: middle;
+    max-width: 100%;
 }
 #profile-song-title.scrolling {
-    /* This class is added by JavaScript to activate the scroll */
     animation: marquee 12s linear infinite;
-    max-width: none; /* Allows the element to be wider than its container for scrolling */
-    overflow: visible; /* Lets the animation handle the positioning */
-    text-overflow: clip; /* Removes the "..." during the scroll */
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
 }
 @keyframes marquee {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
 }
-
 /* --- Responsive Styles --- */
 @media (max-width: 768px) {
     .content-wrapper {
@@ -274,8 +261,13 @@ header {
         width: 25px;
         height: 25px;
     }
+    .edit-profile-icon-btn {
+        top: 20px;
+        right: 20px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
 }
-
 /* --- Vote Component Styles --- */
 .vote-container {
     display: flex;
@@ -312,25 +304,23 @@ header {
     text-align: center;
 }
 .vote-btn.up.active {
-    background-color: #1e4620; /* Dark Green */
-    color: #55ff55; /* Bright Green */
+    background-color: #1e4620;
+    color: #55ff55;
     border-color: #55ff55;
     text-shadow: 0 0 5px #55ff55;
 }
 .vote-btn.down.active {
-    background-color: #4d1c1c; /* Dark Red */
-    color: #ff5555; /* Bright Red */
+    background-color: #4d1c1c;
+    color: #ff5555;
     border-color: #ff5555;
     text-shadow: 0 0 5px #ff5555;
 }
-
 /* --- Profile Picture Container --- */
 .pfp-container {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
-
 /* --- V2 Glitch Effect & Animations --- */
 .glitch {
     position: relative;
@@ -401,66 +391,11 @@ header {
     95% { clip: rect(75px, 9999px, 145px, 0); }
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
-
-/* --- MOBILE NAVIGATION STYLES --- */
-/* The 'Buy $DEBT' button for mobile */
-.buy-btn-mobile {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1100;
-    background-color: var(--main-red);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-}
-.buy-btn-mobile:hover {
-    background-color: var(--hover-red);
-}
-
-/* The hamburger icon */
+/* --- Mobile Navigation: Base Styles (Hidden on Desktop) --- */
+.buy-btn-mobile,
 .hamburger {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 22px;
-    cursor: pointer;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    padding: 5px;
-    background-color: rgba(13, 13, 13, 0.8);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    display: none;
 }
-.hamburger div {
-    width: 20px;
-    height: 2px;
-    background-color: #eee;
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-
-/* Hamburger animation when active */
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active div:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(4px, -4px);
-}
-
-/* The slide-out menu panel */
 .mobile-menu {
     display: none;
     position: fixed;
@@ -488,45 +423,63 @@ header {
     color: var(--main-red);
     background-color: rgba(255, 255, 255, 0.05);
 }
-
-/* Media query to activate the mobile navigation */
+/* --- Mobile Navigation: Show on Mobile --- */
 @media (max-width: 768px) {
-    .hamburger,
-    .buy-btn-mobile {
-        display: flex; /* Show the hamburger and mobile buy button */
+    .buy-btn-mobile,
+    .hamburger {
+        display: flex;
         align-items: center;
     }
-    /* This keeps the logo centered between the two fixed buttons */
+    .buy-btn-mobile {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1100;
+        background-color: var(--main-red);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+    }
+    .buy-btn-mobile:hover {
+        background-color: var(--hover-red);
+    }
+    .hamburger {
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1100;
+        padding: 5px;
+        background-color: rgba(13, 13, 13, 0.8);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+    }
+    .hamburger div {
+        width: 20px;
+        height: 2px;
+        background-color: #eee;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+    .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+    }
     .navbar {
         justify-content: center;
-    }
-}
-
-/* --- Responsive Styles --- */
-@media (max-width: 768px) {
-    .content-wrapper {
-        padding: 60px 10px;
-    }
-    .posts-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .posts-header .cta-button {
-        width: 100%;
-        max-width: 300px;
-    }
-    .social-icon-link {
-        width: 40px;
-        height: 40px;
-    }
-    .social-icon-link img {
-        width: 25px;
-        height: 25px;
-    }
-    .edit-profile-icon-btn {
-        top: 20px;
-        right: 20px;
-        padding: 6px 12px;
-        font-size: 0.8rem;
     }
 }
