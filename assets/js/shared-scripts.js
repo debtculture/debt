@@ -1,74 +1,186 @@
-// This event listener runs our script after the HTML has been loaded.
-document.addEventListener('DOMContentLoaded', () => {
-    // We now call our single, reusable function twice with different settings.
-    createMatrixEffect(
-        'matrix-bg',                  // The ID of the canvas element
-        '#ff5555',                    // The color of the characters
-        'rgba(18, 18, 18, 0.05)',     // The color of the fading overlay
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' // The characters to use
-    );
-    createMatrixEffect(
-        'matrix-rain',                // The ID of the second canvas element
-        '#999999',                    // A different character color
-        'rgba(0, 0, 0, 0.05)',        // A different overlay color
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' // A different character set
-    );
-});
+/* =============================================================================
+   SHARED SCRIPTS - Matrix effect animation for background canvases
+   ============================================================================= */
 
 /**
- * Creates a responsive "Matrix" style animation on a given canvas.
- * @param {string} canvasId - The ID of the canvas element to draw on.
- * @param {string} charColor - The hex or rgba color for the characters.
- * @param {string} overlayColor - The rgba color for the fading effect overlay.
- * @param {string} charSet - The string of characters to use in the animation.
+ * Matrix Effect Configuration
  */
-function createMatrixEffect(canvasId, charColor, overlayColor, charSet) {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let columns, drops, fontSize = 14;
-
-    // Animation Speed Control
-    const fps = 20;
-    const interval = 1000 / fps;
-    let lastTime = 0;
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        columns = Math.ceil(canvas.width / fontSize);
-        drops = Array(columns).fill(1).map(() => (Math.random() * canvas.height / fontSize));
+const MATRIX_CONFIG = {
+    primary: {
+        canvasId: 'matrix-bg',
+        charColor: '#ff5555',
+        overlayColor: 'rgba(18, 18, 18, 0.05)',
+        charSet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+        fontSize: 14,
+        fps: 20,
+        resetChance: 0.975
+    },
+    secondary: {
+        canvasId: 'matrix-rain',
+        charColor: '#999999',
+        overlayColor: 'rgba(0, 0, 0, 0.05)',
+        charSet: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        fontSize: 14,
+        fps: 20,
+        resetChance: 0.975
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+};
 
-    function draw() {
-        // Use the parameters for colors and characters
-        ctx.fillStyle = overlayColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = charColor;
-        ctx.font = `${fontSize}px monospace`;
+/**
+ * MatrixEffect Class - Handles the Matrix-style animation on a canvas
+ */
+class MatrixEffect {
+    constructor(config) {
+        this.canvas = document.getElementById(config.canvasId);
+        if (!this.canvas) {
+            console.warn(`Canvas with ID "${config.canvasId}" not found`);
+            return;
+        }
+
+        this.ctx = this.canvas.getContext('2d');
+        if (!this.ctx) {
+            console.error(`Could not get 2D context for canvas "${config.canvasId}"`);
+            return;
+        }
+
+        this.charColor = config.charColor;
+        this.overlayColor = config.overlayColor;
+        this.charSet = config.charSet;
+        this.fontSize = config.fontSize;
+        this.fps = config.fps;
+        this.resetChance = config.resetChance;
         
-        for (let i = 0; i < drops.length; i++) {
-            const text = charSet.charAt(Math.floor(Math.random() * charSet.length));
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
+        this.interval = 1000 / this.fps;
+        this.lastTime = 0;
+        this.animationId = null;
+        this.columns = 0;
+        this.drops = [];
+
+        this.init();
+    }
+
+    /**
+     * Initialize the canvas and start animation
+     */
+    init() {
+        this.resizeCanvas();
+        this.bindEvents();
+        this.start();
+    }
+
+    /**
+     * Resize canvas to fit window and recalculate columns
+     */
+    resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        this.columns = Math.ceil(this.canvas.width / this.fontSize);
+        this.drops = Array(this.columns)
+            .fill(0)
+            .map(() => Math.random() * (this.canvas.height / this.fontSize));
+    }
+
+    /**
+     * Bind event listeners
+     */
+    bindEvents() {
+        this.resizeHandler = () => this.resizeCanvas();
+        window.addEventListener('resize', this.resizeHandler);
+    }
+
+    /**
+     * Draw a single frame of the animation
+     */
+    draw() {
+        // Apply fading overlay
+        this.ctx.fillStyle = this.overlayColor;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Draw characters
+        this.ctx.fillStyle = this.charColor;
+        this.ctx.font = `${this.fontSize}px monospace`;
+
+        for (let i = 0; i < this.drops.length; i++) {
+            const char = this.charSet.charAt(
+                Math.floor(Math.random() * this.charSet.length)
+            );
+            const x = i * this.fontSize;
+            const y = this.drops[i] * this.fontSize;
+
+            this.ctx.fillText(char, x, y);
+
+            // Reset drop to top if it reaches bottom
+            if (y > this.canvas.height && Math.random() > this.resetChance) {
+                this.drops[i] = 0;
             }
-            drops[i]++;
+
+            this.drops[i]++;
         }
     }
 
-    // Animation Loop using requestAnimationFrame
-    function animate(timestamp) {
-        const deltaTime = timestamp - lastTime;
-        if (deltaTime > interval) {
-            lastTime = timestamp - (deltaTime % interval);
-            draw();
+    /**
+     * Animation loop with FPS limiting
+     */
+    animate(timestamp) {
+        const deltaTime = timestamp - this.lastTime;
+
+        if (deltaTime > this.interval) {
+            this.lastTime = timestamp - (deltaTime % this.interval);
+            this.draw();
         }
-        requestAnimationFrame(animate);
+
+        this.animationId = requestAnimationFrame((ts) => this.animate(ts));
     }
-    
-    // Start the animation loop
-    animate(0);
+
+    /**
+     * Start the animation
+     */
+    start() {
+        if (!this.animationId) {
+            this.animationId = requestAnimationFrame((ts) => this.animate(ts));
+        }
+    }
+
+    /**
+     * Stop the animation
+     */
+    stop() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
+    }
+
+    /**
+     * Cleanup and destroy the effect
+     */
+    destroy() {
+        this.stop();
+        window.removeEventListener('resize', this.resizeHandler);
+    }
 }
+
+/**
+ * Initialize matrix effects when DOM is ready
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Create primary matrix effect
+    const primaryEffect = new MatrixEffect(MATRIX_CONFIG.primary);
+    
+    // Create secondary matrix effect
+    const secondaryEffect = new MatrixEffect(MATRIX_CONFIG.secondary);
+
+    // Store references globally for potential cleanup
+    window.matrixEffects = {
+        primary: primaryEffect,
+        secondary: secondaryEffect
+    };
+
+    // Optional: Cleanup on page unload (for SPAs)
+    window.addEventListener('beforeunload', () => {
+        if (window.matrixEffects) {
+            window.matrixEffects.primary?.destroy();
+            window.matrixEffects.secondary?.destroy();
+        }
+    });
+});
