@@ -1,20 +1,21 @@
 /* =============================================================================
-   COMMUNITY PAGE STYLES
+   COMMUNITY PAGE STYLES - Hall of Fame, Leaderboard, and Badge System
    ============================================================================= */
 
-/* --- CSS CUSTOM PROPERTIES --- */
+/* --- ROOT VARIABLES (Page-Specific) --- */
 :root {
-    /* Additional colors for community page */
-    --content-dark: #1a1a1a;
-    --border-dark: #333;
+    --border-dark: #222;
     --border-medium: #444;
+    --content-dark: #1a1a1a;
     --text-white: #fff;
-    --text-light: #f0f0f0;
-    --text-medium: #ccc;
+    --text-light: #ccc;
+    --text-medium: #999;
     --text-dark: #000;
-    --hover-red: #ff5c5c;
-    --light-red: #ff7777;
     --dark-red: #cc0000;
+    --light-red: #ff6666;
+    --leaderboard-gold: rgba(255, 215, 0, 0.2);
+    --leaderboard-silver: rgba(192, 192, 192, 0.15);
+    --leaderboard-bronze: rgba(205, 127, 50, 0.15);
 }
 
 /* --- GLITCH TITLE STYLE --- */
@@ -30,9 +31,10 @@
 .content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 20px 60px;
+    padding: 20px;
     position: relative;
     z-index: 1;
+    padding-bottom: 60px;
 }
 
 .section {
@@ -41,109 +43,27 @@
     opacity: 1;
 }
 
-.section-title {
-    font-size: 2.5rem;
-    color: var(--main-red);
-    margin-bottom: 30px;
-    text-shadow: 0 0 10px var(--main-red);
+/* --- BLURB TEXT --- */
+.hof-blurb {
+    margin: 20px auto 40px;
+    color: var(--text-light);
+    max-width: 600px;
+    font-size: 1.1rem;
+    font-family: 'Inter', Arial, sans-serif;
+    line-height: 1.6;
 }
 
-/* =============================================================================
-   HALL OF FAME CAROUSEL
-   ============================================================================= */
-
+/* --- HALL OF FAME CAROUSEL --- */
 .hof-carousel {
     position: relative;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     min-height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.hof-rows-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.hof-row-desktop,
-.hof-row-mobile {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: nowrap;
-    margin-bottom: 40px;
-}
-
-.hof-member {
-    position: relative;
-    width: 100px;
-    height: 100px;
-}
-
-.hof-bubble {
-    width: 100%;
-    height: 100%;
-    background-color: var(--border-dark);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    border: 2px solid var(--border-medium);
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.hof-bubble:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 85, 85, 0.4);
-}
-
-.hof-bubble.active-member {
-    border: 2px solid var(--main-red);
-    box-shadow: 0 0 15px var(--main-red);
-    transform: scale(1.1);
-}
-
-.hof-inner-bubble {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hof-inner-bubble img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hof-title {
-    font-size: 0.8rem;
-    color: var(--text-white);
-    margin-top: 5px;
-    text-shadow: 0 0 3px var(--main-red);
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    font-weight: bold;
-    font-family: 'Inter', Arial, sans-serif;
-}
-
-/* --- HOF Arrows --- */
 .hof-arrow {
     position: absolute;
     top: 50%;
@@ -153,12 +73,11 @@
     cursor: pointer;
     user-select: none;
     z-index: 10;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 .hof-arrow:hover {
     color: var(--hover-red);
-    transform: translateY(-50%) scale(1.2);
 }
 
 .hof-left-arrow {
@@ -169,18 +88,7 @@
     right: 20px;
 }
 
-.hof-blurb {
-    margin: 40px auto 20px;
-    color: var(--text-light);
-    max-width: 600px;
-    font-size: 1.1rem;
-    font-family: 'Inter', Arial, sans-serif;
-}
-
-/* =============================================================================
-   TRADING CARD STYLES
-   ============================================================================= */
-
+/* --- TRADING CARD STYLES --- */
 .trading-card {
     background: linear-gradient(145deg, #f0e6d2 0%, #d9c9a3 100%);
     border: 5px solid #ffd700;
@@ -211,7 +119,7 @@
 
 .card-level {
     background: var(--main-red);
-    color: var(--text-white) !important;
+    color: var(--text-white);
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 5px;
@@ -255,7 +163,7 @@
 .hof-name {
     font-size: 18px;
     font-weight: bold;
-    color: var(--text-dark) !important;
+    color: var(--text-dark);
     font-family: 'Arial', sans-serif;
 }
 
@@ -274,23 +182,20 @@
 .ability-title {
     font-size: 12px;
     font-weight: bold;
-    color: var(--text-dark) !important;
+    color: var(--text-dark);
     font-family: 'Arial', sans-serif;
     text-align: center;
 }
 
 .ability-content {
     font-size: 12px;
-    color: var(--border-dark) !important;
+    color: var(--border-dark);
     font-family: 'Arial', sans-serif;
     text-align: center;
     min-height: 15px;
 }
 
-/* =============================================================================
-   BADGE STYLES
-   ============================================================================= */
-
+/* --- BADGE STYLES (Trading Card) --- */
 .hof-badges {
     display: flex;
     flex-wrap: wrap;
@@ -301,7 +206,12 @@
     overflow-y: auto;
 }
 
-/* --- Base Badge Style --- */
+.trading-card .hof-badges .badge {
+    width: 28px;
+    height: 28px;
+}
+
+/* Base badge styling */
 .badge {
     width: 40px;
     height: 40px;
@@ -313,66 +223,43 @@
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.trading-card .hof-badges .badge {
-    width: 28px;
-    height: 28px;
-}
-
 .badge:hover {
     transform: scale(1.2);
     box-shadow: 0 0 15px var(--main-red), 0 0 25px var(--main-red);
 }
 
-/* --- Badge Tooltip --- */
-.badge::after {
-    content: attr(title);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a1a1a;
-    color: var(--text-light);
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    white-space: normal;
-    max-width: 160px;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 100;
-    border: 1px solid var(--main-red);
-    box-shadow: 0 0 10px var(--main-red);
-    pointer-events: none;
+/* Badge tier colors for TRADING CARD */
+.trading-card .hof-badges .badge-amethyst {
+    background: linear-gradient(145deg, #9966cc, #7a52a3) !important;
+    border: 1px solid #9966cc !important;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #9966cc !important;
 }
 
-.badge:hover::after {
-    opacity: 1;
-    visibility: visible;
+.trading-card .hof-badges .badge-gold {
+    background: linear-gradient(145deg, #ffd700, #ccac00) !important;
+    border: 1px solid #ffd700 !important;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #ffd700 !important;
 }
 
-/* --- Shared Tooltip --- */
-.shared-tooltip {
-    display: none;
-    position: fixed;
-    background: #1a1a1a;
-    color: var(--text-light);
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    white-space: normal;
-    max-width: 160px;
-    text-align: center;
-    z-index: 1000;
-    border: 1px solid var(--main-red);
-    box-shadow: 0 0 10px var(--main-red);
-    transform: translateX(-50%);
-    line-height: 1.2;
-    pointer-events: none;
+.trading-card .hof-badges .badge-silver {
+    background: linear-gradient(145deg, #c0c0c0, #808080) !important;
+    border: 1px solid #c0c0c0 !important;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #c0c0c0 !important;
 }
 
-/* --- Badge Icons --- */
+.trading-card .hof-badges .badge-bronze {
+    background: linear-gradient(145deg, #cd7f32, #8c5523) !important;
+    border: 1px solid #cd7f32 !important;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #cd7f32 !important;
+}
+
+.trading-card .hof-badges .badge-single {
+    background: linear-gradient(145deg, var(--main-red), var(--dark-red)) !important;
+    border: 1px solid var(--main-red) !important;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px var(--main-red) !important;
+}
+
+/* Badge emblems (icons inside badges) */
 .badge-spaces::before {
     content: '';
     position: absolute;
@@ -439,52 +326,156 @@
     font-weight: bold;
 }
 
-/* --- Badge Tier Colors (Trading Card) --- */
-.trading-card .hof-badges .badge-amethyst {
-    background: linear-gradient(145deg, #9966cc, #7a52a3) !important;
-    border: 1px solid #9966cc !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #9966cc !important;
+.badge-new::before {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.trading-card .hof-badges .badge-gold {
-    background: linear-gradient(145deg, #ffd700, #ccac00) !important;
-    border: 1px solid #ffd700 !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #ffd700 !important;
+/* Badge tooltip */
+.badge::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: var(--text-light);
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: normal;
+    max-width: 160px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 100;
+    border: 1px solid var(--main-red);
+    box-shadow: 0 0 10px var(--main-red);
 }
 
-.trading-card .hof-badges .badge-silver {
-    background: linear-gradient(145deg, #c0c0c0, #808080) !important;
-    border: 1px solid #c0c0c0 !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #c0c0c0 !important;
+.badge:hover::after {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: none;
 }
 
-.trading-card .hof-badges .badge-bronze {
-    background: linear-gradient(145deg, #cd7f32, #8c5523) !important;
-    border: 1px solid #cd7f32 !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #cd7f32 !important;
+/* --- NON-FEATURED MEMBERS GRID --- */
+.hof-rows-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
-/* FIXED: Red badges now have solid fill */
-.trading-card .hof-badges .badge-single,
-.trading-card .hof-badges .badge-shiller,
-.trading-card .hof-badges .badge-meme,
-.trading-card .hof-badges .badge-year1 {
-    background: linear-gradient(145deg, var(--main-red), var(--dark-red)) !important;
-    border: 1px solid var(--main-red) !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px var(--main-red) !important;
+.hof-row-desktop,
+.hof-row-mobile {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    margin-bottom: 40px;
 }
 
-/* =============================================================================
-   BADGE GLOSSARY
-   ============================================================================= */
-
-.badge-glossary-section {
-    max-width: 600px;
-    margin: 40px auto 0;
+/* Desktop: Show rows of 6, hide mobile rows */
+@media (min-width: 769px) {
+    .hof-row-mobile {
+        display: none;
+    }
+    
+    .hof-row-desktop {
+        display: flex;
+    }
 }
 
+/* Mobile: Show rows of 4, hide desktop rows */
+@media (max-width: 768px) {
+    .hof-row-desktop {
+        display: none;
+    }
+    
+    .hof-row-mobile {
+        display: flex;
+        gap: 10px;
+    }
+}
+
+.hof-member {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.hof-bubble {
+    width: 100%;
+    height: 100%;
+    background-color: var(--border-dark);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border: 2px solid var(--border-medium);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hof-bubble:hover {
+    transform: scale(1.05);
+    border-color: var(--hover-red);
+}
+
+.hof-bubble.active-member {
+    border: 2px solid var(--main-red);
+    box-shadow: 0 0 15px var(--main-red);
+    transform: scale(1.1);
+}
+
+.hof-inner-bubble {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hof-inner-bubble img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hof-title {
+    font-size: 0.8rem;
+    color: var(--text-white);
+    margin-top: 5px;
+    text-shadow: 0 0 3px var(--main-red);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+/* --- BADGE GLOSSARY SECTION --- */
 .badge-glossary-header {
-    background: linear-gradient(90deg, var(--main-red), var(--hover-red));
+    background: var(--main-red) !important;
     color: var(--text-white);
     padding: 15px;
     border-radius: 5px;
@@ -493,13 +484,19 @@
     font-weight: bold;
     text-align: center;
     position: relative;
-    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    max-width: 600px;
     width: 100%;
     box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .badge-glossary-header:hover {
-    background: linear-gradient(90deg, var(--hover-red), var(--light-red));
+    box-shadow: 0 0 15px var(--main-red);
+}
+
+.badge-glossary-header.active {
+    background: var(--main-red) !important;
 }
 
 .badge-glossary-header::after {
@@ -514,17 +511,18 @@
     transform: rotate(180deg);
 }
 
-/* FIXED: Glossary content now has solid background */
 .badge-glossary-content {
     max-height: 0;
     overflow: hidden;
-    background: rgba(26, 26, 26, 1); /* Changed from 0.9 to 1 - fully opaque */
-    border: 1px solid #ff5555;
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--main-red);
     border-radius: 5px;
     transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
     padding: 0 15px;
     box-sizing: border-box;
+    max-width: 600px;
     width: 100%;
+    margin: 0 auto;
 }
 
 .badge-glossary-content.active {
@@ -556,23 +554,23 @@
     height: 90px;
 }
 
+.badge-name {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    max-width: 80px;
+    height: 40px;
+    line-height: 1.3;
+    padding-top: 4px;
+    font-family: 'Inter', Arial, sans-serif;
+    text-align: center;
+}
+
 .badge-wrapper .badge-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 40px;
     width: 100%;
-}
-
-.badge-name {
-    font-size: 0.8rem;
-    max-width: 80px;
-    height: 40px;
-    line-height: 1.3;
-    padding-top: 4px;
-    font-family: 'Inter', Arial, sans-serif;
-    color: var(--text-light);
-    text-align: center;
 }
 
 .badge-glossary-content .badge {
@@ -603,7 +601,7 @@
     transform: translateY(-23px);
 }
 
-/* --- Badge Tier Colors (Glossary) --- */
+/* Badge tier colors for BADGE GLOSSARY */
 .badge-glossary-content .badge-bronze {
     background: linear-gradient(145deg, #cd7f32, #8c5523) !important;
     border-color: #cd7f32 !important;
@@ -628,23 +626,15 @@
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #9966cc !important;
 }
 
-/* FIXED: Red badges in glossary now have solid fill */
-.badge-glossary-content .badge-single,
-.badge-glossary-content .badge-shiller,
-.badge-glossary-content .badge-meme,
-.badge-glossary-content .badge-year1 {
+.badge-glossary-content .badge-single {
     background: linear-gradient(145deg, var(--main-red), var(--dark-red)) !important;
     border-color: var(--main-red) !important;
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px var(--main-red) !important;
 }
 
-/* =============================================================================
-   LEADERBOARD
-   ============================================================================= */
-
-/* FIXED: Leaderboard section now has solid background */
+/* --- LEADERBOARD SECTION --- */
 .leaderboard-section {
-    background: rgba(26, 26, 26, 1); /* Changed from 0.7 to 1 - fully opaque */
+    background: rgba(26, 26, 26, 0.7);
     border: 1px solid var(--main-red);
     border-radius: 10px;
     padding: 25px;
@@ -654,9 +644,19 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 40px;
 }
 
-/* --- Leaderboard Tabs --- */
+.leaderboard-section h2 {
+    font-size: 2.5rem;
+    color: var(--main-red);
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--main-red);
+}
+
+/* Leaderboard Tabs */
 .leaderboard-tabs {
     display: flex;
     justify-content: center;
@@ -688,30 +688,26 @@
     box-shadow: 0 0 15px var(--main-red);
 }
 
-/* --- Leaderboard Info Section --- */
-.leaderboard-info-section {
-    max-width: 600px;
-    margin: 0 auto 20px;
-}
-
-.leaderboard-info-header {
-    background: linear-gradient(90deg, var(--main-red), var(--hover-red));
+/* "How It Works" Glossary */
+.leaderboard-glossary-header {
+    background: var(--main-red);
     color: var(--text-white);
-    padding: 15px;
+    padding: 12px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     text-align: center;
     position: relative;
-    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    margin-bottom: 20px;
 }
 
-.leaderboard-info-header:hover {
-    background: linear-gradient(90deg, var(--hover-red), var(--light-red));
+.leaderboard-glossary-header:hover {
+    box-shadow: 0 0 15px var(--main-red);
 }
 
-.leaderboard-info-header::after {
+.leaderboard-glossary-header::after {
     content: '▼';
     position: absolute;
     right: 15px;
@@ -719,54 +715,50 @@
     transition: transform 0.3s ease;
 }
 
-.leaderboard-info-header.active::after {
+.leaderboard-glossary-header.active::after {
     transform: rotate(180deg);
 }
 
-/* FIXED: Leaderboard info content now has solid background */
-.leaderboard-info-content {
+.leaderboard-glossary-content {
     max-height: 0;
     overflow: hidden;
-    background: rgba(26, 26, 26, 1); /* Changed from transparency to fully opaque */
-    border: 1px solid #ff5555;
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     transition: max-height 0.3s ease, padding 0.3s ease;
     padding: 0 25px;
-    color: var(--text-light);
+    margin-bottom: 20px;
 }
 
-.leaderboard-info-content.active {
+.leaderboard-glossary-content.active {
     padding: 25px;
 }
 
-.leaderboard-info-content p {
-    margin-bottom: 15px;
+.leaderboard-glossary-content p {
+    color: var(--text-light);
+    font-size: 0.95rem;
     line-height: 1.6;
+    margin-bottom: 15px;
 }
 
-.points-breakdown {
+.leaderboard-glossary-content ul {
     list-style: none;
     padding-left: 0;
-    margin: 15px 0;
+    color: var(--text-light);
 }
 
-.points-breakdown li {
-    padding: 8px 0;
-    border-bottom: 1px solid #333;
+.leaderboard-glossary-content li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
 }
 
-.points-breakdown li:last-child {
-    border-bottom: none;
+.leaderboard-glossary-content li::before {
+    content: '»';
+    color: var(--main-red);
+    margin-right: 10px;
+    font-weight: 700;
 }
 
-.leaderboard-note {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #999;
-    margin-top: 15px;
-}
-
-/* --- Leaderboard Table --- */
+/* Leaderboard Table */
 .leaderboard-table-container {
     overflow-x: auto;
     max-height: 400px;
@@ -800,25 +792,38 @@
     transition: background-color 0.3s ease;
 }
 
-.leaderboard-table tbody tr:hover {
-    background-color: rgba(255, 85, 85, 0.1);
-}
-
 .leaderboard-table tbody tr:last-child {
     border-bottom: none;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: rgba(255, 85, 85, 0.05);
 }
 
 .leaderboard-table td {
     font-size: 1rem;
 }
 
+/* Colored backgrounds for top 3 */
+.leaderboard-table tbody tr.rank-1 {
+    background-color: var(--leaderboard-gold);
+}
+
+.leaderboard-table tbody tr.rank-2 {
+    background-color: var(--leaderboard-silver);
+}
+
+.leaderboard-table tbody tr.rank-3 {
+    background-color: var(--leaderboard-bronze);
+}
+
 .rank-cell {
     font-weight: 700;
-    color: var(--text-light);
+    color: var(--text-white);
 }
 
 .user-cell {
-    color: var(--text-light);
+    color: var(--text-white);
     font-weight: 600;
 }
 
@@ -827,48 +832,14 @@
     font-weight: 700;
 }
 
-/* --- Rank Highlighting --- */
-.rank-1 {
-    background-color: rgba(255, 215, 0, 0.1);
-}
-
-.rank-1 .rank-cell,
-.rank-1 .user-cell {
-    color: #ffd700;
-    text-shadow: 0 0 5px #ffd700;
-}
-
-.rank-2 {
-    background-color: rgba(192, 192, 192, 0.1);
-}
-
-.rank-2 .rank-cell,
-.rank-2 .user-cell {
-    color: #c0c0c0;
-    text-shadow: 0 0 5px #c0c0c0;
-}
-
-.rank-3 {
-    background-color: rgba(205, 127, 50, 0.1);
-}
-
-.rank-3 .rank-cell,
-.rank-3 .user-cell {
-    color: #cd7f32;
-    text-shadow: 0 0 5px #cd7f32;
-}
-
-.leaderboard-loading {
+#leaderboard-loading {
     text-align: center;
+    color: var(--text-medium);
     padding: 20px;
-    color: var(--text-secondary);
     font-style: italic;
 }
 
-/* =============================================================================
-   GLITCH EFFECT
-   ============================================================================= */
-
+/* --- GLITCH EFFECT --- */
 .glitch {
     position: relative;
 }
@@ -945,10 +916,7 @@
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
 
-/* =============================================================================
-   MOBILE NAVIGATION
-   ============================================================================= */
-
+/* --- MOBILE NAVIGATION --- */
 .buy-btn-mobile,
 .hamburger {
     display: none;
@@ -984,20 +952,10 @@
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* =============================================================================
-   RESPONSIVE DESIGN
-   ============================================================================= */
-
-@media (min-width: 769px) {
-    .hof-row-mobile {
-        display: none;
-    }
-}
-
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
-    /* --- Mobile Navigation --- */
-    .hamburger,
-    .buy-btn-mobile {
+    .buy-btn-mobile,
+    .hamburger {
         display: flex;
         align-items: center;
     }
@@ -1062,75 +1020,32 @@
         justify-content: center;
     }
 
-    /* --- Layout Adjustments --- */
+    /* Responsive adjustments */
     .content-wrapper {
-        padding: 60px 10px 40px;
+        padding: 60px 10px;
     }
 
-    .section {
-        padding-top: 40px;
+    .hof-blurb {
+        font-size: 1rem;
+        padding: 0 10px;
     }
 
-    /* --- HOF Adjustments --- */
-    .hof-row-desktop {
-        display: none;
-    }
-
-    .hof-row-mobile {
-        gap: 10px;
-    }
-
-    .hof-member {
-        width: 80px;
-        height: 80px;
-    }
-
-    .hof-arrow {
-        font-size: 1.5rem;
-    }
-
-    .hof-left-arrow {
-        left: 5px;
-    }
-
-    .hof-right-arrow {
-        right: 5px;
-    }
-
-    .hof-carousel {
-        min-height: 300px;
-    }
-
-    .trading-card {
-        width: 190px;
-        height: 266px;
-    }
-
-    /* --- Badge Glossary Adjustments --- */
-    .badge-row {
-        flex-wrap: wrap;
+    .badge-glossary-header,
+    .badge-glossary-content {
         max-width: 100%;
     }
 
-    .badge-wrapper {
-        width: 80px;
-        height: 80px;
+    .badge-row {
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
-    .badge-name {
-        font-size: 0.7rem;
-        max-width: 70px;
-        height: 35px;
-    }
-
-    .badge-arrow,
-    .invisible-arrow {
-        transform: translateY(-18px);
-    }
-
-    /* --- Leaderboard Adjustments --- */
     .leaderboard-section {
-        padding: 20px 15px;
+        padding: 15px;
+    }
+
+    .leaderboard-section h2 {
+        font-size: 2rem;
     }
 
     .leaderboard-tabs {
@@ -1140,24 +1055,16 @@
 
     .leaderboard-tab-btn {
         width: 100%;
-        padding: 12px;
     }
 
     .leaderboard-table th,
     .leaderboard-table td {
-        padding: 10px 8px;
+        padding: 8px 10px;
         font-size: 0.9rem;
-    }
-
-    .leaderboard-table thead th {
-        font-size: 1rem;
     }
 }
 
-/* =============================================================================
-   ACCESSIBILITY & REDUCED MOTION
-   ============================================================================= */
-
+/* --- REDUCED MOTION SUPPORT --- */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -1167,7 +1074,6 @@
         transition-duration: 0.01ms !important;
     }
 
-    /* Preserve essential glitch animations */
     .glitch::before {
         animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important;
     }
