@@ -601,7 +601,7 @@ function renderSinglePost(post, isOwner) {
     const processedContent = parseUserTags(parseFormatting(post.content));
     const postDate = new Date(post.created_at).toLocaleString();
     const editedDate = post.updated_at
-        ? `<span class="post-edited-date"> • Edited: ${new Date(post.updated_at).toLocaleString()}</span>`
+        ? `<span class="post-edited-date">Edited: ${new Date(post.updated_at).toLocaleString()}</span>`
         : '';
 
     return `
@@ -617,7 +617,8 @@ function renderSinglePost(post, isOwner) {
             
             <div class="post-footer">
                 <span class="post-meta">
-                    <span class="post-date">${postDate}${editedDate}</span>
+                    <span class="post-date">${postDate}</span>
+                    ${editedDate}
                     <span class="post-stats">
                         🗨️ ${commentCount} • ⬆️ ${voteTotal}
                     </span>
