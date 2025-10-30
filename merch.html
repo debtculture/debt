@@ -6,35 +6,65 @@
     <meta name="description" content="Debt Culture Merchandise - Join the rebellion with exclusive $DEBT gear.">
     <meta name="keywords" content="Debt Culture, $DEBT, merchandise, crypto, memecoin, Solana">
     <meta name="author" content="Autopsy">
-    <title>Debt Culture - Merchandise</title>
+    <title>Merchandise - Debt Culture</title>
+    
+    <!-- Favicons -->
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/shared-styles.css">
     <link rel="stylesheet" href="assets/css/merch.css">
 </head>
 <body>
-    <canvas id="matrix-bg"></canvas>
-    <canvas id="matrix-rain"></canvas>
-    <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+    <!-- Matrix Background Effects -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+
+    <!-- Mobile Navigation -->
+    <button 
+        class="hamburger" 
+        onclick="toggleMenu()" 
+        aria-label="Toggle mobile menu" 
+        aria-controls="mobileMenu" 
+        aria-expanded="false"
+    >
         <div></div>
         <div></div>
         <div></div>
-    </div>
-    <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
-    <div class="mobile-menu" id="mobileMenu">
+    </button>
+
+    <a 
+        href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="buy-btn-mobile"
+        aria-label="Buy DEBT token"
+    >
+        Buy $DEBT
+    </a>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
         <a href="index.html" onclick="closeMenu()">Home</a>
         <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
         <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
         <a href="community.html" onclick="closeMenu()">Community</a>
         <a href="forums.html" onclick="closeMenu()">Forums</a>
         <a href="profile.html" id="profile-nav-link-mobile" style="display: none;" onclick="closeMenu()">Profile</a>
-    </div>
+    </nav>
+
+    <!-- Main Header -->
     <header class="main-header">
-        <nav class="navbar">
-            <a href="index.html" class="nav-logo">
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="$DEBT Logo">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
+                <img 
+                    src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" 
+                    alt="Debt Culture Logo"
+                >
             </a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
@@ -44,70 +74,118 @@
                 <a href="forums.html">Forums</a>
             </div>
             <div class="nav-actions">
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="cta-button">Buy $DEBT</a>
+                <a 
+                    href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="cta-button"
+                >
+                    Buy $DEBT
+                </a>
             </div>
         </nav>
     </header>
+
+    <!-- Main Content -->
     <main class="content-wrapper">
-        <header class="section">
-            <!-- Merch Header -->
-            <h1 class="glitch" data-text="MERCHANDISE">MERCHANDISE</h1>
-            <p class="merch-tagline">Wear the rebellion.</p>
-            <!-- Merch Items -->
+        <section class="merch-section">
+            <!-- Page Header -->
+            <header class="page-header">
+                <h1 class="glitch" data-text="MERCHANDISE">MERCHANDISE</h1>
+                <p class="merch-tagline">Wear the rebellion.</p>
+            </header>
+
+            <!-- Merch Items Grid -->
             <div class="merch-container">
-                <div class="merch-item">
-                    <div class="merch-carousel">
+                <!-- Trucker Hat -->
+                <article class="merch-item">
+                    <div class="merch-carousel" data-product="trucker-hat">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749663039/Trucker_kld9rv.jpg" alt="Debt Culture Trucker Hat" loading="lazy" class="active">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Trucker2_p0gh01.jpg" alt="Debt Culture Trucker Hat Side View" loading="lazy">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/trucker3_i8wihj.jpg" alt="Debt Culture Trucker Hat Back View" loading="lazy">
-                        <button class="carousel-arrow left" aria-label="Previous Image">←</button>
-                        <button class="carousel-arrow right" aria-label="Next Image">→</button>
+                        <button class="carousel-arrow left" aria-label="Previous image">←</button>
+                        <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
-                    <h3>Trucker Hat</h3>
-                    <p>$19.99</p>
-                    <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
-                    <button disabled aria-disabled="true">Coming Soon</button>
-                </div>
-                <div class="merch-item">
-                    <div class="merch-carousel">
+                    <h3 class="merch-title">Trucker Hat</h3>
+                    <p class="merch-price">$19.99</p>
+                    <span class="credit-tag">
+                        Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>
+                    </span>
+                    <button class="merch-button" disabled aria-disabled="true">Coming Soon</button>
+                </article>
+
+                <!-- Candle -->
+                <article class="merch-item">
+                    <div class="merch-carousel" data-product="candle">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752015848/candle1_bc7th0.jpg" alt="Debt Culture Candle" loading="lazy" class="active">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle_l4mhuw.jpg" alt="Debt Culture Candle Side View" loading="lazy">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle2_ln8awc.jpg" alt="Debt Culture Candle Top View" loading="lazy">
-                        <button class="carousel-arrow left" aria-label="Previous Image">←</button>
-                        <button class="carousel-arrow right" aria-label="Next Image">→</button>
+                        <button class="carousel-arrow left" aria-label="Previous image">←</button>
+                        <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
-                    <h3>Candle</h3>
-                    <p>$17.99</p>
-                    <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
-                    <button disabled aria-disabled="true">Coming Soon</button>
-                </div>
-                <div class="merch-item">
-                    <div class="merch-carousel">
+                    <h3 class="merch-title">Candle</h3>
+                    <p class="merch-price">$17.99</p>
+                    <span class="credit-tag">
+                        Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>
+                    </span>
+                    <button class="merch-button" disabled aria-disabled="true">Coming Soon</button>
+                </article>
+
+                <!-- Coffee Mug -->
+                <article class="merch-item">
+                    <div class="merch-carousel" data-product="coffee-mug">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752016446/Mug_tm7r7b.jpg" alt="Debt Culture Coffee Mug" loading="lazy" class="active">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Mug2_rkfow9.jpg" alt="Debt Culture Coffee Mug Side View" loading="lazy">
                         <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022512/Mug3_zcnead.jpg" alt="Debt Culture Coffee Mug Handle View" loading="lazy">
-                        <button class="carousel-arrow left" aria-label="Previous Image">←</button>
-                        <button class="carousel-arrow right" aria-label="Next Image">→</button>
+                        <button class="carousel-arrow left" aria-label="Previous image">←</button>
+                        <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
-                    <h3>Coffee Mug</h3>
-                    <p>$13.99</p>
-                    <span class="credit-tag">Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a></span>
-                    <button disabled aria-disabled="true">Coming Soon</button>
-                </div>
+                    <h3 class="merch-title">Coffee Mug</h3>
+                    <p class="merch-price">$13.99</p>
+                    <span class="credit-tag">
+                        Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>
+                    </span>
+                    <button class="merch-button" disabled aria-disabled="true">Coming Soon</button>
+                </article>
             </div>
-            <!-- Submission Blurb -->
-            <div class="merch-blurb">
-                <div class="merch-blurb-title">Are you creative?</div>
-                <div class="merch-blurb-body">Got a $DEBT-inspired merch idea? If it’s approved by the Council, we’ll feature it in the store with credit and commissions. Profits fuel the rebellion via $DEBT buybacks.</div>
-                <div class="submit-btn-container">
-                    <a href="https://forms.gle/wyr7Ub3dHJuqSs3SA" target="_blank" class="merch-submit-btn">Submit Designs</a>
+
+            <!-- Submission Call-to-Action -->
+            <aside class="merch-cta">
+                <h2 class="merch-cta-title">Are you creative?</h2>
+                <p class="merch-cta-body">
+                    Got a $DEBT-inspired merch idea? If it's approved by the Council, we'll feature it in the store with credit and commissions. Profits fuel the rebellion via $DEBT buybacks.
+                </p>
+                <div class="merch-cta-actions">
+                    <a 
+                        href="https://forms.gle/wyr7Ub3dHJuqSs3SA" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="merch-submit-btn"
+                    >
+                        Submit Designs
+                    </a>
                 </div>
-            </div>
-        </header>
+            </aside>
+        </section>
     </main>
+
+    <!-- Footer -->
     <footer class="footer">
-        © 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.
+        <p>
+            © 2025 by 
+            <a 
+                href="https://x.com/AutopsyT2" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="footer-link"
+            >
+                Autopsy
+            </a>. 
+            All rights reserved.
+        </p>
     </footer>
+
+    <!-- Scripts -->
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/merch.js"></script>
 </body>
