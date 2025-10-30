@@ -1,12 +1,22 @@
-/* --- V2 Glitch Title Style --- */
-.content-wrapper header h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    text-shadow: none;
-    animation: none;
-}
-/* --- Forum Page Layout --- */
+/* =============================================================================
+   FORUMS PAGE STYLES
+   Version: 2.0 (Optimized)
+   
+   Table of Contents:
+   1. Page Layout
+   2. Forum Header
+   3. Post List Container & Grid
+   4. Post Row Styles
+   5. Loading & Empty States
+   6. Glitch Effect Animation
+   7. Mobile Navigation
+   8. Responsive Design
+   ============================================================================= */
+
+/* =============================================================================
+   1. PAGE LAYOUT
+   ============================================================================= */
+
 .content-wrapper {
     max-width: 1000px;
     margin: 0 auto;
@@ -14,29 +24,55 @@
     position: relative;
     z-index: 1;
 }
+
+.content-wrapper header h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: none;
+    animation: none;
+}
+
+/* =============================================================================
+   2. FORUM HEADER
+   ============================================================================= */
+
 .forum-header {
     text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 2px solid #ff5555;
 }
+
 .forum-header h1 {
     margin-bottom: 20px;
 }
-/* --- Post List Styles --- */
+
+/* =============================================================================
+   3. POST LIST CONTAINER & GRID
+   ============================================================================= */
+
 .post-list-container {
     background: rgba(26, 26, 26, 0.7);
     border: 1px solid #333;
     border-radius: 10px;
     overflow: hidden;
 }
-.post-list-header, .post-row {
+
+/**
+ * Grid Layout for Post List
+ * Desktop: 5fr (Topic) | 1.5fr (Author) | 1fr (Replies) | 2.5fr (Activity)
+ * Mobile: Hides Last Activity column (see responsive section)
+ */
+.post-list-header, 
+.post-row {
     display: grid;
     grid-template-columns: 5fr 1.5fr 1fr 2.5fr;
     gap: 15px;
     padding: 15px 20px;
     align-items: center;
 }
+
 .post-list-header {
     background-color: #111;
     color: #ff5555;
@@ -44,17 +80,26 @@
     font-size: 1rem;
     border-bottom: 1px solid #333;
 }
+
+/* =============================================================================
+   4. POST ROW STYLES
+   ============================================================================= */
+
 .post-row {
     border-bottom: 1px solid #2a2a2a;
     transition: background-color 0.3s ease;
 }
+
 .post-row:last-child {
     border-bottom: none;
 }
+
 .post-row:hover {
     background-color: rgba(255, 85, 85, 0.1);
     box-shadow: 0 0 10px rgba(255, 85, 85, 0.2);
 }
+
+/* --- Post Title Column --- */
 .post-title a {
     color: #eee;
     text-decoration: none;
@@ -62,36 +107,55 @@
     font-size: 1.1rem;
     transition: color 0.2s ease;
 }
+
 .post-title a:hover {
     color: #ff5555;
     text-shadow: 0 0 5px #ff5555;
 }
+
+/* --- Post Author Column --- */
+.post-author {
+    text-align: center;
+}
+
 .post-author a {
     color: #ccc;
     text-decoration: none;
     transition: color 0.2s ease;
 }
+
 .post-author a:hover {
     color: #ff7777;
 }
-.post-replies, .post-activity {
+
+/* --- Post Replies & Activity Columns --- */
+.post-replies, 
+.post-activity {
     color: #aaa;
     font-size: 0.9rem;
     text-align: center;
 }
-.post-author {
-    text-align: center;
-}
+
+/* =============================================================================
+   5. LOADING & EMPTY STATES
+   ============================================================================= */
+
 .loading-message {
     padding: 40px;
     text-align: center;
     color: #ff9999;
 }
-/* --- V2 Glitch Effect & Animations --- */
+
+/* =============================================================================
+   6. GLITCH EFFECT ANIMATION
+   ============================================================================= */
+
 .glitch {
     position: relative;
 }
-.glitch::before, .glitch::after {
+
+.glitch::before, 
+.glitch::after {
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -101,16 +165,19 @@
     background: var(--dark-bg);
     overflow: hidden;
 }
+
 .glitch::before {
     left: 2px;
     text-shadow: -2px 0 var(--main-red);
     animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
+
 .glitch::after {
     left: -2px;
     text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
     animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
+
 @keyframes glitch-anim-1 {
     0% { clip: rect(42px, 9999px, 44px, 0); }
     5% { clip: rect(12px, 9999px, 60px, 0); }
@@ -134,6 +201,7 @@
     95% { clip: rect(100px, 9999px, 80px, 0); }
     100% { clip: rect(80px, 9999px, 120px, 0); }
 }
+
 @keyframes glitch-anim-2 {
     0% { clip: rect(85px, 9999px, 90px, 0); }
     5% { clip: rect(35px, 9999px, 95px, 0); }
@@ -157,11 +225,20 @@
     95% { clip: rect(75px, 9999px, 145px, 0); }
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
-/* --- Mobile Navigation: Base Styles (Hidden on Desktop) --- */
+
+/* =============================================================================
+   7. MOBILE NAVIGATION (HIDDEN ON DESKTOP)
+   ============================================================================= */
+
+/* CRITICAL: These styles ensure hamburger menu only appears on mobile devices.
+   The default state hides all mobile navigation elements on desktop.
+   They are shown only within the @media (max-width: 768px) breakpoint below. */
+
 .buy-btn-mobile,
 .hamburger {
     display: none;
 }
+
 .mobile-menu {
     display: none;
     position: fixed;
@@ -177,6 +254,7 @@
     max-height: 80vh;
     overflow-y: auto;
 }
+
 .mobile-menu a {
     display: block;
     color: var(--text-primary);
@@ -185,17 +263,24 @@
     font-weight: 700;
     transition: color 0.3s, background-color 0.3s;
 }
+
 .mobile-menu a:hover {
     color: var(--main-red);
     background-color: rgba(255, 255, 255, 0.05);
 }
-/* --- Mobile Navigation: Show on Mobile --- */
+
+/* =============================================================================
+   8. RESPONSIVE DESIGN (MOBILE)
+   ============================================================================= */
+
 @media (max-width: 768px) {
+    /* --- Mobile Navigation --- */
     .buy-btn-mobile,
     .hamburger {
         display: flex;
         align-items: center;
     }
+
     .buy-btn-mobile {
         position: fixed;
         top: 15px;
@@ -211,9 +296,11 @@
         font-size: 0.9rem;
         transition: background-color 0.3s ease;
     }
+
     .buy-btn-mobile:hover {
         background-color: var(--hover-red);
     }
+
     .hamburger {
         flex-direction: column;
         justify-content: space-around;
@@ -229,6 +316,7 @@
         border: 1px solid var(--border-color);
         border-radius: 5px;
     }
+
     .hamburger div {
         width: 20px;
         height: 2px;
@@ -236,25 +324,45 @@
         margin: 0 auto;
         transition: all 0.3s ease;
     }
+
     .hamburger.active div:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
+
     .hamburger.active div:nth-child(2) {
         opacity: 0;
     }
+
     .hamburger.active div:nth-child(3) {
         transform: rotate(-45deg) translate(4px, -4px);
     }
+
+    /* --- Navigation Center Alignment --- */
     .navbar {
         justify-content: center;
     }
-    /* --- Responsive Adjustments --- */
-    .post-list-header, .post-row {
+
+    /* --- Post List Grid Mobile Layout --- */
+    /* Hide "Last Activity" column on mobile to save space */
+    .post-list-header, 
+    .post-row {
         grid-template-columns: 4fr 2fr 1fr;
         gap: 10px;
         padding: 10px;
     }
-    .post-activity-header, .post-activity {
+
+    .post-activity-header, 
+    .post-activity {
         display: none;
+    }
+
+    /* --- Typography Adjustments --- */
+    .post-title a {
+        font-size: 1rem;
+    }
+
+    .post-author,
+    .post-replies {
+        font-size: 0.85rem;
     }
 }
