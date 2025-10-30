@@ -794,7 +794,7 @@ function renderCreatePostView() {
                     placeholder="What's on your mind?"
                     rows="8"
                 ></textarea>
-                <small>BBCode formatting: [b]bold[/b], [i]italic[/i], [u]underline[/u]. Tag users with @username.</small>
+                <small>Tag users with @username</small>
             </div>
 
             <div class="form-actions">
