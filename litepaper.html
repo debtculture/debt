@@ -4,36 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The official Litepaper for the Debt Culture ($DEBT) token, outlining our mission, tokenomics, and roadmap.">
-    <meta name="keywords" content="Debt Culture, $DEBT, litepaper, whitepaper, tokenomics, roadmap, Solana">
+    <meta name="keywords" content="Debt Culture, $DEBT, litepaper, whitepaper, tokenomics, roadmap, Solana, memecoin, cryptocurrency">
     <meta name="author" content="Autopsy">
-    <title>Debt Culture - Litepaper</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <title>Litepaper - Debt Culture</title>
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Debt Culture Litepaper - The Rebellion's Blueprint">
+    <meta property="og:description" content="Read the official litepaper for $DEBT - a decentralized cultural movement on Solana. Learn about our mission, tokenomics, and roadmap to financial sovereignty.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://debtculture.xyz/litepaper.html">
+    <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Debt Culture Litepaper - The Rebellion's Blueprint">
+    <meta name="twitter:description" content="Read the official litepaper for $DEBT - a decentralized cultural movement on Solana.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_16,h_16/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_32,h_32/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_64,h_64/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_180,h_180/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/shared-styles.css">
     <link rel="stylesheet" href="assets/css/litepaper.css">
 </head>
 <body>
-    <canvas id="matrix-bg"></canvas>
-    <canvas id="matrix-rain"></canvas>
-    <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+    <!-- Matrix Background Effects -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+
+    <!-- Mobile Navigation -->
+    <button 
+        class="hamburger" 
+        onclick="toggleMenu()" 
+        aria-label="Toggle mobile menu" 
+        aria-controls="mobileMenu" 
+        aria-expanded="false"
+    >
         <div></div>
         <div></div>
         <div></div>
-    </div>
-    <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
-    <div class="mobile-menu" id="mobileMenu">
+    </button>
+
+    <a 
+        href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="buy-btn-mobile"
+        aria-label="Buy DEBT token"
+    >
+        Buy $DEBT
+    </a>
+
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
         <a href="index.html" onclick="closeMenu()">Home</a>
         <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
         <a href="community.html" onclick="closeMenu()">Community</a>
         <a href="forums.html" onclick="closeMenu()">Forums</a>
         <a href="merch.html" onclick="closeMenu()">Merch</a>
-    </div>
+    </nav>
+
+    <!-- Main Header -->
     <header class="main-header">
-        <nav class="navbar">
-            <a href="index.html" class="nav-logo">
-                <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="$DEBT Logo">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
+                <img 
+                    src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" 
+                    alt="Debt Culture Logo"
+                    width="50"
+                    height="50"
+                >
             </a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
@@ -43,28 +94,48 @@
                 <a href="merch.html">Merch</a>
             </div>
             <div class="nav-actions">
-                <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="cta-button">Buy $DEBT</a>
+                <a 
+                    href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="cta-button"
+                >
+                    Buy $DEBT
+                </a>
             </div>
         </nav>
     </header>
-    <main class="content-wrapper" role="main">
-        <header>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Page Header -->
+        <header class="page-header">
             <h1 class="glitch" data-text="LITEPAPER">LITEPAPER</h1>
-            <p class="subtitle">Version 1.0 - October 16, 2025</p>
+            <p class="subtitle">Version 1.0 — October 16, 2025</p>
         </header>
+
         <!-- Section: Abstract -->
         <section class="paper-section">
             <h2>Abstract: The Rebellion's Blueprint</h2>
-            <p>$DEBT, an acronym for "Don't Ever Believe Them," is more than a memecoin; it is a decentralized cultural movement on the Solana blockchain. Launched on July 21, 2024, by founder <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>, its purpose is to serve as a digital symbol of defiance against a predatory global financial system built on debt. Through a combination of deflationary tokenomics, community empowerment, and a weaponized meme culture, $DEBT aims to build a self-sustaining ecosystem that rejects the status quo and champions financial sovereignty for the 99%.</p>
+            <p>
+                $DEBT, an acronym for "Don't Ever Believe Them," is more than a memecoin; it is a decentralized cultural movement on the Solana blockchain. Launched on July 21, 2024, by founder 
+                <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>, 
+                its purpose is to serve as a digital symbol of defiance against a predatory global financial system built on debt. Through a combination of deflationary tokenomics, community empowerment, and a weaponized meme culture, $DEBT aims to build a self-sustaining ecosystem that rejects the status quo and champions financial sovereignty for the 99%.
+            </p>
         </section>
+
         <!-- Section: Manifesto -->
         <section class="paper-section">
             <h2>The Manifesto: The Problem</h2>
-            <p>The modern world is built on a lie sold to us as progress: a system of inescapable, generational debt designed to enrich the few at the expense of the many. Financial institutions forge digital chains, central banks print currency into worthlessness, and the masses are told this is the only way. This system is a prison disguised as a dream. $DEBT was created as a glitch in this machine—a crowbar to pry open the system and a testament to the power of a collective that refuses to comply. The great default is not just a market crash; it is a conscious decision to reject the terms of our enslavement.</p>
+            <p>
+                The modern world is built on a lie sold to us as progress: a system of inescapable, generational debt designed to enrich the few at the expense of the many. Financial institutions forge digital chains, central banks print currency into worthlessness, and the masses are told this is the only way. This system is a prison disguised as a dream. $DEBT was created as a glitch in this machine—a crowbar to pry open the system and a testament to the power of a collective that refuses to comply. The great default is not just a market crash; it is a conscious decision to reject the terms of our enslavement.
+            </p>
         </section>
+
         <!-- Section: Tokenomics -->
         <section class="paper-section">
             <h2>Tokenomics: The Arsenal of the Rebellion</h2>
+            
             <div class="two-column">
                 <div>
                     <ul>
@@ -86,17 +157,27 @@
             </div>
           
             <h3 class="section-title">Deflationary by Design</h3>
-            <p>Unlike fiat currencies which inflate into infinity, $DEBT is designed to become scarcer over time. To date, over <strong>66 Million tokens have been permanently burned</strong>. Future burns are planned to commemorate community-driven milestones, forever reducing the total supply.</p>
+            <p>
+                Unlike fiat currencies which inflate into infinity, $DEBT is designed to become scarcer over time. To date, over <strong>66 Million tokens have been permanently burned</strong>. Future burns are planned to commemorate community-driven milestones, forever reducing the total supply.
+            </p>
           
             <h3 class="section-title">Community-First Distribution</h3>
-            <p>From its inception, $DEBT has been a project for the people. Over <strong>100 Million tokens</strong> have been distributed directly to community members through airdrops and events, including the "Debtmas" airdrop of 30 Million tokens to holders.</p>
+            <p>
+                From its inception, $DEBT has been a project for the people. Over <strong>100 Million tokens</strong> have been distributed directly to community members through airdrops and events, including the "Debtmas" airdrop of 30 Million tokens to holders.
+            </p>
+
             <h3 class="section-title">The Treasury: A War Chest for the Future</h3>
-            <p>A total of <strong>150 Million tokens</strong> are secured in a time-locked contract, set to unlock on July 21, 2026, and return to the treasury wallet (`debtculture.sol`). The locked funds are publicly viewable on the <a href="https://app.streamflow.finance/project-dashboard/solana/mainnet/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Vault Tracker</a> and are reserved exclusively to propel the project forward through DAO-voted initiatives, staking rewards, strategic airdrops, and marketing campaigns.</p>
+            <p>
+                A total of <strong>150 Million tokens</strong> are secured in a time-locked contract, set to unlock on July 21, 2026, and return to the treasury wallet (`debtculture.sol`). The locked funds are publicly viewable on the 
+                <a href="https://app.streamflow.finance/project-dashboard/solana/mainnet/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer">Vault Tracker</a> 
+                and are reserved exclusively to propel the project forward through DAO-voted initiatives, staking rewards, strategic airdrops, and marketing campaigns.
+            </p>
         </section>
+
         <!-- Section: Roadmap -->
         <section id="roadmap" class="paper-section">
             <h2>Roadmap: The Path to Victory</h2>
-            <p class="section-p">The journey to financial sovereignty.</p>
+            <p class="section-intro">The journey to financial sovereignty.</p>
           
             <h3 class="section-title">Phase 1: IGNITION (Completed)</h3>
             <ul class="section-ul">
@@ -106,6 +187,7 @@
                 <li>Achieve listings on major market trackers to broadcast our signal worldwide.</li>
                 <li>Establish the digital command center with the launch of DebtCulture.xyz and our core social channels.</li>
             </ul>
+
             <h3 class="section-title">Phase 2: ESCALATION (Current)</h3>
             <ul class="section-ul">
                 <li>Forge alliances with other projects and platforms that share our defiant vision.</li>
@@ -113,6 +195,7 @@
                 <li>Release the first official merch line. Wear the rebellion.</li>
                 <li>Execute strategic, high-impact token burns tied to major community milestones and achievements.</li>
             </ul>
+
             <h3 class="section-title">Phase 3: THE GREAT DEFAULT (Future)</h3>
             <ul class="section-ul">
                 <li>Deploy the DAO Treasury and governance structure. The community will take full control of the project's future.</li>
@@ -125,37 +208,63 @@
         <!-- Section: Project Escalation -->
         <section class="paper-section">
             <h2>Project Escalation: The NFT Collection</h2>
-            <p>The next major offensive in our rebellion is the launch of a <strong>777-piece NFT collection</strong> (official name to be revealed). These are not just profile pictures; they are symbols of status within the rebellion and keys to earning within our ecosystem.</p>
+            <p>
+                The next major offensive in our rebellion is the launch of a <strong>777-piece NFT collection</strong> (official name to be revealed). These are not just profile pictures; they are symbols of status within the rebellion and keys to earning within our ecosystem.
+            </p>
+            
             <ul>
                 <li><strong>Utility:</strong> Holders will be able to stake their NFTs to earn passive $DEBT rewards, creating a powerful synergy between holding the token and the NFT.</li>
                 <li><strong>Distribution Strategy:</strong>
-                    <ul class="section-ul">
+                    <ul class="section-ul nested-ul">
                         <li><strong>277 Airdropped/Claimable:</strong> Rewarded to loyal $DEBT holders based on a tiered snapshot of holdings.</li>
                         <li><strong>100 Presale:</strong> Available for purchase at a discount exclusively using $DEBT.</li>
                         <li><strong>100 Marketing & Giveaways:</strong> Reserved for partnerships and community contests.</li>
                         <li><strong>300 Public Mint:</strong> The remaining supply will be available for public minting.</li>
                     </ul>
                 </li>
-                 <li><strong>Economic Engine:</strong> All proceeds from the NFT sale will be used to propel the token's growth. All secondary market royalties will be used to execute <strong>$DEBT buybacks</strong>, creating continuous buying pressure. The $DEBT collected from the presale will be strategically split: <strong>50% will be permanently burned</strong> and <strong>50% will be added to the NFT staking rewards pool</strong>.</li>
+                <li><strong>Economic Engine:</strong> All proceeds from the NFT sale will be used to propel the token's growth. All secondary market royalties will be used to execute <strong>$DEBT buybacks</strong>, creating continuous buying pressure. The $DEBT collected from the presale will be strategically split: <strong>50% will be permanently burned</strong> and <strong>50% will be added to the NFT staking rewards pool</strong>.</li>
             </ul>
         </section>
+
         <!-- Section: Disclaimer -->
         <section id="disclaimer" class="paper-section">
             <h2>Disclaimer</h2>
-            <p class="section-p">Your participation in this project is subject to the terms below. Please read carefully.</p>
+            <p class="section-intro">Your participation in this project is subject to the terms below. Please read carefully.</p>
           
             <h3 class="section-title">1. For Entertainment Purposes Only</h3>
-            <p class="section-p">$DEBT is a memecoin with no intrinsic value or expectation of financial return. It was created as an experimental, community-driven project for entertainment. The content on this website is for informational purposes only and is <b>not financial, investment, or legal advice.</b></p>
+            <p>
+                $DEBT is a memecoin with no intrinsic value or expectation of financial return. It was created as an experimental, community-driven project for entertainment. The content on this website is for informational purposes only and is <strong>not financial, investment, or legal advice.</strong>
+            </p>
           
             <h3 class="section-title">2. High Risk Activity</h3>
-            <p class="section-p">Engaging with cryptocurrencies involves significant risk, including the potential for total loss of your funds. All participation is done <b>at your own risk</b>. We make <b>no guarantees</b> regarding the value, performance, or functionality of the $DEBT token. Always <b>do your own research (DYOR)</b>.</p>
+            <p>
+                Engaging with cryptocurrencies involves significant risk, including the potential for total loss of your funds. All participation is done <strong>at your own risk</strong>. We make <strong>no guarantees</strong> regarding the value, performance, or functionality of the $DEBT token. Always <strong>do your own research (DYOR)</strong>.
+            </p>
           
             <h3 class="section-title">3. No Guarantees or Liability</h3>
-            <p class="section-p">The project roadmap contains forward-looking statements that are goals, <b>not promises</b>, and are subject to change. To the fullest extent permitted by law, the creators and community of Debt Culture disclaim all liability for any loss or damage arising from your use of this website or participation in the project.</p>
+            <p>
+                The project roadmap contains forward-looking statements that are goals, <strong>not promises</strong>, and are subject to change. To the fullest extent permitted by law, the creators and community of Debt Culture disclaim all liability for any loss or damage arising from your use of this website or participation in the project.
+            </p>
         </section>
     </main>
-    <footer class="footer">© 2025 by <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer" class="footer-link">Autopsy</a>. All rights reserved.</footer>
-  
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>
+            © 2025 by 
+            <a 
+                href="https://x.com/AutopsyT2" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="footer-link"
+            >
+                Autopsy
+            </a>. 
+            All rights reserved.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/litepaper.js"></script>
 </body>
