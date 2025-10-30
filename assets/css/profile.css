@@ -1,5 +1,18 @@
 /* =============================================================================
    PROFILE PAGE STYLES
+   Version: 2.0 (Optimized)
+   
+   Table of Contents:
+   1. Page Layout
+   2. Profile Container & Loading
+   3. Profile Header & Picture
+   4. Profile Stats & Meta
+   5. Edit Profile Forms
+   6. Social Links & Song Player
+   7. Posts Section
+   8. Glitch Effect Animation
+   9. Mobile Navigation
+   10. Responsive Design
    ============================================================================= */
 
 /* --- PAGE LAYOUT --- */
@@ -692,6 +705,10 @@
 }
 
 /* --- MOBILE NAVIGATION (HIDDEN ON DESKTOP) --- */
+/* CRITICAL: These styles ensure hamburger menu only appears on mobile devices.
+   The default state hides all mobile navigation elements on desktop.
+   They are shown only within the @media (max-width: 768px) breakpoint below. */
+
 .buy-btn-mobile,
 .hamburger {
     display: none;
