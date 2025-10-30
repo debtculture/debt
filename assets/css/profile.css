@@ -425,6 +425,7 @@
 .post-edited-date {
     color: #aaa;
     font-style: italic;
+    font-size: 0.85rem;
 }
 
 .post-actions {
@@ -577,6 +578,33 @@
     display: flex;
     gap: 5px;
     flex-shrink: 0;
+}
+
+.post-action-btn {
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.post-action-btn:hover {
+    background: #444;
+    border-color: #777;
+}
+
+.post-action-btn.delete {
+    color: #ff5555;
+    border-color: #ff5555;
+}
+
+.post-action-btn.delete:hover {
+    background: rgba(255, 85, 85, 0.1);
 }
 
 .pin-badge {
@@ -1018,5 +1046,56 @@
         min-width: 48px;
         min-height: 48px;
         padding: 10px 18px;
+    }
+
+    /* Post Header - Mobile Fix */
+    .post-header-row {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .post-title {
+        font-size: 1.15rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .post-admin-buttons {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .post-action-btn {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    /* Post Content - Mobile */
+    .post-content {
+        font-size: 0.95rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Post Date & Edited - Mobile Fix */
+    .post-date {
+        font-size: 0.75rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .post-edited-date {
+        display: block;
+        margin-top: 4px;
+        font-size: 0.75rem;
+    }
+
+    /* Pin Badge - Mobile */
+    .pin-badge {
+        font-size: 0.8rem;
+        padding: 3px 8px;
     }
 }
