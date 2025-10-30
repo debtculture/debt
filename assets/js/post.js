@@ -6,7 +6,6 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 let loggedInUserProfile = null;
 let currentPostData = null; // Specific to this page
-let allUsersCache = []; // This will be populated by the shared helper script
 
 // =================================================================================
 // --- MAIN LOGIC ---
