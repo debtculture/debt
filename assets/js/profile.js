@@ -9,7 +9,6 @@ let loggedInUserProfile = null;
 let isInitialLoad = true;
 let currentSortOrder = 'newest';
 let profileYouTubePlayer;
-let allUsersCache = [];
 function debounce(func, delay) {
     let timer;
     return (...args) => {
