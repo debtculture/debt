@@ -3,11 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View user profiles, posts, and activity on Debt Culture">
+    <meta name="description" content="View user profiles, posts, and activity on Debt Culture community">
+    <meta name="keywords" content="Debt Culture, profile, social, community, posts, DEBT token">
     <title>User Profile - Debt Culture</title>
     
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="User Profile - Debt Culture">
+    <meta property="og:description" content="View profiles and connect with the Debt Culture community">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://debtculture.xyz/profile.html">
+    <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="User Profile - Debt Culture">
+    <meta name="twitter:description" content="View profiles and connect with the Debt Culture community">
+    <meta name="twitter:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_16,h_16/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_32,h_32/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_64,h_64/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_180,h_180/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/shared-styles.css">
@@ -22,7 +49,7 @@
     <canvas id="matrix-bg" aria-hidden="true"></canvas>
     <canvas id="matrix-rain" aria-hidden="true"></canvas>
 
-    <!-- Mobile Navigation -->
+    <!-- Mobile Navigation (Hidden on Desktop) -->
     <button 
         class="hamburger" 
         onclick="toggleMenu()" 
@@ -54,13 +81,15 @@
         <a href="merch.html" onclick="closeMenu()">Merch</a>
     </nav>
 
-    <!-- Main Header -->
+    <!-- Main Header (Desktop) -->
     <header class="main-header">
         <nav class="navbar" aria-label="Main navigation">
             <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
                 <img 
                     src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" 
                     alt="Debt Culture Logo"
+                    width="50"
+                    height="50"
                 >
             </a>
             <div class="nav-links">
