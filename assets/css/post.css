@@ -1,30 +1,40 @@
-/* --- Back Button Styling --- */
-.back-home-container {
+/* =============================================================================
+   POST PAGE STYLES
+   ============================================================================= */
+
+/* --- BACK NAVIGATION --- */
+.back-nav {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px 20px 0 20px;
+    padding: 20px 20px 0;
 }
-.back-home {
+
+.back-button {
     background-color: var(--main-red);
-    color: #fff;
+    color: var(--text-primary);
     padding: 8px 16px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: 700;
     font-size: 0.9rem;
     display: inline-block;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease,
+                transform 0.2s ease;
 }
-.back-home:hover {
+
+.back-button:hover {
     background-color: var(--hover-red);
+    transform: translateX(-2px);
 }
-/* --- Main Page Layout --- */
+
+/* --- PAGE LAYOUT --- */
 .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
-/* --- Post Container Styling --- */
+
+/* --- POST CONTAINER --- */
 #post-container {
     background: rgba(26, 26, 26, 0.7);
     border: 1px solid var(--main-red);
@@ -33,22 +43,274 @@
     backdrop-filter: blur(4px);
     box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
 }
-/* --- This rule prevents a "box-within-a-box" look --- */
+
 #post-container .post-item {
     border: none;
     background: none;
     box-shadow: none;
     padding: 0;
+    margin-bottom: 0;
 }
-/* --- Responsive Adjustments --- */
+
+/* --- LOADING & ERROR STATES --- */
+.loading-container,
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 300px;
+    text-align: center;
+}
+
+.loading-container::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;
+    border: 4px solid rgba(255, 85, 85, 0.2);
+    border-top-color: var(--main-red);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-container h2 {
+    color: var(--main-red);
+    margin-bottom: 10px;
+}
+
+.error-container p {
+    color: var(--text-secondary);
+}
+
+/* --- POST HEADER --- */
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.post-author-pfp,
+.post-author-pfp-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    flex-shrink: 0;
+}
+
+.post-author-pfp {
+    object-fit: cover;
+}
+
+.post-author-pfp-placeholder {
+    background-color: var(--border-color);
+}
+
+.post-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.post-author-name {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.post-timestamp {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.post-edited-date {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* --- POST BODY --- */
+.post-body {
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: 2.2rem;
+    text-align: left;
+    color: var(--text-primary);
+    margin: 0 0 20px;
+    line-height: 1.2;
+}
+
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #ddd;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+}
+
+/* --- VOTE SECTION --- */
+.vote-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.vote-btn {
+    background: none;
+    border: 1px solid #555;
+    color: #999;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.vote-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.vote-count {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ccc;
+    min-width: 30px;
+    text-align: center;
+}
+
+.vote-btn.up.active {
+    background-color: #1e4620;
+    color: #55ff55;
+    border-color: #55ff55;
+    text-shadow: 0 0 5px #55ff55;
+}
+
+.vote-btn.down.active {
+    background-color: #4d1c1c;
+    color: var(--main-red);
+    border-color: var(--main-red);
+    text-shadow: 0 0 5px var(--main-red);
+}
+
+/* --- COMMENTS SECTION --- */
+.comments-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #444;
+}
+
+.comments-empty {
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* --- COMMENT FORM --- */
+.add-comment-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.comment-input {
+    flex: 1;
+    background: #222;
+    color: var(--text-primary);
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: var(--main-red);
+    box-shadow: 0 0 5px rgba(255, 59, 59, 0.3);
+}
+
+.comment-submit {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
+    .back-nav {
+        padding: 15px 15px 0;
+    }
+
     .content-wrapper {
-        padding: 10px;
+        padding: 15px 10px;
     }
+
     #post-container {
-        padding: 20px;
+        padding: 20px 15px;
     }
-    .add-comment-form input {
+
+    .post-title {
+        font-size: 1.6rem;
+    }
+
+    .post-content {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .post-author-pfp,
+    .post-author-pfp-placeholder {
+        width: 40px;
+        height: 40px;
+    }
+
+    .post-author-name {
+        font-size: 1rem;
+    }
+
+    .post-timestamp {
+        font-size: 0.75rem;
+    }
+
+    .add-comment-form {
+        flex-direction: column;
+    }
+
+    .comment-input {
         font-size: 0.9rem;
+    }
+
+    .comment-submit {
+        width: 100%;
+    }
+
+    .vote-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .vote-count {
+        font-size: 1.1rem;
     }
 }
