@@ -176,6 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
         secondary: secondaryEffect
     };
 
+    // Pause animations when tab is hidden (saves battery)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            Object.values(window.matrixEffects).forEach(effect => effect?.stop());
+        } else {
+            Object.values(window.matrixEffects).forEach(effect => effect?.start());
+        }
+    });
+
     // Optional: Cleanup on page unload (for SPAs)
     window.addEventListener('beforeunload', () => {
         if (window.matrixEffects) {
