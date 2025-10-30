@@ -48,6 +48,71 @@
     margin-bottom: 20px;
 }
 
+/* --- Forum Actions (Create Post Button) --- */
+.forum-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.create-post-btn {
+    background: var(--main-red);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.create-post-btn:hover {
+    background: var(--hover-red);
+    box-shadow: 0 0 15px rgba(255, 59, 59, 0.5);
+    transform: translateY(-2px);
+}
+
+.create-post-btn:active {
+    transform: translateY(0);
+}
+
+.create-post-btn.disabled {
+    background: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.create-post-btn.disabled:hover {
+    background: #555;
+    box-shadow: none;
+    transform: none;
+}
+
+.forum-info-message {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 85, 85, 0.1);
+    border: 1px solid rgba(255, 85, 85, 0.3);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #ff9999;
+}
+
+.forum-info-message a {
+    color: #ff5555;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.forum-info-message a:hover {
+    color: #ff7777;
+}
+
 /* =============================================================================
    3. POST LIST CONTAINER & GRID
    ============================================================================= */
@@ -114,6 +179,7 @@
 }
 
 /* --- Post Author Column --- */
+.post-author-header,
 .post-author {
     text-align: center;
 }
@@ -129,7 +195,9 @@
 }
 
 /* --- Post Replies & Activity Columns --- */
+.post-replies-header,
 .post-replies, 
+.post-activity-header,
 .post-activity {
     color: #aaa;
     font-size: 0.9rem;
@@ -364,5 +432,17 @@
     .post-author,
     .post-replies {
         font-size: 0.85rem;
+    }
+
+    /* --- Forum Actions Mobile --- */
+    .forum-actions {
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    .create-post-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
     }
 }
