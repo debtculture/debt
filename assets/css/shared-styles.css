@@ -166,6 +166,197 @@ h1 {
     animation: neon-flicker 1.5s infinite alternate;
 }
 
+/* --- COMMENT SYSTEM STYLES --- */
+.comment-item {
+    margin-top: 20px;
+}
+
+.comment-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.comment-pfp {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.comment-pfp-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #555;
+    flex-shrink: 0;
+}
+
+.comment-body {
+    background: #222;
+    padding: 8px 12px;
+    border-radius: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-admin-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.comment-content {
+    margin: 5px 0 0;
+    color: #ddd;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.comment-footer {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.comment-date {
+    color: #888;
+    font-size: 0.7rem;
+}
+
+.comment-edited {
+    font-style: italic;
+    color: #888;
+}
+
+.comment-children {
+    margin-left: 40px;
+}
+
+.reply-form,
+.add-comment-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.reply-form {
+    margin-left: 40px;
+}
+
+.comment-input {
+    flex: 1;
+    background: #222;
+    color: #eee;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 8px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: var(--main-red);
+    box-shadow: 0 0 5px rgba(255, 59, 59, 0.3);
+}
+
+.comment-submit,
+.comment-save {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.comment-cancel,
+.comment-cancel-edit {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    margin: 0;
+    background: #555;
+    border-color: #777;
+    white-space: nowrap;
+}
+
+.comment-cancel:hover,
+.comment-cancel-edit:hover {
+    background: #666;
+    box-shadow: 0 0 15px rgba(102, 102, 102, 0.5);
+}
+
+.edit-comment-form {
+    margin-top: 10px;
+}
+
+.comment-edit-textarea {
+    width: 100%;
+    min-height: 80px;
+    background: #111;
+    color: #eee;
+    border: 1px solid var(--main-red);
+    border-radius: 5px;
+    padding: 10px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    resize: vertical;
+}
+
+.comment-edit-textarea:focus {
+    outline: none;
+    border-color: var(--hover-red);
+    box-shadow: 0 0 10px rgba(255, 59, 59, 0.3);
+}
+
+.edit-comment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.post-action-btn {
+    background: var(--content-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease,
+                border-color var(--transition-speed) ease;
+}
+
+.post-action-btn:hover {
+    background: #2a2a2a;
+    border-color: var(--main-red);
+}
+
+.post-action-btn.delete {
+    color: #ff6b6b;
+}
+
+.post-action-btn.delete:hover {
+    background: rgba(255, 59, 59, 0.1);
+    border-color: #ff6b6b;
+}
+
 /* --- SHARED COMPONENTS --- */
 .footer {
     position: fixed;
@@ -308,6 +499,39 @@ button:focus,
     .cta-button {
         padding: 12px 25px;
         font-size: 1rem;
+    }
+
+    /* Comment system responsive adjustments */
+    .comment-children {
+        margin-left: 20px;
+    }
+
+    .reply-form {
+        margin-left: 20px;
+        flex-direction: column;
+    }
+
+    .comment-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .comment-admin-buttons {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .edit-comment-actions {
+        flex-direction: column;
+    }
+
+    .comment-submit,
+    .comment-save,
+    .comment-cancel,
+    .comment-cancel-edit {
+        width: 100%;
+        text-align: center;
     }
 }
 
