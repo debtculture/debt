@@ -1,92 +1,122 @@
-/* --- V2 Glitch Title Style --- */
-.content-wrapper header h1 {
+/* =============================================================================
+   LITEPAPER PAGE STYLES
+   Version: 2.0 (Optimized)
+   
+   Table of Contents:
+   1. Page Layout
+   2. Page Header & Title
+   3. Paper Sections
+   4. Typography & Text Styles
+   5. Two-Column Grid
+   6. Section Elements
+   7. Glitch Effect Animation
+   8. Mobile Navigation
+   9. Responsive Design
+   ============================================================================= */
+
+/* --- 1. PAGE LAYOUT --- */
+.content-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 40px 60px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- 2. PAGE HEADER & TITLE --- */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
     text-shadow: none;
     animation: none;
 }
-/* --- Page-Specific Content Wrapper & Section --- */
-.content-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 80px 40px 60px 40px;
-    position: relative;
-    z-index: 1;
-}
-/* --- Page-Specific Header & Title --- */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
+
 .subtitle {
     font-size: 1.2rem;
     color: #ff9999;
-    text-shadow: 0 0 5px #ff5555;
+    text-shadow: 0 0 5px var(--main-red);
     margin-top: 10px;
 }
-/* --- Page-Specific Section Styling --- */
+
+/* --- 3. PAPER SECTIONS --- */
 .paper-section {
     background: rgba(26, 26, 26, 0.7);
-    border: 1px solid #ff5555;
+    border: 1px solid var(--main-red);
     border-radius: 10px;
     padding: 25px;
     margin-bottom: 30px;
     backdrop-filter: blur(4px);
     box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
 }
+
 .paper-section h2 {
     font-size: 2rem;
-    color: #ff5555;
+    color: var(--main-red);
     margin-bottom: 15px;
     text-align: center;
-    border-bottom: 1px solid #ff5555;
+    border-bottom: 1px solid var(--main-red);
     padding-bottom: 10px;
     font-weight: 700;
 }
-.paper-section p, .paper-section li {
+
+/* Remove margin from last element in sections */
+.paper-section > *:last-child {
+    margin-bottom: 0;
+}
+
+/* --- 4. TYPOGRAPHY & TEXT STYLES --- */
+.paper-section p {
     font-size: 1.1rem;
     color: #ccc;
     margin-bottom: 15px;
+    line-height: 1.7;
 }
-.paper-section ul {
-    list-style: none;
-    padding-left: 0;
-}
-.paper-section li::before {
-    content: '»';
-    color: #ff5555;
-    margin-right: 10px;
-    font-weight: 700;
-}
+
 .paper-section strong {
     color: #fff;
     font-weight: 700;
 }
+
 .paper-section a {
-    color: #ff5555;
+    color: var(--main-red);
     text-decoration: none;
     font-weight: 700;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    transition: color var(--transition-speed) ease,
+                text-shadow var(--transition-speed) ease;
 }
+
 .paper-section a:hover {
-    color: #ff7777;
-    text-shadow: 0 0 6px #ff5555;
+    color: var(--hover-red);
+    text-shadow: 0 0 6px var(--main-red);
 }
+
+/* --- 5. TWO-COLUMN GRID --- */
 .two-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 25px;
+    margin-bottom: 20px;
 }
-/* --- Extracted Inline Styles (from HTML) --- */
+
+/* --- 6. SECTION ELEMENTS --- */
+/* Section Title (h3) */
 .section-title {
     color: #ff7777;
+    font-size: 1.3rem;
     font-weight: 700;
     margin-top: 20px;
     margin-bottom: 10px;
     text-align: left;
 }
-.section-p {
+
+/* Section Introduction Text */
+.section-intro {
     font-size: 1.1rem;
     font-style: italic;
     color: #ccc;
@@ -94,30 +124,51 @@ header {
     margin-top: -10px;
     margin-bottom: 25px;
 }
+
+/* Section Lists */
+.paper-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
 .section-ul {
     margin-bottom: 25px;
     padding-left: 20px;
 }
+
 .section-ul li {
     margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #ccc;
 }
-/* --- Remove margin from last element in sections --- */
-.paper-section > *:last-child {
-    margin-bottom: 0;
+
+/* List Item Bullets */
+.paper-section li::before {
+    content: '»';
+    color: var(--main-red);
+    margin-right: 10px;
+    font-weight: 700;
 }
-/* --- Page-Specific Responsive --- */
-@media (max-width: 768px) {
-    .content-wrapper { padding: 80px 15px 60px 15px; }
-    h1 { font-size: 2rem; }
-    .paper-section h2 { font-size: 1.5rem; }
-    .paper-section p, .paper-section li { font-size: 1rem; }
-    .two-column { grid-template-columns: 1fr; }
+
+/* Nested Lists */
+.nested-ul {
+    margin-top: 10px;
+    padding-left: 30px;
 }
-/* --- V2 Glitch Effect & Animations --- */
+
+.nested-ul li {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+/* --- 7. GLITCH EFFECT ANIMATION --- */
 .glitch {
     position: relative;
 }
-.glitch::before, .glitch::after {
+
+.glitch::before,
+.glitch::after {
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -127,16 +178,19 @@ header {
     background: var(--dark-bg);
     overflow: hidden;
 }
+
 .glitch::before {
     left: 2px;
     text-shadow: -2px 0 var(--main-red);
     animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
+
 .glitch::after {
     left: -2px;
     text-shadow: -2px 0 #2AABEE, 2px 2px var(--main-red);
     animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
+
 @keyframes glitch-anim-1 {
     0% { clip: rect(42px, 9999px, 44px, 0); }
     5% { clip: rect(12px, 9999px, 60px, 0); }
@@ -160,6 +214,7 @@ header {
     95% { clip: rect(100px, 9999px, 80px, 0); }
     100% { clip: rect(80px, 9999px, 120px, 0); }
 }
+
 @keyframes glitch-anim-2 {
     0% { clip: rect(85px, 9999px, 90px, 0); }
     5% { clip: rect(35px, 9999px, 95px, 0); }
@@ -183,45 +238,68 @@ header {
     95% { clip: rect(75px, 9999px, 145px, 0); }
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
-/* --- Mobile Navigation: Base Styles (Hidden on Desktop) --- */
+
+/* --- 8. MOBILE NAVIGATION (HIDDEN ON DESKTOP) --- */
+/* CRITICAL: These styles ensure hamburger menu only appears on mobile devices.
+   The default state hides all mobile navigation elements on desktop.
+   They are shown only within the @media (max-width: 768px) breakpoint below. */
+
 .buy-btn-mobile,
 .hamburger {
     display: none;
 }
+
 .mobile-menu {
     display: none;
-    position: fixed;
-    top: 60px;
-    left: 15px;
-    width: 180px;
-    background-color: rgba(13, 13, 13, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    z-index: 1099;
-    padding: 10px 0;
-    max-height: 80vh;
-    overflow-y: auto;
 }
-.mobile-menu a {
-    display: block;
-    color: var(--text-primary);
-    padding: 12px 20px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.3s, background-color 0.3s;
-}
-.mobile-menu a:hover {
-    color: var(--main-red);
-    background-color: rgba(255, 255, 255, 0.05);
-}
-/* --- Mobile Navigation: Show on Mobile --- */
+
+/* --- 9. RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
+    /* Content Layout */
+    .content-wrapper {
+        padding: 60px 10px;
+    }
+
+    /* Typography Scaling */
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .paper-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .paper-section p,
+    .section-ul li {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+    }
+
+    /* Grid Layout */
+    .two-column {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Section Spacing */
+    .paper-section {
+        padding: 20px 15px;
+    }
+
+    /* Mobile Navigation */
     .buy-btn-mobile,
     .hamburger {
         display: flex;
         align-items: center;
     }
+
     .buy-btn-mobile {
         position: fixed;
         top: 15px;
@@ -237,9 +315,11 @@ header {
         font-size: 0.9rem;
         transition: background-color 0.3s ease;
     }
+
     .buy-btn-mobile:hover {
         background-color: var(--hover-red);
     }
+
     .hamburger {
         flex-direction: column;
         justify-content: space-around;
@@ -255,6 +335,7 @@ header {
         border: 1px solid var(--border-color);
         border-radius: 5px;
     }
+
     .hamburger div {
         width: 20px;
         height: 2px;
@@ -262,42 +343,49 @@ header {
         margin: 0 auto;
         transition: all 0.3s ease;
     }
+
     .hamburger.active div:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
+
     .hamburger.active div:nth-child(2) {
         opacity: 0;
     }
+
     .hamburger.active div:nth-child(3) {
         transform: rotate(-45deg) translate(4px, -4px);
     }
+
+    .mobile-menu {
+        position: fixed;
+        top: 60px;
+        left: 15px;
+        width: 180px;
+        background-color: rgba(13, 13, 13, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        z-index: 1099;
+        padding: 10px 0;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .mobile-menu a {
+        display: block;
+        color: var(--text-primary);
+        padding: 12px 20px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: color 0.3s, background-color 0.3s;
+    }
+
+    .mobile-menu a:hover {
+        color: var(--main-red);
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
     .navbar {
         justify-content: center;
-    }
-    /* --- Responsive Styles --- */
-    .content-wrapper {
-        padding: 60px 10px;
-    }
-    .posts-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .posts-header .cta-button {
-        width: 100%;
-        max-width: 300px;
-    }
-    .social-icon-link {
-        width: 40px;
-        height: 40px;
-    }
-    .social-icon-link img {
-        width: 25px;
-        height: 25px;
-    }
-    .edit-profile-icon-btn {
-        top: 20px;
-        right: 20px;
-        padding: 6px 12px;
-        font-size: 0.8rem;
     }
 }
