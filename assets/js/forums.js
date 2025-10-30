@@ -22,8 +22,50 @@ const supabaseClient = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFI
  * Initialize forums page when DOM is ready
  */
 document.addEventListener('DOMContentLoaded', () => {
+    initializeCreatePostButton();
     loadForumPosts();
 });
+
+// =================================================================================
+// --- CREATE POST BUTTON ---
+// =================================================================================
+
+/**
+ * Initializes the Create Post button based on user login status
+ */
+function initializeCreatePostButton() {
+    const forumActions = document.getElementById('forum-actions');
+    const userWallet = localStorage.getItem('walletAddress');
+
+    if (userWallet) {
+        // User is logged in - show Create Post button
+        forumActions.innerHTML = `
+            <button class="create-post-btn" onclick="navigateToCreatePost()">
+                ➕ Create New Post
+            </button>
+        `;
+    } else {
+        // User not logged in - show info message
+        forumActions.innerHTML = `
+            <div class="forum-info-message">
+                <a href="index.html">Connect your wallet</a> to create posts and join the discussion
+            </div>
+        `;
+    }
+}
+
+/**
+ * Navigates user to their profile page to create a post
+ */
+window.navigateToCreatePost = function() {
+    const userWallet = localStorage.getItem('walletAddress');
+    if (userWallet) {
+        window.location.href = `profile.html?user=${userWallet}`;
+    } else {
+        alert('Please connect your wallet first');
+        window.location.href = 'index.html';
+    }
+};
 
 // =================================================================================
 // --- DATA LOADING ---
