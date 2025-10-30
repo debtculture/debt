@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Debt Culture Merchandise - Join the rebellion with exclusive $DEBT gear.">
-    <meta name="keywords" content="Debt Culture, $DEBT, merchandise, crypto, memecoin, Solana">
+    <meta name="description" content="Debt Culture Merchandise - Join the rebellion with exclusive $DEBT gear">
+    <meta name="keywords" content="Debt Culture, $DEBT, merchandise, crypto, memecoin, Solana, merch, store">
     <meta name="author" content="Autopsy">
     <title>Merchandise - Debt Culture</title>
     
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Merchandise - Debt Culture">
+    <meta property="og:description" content="Join the rebellion with exclusive Debt Culture merchandise - hats, candles, mugs and more">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://debtculture.xyz/merch.html">
+    <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
     
-    <!-- Fonts -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Merchandise - Debt Culture">
+    <meta name="twitter:description" content="Join the rebellion with exclusive Debt Culture merchandise - hats, candles, mugs and more">
+    <meta name="twitter:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_16,h_16/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_32,h_32/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_64,h_64/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="apple-touch-icon" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_180,h_180/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://forms.gle">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
@@ -25,7 +46,7 @@
     <canvas id="matrix-bg" aria-hidden="true"></canvas>
     <canvas id="matrix-rain" aria-hidden="true"></canvas>
 
-    <!-- Mobile Navigation -->
+    <!-- Mobile Navigation (Hidden on Desktop) -->
     <button 
         class="hamburger" 
         onclick="toggleMenu()" 
@@ -57,13 +78,15 @@
         <a href="profile.html" id="profile-nav-link-mobile" style="display: none;" onclick="closeMenu()">Profile</a>
     </nav>
 
-    <!-- Main Header -->
+    <!-- Main Header (Desktop) -->
     <header class="main-header">
         <nav class="navbar" aria-label="Main navigation">
             <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
                 <img 
                     src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" 
                     alt="Debt Culture Logo"
+                    width="50"
+                    height="50"
                 >
             </a>
             <div class="nav-links">
@@ -100,9 +123,22 @@
                 <!-- Trucker Hat -->
                 <article class="merch-item">
                     <div class="merch-carousel" data-product="trucker-hat">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749663039/Trucker_kld9rv.jpg" alt="Debt Culture Trucker Hat" loading="lazy" class="active">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Trucker2_p0gh01.jpg" alt="Debt Culture Trucker Hat Side View" loading="lazy">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/trucker3_i8wihj.jpg" alt="Debt Culture Trucker Hat Back View" loading="lazy">
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749663039/Trucker_kld9rv.jpg" 
+                            alt="Debt Culture Trucker Hat" 
+                            loading="lazy" 
+                            class="active"
+                        >
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Trucker2_p0gh01.jpg" 
+                            alt="Debt Culture Trucker Hat Side View" 
+                            loading="lazy"
+                        >
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/trucker3_i8wihj.jpg" 
+                            alt="Debt Culture Trucker Hat Back View" 
+                            loading="lazy"
+                        >
                         <button class="carousel-arrow left" aria-label="Previous image">←</button>
                         <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
@@ -117,9 +153,22 @@
                 <!-- Candle -->
                 <article class="merch-item">
                     <div class="merch-carousel" data-product="candle">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752015848/candle1_bc7th0.jpg" alt="Debt Culture Candle" loading="lazy" class="active">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle_l4mhuw.jpg" alt="Debt Culture Candle Side View" loading="lazy">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle2_ln8awc.jpg" alt="Debt Culture Candle Top View" loading="lazy">
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752015848/candle1_bc7th0.jpg" 
+                            alt="Debt Culture Candle" 
+                            loading="lazy" 
+                            class="active"
+                        >
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle_l4mhuw.jpg" 
+                            alt="Debt Culture Candle Side View" 
+                            loading="lazy"
+                        >
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle2_ln8awc.jpg" 
+                            alt="Debt Culture Candle Top View" 
+                            loading="lazy"
+                        >
                         <button class="carousel-arrow left" aria-label="Previous image">←</button>
                         <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
@@ -134,9 +183,22 @@
                 <!-- Coffee Mug -->
                 <article class="merch-item">
                     <div class="merch-carousel" data-product="coffee-mug">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752016446/Mug_tm7r7b.jpg" alt="Debt Culture Coffee Mug" loading="lazy" class="active">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Mug2_rkfow9.jpg" alt="Debt Culture Coffee Mug Side View" loading="lazy">
-                        <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022512/Mug3_zcnead.jpg" alt="Debt Culture Coffee Mug Handle View" loading="lazy">
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752016446/Mug_tm7r7b.jpg" 
+                            alt="Debt Culture Coffee Mug" 
+                            loading="lazy" 
+                            class="active"
+                        >
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Mug2_rkfow9.jpg" 
+                            alt="Debt Culture Coffee Mug Side View" 
+                            loading="lazy"
+                        >
+                        <img 
+                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022512/Mug3_zcnead.jpg" 
+                            alt="Debt Culture Coffee Mug Handle View" 
+                            loading="lazy"
+                        >
                         <button class="carousel-arrow left" aria-label="Previous image">←</button>
                         <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
