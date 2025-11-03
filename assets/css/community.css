@@ -591,10 +591,10 @@
 }
 
 .badge-arrow {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--main-red);
-    margin: 0 2px;
-    width: 15px;
+    margin: 0 1px;
+    width: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1063,7 +1063,7 @@
 
     .badge-row {
         flex-wrap: nowrap;
-        gap: 4px;
+        gap: 2px;
         overflow-x: auto;
         padding: 0 5px;
     }
