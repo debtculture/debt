@@ -1,14 +1,32 @@
-/* --- V2 Glitch Title Style --- */
+/* =============================================================================
+   ARSENAL PAGE STYLES - Media Gallery, Filters, and Shill Posts
+   ============================================================================= */
+
+/* --- ROOT VARIABLES (Additional page-specific) --- */
+:root {
+    --border-dark: #444;
+    --light-red: #ff9999;
+}
+
+/* --- GLITCH TITLE STYLE --- */
+.content-wrapper header {
+    text-align: center;
+    width: 100%;
+}
+
 .content-wrapper header h1 {
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
-    margin-bottom: 1rem;
-    /* Resets to remove the old neon flicker effect */
+    margin-bottom: 0.25rem;
     text-shadow: none;
     animation: none;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* --- Page-Specific Content Wrapper --- */
+/* --- PAGE LAYOUT --- */
 .content-wrapper {
     max-width: 1200px;
     width: 100%;
@@ -18,11 +36,11 @@
     z-index: 1;
 }
 
-/* --- Page-Specific Header & Title --- */
 header {
     text-align: center;
     margin-bottom: 40px;
 }
+
 .subtitle {
     font-size: 1.2rem;
     color: var(--light-red);
@@ -30,11 +48,12 @@ header {
     margin-top: 10px;
 }
 
-/* --- Page-Specific Filter Menu --- */
+/* --- FILTER MENU --- */
 .filter-menu {
     text-align: center;
     margin-bottom: 40px;
 }
+
 .filter-btn {
     background: #1e1e1e;
     color: #eee;
@@ -48,22 +67,25 @@ header {
     font-weight: 700;
     transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
+
 .filter-btn:hover {
     background-color: var(--main-red);
     color: #fff;
 }
+
 .filter-btn.active {
     background-color: var(--main-red);
     color: #fff;
     box-shadow: 0 0 15px var(--main-red);
 }
 
-/* --- Page-Specific Media Grid --- */
+/* --- MEDIA GRID --- */
 .media-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
+
 .media-item {
     position: relative;
     overflow: hidden;
@@ -72,12 +94,21 @@ header {
     border: 1px solid var(--border-dark);
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.media-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(255, 59, 59, 0.3);
+}
+
 .media-image-container {
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
+    overflow: hidden;
 }
+
 .media-item img {
     width: 100%;
     height: 100%;
@@ -86,12 +117,15 @@ header {
     transition: opacity 0.5s ease-in-out, transform 0.3s ease;
     opacity: 0;
 }
+
 .media-item img.loaded {
     opacity: 1;
 }
+
 .media-item:hover img {
     transform: scale(1.1);
 }
+
 .media-title {
     padding: 10px;
     font-size: 0.9rem;
@@ -101,13 +135,15 @@ header {
     background-color: #1e1e1e;
     flex-shrink: 0;
 }
+
+/* --- MEDIA OVERLAY (Download Button) --- */
 .media-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,9 +151,11 @@ header {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 .media-item:hover .media-overlay {
     opacity: 1;
 }
+
 .overlay-btn {
     background: var(--main-red);
     color: #fff;
@@ -131,24 +169,19 @@ header {
     font-size: 1.5rem;
     transition: transform 0.3s ease;
 }
+
 .overlay-btn:hover {
     transform: scale(1.2);
 }
 
-/* --- Page-Specific Responsive --- */
-@media (max-width: 768px) {
-    .content-wrapper { padding: 80px 10px 60px 10px; }
-    h1 { font-size: 2.2rem; }
-    .media-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-}
-
-/* --- Shill Posts Section --- */
+/* --- SHILL POSTS SECTION --- */
 .shill-posts-container {
-    display: none; /* Hidden by default */
+    display: none;
     max-width: 800px;
     margin: 40px auto;
     text-align: left;
 }
+
 .shill-item {
     background: #1e1e1e;
     border: 1px solid var(--border-dark);
@@ -156,24 +189,29 @@ header {
     padding: 20px;
     margin-bottom: 30px;
 }
+
 .shill-item h3 {
     color: var(--main-red);
     border-bottom: 1px solid var(--border-dark);
     padding-bottom: 10px;
     margin-bottom: 15px;
+    font-size: 1.3rem;
 }
+
 .shill-item pre {
     background: #121212;
     padding: 15px;
     border-radius: 5px;
     border: 1px solid var(--border-dark);
     color: var(--text-medium);
-    white-space: pre-line; 
+    white-space: pre-line;
     word-wrap: break-word;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
+    margin-bottom: 10px;
 }
+
 .copy-btn {
     background: var(--main-red);
     color: #fff;
@@ -182,28 +220,27 @@ header {
     border-radius: 5px;
     cursor: pointer;
     font-weight: 700;
-    margin-top: 15px;
+    font-family: 'Inter', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 20px;
     transition: background-color 0.3s;
 }
+
 .copy-btn:hover {
     background-color: var(--hover-red);
 }
 
-/* --- Spacing for Shill Variants --- */
-.shill-item .copy-btn {
-    margin-bottom: 25px; /* Adds space below each copy button */
+.copy-btn:last-of-type {
+    margin-bottom: 0;
 }
 
-.shill-item .copy-btn:last-of-type {
-    margin-bottom: 0; /* Removes space from the very last button in a group */
-}
-
-/* --- V2 Glitch Effect & Animations --- */
+/* --- GLITCH EFFECT --- */
 .glitch {
     position: relative;
 }
 
-.glitch::before, .glitch::after {
+.glitch::before,
+.glitch::after {
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -274,11 +311,13 @@ header {
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
 
-/* --- MOBILE NAVIGATION STYLES --- */
+/* --- MOBILE NAVIGATION --- */
+.buy-btn-mobile,
+.hamburger {
+    display: none;
+}
 
-/* The 'Buy $DEBT' button for mobile */
 .buy-btn-mobile {
-    display: none; /* Hidden by default */
     position: fixed;
     top: 15px;
     right: 15px;
@@ -293,13 +332,12 @@ header {
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
 }
+
 .buy-btn-mobile:hover {
     background-color: var(--hover-red);
 }
 
-/* The hamburger icon */
 .hamburger {
-    display: none; /* Hidden by default */
     flex-direction: column;
     justify-content: space-around;
     width: 30px;
@@ -314,6 +352,7 @@ header {
     border: 1px solid var(--border-color);
     border-radius: 5px;
 }
+
 .hamburger div {
     width: 20px;
     height: 2px;
@@ -322,18 +361,18 @@ header {
     transition: all 0.3s ease;
 }
 
-/* Hamburger animation when active */
 .hamburger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
+
 .hamburger.active div:nth-child(2) {
     opacity: 0;
 }
+
 .hamburger.active div:nth-child(3) {
     transform: rotate(-45deg) translate(4px, -4px);
 }
 
-/* The slide-out menu panel */
 .mobile-menu {
     display: none;
     position: fixed;
@@ -349,6 +388,7 @@ header {
     max-height: 80vh;
     overflow-y: auto;
 }
+
 .mobile-menu a {
     display: block;
     color: var(--text-primary);
@@ -357,21 +397,72 @@ header {
     font-weight: 700;
     transition: color 0.3s, background-color 0.3s;
 }
+
 .mobile-menu a:hover {
     color: var(--main-red);
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Media query to activate the mobile navigation */
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
     .hamburger,
     .buy-btn-mobile {
-        display: flex; /* Show the hamburger and mobile buy button */
+        display: flex;
         align-items: center;
     }
 
-    /* This keeps the logo centered between the two fixed buttons */
     .navbar {
         justify-content: center;
+    }
+
+    .content-wrapper {
+        padding: 80px 10px 60px 10px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .media-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .filter-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    .shill-item {
+        padding: 15px;
+    }
+
+    .shill-item pre {
+        font-size: 0.9rem;
+    }
+}
+
+/* --- REDUCED MOTION SUPPORT --- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .glitch::before {
+        animation: glitch-anim-1 2.5s infinite linear alternate-reverse !important;
+    }
+
+    .glitch::after {
+        animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important;
+    }
+
+    .media-item img,
+    .media-overlay,
+    .overlay-btn {
+        transition: none !important;
     }
 }
