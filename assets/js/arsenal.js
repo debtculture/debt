@@ -50,24 +50,32 @@ function renderMediaGrid() {
         a.title.toLowerCase().localeCompare(b.title.toLowerCase())
     );
 
-    const html = sortedItems.map(item => `
-        <div class="media-item" data-category="${item.category}">
-            <div class="media-image-container">
-                <img data-src="${item.thumbnail}" 
-                     alt="${item.title}" 
-                     loading="lazy">
-                <div class="media-overlay">
-                    <a href="${item.downloadUrl}" 
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       download 
-                       class="overlay-btn" 
-                       title="Download">⬇️</a>
+    const html = sortedItems.map(item => {
+        // Handle two data structures:
+        // - Images/Memes: single 'url' property for both thumbnail and download
+        // - GIFs/Videos: separate 'thumbnail' and 'downloadUrl' properties
+        const imageUrl = item.url || item.thumbnail;
+        const downloadUrl = item.url || item.downloadUrl;
+
+        return `
+            <div class="media-item" data-category="${item.category}">
+                <div class="media-image-container">
+                    <img data-src="${imageUrl}" 
+                         alt="${item.title}" 
+                         loading="lazy">
+                    <div class="media-overlay">
+                        <a href="${downloadUrl}" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           download 
+                           class="overlay-btn" 
+                           title="Download">⬇️</a>
+                    </div>
                 </div>
+                <div class="media-title">${item.title}</div>
             </div>
-            <div class="media-title">${item.title}</div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     grid.innerHTML = html;
 }
