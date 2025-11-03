@@ -19,12 +19,21 @@
 }
 
 /* --- GLITCH TITLE STYLE --- */
+.content-wrapper header {
+    text-align: center;
+    width: 100%;
+}
+
 .content-wrapper header h1 {
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
     text-shadow: none;
     animation: none;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* --- PAGE LAYOUT --- */
@@ -94,7 +103,7 @@
     border: 5px solid #ffd700;
     border-radius: 10px;
     width: 210px;
-    height: 294px;
+    height: 360px;
     margin: 0 auto;
     padding: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -809,12 +818,27 @@
     background-color: var(--leaderboard-gold);
 }
 
+.leaderboard-table tbody tr.rank-1:hover {
+    background-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
 .leaderboard-table tbody tr.rank-2 {
     background-color: var(--leaderboard-silver);
 }
 
+.leaderboard-table tbody tr.rank-2:hover {
+    background-color: rgba(192, 192, 192, 0.35);
+    box-shadow: 0 0 15px rgba(192, 192, 192, 0.3);
+}
+
 .leaderboard-table tbody tr.rank-3 {
     background-color: var(--leaderboard-bronze);
+}
+
+.leaderboard-table tbody tr.rank-3:hover {
+    background-color: rgba(205, 127, 50, 0.35);
+    box-shadow: 0 0 15px rgba(205, 127, 50, 0.3);
 }
 
 .rank-cell {
@@ -1061,6 +1085,48 @@
     .leaderboard-table td {
         padding: 8px 10px;
         font-size: 0.9rem;
+    }
+
+    /* Mobile-specific HOF adjustments */
+    .hof-member {
+        width: 80px;
+        height: 80px;
+    }
+
+    .hof-title {
+        font-size: 0.7rem;
+        margin-top: 3px;
+    }
+
+    .hof-row-mobile {
+        gap: 6px;
+        margin-bottom: 35px;
+        justify-content: center;
+        padding: 0 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hof-rows-wrapper {
+        padding: 0 8px;
+    }
+
+    .hof-carousel {
+        min-height: 300px;
+        padding: 0 10px;
+    }
+
+    .hof-left-arrow,
+    .hof-right-arrow {
+        font-size: 1.5rem;
+    }
+
+    .hof-left-arrow {
+        left: 5px;
+    }
+
+    .hof-right-arrow {
+        right: 5px;
     }
 }
 
