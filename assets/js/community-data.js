@@ -481,11 +481,11 @@ const members = [
         ]
     },
     {
-        name: 'PUMPY',
+        name: 'DEV',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/sirPUMPY',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594813/pumpy_xghv2r.jpg',
+        xLink: 'https://x.com/diamondba11z',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762185965/dev_oubtdl.jpg',
         badges: [
             { type: 'holding', tier: 'bronze' }
         ]
