@@ -1058,7 +1058,8 @@
 
     .badge-glossary-header,
     .badge-glossary-content {
-        max-width: 100%;
+        max-width: 100%; 
+        overflow-x: hidden;
     }
 
     .badge-row {
