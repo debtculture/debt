@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 /**
  * Generates non-featured member grid dynamically from community-data.js
  * Creates rows of 6 for desktop and rows of 4 for mobile
+ * INCLUDES ALL 48 MEMBERS - Autopsy (index 0) appears as first bubble in grid
  */
 function generateNonFeaturedMembers() {
     const wrapper = document.getElementById('hof-rows-wrapper');
@@ -49,44 +50,47 @@ function generateNonFeaturedMembers() {
         return;
     }
 
-    // Skip first member (Autopsy - featured in carousel)
-    const nonFeaturedMembers = members.slice(1);
+    // IMPORTANT: Include ALL members in the grid, starting with Autopsy at index 0
+    // This creates a complete grid of 48 members (8 rows × 6 on desktop, 12 rows × 4 on mobile)
+    const allMembers = members; // members[0] = Autopsy, members[1] = Catavina, etc.
+    
+    console.log(`Generating grid with ${allMembers.length} members. First member: ${allMembers[0]?.name}`);
     
     // Clear existing content
     wrapper.innerHTML = '';
     
-    // Generate desktop rows (6 members per row)
+    // Generate desktop rows (6 members per row = 8 rows total)
     const desktopRowSize = 6;
-    const desktopRows = Math.ceil(nonFeaturedMembers.length / desktopRowSize);
+    const desktopRows = Math.ceil(allMembers.length / desktopRowSize);
     
     for (let i = 0; i < desktopRows; i++) {
         const rowDiv = document.createElement('div');
         rowDiv.className = 'hof-row-desktop';
         
         const startIdx = i * desktopRowSize;
-        const endIdx = Math.min(startIdx + desktopRowSize, nonFeaturedMembers.length);
+        const endIdx = Math.min(startIdx + desktopRowSize, allMembers.length);
         
         for (let j = startIdx; j < endIdx; j++) {
-            const memberElement = createMemberElement(nonFeaturedMembers[j], j + 1);
+            const memberElement = createMemberElement(allMembers[j], j);
             rowDiv.appendChild(memberElement);
         }
         
         wrapper.appendChild(rowDiv);
     }
     
-    // Generate mobile rows (4 members per row)
+    // Generate mobile rows (4 members per row = 12 rows total)
     const mobileRowSize = 4;
-    const mobileRows = Math.ceil(nonFeaturedMembers.length / mobileRowSize);
+    const mobileRows = Math.ceil(allMembers.length / mobileRowSize);
     
     for (let i = 0; i < mobileRows; i++) {
         const rowDiv = document.createElement('div');
         rowDiv.className = 'hof-row-mobile';
         
         const startIdx = i * mobileRowSize;
-        const endIdx = Math.min(startIdx + mobileRowSize, nonFeaturedMembers.length);
+        const endIdx = Math.min(startIdx + mobileRowSize, allMembers.length);
         
         for (let j = startIdx; j < endIdx; j++) {
-            const memberElement = createMemberElement(nonFeaturedMembers[j], j + 1);
+            const memberElement = createMemberElement(allMembers[j], j);
             rowDiv.appendChild(memberElement);
         }
         
