@@ -1,10 +1,11 @@
 /* =============================================================================
    ARSENAL DATA - Media Items and Shill Posts for Arsenal Page
+   Data extracted directly from working HTML to ensure 100% accuracy
    ============================================================================= */
 
 /**
  * Shill Posts - Copy-paste ready promotional content
- * Each variant includes pre-formatted text for social media
+ * Each section contains multiple variants for different platforms
  */
 const shillPosts = {
     shortHooks: {
@@ -63,258 +64,270 @@ CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump`
                 text: `This might be the last time you see @DebtCulture's $DEBT under a $100k market cap. A 16-month-old project with this foundation won't stay this low forever.
 
 CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump`
+            },
+            {
+                id: "short-v9",
+                text: `The @DebtCulture community is one of the strongest on #Solana. Fully doxxed dev, locked treasury, and a 16-month track record. $DEBT is programmed to win.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump`
+            },
+            {
+                id: "short-v10",
+                text: `Alpha: $DEBT
+Why: Doxxed dev, burned LP, 16mo history, cult community, $80k mc.
+The real rebellion is at @DebtCulture.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump`
+            }
+        ]
+    },
+    mediumPitches: {
+        title: "The Medium Pitches (For Posts)",
+        variants: [
+            {
+                id: "medium-v1",
+                text: `Looking for a real project in a sea of rugs? @DebtCulture's $DEBT is your play.
+
+✅ Doxxed, dedicated founder (16+ months)
+✅ LP Burned, Contract Renounced (0 tax)
+✅ Locked Treasury (Provable on-chain)
+✅ Real, loyal community (not just flippers)
+
+Narrative: "Don't. Ever. Believe. Them."
+MCAP: Only $80k. This isn't a 10x gamble; it's a potential 100x based on fundamentals alone. Join the real movement.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
+#Solana #memecoin #DEBT`
+            },
+            {
+                id: "medium-v2",
+                text: `Stop gambling on 1-hour old coins. Invest in a real community with @DebtCulture and $DEBT.
+
+THE FACTS:
+- MCAP: ~$80k (ATH was $340k w/ no marketing)
+- AGE: 16+ months. We've survived it all.
+- SAFETY: LP Burned, Renounced, 0 Tax.
+- FOUNDER: Doxxed & building daily.
+
+This is the ground floor of a project with a skyscraper foundation.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
+#Solana #memecoin #DEBT`
+            },
+            {
+                id: "medium-v3",
+                text: `What if a memecoin had a real soul? That's $DEBT by @DebtCulture.
+
+You're looking for a safe play with massive upside? Let's check the boxes:
+- Doxxed Founder? ✅
+- LP Burned? ✅
+- 16+ Month History? ✅
+- Powerful Narrative? ✅
+- Low MCAP Entry? ✅ (Only $80k)
+
+$DEBT isn't just a token; it's an answer.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
+#Solana #DEBT #Crypto`
+            },
+            {
+                id: "medium-v4",
+                text: `The @DebtCulture story is one of pure resilience. For 16+ months, through every market dip, this community has been building.
+
+Now, with a doxxed dev, burned LP, and a locked treasury, $DEBT sits at a quiet $80k mcap. The quiet won't last. The rebellion is about to get loud.
+
+This is your chance to join before the crowd.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
+#Solana #Crypto #100x`
+            },
+            {
+                id: "medium-v5",
+                text: `Don't get baited by the copycats. The one true $DEBT is from @DebtCulture.
+
+We're the OG rebellion, building since July 2024. While others copy our name, we've been building our foundation. Doxxed dev, burned LP, locked tokens, and a community forged in fire.
+
+The original is always worth more. Still only at an $80k mcap.
+
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
+#DEBT #Solana #Crypto`
             }
         ]
     },
     longForm: {
-        title: "Long-Form Threads (For Main Posts)",
+        title: "The Long Form (For Reddit/Threads)",
         variants: [
             {
                 id: "long-v1",
-                text: `🧵 THREAD: Why $DEBT is the most undervalued project on Solana right now.
+                text: `--- The $DEBT Solana Thesis: Why This $80k MCAP is the Asymmetric Bet You're Looking For ---
 
-If you're tired of rug pulls, exit liquidity scams, and empty promises, this one's for you. @DebtCulture has been grinding for over 16 months—and the market is sleeping.
+Listen up. We're all tired of the same dog/cat/celebrity coin rugs that die in 24 hours. If you're looking for a project with an actual soul, a rock-solid foundation, and insane upside, you need to look at $DEBT from @DebtCulture.
 
-Let's break it down 👇
+THE SAFETY CHECKLIST:
+- Founder: Doxxed & active for over 16 months.
+- Liquidity: Burned. Gone forever.
+- Contract: Renounced. It's immutable.
+- Taxes: 0/0.
+- Treasury: 150M tokens verifiably locked on-chain until July 2026.
 
-1/ The Team & Transparency
-Unlike 99% of projects, $DEBT has a fully doxxed founder: @AutopsyT2. No anon devs. No mystery wallets. Just a real person building something real.
+THE NARRATIVE:
+The mission is "Don't. Ever. Believe. Them." It's a rebellion against the central banking cabal and the debt system they use to enslave us. This narrative has the power to go mainstream.
 
-LP is burned. No rug pull risk. It's as safe as crypto gets.
+THE ALPHA:
+The Market Cap is only $80k. For a project that has survived this long, built a full web platform, and fostered a diamond-handed community, this valuation is absurdly low. The ATH was $340k with zero marketing. The foundation is stronger now.
 
-2/ The Community
-$DEBT has one of the most loyal, active communities I've seen. Regular X Spaces, meme contests, active Discord, and real engagement. They're not just holders—they're believers in the mission.
+This isn't a moonshot; it's a value play.
 
-This is what organic growth looks like.
-
-3/ The Mission
-"Don't Ever Believe Them" - $DEBT is more than a ticker. It's a rebellion against the debt-based system that enslaves billions. The narrative is timeless, the memes are fire, and the message resonates.
-
-People don't just buy $DEBT. They join a movement.
-
-4/ The Numbers
-• Market Cap: ~$80k
-• Age: 16+ months
-• LP: Burned
-• Dev: Doxxed
-• Holders: Growing steadily
-
-For context, most memecoins at this age either rugged or died. $DEBT? Still here. Still building. Still growing.
-
-5/ Why Now?
-Because at an $80k mcap, you're not buying the top. You're buying the absolute floor. The risk/reward here is absurd.
-
-One influencer mention. One viral meme. One listing. And this thing 10x's overnight.
-
-6/ Final Thoughts
-I'm not saying $DEBT will make you rich. I'm saying if you want to bet on a project with:
-✅ A doxxed, committed founder
-✅ A real community
-✅ A burned LP
-✅ A powerful narrative
-...then you'd be crazy not to look at this.
-
-Do your own research. But don't sleep on @DebtCulture.
-
-CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
-
-Join the rebellion. 🔥`
+Website: debtculture.xyz
+X: @debtculture
+Telegram: t.me/debtportal420
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump`
             },
             {
                 id: "long-v2",
-                text: `Let me tell you about the most underrated project on Solana: @DebtCulture ($DEBT).
+                text: `--- Unpacking a Solana Gem: The Case for @DebtCulture ($DEBT) ---
 
-No hype. No paid shills. Just a doxxed dev, a burned LP, and 16+ months of grinding in silence while everyone chased pumps.
+In a market saturated with short-lived hype, finding a project with longevity and a real foundation is rare. $DEBT is one of those rarities, and at an ~$80k market cap, it represents a significant opportunity.
 
-And now? It's sitting at an $80k mcap.
+**Fundamental Strengths:**
+1.  **Time-Tested:** Launched in July 2024, this project has proven its resilience and is not a flash in the pan.
+2.  **Impeccable Safety:** The contract is renounced, the liquidity pool is burned, and there are no transaction taxes. The founder is doxxed, removing the risk of an anonymous rug pull.
+3.  **Forward-Looking Tokenomics:** With over 66M tokens already burned and 150M tokens locked in a treasury for future growth, the structure is built for long-term sustainability.
 
-Here's why that's insane 🧵👇
+**The "Why Now?":**
+$DEBT's value isn't just in its safety; it's in its untapped narrative potential. "Don't Ever Believe Them" is a message that transcends crypto. As the project's community (The War Room on TG) begins its first major coordinated marketing pushes, the current $80k valuation presents a ground-floor entry point before wider discovery.
 
-Most projects at 16 months are either:
-1. Dead
-2. Rugged
-3. Abandoned by the team
+This is a project to research, not just ape. The fundamentals speak for themselves.
 
-$DEBT? Still here. Still building. The founder @AutopsyT2 is fully doxxed, active daily, and has been running X Spaces, contests, and pushing the narrative non-stop.
-
-This isn't a "dev do something" project. This is a dev who never stopped.
-
-The name "$DEBT" isn't random. It's a statement.
-
-"Don't Ever Believe Them."
-
-It's a rebellion against the debt-based financial system that enslaves billions. The messaging is raw, real, and resonates with anyone tired of being a cog in the machine.
-
-This is a *cultural* coin. Not just a memecoin.
-
-The community is insane. I'm talking:
-• Weekly X Spaces with hundreds of people
-• Organic memes that go viral
-• A Discord full of real humans, not bots
-• Holders who HOLD
-
-They're not here for a quick flip. They believe in the mission. That's rare in crypto.
-
-Now, the numbers:
-• 16+ months old
-• Doxxed founder
-• LP burned (no rug possible)
-• ~$80k market cap
-• Real, growing community
-
-Compare that to the garbage that pumps to $10M+ on hype alone, then dumps to zero.
-
-$DEBT has staying power. And it's criminally undervalued.
-
-I'm not saying it's risk-free. Nothing in crypto is.
-
-But if you're looking for a moonshot with:
-✅ A real team
-✅ A real community
-✅ A real narrative
-✅ A floor so low the only way is up
-
-...then $DEBT is worth your attention.
-
-One catalyst. One influencer. One meme goes viral. And this thing does a 50x minimum.
-
-Don't fade @DebtCulture. The rebellion is just getting started.
-
-CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump
-
-DYOR. But don't say I didn't warn you. 🔥`
+Official Links:
+Website: debtculture.xyz
+X: @DebtCulture
+CA: 9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump`
             }
         ]
     }
 };
 
-/**
- * Media Items - All images, memes, GIFs, and videos
- * Structure: { category, title, thumbnail, downloadUrl }
- */
+// Found 129 media items
+
 const mediaItems = [
-    // IMAGES
-    { category: "image", title: "$DEBT Bull", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" },
-    { category: "image", title: "$DEBT Bull PFP", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445333/debt_bull_pfp_cmekxi.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445333/debt_bull_pfp_cmekxi.png" },
-    { category: "image", title: "$DEBT Coin", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445381/debt_coin_g3u7qt.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445381/debt_coin_g3u7qt.png" },
-    { category: "image", title: "$DEBT in Blood", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445428/debt_in_blood_swnz2b.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445428/debt_in_blood_swnz2b.png" },
-    { category: "image", title: "Black Wallpaper", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445476/black_wallpaper_n0mztr.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445476/black_wallpaper_n0mztr.png" },
-    { category: "image", title: "Blue Wallpaper", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445517/blue_wallpaper_vqmqzo.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748445517/blue_wallpaper_vqmqzo.png" },
-    { category: "image", title: "Charts", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446001/charts_dg0uqf.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446001/charts_dg0uqf.png" },
-    { category: "image", title: "Cover Photo", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446022/cover_photo_nqfmve.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446022/cover_photo_nqfmve.png" },
-    { category: "image", title: "D.E.B.T. Logo", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446049/d_e_b_t_logo_w0wkdg.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446049/d_e_b_t_logo_w0wkdg.png" },
-    { category: "image", title: "Debt Bull Fire", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446073/debt_bull_fire_rmdm2h.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446073/debt_bull_fire_rmdm2h.png" },
-    { category: "image", title: "Debt Coin GIF Frame", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446096/debt_coin_gif_frame_wabmxr.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446096/debt_coin_gif_frame_wabmxr.png" },
-    { category: "image", title: "Flaming Bull", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446117/flaming_bull_qdpg23.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446117/flaming_bull_qdpg23.png" },
-    { category: "image", title: "Green Wallpaper", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446137/green_wallpaper_xv0hqp.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446137/green_wallpaper_xv0hqp.png" },
-    { category: "image", title: "Red Wallpaper", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446160/red_wallpaper_fgvxiy.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1748446160/red_wallpaper_fgvxiy.png" },
-
-    // MEMES
-    { category: "meme", title: "All My Homies", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759102768/All_My_Homies_x97lva.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759102768/All_My_Homies_x97lva.jpg" },
-    { category: "meme", title: "Be Your Own Boss", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103007/Be_Your_Own_Boss_idkduh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103007/Be_Your_Own_Boss_idkduh.jpg" },
-    { category: "meme", title: "Bernanke", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103155/Bernanke_xoq3zs.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103155/Bernanke_xoq3zs.jpg" },
-    { category: "meme", title: "Big Short", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103283/Big_Short_npbkgi.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103283/Big_Short_npbkgi.jpg" },
-    { category: "meme", title: "Buy This Shit", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103414/Buy_This_Shit_pptzxa.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103414/Buy_This_Shit_pptzxa.jpg" },
-    { category: "meme", title: "CIA Debt Forgiveness", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103535/CIA_Debt_Forgiveness_fybwmt.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103535/CIA_Debt_Forgiveness_fybwmt.jpg" },
-    { category: "meme", title: "Copium", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103656/Copium_ujffzz.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103656/Copium_ujffzz.jpg" },
-    { category: "meme", title: "Credit Card Debt", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103775/Credit_Card_Debt_ehrlkb.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103775/Credit_Card_Debt_ehrlkb.jpg" },
-    { category: "meme", title: "Debt Forgiveness", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103903/Debt_Forgiveness_d0hxir.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759103903/Debt_Forgiveness_d0hxir.jpg" },
-    { category: "meme", title: "Debt is Theft", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104026/Debt_is_Theft_xrqtwx.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104026/Debt_is_Theft_xrqtwx.jpg" },
-    { category: "meme", title: "Destroy the FED", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104146/Destroy_the_FED_maqcqz.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104146/Destroy_the_FED_maqcqz.jpg" },
-    { category: "meme", title: "Domino", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104277/Domino_gfupn9.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104277/Domino_gfupn9.jpg" },
-    { category: "meme", title: "Drake", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104408/Drake_rlj22i.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104408/Drake_rlj22i.jpg" },
-    { category: "meme", title: "Escaping Debt Slavery", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104532/Escaping_Debt_Slavery_zr9yx8.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104532/Escaping_Debt_Slavery_zr9yx8.jpg" },
-    { category: "meme", title: "Exit Scam", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104650/Exit_Scam_bj5wgm.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104650/Exit_Scam_bj5wgm.jpg" },
-    { category: "meme", title: "FED Laundering", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104774/FED_Laundering_ipfqv5.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104774/FED_Laundering_ipfqv5.jpg" },
-    { category: "meme", title: "Full Send", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104896/Full_Send_d28r5s.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759104896/Full_Send_d28r5s.jpg" },
-    { category: "meme", title: "Game Over", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105017/Game_Over_bqcshg.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105017/Game_Over_bqcshg.jpg" },
-    { category: "meme", title: "Ghost Chain", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105139/Ghost_Chain_mvxj9m.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105139/Ghost_Chain_mvxj9m.jpg" },
-    { category: "meme", title: "Graph", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105259/Graph_gqbrzh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105259/Graph_gqbrzh.jpg" },
-    { category: "meme", title: "Harry Potter", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105380/Harry_Potter_lzj0o6.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105380/Harry_Potter_lzj0o6.jpg" },
-    { category: "meme", title: "Hesoyam", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105504/Hesoyam_ojozrv.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105504/Hesoyam_ojozrv.jpg" },
-    { category: "meme", title: "I Buy This", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105628/I_Buy_This_eipyuz.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105628/I_Buy_This_eipyuz.jpg" },
-    { category: "meme", title: "I'm in Debt", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105751/I_m_in_Debt_vkp4va.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105751/I_m_in_Debt_vkp4va.jpg" },
-    { category: "meme", title: "Imagine Not Buying", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105878/Imagine_Not_Buying_ejozyi.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759105878/Imagine_Not_Buying_ejozyi.jpg" },
-    { category: "meme", title: "Income Brackets", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106002/Income_Brackets_iyc82u.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106002/Income_Brackets_iyc82u.jpg" },
-    { category: "meme", title: "Just In", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106124/Just_In_ychvod.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106124/Just_In_ychvod.jpg" },
-    { category: "meme", title: "Laughs in $DEBT", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106256/Laughs_in_DEBT_yp0fje.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106256/Laughs_in_DEBT_yp0fje.jpg" },
-    { category: "meme", title: "Loading", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106379/Loading_pgyjvj.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106379/Loading_pgyjvj.jpg" },
-    { category: "meme", title: "Lost Everything", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106504/Lost_Everything_ixvhhd.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106504/Lost_Everything_ixvhhd.jpg" },
-    { category: "meme", title: "Money Printer", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106633/Money_Printer_duwb5a.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106633/Money_Printer_duwb5a.jpg" },
-    { category: "meme", title: "Morgan Freeman", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106760/Morgan_Freeman_qejfbl.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106760/Morgan_Freeman_qejfbl.jpg" },
-    { category: "meme", title: "Mr Krabs", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106888/Mr_Krabs_mchb3y.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759106888/Mr_Krabs_mchb3y.jpg" },
-    { category: "meme", title: "National Debt Clock", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107011/National_Debt_Clock_wxulou.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107011/National_Debt_Clock_wxulou.jpg" },
-    { category: "meme", title: "Not Fade", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107133/Not_Fade_tpvvuq.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107133/Not_Fade_tpvvuq.jpg" },
-    { category: "meme", title: "Oh Great", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107261/Oh_Great_sxnuqo.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107261/Oh_Great_sxnuqo.jpg" },
-    { category: "meme", title: "Oil Painting", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107388/Oil_Painting_l5u2uf.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107388/Oil_Painting_l5u2uf.jpg" },
-    { category: "meme", title: "One Does Not Simply", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107512/One_Does_Not_Simply_cqw1ni.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107512/One_Does_Not_Simply_cqw1ni.jpg" },
-    { category: "meme", title: "Print More Money", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107635/Print_More_Money_pgdxdz.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107635/Print_More_Money_pgdxdz.jpg" },
-    { category: "meme", title: "Pump It Up", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107758/Pump_It_Up_p6v68b.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107758/Pump_It_Up_p6v68b.jpg" },
-    { category: "meme", title: "Quantitative Easing", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107884/Quantitative_Easing_c8x3wv.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759107884/Quantitative_Easing_c8x3wv.jpg" },
-    { category: "meme", title: "Real Chads", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108012/Real_Chads_xwpkud.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108012/Real_Chads_xwpkud.jpg" },
-    { category: "meme", title: "Recession Proof", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108134/Recession_Proof_zqaaxq.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108134/Recession_Proof_zqaaxq.jpg" },
-    { category: "meme", title: "Reset The Economy", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108255/Reset_The_Economy_d0kk5f.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108255/Reset_The_Economy_d0kk5f.jpg" },
-    { category: "meme", title: "Salary", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108382/Salary_s89ozg.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108382/Salary_s89ozg.jpg" },
-    { category: "meme", title: "Samurai", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108510/Samurai_l7vfty.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108510/Samurai_l7vfty.jpg" },
-    { category: "meme", title: "Say My Name", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108633/Say_My_Name_aq52fi.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108633/Say_My_Name_aq52fi.jpg" },
-    { category: "meme", title: "Sleeps on Floor", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108756/Sleeps_on_Floor_kx2nqq.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108756/Sleeps_on_Floor_kx2nqq.jpg" },
-    { category: "meme", title: "Sleeping", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108880/Sleeping_spcagf.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759108880/Sleeping_spcagf.jpg" },
-    { category: "meme", title: "Solana Pumpfun", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109004/Solana_Pumpfun_zvbllm.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109004/Solana_Pumpfun_zvbllm.jpg" },
-    { category: "meme", title: "Starter Pack", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109129/Starter_Pack_s2bzkq.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109129/Starter_Pack_s2bzkq.jpg" },
-    { category: "meme", title: "Take My Money", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109252/Take_My_Money_qeqvyl.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109252/Take_My_Money_qeqvyl.jpg" },
-    { category: "meme", title: "The Choice", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109383/The_Choice_p0r2du.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109383/The_Choice_p0r2du.jpg" },
-    { category: "meme", title: "Think Mark", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109509/Think_Mark_gzwf0w.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109509/Think_Mark_gzwf0w.jpg" },
-    { category: "meme", title: "This Is The Way", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109638/This_Is_The_Way_qwfzx1.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109638/This_Is_The_Way_qwfzx1.jpg" },
-    { category: "meme", title: "Thumbs Up", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109764/Thumbs_Up_avjjtu.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109764/Thumbs_Up_avjjtu.jpg" },
-    { category: "meme", title: "Tired Emoji", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109888/Tired_Emoji_yhzcgw.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759109888/Tired_Emoji_yhzcgw.jpg" },
-    { category: "meme", title: "Tired of Fiat", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110017/Tired_of_Fiat_p8guvd.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110017/Tired_of_Fiat_p8guvd.jpg" },
-    { category: "meme", title: "Tyler Durden", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110144/Tyler_Durden_ypgkhd.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110144/Tyler_Durden_ypgkhd.jpg" },
-    { category: "meme", title: "Virgin Holder", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110268/Virgin_Holder_uacccv.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110268/Virgin_Holder_uacccv.jpg" },
-    { category: "meme", title: "We're So Back", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110392/We_re_So_Back_irhvho.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110392/We_re_So_Back_irhvho.jpg" },
-    { category: "meme", title: "When You Realize", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110515/When_You_Realize_qcucva.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110515/When_You_Realize_qcucva.jpg" },
-    { category: "meme", title: "Why So Broke", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110636/Why_So_Broke_idzk2u.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110636/Why_So_Broke_idzk2u.jpg" },
-    { category: "meme", title: "Wojak Crash", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110766/Wojak_Crash_hdzflj.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110766/Wojak_Crash_hdzflj.jpg" },
-    { category: "meme", title: "Wojak Solana", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110889/Wojak_Solana_joxqt5.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759110889/Wojak_Solana_joxqt5.jpg" },
-    { category: "meme", title: "Worst Thing", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759111012/Worst_Thing_ngjdqe.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759111012/Worst_Thing_ngjdqe.jpg" },
-    { category: "meme", title: "Yes Chad", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759111136/Yes_Chad_jqbsz0.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759111136/Yes_Chad_jqbsz0.jpg" },
-
-    // GIFS
-    { category: "gif", title: "$DEBT Coin Spinning", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185036/DEBT_Coin_Spinning_Thumbnail_m8xqyy.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759184898/DEBT_Coin_Spinning_ytrxxh.gif" },
-    { category: "gif", title: "Autopsy Explosion", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185233/Autopsy_Explosion_Thumbnail_dhpejv.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185229/Autopsy_Explosion_d6h0qo.gif" },
-    { category: "gif", title: "Bitcoin Destroyed", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185511/Bitcoin_Destroyed_Thumbnail_xjnhfz.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185508/Bitcoin_Destroyed_gfh1x0.gif" },
-    { category: "gif", title: "Blue Cowboy", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185677/Blue_Cowboy_Thumbnail_uu6g9u.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185673/Blue_Cowboy_glmiqh.gif" },
-    { category: "gif", title: "Burning Bear", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185832/Burning_Bear_Thumbnail_rhgfnb.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185828/Burning_Bear_jcilmd.gif" },
-    { category: "gif", title: "Candlesticks", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185936/Candlesticks_Thumbnail_hahbqq.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185932/Candlesticks_bxe11u.gif" },
-    { category: "gif", title: "Charts Going Up", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186145/Charts_Going_Up_Thumbnail_hqr1js.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186142/Charts_Going_Up_oq9nw2.gif" },
-    { category: "gif", title: "Citadel", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186259/Citadel_Thumbnail_m8jbif.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186255/Citadel_t0yohg.gif" },
-    { category: "gif", title: "Darth Vader", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186496/Darth_Vader_Thumbnail_r71ihj.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186492/Darth_Vader_gdgd0c.gif" },
-    { category: "gif", title: "Debt Bull Dance", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186589/Debt_Bull_Dance_Thumbnail_ozhxfh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186585/Debt_Bull_Dance_e7z1sm.gif" },
-    { category: "gif", title: "Dollar Burning", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186760/Dollar_Burning_Thumbnail_lbtqmc.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186756/Dollar_Burning_xskmza.gif" },
-    { category: "gif", title: "Dollar Signs", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186879/Dollar_Signs_Thumbnail_aeojjl.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186875/Dollar_Signs_syhclp.gif" },
-    { category: "gif", title: "Dripping Red Bull", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187012/Dripping_Red_Bull_Thumbnail_nntzqo.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187008/Dripping_Red_Bull_bhjbel.gif" },
-    { category: "gif", title: "Eyes", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187136/Eyes_Thumbnail_qsjbeu.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187132/Eyes_b1svnl.gif" },
-    { category: "gif", title: "Falling Debt", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187260/Falling_Debt_Thumbnail_fcxmmx.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187255/Falling_Debt_z7fzqo.gif" },
-    { category: "gif", title: "Flaming $DEBT", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187366/Flaming_DEBT_Thumbnail_lbqtfq.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187361/Flaming_DEBT_gw0zyv.gif" },
-    { category: "gif", title: "Gun Finger", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187613/Gun_Finger_Thumbnail_mlqsyi.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187609/Gun_Finger_wuxtmr.gif" },
-    { category: "gif", title: "KYS Bear", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187734/KYS_Bear_Thumbnail_nfuxxw.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187729/KYS_Bear_kjv4xu.gif" },
-    { category: "gif", title: "Matrix Rain", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187849/Matrix_Rain_Thumbnail_ivomqh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187845/Matrix_Rain_xokscx.gif" },
-    { category: "gif", title: "Minecraft Sign", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187958/Minecraft_Sign_Thumbnail_njk86k.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187954/Minecraft_Sign_cqmswi.gif" },
-    { category: "gif", title: "Mouth", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188196/Mouth_Thumbnail_b0z5r4.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188192/Mouth_nnp8x7.gif" },
-    { category: "gif", title: "Neo Debt", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188314/Neo_Debt_Thumbnail_vamjjt.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188310/Neo_Debt_zbh4iq.gif" },
-    { category: "gif", title: "Nose Scratch", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188439/Nose_Scratch_Thumbnail_r8efyg.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188435/Nose_Scratch_lfp8pq.gif" },
-    { category: "gif", title: "Nostrils", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188553/Nostrils_Thumbnail_u0guzp.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188549/Nostrils_rnkd75.gif" },
-    { category: "gif", title: "Red Bull", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188824/Red_Bull_Thumbnail_eubhue.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188820/Red_Bull_lnlayq.gif" },
-    { category: "gif", title: "Rising Prices", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188954/Rising_Prices_Thumbnail_hpjvp2.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188949/Rising_Prices_gbw5jj.gif" },
-    { category: "gif", title: "Solana Beach", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189084/Solana_Beach_Thumbnail_kqxomh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189080/Solana_Beach_yfxu0t.gif" },
-    { category: "gif", title: "Spinning Bull", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189209/Spinning_Bull_Thumbnail_n4p8px.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189206/Spinning_Bull_cdfgdx.gif" },
-    { category: "gif", title: "Spinning Coin", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189330/Spinning_Coin_Thumbnail_ufpscl.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189327/Spinning_Coin_sjgxgk.gif" },
-    { category: "gif", title: "The Matrix", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189458/The_Matrix_Thumbnail_lmb0es.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189454/The_Matrix_xmcsjl.gif" },
-    { category: "gif", title: "Thug Life", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189583/Thug_Life_Thumbnail_qx2jsg.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759189579/Thug_Life_qbszb6.gif" },
-
-    // VIDEOS
-    { category: "video", title: "Casino", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761603334/Casino_Thumbnail_czbz1e.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761603322/Casino_tthfpn.mp4" },
-    { category: "video", title: "Cryptomart", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185651/Cryptomart_Thumbnail_mvg2n8.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759185631/Cryptomart_jpl6pw.mp4" },
-    { category: "video", title: "Debt City", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761600948/Debt_City_Thumbnail_fksxcw.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761600934/Debt_City_zklcgb.mp4" },
+    { category: "image", title: "$DEBT Poster", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759619298/DEBT_Poster_kxrafq.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759619298/DEBT_Poster_kxrafq.webp" },
+    { category: "image", title: "$DEBT Pyramid", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759619888/DEBT_Pyramid_btzkfw.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759619888/DEBT_Pyramid_btzkfw.webp" },
+    { category: "image", title: "$DEBTropolis", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777779/DEBTropolis_uhejks.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777779/DEBTropolis_uhejks.webp" },
+    { category: "image", title: "$DEBTucation", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777787/DEBTucation_ygrt3u.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777787/DEBTucation_ygrt3u.webp" },
+    { category: "image", title: "Bearing the Weight", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777818/Bearing_the_Weight_v0cv0g.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777818/Bearing_the_Weight_v0cv0g.webp" },
+    { category: "image", title: "Breaking the System", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777818/Breaking_the_System_s9lwy3.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777818/Breaking_the_System_s9lwy3.webp" },
+    { category: "image", title: "Broadcasting the Truth", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777822/Broadcasting_the_Truth_bpoli5.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777822/Broadcasting_the_Truth_bpoli5.webp" },
+    { category: "image", title: "Circuit Board", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777823/Circuit_Board_ttlcqv.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777823/Circuit_Board_ttlcqv.webp" },
+    { category: "image", title: "Comic Book Alley", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777823/Comic_Book_Alley_lvr9ad.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777823/Comic_Book_Alley_lvr9ad.webp" },
+    { category: "image", title: "Cosmic Currency", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777823/Cosmic_Currency_amrxxm.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777823/Cosmic_Currency_amrxxm.webp" },
+    { category: "image", title: "Cyberpunk Reflections", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777829/Cyberpunk_Reflections_ufdvzd.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777829/Cyberpunk_Reflections_ufdvzd.webp" },
+    { category: "image", title: "Decentralized Network", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777780/Decentralized_Network_fnhxnk.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777780/Decentralized_Network_fnhxnk.webp" },
+    { category: "image", title: "Don't Ever Believe Them", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777787/Don_t_Ever_Believe_Them_ltwvta.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777787/Don_t_Ever_Believe_Them_ltwvta.webp" },
+    { category: "image", title: "Execute: The Great Default", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777799/Execute_The_Great_Default_yigddv.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777799/Execute_The_Great_Default_yigddv.webp" },
+    { category: "image", title: "Fuel the Fire", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777799/Fuel_the_Fire_jruwks.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777799/Fuel_the_Fire_jruwks.webp" },
+    { category: "image", title: "Graffiti", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777799/Graffiti_zwrspi.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777799/Graffiti_zwrspi.webp" },
+    { category: "image", title: "Join the Rebellion", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777803/Join_the_Rebellion_vkjmqo.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777803/Join_the_Rebellion_vkjmqo.webp" },
+    { category: "image", title: "Matrix Overgrowth", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777803/Matrix_Overgrowth_hkleb2.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777803/Matrix_Overgrowth_hkleb2.webp" },
+    { category: "image", title: "Neon Alley Sign", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777804/Neon_Alley_Sign_on46dr.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777804/Neon_Alley_Sign_on46dr.webp" },
+    { category: "image", title: "Puppet Strings", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777805/Puppet_Strings_t6oude.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777805/Puppet_Strings_t6oude.webp" },
+    { category: "image", title: "Rebel Signal", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777787/Rebel_Signal_vpw8es.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777787/Rebel_Signal_vpw8es.webp" },
+    { category: "image", title: "Retro Terminal", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777778/Retro_Terminal_mkc69j.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777778/Retro_Terminal_mkc69j.webp" },
+    { category: "image", title: "Shatter the Chains", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777809/Shatter_the_Chains_rgmzl2.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777809/Shatter_the_Chains_rgmzl2.webp" },
+    { category: "image", title: "The System is a Lie", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777811/The_System_Is_A_Lie_sianc9.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777811/The_System_Is_A_Lie_sianc9.webp" },
+    { category: "image", title: "The Vault", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777812/The_Vault_k0d9i3.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777812/The_Vault_k0d9i3.webp" },
+    { category: "image", title: "Their Assets Are Ash", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777814/Their_Assets_Are_Ash_fahoa4.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777814/Their_Assets_Are_Ash_fahoa4.webp" },
+    { category: "image", title: "Their Order. Our Defiance.", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777815/Their_Order._Our_Defiance._zjreoc.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777815/Their_Order._Our_Defiance._zjreoc.webp" },
+    { category: "image", title: "The Blueprint", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777810/The_Blueprint_ylci69.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777810/The_Blueprint_ylci69.webp" },
+    { category: "image", title: "Treasury Secure", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777818/Treasury_Secure_qneukx.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777818/Treasury_Secure_qneukx.webp" },
+    { category: "image", title: "Unplug the Matrix", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777779/Unplug_the_Matrix_ensdgg.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777779/Unplug_the_Matrix_ensdgg.webp" },
+    { category: "image", title: "We Are the Glitch", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777779/We_Are_The_Glitch_knuil0.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758777779/We_Are_The_Glitch_knuil0.webp" },
+    { category: "meme", title: "Always Has Been", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Always_Has_Been_tldlsn.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Always_Has_Been_tldlsn.png" },
+    { category: "meme", title: "Ancient Aliens", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Ancient_Aliens_ucmdit.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Ancient_Aliens_ucmdit.png" },
+    { category: "meme", title: "Anakin & Padme", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/Anakin_and_Padme_fjratc.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/Anakin_and_Padme_fjratc.png" },
+    { category: "meme", title: "Assassination Chain", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Assassination_Chain_a0gfco.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Assassination_Chain_a0gfco.webp" },
+    { category: "meme", title: "Atlas", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Atlas_zf6qle.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Atlas_zf6qle.webp" },
+    { category: "meme", title: "Buff Doge vs Cheems", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Buff_Doge_vs_Cheems_hrk8kt.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Buff_Doge_vs_Cheems_hrk8kt.png" },
+    { category: "meme", title: "Bus & Train", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774037/Bus_and_Train_fy9szr.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774037/Bus_and_Train_fy9szr.webp" },
+    { category: "meme", title: "Buy More $DEBT", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759619980/Buy_More_DEBT_gypvko.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759619980/Buy_More_DEBT_gypvko.webp" },
+    { category: "meme", title: "Change My Mind", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Change_My_Mind_fszy8t.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Change_My_Mind_fszy8t.png" },
+    { category: "meme", title: "Choose Wisely", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Choose_Wisely_qjf4tw.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Choose_Wisely_qjf4tw.webp" },
+    { category: "meme", title: "Crossroads", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Crossroads_qyczre.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Crossroads_qyczre.webp" },
+    { category: "meme", title: "Crying MJ", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Crying_MJ_m4n0qi.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774022/Crying_MJ_m4n0qi.webp" },
+    { category: "meme", title: "Daily Struggle", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/Daily_Struggle_bix3yq.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/Daily_Struggle_bix3yq.png" },
+    { category: "meme", title: "Dancing Joker", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/Dancing_Joker_wmgqxu.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/Dancing_Joker_wmgqxu.png" },
+    { category: "meme", title: "Distracted Boyfriend", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/Distracted_BF_bo5v1f.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/Distracted_BF_bo5v1f.webp" },
+    { category: "meme", title: "Drakeposting", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/DRAKEPOSTING_yozizp.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/DRAKEPOSTING_yozizp.webp" },
+    { category: "meme", title: "Galaxy Brain", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774062/Galaxy_Brain_b7bfke.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774062/Galaxy_Brain_b7bfke.png" },
+    { category: "meme", title: "Gru's Plan", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Gru_s_Plan_upgk2x.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Gru_s_Plan_upgk2x.webp" },
+    { category: "meme", title: "Hide the Pain Harold", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Hide_the_Pain_Harold_dl9l1w.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Hide_the_Pain_Harold_dl9l1w.png" },
+    { category: "meme", title: "I Am Once Again Asking...", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/I_Am_Once_Again_Asking..._bdb16j.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/I_Am_Once_Again_Asking..._bdb16j.png" },
+    { category: "meme", title: "I Don't Want to Play With You Anymore", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/I_Don_t_Want_to_Play_With_You_Anymore_hpgzjg.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774045/I_Don_t_Want_to_Play_With_You_Anymore_hpgzjg.png" },
+    { category: "meme", title: "Is This a Pigeon?", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Is_This_a_Pigeon_jwqzxy.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Is_This_a_Pigeon_jwqzxy.png" },
+    { category: "meme", title: "Laughing Leo", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774062/Laughing_Leo_cft8xh.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774062/Laughing_Leo_cft8xh.png" },
+    { category: "meme", title: "Left Exit 12 Off Ramp", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774053/Left_Exit_12_Off_Ramp_qdqag0.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774053/Left_Exit_12_Off_Ramp_qdqag0.png" },
+    { category: "meme", title: "Not Sure If", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/Not_Sure_If_qehmjx.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/Not_Sure_If_qehmjx.webp" },
+    { category: "meme", title: "One Does Not Simply", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774038/One_Does_Not_Simply_lihcdd.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774038/One_Does_Not_Simply_lihcdd.png" },
+    { category: "meme", title: "Panik Kalm Panik", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/Panik_Kalm_Panik_gpdbsf.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774023/Panik_Kalm_Panik_gpdbsf.png" },
+    { category: "meme", title: "Party Loner", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774040/Party_Loner_fpou0m.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774040/Party_Loner_fpou0m.png" },
+    { category: "meme", title: "Philosoraptor", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Philosoraptor_f43wfw.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Philosoraptor_f43wfw.webp" },
+    { category: "meme", title: "Sad Pablo Escobar", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Sad_Pablo_Escobar_qudyyf.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Sad_Pablo_Escobar_qudyyf.png" },
+    { category: "meme", title: "Squidward Window", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Squidward_Window_lau8ar.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Squidward_Window_lau8ar.webp" },
+    { category: "meme", title: "Superman Stopping Train", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Superman_Stopping_Train_v0ckur.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Superman_Stopping_Train_v0ckur.webp" },
+    { category: "meme", title: "Surprised Pikachu", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Surprised_Pikachu_hijfv0.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Surprised_Pikachu_hijfv0.png" },
+    { category: "meme", title: "The First Rule", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774062/The_First_Rule_of_Fight_Club_xcq43v.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774062/The_First_Rule_of_Fight_Club_xcq43v.png" },
+    { category: "meme", title: "Think Mark, Think", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Think_Mark_Think_n85q9i.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Think_Mark_Think_n85q9i.png" },
+    { category: "meme", title: "Trade Offer", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Trade_Offer_x8etsm.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Trade_Offer_x8etsm.png" },
+    { category: "meme", title: "Undertaker", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774038/Undertaker_runvy4.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774038/Undertaker_runvy4.webp" },
+    { category: "meme", title: "Uno Draw 25", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774038/UNO_Draw_25_xzd26e.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774038/UNO_Draw_25_xzd26e.png" },
+    { category: "meme", title: "Vince McMahon Reaction", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774053/Vince_McMahon_Reaction_mgvwyy.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774053/Vince_McMahon_Reaction_mgvwyy.png" },
+    { category: "meme", title: "Virgin vs Chad", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Virgin_vs_Chad_zqmvhn.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774044/Virgin_vs_Chad_zqmvhn.png" },
+    { category: "meme", title: "Woman Yelling at a Cat", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Woman_Yelling_at_a_Cat_dsv0n9.png", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758774052/Woman_Yelling_at_a_Cat_dsv0n9.png" },
+    { category: "gif", title: "$DEBT Team Assemble!", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Anchorman_bsyg5p.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Anchorman_bsyg5p.gif" },
+    { category: "gif", title: "$DEBT Dev", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/DEBT_Dev_ebmehu.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/DEBT_Dev_ebmehu.gif" },
+    { category: "gif", title: "Brick Killed a Guy", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Brick_Killed_a_Guy_pp8j78.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Brick_Killed_a_Guy_pp8j78.gif" },
+    { category: "gif", title: "Bus & Train (GIF)", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Bus_Train_GIF_ebg1je.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Bus_Train_GIF_ebg1je.gif" },
+    { category: "gif", title: "Cena RKO", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808709/Cena_RKO_zjd052.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808709/Cena_RKO_zjd052.gif" },
+    { category: "gif", title: "Despicable Me", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Despicable_Meme_anznfx.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Despicable_Meme_anznfx.gif" },
+    { category: "gif", title: "Drowning", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Drowning_n8gxnc.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Drowning_n8gxnc.gif" },
+    { category: "gif", title: "Good Boys", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Good_Boys_pbengl.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Good_Boys_pbengl.gif" },
+    { category: "gif", title: "Malcolm in the Middle", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Malcolm_in_the_Middle_setaqr.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Malcolm_in_the_Middle_setaqr.gif" },
+    { category: "gif", title: "Missed $DEBT", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Missed_DEBT_pat5ql.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Missed_DEBT_pat5ql.gif" },
+    { category: "gif", title: "Missed $DEBT 2.0", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Missed_DEBT_2.0_mawxhv.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808700/Missed_DEBT_2.0_mawxhv.gif" },
+    { category: "gif", title: "OOOOOOO!", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808720/Despicable_Me_akkbbd.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808720/Despicable_Me_akkbbd.gif" },
+    { category: "gif", title: "Oprah", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Oprah_xqmcli.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Oprah_xqmcli.gif" },
+    { category: "gif", title: "Oppenheimer", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808720/Oppenheimer_m0rxxc.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808720/Oppenheimer_m0rxxc.gif" },
+    { category: "gif", title: "Pineapple Express", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808718/Pineapple_Express_wminiy.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808718/Pineapple_Express_wminiy.gif" },
+    { category: "gif", title: "Skate KO", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808718/Skate_KO_ma19ug.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808718/Skate_KO_ma19ug.gif" },
+    { category: "gif", title: "Smoke Crack", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Smoke_Crack_xht41l.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Smoke_Crack_xht41l.gif" },
+    { category: "gif", title: "Speed ATH", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Speed_ATH_pgepov.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Speed_ATH_pgepov.gif" },
+    { category: "gif", title: "Spiderman", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Spiderman_tp8syn.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Spiderman_tp8syn.gif" },
+    { category: "gif", title: "Step Brothers Boat", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Step_Brothers_Boat_zslpdt.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Step_Brothers_Boat_zslpdt.gif" },
+    { category: "gif", title: "Step Brothers Treehouse", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808718/Step_Brothers_Treehouse_p5foxt.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808718/Step_Brothers_Treehouse_p5foxt.gif" },
+    { category: "gif", title: "Super Mario", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Super_Mario_wqhnho.webp", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808698/Super_Mario_wqhnho.webp" },
+    { category: "gif", title: "This is Sparta", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/This_is_Sparta_vv0xpv.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/This_is_Sparta_vv0xpv.gif" },
+    { category: "gif", title: "Train Save", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Train_Save_nugikh.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Train_Save_nugikh.gif" },
+    { category: "gif", title: "Wolf Denied", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Wolf_Denied_nq2p82.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808719/Wolf_Denied_nq2p82.gif" },
+    { category: "gif", title: "Zlatan", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Zlatan_jgeoyx.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Zlatan_jgeoyx.gif" },
+    { category: "gif", title: "Zuck USA", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Zuck_USA_ljexha.gif", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1758808699/Zuck_USA_ljexha.gif" },
+    { category: "video", title: "$DEBT ATM", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187758/DEBT_ATM_Thumbnail_gomdip.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759187741/DEBT_ATM_s2f3bt.mp4" },
+    { category: "video", title: "$DEBT ATM 2.0", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187916/DEBT_ATM_2.0_Thumbnail_bb2n3h.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759187910/DEBT_ATM_2.0_hb7keh.mp4" },
+    { category: "video", title: "$DEBT Bull", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187612/DEBT_Bull_Thumbnail_f1ea6v.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759185631/Cryptomart_jpl6pw.mp4" },
+    { category: "video", title: "$DEBT Witch", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/f_auto,q_auto/upload/v1761608203/DEBT_Witch_Thumbnail_lzutfg.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/f_auto,q_auto/upload/v1761608209/DEBT_Witch_ogwwgn.mp4" },
+    { category: "video", title: "Broken Family", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759615122/Broken_Family_Thumbnail_piwa8e.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759615138/Broken_Family_thuczf.mp4" },
+    { category: "video", title: "Buy $DEBT", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186714/Buy_DEBT_Thumbnail_br7km5.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759187577/DEBT_Bull_eswwng.mp4" },
+    { category: "video", title: "Buy $DEBT 2.0", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187310/Buy_DEBT_2.0_Thumbnail_u1vsqh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759187304/DEBT_DEGEN_BUY_rqsztu.mp4" },
+    { category: "video", title: "Cat vs. Krueger", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761607825/Cat_vs_Krueger_Thumbnail_mmferr.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761607820/Cat_vs_Krueger_rg9vxw.mp4" },
+    { category: "video", title: "Classroom Skit", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759615456/Classroom_Thumbnail_eb9lkb.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759615462/Classroom_do8dei.mp4" },
+    { category: "video", title: "Crypto Mart", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759185943/Cryptomart_Thumbnail_lyd0ro.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759185631/Cryptomart_jpl6pw.mp4" },
+    { category: "video", title: "Debt Prison", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759614590/Debt_Prison_Thumbnail_fkrecn.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759614597/DEBT_PRISON_ywovfm.mp4" },
+    { category: "video", title: "Dracula", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761608628/Dracula_Thumbnail_rv5ugh.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761608622/Dracula_htimay.mp4" },
+    { category: "video", title: "Farming Airdrops", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187146/Farming_Airdrops_Thumbnail_mxscrg.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759187151/FARMING_AIRDROPS_imjice.mp4" },
+    { category: "video", title: "Forclosure", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188342/Eviction_Thumbnail_ajwqds.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759188330/Eviction_hhzd5h.mp4" },
+    { category: "video", title: "Frankenstein", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761608746/Frankenstein_Thumbnail_z4hgpw.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761608758/Frankenstein_r9xjpw.mp4" },
+    { category: "video", title: "Generations", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759615628/Generations_Thumbnail_i0llzc.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759615634/Generations_it1zak.mp4" },
+    { category: "video", title: "Ghostbusters", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761608382/Ghostbusters_Thumbnail_e3ftr4.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761608346/Ghostbusters_eizeqt.mp4" },
+    { category: "video", title: "Graduate Struggles", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759615291/Graduate_Struggles_Thumbnail_msrg14.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759615298/Gaduate_Struggles_nbfc6t.mp4" },
     { category: "video", title: "Homeless", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759614965/Homeless_Thumbnail_xrboah.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759614969/Homeless_voyaq6.mp4" },
     { category: "video", title: "Intervention", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759188091/Intervention_Thumbnail_v5iflp.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759185631/Cryptomart_jpl6pw.mp4" },
     { category: "video", title: "Monolith", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759186989/Monolith_Thumbnail_oak6qm.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759188082/Intervention_t3o12i.mp4" },
@@ -326,5 +339,5 @@ const mediaItems = [
     { category: "video", title: "Spinning $DEBT Coin", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759187483/Spinning_DEBT_coin_Thumbnail_xlplqo.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759187478/Spinning_DEBT_coin_uvydkw.mp4" },
     { category: "video", title: "The Debt Deniers EP. 1", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761602917/The_Debt_Deniers_Thumbnail_qo99hz.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761602905/The_Debt_Deniers_ki7qr0.mp4" },
     { category: "video", title: "Top of the World", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/upload/fl_attachment/f_auto,q_auto/v1759614424/Top_of_the_World_Thumbnail_nctyip.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/fl_attachment/f_auto,q_auto/v1759614446/Top_of_The_World_k4tmzi.mp4" },
-    { category: "video", title: "Zombpocalypse", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/f_auto,q_auto/upload/v1761608058/Zombpocalypse_Thumbnail_esi4g8.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761608043/Zombpocalypse_guq57d.mp4" }
+    { category: "video", title: "Zombpocalypse", thumbnail: "https://res.cloudinary.com/dpvptjn4t/image/f_auto,q_auto/upload/v1761608058/Zombpocalypse_Thumbnail_esi4g8.jpg", downloadUrl: "https://res.cloudinary.com/dpvptjn4t/video/upload/f_auto,q_auto/v1761608043/Zombpocalypse_guq57d.mp4" },
 ];
