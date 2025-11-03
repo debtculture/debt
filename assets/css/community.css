@@ -27,7 +27,7 @@
 .content-wrapper header h1 {
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     text-shadow: none;
     animation: none;
     text-align: center;
@@ -212,7 +212,8 @@
     gap: 4px;
     margin: 5px 0;
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: hidden;
+    max-width: 100%;
 }
 
 .trading-card .hof-badges .badge {
