@@ -1,9 +1,25 @@
 /* =============================================================================
    INDEX PAGE STYLES
-   Leverages shared-styles.css for base styles, navbar, glitch, mobile nav, etc.
+   Version: 2.0 (Optimized and Synced with Forums Navbar)
+   
+   Table of Contents:
+   1. Page Layout
+   2. Hero Section
+   3. Contract Address
+   4. Tokenomics
+   5. Manifesto
+   6. Schedule
+   7. Social
+   8. Resources
+   9. Glitch Effect
+   10. Mobile Navigation
+   11. Responsive Design
    ============================================================================= */
 
-/* --- PAGE LAYOUT --- */
+/* =============================================================================
+   1. PAGE LAYOUT
+   ============================================================================= */
+
 .content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -12,7 +28,10 @@
     z-index: 1;
 }
 
-/* --- HERO SECTION --- */
+/* =============================================================================
+   2. HERO SECTION
+   ============================================================================= */
+
 .hero-section {
     text-align: center;
     padding: 60px 20px 40px;
@@ -49,7 +68,10 @@
     display: block;
 }
 
-/* --- CONTRACT ADDRESS SECTION --- */
+/* =============================================================================
+   3. CONTRACT ADDRESS
+   ============================================================================= */
+
 .contract-section {
     text-align: center;
     padding: 40px 20px;
@@ -115,7 +137,10 @@
     color: var(--hover-red);
 }
 
-/* --- TOKENOMICS SECTION --- */
+/* =============================================================================
+   4. TOKENOMICS
+   ============================================================================= */
+
 .tokenomics-section {
     padding: 60px 20px;
     text-align: center;
@@ -186,7 +211,10 @@
     transform: translateY(-2px);
 }
 
-/* --- MANIFESTO SECTION --- */
+/* =============================================================================
+   5. MANIFESTO
+   ============================================================================= */
+
 .manifesto-section {
     padding: 60px 20px;
     text-align: center;
@@ -239,7 +267,10 @@
     margin-top: 20px;
 }
 
-/* --- SCHEDULE SECTION --- */
+/* =============================================================================
+   6. SCHEDULE
+   ============================================================================= */
+
 .schedule-section {
     padding: 60px 20px;
     text-align: center;
@@ -314,7 +345,10 @@
     color: var(--hover-red);
 }
 
-/* --- SOCIAL SECTION --- */
+/* =============================================================================
+   7. SOCIAL
+   ============================================================================= */
+
 .social-section {
     padding: 60px 20px;
     text-align: center;
@@ -379,7 +413,10 @@
     color: var(--text-primary);
 }
 
-/* --- RESOURCES SECTION --- */
+/* =============================================================================
+   8. RESOURCES
+   ============================================================================= */
+
 .resources-section {
     padding: 40px 20px 60px;
     text-align: center;
@@ -419,7 +456,10 @@
     color: var(--main-red);
 }
 
-/* --- GLITCH EFFECT --- */
+/* =============================================================================
+   9. GLITCH EFFECT
+   ============================================================================= */
+
 .glitch {
     position: relative;
 }
@@ -450,54 +490,128 @@
 
 @keyframes glitch-anim-1 {
     0% { clip: rect(42px, 9999px, 44px, 0); }
-    5% { clip: rect(12px, 9999px, 60px, 0); }
-    10% { clip: rect(40px, 9999px, 40px, 0); }
-    15% { clip: rect(30px, 9999px, 50px, 0); }
-    20% { clip: rect(50px, 9999px, 20px, 0); }
-    25% { clip: rect(35px, 9999px, 55px, 0); }
-    30% { clip: rect(45px, 9999px, 45px, 0); }
-    35% { clip: rect(55px, 9999px, 35px, 0); }
-    40% { clip: rect(45px, 9999px, 65px, 0); }
-    45% { clip: rect(65px, 9999px, 45px, 0); }
-    50% { clip: rect(25px, 9999px, 55px, 0); }
-    55% { clip: rect(60px, 9999px, 30px, 0); }
-    60% { clip: rect(30px, 9999px, 70px, 0); }
-    65% { clip: rect(70px, 9999px, 50px, 0); }
-    70% { clip: rect(50px, 9999px, 80px, 0); }
-    75% { clip: rect(80px, 9999px, 60px, 0); }
-    80% { clip: rect(60px, 9999px, 90px, 0); }
-    85% { clip: rect(90px, 9999px, 70px, 0); }
-    90% { clip: rect(70px, 9999px, 100px, 0); }
-    95% { clip: rect(100px, 9999px, 80px, 0); }
     100% { clip: rect(80px, 9999px, 120px, 0); }
 }
 
 @keyframes glitch-anim-2 {
     0% { clip: rect(85px, 9999px, 90px, 0); }
-    5% { clip: rect(35px, 9999px, 95px, 0); }
-    10% { clip: rect(90px, 9999px, 25px, 0); }
-    15% { clip: rect(25px, 9999px, 65px, 0); }
-    20% { clip: rect(65px, 9999px, 15px, 0); }
-    25% { clip: rect(15px, 9999px, 75px, 0); }
-    30% { clip: rect(75px, 9999px, 5px, 0); }
-    35% { clip: rect(5px, 9999px, 85px, 0); }
-    40% { clip: rect(85px, 9999px, 25px, 0); }
-    45% { clip: rect(25px, 9999px, 95px, 0); }
-    50% { clip: rect(95px, 9999px, 35px, 0); }
-    55% { clip: rect(35px, 9999px, 105px, 0); }
-    60% { clip: rect(105px, 9999px, 45px, 0); }
-    65% { clip: rect(45px, 9999px, 115px, 0); }
-    70% { clip: rect(115px, 9999px, 55px, 0); }
-    75% { clip: rect(55px, 9999px, 125px, 0); }
-    80% { clip: rect(125px, 9999px, 65px, 0); }
-    85% { clip: rect(65px, 9999px, 135px, 0); }
-    90% { clip: rect(135px, 9999px, 75px, 0); }
-    95% { clip: rect(75px, 9999px, 145px, 0); }
     100% { clip: rect(145px, 9999px, 85px, 0); }
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* =============================================================================
+   10. MOBILE NAVIGATION
+   ============================================================================= */
+
+/* Default hidden on desktop */
+.buy-btn-mobile,
+.hamburger {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 15px;
+    width: 180px;
+    background-color: rgba(13, 13, 13, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    z-index: 1099;
+    padding: 10px 0;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.mobile-menu a {
+    display: block;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.mobile-menu a:hover {
+    color: var(--main-red);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* =============================================================================
+   11. RESPONSIVE DESIGN (MOBILE)
+   ============================================================================= */
+
 @media (max-width: 768px) {
+    /* --- Mobile Navigation --- */
+    .buy-btn-mobile,
+    .hamburger {
+        display: flex;
+        align-items: center;
+    }
+
+    .buy-btn-mobile {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 1100;
+        background-color: var(--main-red);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .buy-btn-mobile:hover {
+        background-color: var(--hover-red);
+    }
+
+    .hamburger {
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1100;
+        padding: 5px;
+        background-color: rgba(13, 13, 13, 0.8);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+    }
+
+    .hamburger div {
+        width: 20px;
+        height: 2px;
+        background-color: #eee;
+        margin: 0 auto;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(4px, -4px);
+    }
+
+    /* --- Center Navbar --- */
+    .navbar {
+        justify-content: center;
+    }
+
+    /* --- General Responsive Tweaks --- */
     .content-wrapper {
         padding: 60px 15px 40px;
     }
