@@ -55,7 +55,7 @@
 
 .video-container {
     max-width: 900px;
-    margin: 0 auto 30px;
+    margin: 0 auto 0px;
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid var(--main-red);
