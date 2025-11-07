@@ -39,11 +39,12 @@ async function fetchTokenomicsData() {
             const response = await fetch('/api/token-data?type=tokenomics');
             if (response.ok) {
                 const data = await response.json();
+                console.log('Primary API succeeded.');
                 await processTokenomicsFromAPI(data);
                 return; // Success, exit function
             }
         } catch (apiError) {
-            console.log('Primary API failed, using DexScreener fallback');
+            console.log('Primary API failed, using DexScreener fallback:', apiError);
         }
         
         // Fallback to DexScreener public API
@@ -70,19 +71,17 @@ async function processTokenomicsFromAPI(data) {
         throw new Error('Missing supply or decimals data');
     }
     
-    const INITIAL_SUPPLY = 1000000000;
-    const LOCKED_TOKENS = 150000000;
+    const LOCKED_TOKENS = 200363613.139407;
     
     const currentSupply = parseInt(onChainInfo.supply) / Math.pow(10, onChainInfo.decimals);
     const lpBalance = data.lpData?.result?.value?.uiAmount || 0;
     const circulatingSupply = currentSupply - LOCKED_TOKENS - lpBalance;
-    const circulatingPercentage = (circulatingSupply / INITIAL_SUPPLY) * 100;
+    const circulatingPercentage = (circulatingSupply / currentSupply) * 100;
     
-    // Fetch price from DexScreener
-    const priceData = await fetchPriceFromDexScreener();
-    const price = priceData?.priceUsd || 0;
-    const marketCap = circulatingSupply * price;
-    const volume24h = priceData?.volume24h || 0;
+    // Fetch Dex data for MC and volume
+    const dexData = await fetchDexData();
+    const marketCap = dexData.marketCap;
+    const volume24h = dexData.volume24h;
     
     updateTokenomicsUI({
         marketCap: formatLargeNumber(marketCap),
@@ -93,9 +92,9 @@ async function processTokenomicsFromAPI(data) {
 }
 
 /**
- * Fetch price data from DexScreener
+ * Fetch data from DexScreener
  */
-async function fetchPriceFromDexScreener() {
+async function fetchDexData() {
     try {
         const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         if (!response.ok) throw new Error('DexScreener API failed');
@@ -109,11 +108,13 @@ async function fetchPriceFromDexScreener() {
         return {
             priceUsd: parseFloat(pair.priceUsd) || 0,
             volume24h: parseFloat(pair.volume?.h24) || 0,
-            marketCap: parseFloat(pair.fdv) || 0
+            marketCap: parseFloat(pair.fdv) || 0,
+            liquidityUsd: parseFloat(pair.liquidity?.usd) || 0,
+            liquidityBase: parseFloat(pair.liquidity?.base) || 0
         };
     } catch (error) {
-        console.error('Error fetching price from DexScreener:', error);
-        return { priceUsd: 0, volume24h: 0, marketCap: 0 };
+        console.error('Error fetching from DexScreener:', error);
+        return { priceUsd: 0, volume24h: 0, marketCap: 0, liquidityUsd: 0, liquidityBase: 0 };
     }
 }
 
@@ -123,37 +124,29 @@ async function fetchPriceFromDexScreener() {
 async function fetchFromDexScreener() {
     console.log('Using DexScreener as primary data source');
     
-    const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+    const dexData = await fetchDexData();
     
-    if (!response.ok) {
-        throw new Error(`DexScreener returned ${response.status}`);
+    const marketCap = dexData.marketCap;
+    const volume24h = dexData.volume24h;
+    const priceUsd = dexData.priceUsd;
+    
+    // Fetch accurate current supply using Solana web3
+    let currentSupply;
+    try {
+        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com');
+        const mint = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+        const supplyResponse = await connection.getTokenSupply(mint);
+        currentSupply = supplyResponse.value.uiAmount;
+    } catch (web3Error) {
+        console.error('Web3 supply fetch failed, using Dex estimate:', web3Error);
+        currentSupply = priceUsd > 0 ? marketCap / priceUsd : 1000000000;
     }
     
-    const data = await response.json();
+    const lpTokens = dexData.liquidityBase;
+    const LOCKED_TOKENS = 200363613.139407;
     
-    if (!data.pairs || data.pairs.length === 0) {
-        throw new Error('No trading pairs found on DexScreener');
-    }
-    
-    const pair = data.pairs[0];
-    
-    // Extract data from DexScreener response
-    const marketCap = parseFloat(pair.fdv) || 0;
-    const volume24h = parseFloat(pair.volume?.h24) || 0;
-    const priceUsd = parseFloat(pair.priceUsd) || 0;
-    
-    // Calculate circulating supply
-    const INITIAL_SUPPLY = 1000000000; // 1B
-    const LOCKED_TOKENS = 150000000;   // 150M
-    
-    // Use liquidity as proxy for LP tokens
-    const liquidityUsd = parseFloat(pair.liquidity?.usd) || 0;
-    const estimatedLPTokens = priceUsd > 0 ? liquidityUsd / priceUsd : 0;
-    
-    // Estimate burned tokens (Initial - Current circulating estimate)
-    const estimatedCirculating = priceUsd > 0 ? marketCap / priceUsd : INITIAL_SUPPLY - LOCKED_TOKENS;
-    const circulatingSupply = Math.min(estimatedCirculating, INITIAL_SUPPLY - LOCKED_TOKENS);
-    const circulatingPercentage = (circulatingSupply / INITIAL_SUPPLY) * 100;
+    const circulatingSupply = currentSupply - LOCKED_TOKENS - lpTokens;
+    const circulatingPercentage = (circulatingSupply / currentSupply) * 100;
     
     updateTokenomicsUI({
         marketCap: formatLargeNumber(marketCap),
