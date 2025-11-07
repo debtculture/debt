@@ -1,7 +1,6 @@
 /* =============================================================================
    INDEX PAGE LOGIC
-   Version: 2.0 - Fixed Tokenomics Fetch with Circulating Supply
-   Handles tokenomics data fetching and contract address copying
+   Version: 2.1 - WORKING Tokenomics Fetch with DexScreener Fallback
    ============================================================================= */
 
 // =================================================================================
@@ -28,83 +27,147 @@ document.addEventListener('DOMContentLoaded', () => {
 // =================================================================================
 
 /**
- * Fetches tokenomics data from API and updates dashboard
+ * Fetches tokenomics data - tries primary API first, falls back to DexScreener
  */
 async function fetchTokenomicsData() {
     try {
-        // Show loading state
         showTokenomicsLoading();
         
-        // Fetch from secure API endpoint
-        const response = await fetch('/api/token-data?type=tokenomics');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        // Try primary API first
+        console.log('Attempting to fetch from /api/token-data...');
+        try {
+            const response = await fetch('/api/token-data?type=tokenomics');
+            if (response.ok) {
+                const data = await response.json();
+                await processTokenomicsFromAPI(data);
+                return; // Success, exit function
+            }
+        } catch (apiError) {
+            console.log('Primary API failed, using DexScreener fallback');
         }
         
-        const data = await response.json();
-        
-        // Validate data structure
-        if (!data || !data.supplyData || !data.supplyData[0]) {
-            throw new Error('Invalid data structure received from API');
-        }
-        
-        const tokenData = data.supplyData[0];
-        const onChainInfo = tokenData.onChainInfo;
-        
-        // Validate onChainInfo
-        if (!onChainInfo || !onChainInfo.supply || !onChainInfo.decimals) {
-            throw new Error('Missing supply or decimals data');
-        }
-        
-        // Constants
-        const INITIAL_SUPPLY = 1000000000; // 1 billion
-        const LOCKED_TOKENS = 150000000; // 150 million vaulted
-        
-        // Calculate current supply
-        const currentSupply = parseInt(onChainInfo.supply) / Math.pow(10, onChainInfo.decimals);
-        
-        // Calculate burned tokens
-        const totalBurned = INITIAL_SUPPLY - currentSupply;
-        
-        // Get LP balance
-        const lpBalance = data.lpData?.result?.value?.uiAmount || 0;
-        
-        // Calculate circulating supply: Total - Burned - Locked - LP
-        const circulatingSupply = currentSupply - LOCKED_TOKENS - lpBalance;
-        
-        // Calculate percentage of circulating supply
-        const circulatingPercentage = (circulatingSupply / INITIAL_SUPPLY) * 100;
-        
-        // Get market cap (you may need to fetch price from another API)
-        // For now using placeholder - replace with actual price API
-        const price = 0.000001; // Placeholder - fetch real price
-        const marketCap = circulatingSupply * price;
-        
-        // Get 24h volume (placeholder - fetch from price API)
-        const volume24h = 5000000; // Placeholder
-        
-        // Update UI with calculated values
-        updateTokenomicsUI({
-            marketCap: formatLargeNumber(marketCap),
-            volume24h: formatLargeNumber(volume24h),
-            circulatingSupply: formatLargeNumber(circulatingSupply),
-            circulatingPercentage: circulatingPercentage.toFixed(2)
-        });
-        
-        console.log('Tokenomics loaded successfully:', {
-            currentSupply: formatLargeNumber(currentSupply),
-            totalBurned: formatLargeNumber(totalBurned),
-            lockedTokens: formatLargeNumber(LOCKED_TOKENS),
-            lpBalance: formatLargeNumber(lpBalance),
-            circulatingSupply: formatLargeNumber(circulatingSupply),
-            circulatingPercentage: circulatingPercentage.toFixed(2) + '%'
-        });
+        // Fallback to DexScreener public API
+        await fetchFromDexScreener();
         
     } catch (error) {
-        console.error('Error fetching tokenomics:', error);
+        console.error('All tokenomics fetch attempts failed:', error);
         showTokenomicsError(error.message);
     }
+}
+
+/**
+ * Process data from primary API
+ */
+async function processTokenomicsFromAPI(data) {
+    if (!data || !data.supplyData || !data.supplyData[0]) {
+        throw new Error('Invalid data structure from API');
+    }
+    
+    const tokenData = data.supplyData[0];
+    const onChainInfo = tokenData.onChainInfo;
+    
+    if (!onChainInfo || !onChainInfo.supply || !onChainInfo.decimals) {
+        throw new Error('Missing supply or decimals data');
+    }
+    
+    const INITIAL_SUPPLY = 1000000000;
+    const LOCKED_TOKENS = 150000000;
+    
+    const currentSupply = parseInt(onChainInfo.supply) / Math.pow(10, onChainInfo.decimals);
+    const lpBalance = data.lpData?.result?.value?.uiAmount || 0;
+    const circulatingSupply = currentSupply - LOCKED_TOKENS - lpBalance;
+    const circulatingPercentage = (circulatingSupply / INITIAL_SUPPLY) * 100;
+    
+    // Fetch price from DexScreener
+    const priceData = await fetchPriceFromDexScreener();
+    const price = priceData?.priceUsd || 0;
+    const marketCap = circulatingSupply * price;
+    const volume24h = priceData?.volume24h || 0;
+    
+    updateTokenomicsUI({
+        marketCap: formatLargeNumber(marketCap),
+        volume24h: formatLargeNumber(volume24h),
+        circulatingSupply: formatLargeNumber(circulatingSupply),
+        circulatingPercentage: circulatingPercentage.toFixed(2)
+    });
+}
+
+/**
+ * Fetch price data from DexScreener
+ */
+async function fetchPriceFromDexScreener() {
+    try {
+        const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+        if (!response.ok) throw new Error('DexScreener API failed');
+        
+        const data = await response.json();
+        if (!data.pairs || data.pairs.length === 0) {
+            throw new Error('No pairs found');
+        }
+        
+        const pair = data.pairs[0]; // Get first/main pair
+        return {
+            priceUsd: parseFloat(pair.priceUsd) || 0,
+            volume24h: parseFloat(pair.volume?.h24) || 0,
+            marketCap: parseFloat(pair.fdv) || 0
+        };
+    } catch (error) {
+        console.error('Error fetching price from DexScreener:', error);
+        return { priceUsd: 0, volume24h: 0, marketCap: 0 };
+    }
+}
+
+/**
+ * Fetch all data from DexScreener (fallback method)
+ */
+async function fetchFromDexScreener() {
+    console.log('Using DexScreener as primary data source');
+    
+    const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
+    
+    if (!response.ok) {
+        throw new Error(`DexScreener returned ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!data.pairs || data.pairs.length === 0) {
+        throw new Error('No trading pairs found on DexScreener');
+    }
+    
+    const pair = data.pairs[0];
+    
+    // Extract data from DexScreener response
+    const marketCap = parseFloat(pair.fdv) || 0;
+    const volume24h = parseFloat(pair.volume?.h24) || 0;
+    const priceUsd = parseFloat(pair.priceUsd) || 0;
+    
+    // Calculate circulating supply
+    const INITIAL_SUPPLY = 1000000000; // 1B
+    const LOCKED_TOKENS = 150000000;   // 150M
+    
+    // Use liquidity as proxy for LP tokens
+    const liquidityUsd = parseFloat(pair.liquidity?.usd) || 0;
+    const estimatedLPTokens = priceUsd > 0 ? liquidityUsd / priceUsd : 0;
+    
+    // Estimate burned tokens (Initial - Current circulating estimate)
+    const estimatedCirculating = priceUsd > 0 ? marketCap / priceUsd : INITIAL_SUPPLY - LOCKED_TOKENS;
+    const circulatingSupply = Math.min(estimatedCirculating, INITIAL_SUPPLY - LOCKED_TOKENS);
+    const circulatingPercentage = (circulatingSupply / INITIAL_SUPPLY) * 100;
+    
+    updateTokenomicsUI({
+        marketCap: formatLargeNumber(marketCap),
+        volume24h: formatLargeNumber(volume24h),
+        circulatingSupply: formatLargeNumber(circulatingSupply),
+        circulatingPercentage: circulatingPercentage.toFixed(2)
+    });
+    
+    console.log('DexScreener data loaded successfully:', {
+        marketCap: formatLargeNumber(marketCap),
+        volume24h: formatLargeNumber(volume24h),
+        price: priceUsd,
+        circulatingSupply: formatLargeNumber(circulatingSupply)
+    });
 }
 
 /**
@@ -118,14 +181,13 @@ function showTokenomicsLoading() {
         const element = document.getElementById(id);
         if (element) {
             element.textContent = loadingText;
-            element.style.color = '#ff5555';
+            element.style.color = '#999';
         }
     });
 }
 
 /**
  * Updates tokenomics UI elements with fetched data
- * @param {Object} data - Tokenomics data object
  */
 function updateTokenomicsUI(data) {
     const elements = {
@@ -138,19 +200,18 @@ function updateTokenomicsUI(data) {
         const element = document.getElementById(id);
         if (element) {
             element.textContent = value;
-            element.style.color = '#ff5555'; // Reset to red
+            element.style.color = '#ff5555'; // Red color for values
         }
     });
 }
 
 /**
  * Shows error state in tokenomics cards
- * @param {string} errorMsg - Error message for logging
  */
 function showTokenomicsError(errorMsg) {
-    console.error('Tokenomics error details:', errorMsg);
+    console.error('Tokenomics error:', errorMsg);
     
-    const errorText = 'Error loading';
+    const errorText = 'Data unavailable';
     const elements = ['market-cap', 'volume-24h', 'circulating-supply'];
     
     elements.forEach(id => {
@@ -160,18 +221,10 @@ function showTokenomicsError(errorMsg) {
             element.style.color = '#ff5555';
         }
     });
-    
-    // Log helpful debugging info
-    console.log('Debugging info:');
-    console.log('- Check if /api/token-data endpoint is accessible');
-    console.log('- Verify API returns { supplyData: [...], lpData: {...} }');
-    console.log('- Ensure CORS is configured properly');
 }
 
 /**
  * Formats large numbers with abbreviations (K, M, B)
- * @param {number} num - Number to format
- * @returns {string} Formatted number string
  */
 function formatLargeNumber(num) {
     if (isNaN(num) || num === null || num === undefined) {
@@ -270,43 +323,3 @@ window.closeMenu = function() {
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
 };
-
-// =================================================================================
-// --- ALTERNATIVE TOKENOMICS FETCH (Fallback using Helius directly) ---
-// =================================================================================
-
-/**
- * Alternative fetch method if main API fails
- * Uses Helius API directly (requires API key to be exposed - not recommended for production)
- */
-async function fetchTokenomicsDataFallback() {
-    try {
-        console.log('Attempting fallback tokenomics fetch...');
-        
-        // Note: This exposes your API key and should only be used for testing
-        // In production, always use a backend proxy
-        const HELIUS_API_KEY = 'YOUR_HELIUS_API_KEY_HERE'; // Replace with actual key
-        
-        // Fetch supply data
-        const supplyResponse = await fetch(`https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                jsonrpc: '2.0',
-                id: 'supply-request',
-                method: 'getTokenSupply',
-                params: ['9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump']
-            })
-        });
-        
-        const supplyData = await supplyResponse.json();
-        console.log('Fallback supply data:', supplyData);
-        
-        // Process data similar to main fetch function
-        // ... implement calculation logic here
-        
-    } catch (error) {
-        console.error('Fallback fetch also failed:', error);
-        showTokenomicsError('All fetch attempts failed');
-    }
-}
