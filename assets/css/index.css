@@ -1,6 +1,6 @@
 /* =============================================================================
    INDEX PAGE STYLES
-   Version: 2.0 (Optimized and Synced with Forums Navbar)
+   Version: 2.1 (Optimized with Container Boxes, Reduced Spacing, and Logo Resources)
    
    Table of Contents:
    1. Page Layout
@@ -34,7 +34,7 @@
 
 .hero-section {
     text-align: center;
-    padding: 60px 20px 40px;
+    padding: 30px 20px 20px; /* Reduced from 60px to 30px */
 }
 
 .hero-section h1 {
@@ -49,13 +49,13 @@
     font-size: 1.4rem;
     color: #ff9999;
     text-shadow: 0 0 8px var(--main-red);
-    margin-bottom: 40px;
+    margin-bottom: 0;
     font-weight: 600;
 }
 
 .video-container {
     max-width: 900px;
-    margin: 0 auto 60px;
+    margin: 0 auto 30px; /* Reduced from 60px to 30px */
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid var(--main-red);
@@ -68,21 +68,33 @@
     display: block;
 }
 
+/* Text Container for Readability */
+.text-container {
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 85, 85, 0.3);
+    border-radius: 10px;
+    padding: 20px 30px;
+    margin: 20px auto 30px;
+    max-width: 800px;
+}
+
 /* =============================================================================
    3. CONTRACT ADDRESS
    ============================================================================= */
 
 .contract-section {
     text-align: center;
-    padding: 40px 20px;
+    padding: 30px 20px; /* Reduced from 40px to 30px */
     max-width: 800px;
-    margin: 0 auto 60px;
+    margin: 0 auto 30px; /* Reduced from 60px to 30px */
 }
 
 .contract-section h2 {
     font-size: 2.5rem;
     color: var(--main-red);
     margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255, 85, 85, 0.6); /* Neon glow */
 }
 
 .contract-address {
@@ -111,6 +123,10 @@
     color: var(--text-primary);
     font-weight: 700;
     word-break: break-all;
+}
+
+.address-text-mobile {
+    display: none;
 }
 
 .copy-icon {
@@ -142,7 +158,7 @@
    ============================================================================= */
 
 .tokenomics-section {
-    padding: 60px 20px;
+    padding: 30px 20px; /* Reduced from 60px to 30px */
     text-align: center;
 }
 
@@ -150,13 +166,14 @@
     font-size: 2.5rem;
     color: var(--main-red);
     margin-bottom: 40px;
+    text-shadow: 0 0 15px rgba(255, 85, 85, 0.6); /* Neon glow */
 }
 
 .tokenomics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 25px;
-    max-width: 1000px;
+    max-width: 900px; /* Adjusted for 3 cards */
     margin: 0 auto 40px;
 }
 
@@ -216,7 +233,7 @@
    ============================================================================= */
 
 .manifesto-section {
-    padding: 60px 20px;
+    padding: 30px 20px; /* Reduced from 60px to 30px */
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
@@ -226,13 +243,14 @@
     font-size: 2.5rem;
     color: var(--main-red);
     margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(255, 85, 85, 0.6); /* Neon glow */
 }
 
 .manifesto-text {
     font-size: 1.2rem;
     line-height: 1.8;
     color: var(--text-light);
-    margin-bottom: 40px;
+    margin-bottom: 0;
 }
 
 .debt-clock-container {
@@ -272,7 +290,7 @@
    ============================================================================= */
 
 .schedule-section {
-    padding: 60px 20px;
+    padding: 30px 20px; /* Reduced from 60px to 30px */
     text-align: center;
 }
 
@@ -280,19 +298,20 @@
     font-size: 2.5rem;
     color: var(--main-red);
     margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255, 85, 85, 0.6); /* Neon glow */
 }
 
 .schedule-intro {
     font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 40px;
+    margin-bottom: 0;
 }
 
 .schedule-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
     margin: 0 auto 30px;
 }
 
@@ -300,10 +319,10 @@
     background: rgba(26, 26, 26, 0.8);
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    padding: 25px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     transition: all 0.3s ease;
 }
 
@@ -313,21 +332,55 @@
     transform: translateY(-3px);
 }
 
+.schedule-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
 .schedule-day {
-    font-size: 1.3rem;
     font-weight: 700;
     color: var(--main-red);
 }
 
+.schedule-dot {
+    color: var(--text-secondary);
+}
+
+.schedule-time {
+    color: var(--text-secondary);
+}
+
+.schedule-event-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+}
+
+.schedule-emoji {
+    font-size: 1.2rem;
+}
+
 .schedule-event {
-    font-size: 1.1rem;
     color: var(--text-primary);
     font-weight: 600;
 }
 
-.schedule-time {
-    font-size: 0.95rem;
+.schedule-host {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.schedule-host a {
+    color: var(--main-red);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.schedule-host a:hover {
+    color: var(--hover-red);
 }
 
 .schedule-note {
@@ -350,7 +403,7 @@
    ============================================================================= */
 
 .social-section {
-    padding: 60px 20px;
+    padding: 30px 20px; /* Reduced from 60px to 30px */
     text-align: center;
 }
 
@@ -358,15 +411,13 @@
     font-size: 2.5rem;
     color: var(--main-red);
     margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255, 85, 85, 0.6); /* Neon glow */
 }
 
 .social-intro {
     font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 40px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 0;
 }
 
 .social-grid {
@@ -388,6 +439,7 @@
     align-items: center;
     gap: 15px;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .social-card:hover {
@@ -413,12 +465,19 @@
     color: var(--text-primary);
 }
 
+/* White circle behind X logo */
+.x-card img {
+    background: white;
+    border-radius: 50%;
+    padding: 8px;
+}
+
 /* =============================================================================
    8. RESOURCES
    ============================================================================= */
 
 .resources-section {
-    padding: 40px 20px 60px;
+    padding: 30px 20px; /* Reduced from 40px to 30px */
     text-align: center;
     max-width: 1000px;
     margin: 0 auto;
@@ -435,25 +494,31 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
+    align-items: center;
+    gap: 30px;
 }
 
-.resource-link {
-    background: rgba(26, 26, 26, 0.6);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
+.resource-logo {
+    display: inline-block;
     transition: all 0.3s ease;
+    opacity: 0.8;
 }
 
-.resource-link:hover {
-    background: rgba(255, 85, 85, 0.1);
-    border-color: var(--main-red);
-    color: var(--main-red);
+.resource-logo:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.resource-logo img {
+    width: auto;
+    height: 40px;
+    object-fit: contain;
+    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+}
+
+.resource-logo:hover img {
+    filter: brightness(1.1);
 }
 
 /* =============================================================================
@@ -611,17 +676,47 @@
         justify-content: center;
     }
 
+    /* --- Contract Address Abbreviation --- */
+    .address-text {
+        display: none;
+    }
+
+    .address-text-mobile {
+        display: inline;
+        font-family: 'Courier New', monospace;
+        font-size: 1rem;
+        color: var(--text-primary);
+        font-weight: 700;
+    }
+
+    /* --- US Debt Clock Mobile Sizing --- */
+    .debt-clock-container {
+        height: 200px;
+        max-width: 100%;
+    }
+
+    .debt-clock-container iframe {
+        transform: scale(0.7);
+        transform-origin: top left;
+        width: 143%;
+        height: 143%;
+    }
+
     /* --- General Responsive Tweaks --- */
     .content-wrapper {
         padding: 60px 15px 40px;
     }
 
     .hero-section {
-        padding: 40px 15px 30px;
+        padding: 20px 15px 15px;
     }
 
     .hero-subtitle {
         font-size: 1.1rem;
+    }
+
+    .text-container {
+        padding: 15px 20px;
     }
 
     .contract-section h2,
@@ -630,10 +725,6 @@
     .schedule-section h2,
     .social-section h2 {
         font-size: 2rem;
-    }
-
-    .address-text {
-        font-size: 0.9rem;
     }
 
     .tokenomics-grid {
@@ -650,13 +741,13 @@
         width: 100%;
     }
 
-    .debt-clock-container {
-        height: 250px;
-    }
-
     .schedule-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
+    }
+
+    .schedule-item {
+        padding: 15px;
     }
 
     .social-grid {
@@ -665,11 +756,10 @@
     }
 
     .resources-grid {
-        gap: 10px;
+        gap: 20px;
     }
 
-    .resource-link {
-        font-size: 0.85rem;
-        padding: 8px 15px;
+    .resource-logo img {
+        height: 32px;
     }
 }
