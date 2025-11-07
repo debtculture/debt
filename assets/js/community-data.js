@@ -301,11 +301,11 @@ const members = [
         ]
     },
     {
-        name: 'Cyanide',
+        name: 'Glow',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/ipoopcrypto',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111719/cy_sxrobe.jpg',
+        xLink: 'https://x.com/GlowsHaven',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762547988/Glow_k48ihk.jpg',
         badges: [
             { type: 'spaces', tier: 'silver' },
             { type: 'holding', tier: 'bronze' }
