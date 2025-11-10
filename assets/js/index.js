@@ -7,15 +7,7 @@
 // --- INITIALIZATION ---
 // =================================================================================
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize wallet manager first
-    if (typeof initializeWalletManager !== 'undefined') {
-        await initializeWalletManager();
-    } else {
-        console.error('Wallet manager not loaded');
-    }
-
-    // Existing initialization code
+document.addEventListener('DOMContentLoaded', () => {
     fetchTokenomicsData();
     
     // Initialize copy address keyboard support
