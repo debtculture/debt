@@ -15,7 +15,7 @@ const WALLET_CONFIG = {
         { name: 'Solflare', id: 'solflare', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749488428/Solflare_Wallet_nxcl95.jpg' },
         { name: 'Backpack', id: 'backpack', icon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1750446379/backpack_rer24o.jpg' }
     ],
-    defaultWalletIcon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749488428/Phantom_Wallet_s3cahc.jpg'
+    defaultWalletIcon: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748890233/Wallet_PNG_sxrfdx.png'
 };
 
 // =================================================================================
