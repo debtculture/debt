@@ -173,7 +173,7 @@ canvas#matrix-bg {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 10px;
+    margin: 0 20px 0 10px;
 }
 
 .wallet-connect-btn:hover {
@@ -1121,7 +1121,7 @@ button:focus,
         margin: 0;
         position: fixed;
         top: 15px;
-        right: 90px;
+        left: 65px;
         z-index: 1100;
     }
 
