@@ -896,3 +896,35 @@ button:focus,
         animation: none !important;
     }
 }
+
+@media (max-width: 768px) {
+    /* ... your existing mobile styles ... */
+    
+    /* Fix wallet button being behind mobile buy button */
+    .wallet-connect-btn {
+        display: flex !important;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 0 5px !important;
+        z-index: 1001 !important; /* Higher than buy button */
+        position: relative !important;
+    }
+    
+    /* Position mobile buy button so it doesn't overlap wallet */
+    .buy-btn-mobile {
+        z-index: 1000;
+        margin-left: 5px;
+    }
+    
+    /* Ensure nav-actions shows both buttons side by side */
+    .nav-actions {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        position: absolute !important;
+        right: 120px !important; /* Move left to make room */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 999;
+    }
+}
