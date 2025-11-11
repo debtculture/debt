@@ -105,6 +105,16 @@ function createWalletModal() {
     modal.className = 'wallet-modal';
     modal.style.display = 'none';
     
+    // Detect if user is on mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    const mobileHelper = isMobile ? `
+        <div class="mobile-wallet-helper">
+            <strong>📱 Mobile Users:</strong>
+            Open debtculture.xyz in your wallet's built-in browser (Phantom, Solflare, or Backpack app) to connect your wallet.
+        </div>
+    ` : '';
+    
     modal.innerHTML = `
         <div class="wallet-modal-content">
             <div class="wallet-modal-header">
@@ -112,6 +122,7 @@ function createWalletModal() {
                 <button class="wallet-modal-close" onclick="closeWalletModal()">&times;</button>
             </div>
             <div class="wallet-modal-body">
+                ${mobileHelper}
                 <p>Choose your wallet to connect:</p>
                 <div id="wallet-list" class="wallet-list"></div>
             </div>
@@ -527,8 +538,15 @@ function promptToInstallWallet(walletId) {
         backpack: 'https://backpack.app/download'
     };
     
-    if (confirm(`${wallet.name} is not installed. Would you like to download it?`)) {
-        window.open(downloadUrls[walletId], '_blank');
+    // Check if mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        alert(`📱 To use ${wallet.name} on mobile:\n\n1. Open the ${wallet.name} app on your phone\n2. Use the in-app browser to visit debtculture.xyz\n3. Click the wallet button to connect`);
+    } else {
+        if (confirm(`${wallet.name} browser extension not detected.\n\nWould you like to download it?`)) {
+            window.open(downloadUrls[walletId], '_blank');
+        }
     }
 }
 
