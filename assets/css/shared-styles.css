@@ -738,41 +738,47 @@ button:focus,
         display: none !important;
     }
     
-    /* Position nav-actions (just buy button) in top right */
+    /* Compact nav-actions on mobile - wallet + buy button */
     .nav-actions {
         display: flex !important;
         align-items: center;
+        gap: 8px !important; /* Tighter gap */
         position: absolute !important;
-        right: 20px;
+        right: 10px !important; /* Closer to edge */
         top: 50%;
         transform: translateY(-50%);
         z-index: 999;
     }
     
-    /* MOVE WALLET BUTTON TO LEFT SIDE - between hamburger and logo */
+    /* Smaller wallet button on mobile */
     .wallet-connect-btn {
         display: flex !important;
-        width: 40px !important;
-        height: 40px !important;
+        width: 36px !important; /* Smaller */
+        height: 36px !important;
         margin: 0 !important;
         z-index: 1001 !important;
-        position: fixed !important; /* Fixed positioning */
-        left: 70px !important; /* Position after hamburger */
-        top: 15px !important; /* Align with navbar */
+        position: relative !important;
     }
 
     .wallet-connect-btn .wallet-icon {
-        width: 30px !important;
-        height: 30px !important;
+        width: 28px !important; /* Smaller icon */
+        height: 28px !important;
     }
     
-    /* Hide desktop buy button - mobile has its own */
+    /* Hide desktop buy button - mobile has its own version */
     .nav-actions .cta-button {
         display: none !important;
     }
     
+    /* Move logo slightly left to create more space */
+    .nav-logo img {
+        height: 40px; /* Slightly smaller on mobile */
+        margin-right: 10px;
+    }
+    
     .navbar {
-        justify-content: center;
+        justify-content: space-between; /* Spread items out more */
+        padding: 0 10px; /* Reduce padding */
     }
     
     .footer {
