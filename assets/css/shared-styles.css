@@ -160,6 +160,13 @@ canvas#matrix-bg {
     transform: translateY(-2px);
 }
 
+/* Hide desktop Buy button on mobile, show mobile version instead */
+@media (max-width: 768px) {
+    .nav-actions .cta-button {
+        display: none;
+    }
+}
+
 /* =============================================================================
    WALLET CONNECTION BUTTON & MODALS
    ============================================================================= */
@@ -219,6 +226,13 @@ canvas#matrix-bg {
     font-size: 0.75rem;
     font-weight: bold;
     animation: pulse 2s infinite;
+}
+
+/* Ensure wallet button shows on mobile */
+@media (max-width: 768px) {
+    .wallet-connect-btn {
+        display: flex !important;
+    }
 }
 
 @keyframes pulse {
@@ -402,6 +416,63 @@ canvas#matrix-bg {
 .profile-modal-actions .cta-button.cancel:hover {
     background: #666;
     border-color: #888;
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px) {
+    .wallet-connect-btn {
+        width: 40px;
+        height: 40px;
+        margin: 0 8px;
+    }
+
+    .wallet-connect-btn .wallet-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .wallet-modal-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .wallet-modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .wallet-option {
+        padding: 12px 15px;
+        font-size: 1rem;
+    }
+
+    .wallet-option img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .profile-modal-actions {
+        flex-direction: column;
+    }
+
+    .profile-modal-actions .cta-button {
+        width: 100%;
+    }
+}
+
+/* --- Reduced Motion Support --- */
+@media (prefers-reduced-motion: reduce) {
+    .wallet-connect-btn,
+    .wallet-modal,
+    .wallet-modal-content,
+    .wallet-modal-close,
+    .wallet-option {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .wallet-badge {
+        animation: none !important;
+    }
 }
 
 /* --- TYPOGRAPHY --- */
@@ -733,52 +804,22 @@ button:focus,
         --font-size-heading: 2rem;
     }
     
-    /* Hide desktop nav links - they're in hamburger menu */
     .nav-links {
-        display: none !important;
-    }
-    
-    /* Compact nav-actions on mobile - wallet + buy button */
-    .nav-actions {
-        display: flex !important;
-        align-items: center;
-        gap: 8px !important; /* Tighter gap */
-        position: absolute !important;
-        right: 10px !important; /* Closer to edge */
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 999;
-    }
-    
-    /* Smaller wallet button on mobile */
-    .wallet-connect-btn {
-        display: flex !important;
-        width: 36px !important; /* Smaller */
-        height: 36px !important;
-        margin: 0 !important;
-        z-index: 1001 !important;
-        position: relative !important;
-    }
+       display: none; /* Hide desktop nav links on mobile - they're in the hamburger menu */
+   }
 
-    .wallet-connect-btn .wallet-icon {
-        width: 28px !important; /* Smaller icon */
-        height: 28px !important;
-    }
-    
-    /* Hide desktop buy button - mobile has its own version */
-    .nav-actions .cta-button {
-        display: none !important;
-    }
-    
-    /* Move logo slightly left to create more space */
-    .nav-logo img {
-        height: 40px; /* Slightly smaller on mobile */
-        margin-right: 10px;
-    }
+   .nav-actions {
+       display: flex !important;
+       align-items: center;
+       gap: 10px;
+       position: absolute;
+       right: 20px;
+       top: 50%;
+       transform: translateY(-50%);
+   }
     
     .navbar {
-        justify-content: space-between; /* Spread items out more */
-        padding: 0 10px; /* Reduce padding */
+        justify-content: center;
     }
     
     .footer {
@@ -788,34 +829,6 @@ button:focus,
     .cta-button {
         padding: 12px 25px;
         font-size: 1rem;
-    }
-
-    /* Wallet modal adjustments */
-    .wallet-modal-content {
-        padding: 20px;
-        max-width: 90%;
-    }
-
-    .wallet-modal-header h2 {
-        font-size: 1.5rem;
-    }
-
-    .wallet-option {
-        padding: 12px 15px;
-        font-size: 1rem;
-    }
-
-    .wallet-option img {
-        width: 35px;
-        height: 35px;
-    }
-
-    .profile-modal-actions {
-        flex-direction: column;
-    }
-
-    .profile-modal-actions .cta-button {
-        width: 100%;
     }
 
     /* Comment system responsive adjustments */
@@ -882,17 +895,36 @@ button:focus,
     .cta-button {
         animation: none !important;
     }
-    
-    .wallet-connect-btn,
-    .wallet-modal,
-    .wallet-modal-content,
-    .wallet-modal-close,
-    .wallet-option {
-        animation: none !important;
-        transition: none !important;
-    }
+}
 
-    .wallet-badge {
-        animation: none !important;
+@media (max-width: 768px) {
+    /* ... your existing mobile styles ... */
+    
+    /* Fix wallet button being behind mobile buy button */
+    .wallet-connect-btn {
+        display: flex !important;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 0 5px !important;
+        z-index: 1001 !important; /* Higher than buy button */
+        position: relative !important;
+    }
+    
+    /* Position mobile buy button so it doesn't overlap wallet */
+    .buy-btn-mobile {
+        z-index: 1000;
+        margin-left: 5px;
+    }
+    
+    /* Ensure nav-actions shows both buttons side by side */
+    .nav-actions {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        position: absolute !important;
+        right: 120px !important; /* Move left to make room */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 999;
     }
 }
