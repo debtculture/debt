@@ -81,13 +81,8 @@ function createWalletUIElement() {
         <span class="wallet-badge" style="display: none;">!</span>
     `;
     
-    // Insert before Buy $DEBT button
-    const buyButton = navActions.querySelector('.cta-button');
-    if (buyButton) {
-        navActions.insertBefore(walletBtn, buyButton);
-    } else {
-        navActions.appendChild(walletBtn);
-    }
+    // Insert BEFORE Buy $DEBT button (first child of nav-actions)
+    navActions.insertBefore(walletBtn, navActions.firstChild);
 
     // Add click handler
     walletBtn.addEventListener('click', handleWalletButtonClick);
@@ -230,12 +225,7 @@ function closeWalletModal() {
  * Opens the profile creation modal
  */
 function openProfileModal() {
-    const modal = document.getElementById('profile-creation-modal');
-    modal.style.display = 'flex';
-    // Focus the input
-    setTimeout(() => {
-        document.getElementById('profile-username-input').focus();
-    }, 100);
+    document.getElementById('profile-creation-modal').style.display = 'flex';
 }
 
 /**
@@ -243,64 +233,57 @@ function openProfileModal() {
  */
 function closeProfileModal() {
     document.getElementById('profile-creation-modal').style.display = 'none';
-    document.getElementById('profile-username-input').value = '';
 }
 
 /**
  * Connects to specified wallet
  */
-async function connectWallet(walletId) {
-    closeWalletModal();
-    
-    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    const provider = getWalletProvider(walletId);
-    const isMobileWebBrowser = isMobile && !provider;
-
-    // Mobile deep linking
-    if (isMobileWebBrowser) {
-        const deepLink = {
-            phantom: `https://phantom.app/ul/browse/${window.location.href}`,
-            solflare: `https://solflare.com/ul/v1/browse/${window.location.href}`,
-            backpack: `https://backpack.app/ul/browse/${window.location.href}`
-        }[walletId];
-        
-        window.location.href = deepLink;
-        return;
-    }
-    
+async function connectWallet(walletType) {
     try {
+        const provider = getWalletProvider(walletType);
+        
         if (!provider) {
-            promptToInstallWallet(walletId);
+            promptToInstallWallet(walletType);
             return;
         }
 
+        // Connect to wallet
         await provider.connect();
-        const publicKey = provider.publicKey.toString();
-        if (!publicKey) throw new Error('Public key not found.');
+        
+        const publicKey = provider.publicKey?.toString();
+        if (!publicKey) {
+            alert('Failed to retrieve wallet address');
+            return;
+        }
 
-        // Save connection
+        // Store wallet info
         currentWalletAddress = publicKey;
         walletProvider = provider;
         localStorage.setItem('walletAddress', publicKey);
-        localStorage.setItem('walletType', walletId);
+        localStorage.setItem('walletType', walletType);
 
         // Check for existing profile
         await checkAndLoadProfile(publicKey);
 
         // Update UI
         updateWalletUI();
+        closeWalletModal();
 
         // Listen for account changes
         provider.on('accountChanged', handleAccountChange);
 
-        // If no profile exists, prompt creation
+        // If no profile exists, prompt to create one
         if (!currentProfile) {
-            openProfileModal();
+            setTimeout(() => {
+                openProfileModal();
+            }, 500);
         }
 
     } catch (error) {
-        console.error(`Error connecting ${walletId}:`, error);
-        alert(`Failed to connect ${walletId}. Ensure your wallet is unlocked.`);
+        console.error('Error connecting wallet:', error);
+        if (error.message !== 'User rejected the request.') {
+            alert('Failed to connect wallet. Please try again.');
+        }
     }
 }
 
@@ -308,25 +291,20 @@ async function connectWallet(walletId) {
  * Disconnects the current wallet
  */
 async function disconnectWallet() {
-    const walletType = localStorage.getItem('walletType');
-    
     try {
-        const provider = getWalletProvider(walletType);
-        if (provider && provider.disconnect) {
-            await provider.disconnect();
+        if (walletProvider && walletProvider.disconnect) {
+            await walletProvider.disconnect();
         }
     } catch (error) {
         console.error('Error disconnecting wallet:', error);
     }
 
-    // Clear state
     currentWalletAddress = null;
     currentProfile = null;
     walletProvider = null;
     localStorage.removeItem('walletAddress');
     localStorage.removeItem('walletType');
-
-    // Update UI
+    
     updateWalletUI();
 }
 
@@ -334,13 +312,10 @@ async function disconnectWallet() {
  * Restores wallet session from localStorage
  */
 async function restoreWalletSession() {
-    const walletType = localStorage.getItem('walletType');
     const walletAddress = localStorage.getItem('walletAddress');
-    
-    if (!walletType || !walletAddress) {
-        updateWalletUI();
-        return;
-    }
+    const walletType = localStorage.getItem('walletType');
+
+    if (!walletAddress || !walletType) return;
 
     try {
         const provider = getWalletProvider(walletType);
@@ -487,6 +462,8 @@ async function createProfile() {
  */
 function updateWalletUI() {
     const walletBtn = document.getElementById('wallet-connect-btn');
+    if (!walletBtn) return;
+    
     const walletIcon = walletBtn.querySelector('.wallet-icon');
     const walletBadge = walletBtn.querySelector('.wallet-badge');
     
