@@ -138,20 +138,33 @@ canvas#matrix-bg {
     width: 100%;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .nav-actions .cta-button {
     background-color: var(--main-red);
     color: var(--text-primary);
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
-    font-weight: 700;
-    transition: background-color var(--transition-speed) ease,
-                transform var(--transition-speed) ease;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .nav-actions .cta-button:hover {
     background-color: var(--hover-red);
     transform: translateY(-2px);
+}
+
+/* Hide desktop Buy button on mobile, show mobile version instead */
+@media (max-width: 768px) {
+    .nav-actions .cta-button {
+        display: none;
+    }
 }
 
 /* =============================================================================
@@ -213,6 +226,13 @@ canvas#matrix-bg {
     font-size: 0.75rem;
     font-weight: bold;
     animation: pulse 2s infinite;
+}
+
+/* Ensure wallet button shows on mobile */
+@media (max-width: 768px) {
+    .wallet-connect-btn {
+        display: flex !important;
+    }
 }
 
 @keyframes pulse {
@@ -784,10 +804,19 @@ button:focus,
         --font-size-heading: 2rem;
     }
     
-    .nav-links,
-    .nav-actions {
-        display: none;
-    }
+    .nav-links {
+       display: none; /* Hide desktop nav links on mobile - they're in the hamburger menu */
+   }
+
+   .nav-actions {
+       display: flex !important;
+       align-items: center;
+       gap: 10px;
+       position: absolute;
+       right: 20px;
+       top: 50%;
+       transform: translateY(-50%);
+   }
     
     .navbar {
         justify-content: center;
