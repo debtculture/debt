@@ -83,7 +83,14 @@ window.closeMenu = function() {
  * Initialize litepaper page functionality
  * Currently handles mobile menu setup
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize wallet manager first
+    if (typeof initializeWalletManager !== 'undefined') {
+        await initializeWalletManager();
+    } else {
+        console.error('Wallet manager not loaded');
+    }
+    
     // Mobile menu is initialized via onclick handlers in HTML
     // No additional initialization needed at this time
     
