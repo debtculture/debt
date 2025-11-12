@@ -178,8 +178,7 @@ canvas#matrix-bg {
     height: 45px;
     border-radius: 50%;
     border: 2px solid var(--border-color);
-    background: rgba(30, 30, 30, 0.8);
-    backdrop-filter: blur(10px);
+    background: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0;
@@ -203,6 +202,7 @@ canvas#matrix-bg {
 }
 
 .wallet-connect-btn.connected {
+    background: #00ff00;
     border-color: #55ff55;
     box-shadow: 0 0 10px rgba(85, 255, 85, 0.3);
 }
