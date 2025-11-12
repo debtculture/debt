@@ -1,11 +1,5 @@
 // This script contains logic specific to the arsenal page.
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize wallet manager first
-    if (typeof initializeWalletManager !== 'undefined') {
-        await initializeWalletManager();
-    } else {
-        console.error('Wallet manager not loaded');
-    }
     const filterButtons = document.querySelectorAll('.filter-btn');
     const mediaGrid = document.querySelector('.media-grid');
     const shillContainer = document.querySelector('.shill-posts-container');
