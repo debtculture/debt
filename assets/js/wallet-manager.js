@@ -243,8 +243,18 @@ function toggleWalletDropdown() {
         
         // Position dropdown below button
         const rect = walletBtn.getBoundingClientRect();
-        dropdown.style.top = `${rect.bottom + 5}px`;
-        dropdown.style.left = `${rect.left}px`;
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+            // On mobile, position relative to button with adjustments
+            dropdown.style.top = `${rect.bottom + 5}px`;
+            dropdown.style.right = '10px';
+            dropdown.style.left = 'auto';
+        } else {
+            // Desktop positioning
+           dropdown.style.top = `${rect.bottom + 5}px`;
+           dropdown.style.left = `${rect.left}px`;
+        }
         
         // Close dropdown when clicking outside
         setTimeout(() => {
