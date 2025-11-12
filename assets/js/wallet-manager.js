@@ -559,7 +559,7 @@ function updateWalletUI() {
         walletIcon.alt = 'Create Profile';
         walletBtn.classList.add('connected');
         walletBtn.classList.remove('has-profile');
-        walletBtn.style.background = 'linear-gradient(135deg, rgba(85, 255, 85, 0.2), rgba(34, 139, 34, 0.2))';
+        walletBtn.style.background = '#00ff00';
         walletBadge.style.display = 'block';
         walletBtn.title = 'Create Profile';
         
@@ -573,7 +573,7 @@ function updateWalletUI() {
             walletIcon.alt = currentProfile.username;
         }
         walletBtn.classList.add('connected', 'has-profile');
-        walletBtn.style.background = currentProfile.pfp_url ? '' : 'linear-gradient(135deg, rgba(85, 255, 85, 0.3), rgba(34, 139, 34, 0.3))';
+        walletBtn.style.background = currentProfile.pfp_url ? '' : '#00ff00';
         walletBadge.style.display = 'none';
         walletBtn.title = `View ${currentProfile.username}'s profile`;
     }
