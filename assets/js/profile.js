@@ -500,9 +500,9 @@ function renderSocials() {
         `);
     }
 
-    if (viewedUserProfile.youtube_handle) {
+    if (viewedUserProfile.youtube_url) {
         socials.push(`
-            <a href="https://youtube.com/@${viewedUserProfile.youtube_handle}" 
+            <a href="https://youtube.com/@${viewedUserProfile.youtube_url}" 
                target="_blank" 
                rel="noopener noreferrer" 
                title="YouTube" 
@@ -730,7 +730,7 @@ function renderEditView() {
                     id="edit-youtube" 
                     class="form-input" 
                     placeholder="@username" 
-                    value="${viewedUserProfile.youtube_handle || ''}"
+                    value="${viewedUserProfile.youtube_url || ''}"
                 >
             </div>
 
@@ -919,7 +919,7 @@ async function saveProfileChanges() {
                 bio: bio,
                 twitter_handle: twitterHandle,
                 telegram_handle: telegramHandle,
-                youtube_handle: youtubeHandle,
+                youtube_url: youtubeHandle,
                 discord_handle: discordHandle,
                 profile_song_url: songUrl,
                 pfp_url: pfpUrl
