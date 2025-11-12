@@ -213,9 +213,75 @@ async function handleWalletButtonClick() {
         // Connected but no profile - open profile creation modal
         openProfileModal();
     } else {
-        // Connected with profile - navigate to profile page
-        window.location.href = `profile.html?user=${currentWalletAddress}`;
+        // Connected with profile - show dropdown menu
+        toggleWalletDropdown();
     }
+}
+
+/**
+ * Toggles the wallet dropdown menu
+ */
+function toggleWalletDropdown() {
+    let dropdown = document.getElementById('wallet-dropdown');
+    
+    // Create dropdown if it doesn't exist
+    if (!dropdown) {
+        dropdown = document.createElement('div');
+        dropdown.id = 'wallet-dropdown';
+        dropdown.className = 'wallet-dropdown';
+        dropdown.innerHTML = `
+            <div class="wallet-dropdown-option" onclick="navigateToProfile()">
+                👤 My Profile
+            </div>
+            <div class="wallet-dropdown-option disconnect" onclick="disconnectWallet(); closeWalletDropdown();">
+                🚪 Disconnect
+            </div>
+        `;
+        
+        const walletBtn = document.getElementById('wallet-connect-btn');
+        walletBtn.parentElement.appendChild(dropdown);
+        
+        // Position dropdown below button
+        const rect = walletBtn.getBoundingClientRect();
+        dropdown.style.top = `${rect.bottom + 5}px`;
+        dropdown.style.left = `${rect.left}px`;
+        
+        // Close dropdown when clicking outside
+        setTimeout(() => {
+            document.addEventListener('click', closeDropdownOnClickOutside);
+        }, 0);
+    } else {
+        closeWalletDropdown();
+    }
+}
+
+/**
+ * Closes the wallet dropdown
+ */
+function closeWalletDropdown() {
+    const dropdown = document.getElementById('wallet-dropdown');
+    if (dropdown) {
+        dropdown.remove();
+        document.removeEventListener('click', closeDropdownOnClickOutside);
+    }
+}
+
+/**
+ * Closes dropdown when clicking outside
+ */
+function closeDropdownOnClickOutside(e) {
+    const dropdown = document.getElementById('wallet-dropdown');
+    const walletBtn = document.getElementById('wallet-connect-btn');
+    if (dropdown && !dropdown.contains(e.target) && !walletBtn.contains(e.target)) {
+        closeWalletDropdown();
+    }
+}
+
+/**
+ * Navigates to user's profile page
+ */
+function navigateToProfile() {
+    window.location.href = `profile.html?user=${currentWalletAddress}`;
 }
 
 /**
@@ -560,6 +626,7 @@ window.closeWalletModal = closeWalletModal;
 window.closeProfileModal = closeProfileModal;
 window.createProfile = createProfile;
 window.disconnectWallet = disconnectWallet;
+window.closeWalletDropdown = closeWalletDropdown;
 
 // Export state getters for use in other scripts
 window.getWalletAddress = () => currentWalletAddress;
