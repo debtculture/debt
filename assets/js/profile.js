@@ -938,23 +938,48 @@ async function saveProfileChanges() {
 }
 
 /**
- * Uploads profile picture to Cloudinary
+ * Uploads profile picture to Supabase storage
+ * @param {File} file - Image file to upload
+ * @returns {Promise<string>} Public URL of uploaded image
  */
-async function uploadProfilePicture(file, walletAddress) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
-    formData.append('public_id', `profile_${walletAddress}`);
-
-    const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/image/upload`,
-        { method: 'POST', body: formData }
-    );
-
-    if (!response.ok) throw new Error('Failed to upload image');
-
-    const data = await response.json();
-    return data.secure_url;
+async function uploadProfilePicture(file) {
+    try {
+        if (!file) throw new Error('No file selected');
+        
+        // Generate unique file path (use user ID or wallet_address for uniqueness)
+        const userId = loggedInUserProfile?.id || loggedInUserProfile?.wallet_address;
+        if (!userId) throw new Error('User profile not loaded');
+        
+        const fileExt = file.name.split('.').pop();
+        const filePath = `pfp/${userId}.${fileExt}`;
+        
+        // Upload to Supabase storage bucket
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
+            .from('profile-pictures')  // Your bucket name
+            .upload(filePath, file, {
+                upsert: true,  // Overwrite if exists
+                contentType: file.type
+            });
+        
+        if (uploadError) {
+            console.error('Supabase upload error:', uploadError);
+            throw uploadError;
+        }
+        
+        // Get public URL
+        const { data: urlData } = supabaseClient.storage
+            .from('profile-pictures')
+            .getPublicUrl(filePath);
+        
+        if (!urlData?.publicUrl) {
+            throw new Error('Failed to get public URL');
+        }
+        
+        return urlData.publicUrl;
+    } catch (error) {
+        console.error('Error uploading profile picture:', error);
+        throw new Error('Failed to upload image');
+    }
 }
 
 /**
