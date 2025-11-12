@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Existing initialization code
     fetchTokenomicsData();
-
+    
     // Initialize copy address keyboard support
     const contractAddress = document.querySelector('.contract-address');
     if (contractAddress) {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function fetchTokenomicsData() {
     try {
         showTokenomicsLoading();
-
+        
         // Try primary API first
         console.log('Attempting to fetch from /api/token-data...');
         try {
@@ -54,10 +54,10 @@ async function fetchTokenomicsData() {
         } catch (apiError) {
             console.log('Primary API failed, using DexScreener fallback:', apiError);
         }
-
+        
         // Fallback to DexScreener public API
         await fetchFromDexScreener();
-
+        
     } catch (error) {
         console.error('All tokenomics fetch attempts failed:', error);
         showTokenomicsError(error.message);
@@ -68,33 +68,29 @@ async function fetchTokenomicsData() {
  * Process data from primary API
  */
 async function processTokenomicsFromAPI(data) {
-    console.log('Primary API raw response:', data);  // Added debug log
-
     if (!data || !data.supplyData || !data.supplyData[0]) {
-        console.warn('Invalid data structure from API, falling back to DexScreener.');
-        return null;
+        throw new Error('Invalid data structure from API');
     }
-
+    
     const tokenData = data.supplyData[0];
     const onChainInfo = tokenData.onChainInfo;
-
+    
     if (!onChainInfo || !onChainInfo.supply || !onChainInfo.decimals) {
-        console.warn('Missing supply or decimals data in primary API, falling back to DexScreener.');
-        return null;
+        throw new Error('Missing supply or decimals data');
     }
-
-    const LOCKED_TOKENS = 200363613.139407407;
-
+    
+    const LOCKED_TOKENS = 200363613.139407;
+    
     const currentSupply = parseInt(onChainInfo.supply) / Math.pow(10, onChainInfo.decimals);
     const lpBalance = data.lpData?.result?.value?.uiAmount || 0;
     const circulatingSupply = currentSupply - LOCKED_TOKENS - lpBalance;
     const circulatingPercentage = (circulatingSupply / currentSupply) * 100;
-
+    
     // Fetch Dex data for MC and volume
     const dexData = await fetchDexData();
     const marketCap = dexData.marketCap;
     const volume24h = dexData.volume24h;
-
+    
     updateTokenomicsUI({
         marketCap: formatLargeNumber(marketCap),
         volume24h: formatLargeNumber(volume24h),
@@ -110,12 +106,12 @@ async function fetchDexData() {
     try {
         const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         if (!response.ok) throw new Error('DexScreener API failed');
-
+        
         const data = await response.json();
         if (!data.pairs || data.pairs.length === 0) {
             throw new Error('No pairs found');
         }
-
+        
         const pair = data.pairs[0]; // Get first/main pair
         return {
             priceUsd: parseFloat(pair.priceUsd) || 0,
@@ -135,17 +131,17 @@ async function fetchDexData() {
  */
 async function fetchFromDexScreener() {
     console.log('Using DexScreener as primary data source');
-
+    
     const dexData = await fetchDexData();
-
+    
     const marketCap = dexData.marketCap;
     const volume24h = dexData.volume24h;
     const priceUsd = dexData.priceUsd;
-
+    
     // Fetch accurate current supply using Solana web3
     let currentSupply;
     try {
-        const connection = new solanaWeb3.Connection('https://api.helius.xyz/?api-key=c57c8d55-3e55-4160-9d8c-00df2c3fb22e');
+        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com');
         const mint = new solanaWeb3.PublicKey('9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
         const supplyResponse = await connection.getTokenSupply(mint);
         currentSupply = supplyResponse.value.uiAmount;
@@ -153,20 +149,20 @@ async function fetchFromDexScreener() {
         console.error('Web3 supply fetch failed, using Dex estimate:', web3Error);
         currentSupply = priceUsd > 0 ? marketCap / priceUsd : 1000000000;
     }
-
+    
     const lpTokens = dexData.liquidityBase;
     const LOCKED_TOKENS = 200363613.139407;
-
+    
     const circulatingSupply = currentSupply - LOCKED_TOKENS - lpTokens;
     const circulatingPercentage = (circulatingSupply / currentSupply) * 100;
-
+    
     updateTokenomicsUI({
         marketCap: formatLargeNumber(marketCap),
         volume24h: formatLargeNumber(volume24h),
         circulatingSupply: formatLargeNumber(circulatingSupply),
         circulatingPercentage: circulatingPercentage.toFixed(2)
     });
-
+    
     console.log('DexScreener data loaded successfully:', {
         marketCap: formatLargeNumber(marketCap),
         volume24h: formatLargeNumber(volume24h),
@@ -181,7 +177,7 @@ async function fetchFromDexScreener() {
 function showTokenomicsLoading() {
     const loadingText = 'Loading...';
     const elements = ['market-cap', 'volume-24h', 'circulating-supply'];
-
+    
     elements.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -200,7 +196,7 @@ function updateTokenomicsUI(data) {
         'volume-24h': `$${data.volume24h}`,
         'circulating-supply': `${data.circulatingSupply} (${data.circulatingPercentage}%)`
     };
-
+    
     Object.entries(elements).forEach(([id, value]) => {
         const element = document.getElementById(id);
         if (element) {
@@ -215,10 +211,10 @@ function updateTokenomicsUI(data) {
  */
 function showTokenomicsError(errorMsg) {
     console.error('Tokenomics error:', errorMsg);
-
+    
     const errorText = 'Data unavailable';
     const elements = ['market-cap', 'volume-24h', 'circulating-supply'];
-
+    
     elements.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -235,9 +231,9 @@ function formatLargeNumber(num) {
     if (isNaN(num) || num === null || num === undefined) {
         return '0';
     }
-
+    
     const absNum = Math.abs(num);
-
+    
     if (absNum >= 1000000000) {
         return (num / 1000000000).toFixed(2) + 'B';
     }
@@ -247,9 +243,9 @@ function formatLargeNumber(num) {
     if (absNum >= 1000) {
         return (num / 1000).toFixed(2) + 'K';
     }
-    return num.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
+    return num.toLocaleString(undefined, { 
+        minimumFractionDigits: 0, 
+        maximumFractionDigits: 2 
     });
 }
 
@@ -266,21 +262,21 @@ function copyAddress() {
     const addressTextFull = addressElement.querySelector('.address-text');
     const addressTextMobile = addressElement.querySelector('.address-text-mobile');
     const copyIcon = addressElement.querySelector('.copy-icon');
-
+    
     navigator.clipboard.writeText(contractAddress)
         .then(() => {
             // Visual feedback
             addressElement.classList.add('copied');
-
+            
             // Store original text
             const originalTextFull = addressTextFull ? addressTextFull.textContent : '';
             const originalTextMobile = addressTextMobile ? addressTextMobile.textContent : '';
-
+            
             // Update to "Copied!"
             if (addressTextFull) addressTextFull.textContent = 'Copied!';
             if (addressTextMobile) addressTextMobile.textContent = 'Copied!';
             if (copyIcon) copyIcon.textContent = '✓';
-
+            
             // Reset after 2 seconds
             setTimeout(() => {
                 addressElement.classList.remove('copied');
@@ -305,11 +301,11 @@ function copyAddress() {
 window.toggleMenu = function() {
     const menu = document.getElementById('mobileMenu');
     const hamburger = document.querySelector('.hamburger');
-
+    
     if (!menu || !hamburger) return;
-
+    
     const isOpen = menu.style.display === 'block';
-
+    
     menu.style.display = isOpen ? 'none' : 'block';
     hamburger.classList.toggle('active', !isOpen);
     hamburger.setAttribute('aria-expanded', !isOpen);
@@ -321,9 +317,9 @@ window.toggleMenu = function() {
 window.closeMenu = function() {
     const menu = document.getElementById('mobileMenu');
     const hamburger = document.querySelector('.hamburger');
-
+    
     if (!menu || !hamburger) return;
-
+    
     menu.style.display = 'none';
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
