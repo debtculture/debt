@@ -35,7 +35,14 @@ function throttle(func, delay) {
 // --- MAIN INITIALIZATION ---
 // =================================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize wallet manager first
+    if (typeof initializeWalletManager !== 'undefined') {
+        await initializeWalletManager();
+    } else {
+        console.error('Wallet manager not loaded');
+    }
+    
     initializeCarousels();
 });
 
