@@ -21,7 +21,14 @@ const supabaseClient = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFI
 /**
  * Initialize forums page when DOM is ready
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize wallet manager first
+    if (typeof initializeWalletManager !== 'undefined') {
+        await initializeWalletManager();
+    } else {
+        console.error('Wallet manager not loaded');
+    }
+    
     initializeCreatePostButton();
     loadForumPosts();
 });
