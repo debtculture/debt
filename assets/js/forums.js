@@ -4,17 +4,6 @@
    ============================================================================= */
 
 // =================================================================================
-// --- CONFIGURATION ---
-// =================================================================================
-
-const SUPABASE_CONFIG = {
-    url: 'https://pvbguojrkigzvnuwjawy.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw'
-};
-
-const supabaseClient = supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-
-// =================================================================================
 // --- INITIALIZATION ---
 // =================================================================================
 
