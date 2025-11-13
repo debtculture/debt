@@ -23,13 +23,69 @@
     <canvas id="matrix-bg" aria-hidden="true"></canvas>
     <canvas id="matrix-rain" aria-hidden="true"></canvas>
 
-    <!-- Back Navigation -->
-    <nav class="back-nav" aria-label="Back navigation">
-        <a href="forums.html" class="back-button" aria-label="Back to Forums">
-            ⇐ Forums
+    <!-- Main Header (Desktop) -->
+<header class="main-header">
+    <nav class="navbar" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
+            <img 
+                src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" 
+                alt="Debt Culture Logo"
+                width="50"
+                height="50"
+            >
         </a>
-        <div class="nav-actions"></div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="litepaper.html">Litepaper</a>
+            <a href="arsenal.html">Arsenal</a>
+            <a href="community.html">Community</a>
+            <a href="forums.html">Forums</a>
+            <a href="merch.html">Merch</a>
+        </div>
+        <div class="nav-actions">
+            <a 
+                href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="cta-button"
+            >
+                Buy $DEBT
+            </a>
+        </div>
     </nav>
+</header>
+
+<!-- Mobile Navigation (Hidden on Desktop) -->
+<button 
+    class="hamburger" 
+    onclick="toggleMenu()" 
+    aria-label="Toggle mobile menu" 
+    aria-controls="mobileMenu" 
+    aria-expanded="false"
+>
+    <div></div>
+    <div></div>
+    <div></div>
+</button>
+
+<a 
+    href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="buy-btn-mobile"
+    aria-label="Buy DEBT token"
+>
+    Buy $DEBT
+</a>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
+    <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
+    <a href="community.html" onclick="closeMenu()">Community</a>
+    <a href="forums.html" onclick="closeMenu()">Forums</a>
+    <a href="merch.html" onclick="closeMenu()">Merch</a>
+</nav>
 
     <!-- Main Content -->
     <main class="content-wrapper">
