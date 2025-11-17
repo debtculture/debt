@@ -446,3 +446,18 @@
         justify-content: center;
     }
 }
+
+.connect-wallet-prompt {
+    background-color: var(--main-red);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.connect-wallet-prompt:hover {
+    background-color: var(--hover-red);
+}
