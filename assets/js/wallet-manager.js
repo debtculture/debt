@@ -396,34 +396,77 @@ async function disconnectWallet() {
 }
 
 /**
- * Restores wallet session from localStorage
+ * Restores wallet session from localStorage if it exists
  */
 async function restoreWalletSession() {
-    const walletAddress = localStorage.getItem('walletAddress');
-    const walletType = localStorage.getItem('walletType');
-
-    if (!walletAddress || !walletType) return;
-
     try {
-        const provider = getWalletProvider(walletType);
-        if (provider) {
-            await provider.connect({ onlyIfTrusted: true });
-            const publicKey = provider.publicKey?.toString();
+        const savedAddress = localStorage.getItem('walletAddress');
+        const savedWallet = localStorage.getItem('walletType'); // ← Fixed to match your code
+        
+        if (savedAddress && savedWallet) {
+            // Wait for wallet provider to load (max 3 seconds)
+            const provider = await waitForWalletProvider(savedWallet, 3000);
             
-            if (publicKey && publicKey === walletAddress) {
-                currentWalletAddress = publicKey;
-                walletProvider = provider;
-                await checkAndLoadProfile(publicKey);
-                updateWalletUI();
-                provider.on('accountChanged', handleAccountChange);
+            if (provider) {
+                // Check if wallet is actually still connected
+                const isConnected = provider.isConnected || (provider.publicKey && provider.publicKey.toString() === savedAddress);
+                
+                if (isConnected) {
+                    walletProvider = provider;
+                    currentWalletAddress = savedAddress;
+                    
+                    // Load profile
+                    await checkAndLoadProfile(savedAddress);
+                    
+                    // Update UI to show connected state
+                    updateWalletUI();
+                    
+                    // Listen for account changes
+                    provider.on('accountChanged', handleAccountChange);
+                    provider.on('disconnect', () => disconnectWallet());
+                    
+                    console.log('✅ Wallet session restored:', savedAddress);
+                } else {
+                    console.log('⚠️ Wallet was disconnected');
+                    disconnectWallet();
+                }
             } else {
-                disconnectWallet();
+                console.log('⚠️ Wallet provider not available');
+                // Don't disconnect - keep localStorage in case provider loads later
             }
         }
     } catch (error) {
         console.error('Error restoring wallet session:', error);
-        disconnectWallet();
+        // Don't disconnect - might just be a temporary issue
     }
+}
+
+/**
+ * Waits for wallet provider to become available
+ * @param {string} walletId - The wallet ID (phantom, solflare, backpack)
+ * @param {number} timeout - Max time to wait in milliseconds
+ * @returns {Promise<Object|null>} The wallet provider or null if timeout
+ */
+function waitForWalletProvider(walletId, timeout = 3000) {
+    return new Promise((resolve) => {
+        const startTime = Date.now();
+        
+        const checkProvider = () => {
+            const provider = getWalletProvider(walletId);
+            
+            if (provider) {
+                resolve(provider);
+            } else if (Date.now() - startTime < timeout) {
+                // Check again in 100ms
+                setTimeout(checkProvider, 100);
+            } else {
+                // Timeout - wallet provider not available
+                resolve(null);
+            }
+        };
+        
+        checkProvider();
+    });
 }
 
 /**
