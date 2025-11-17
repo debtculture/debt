@@ -43,10 +43,13 @@ function initializeCreatePostButton() {
     } else {
         // User not logged in - show info message
         forumActions.innerHTML = `
-            <div class="forum-info-message">
-                <a href="index.html">Connect your wallet</a> to create posts and join the discussion
-            </div>
-        `;
+          <div class="forum-info-message">
+              <button class="connect-wallet-prompt" onclick="openWalletModal()">
+                  🔗 Connect Wallet
+              </button>
+              <span style="margin-left: 10px;">to create posts and join the discussion</span>
+          </div>
+      `;
     }
 }
 
