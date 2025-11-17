@@ -985,3 +985,29 @@ button:focus,
     background: #cc0000;
     border-color: #cc0000;
 }
+
+/* Profile modal actions - stack buttons vertically for cleaner look */
+.profile-modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.profile-modal-actions button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Disconnect button styling */
+.profile-modal-actions .disconnect {
+    background: #ff4444;
+    border-color: #ff4444;
+}
+
+.profile-modal-actions .disconnect:hover {
+    background: #cc0000;
+    border-color: #cc0000;
+}
