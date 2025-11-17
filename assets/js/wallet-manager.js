@@ -401,43 +401,57 @@ async function disconnectWallet() {
 async function restoreWalletSession() {
     try {
         const savedAddress = localStorage.getItem('walletAddress');
-        const savedWallet = localStorage.getItem('walletType'); // ← Fixed to match your code
+        const savedWallet = localStorage.getItem('walletType');
         
         if (savedAddress && savedWallet) {
+            console.log('🔄 Attempting to restore wallet session:', savedWallet);
+            
             // Wait for wallet provider to load (max 3 seconds)
             const provider = await waitForWalletProvider(savedWallet, 3000);
             
             if (provider) {
-                // Check if wallet is actually still connected
-                const isConnected = provider.isConnected || (provider.publicKey && provider.publicKey.toString() === savedAddress);
+                console.log('✅ Wallet provider found:', savedWallet);
                 
-                if (isConnected) {
-                    walletProvider = provider;
-                    currentWalletAddress = savedAddress;
+                try {
+                    // Attempt silent reconnection
+                    await provider.connect({ onlyIfTrusted: true });
+                    const publicKey = provider.publicKey?.toString();
                     
-                    // Load profile
-                    await checkAndLoadProfile(savedAddress);
+                    console.log('🔑 Public key after connect:', publicKey);
                     
-                    // Update UI to show connected state
-                    updateWalletUI();
-                    
-                    // Listen for account changes
-                    provider.on('accountChanged', handleAccountChange);
-                    provider.on('disconnect', () => disconnectWallet());
-                    
-                    console.log('✅ Wallet session restored:', savedAddress);
-                } else {
-                    console.log('⚠️ Wallet was disconnected');
+                    if (publicKey && publicKey === savedAddress) {
+                        currentWalletAddress = publicKey;
+                        walletProvider = provider;
+                        
+                        // Load profile
+                        await checkAndLoadProfile(publicKey);
+                        
+                        // Update UI to show connected state
+                        updateWalletUI();
+                        
+                        // Listen for account changes
+                        provider.on('accountChanged', handleAccountChange);
+                        provider.on('disconnect', () => disconnectWallet());
+                        
+                        console.log('✅ Wallet session fully restored!');
+                    } else {
+                        console.log('⚠️ Wallet address mismatch or no public key');
+                        disconnectWallet();
+                    }
+                } catch (connectError) {
+                    console.log('⚠️ Silent reconnect failed:', connectError.message);
+                    // User probably revoked permission - clear session
                     disconnectWallet();
                 }
             } else {
-                console.log('⚠️ Wallet provider not available');
-                // Don't disconnect - keep localStorage in case provider loads later
+                console.log('⚠️ Wallet provider not available after waiting');
             }
+        } else {
+            console.log('ℹ️ No saved wallet session found');
         }
     } catch (error) {
-        console.error('Error restoring wallet session:', error);
-        // Don't disconnect - might just be a temporary issue
+        console.error('❌ Error restoring wallet session:', error);
+        disconnectWallet();
     }
 }
 
