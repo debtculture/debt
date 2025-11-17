@@ -696,7 +696,16 @@ window.createProfile = createProfile;
 window.disconnectWallet = disconnectWallet;
 window.closeWalletDropdown = closeWalletDropdown;
 
+/**
+ * Disconnects wallet and closes profile modal
+ */
+function disconnectWalletFromModal() {
+    closeProfileModal();
+    disconnectWallet();
+}
+
 // Export state getters for use in other scripts
 window.getWalletAddress = () => currentWalletAddress;
 window.getUserProfile = () => currentProfile;
 window.isWalletConnected = () => !!currentWalletAddress;
+window.disconnectWalletFromModal = disconnectWalletFromModal;
