@@ -164,22 +164,23 @@ function createProfileModal() {
     modal.style.display = 'none';
     
     modal.innerHTML = `
-        <div class="wallet-modal-content">
-            <div class="wallet-modal-header">
-                <h2>Create Your Profile</h2>
-                <button class="wallet-modal-close" onclick="closeProfileModal()">&times;</button>
-            </div>
-            <div class="wallet-modal-body">
-                <p>Choose a username to complete your profile:</p>
-                <input type="text" id="profile-username-input" class="profile-username-input" placeholder="Enter username..." maxlength="20">
-                <p class="username-rules">3-20 characters, lowercase letters and numbers only</p>
-                <div class="profile-modal-actions">
-                    <button class="cta-button" onclick="createProfile()">Create Profile</button>
-                    <button class="cta-button cancel" onclick="closeProfileModal()">Maybe Later</button>
-                </div>
-            </div>
-        </div>
-    `;
+       <div class="wallet-modal-content">
+           <div class="wallet-modal-header">
+               <h2>Create Your Profile</h2>
+               <button class="wallet-modal-close" onclick="closeProfileModal()">&times;</button>
+           </div>
+           <div class="wallet-modal-body">
+               <p>Choose a username to complete your profile:</p>
+               <input type="text" id="profile-username-input" class="profile-username-input" placeholder="Enter username..." maxlength="20">
+               <p class="username-rules">3-20 characters, lowercase letters and numbers only</p>
+               <div class="profile-modal-actions">
+                   <button class="cta-button" onclick="createProfile()">Create Profile</button>
+                   <button class="cta-button cancel" onclick="closeProfileModal()">Maybe Later</button>
+                   <button class="cta-button disconnect" onclick="disconnectWalletFromModal()">Disconnect Wallet</button>
+               </div>
+           </div>
+       </div>
+   `;
     
     document.body.appendChild(modal);
 
