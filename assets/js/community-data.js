@@ -64,7 +64,7 @@ const members = [
         walletAddress: '9QUqzJjrjefaHxcW1cYWTixwf27fkJokLsztmW97TuAa',
         holderSince: '02/11/2025',
         xLink: 'https://x.com/ReneeBush96829',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747850503/Renee_eekhuh.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016511/renee_xwyine.jpg',
         coreContributor: false
     },
     {
@@ -152,7 +152,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/ElpatronSFC',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016510/Elvis_ypdtjl.jpg',
         coreContributor: false
     },
     {
@@ -200,7 +200,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/GlowsHaven',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762547988/Glow_k48ihk.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016512/glow_h1g7s4.jpg',
         coreContributor: false
     },
     {
@@ -208,14 +208,14 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/RecklesUnicorn',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016513/dem_oqwits.jpg',
         coreContributor: false
     },
     {
         name: 'Ugo',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '08/27/2025',
-        xLink: 'https://x.com/0x_Ugo',
+        xLink: 'https://x.com/_Ugosiugo',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg',
         coreContributor: false
     },
