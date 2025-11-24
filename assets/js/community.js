@@ -1,8 +1,19 @@
 /* =============================================================================
-   COMMUNITY PAGE LOGIC - HOF Carousel, Leaderboard, Dynamic Member Grid
+   COMMUNITY PAGE LOGIC - Automated Badge System & Dynamic Rankings
    ============================================================================= */
 
-// --- INITIALIZATION ---
+// --- GLOBAL VARIABLES ---
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
+let allData = [];
+let memberStats = {}; // Stores calculated stats for each member
+let sortedMembers = []; // Members sorted by total points
+let currentCommunityIndex = 0;
+let communityAutoRotateInterval;
+
+/* =============================================================================
+   INITIALIZATION
+   ============================================================================= */
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize wallet manager first
     if (typeof initializeWalletManager !== 'undefined') {
@@ -11,7 +22,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Wallet manager not loaded');
     }
     
-    // Generate non-featured members dynamically
+    // Fetch and calculate all leaderboard data
+    await fetchLeaderboardData();
+    calculateMemberStats();
+    
+    // Sort members by total points (highest first)
+    sortMembersByPoints();
+    
+    // Generate member grid with sorted members
     generateNonFeaturedMembers();
     
     // Initialize Hall of Fame Carousel
@@ -20,8 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Initialize Leaderboard
     setupTabListeners();
-    await fetchLeaderboardData();
-    updateLeaderboard('monthly'); // Load monthly data by default
+    updateLeaderboard('monthly');
     
     // Add click listeners to all HOF member bubbles
     document.querySelectorAll('.hof-member').forEach(memberEl => {
@@ -42,236 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 /* =============================================================================
-   DYNAMIC MEMBER GRID GENERATION
+   LEADERBOARD DATA FETCHING & PROCESSING
    ============================================================================= */
-
-/**
- * Generates non-featured member grid dynamically from community-data.js
- * Creates rows of 6 for desktop and rows of 4 for mobile
- * INCLUDES ALL 48 MEMBERS - Autopsy (index 0) appears as first bubble in grid
- */
-function generateNonFeaturedMembers() {
-    const wrapper = document.getElementById('hof-rows-wrapper');
-    if (!wrapper || typeof members === 'undefined') {
-        console.error('Members data or wrapper element not found');
-        return;
-    }
-
-    // IMPORTANT: Include ALL members in the grid, starting with Autopsy at index 0
-    // This creates a complete grid of 48 members (8 rows × 6 on desktop, 12 rows × 4 on mobile)
-    const allMembers = members; // members[0] = Autopsy, members[1] = Catavina, etc.
-    
-    console.log(`Generating grid with ${allMembers.length} members. First member: ${allMembers[0]?.name}`);
-    
-    // Clear existing content
-    wrapper.innerHTML = '';
-    
-    // Generate desktop rows (6 members per row = 8 rows total)
-    const desktopRowSize = 6;
-    const desktopRows = Math.ceil(allMembers.length / desktopRowSize);
-    
-    for (let i = 0; i < desktopRows; i++) {
-        const rowDiv = document.createElement('div');
-        rowDiv.className = 'hof-row-desktop';
-        
-        const startIdx = i * desktopRowSize;
-        const endIdx = Math.min(startIdx + desktopRowSize, allMembers.length);
-        
-        for (let j = startIdx; j < endIdx; j++) {
-            const memberElement = createMemberElement(allMembers[j], j);
-            rowDiv.appendChild(memberElement);
-        }
-        
-        wrapper.appendChild(rowDiv);
-    }
-    
-    // Generate mobile rows (4 members per row = 12 rows total)
-    const mobileRowSize = 4;
-    const mobileRows = Math.ceil(allMembers.length / mobileRowSize);
-    
-    for (let i = 0; i < mobileRows; i++) {
-        const rowDiv = document.createElement('div');
-        rowDiv.className = 'hof-row-mobile';
-        
-        const startIdx = i * mobileRowSize;
-        const endIdx = Math.min(startIdx + mobileRowSize, allMembers.length);
-        
-        for (let j = startIdx; j < endIdx; j++) {
-            const memberElement = createMemberElement(allMembers[j], j);
-            rowDiv.appendChild(memberElement);
-        }
-        
-        wrapper.appendChild(rowDiv);
-    }
-}
-
-/**
- * Creates a single member element with bubble and title
- * @param {Object} member - Member data from community-data.js
- * @param {number} index - Member index (for carousel navigation)
- * @returns {HTMLElement} Member element
- */
-function createMemberElement(member, index) {
-    const memberDiv = document.createElement('div');
-    memberDiv.className = 'hof-member';
-    memberDiv.dataset.index = index;
-    memberDiv.dataset.xLink = member.xLink;
-    
-    memberDiv.innerHTML = `
-        <div class="hof-bubble">
-            <div class="hof-inner-bubble">
-                <img src="${member.img}" 
-                     alt="${member.name} profile picture" 
-                     width="100" 
-                     height="100" 
-                     loading="lazy">
-            </div>
-        </div>
-        <div class="hof-title">${member.name}</div>
-    `;
-    
-    return memberDiv;
-}
-
-/* =============================================================================
-   HALL OF FAME CAROUSEL LOGIC
-   ============================================================================= */
-
-let currentCommunityIndex = 0;
-const totalNamedCommunityMembers = typeof members !== 'undefined' ? members.length : 48;
-let communityAutoRotateInterval;
-
-/**
- * Updates the featured trading card in the carousel
- */
-function updateCommunityCarousel() {
-    const featuredCard = document.querySelector('#hof-featured .trading-card');
-    if (!featuredCard || typeof members === 'undefined') {
-        console.error('Featured card or members data not found');
-        return;
-    }
-    
-    const memberData = members[currentCommunityIndex];
-    if (!memberData) {
-        console.error('Member data not found for index:', currentCommunityIndex);
-        return;
-    }
-    
-    // Update profile picture link
-    const pfpLink = featuredCard.querySelector('.pfp-link');
-    if (memberData.walletAddress && memberData.walletAddress !== 'WALLET_ADDRESS_HERE') {
-        pfpLink.href = `profile.html?user=${memberData.walletAddress}`;
-    } else {
-        pfpLink.href = memberData.xLink; // Fallback to X profile if no wallet
-    }
-    
-    // Update profile picture
-    const pfpImg = featuredCard.querySelector('.card-pfp-square img');
-    pfpImg.src = memberData.img;
-    pfpImg.alt = `${memberData.name} profile picture`;
-    
-    // Update name
-    featuredCard.querySelector('.hof-name').textContent = memberData.name;
-    
-    // Update holder since date
-    featuredCard.querySelector('.ability-content').textContent = memberData.holderSince;
-    
-    // Update badges
-    const badgesContainer = featuredCard.querySelector('.hof-badges');
-    badgesContainer.innerHTML = '';
-    
-    if (memberData.badges && memberData.badges.length > 0) {
-        memberData.badges.forEach(badge => {
-            const badgeEl = document.createElement('div');
-            badgeEl.className = `badge badge-${badge.type} badge-${badge.tier}`;
-            badgeEl.setAttribute('title', getBadgeTitle(badge.type, badge.tier));
-            badgesContainer.appendChild(badgeEl);
-        });
-    }
-    
-    // Update active state on member bubbles
-    document.querySelectorAll('.hof-member .hof-bubble').forEach(bubble => {
-        bubble.classList.remove('active-member');
-    });
-    
-    const activeMemberElements = document.querySelectorAll(
-        `.hof-member[data-index="${currentCommunityIndex}"] .hof-bubble`
-    );
-    activeMemberElements.forEach(el => el.classList.add('active-member'));
-}
-
-/**
- * Gets the title/tooltip text for a badge
- * @param {string} type - Badge type
- * @param {string} tier - Badge tier
- * @returns {string} Badge title
- */
-function getBadgeTitle(type, tier) {
-    const badges = {
-        spaces: {
-            bronze: 'Orbiter: Consistently shows up to X Spaces.',
-            silver: 'Cosmonaut: Regularly engages in Spaces conversations.',
-            gold: 'Star Commander: Leads conversations in $DEBT Spaces.',
-            amethyst: 'Supernova: Hosts $DEBT-focused X Spaces.'
-        },
-        burn: {
-            bronze: 'Pyro: Burned 100,000+ $DEBT.',
-            silver: 'Arsonist: Burned 1,000,000+ $DEBT.',
-            gold: 'Inferno: Burned 10,000,000+ $DEBT.',
-            amethyst: 'Ashbringer: Burned 100,000,000+ $DEBT.'
-        },
-        holding: {
-            bronze: 'Cold Wallet: Held $DEBT for 1+ month.',
-            silver: 'Iron Grip: Held $DEBT for 3+ months.',
-            gold: 'Steel Reserve: Held $DEBT for 6+ months, solid stack.',
-            amethyst: 'Diamond Hands: Held $DEBT for 1 year+, unshakeable holder.'
-        },
-        shiller: {
-            single: 'Cold Blooded Shiller: Hardcore $DEBT promoter on social media.'
-        },
-        meme: {
-            single: 'Meme Machine: Creates dank $DEBT memes.'
-        },
-        year1: {
-            single: 'Year 1: Heavily involved in the project during its first year.'
-        }
-    };
-    
-    return badges[type]?.[tier] || 'Badge';
-}
-
-/**
- * Rotates the HOF carousel left or right
- * @param {string} direction - 'left' or 'right'
- */
-function rotateHof(direction) {
-    if (direction === 'right') {
-        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
-    } else {
-        currentCommunityIndex = (currentCommunityIndex - 1 + totalNamedCommunityMembers) % totalNamedCommunityMembers;
-    }
-    
-    updateCommunityCarousel();
-    resetCommunityAutoRotate();
-}
-
-/**
- * Resets the auto-rotate timer for the HOF carousel
- */
-function resetCommunityAutoRotate() {
-    clearInterval(communityAutoRotateInterval);
-    communityAutoRotateInterval = setInterval(() => {
-        currentCommunityIndex = (currentCommunityIndex + 1) % totalNamedCommunityMembers;
-        updateCommunityCarousel();
-    }, 10000); // Rotate every 10 seconds
-}
-
-/* =============================================================================
-   LEADERBOARD LOGIC
-   ============================================================================= */
-
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
-let allData = [];
 
 /**
  * Fetches leaderboard data from Google Sheets CSV
@@ -303,9 +92,10 @@ async function fetchLeaderboardData() {
             !isNaN(row.date)
         );
         
+        console.log(`Fetched ${allData.length} leaderboard records`);
         return allData;
     } catch (error) {
-        console.error('Error fetching or parsing leaderboard data:', error);
+        console.error('Error fetching leaderboard data:', error);
         document.getElementById('leaderboard-loading').textContent = 
             'Error loading data. Please try again later.';
         return [];
@@ -313,7 +103,474 @@ async function fetchLeaderboardData() {
 }
 
 /**
- * Calculates total scores for each user
+ * Calculates comprehensive stats for each member based on leaderboard data
+ * Stores results in memberStats object
+ */
+function calculateMemberStats() {
+    memberStats = {};
+    
+    // Calculate all-time points and event participation
+    members.forEach(member => {
+        const memberData = allData.filter(d => d.username === member.name);
+        const totalPoints = memberData.reduce((sum, d) => sum + d.points, 0);
+        const eventCount = memberData.length;
+        
+        memberStats[member.name] = {
+            totalPoints,
+            eventCount,
+            allTimeRank: 0, // Will be calculated after sorting
+            monthlyRank: 0, // Will be calculated per month
+            monthlyWins: [], // Array of {month, year, place}
+            badges: []
+        };
+    });
+    
+    // Calculate all-time rankings
+    const sortedByPoints = Object.entries(memberStats)
+        .sort(([, a], [, b]) => b.totalPoints - a.totalPoints);
+    
+    sortedByPoints.forEach(([name, stats], index) => {
+        memberStats[name].allTimeRank = index + 1;
+    });
+    
+    // Calculate monthly winners and current monthly rank
+    calculateMonthlyWinners();
+    calculateCurrentMonthlyRanks();
+    
+    // Assign badges based on stats
+    assignBadges();
+    
+    console.log('Member stats calculated:', memberStats);
+}
+
+/**
+ * Detects monthly 1st/2nd/3rd place finishes for each member
+ * Stores results in memberStats[name].monthlyWins
+ */
+function calculateMonthlyWinners() {
+    // Group data by month/year
+    const monthlyData = {};
+    
+    allData.forEach(record => {
+        const monthKey = `${record.date.getFullYear()}-${record.date.getMonth()}`;
+        if (!monthlyData[monthKey]) {
+            monthlyData[monthKey] = [];
+        }
+        monthlyData[monthKey].push(record);
+    });
+    
+    // For each month, calculate top 3
+    Object.entries(monthlyData).forEach(([monthKey, records]) => {
+        const [year, month] = monthKey.split('-').map(Number);
+        const monthName = new Date(year, month).toLocaleString('default', { month: 'long' });
+        
+        // Calculate monthly scores
+        const monthlyScores = {};
+        records.forEach(record => {
+            monthlyScores[record.username] = (monthlyScores[record.username] || 0) + record.points;
+        });
+        
+        // Sort by points
+        const sorted = Object.entries(monthlyScores)
+            .sort(([, a], [, b]) => b - a);
+        
+        // Assign 1st/2nd/3rd place
+        sorted.slice(0, 3).forEach(([username, points], index) => {
+            const place = index + 1;
+            if (memberStats[username]) {
+                memberStats[username].monthlyWins.push({
+                    month: monthName,
+                    year,
+                    place
+                });
+            }
+        });
+    });
+}
+
+/**
+ * Calculates current month rankings for all members
+ */
+function calculateCurrentMonthlyRanks() {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
+    // Filter data to current month
+    const currentMonthData = allData.filter(d =>
+        d.date.getFullYear() === currentYear &&
+        d.date.getMonth() === currentMonth
+    );
+    
+    // Calculate monthly scores
+    const monthlyScores = {};
+    currentMonthData.forEach(record => {
+        monthlyScores[record.username] = (monthlyScores[record.username] || 0) + record.points;
+    });
+    
+    // Sort and assign ranks
+    const sorted = Object.entries(monthlyScores)
+        .sort(([, a], [, b]) => b - a);
+    
+    sorted.forEach(([username, points], index) => {
+        if (memberStats[username]) {
+            memberStats[username].monthlyRank = index + 1;
+        }
+    });
+    
+    // Members with no points this month get no rank displayed
+    members.forEach(member => {
+        if (!monthlyScores[member.name]) {
+            memberStats[member.name].monthlyRank = null;
+        }
+    });
+}
+
+/**
+ * Assigns badges to members based on their stats
+ * Badge types:
+ * - Monthly Winners (1st/2nd/3rd place badges with month tooltips)
+ * - Milestones (50, 100, 250, 500, 1000 points)
+ * - Profile Pioneer (has wallet address)
+ * - Consistent Contributor (10+ events)
+ * - Core Contributor (manually assigned)
+ */
+function assignBadges() {
+    members.forEach(member => {
+        const stats = memberStats[member.name];
+        const badges = [];
+        
+        // 1. Monthly Winner Badges
+        if (stats.monthlyWins.length > 0) {
+            // Group wins by place
+            const firstPlaces = stats.monthlyWins.filter(w => w.place === 1);
+            const secondPlaces = stats.monthlyWins.filter(w => w.place === 2);
+            const thirdPlaces = stats.monthlyWins.filter(w => w.place === 3);
+            
+            if (firstPlaces.length > 0) {
+                badges.push({
+                    type: 'monthly-first',
+                    count: firstPlaces.length,
+                    months: firstPlaces
+                });
+            }
+            if (secondPlaces.length > 0) {
+                badges.push({
+                    type: 'monthly-second',
+                    count: secondPlaces.length,
+                    months: secondPlaces
+                });
+            }
+            if (thirdPlaces.length > 0) {
+                badges.push({
+                    type: 'monthly-third',
+                    count: thirdPlaces.length,
+                    months: thirdPlaces
+                });
+            }
+        }
+        
+        // 2. Milestone Badges (highest one only)
+        if (stats.totalPoints >= 1000) {
+            badges.push({ type: 'milestone-1000' });
+        } else if (stats.totalPoints >= 500) {
+            badges.push({ type: 'milestone-500' });
+        } else if (stats.totalPoints >= 250) {
+            badges.push({ type: 'milestone-250' });
+        } else if (stats.totalPoints >= 100) {
+            badges.push({ type: 'milestone-100' });
+        } else if (stats.totalPoints >= 50) {
+            badges.push({ type: 'milestone-50' });
+        }
+        
+        // 3. Special Badges
+        if (member.walletAddress !== 'WALLET_ADDRESS_HERE') {
+            badges.push({ type: 'profile-pioneer' });
+        }
+        
+        if (stats.eventCount >= 10) {
+            badges.push({ type: 'consistent-contributor' });
+        }
+        
+        if (member.coreContributor === true) {
+            badges.push({ type: 'core-contributor' });
+        }
+        
+        stats.badges = badges;
+    });
+}
+
+/**
+ * Gets the dynamic level based on total points
+ * @param {number} points - Total all-time points
+ * @returns {string} Level name
+ */
+function getLevel(points) {
+    if (points >= 500) return 'Legend';
+    if (points >= 200) return 'Champion';
+    if (points >= 100) return 'Elite';
+    if (points >= 50) return 'Rising Star';
+    return 'Member';
+}
+
+/**
+ * Sorts members by total points (highest first)
+ * Updates the sortedMembers array
+ */
+function sortMembersByPoints() {
+    sortedMembers = [...members].sort((a, b) => {
+        const aPoints = memberStats[a.name]?.totalPoints || 0;
+        const bPoints = memberStats[b.name]?.totalPoints || 0;
+        return bPoints - aPoints;
+    });
+    
+    console.log('Members sorted by points. Top 5:', 
+        sortedMembers.slice(0, 5).map(m => `${m.name}: ${memberStats[m.name]?.totalPoints || 0}pts`)
+    );
+}
+
+/* =============================================================================
+   DYNAMIC MEMBER GRID GENERATION
+   ============================================================================= */
+
+/**
+ * Generates non-featured member grid dynamically from sorted members array
+ * Creates rows of 6 for desktop and rows of 4 for mobile
+ */
+function generateNonFeaturedMembers() {
+    const wrapper = document.getElementById('hof-rows-wrapper');
+    if (!wrapper) {
+        console.error('Wrapper element not found');
+        return;
+    }
+    
+    // Clear existing content
+    wrapper.innerHTML = '';
+    
+    // Generate desktop rows (6 members per row)
+    const desktopRowSize = 6;
+    const desktopRows = Math.ceil(sortedMembers.length / desktopRowSize);
+    
+    for (let i = 0; i < desktopRows; i++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'hof-row-desktop';
+        
+        const startIdx = i * desktopRowSize;
+        const endIdx = Math.min(startIdx + desktopRowSize, sortedMembers.length);
+        
+        for (let j = startIdx; j < endIdx; j++) {
+            const memberElement = createMemberElement(sortedMembers[j], j);
+            rowDiv.appendChild(memberElement);
+        }
+        
+        wrapper.appendChild(rowDiv);
+    }
+    
+    // Generate mobile rows (4 members per row)
+    const mobileRowSize = 4;
+    const mobileRows = Math.ceil(sortedMembers.length / mobileRowSize);
+    
+    for (let i = 0; i < mobileRows; i++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'hof-row-mobile';
+        
+        const startIdx = i * mobileRowSize;
+        const endIdx = Math.min(startIdx + mobileRowSize, sortedMembers.length);
+        
+        for (let j = startIdx; j < endIdx; j++) {
+            const memberElement = createMemberElement(sortedMembers[j], j);
+            rowDiv.appendChild(memberElement);
+        }
+        
+        wrapper.appendChild(rowDiv);
+    }
+}
+
+/**
+ * Creates a single member element with bubble and title
+ * @param {Object} member - Member data
+ * @param {number} index - Member index in sorted array
+ * @returns {HTMLElement} Member element
+ */
+function createMemberElement(member, index) {
+    const memberDiv = document.createElement('div');
+    memberDiv.className = 'hof-member';
+    memberDiv.dataset.index = index;
+    memberDiv.dataset.xLink = member.xLink;
+    
+    memberDiv.innerHTML = `
+        <div class="hof-bubble">
+            <div class="hof-inner-bubble">
+                <img src="${member.img}" 
+                     alt="${member.name} profile picture" 
+                     width="100" 
+                     height="100" 
+                     loading="lazy">
+            </div>
+        </div>
+        <div class="hof-title">${member.name}</div>
+    `;
+    
+    return memberDiv;
+}
+
+/* =============================================================================
+   HALL OF FAME CAROUSEL LOGIC
+   ============================================================================= */
+
+/**
+ * Updates the featured trading card in the carousel
+ */
+function updateCommunityCarousel() {
+    const featuredCard = document.querySelector('#hof-featured .trading-card');
+    if (!featuredCard) {
+        console.error('Featured card not found');
+        return;
+    }
+    
+    const memberData = sortedMembers[currentCommunityIndex];
+    if (!memberData) {
+        console.error('Member data not found for index:', currentCommunityIndex);
+        return;
+    }
+    
+    const stats = memberStats[memberData.name];
+    
+    // Update profile picture link
+    const pfpLink = featuredCard.querySelector('.pfp-link');
+    if (memberData.walletAddress && memberData.walletAddress !== 'WALLET_ADDRESS_HERE') {
+        pfpLink.href = `profile.html?user=${memberData.walletAddress}`;
+    } else {
+        pfpLink.href = memberData.xLink;
+    }
+    
+    // Update profile picture
+    const pfpImg = featuredCard.querySelector('.card-pfp-square img');
+    pfpImg.src = memberData.img;
+    pfpImg.alt = `${memberData.name} profile picture`;
+    
+    // Update level badge
+    const levelBadge = featuredCard.querySelector('.card-level');
+    levelBadge.textContent = getLevel(stats.totalPoints);
+    
+    // Update name
+    featuredCard.querySelector('.hof-name').textContent = memberData.name;
+    
+    // Update badges
+    const badgesContainer = featuredCard.querySelector('.hof-badges');
+    badgesContainer.innerHTML = '';
+    
+    if (stats.badges && stats.badges.length > 0) {
+        stats.badges.forEach(badge => {
+            const badgeEl = createBadgeElement(badge);
+            badgesContainer.appendChild(badgeEl);
+        });
+    }
+    
+    // Update stats section (replaces "Holder Since")
+    const statsSection = featuredCard.querySelector('.special-ability');
+    statsSection.innerHTML = `
+        <p class="ability-title">Total Points</p>
+        <p class="ability-content">${stats.totalPoints}</p>
+        <p class="ability-title" style="margin-top: 8px;">All-Time Rank</p>
+        <p class="ability-content">#${stats.allTimeRank}</p>
+        <p class="ability-title" style="margin-top: 8px;">Monthly Rank</p>
+        <p class="ability-content">${stats.monthlyRank ? '#' + stats.monthlyRank : 'N/A'}</p>
+    `;
+    
+    // Update active state on member bubbles
+    document.querySelectorAll('.hof-member .hof-bubble').forEach(bubble => {
+        bubble.classList.remove('active-member');
+    });
+    
+    const activeMemberElements = document.querySelectorAll(
+        `.hof-member[data-index="${currentCommunityIndex}"] .hof-bubble`
+    );
+    activeMemberElements.forEach(el => el.classList.add('active-member'));
+}
+
+/**
+ * Creates a badge element with proper styling and tooltip
+ * @param {Object} badge - Badge data
+ * @returns {HTMLElement} Badge element
+ */
+function createBadgeElement(badge) {
+    const badgeEl = document.createElement('div');
+    badgeEl.className = `badge badge-${badge.type}`;
+    
+    // Set tooltip based on badge type
+    let tooltip = '';
+    
+    if (badge.type === 'monthly-first') {
+        const monthList = badge.months.map(m => `${m.month} ${m.year}`).join(', ');
+        tooltip = `1st Place: ${monthList}`;
+        if (badge.count > 1) badgeEl.classList.add('multi-badge');
+    } else if (badge.type === 'monthly-second') {
+        const monthList = badge.months.map(m => `${m.month} ${m.year}`).join(', ');
+        tooltip = `2nd Place: ${monthList}`;
+        if (badge.count > 1) badgeEl.classList.add('multi-badge');
+    } else if (badge.type === 'monthly-third') {
+        const monthList = badge.months.map(m => `${m.month} ${m.year}`).join(', ');
+        tooltip = `3rd Place: ${monthList}`;
+        if (badge.count > 1) badgeEl.classList.add('multi-badge');
+    } else if (badge.type.startsWith('milestone-')) {
+        const points = badge.type.split('-')[1];
+        tooltip = `Milestone: ${points}+ Points`;
+    } else if (badge.type === 'profile-pioneer') {
+        tooltip = 'Profile Pioneer: Created a profile on the site';
+    } else if (badge.type === 'consistent-contributor') {
+        tooltip = 'Consistent Contributor: Participated in 10+ events';
+    } else if (badge.type === 'core-contributor') {
+        tooltip = 'Core Contributor: Special recognition for exceptional commitment';
+    }
+    
+    badgeEl.setAttribute('title', tooltip);
+    
+    // Add count indicator for multiple monthly wins
+    if (badge.count && badge.count > 1) {
+        const countEl = document.createElement('span');
+        countEl.className = 'badge-count';
+        countEl.textContent = badge.count;
+        badgeEl.appendChild(countEl);
+    }
+    
+    return badgeEl;
+}
+
+/**
+ * Rotates the carousel left or right
+ * @param {string} direction - 'left' or 'right'
+ */
+function rotateHof(direction) {
+    const totalMembers = sortedMembers.length;
+    
+    if (direction === 'left') {
+        currentCommunityIndex = (currentCommunityIndex - 1 + totalMembers) % totalMembers;
+    } else {
+        currentCommunityIndex = (currentCommunityIndex + 1) % totalMembers;
+    }
+    
+    updateCommunityCarousel();
+    resetCommunityAutoRotate();
+}
+
+/**
+ * Auto-rotates the carousel every 5 seconds
+ */
+function resetCommunityAutoRotate() {
+    clearInterval(communityAutoRotateInterval);
+    
+    communityAutoRotateInterval = setInterval(() => {
+        rotateHof('right');
+    }, 5000);
+}
+
+/* =============================================================================
+   LEADERBOARD DISPLAY LOGIC
+   ============================================================================= */
+
+/**
+ * Calculates total scores for each user from filtered data
  * @param {Array} data - Array of leaderboard records
  * @returns {Array} Array of {username, points} sorted by points descending
  */
@@ -336,7 +593,7 @@ function renderLeaderboard(scores) {
     const tbody = document.getElementById('leaderboard-body');
     const loadingEl = document.getElementById('leaderboard-loading');
     
-    tbody.innerHTML = ''; // Clear existing rows
+    tbody.innerHTML = '';
     
     if (scores.length === 0) {
         loadingEl.textContent = 'No data available for this period. The rebellion is just beginning.';
@@ -350,12 +607,10 @@ function renderLeaderboard(scores) {
         const rank = index + 1;
         const row = document.createElement('tr');
         
-        // Add rank class for top 3 (for colored backgrounds)
         if (rank === 1) row.classList.add('rank-1');
         else if (rank === 2) row.classList.add('rank-2');
         else if (rank === 3) row.classList.add('rank-3');
         
-        // Add medal emoji to rank display
         let rankContent = rank;
         if (rank === 1) rankContent = '🥇 ' + rank;
         else if (rank === 2) rankContent = '🥈 ' + rank;
@@ -395,7 +650,7 @@ async function updateLeaderboard(period) {
         filteredData = allData.filter(d =>
             d.date.getFullYear() === currentYear
         );
-    } else { // 'all-time'
+    } else {
         filteredData = allData;
     }
     
@@ -411,13 +666,8 @@ function setupTabListeners() {
     
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            // Remove active class from all tabs
             tabs.forEach(t => t.classList.remove('active'));
-            
-            // Add active class to clicked tab
             tab.classList.add('active');
-            
-            // Update leaderboard with selected period
             updateLeaderboard(tab.dataset.period);
         });
     });
