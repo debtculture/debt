@@ -470,12 +470,9 @@ function updateCommunityCarousel() {
     // Update stats section (replaces "Holder Since")
     const statsSection = featuredCard.querySelector('.special-ability');
     statsSection.innerHTML = `
-        <p class="ability-title">Total Points</p>
-        <p class="ability-content">${stats.totalPoints}</p>
-        <p class="ability-title" style="margin-top: 8px;">All-Time Rank</p>
-        <p class="ability-content">#${stats.allTimeRank}</p>
-        <p class="ability-title" style="margin-top: 8px;">Monthly Rank</p>
-        <p class="ability-content">${stats.monthlyRank ? '#' + stats.monthlyRank : 'N/A'}</p>
+        <p class="ability-title">Total Points: <span class="ability-content" style="display: inline;">${stats.totalPoints}</span></p>
+        <p class="ability-title" style="margin-top: 8px;">All-Time Rank: <span class="ability-content" style="display: inline;">#${stats.allTimeRank}</span></p>
+        <p class="ability-title" style="margin-top: 8px;">Monthly Rank: <span class="ability-content" style="display: inline;">${stats.monthlyRank ? '#' + stats.monthlyRank : 'N/A'}</span></p>
     `;
     
     // Update active state on member bubbles
