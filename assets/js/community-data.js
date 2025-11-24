@@ -116,11 +116,11 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'Cody',
+        name: 'Duck',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/CodyMarmaduke',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg',
+        xLink: 'https://x.com/DucksonX',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1764010253/Duck_ktmoic.jpg',
         coreContributor: false
     },
     {
@@ -244,11 +244,11 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'Michael',
+        name: 'AMP',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/p_r_o_m_o__',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg',
+        xLink: 'https://x.com/AiiiM_19',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1764010095/AMP_me6gau.jpg',
         coreContributor: false
     },
     {
