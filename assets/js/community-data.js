@@ -120,7 +120,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/DucksonX',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1764010253/Duck_ktmoic.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764010253/Duck_ktmoic.jpg',
         coreContributor: false
     },
     {
@@ -248,7 +248,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/AiiiM_19',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/v1764010095/AMP_me6gau.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764010095/AMP_me6gau.jpg',
         coreContributor: false
     },
     {
@@ -356,19 +356,19 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'NiNa',
+        name: 'SkuncleD',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/niinaa_art',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594644/nina_lzk9ff.jpg',
+        xLink: 'https://x.com/DSkuncle',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764011032/SkuncleD_xdtlrm.jpg',
         coreContributor: false
     },
     {
-        name: 'Anza',
+        name: 'Trash Panda',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/AnzaCreate',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594592/anza_ijj2om.jpg',
+        xLink: 'https://x.com/TrashpandaXmeta',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764011103/TP_hhlfob.jpg',
         coreContributor: false
     },
     {
