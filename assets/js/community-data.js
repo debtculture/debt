@@ -300,11 +300,11 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'Begonia',
+        name: 'Eric',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/BegoniaOnChain',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016726/beg_lnpxen.jpg',
+        xLink: 'https://x.com/micelf4all',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027143/eric_eulpyw.jpg',
         coreContributor: false
     },
     {
