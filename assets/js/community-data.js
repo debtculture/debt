@@ -16,7 +16,7 @@ const members = [
         walletAddress: '67AmN618UrkHE3QAL1FPr2HAW1ubaeeLFf2bf4xhxtia',
         holderSince: '11/17/2024',
         xLink: 'https://x.com/catavina17',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015636/Cat_pznbrd.jpg',
         coreContributor: true
     },
     {
@@ -24,7 +24,7 @@ const members = [
         walletAddress: '46aaAd2EmhUegQJhn4eouCVnyEp1V3N7bWbZCYkutXZK',
         holderSince: '01/10/2025',
         xLink: 'https://x.com/louisedbegin',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015802/lou_ifk4hw.jpg',
         coreContributor: true
     },
     {
@@ -48,7 +48,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '02/14/2025',
         xLink: 'https://x.com/blu_chek',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1760549072/blu_dewnfk.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015559/blu_qm8dxh.jpg',
         coreContributor: false
     },
     {
@@ -96,7 +96,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '05/30/2025',
         xLink: 'https://x.com/CoryBOnChain',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Cory_qntp8y.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015801/cory_vu0lna.jpg',
         coreContributor: true
     },
     {
@@ -128,7 +128,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '06/27/2025',
         xLink: 'https://x.com/rankin56696',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111531/rankin_mnn26k.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015803/rankin_gippfm.jpg',
         coreContributor: false
     },
     {
@@ -223,8 +223,8 @@ const members = [
         name: 'ANTI',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/gniKugneP',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594381/anti_b9s7yv.jpg',
+        xLink: 'https://x.com/AntiOnChain',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015509/ANTI_nodul9.jpg',
         coreContributor: false
     },
     {
@@ -256,7 +256,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '08/29/2025',
         xLink: 'https://x.com/medraresteaker',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758112105/gnomie_epet05.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015802/gnomie_z2gr3x.jpg',
         coreContributor: false
     },
     {
