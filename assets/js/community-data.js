@@ -9,7 +9,7 @@ const members = [
         holderSince: '07/21/2024',
         xLink: 'https://x.com/AutopsyT2',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'Catavina',
@@ -17,7 +17,7 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/catavina17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'Lou',
@@ -25,7 +25,7 @@ const members = [
         holderSince: '01/10/2025',
         xLink: 'https://x.com/louisedbegin',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'Tormund',
@@ -33,7 +33,7 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/Tormund_17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tormund_pj4hwd.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'JPEG',
@@ -57,7 +57,7 @@ const members = [
         holderSince: '05/18/2025',
         xLink: 'https://x.com/drinkonsaturday',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'Renee',
@@ -73,7 +73,7 @@ const members = [
         holderSince: '05/23/2025',
         xLink: 'https://x.com/AmbientSound',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'Tom',
@@ -97,7 +97,7 @@ const members = [
         holderSince: '05/30/2025',
         xLink: 'https://x.com/CoryBOnChain',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Cory_qntp8y.jpg',
-        coreContributor: false
+        coreContributor: true
     },
     {
         name: 'Dan',
