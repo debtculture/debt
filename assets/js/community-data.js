@@ -1,25 +1,6 @@
 /* =============================================================================
-   COMMUNITY DATA - Hall of Fame Member Information
+   COMMUNITY DATA - Hall of Fame Member Information (ALL 48 MEMBERS)
    ============================================================================= */
-
-/**
- * Hall of Fame Members Database
- * 
- * Each member object contains:
- * @property {string} name - Display name of the member (MUST match leaderboard CSV username exactly)
- * @property {string} walletAddress - Solana wallet address (or 'WALLET_ADDRESS_HERE' if not provided)
- * @property {string} holderSince - Date when member became a holder (MM/DD/YYYY or 'TBD')
- * @property {string} xLink - Link to member's X (Twitter) profile
- * @property {string} img - Cloudinary URL for profile picture
- * @property {boolean} coreContributor - Manually assigned special recognition badge (default: false)
- * 
- * NOTE: Badges are now automatically calculated based on leaderboard performance!
- * - Monthly Winner Badges: Auto-detected from 1st/2nd/3rd place finishes
- * - Milestone Badges: Auto-assigned based on total points (50, 100, 250, 500, 1000)
- * - Profile Pioneer: Auto-detected if walletAddress is set
- * - Consistent Contributor: Auto-detected if 10+ events participated
- * - Core Contributor: Manually set via coreContributor flag
- */
 
 const members = [
     {
@@ -155,71 +136,87 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '08/29/2025',
         xLink: 'https://x.com/bigsoup6_7',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Scrappy_gqtw4x.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg',
         coreContributor: false
     },
     {
-        name: 'Shay',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '11/17/2024',
-        xLink: 'https://x.com/ShayTheSlayerS2',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Shay_ajnxzj.jpg',
-        coreContributor: false
-    },
-    {
-        name: 'Tonic',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '11/17/2024',
-        xLink: 'https://x.com/TonicFrost',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tonic_c6ixwy.jpg',
-        coreContributor: false
-    },
-    {
-        name: 'Carla',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '11/17/2024',
-        xLink: 'https://x.com/carla_strack',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/Carla_dpewoe.jpg',
-        coreContributor: false
-    },
-    {
-        name: 'Boss',
+        name: 'Mia',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/Boss_On_Chain',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111105/boss_f7cqjf.jpg',
+        xLink: 'https://x.com/GirlMia9079',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg',
         coreContributor: false
     },
     {
-        name: 'Josh',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '11/17/2024',
-        xLink: 'https://x.com/JoshSnibbs',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/Josh_wogszg.jpg',
-        coreContributor: false
-    },
-    {
-        name: 'YG',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '11/17/2024',
-        xLink: 'https://x.com/Yunggyp',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/YG_kmuucu.jpg',
-        coreContributor: false
-    },
-    {
-        name: 'Mike',
+        name: 'Elvis',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/2Noisy4You',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111641/mike_axd2vu.jpg',
+        xLink: 'https://x.com/ElpatronSFC',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png',
         coreContributor: false
     },
     {
-        name: 'Dylan',
+        name: 'Bstr',
         walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '11/17/2024',
-        xLink: 'https://x.com/DylanEberhard',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/Dylan_nxjguk.jpg',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/Bstr___',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'George',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '03/19/2025',
+        xLink: 'https://x.com/GeorgeCdr28874',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Dog',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/Dog66515910',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Bacon',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/NoItsMyServe',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594307/bacon_v5g4qp.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'ZOMBi',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/HauskenHelge',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/ZOMBi_obepxi.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Glow',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/GlowsHaven',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762547988/Glow_k48ihk.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Demitrieus',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/RecklesUnicorn',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Ugo',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '08/27/2025',
+        xLink: 'https://x.com/0x_Ugo',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg',
         coreContributor: false
     },
     {
