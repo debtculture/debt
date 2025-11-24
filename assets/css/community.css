@@ -348,6 +348,255 @@
     font-weight: bold;
 }
 
+/* =============================================================================
+   NEW AUTOMATED BADGE SYSTEM STYLES
+   ============================================================================= */
+
+/* Monthly Winner Badges */
+.badge-monthly-first {
+    background: linear-gradient(145deg, #ffd700, #ccac00);
+    border: 1px solid #ffd700;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #ffd700;
+}
+
+.badge-monthly-first::before {
+    content: '🥇';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+.badge-monthly-second {
+    background: linear-gradient(145deg, #c0c0c0, #808080);
+    border: 1px solid #c0c0c0;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #c0c0c0;
+}
+
+.badge-monthly-second::before {
+    content: '🥈';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+.badge-monthly-third {
+    background: linear-gradient(145deg, #cd7f32, #8c5523);
+    border: 1px solid #cd7f32;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #cd7f32;
+}
+
+.badge-monthly-third::before {
+    content: '🥉';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+/* Badge count indicator for multiple monthly wins */
+.badge-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--main-red);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    z-index: 10;
+}
+
+/* Milestone Badges */
+.badge-milestone-50 {
+    background: linear-gradient(145deg, #4a90e2, #357abd);
+    border: 1px solid #4a90e2;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #4a90e2;
+}
+
+.badge-milestone-50::before {
+    content: '50';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-milestone-100 {
+    background: linear-gradient(145deg, #50c878, #3da864);
+    border: 1px solid #50c878;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #50c878;
+}
+
+.badge-milestone-100::before {
+    content: '100';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.badge-milestone-250 {
+    background: linear-gradient(145deg, #9966cc, #7a52a3);
+    border: 1px solid #9966cc;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #9966cc;
+}
+
+.badge-milestone-250::before {
+    content: '250';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.badge-milestone-500 {
+    background: linear-gradient(145deg, #ff6b6b, #cc5555);
+    border: 1px solid #ff6b6b;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #ff6b6b;
+}
+
+.badge-milestone-500::before {
+    content: '500';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.badge-milestone-1000 {
+    background: linear-gradient(145deg, #ff1744, #cc1136);
+    border: 1px solid #ff1744;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #ff1744, 0 0 10px #ff1744;
+}
+
+.badge-milestone-1000::before {
+    content: '1K';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Special Badges */
+.badge-profile-pioneer {
+    background: linear-gradient(145deg, #00bcd4, #0097a7);
+    border: 1px solid #00bcd4;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #00bcd4;
+}
+
+.badge-profile-pioneer::before {
+    content: '👤';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+.badge-consistent-contributor {
+    background: linear-gradient(145deg, #673ab7, #512da8);
+    border: 1px solid #673ab7;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px #673ab7;
+}
+
+.badge-consistent-contributor::before {
+    content: '⭐';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+.badge-core-contributor {
+    background: linear-gradient(145deg, var(--main-red), var(--dark-red));
+    border: 1px solid var(--main-red);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 0 5px var(--main-red), 0 0 10px var(--main-red);
+}
+
+.badge-core-contributor::before {
+    content: '👑';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+}
+
+/* Trading card specific overrides for new badges */
+.trading-card .hof-badges .badge-monthly-first,
+.trading-card .hof-badges .badge-monthly-second,
+.trading-card .hof-badges .badge-monthly-third,
+.trading-card .hof-badges .badge-milestone-50,
+.trading-card .hof-badges .badge-milestone-100,
+.trading-card .hof-badges .badge-milestone-250,
+.trading-card .hof-badges .badge-milestone-500,
+.trading-card .hof-badges .badge-milestone-1000,
+.trading-card .hof-badges .badge-profile-pioneer,
+.trading-card .hof-badges .badge-consistent-contributor,
+.trading-card .hof-badges .badge-core-contributor {
+    width: 28px;
+    height: 28px;
+}
+
+.trading-card .hof-badges .badge-monthly-first::before,
+.trading-card .hof-badges .badge-monthly-second::before,
+.trading-card .hof-badges .badge-monthly-third::before {
+    font-size: 14px;
+}
+
+.trading-card .hof-badges .badge-milestone-50::before,
+.trading-card .hof-badges .badge-milestone-100::before,
+.trading-card .hof-badges .badge-milestone-250::before,
+.trading-card .hof-badges .badge-milestone-500::before {
+    font-size: 9px;
+}
+
+.trading-card .hof-badges .badge-milestone-1000::before {
+    font-size: 10px;
+}
+
+.trading-card .hof-badges .badge-profile-pioneer::before,
+.trading-card .hof-badges .badge-consistent-contributor::before,
+.trading-card .hof-badges .badge-core-contributor::before {
+    font-size: 14px;
+}
+
+.trading-card .hof-badges .badge-count {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    top: -3px;
+    right: -3px;
+}
+
+
 /* Badge tooltip */
 .badge::after {
     content: attr(title);
