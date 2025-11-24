@@ -138,13 +138,13 @@
 }
 
 .card-profile-badge {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     display: none; /* Hidden by default, shown via JS if member has profile */
 }
 
 .card-profile-badge::before {
-    font-size: 18px; /* Same as other badges */
+    font-size: 12px; /* Smaller to fit in header */
 }
 
 .card-pfp-square {
