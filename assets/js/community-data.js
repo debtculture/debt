@@ -6,27 +6,19 @@
  * Hall of Fame Members Database
  * 
  * Each member object contains:
- * @property {string} name - Display name of the member
+ * @property {string} name - Display name of the member (MUST match leaderboard CSV username exactly)
  * @property {string} walletAddress - Solana wallet address (or 'WALLET_ADDRESS_HERE' if not provided)
  * @property {string} holderSince - Date when member became a holder (MM/DD/YYYY or 'TBD')
  * @property {string} xLink - Link to member's X (Twitter) profile
  * @property {string} img - Cloudinary URL for profile picture
- * @property {Array<Object>} badges - Array of badge objects with 'type' and 'tier' properties
+ * @property {boolean} coreContributor - Manually assigned special recognition badge (default: false)
  * 
- * Badge Types:
- * - 'spaces': Attendance/hosting X Spaces
- * - 'burn': Token burning contributions
- * - 'holding': Token holding milestones
- * - 'shiller': Recruitment efforts
- * - 'meme': Meme creation
- * - 'year1': Year 1 holder status
- * 
- * Badge Tiers:
- * - 'bronze': Entry level
- * - 'silver': Mid-level
- * - 'gold': High-level
- * - 'amethyst': Top-level
- * - 'single': Special one-off badges
+ * NOTE: Badges are now automatically calculated based on leaderboard performance!
+ * - Monthly Winner Badges: Auto-detected from 1st/2nd/3rd place finishes
+ * - Milestone Badges: Auto-assigned based on total points (50, 100, 250, 500, 1000)
+ * - Profile Pioneer: Auto-detected if walletAddress is set
+ * - Consistent Contributor: Auto-detected if 10+ events participated
+ * - Core Contributor: Manually set via coreContributor flag
  */
 
 const members = [
@@ -36,13 +28,7 @@ const members = [
         holderSince: '07/21/2024',
         xLink: 'https://x.com/AutopsyT2',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg',
-        badges: [
-            { type: 'spaces', tier: 'amethyst' },
-            { type: 'burn', tier: 'gold' },
-            { type: 'holding', tier: 'gold' },
-            { type: 'shiller', tier: 'single' },
-            { type: 'meme', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Catavina',
@@ -50,12 +36,7 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/catavina17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/catavina_dfcvoe.jpg',
-        badges: [
-            { type: 'spaces', tier: 'amethyst' },
-            { type: 'holding', tier: 'gold' },
-            { type: 'shiller', tier: 'single' },
-            { type: 'meme', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Lou',
@@ -63,24 +44,15 @@ const members = [
         holderSince: '01/10/2025',
         xLink: 'https://x.com/louisedbegin',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Lou2_kxasor.jpg',
-        badges: [
-            { type: 'spaces', tier: 'amethyst' },
-            { type: 'holding', tier: 'silver' },
-            { type: 'shiller', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Tormund',
-        walletAddress: '6zSvKM6vWwgrfjoek7JMgiguBjriUxiVMWN35tnp7h4M',
+        walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '11/17/2024',
         xLink: 'https://x.com/Tormund_17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tormund_pj4hwd.jpg',
-        badges: [
-            { type: 'holding', tier: 'gold' },
-            { type: 'spaces', tier: 'silver' },
-            { type: 'shiller', tier: 'single' },
-            { type: 'meme', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
         name: 'JPEG',
@@ -88,24 +60,15 @@ const members = [
         holderSince: '07/22/2024',
         xLink: 'https://x.com/jpegfein',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg',
-        badges: [
-            { type: 'spaces', tier: 'gold' },
-            { type: 'holding', tier: 'gold' },
-            { type: 'shiller', tier: 'single' },
-            { type: 'meme', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
-        name: 'blu',
-        walletAddress: '3cm8PDy7RGDYj4ShSdix4nzrqd7ty5gHzMiUwg5nWVWA',
+        name: 'Blu',
+        walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '02/14/2025',
         xLink: 'https://x.com/blu_chek',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1760549072/blu_dewnfk.jpg',
-        badges: [
-            { type: 'holding', tier: 'silver' },
-            { type: 'spaces', tier: 'silver' },
-            { type: 'shiller', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Drinks',
@@ -113,9 +76,7 @@ const members = [
         holderSince: '05/18/2025',
         xLink: 'https://x.com/drinkonsaturday',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Renee',
@@ -123,21 +84,15 @@ const members = [
         holderSince: '02/11/2025',
         xLink: 'https://x.com/ReneeBush96829',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747850503/Renee_eekhuh.jpg',
-        badges: [
-            { type: 'holding', tier: 'silver' },
-            { type: 'spaces', tier: 'bronze' },
-            { type: 'shiller', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Ambient',
-        walletAddress: 'WALLET_ADDRESS_HERE',
+        walletAddress: '38LctvVHGX3mvZhwGmQC6McJHujDY2HJfUAEf3TYu6yW',
         holderSince: '05/23/2025',
         xLink: 'https://x.com/AmbientSound',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Tom',
@@ -145,11 +100,7 @@ const members = [
         holderSince: '02/04/2025',
         xLink: 'https://x.com/deadend_king',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111318/tom_firsei.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'shiller', tier: 'single' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Lunicking',
@@ -157,23 +108,15 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/Lunicking178677',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg',
-        badges: [
-            { type: 'holding', tier: 'gold' },
-            { type: 'spaces', tier: 'bronze' },
-            { type: 'shiller', tier: 'single' },
-            { type: 'meme', tier: 'single' }
-        ]
+        coreContributor: false
     },
     {
-        name: 'Cory B',
+        name: 'Cory',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '05/30/2025',
         xLink: 'https://x.com/CoryBOnChain',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Cory_qntp8y.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Dan',
@@ -181,10 +124,7 @@ const members = [
         holderSince: '05/30/2025',
         xLink: 'https://x.com/DanVibes10',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'DK',
@@ -192,9 +132,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/PgHYinzer86',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Cody',
@@ -202,134 +140,87 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/CodyMarmaduke',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747646/Cody_ab60wn.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Rankin',
-        walletAddress: '7PEo1vTv9aUAwBgVBKStYTE1NqVpJkb96MddEaN1akJ1',
+        walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '06/27/2025',
         xLink: 'https://x.com/rankin56696',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111531/rankin_mnn26k.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Scrappy',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '08/29/2025',
         xLink: 'https://x.com/bigsoup6_7',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg',
-        badges: [
-            { type: 'holding', tier: 'silver' },
-            { type: 'spaces', tier: 'silver' }
-        ]
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Scrappy_gqtw4x.jpg',
+        coreContributor: false
     },
     {
-        name: 'Mia',
+        name: 'Shay',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '11/17/2024',
+        xLink: 'https://x.com/ShayTheSlayerS2',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Shay_ajnxzj.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Tonic',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '11/17/2024',
+        xLink: 'https://x.com/TonicFrost',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tonic_c6ixwy.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Carla',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '11/17/2024',
+        xLink: 'https://x.com/carla_strack',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/Carla_dpewoe.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Boss',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/GirlMia9079',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        xLink: 'https://x.com/Boss_On_Chain',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111105/boss_f7cqjf.jpg',
+        coreContributor: false
     },
     {
-        name: 'Elvis',
+        name: 'Josh',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '11/17/2024',
+        xLink: 'https://x.com/JoshSnibbs',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/Josh_wogszg.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'YG',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: '11/17/2024',
+        xLink: 'https://x.com/Yunggyp',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/YG_kmuucu.jpg',
+        coreContributor: false
+    },
+    {
+        name: 'Mike',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/ElpatronSFC',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608182/Elvis_yrnpxh.png',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        xLink: 'https://x.com/2Noisy4You',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111641/mike_axd2vu.jpg',
+        coreContributor: false
     },
     {
-        name: 'Bstr',
+        name: 'Dylan',
         walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: 'TBD',
-        xLink: 'https://x.com/Bstr___',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
-    },
-    {
-        name: 'George',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '03/19/2025',
-        xLink: 'https://x.com/GeorgeCdr28874',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
-    },
-    {
-        name: 'Dog',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: 'TBD',
-        xLink: 'https://x.com/Dog66515910',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' },
-            { type: 'shiller', tier: 'single' }
-        ]
-    },
-    {
-        name: 'Bacon',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: 'TBD',
-        xLink: 'https://x.com/NoItsMyServe',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594307/bacon_v5g4qp.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' },
-            { type: 'shiller', tier: 'single' }
-        ]
-    },
-    {
-        name: 'ZOMBi',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: 'TBD',
-        xLink: 'https://x.com/HauskenHelge',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/ZOMBi_obepxi.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
-    },
-    {
-        name: 'Glow',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: 'TBD',
-        xLink: 'https://x.com/GlowsHaven',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762547988/Glow_k48ihk.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
-    },
-    {
-        name: 'Demitrieus',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: 'TBD',
-        xLink: 'https://x.com/RecklesUnicorn',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758748132/Demetrius_knntdo.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
-    },
-    {
-        name: 'Ugo',
-        walletAddress: 'WALLET_ADDRESS_HERE',
-        holderSince: '08/27/2025',
-        xLink: 'https://x.com/0x_Ugo',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg',
-        badges: [
-            { type: 'holding', tier: 'gold' }
-        ]
+        holderSince: '11/17/2024',
+        xLink: 'https://x.com/DylanEberhard',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723030/Dylan_nxjguk.jpg',
+        coreContributor: false
     },
     {
         name: 'ANTI',
@@ -337,10 +228,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/gniKugneP',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594381/anti_b9s7yv.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Momma Blu',
@@ -348,10 +236,7 @@ const members = [
         holderSince: '02/14/2025',
         xLink: 'https://x.com/AngelaPatt86456',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1760549073/mblu_gjlpwh.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Thurston',
@@ -359,10 +244,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/ThurstonWaffles',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032869/Thurston_n6zd2i.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Michael',
@@ -370,10 +252,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/p_r_o_m_o__',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111977/promo_jea2uu.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Gnomie',
@@ -381,10 +260,7 @@ const members = [
         holderSince: '08/29/2025',
         xLink: 'https://x.com/medraresteaker',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758112105/gnomie_epet05.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'AJ',
@@ -392,10 +268,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/blaze_mb21',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'George Eager',
@@ -403,10 +276,7 @@ const members = [
         holderSince: '03/16/2025',
         xLink: 'https://x.com/edition1',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032568/George_Eager_ckxq9y.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Denzel',
@@ -414,10 +284,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/0xDnxl',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Tree',
@@ -425,10 +292,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/TheresaWeik',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032771/Tree_bggo4f.jpg',
-        badges: [
-            { type: 'spaces', tier: 'silver' },
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Money Miller',
@@ -436,9 +300,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/ItsMoneyMiller',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761593775/Money_Miller_trk6pb.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Begonia',
@@ -446,9 +308,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/BegoniaOnChain',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761595015/begonia_gl1fhe.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'DaveR',
@@ -456,9 +316,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/DaveRmetax',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594982/daver_xdqju7.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Gabriel',
@@ -466,9 +324,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/MakersPassing',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594935/gabriel_pqrnv9.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Jersey',
@@ -476,9 +332,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/JerseytoAsia',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594870/Jersey_uuewsv.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'DEV',
@@ -486,9 +340,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/diamondba11z',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1762185965/dev_oubtdl.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Morgen',
@@ -496,9 +348,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/AiArsenals',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594764/morgen_eupy13.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Newyn',
@@ -506,9 +356,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/Newyn69420',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594714/newyn_uxvn6r.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'NiNa',
@@ -516,9 +364,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/niinaa_art',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594644/nina_lzk9ff.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Anza',
@@ -526,9 +372,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/AnzaCreate',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594592/anza_ijj2om.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'XELA',
@@ -536,9 +380,7 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/Xelarocket',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594536/Xela_glqx5e.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     },
     {
         name: 'Numbaz',
@@ -546,8 +388,6 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/numbazhq',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594466/numbaz_cibybi.jpg',
-        badges: [
-            { type: 'holding', tier: 'bronze' }
-        ]
+        coreContributor: false
     }
 ];
