@@ -137,6 +137,16 @@
     line-height: 1;
 }
 
+.card-profile-badge {
+    width: 24px;
+    height: 24px;
+    display: none; /* Hidden by default, shown via JS if member has profile */
+}
+
+.card-profile-badge::before {
+    font-size: 14px; /* Slightly smaller for top corner */
+}
+
 .card-pfp-square {
     width: 147px;
     height: 147px;
