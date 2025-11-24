@@ -283,11 +283,7 @@ function assignBadges() {
             badges.push({ type: 'milestone-50' });
         }
         
-        // 3. Special Badges
-        if (member.walletAddress !== 'WALLET_ADDRESS_HERE') {
-            badges.push({ type: 'profile-pioneer' });
-        }
-        
+        // 3. Special Badges (Profile Pioneer excluded - shows in top corner)
         if (stats.eventCount >= 10) {
             badges.push({ type: 'consistent-contributor' });
         }
@@ -297,6 +293,9 @@ function assignBadges() {
         }
         
         stats.badges = badges;
+        
+        // Store profile status separately for top corner display
+        stats.hasProfile = (member.walletAddress !== 'WALLET_ADDRESS_HERE');
     });
 }
 
@@ -452,6 +451,16 @@ function updateCommunityCarousel() {
     // Update level badge
     const levelBadge = featuredCard.querySelector('.card-level');
     levelBadge.textContent = getLevel(stats.totalPoints);
+    
+    // Update profile badge in top right corner (if they have a profile)
+    const profileBadge = featuredCard.querySelector('.card-profile-badge');
+    if (stats.hasProfile) {
+        profileBadge.className = 'card-profile-badge badge badge-profile-pioneer';
+        profileBadge.setAttribute('title', 'Profile Pioneer: Created a profile on the site');
+        profileBadge.style.display = 'block';
+    } else {
+        profileBadge.style.display = 'none';
+    }
     
     // Update name
     featuredCard.querySelector('.hof-name').textContent = memberData.name;
