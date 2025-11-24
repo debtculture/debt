@@ -316,11 +316,11 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'Gabriel',
+        name: '11th Metal',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/MakersPassing',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594935/gabriel_pqrnv9.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764013157/11th_g9vgza.jpg',
         coreContributor: false
     },
     {
