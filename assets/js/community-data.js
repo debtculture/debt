@@ -76,7 +76,7 @@ const members = [
         coreContributor: true
     },
     {
-        name: 'Tom',
+        name: 'Dead End King',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '02/04/2025',
         xLink: 'https://x.com/deadend_king',
@@ -108,11 +108,11 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'DK',
+        name: 'iBeToKeN',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/PgHYinzer86',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111442/dk_aqpdct.jpg',
+        xLink: 'https://x.com/xXiBeToKeNXx',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027327/token_ena0yf.jpg',
         coreContributor: false
     },
     {
@@ -260,11 +260,11 @@ const members = [
         coreContributor: false
     },
     {
-        name: 'AJ',
+        name: 'StrawHatStew',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/blaze_mb21',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032499/AJ_s3hfjk.png',
+        xLink: 'https://x.com/StrawHatStew',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027471/stew_vjeoyi.jpg',
         coreContributor: false
     },
     {
