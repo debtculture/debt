@@ -312,7 +312,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/DaveRmetax',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594982/daver_xdqju7.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016158/daver_ueqbqd.jpg',
         coreContributor: false
     },
     {
@@ -352,7 +352,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/Newyn69420',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594714/newyn_uxvn6r.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016157/newyn_nsdu12.jpg',
         coreContributor: false
     },
     {
@@ -384,7 +384,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/numbazhq',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594466/numbaz_cibybi.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016158/numbaz_hh2ycu.jpg',
         coreContributor: false
     }
 ];
