@@ -344,7 +344,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/AiArsenals',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594764/morgen_eupy13.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016837/morg_ocx8gu.jpg',
         coreContributor: false
     },
     {
