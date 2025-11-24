@@ -272,7 +272,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: '03/16/2025',
         xLink: 'https://x.com/edition1',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032568/George_Eager_ckxq9y.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016723/GeorgeE_synsnp.jpg',
         coreContributor: false
     },
     {
@@ -296,7 +296,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/ItsMoneyMiller',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761593775/Money_Miller_trk6pb.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016725/MM_idryli.jpg',
         coreContributor: false
     },
     {
@@ -304,7 +304,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/BegoniaOnChain',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761595015/begonia_gl1fhe.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016726/beg_lnpxen.jpg',
         coreContributor: false
     },
     {
@@ -328,7 +328,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/JerseytoAsia',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594870/Jersey_uuewsv.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016724/jers_fjethb.jpg',
         coreContributor: false
     },
     {
