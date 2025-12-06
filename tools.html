@@ -143,13 +143,49 @@
                         <input type="number" id="market-cap" placeholder="e.g., 1000000" min="0">
                     </div>
                 </div>
+
+                <!-- Market Cap Presets -->
+                <div class="mcap-presets">
+                    <button class="preset-btn" onclick="calculatePreset(500000)">$500K</button>
+                    <button class="preset-btn" onclick="calculatePreset(1000000)">$1M</button>
+                    <button class="preset-btn" onclick="calculatePreset(2000000)">$2M</button>
+                    <button class="preset-btn" onclick="calculatePreset(5000000)">$5M</button>
+                    <button class="preset-btn" onclick="calculatePreset(10000000)">$10M</button>
+                    <button class="preset-btn" onclick="calculatePreset(25000000)">$25M</button>
+                    <button class="preset-btn" onclick="calculatePreset(50000000)">$50M</button>
+                    <button class="preset-btn" onclick="calculatePreset(100000000)">$100M</button>
+                    <button class="preset-btn" onclick="calculatePreset(250000000)">$250M</button>
+                    <button class="preset-btn" onclick="calculatePreset(500000000)">$500M</button>
+                    <button class="preset-btn" onclick="calculatePreset(1000000000)">$1B</button>
+                </div>
                 
                 <div class="calc-result" id="calc-result">
-                    Enter values and click Calculate
+                    Enter token amount and select a market cap
                 </div>
                 
                 <div class="tool-actions">
-                    <button class="tool-btn primary" onclick="calculateValue()">Calculate</button>
+                    <button class="tool-btn primary" onclick="calculateValue()">Calculate Custom</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Tracker -->
+            <div class="tool-card">
+                <h2>Portfolio Tracker</h2>
+                <p class="tool-description">Track your $DEBT holdings and ROI by wallet address.</p>
+                
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label for="portfolio-address">Solana Wallet Address</label>
+                        <input type="text" id="portfolio-address" placeholder="Enter your wallet address">
+                    </div>
+                </div>
+                
+                <div class="portfolio-result" id="portfolio-result">
+                    Enter your wallet address to track holdings
+                </div>
+                
+                <div class="tool-actions">
+                    <button class="tool-btn primary" onclick="trackPortfolio()">Track Portfolio</button>
                 </div>
             </div>
 
@@ -171,27 +207,6 @@
                 
                 <div class="tool-actions">
                     <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer" class="tool-btn primary">View on Solscan</a>
-                </div>
-            </div>
-
-            <!-- Wallet Validator -->
-            <div class="tool-card">
-                <h2>Wallet Validator</h2>
-                <p class="tool-description">Verify if a Solana wallet address is valid.</p>
-                
-                <div class="calc-inputs">
-                    <div class="input-group">
-                        <label for="wallet-address">Solana Address</label>
-                        <input type="text" id="wallet-address" placeholder="Enter wallet address">
-                    </div>
-                </div>
-                
-                <div class="calc-result" id="wallet-result">
-                    Enter an address to validate
-                </div>
-                
-                <div class="tool-actions">
-                    <button class="tool-btn primary" onclick="validateWallet()">Validate</button>
                 </div>
             </div>
         </div>
