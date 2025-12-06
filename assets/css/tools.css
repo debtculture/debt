@@ -306,6 +306,22 @@
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
+    /* Hide desktop navigation on mobile */
+    .nav-links {
+        display: none !important;
+    }
+
+    /* Hide desktop Buy button on mobile */
+    .nav-actions .cta-button {
+        display: none !important;
+    }
+
+    /* Show mobile hamburger and Buy button */
+    .hamburger,
+    .buy-btn-mobile {
+        display: flex !important;
+    }
+
     .content-wrapper {
         padding: 60px 15px 40px;
     }
@@ -369,12 +385,6 @@
     .preset-btn {
         font-size: 0.75rem;
         padding: 8px 4px;
-    }
-
-    /* Ensure mobile nav shows up */
-    .hamburger,
-    .buy-btn-mobile {
-        display: flex !important;
     }
 }
 
