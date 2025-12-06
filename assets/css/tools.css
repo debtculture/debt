@@ -22,6 +22,7 @@
     font-size: clamp(2.5rem, 8vw, 5rem);
     text-transform: uppercase;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .tools-subtitle {
@@ -30,6 +31,7 @@
     text-shadow: 0 0 8px var(--main-red);
     margin-bottom: 0;
     font-weight: 600;
+    text-align: center;
 }
 
 /* --- TOOLS GRID --- */
@@ -128,8 +130,42 @@
     color: #666;
 }
 
+/* --- MARKET CAP PRESETS --- */
+.mcap-presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.preset-btn {
+    background: rgba(13, 13, 13, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 10px 8px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.preset-btn:hover {
+    background: rgba(255, 85, 85, 0.1);
+    border-color: var(--main-red);
+    color: var(--main-red);
+    transform: translateY(-2px);
+}
+
+.preset-btn:active {
+    transform: translateY(0);
+}
+
 /* --- CALCULATOR RESULT --- */
-.calc-result {
+.calc-result,
+.portfolio-result {
     background: rgba(13, 13, 13, 0.6);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -144,14 +180,51 @@
     text-align: center;
 }
 
-.calc-result.success {
+.calc-result.success,
+.portfolio-result.success {
     color: var(--main-red);
     font-size: 1.4rem;
     border-color: var(--main-red);
 }
 
-.calc-result.error {
+.calc-result.error,
+.portfolio-result.error {
     color: #ff6b6b;
+}
+
+/* --- PORTFOLIO RESULT SPECIFIC --- */
+.portfolio-result {
+    flex-direction: column;
+    gap: 10px;
+    min-height: 120px;
+}
+
+.portfolio-stat {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.portfolio-stat:last-child {
+    border-bottom: none;
+}
+
+.portfolio-stat-label {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.portfolio-stat-value {
+    color: var(--main-red);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.portfolio-loading {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
 }
 
 /* --- BURN STATS --- */
@@ -243,10 +316,12 @@
 
     .tools-header h1 {
         font-size: 2rem;
+        text-align: center;
     }
 
     .tools-subtitle {
         font-size: 1.1rem;
+        text-align: center;
     }
 
     .tools-grid {
@@ -275,20 +350,39 @@
         font-size: 0.9rem;
     }
 
-    .calc-result {
+    .calc-result,
+    .portfolio-result {
         min-height: 60px;
         font-size: 1rem;
     }
 
-    .calc-result.success {
+    .calc-result.success,
+    .portfolio-result.success {
         font-size: 1.2rem;
+    }
+
+    .mcap-presets {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .preset-btn {
+        font-size: 0.75rem;
+        padding: 8px 4px;
+    }
+
+    /* Ensure mobile nav shows up */
+    .hamburger,
+    .buy-btn-mobile {
+        display: flex !important;
     }
 }
 
 /* --- REDUCED MOTION SUPPORT --- */
 @media (prefers-reduced-motion: reduce) {
     .tool-card,
-    .tool-btn {
+    .tool-btn,
+    .preset-btn {
         transition: none !important;
     }
 }
