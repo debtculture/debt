@@ -1,0 +1,294 @@
+/* =============================================================================
+   TOOLS PAGE STYLES
+   ============================================================================= */
+
+/* --- PAGE LAYOUT --- */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- TOOLS HEADER --- */
+.tools-header {
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+.tools-header h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.tools-subtitle {
+    font-size: 1.4rem;
+    color: #ff9999;
+    text-shadow: 0 0 8px var(--main-red);
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+/* --- TOOLS GRID --- */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 10px 0;
+}
+
+/* --- TOOL CARD --- */
+.tool-card {
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tool-card:hover {
+    border-color: var(--main-red);
+    box-shadow: 0 0 20px rgba(255, 85, 85, 0.3);
+    transform: translateY(-3px);
+}
+
+.tool-card h2 {
+    font-size: 1.8rem;
+    color: var(--main-red);
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 85, 85, 0.4);
+}
+
+.tool-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* --- TWEET GENERATOR --- */
+.tweet-display {
+    background: rgba(13, 13, 13, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 150px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: var(--font-main);
+}
+
+/* --- CALCULATOR INPUTS --- */
+.calc-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.input-group input {
+    background: rgba(13, 13, 13, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--main-red);
+    box-shadow: 0 0 10px rgba(255, 85, 85, 0.2);
+}
+
+.input-group input::placeholder {
+    color: #666;
+}
+
+/* --- CALCULATOR RESULT --- */
+.calc-result {
+    background: rgba(13, 13, 13, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 80px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.calc-result.success {
+    color: var(--main-red);
+    font-size: 1.4rem;
+    border-color: var(--main-red);
+}
+
+.calc-result.error {
+    color: #ff6b6b;
+}
+
+/* --- BURN STATS --- */
+.burn-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.stat-item {
+    background: rgba(13, 13, 13, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    color: var(--main-red);
+    font-weight: 700;
+}
+
+/* --- TOOL ACTIONS --- */
+.tool-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    flex-wrap: wrap;
+}
+
+.tool-btn {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 5px;
+    border: 2px solid;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-main);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    min-width: 120px;
+}
+
+.tool-btn.primary {
+    background: var(--main-red);
+    color: var(--text-primary);
+    border-color: var(--hover-red);
+}
+
+.tool-btn.primary:hover {
+    background: var(--hover-red);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.5);
+    transform: translateY(-2px);
+}
+
+.tool-btn.secondary {
+    background: transparent;
+    color: var(--main-red);
+    border-color: var(--main-red);
+}
+
+.tool-btn.secondary:hover {
+    background: rgba(255, 85, 85, 0.1);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 60px 15px 40px;
+    }
+
+    .tools-header {
+        padding: 10px 15px;
+    }
+
+    .tools-header h1 {
+        font-size: 2rem;
+    }
+
+    .tools-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tool-card {
+        padding: 20px;
+    }
+
+    .tool-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .tool-actions {
+        flex-direction: column;
+    }
+
+    .tool-btn {
+        width: 100%;
+    }
+
+    .tweet-display {
+        min-height: 120px;
+        font-size: 0.9rem;
+    }
+
+    .calc-result {
+        min-height: 60px;
+        font-size: 1rem;
+    }
+
+    .calc-result.success {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- REDUCED MOTION SUPPORT --- */
+@media (prefers-reduced-motion: reduce) {
+    .tool-card,
+    .tool-btn {
+        transition: none !important;
+    }
+}
