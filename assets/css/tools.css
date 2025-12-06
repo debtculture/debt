@@ -11,6 +11,15 @@
     z-index: 1;
 }
 
+/* --- FORCE HIDE MOBILE ELEMENTS ON DESKTOP --- */
+@media (min-width: 769px) {
+    .hamburger,
+    .buy-btn-mobile,
+    .mobile-menu {
+        display: none !important;
+    }
+}
+
 /* --- TOOLS HEADER --- */
 .tools-header {
     text-align: center;
@@ -306,20 +315,36 @@
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
-    /* Hide desktop navigation on mobile */
+    /* FORCE SHOW mobile nav elements */
+    .hamburger {
+        display: flex !important;
+        position: fixed !important;
+        top: 15px !important;
+        left: 15px !important;
+        z-index: 1100 !important;
+    }
+    
+    .buy-btn-mobile {
+        display: flex !important;
+        position: fixed !important;
+        top: 15px !important;
+        right: 15px !important;
+        z-index: 1100 !important;
+    }
+
+    /* FORCE HIDE desktop navigation on mobile */
     .nav-links {
         display: none !important;
     }
 
-    /* Hide desktop Buy button on mobile */
+    /* FORCE HIDE desktop Buy button on mobile */
     .nav-actions .cta-button {
         display: none !important;
     }
-
-    /* Show mobile hamburger and Buy button */
-    .hamburger,
-    .buy-btn-mobile {
-        display: flex !important;
+    
+    /* Center the logo on mobile */
+    .navbar {
+        justify-content: center !important;
     }
 
     .content-wrapper {
