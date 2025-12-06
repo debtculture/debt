@@ -37,7 +37,7 @@
     <canvas id="matrix-bg" aria-hidden="true"></canvas>
     <canvas id="matrix-rain" aria-hidden="true"></canvas>
    
-    <!-- Mobile Navigation -->
+    <!-- Mobile Navigation (Hidden on Desktop) -->
     <div
         class="hamburger"
         onclick="toggleMenu()"
@@ -71,7 +71,7 @@
         <a href="merch.html" onclick="closeMenu()">Merch</a>
     </div>
    
-    <!-- Main Header -->
+    <!-- Main Header (Desktop) -->
     <header class="main-header">
         <nav class="navbar" aria-label="Main navigation">
             <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
@@ -172,7 +172,7 @@
             <!-- Portfolio Tracker -->
             <div class="tool-card">
                 <h2>Portfolio Tracker</h2>
-                <p class="tool-description">Track your $DEBT holdings and ROI by wallet address.</p>
+                <p class="tool-description">Track your $DEBT holdings and value by wallet address.</p>
                 
                 <div class="calc-inputs">
                     <div class="input-group">
@@ -187,27 +187,6 @@
                 
                 <div class="tool-actions">
                     <button class="tool-btn primary" onclick="trackPortfolio()">Track Portfolio</button>
-                </div>
-            </div>
-
-            <!-- Burn Tracker -->
-            <div class="tool-card">
-                <h2>Burn Tracker</h2>
-                <p class="tool-description">Live stats on $DEBT token burns.</p>
-                
-                <div class="burn-stats">
-                    <div class="stat-item">
-                        <span class="stat-label">Total Burned</span>
-                        <span class="stat-value" id="burn-total">66,000,000+</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Burn %</span>
-                        <span class="stat-value" id="burn-percent">6.6%+</span>
-                    </div>
-                </div>
-                
-                <div class="tool-actions">
-                    <a href="https://solscan.io/token/9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump?activity_type=ACTIVITY_SPL_BURN" target="_blank" rel="noopener noreferrer" class="tool-btn primary">View on Solscan</a>
                 </div>
             </div>
         </div>
