@@ -373,6 +373,44 @@
         transform: rotate(-45deg) translate(4px, -4px) !important;
     }
     
+    /* FORCE SHOW mobile menu when opened */
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 15px;
+        width: 180px;
+        background-color: rgba(13, 13, 13, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        z-index: 1099;
+        padding: 10px 0;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    /* Override any shared-styles hiding */
+    .mobile-menu[style*="display: block"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .mobile-menu a {
+        display: block !important;
+        color: var(--text-primary) !important;
+        padding: 12px 20px !important;
+        text-decoration: none !important;
+        font-weight: 700 !important;
+        transition: color 0.3s, background-color 0.3s !important;
+    }
+    
+    .mobile-menu a:hover {
+        color: var(--main-red) !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    
     /* SHOW mobile buy button */
     .buy-btn-mobile {
         display: flex !important;
