@@ -1,5 +1,5 @@
 /* =============================================================================
-   TOOLS PAGE LOGIC
+   TOOLS PAGE LOGIC - FIXED VERSION
    ============================================================================= */
 
 // =================================================================================
@@ -62,18 +62,12 @@ const TWEETS = [
 
 let currentTweet = '';
 
-/**
- * Generates a random tweet from the TWEETS array
- */
 function generateTweet() {
     const randomIndex = Math.floor(Math.random() * TWEETS.length);
     currentTweet = TWEETS[randomIndex];
     document.getElementById('tweet-display').textContent = currentTweet;
 }
 
-/**
- * Copies current tweet to clipboard
- */
 function copyTweet() {
     if (!currentTweet) {
         alert('Generate a tweet first!');
@@ -106,15 +100,11 @@ function copyTweet() {
 // --- MARKET CAP CALCULATOR ---
 // =================================================================================
 
-/**
- * Calculates USD value based on token amount and market cap
- */
 function calculateValue() {
     const tokenAmount = parseFloat(document.getElementById('token-amount').value);
     const marketCap = parseFloat(document.getElementById('market-cap').value);
     const resultDiv = document.getElementById('calc-result');
     
-    // Validation
     if (!tokenAmount || tokenAmount <= 0) {
         resultDiv.textContent = 'Please enter a valid token amount';
         resultDiv.className = 'calc-result error';
@@ -127,10 +117,7 @@ function calculateValue() {
         return;
     }
     
-    // Calculate: (token_amount / tradable_supply) * market_cap
     const usdValue = (tokenAmount / TRADABLE_SUPPLY) * marketCap;
-    
-    // Format result
     const formatted = usdValue.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -142,24 +129,17 @@ function calculateValue() {
     resultDiv.className = 'calc-result success';
 }
 
-/**
- * Calculates value for preset market cap buttons
- */
 function calculatePreset(marketCap) {
     const tokenAmount = parseFloat(document.getElementById('token-amount').value);
     const resultDiv = document.getElementById('calc-result');
     
-    // Validation
     if (!tokenAmount || tokenAmount <= 0) {
         resultDiv.textContent = 'Please enter a token amount first';
         resultDiv.className = 'calc-result error';
         return;
     }
     
-    // Calculate: (token_amount / tradable_supply) * market_cap
     const usdValue = (tokenAmount / TRADABLE_SUPPLY) * marketCap;
-    
-    // Format result with mcap label
     const mcapFormatted = formatMarketCap(marketCap);
     const valueFormatted = usdValue.toLocaleString('en-US', {
         style: 'currency',
@@ -172,9 +152,6 @@ function calculatePreset(marketCap) {
     resultDiv.className = 'calc-result success';
 }
 
-/**
- * Formats market cap for display
- */
 function formatMarketCap(mcap) {
     if (mcap >= 1000000000) {
         return `$${(mcap / 1000000000).toFixed(1)}B`;
@@ -187,12 +164,9 @@ function formatMarketCap(mcap) {
 }
 
 // =================================================================================
-// --- PORTFOLIO TRACKER ---
+// --- PORTFOLIO TRACKER (FIXED WITH HELIUS RPC) ---
 // =================================================================================
 
-/**
- * Tracks portfolio for a given wallet address
- */
 async function trackPortfolio() {
     const address = document.getElementById('portfolio-address').value.trim();
     const resultDiv = document.getElementById('portfolio-result');
@@ -204,7 +178,6 @@ async function trackPortfolio() {
     }
     
     try {
-        // Validate address format first
         let publicKey;
         try {
             publicKey = new solanaWeb3.PublicKey(address);
@@ -214,52 +187,46 @@ async function trackPortfolio() {
             return;
         }
         
-        // Show loading state
         resultDiv.innerHTML = '<span class="portfolio-loading">⏳ Loading portfolio data...</span>';
         resultDiv.className = 'portfolio-result';
         
-        // Connect to Solana with multiple RPC endpoints as fallback
-        const rpcEndpoints = [
-            'https://api.mainnet-beta.solana.com',
-            'https://solana-api.projectserum.com',
-            'https://rpc.ankr.com/solana'
-        ];
+        // Use Helius free RPC - more reliable than public endpoints
+        const connection = new solanaWeb3.Connection(
+            'https://mainnet.helius-rpc.com/?api-key=28b47570-97d1-48c1-93aa-acec85f6bc87',
+            'confirmed'
+        );
         
-        let connection;
+        const tokenMint = new solanaWeb3.PublicKey(TOKEN_MINT);
         let tokenBalance = 0;
         let foundTokens = false;
         
-        // Try each RPC endpoint
-        for (const endpoint of rpcEndpoints) {
-            try {
-                connection = new solanaWeb3.Connection(endpoint, 'confirmed');
-                const tokenMint = new solanaWeb3.PublicKey(TOKEN_MINT);
-                
-                // Get token accounts for this wallet
-                const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
-                    mint: tokenMint
-                });
-                
-                if (tokenAccounts.value.length > 0) {
-                    tokenBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-                    foundTokens = true;
-                    break;
-                }
-            } catch (err) {
-                console.log(`RPC ${endpoint} failed, trying next...`);
-                continue;
+        console.log('🔍 Searching for $DEBT tokens...');
+        
+        try {
+            const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+                mint: tokenMint
+            });
+            
+            console.log('📊 Token accounts found:', tokenAccounts.value.length);
+            
+            if (tokenAccounts.value.length > 0) {
+                tokenBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+                foundTokens = true;
+                console.log('✅ Token balance:', tokenBalance);
             }
+        } catch (err) {
+            console.error('❌ Error fetching token accounts:', err);
         }
         
-        if (!foundTokens) {
-            resultDiv.innerHTML = 'No $DEBT tokens found in this wallet';
+        if (!foundTokens || tokenBalance === 0) {
+            resultDiv.innerHTML = 'No $DEBT tokens found in this wallet.<br><small>Verify the address is correct.</small>';
             resultDiv.className = 'portfolio-result error';
             return;
         }
         
-        // Fetch current price from DexScreener
+        // Fetch price from DexScreener
         let currentPrice = 0;
-        let currentMcap = 100000; // Fallback to $100k
+        let currentMcap = 100000;
         
         try {
             const dexResponse = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${TOKEN_MINT}`);
@@ -271,14 +238,11 @@ async function trackPortfolio() {
             }
         } catch (err) {
             console.error('DexScreener fetch failed:', err);
-            // Use fallback values
             currentPrice = currentMcap / TRADABLE_SUPPLY;
         }
         
-        // Calculate current value
         const currentValue = tokenBalance * currentPrice;
         
-        // Display results
         resultDiv.innerHTML = `
             <div class="portfolio-stat">
                 <span class="portfolio-stat-label">$DEBT Holdings</span>
@@ -286,7 +250,7 @@ async function trackPortfolio() {
             </div>
             <div class="portfolio-stat">
                 <span class="portfolio-stat-label">Current Value</span>
-                <span class="portfolio-stat-value">${currentValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                <span class="portfolio-stat-value">$${currentValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
             </div>
             <div class="portfolio-stat">
                 <span class="portfolio-stat-label">Current Market Cap</span>
@@ -301,7 +265,7 @@ async function trackPortfolio() {
             <span class="portfolio-loading" style="color: #ff6b6b;">
                 ❌ Error: ${error.message || 'Failed to load portfolio'}
                 <br><br>
-                Please verify the wallet address and try again.
+                Please try again or verify the address.
             </span>
         `;
         resultDiv.className = 'portfolio-result error';
@@ -312,9 +276,6 @@ async function trackPortfolio() {
 // --- MOBILE NAVIGATION ---
 // =================================================================================
 
-/**
- * Toggles mobile hamburger menu
- */
 window.toggleMenu = function() {
     const menu = document.getElementById('mobileMenu');
     const hamburger = document.querySelector('.hamburger');
@@ -328,9 +289,6 @@ window.toggleMenu = function() {
     hamburger.setAttribute('aria-expanded', !isOpen);
 };
 
-/**
- * Closes mobile hamburger menu
- */
 window.closeMenu = function() {
     const menu = document.getElementById('mobileMenu');
     const hamburger = document.querySelector('.hamburger');
