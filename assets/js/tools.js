@@ -190,11 +190,12 @@ async function trackPortfolio() {
         resultDiv.innerHTML = '<span class="portfolio-loading">⏳ Loading portfolio data...</span>';
         resultDiv.className = 'portfolio-result';
         
-        // Use Helius free RPC - more reliable than public endpoints
-        const connection = new solanaWeb3.Connection(
-            'https://mainnet.helius-rpc.com/?api-key=28b47570-97d1-48c1-93aa-acec85f6bc87',
-            'confirmed'
-        );
+        // Use public RPC endpoints that don't require API keys
+        const rpcEndpoints = [
+            'https://api.mainnet-beta.solana.com',
+            'https://solana-mainnet.rpc.extrnode.com',
+            'https://rpc.ankr.com/solana'
+        ];
         
         const tokenMint = new solanaWeb3.PublicKey(TOKEN_MINT);
         let tokenBalance = 0;
@@ -202,24 +203,41 @@ async function trackPortfolio() {
         
         console.log('🔍 Searching for $DEBT tokens...');
         
-        try {
-            const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
-                mint: tokenMint
-            });
+        // Try each endpoint with a timeout
+        for (const endpoint of rpcEndpoints) {
+            if (foundTokens) break;
             
-            console.log('📊 Token accounts found:', tokenAccounts.value.length);
-            
-            if (tokenAccounts.value.length > 0) {
-                tokenBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-                foundTokens = true;
-                console.log('✅ Token balance:', tokenBalance);
+            try {
+                console.log(`Trying RPC: ${endpoint}`);
+                const connection = new solanaWeb3.Connection(endpoint, 'confirmed');
+                
+                // Set a 10 second timeout
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Request timeout')), 10000)
+                );
+                
+                const accountsPromise = connection.getParsedTokenAccountsByOwner(publicKey, {
+                    mint: tokenMint
+                });
+                
+                const tokenAccounts = await Promise.race([accountsPromise, timeoutPromise]);
+                
+                console.log('📊 Token accounts found:', tokenAccounts.value.length);
+                
+                if (tokenAccounts.value.length > 0) {
+                    tokenBalance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+                    foundTokens = true;
+                    console.log('✅ Token balance:', tokenBalance);
+                    break;
+                }
+            } catch (err) {
+                console.log(`❌ ${endpoint} failed:`, err.message);
+                continue;
             }
-        } catch (err) {
-            console.error('❌ Error fetching token accounts:', err);
         }
         
         if (!foundTokens || tokenBalance === 0) {
-            resultDiv.innerHTML = 'No $DEBT tokens found in this wallet.<br><small>Verify the address is correct.</small>';
+            resultDiv.innerHTML = 'No $DEBT tokens found in this wallet.<br><small>If this is incorrect, the RPC may be experiencing issues. Try again in a moment.</small>';
             resultDiv.className = 'portfolio-result error';
             return;
         }
@@ -250,7 +268,7 @@ async function trackPortfolio() {
             </div>
             <div class="portfolio-stat">
                 <span class="portfolio-stat-label">Current Value</span>
-                <span class="portfolio-stat-value">$${currentValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                <span class="portfolio-stat-value">${currentValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
             </div>
             <div class="portfolio-stat">
                 <span class="portfolio-stat-label">Current Market Cap</span>
@@ -265,7 +283,7 @@ async function trackPortfolio() {
             <span class="portfolio-loading" style="color: #ff6b6b;">
                 ❌ Error: ${error.message || 'Failed to load portfolio'}
                 <br><br>
-                Please try again or verify the address.
+                RPC nodes may be rate-limiting. Please try again.
             </span>
         `;
         resultDiv.className = 'portfolio-result error';
