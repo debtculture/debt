@@ -3,91 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$DEBT Tools</title>
-    <link rel="stylesheet" href="shared-styles.css">
-    <link rel="stylesheet" href="tools.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="$DEBT Tools - Tweet Generator, Market Cap Calculator, and more community tools.">
+    <meta name="keywords" content="DEBT, $DEBT, Solana, Tools, Calculator, Tweet Generator">
+    <meta name="author" content="Autopsy">
+    <title>Tools - $DEBT</title>
+   
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Tools - $DEBT">
+    <meta property="og:description" content="Community tools for $DEBT holders. Generate tweets, calculate values, track burns.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://debtculture.xyz/tools.html">
+    <meta property="og:image" content="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+   
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_16,h_16/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_32,h_32/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/w_64,h_64/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png">
+   
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
+   
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+   
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/shared-styles.css">
+    <link rel="stylesheet" href="assets/css/tools.css">
 </head>
 <body>
-    <canvas id="matrix-bg"></canvas>
-    <canvas id="matrix-rain"></canvas>
-
+    <!-- Matrix Background Effects -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+   
+    <!-- Mobile Navigation (Hidden on Desktop) -->
+    <div
+        class="hamburger"
+        onclick="toggleMenu()"
+        role="button"
+        aria-label="Toggle mobile menu"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+        tabindex="0"
+    >
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+   
+    <a
+        href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="buy-btn-mobile"
+        aria-label="Buy DEBT token"
+    >
+        Buy $DEBT
+    </a>
+   
+    <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
+        <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
+        <a href="community.html" onclick="closeMenu()">Community</a>
+        <a href="forums.html" onclick="closeMenu()">Forums</a>
+        <a href="merch.html" onclick="closeMenu()">Merch</a>
+    </div>
+   
+    <!-- Main Header (Desktop) -->
     <header class="main-header">
-        <nav class="navbar">
-            <a href="index.html" class="nav-logo">
-                <img src="images/debt-logo-45x45.png" alt="$DEBT Logo">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
+                <img
+                    src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png"
+                    alt="Debt Culture Logo"
+                    width="50"
+                    height="50"
+                >
             </a>
-            
-            <ul class="nav-links">
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="tools.html">TOOLS</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
-            </ul>
-
+            <div class="nav-links">
+                <a href="litepaper.html">Litepaper</a>
+                <a href="arsenal.html">Arsenal</a>
+                <a href="community.html">Community</a>
+                <a href="forums.html">Forums</a>
+                <a href="merch.html">Merch</a>
+            </div>
             <div class="nav-actions">
-                <a href="#" class="cta-button buy-btn-mobile" style="display: none;">BUY $DEBT</a> 
-                
-                <button class="wallet-connect-btn" id="wallet-connect-btn">
-                    <img src="images/wallet-icon.png" alt="Wallet" class="wallet-icon"> 
-                </button>
-
-                <button class="mobile-menu-btn" aria-label="Toggle Navigation">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
+                <a
+                    href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cta-button"
+                >
+                    Buy $DEBT
+                </a>
             </div>
         </nav>
     </header>
 
-    <main class="page-container">
-        <h1 class="glitch" data-text="UTILITY TOOLS">UTILITY TOOLS</h1>
-        
-        <div class="tools-grid">
-            
-            <div class="tool-card" id="tweet-card">
-                <h3>Twitter Post Generator</h3>
-                <form id="tweet-generator-form" class="tool-form">
-                    <textarea id="tweet-message" class="tool-textarea" placeholder="Enter your main message here..." required></textarea>
-                    <input type="url" id="tweet-link" class="tool-input" placeholder="Optional: Link to article/post">
-                    <button type="submit" class="tool-submit-btn">Generate & Copy</button>
-                </form>
-                <div id="tweet-result" class="tool-result"></div>
-            </div>
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Page Header -->
+        <section class="tools-header">
+            <h1 class="glitch" data-text="TOOLS">TOOLS</h1>
+            <p class="tools-subtitle">Ship. Calculate. Generate.</p>
+        </section>
 
-            <div class="tool-card" id="mc-card">
-                <h3>Market Cap Calculator</h3>
-                <form id="market-cap-form" class="tool-form">
-                    <input type="number" id="token-price" class="tool-input" placeholder="Token Price (e.g., 0.00000001)" step="any" min="0" required>
-                    <input type="number" id="circulating-supply" class="tool-input" placeholder="Circulating Supply (e.g., 10000000000)" step="any" min="0" required>
-                    <button type="submit" class="tool-submit-btn">Calculate MCAP</button>
-                </form>
-                <div id="market-cap-result" class="tool-result"></div>
-            </div>
-            
-            <div class="tool-card" id="tracker-card">
-                <h3>$DEBT Portfolio Tracker</h3>
-                <form id="portfolio-tracker-form" class="tool-form">
-                    <input type="text" id="wallet-address" class="tool-input" placeholder="Enter Solana Wallet Address" required>
-                    <button type="submit" class="tool-submit-btn">Track $DEBT</button>
-                </form>
-                <div id="tracker-result" class="tool-result">
-                    <p>Enter a Solana wallet address to check its $DEBT balance.</p>
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Tweet Generator -->
+            <div class="tool-card">
+                <h2>Tweet Generator</h2>
+                <p class="tool-description">Generate $DEBT tweets instantly. Copy and spread the word.</p>
+                
+                <div class="tweet-display" id="tweet-display">
+                    Click "Generate" to load a tweet
+                </div>
+                
+                <div class="tool-actions">
+                    <button class="tool-btn primary" onclick="generateTweet()">Generate Tweet</button>
+                    <button class="tool-btn secondary" onclick="copyTweet()">Copy Tweet</button>
                 </div>
             </div>
 
-        </div>
+            <!-- Market Cap Calculator -->
+            <div class="tool-card">
+                <h2>Market Cap Calculator</h2>
+                <p class="tool-description">Calculate your bag's value at different market caps.</p>
+                
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label for="token-amount">Token Amount</label>
+                        <input type="number" id="token-amount" placeholder="e.g., 1000000" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="market-cap">Target Market Cap (USD)</label>
+                        <input type="number" id="market-cap" placeholder="e.g., 1000000" min="0">
+                    </div>
+                </div>
 
+                <!-- Market Cap Presets -->
+                <div class="mcap-presets">
+                    <button class="preset-btn" onclick="calculatePreset(250000)">$250K</button>
+                    <button class="preset-btn" onclick="calculatePreset(500000)">$500K</button>
+                    <button class="preset-btn" onclick="calculatePreset(1000000)">$1M</button>
+                    <button class="preset-btn" onclick="calculatePreset(2000000)">$2M</button>
+                    <button class="preset-btn" onclick="calculatePreset(5000000)">$5M</button>
+                    <button class="preset-btn" onclick="calculatePreset(10000000)">$10M</button>
+                    <button class="preset-btn" onclick="calculatePreset(25000000)">$25M</button>
+                    <button class="preset-btn" onclick="calculatePreset(50000000)">$50M</button>
+                    <button class="preset-btn" onclick="calculatePreset(100000000)">$100M</button>
+                    <button class="preset-btn" onclick="calculatePreset(250000000)">$250M</button>
+                    <button class="preset-btn" onclick="calculatePreset(500000000)">$500M</button>
+                    <button class="preset-btn" onclick="calculatePreset(1000000000)">$1B</button>
+                </div>
+                
+                <div class="calc-result" id="calc-result">
+                    Enter token amount and select a market cap
+                </div>
+                
+                <div class="tool-actions">
+                    <button class="tool-btn primary" onclick="calculateValue()">Calculate Custom</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Tracker -->
+            <div class="tool-card">
+                <h2>Portfolio Tracker</h2>
+                <p class="tool-description">Track your $DEBT holdings and value by wallet address.</p>
+                
+                <div class="calc-inputs">
+                    <div class="input-group">
+                        <label for="portfolio-address">Solana Wallet Address</label>
+                        <input type="text" id="portfolio-address" placeholder="Enter your wallet address">
+                    </div>
+                </div>
+                
+                <div class="portfolio-result" id="portfolio-result">
+                    Enter your wallet address to track holdings
+                </div>
+                
+                <div class="tool-actions">
+                    <button class="tool-btn primary" onclick="trackPortfolio()">Track Portfolio</button>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
-        &copy; 2024 $DEBT. All rights reserved. | <a href="#" class="footer-link">Privacy</a>
+        <p>
+            © 2025 by
+            <a
+                href="https://x.com/AutopsyT2"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-link"
+            >
+                Autopsy
+            </a>.
+            All rights reserved.
+        </p>
     </footer>
 
-    <script src="shared-scripts.js"></script> 
-    <script src="tools.js"></script>
-
-    </body>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <script src="assets/js/wallet-manager.js"></script>
+    <script defer src="assets/js/shared-scripts.js"></script>
+    <script defer src="assets/js/tools.js"></script>
+</body>
 </html>
