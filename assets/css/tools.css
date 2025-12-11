@@ -1,5 +1,5 @@
 /* =============================================================================
-   TOOLS PAGE STYLES - FIXED VERSION
+   TOOLS PAGE STYLES - FINAL VERSION
    ============================================================================= */
 
 /* --- PAGE LAYOUT --- */
@@ -25,7 +25,7 @@
     text-align: center;
 }
 
-/* --- GLITCH EFFECT FOR H1 --- */
+/* --- GLITCH EFFECT (EXACT MATCH FROM INDEX.CSS) --- */
 .glitch {
     position: relative;
 }
@@ -203,8 +203,7 @@
 }
 
 /* --- CALCULATOR RESULT --- */
-.calc-result,
-.portfolio-result {
+.calc-result {
     background: rgba(13, 13, 13, 0.6);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -219,51 +218,14 @@
     text-align: center;
 }
 
-.calc-result.success,
-.portfolio-result.success {
+.calc-result.success {
     color: var(--main-red);
     font-size: 1.4rem;
     border-color: var(--main-red);
 }
 
-.calc-result.error,
-.portfolio-result.error {
+.calc-result.error {
     color: #ff6b6b;
-}
-
-/* --- PORTFOLIO RESULT SPECIFIC --- */
-.portfolio-result {
-    flex-direction: column;
-    gap: 10px;
-    min-height: 120px;
-}
-
-.portfolio-stat {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.portfolio-stat:last-child {
-    border-bottom: none;
-}
-
-.portfolio-stat-label {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-.portfolio-stat-value {
-    color: var(--main-red);
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-.portfolio-loading {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
 }
 
 /* --- TOOL ACTIONS --- */
@@ -315,7 +277,7 @@
 }
 
 /* =============================================================================
-   MOBILE NAVIGATION FIX - STRONGEST POSSIBLE OVERRIDES
+   MOBILE NAVIGATION - FIXED
    ============================================================================= */
 
 /* DESKTOP: Force hide ALL mobile elements */
@@ -328,9 +290,9 @@
     pointer-events: none !important;
 }
 
-/* MOBILE: Force show mobile elements and hide desktop nav */
+/* MOBILE: Force show mobile elements */
 @media (max-width: 768px) {
-    /* SHOW mobile hamburger menu */
+    /* Show mobile hamburger */
     .hamburger {
         display: flex !important;
         visibility: visible !important;
@@ -351,7 +313,7 @@
         border-radius: 5px !important;
     }
     
-    /* Hamburger lines - WHITE color */
+    /* White hamburger lines */
     .hamburger div {
         width: 20px !important;
         height: 2px !important;
@@ -360,7 +322,7 @@
         transition: all 0.3s ease !important;
     }
     
-    /* Hamburger active state */
+    /* Hamburger X animation */
     .hamburger.active div:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px) !important;
     }
@@ -373,14 +335,14 @@
         transform: rotate(-45deg) translate(4px, -4px) !important;
     }
     
-    /* FORCE SHOW mobile menu when opened */
+    /* Mobile menu dropdown */
     .mobile-menu {
         display: none;
         position: fixed;
         top: 60px;
         left: 15px;
         width: 180px;
-        background-color: rgba(13, 13, 13, 0.9);
+        background-color: rgba(13, 13, 13, 0.95);
         backdrop-filter: blur(10px);
         border-radius: 8px;
         border: 1px solid var(--border-color);
@@ -390,20 +352,24 @@
         overflow-y: auto;
     }
     
-    /* Override any shared-styles hiding */
+    /* Show menu when toggled */
     .mobile-menu[style*="display: block"] {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+        pointer-events: auto !important;
     }
     
+    /* Menu links */
     .mobile-menu a {
         display: block !important;
         color: var(--text-primary) !important;
         padding: 12px 20px !important;
         text-decoration: none !important;
         font-weight: 700 !important;
-        transition: color 0.3s, background-color 0.3s !important;
+        transition: all 0.3s !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
     }
     
     .mobile-menu a:hover {
@@ -411,7 +377,7 @@
         background-color: rgba(255, 255, 255, 0.05) !important;
     }
     
-    /* SHOW mobile buy button */
+    /* Mobile buy button */
     .buy-btn-mobile {
         display: flex !important;
         visibility: visible !important;
@@ -431,42 +397,35 @@
         font-size: 0.9rem !important;
     }
 
-    /* HIDE desktop nav links on mobile */
+    /* Hide desktop navigation */
     .nav-links {
         display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
     }
 
-    /* HIDE desktop Buy button on mobile */
     .nav-actions .cta-button {
         display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
     }
     
-    /* Center the logo on mobile */
+    /* Center logo */
     .navbar {
         justify-content: center !important;
     }
 
-    /* Other mobile responsive styles */
+    /* Mobile responsive styles */
     .content-wrapper {
-        padding: 60px 15px 40px;
+        padding: 70px 15px 40px;
     }
 
     .tools-header {
-        padding: 10px 15px;
+        padding: 20px 15px;
     }
 
     .tools-header h1 {
-        font-size: 2rem;
-        text-align: center;
+        font-size: 2.5rem;
     }
 
     .tools-subtitle {
         font-size: 1.1rem;
-        text-align: center;
     }
 
     .tools-grid {
@@ -495,14 +454,12 @@
         font-size: 0.9rem;
     }
 
-    .calc-result,
-    .portfolio-result {
+    .calc-result {
         min-height: 60px;
         font-size: 1rem;
     }
 
-    .calc-result.success,
-    .portfolio-result.success {
+    .calc-result.success {
         font-size: 1.2rem;
     }
 
