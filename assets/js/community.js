@@ -4,7 +4,7 @@
 
 // --- SHILLER OF THE WEEK CONFIGURATION ---
 // Change these values to update the Shiller of the Week display
-const SHILLER_OF_THE_WEEK = 'Lou'; // Name of current shiller
+const SHILLER_OF_THE_WEEK = 'Ambient'; // Name of current shiller
 const SHILLER_CURRENT_STREAK = 1; // Current consecutive weeks
 
 // --- GLOBAL VARIABLES ---
@@ -322,7 +322,10 @@ function assignBadges() {
         }
         
         if (member.shillerOfTheWeekWins > 0) {
-            badges.push({ type: 'shiller-of-the-week-winner' });
+            badges.push({ 
+                type: 'shiller-of-the-week-winner',
+                wins: member.shillerOfTheWeekWins
+            });
         }
         
         if (member.whaleAlert === true) {
@@ -703,6 +706,14 @@ function createBadgeElement(badge) {
         const countEl = document.createElement('span');
         countEl.className = 'badge-count';
         countEl.textContent = badge.count;
+        badgeEl.appendChild(countEl);
+    }
+    
+    // Add multiplier for SOTW badge if won multiple times
+    if (badge.type === 'shiller-of-the-week-winner' && badge.wins && badge.wins > 1) {
+        const countEl = document.createElement('span');
+        countEl.className = 'badge-count';
+        countEl.textContent = `x${badge.wins}`;
         badgeEl.appendChild(countEl);
     }
     
