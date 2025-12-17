@@ -587,6 +587,72 @@ const members = [
         shillerOfTheWeekWins: 0
     },
     {
+        name: 'Melting Moons',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/MeltingMoons_',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766005747/MM_fcv4bb.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Iris',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/iris_seraphina',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Barr',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/barrt20',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766005747/barr_ylvg24.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Mr.casquette',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/eggylokk',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Isla',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/biskinmello23',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766004288/Add_k1hpls.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Jessica',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/Jessicacrazycat',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766005747/Jessica_cglmd2.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
         name: 'Numbaz',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
