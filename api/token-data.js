@@ -1,12 +1,13 @@
 /* =============================================================================
    TOKEN DATA API - Vercel Serverless Function
+   Version: 2.0 - Fixed Helius RPC Integration
    Securely fetches Solana token data using Helius API
    ============================================================================= */
 
 /**
  * Serverless function handler for token data requests
  * Endpoints:
- *   - /api/token-data?type=tokenomics - Fetches supply and LP data
+ *   - /api/token-data?type=tokenomics - Fetches supply data
  *   - /api/token-data?type=balance&publicKey={wallet} - Fetches wallet balance
  * 
  * @param {Object} request - Vercel request object
@@ -34,8 +35,7 @@ export default async function handler(request, response) {
 
     // Configuration: Token addresses
     const TOKEN_CONFIG = {
-        mintAddress: '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump',
-        lpAddress: 'Hnpbt4yVSTc2LLrmuzZQaJbMomgae8fhEUMRPocYwxAa'
+        mintAddress: '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump'
     };
 
     // Parse query parameters
@@ -77,9 +77,8 @@ export default async function handler(request, response) {
 /* --- HANDLER FUNCTIONS --- */
 
 /**
- * Handles tokenomics data request (supply + liquidity pool)
- * Returns data in the format expected by frontend:
- * { supplyData: [...], lpData: {...} }
+ * Handles tokenomics data request using Helius RPC
+ * Returns properly structured supply data with decimals
  * 
  * @param {Object} response - Vercel response object
  * @param {string} apiKey - Helius API key
@@ -87,28 +86,8 @@ export default async function handler(request, response) {
  */
 async function handleTokenomics(response, apiKey, config) {
     try {
-        // Fetch token metadata (includes supply information)
+        // Use Helius RPC to fetch token supply directly
         const supplyResponse = await fetch(
-            `https://api.helius.xyz/v0/token-metadata?api-key=${apiKey}`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    mintAccounts: [config.mintAddress] 
-                })
-            }
-        );
-
-        if (!supplyResponse.ok) {
-            const errorText = await supplyResponse.text();
-            console.error(`Helius metadata API error: ${supplyResponse.status} - ${errorText}`);
-            throw new Error(`Helius metadata API returned status ${supplyResponse.status}`);
-        }
-
-        const supplyData = await supplyResponse.json();
-
-        // Fetch liquidity pool token balance
-        const lpResponse = await fetch(
             `https://rpc.helius.xyz/?api-key=${apiKey}`,
             {
                 method: 'POST',
@@ -116,31 +95,36 @@ async function handleTokenomics(response, apiKey, config) {
                 body: JSON.stringify({
                     jsonrpc: '2.0',
                     id: 1,
-                    method: 'getTokenAccountBalance',
-                    params: [config.lpAddress]
+                    method: 'getTokenSupply',
+                    params: [config.mintAddress]
                 })
             }
         );
 
-        if (!lpResponse.ok) {
-            const errorText = await lpResponse.text();
-            console.error(`Helius RPC API error: ${lpResponse.status} - ${errorText}`);
-            throw new Error(`Helius RPC API returned status ${lpResponse.status}`);
+        if (!supplyResponse.ok) {
+            const errorText = await supplyResponse.text();
+            console.error(`Helius RPC supply error: ${supplyResponse.status} - ${errorText}`);
+            throw new Error(`Helius RPC API returned status ${supplyResponse.status}`);
         }
 
-        const lpData = await lpResponse.json();
+        const supplyData = await supplyResponse.json();
 
         // Validate RPC response structure
-        if (lpData.error) {
-            console.error('RPC error:', lpData.error);
-            throw new Error(`RPC error: ${lpData.error.message || 'Unknown RPC error'}`);
+        if (supplyData.error) {
+            console.error('RPC supply error:', supplyData.error);
+            throw new Error(`RPC error: ${supplyData.error.message || 'Unknown RPC error'}`);
         }
 
-        // IMPORTANT: Return in the EXACT format the frontend expects
-        // Frontend expects: { supplyData: [...], lpData: {...} }
+        if (!supplyData.result || !supplyData.result.value) {
+            throw new Error('Invalid supply data structure from Helius');
+        }
+
+        // Return data in the format frontend expects
+        // Frontend needs: supply (raw), decimals, and uiAmount (human-readable)
         return response.status(200).json({
-            supplyData: supplyData,
-            lpData: lpData
+            supply: supplyData.result.value.amount,
+            decimals: supplyData.result.value.decimals,
+            uiAmount: supplyData.result.value.uiAmount
         });
 
     } catch (error) {
@@ -148,7 +132,7 @@ async function handleTokenomics(response, apiKey, config) {
         return response.status(500).json({ 
             error: 'Failed to fetch tokenomics data',
             message: error.message,
-            details: 'Unable to retrieve token supply or liquidity pool information'
+            details: 'Unable to retrieve token supply information'
         });
     }
 }
@@ -224,7 +208,7 @@ async function handleBalance(response, apiKey, publicKey) {
    4. Response Formats:
       
       TOKENOMICS ENDPOINT (/api/token-data?type=tokenomics):
-      Returns: { supplyData: [...], lpData: {...} }
+      Returns: { supply: "1000000000000000000", decimals: 9, uiAmount: 1000000000 }
       
       BALANCE ENDPOINT (/api/token-data?type=balance&publicKey=...):
       Returns: Raw Helius balance data (tokens array, etc.)
@@ -233,7 +217,8 @@ async function handleBalance(response, apiKey, publicKey) {
       
       // Fetch tokenomics
       const response = await fetch('/api/token-data?type=tokenomics');
-      const { supplyData, lpData } = await response.json();
+      const data = await response.json();
+      const currentSupply = data.uiAmount; // Human-readable supply
       
       // Fetch balance
       const balanceResponse = await fetch(
@@ -246,5 +231,11 @@ async function handleBalance(response, apiKey, publicKey) {
       - All errors return JSON with 'error' and 'message' fields
       - Check response.ok before parsing JSON
       - Log errors to console for debugging
+   
+   7. Changes in v2.0:
+      - Removed LP address (no longer needed for circulating supply)
+      - Simplified to use getTokenSupply RPC method
+      - Returns cleaner data structure
+      - Fixed data structure mismatch that caused frontend errors
    
    ============================================================================= */
