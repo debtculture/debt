@@ -345,11 +345,11 @@ const members = [
         shillerOfTheWeekWins: 0
     },
     {
-        name: 'AMP',
+        name: 'Smucker',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/AiiiM_19',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764010095/AMP_me6gau.jpg',
+        xLink: 'https://x.com/smuckersdd',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766002787/smuck_o9rzpv.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
         whaleAlert: false,
@@ -488,11 +488,11 @@ const members = [
         shillerOfTheWeekWins: 0
     },
     {
-        name: 'Newyn',
+        name: 'Wally',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
-        xLink: 'https://x.com/Newyn69420',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016157/newyn_nsdu12.jpg',
+        xLink: 'https://x.com/AI_Alpha_Wolf',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766002898/wally_zial0x.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
         whaleAlert: false,
