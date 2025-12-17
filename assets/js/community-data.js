@@ -13,8 +13,8 @@ const members = [
         teamMember: true,
         teamTitle: 'Founder',
         isFounder: true,
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -26,8 +26,8 @@ const members = [
         coreContributor: true,
         teamMember: true,
         teamTitle: 'Growth Strategist',
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -39,8 +39,8 @@ const members = [
         coreContributor: true,
         teamMember: true,
         teamTitle: 'Community Lead',
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -50,8 +50,8 @@ const members = [
         xLink: 'https://x.com/Tormund_17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tormund_pj4hwd.jpg',
         coreContributor: true,
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -62,7 +62,7 @@ const members = [
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
-        whaleAlert: false,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -73,7 +73,7 @@ const members = [
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015559/blu_qm8dxh.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
-        whaleAlert: false,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -83,8 +83,8 @@ const members = [
         xLink: 'https://x.com/drinkonsaturday',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg',
         coreContributor: true,
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -94,8 +94,8 @@ const members = [
         xLink: 'https://x.com/ReneeBush96829',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016511/renee_xwyine.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -107,8 +107,8 @@ const members = [
         coreContributor: true,
         teamMember: true,
         teamTitle: 'Content Director',
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 1
     },
     {
@@ -130,7 +130,7 @@ const members = [
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
-        whaleAlert: false,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -142,8 +142,8 @@ const members = [
         coreContributor: true,
         teamMember: true,
         teamTitle: 'Head of Marketing',
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -186,8 +186,8 @@ const members = [
         xLink: 'https://x.com/rankin56696',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015803/rankin_gippfm.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
-        whaleAlert: false,
+        coldBloodedShiller: true,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -219,7 +219,7 @@ const members = [
         xLink: 'https://x.com/ElpatronSFC',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016510/Elvis_ypdtjl.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
@@ -230,7 +230,7 @@ const members = [
         xLink: 'https://x.com/Bstr___',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
@@ -242,7 +242,7 @@ const members = [
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
-        whaleAlert: false,
+        whaleAlert: true,
         shillerOfTheWeekWins: 0
     },
     {
@@ -252,7 +252,7 @@ const members = [
         xLink: 'https://x.com/Dog66515910',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
@@ -274,7 +274,7 @@ const members = [
         xLink: 'https://x.com/HauskenHelge',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/ZOMBi_obepxi.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
@@ -373,7 +373,7 @@ const members = [
         xLink: 'https://x.com/StrawHatStew',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027471/stew_vjeoyi.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
@@ -395,7 +395,7 @@ const members = [
         xLink: 'https://x.com/0xDnxl',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
