@@ -1,6 +1,6 @@
 /* =============================================================================
    INDEX PAGE LOGIC
-   Version: 2.1 - WORKING Tokenomics Fetch with DexScreener Fallback
+   Version: 3.0 - Fixed API Integration & Correct Circulating Supply Calculation
    ============================================================================= */
 
 // =================================================================================
@@ -47,7 +47,7 @@ async function fetchTokenomicsData() {
             const response = await fetch('/api/token-data?type=tokenomics');
             if (response.ok) {
                 const data = await response.json();
-                console.log('Primary API succeeded.');
+                console.log('Primary API succeeded:', data);
                 await processTokenomicsFromAPI(data);
                 return; // Success, exit function
             }
@@ -66,27 +66,25 @@ async function fetchTokenomicsData() {
 
 /**
  * Process data from primary API
+ * Updated to match new API response structure: { supply, decimals, uiAmount }
  */
 async function processTokenomicsFromAPI(data) {
-    if (!data || !data.supplyData || !data.supplyData[0]) {
-        throw new Error('Invalid data structure from API');
-    }
-    
-    const tokenData = data.supplyData[0];
-    const onChainInfo = tokenData.onChainInfo;
-    
-    if (!onChainInfo || !onChainInfo.supply || !onChainInfo.decimals) {
-        throw new Error('Missing supply or decimals data');
+    // Validate API response structure
+    if (!data || typeof data.uiAmount === 'undefined') {
+        throw new Error('Invalid data structure from API - missing uiAmount');
     }
     
     const LOCKED_TOKENS = 200363613.139407;
     
-    const currentSupply = parseInt(onChainInfo.supply) / Math.pow(10, onChainInfo.decimals);
-    const lpBalance = data.lpData?.result?.value?.uiAmount || 0;
-    const circulatingSupply = currentSupply - LOCKED_TOKENS - lpBalance;
+    // Get current supply directly from API (already in human-readable format)
+    const currentSupply = data.uiAmount;
+    
+    // Calculate true circulating supply (current supply - locked tokens ONLY)
+    // LP tokens are NOT subtracted as they are technically in circulation
+    const circulatingSupply = currentSupply - LOCKED_TOKENS;
     const circulatingPercentage = (circulatingSupply / currentSupply) * 100;
     
-    // Fetch Dex data for MC and volume
+    // Fetch DexScreener data for market cap and volume
     const dexData = await fetchDexData();
     const marketCap = dexData.marketCap;
     const volume24h = dexData.volume24h;
@@ -96,6 +94,13 @@ async function processTokenomicsFromAPI(data) {
         volume24h: formatLargeNumber(volume24h),
         circulatingSupply: formatLargeNumber(circulatingSupply),
         circulatingPercentage: circulatingPercentage.toFixed(2)
+    });
+    
+    console.log('Tokenomics loaded from API:', {
+        currentSupply: formatLargeNumber(currentSupply),
+        lockedTokens: formatLargeNumber(LOCKED_TOKENS),
+        circulatingSupply: formatLargeNumber(circulatingSupply),
+        circulatingPercentage: circulatingPercentage.toFixed(2) + '%'
     });
 }
 
@@ -150,10 +155,11 @@ async function fetchFromDexScreener() {
         currentSupply = priceUsd > 0 ? marketCap / priceUsd : 1000000000;
     }
     
-    const lpTokens = dexData.liquidityBase;
     const LOCKED_TOKENS = 200363613.139407;
     
-    const circulatingSupply = currentSupply - LOCKED_TOKENS - lpTokens;
+    // Calculate true circulating supply (current supply - locked tokens ONLY)
+    // LP tokens are NOT subtracted as they are technically in circulation
+    const circulatingSupply = currentSupply - LOCKED_TOKENS;
     const circulatingPercentage = (circulatingSupply / currentSupply) * 100;
     
     updateTokenomicsUI({
