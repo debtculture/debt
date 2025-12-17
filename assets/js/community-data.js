@@ -9,7 +9,13 @@ const members = [
         holderSince: '07/21/2024',
         xLink: 'https://x.com/AutopsyT2',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758110923/rKUcuWaF_400x400_d3fqvc.jpg',
-        coreContributor: true
+        coreContributor: true,
+        teamMember: true,
+        teamTitle: 'Founder',
+        isFounder: true,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Catavina',
@@ -17,7 +23,12 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/catavina17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015636/Cat_pznbrd.jpg',
-        coreContributor: true
+        coreContributor: true,
+        teamMember: true,
+        teamTitle: 'Growth Strategist',
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Lou',
@@ -25,7 +36,12 @@ const members = [
         holderSince: '01/10/2025',
         xLink: 'https://x.com/louisedbegin',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015802/lou_ifk4hw.jpg',
-        coreContributor: true
+        coreContributor: true,
+        teamMember: true,
+        teamTitle: 'Community Lead',
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Tormund',
@@ -33,7 +49,10 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/Tormund_17',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Tormund_pj4hwd.jpg',
-        coreContributor: true
+        coreContributor: true,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'JPEG',
@@ -41,7 +60,10 @@ const members = [
         holderSince: '07/22/2024',
         xLink: 'https://x.com/jpegfein',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755034794/JPEG_rte1vj.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Blu',
@@ -49,7 +71,10 @@ const members = [
         holderSince: '02/14/2025',
         xLink: 'https://x.com/blu_chek',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015559/blu_qm8dxh.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Drinks',
@@ -57,7 +82,10 @@ const members = [
         holderSince: '05/18/2025',
         xLink: 'https://x.com/drinkonsaturday',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906211/Drinks_tibhzd.jpg',
-        coreContributor: true
+        coreContributor: true,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Renee',
@@ -65,7 +93,10 @@ const members = [
         holderSince: '02/11/2025',
         xLink: 'https://x.com/ReneeBush96829',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016511/renee_xwyine.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Ambient',
@@ -73,7 +104,12 @@ const members = [
         holderSince: '05/23/2025',
         xLink: 'https://x.com/AmbientSound',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748906930/Ambient_jztyfi.jpg',
-        coreContributor: true
+        coreContributor: true,
+        teamMember: true,
+        teamTitle: 'Content Director',
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Dead End King',
@@ -81,7 +117,10 @@ const members = [
         holderSince: '02/04/2025',
         xLink: 'https://x.com/deadend_king',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758111318/tom_firsei.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Lunicking',
@@ -89,7 +128,10 @@ const members = [
         holderSince: '11/17/2024',
         xLink: 'https://x.com/Lunicking178677',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1746723031/Lunic_k1ndzn.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Cory',
@@ -97,7 +139,12 @@ const members = [
         holderSince: '05/30/2025',
         xLink: 'https://x.com/CoryBOnChain',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015801/cory_vu0lna.jpg',
-        coreContributor: true
+        coreContributor: true,
+        teamMember: true,
+        teamTitle: 'Head of Marketing',
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Dan',
@@ -105,7 +152,10 @@ const members = [
         holderSince: '05/30/2025',
         xLink: 'https://x.com/DanVibes10',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/Dan_uu4sey.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'iBeToKeN',
@@ -113,7 +163,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/xXiBeToKeNXx',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027327/token_ena0yf.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Duck',
@@ -121,7 +174,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/DucksonX',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764010253/Duck_ktmoic.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Rankin',
@@ -129,7 +185,10 @@ const members = [
         holderSince: '06/27/2025',
         xLink: 'https://x.com/rankin56696',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015803/rankin_gippfm.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Scrappy',
@@ -137,7 +196,10 @@ const members = [
         holderSince: '08/29/2025',
         xLink: 'https://x.com/bigsoup6_7',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/scrappy2_ihsso6.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Mia',
@@ -145,7 +207,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/GirlMia9079',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1754610304/KNg3MAIS_400x400_tmabka.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Elvis',
@@ -153,7 +218,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/ElpatronSFC',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016510/Elvis_ypdtjl.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Bstr',
@@ -161,7 +229,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/Bstr___',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752608094/bstr_knv2eq.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'George',
@@ -169,7 +240,10 @@ const members = [
         holderSince: '03/19/2025',
         xLink: 'https://x.com/GeorgeCdr28874',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747417142/George_q1e0c2.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Dog',
@@ -177,7 +251,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/Dog66515910',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752948926/Dog2_sb9l5v.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Bacon',
@@ -185,7 +262,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/NoItsMyServe',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1761594307/bacon_v5g4qp.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'ZOMBi',
@@ -193,7 +273,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/HauskenHelge',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1747354104/ZOMBi_obepxi.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Glow',
@@ -201,7 +284,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/GlowsHaven',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016512/glow_h1g7s4.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Demitrieus',
@@ -209,7 +295,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/RecklesUnicorn',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016513/dem_oqwits.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Ugo',
@@ -217,7 +306,10 @@ const members = [
         holderSince: '08/27/2025',
         xLink: 'https://x.com/_Ugosiugo',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1758747924/Ugo_flbfsw.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'ANTI',
@@ -225,7 +317,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/AntiOnChain',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015509/ANTI_nodul9.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Momma Blu',
@@ -233,7 +328,10 @@ const members = [
         holderSince: '02/14/2025',
         xLink: 'https://x.com/AngelaPatt86456',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1760549073/mblu_gjlpwh.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Thurston',
@@ -241,7 +339,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/ThurstonWaffles',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032869/Thurston_n6zd2i.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'AMP',
@@ -249,7 +350,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/AiiiM_19',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764010095/AMP_me6gau.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Gnomie',
@@ -257,7 +361,10 @@ const members = [
         holderSince: '08/29/2025',
         xLink: 'https://x.com/medraresteaker',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764015802/gnomie_z2gr3x.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'StrawHatStew',
@@ -265,7 +372,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/StrawHatStew',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027471/stew_vjeoyi.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'George Eager',
@@ -273,7 +383,10 @@ const members = [
         holderSince: '03/16/2025',
         xLink: 'https://x.com/edition1',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016723/GeorgeE_synsnp.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Denzel',
@@ -281,7 +394,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/0xDnxl',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032699/Denzel_bmt4td.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Tree',
@@ -289,7 +405,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/TheresaWeik',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1755032771/Tree_bggo4f.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Money Miller',
@@ -297,7 +416,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/ItsMoneyMiller',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016725/MM_idryli.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Eric',
@@ -305,7 +427,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/micelf4all',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027143/eric_eulpyw.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'DaveR',
@@ -313,7 +438,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/DaveRmetax',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016158/daver_ueqbqd.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: '11th Metal',
@@ -321,7 +449,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/MakersPassing',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764013157/11th_g9vgza.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Jersey',
@@ -329,7 +460,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/JerseytoAsia',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016724/jers_fjethb.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'DEV',
@@ -337,7 +471,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/diamondba11z',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016015/DEV_que18l.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Morgen',
@@ -345,7 +482,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/AiArsenals',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016837/morg_ocx8gu.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Newyn',
@@ -353,7 +493,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/Newyn69420',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016157/newyn_nsdu12.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'SkuncleD',
@@ -361,7 +504,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/DSkuncle',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764011032/SkuncleD_xdtlrm.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Trash Panda',
@@ -369,7 +515,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/TrashpandaXmeta',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764011103/TP_hhlfob.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'XELA',
@@ -377,7 +526,10 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/Xelarocket',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016015/XELA_yy8ssg.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     },
     {
         name: 'Numbaz',
@@ -385,6 +537,9 @@ const members = [
         holderSince: 'TBD',
         xLink: 'https://x.com/numbazhq',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764016158/numbaz_hh2ycu.jpg',
-        coreContributor: false
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
     }
 ];
