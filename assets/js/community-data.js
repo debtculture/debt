@@ -109,7 +109,7 @@ const members = [
         teamTitle: 'Content Director',
         coldBloodedShiller: false,
         whaleAlert: false,
-        shillerOfTheWeekWins: 0
+        shillerOfTheWeekWins: 1
     },
     {
         name: 'Dead End King',
