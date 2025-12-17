@@ -2,6 +2,11 @@
    COMMUNITY PAGE LOGIC - Automated Badge System & Dynamic Rankings
    ============================================================================= */
 
+// --- SHILLER OF THE WEEK CONFIGURATION ---
+// Change these values to update the Shiller of the Week display
+const SHILLER_OF_THE_WEEK = 'Lou'; // Name of current shiller
+const SHILLER_CURRENT_STREAK = 1; // Current consecutive weeks
+
 // --- GLOBAL VARIABLES ---
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
 let allData = [];
@@ -29,7 +34,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Sort members by total points (highest first)
     sortMembersByPoints();
     
-    // Generate member grid with sorted members
+    // Generate Team section
+    generateTeamSection();
+    
+    // Generate Shiller of the Week section
+    generateShillerOfTheWeek();
+    
+    // Generate member grid with sorted members (excluding team)
     generateNonFeaturedMembers();
     
     // Initialize Hall of Fame Carousel
@@ -229,44 +240,58 @@ function calculateCurrentMonthlyRanks() {
 /**
  * Assigns badges to members based on their stats
  * Badge types:
- * - Monthly Winners (1st/2nd/3rd place badges with month tooltips)
+ * - Monthly Winners (1st/2nd/3rd place badges with month tooltips) - ONLY for completed months
  * - Milestones (50, 100, 250, 500, 1000 points)
  * - Profile Pioneer (has wallet address)
- * - Consistent Contributor (10+ events)
+ * - Consistent Player (10+ events)
  * - Core Contributor (manually assigned)
+ * - Cold Blooded Shiller (manually assigned)
+ * - Shiller of the Week Winner (has won SOTW at least once)
+ * - Whale Alert (manually assigned)
  */
 function assignBadges() {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
     members.forEach(member => {
         const stats = memberStats[member.name];
         const badges = [];
         
-        // 1. Monthly Winner Badges
+        // 1. Monthly Winner Badges - EXCLUDE CURRENT MONTH
         if (stats.monthlyWins.length > 0) {
-            // Group wins by place
-            const firstPlaces = stats.monthlyWins.filter(w => w.place === 1);
-            const secondPlaces = stats.monthlyWins.filter(w => w.place === 2);
-            const thirdPlaces = stats.monthlyWins.filter(w => w.place === 3);
+            // Filter out current month wins
+            const completedWins = stats.monthlyWins.filter(w => 
+                !(w.year === currentYear && new Date(`${w.month} 1, ${w.year}`).getMonth() === currentMonth)
+            );
             
-            if (firstPlaces.length > 0) {
-                badges.push({
-                    type: 'monthly-first',
-                    count: firstPlaces.length,
-                    months: firstPlaces
-                });
-            }
-            if (secondPlaces.length > 0) {
-                badges.push({
-                    type: 'monthly-second',
-                    count: secondPlaces.length,
-                    months: secondPlaces
-                });
-            }
-            if (thirdPlaces.length > 0) {
-                badges.push({
-                    type: 'monthly-third',
-                    count: thirdPlaces.length,
-                    months: thirdPlaces
-                });
+            if (completedWins.length > 0) {
+                // Group wins by place
+                const firstPlaces = completedWins.filter(w => w.place === 1);
+                const secondPlaces = completedWins.filter(w => w.place === 2);
+                const thirdPlaces = completedWins.filter(w => w.place === 3);
+                
+                if (firstPlaces.length > 0) {
+                    badges.push({
+                        type: 'monthly-first',
+                        count: firstPlaces.length,
+                        months: firstPlaces
+                    });
+                }
+                if (secondPlaces.length > 0) {
+                    badges.push({
+                        type: 'monthly-second',
+                        count: secondPlaces.length,
+                        months: secondPlaces
+                    });
+                }
+                if (thirdPlaces.length > 0) {
+                    badges.push({
+                        type: 'monthly-third',
+                        count: thirdPlaces.length,
+                        months: thirdPlaces
+                    });
+                }
             }
         }
         
@@ -285,11 +310,23 @@ function assignBadges() {
         
         // 3. Special Badges (Profile Pioneer excluded - shows in top corner)
         if (stats.eventCount >= 10) {
-            badges.push({ type: 'consistent-contributor' });
+            badges.push({ type: 'consistent-player' });
         }
         
         if (member.coreContributor === true) {
             badges.push({ type: 'core-contributor' });
+        }
+        
+        if (member.coldBloodedShiller === true) {
+            badges.push({ type: 'cold-blooded-shiller' });
+        }
+        
+        if (member.shillerOfTheWeekWins > 0) {
+            badges.push({ type: 'shiller-of-the-week-winner' });
+        }
+        
+        if (member.whaleAlert === true) {
+            badges.push({ type: 'whale-alert' });
         }
         
         stats.badges = badges;
@@ -317,7 +354,10 @@ function getLevel(points) {
  * Updates the sortedMembers array
  */
 function sortMembersByPoints() {
-    sortedMembers = [...members].sort((a, b) => {
+    // Filter out team members from the HOF sorting
+    const hofMembers = members.filter(m => !m.teamMember);
+    
+    sortedMembers = hofMembers.sort((a, b) => {
         const aPoints = memberStats[a.name]?.totalPoints || 0;
         const bPoints = memberStats[b.name]?.totalPoints || 0;
         return bPoints - aPoints;
@@ -326,6 +366,126 @@ function sortMembersByPoints() {
     console.log('Members sorted by points. Top 5:', 
         sortedMembers.slice(0, 5).map(m => `${m.name}: ${memberStats[m.name]?.totalPoints || 0}pts`)
     );
+}
+
+/* =============================================================================
+   TEAM SECTION GENERATION
+   ============================================================================= */
+
+/**
+ * Generates the Team section dynamically from members marked as teamMember
+ * Layout: Ambient -> Catavina -> Autopsy (founder, center) -> Lou -> Cory
+ */
+function generateTeamSection() {
+    const teamContainer = document.getElementById('team-container');
+    if (!teamContainer) {
+        console.error('Team container not found');
+        return;
+    }
+    
+    // Get team members in specific order
+    const teamOrder = ['Ambient', 'Catavina', 'Autopsy', 'Lou', 'Cory'];
+    const teamMembers = teamOrder.map(name => members.find(m => m.name === name)).filter(Boolean);
+    
+    teamMembers.forEach(member => {
+        const stats = memberStats[member.name];
+        const isFounder = member.isFounder === true;
+        
+        const memberDiv = document.createElement('div');
+        memberDiv.className = isFounder ? 'team-member founder' : 'team-member';
+        
+        // PFP
+        const pfpLink = document.createElement('a');
+        pfpLink.href = member.xLink;
+        pfpLink.target = '_blank';
+        pfpLink.rel = 'noopener noreferrer';
+        pfpLink.className = 'team-pfp-link';
+        
+        const pfpImg = document.createElement('img');
+        pfpImg.src = member.img;
+        pfpImg.alt = `${member.name} profile picture`;
+        pfpImg.className = 'team-pfp';
+        
+        pfpLink.appendChild(pfpImg);
+        
+        // Name
+        const nameEl = document.createElement('div');
+        nameEl.className = 'team-name';
+        nameEl.textContent = member.name;
+        
+        // Title
+        const titleEl = document.createElement('div');
+        titleEl.className = 'team-title';
+        titleEl.textContent = member.teamTitle;
+        
+        // Badges
+        const badgesContainer = document.createElement('div');
+        badgesContainer.className = 'team-badges';
+        
+        if (stats && stats.badges) {
+            stats.badges.forEach(badge => {
+                const badgeEl = createBadgeElement(badge);
+                badgesContainer.appendChild(badgeEl);
+            });
+        }
+        
+        memberDiv.appendChild(pfpLink);
+        memberDiv.appendChild(nameEl);
+        memberDiv.appendChild(titleEl);
+        memberDiv.appendChild(badgesContainer);
+        
+        teamContainer.appendChild(memberDiv);
+    });
+}
+
+/* =============================================================================
+   SHILLER OF THE WEEK GENERATION
+   ============================================================================= */
+
+/**
+ * Generates the Shiller of the Week spotlight section
+ */
+function generateShillerOfTheWeek() {
+    const sotwContainer = document.getElementById('sotw-container');
+    if (!sotwContainer) {
+        console.error('Shiller of the Week container not found');
+        return;
+    }
+    
+    const shillerMember = members.find(m => m.name === SHILLER_OF_THE_WEEK);
+    if (!shillerMember) {
+        console.error(`Shiller "${SHILLER_OF_THE_WEEK}" not found in members`);
+        return;
+    }
+    
+    const stats = memberStats[shillerMember.name];
+    const totalWins = shillerMember.shillerOfTheWeekWins || 0;
+    
+    sotwContainer.innerHTML = `
+        <div class="sotw-pfp-container">
+            <a href="${shillerMember.xLink}" target="_blank" rel="noopener noreferrer">
+                <img src="${shillerMember.img}" alt="${shillerMember.name}" class="sotw-pfp">
+            </a>
+        </div>
+        <div class="sotw-content">
+            <div class="sotw-header">⭐ SHILLER OF THE WEEK ⭐</div>
+            <div class="sotw-name">${shillerMember.name}</div>
+            <div class="sotw-stats">
+                <div class="sotw-stat">Has Won: <span>${totalWins}</span> time${totalWins !== 1 ? 's' : ''}</div>
+                <div class="sotw-stat">Current Streak: <span>${SHILLER_CURRENT_STREAK}</span> week${SHILLER_CURRENT_STREAK !== 1 ? 's' : ''}</div>
+            </div>
+            <div class="sotw-badges" id="sotw-badges"></div>
+        </div>
+    `;
+    
+    // Add badges
+    const badgesContainer = document.getElementById('sotw-badges');
+    if (stats && stats.badges) {
+        stats.badges.forEach(badge => {
+            const badgeEl = createBadgeElement(badge);
+            badgesContainer.appendChild(badgeEl);
+        });
+    }
 }
 
 /* =============================================================================
@@ -524,10 +684,16 @@ function createBadgeElement(badge) {
         tooltip = `Milestone: ${points}+ Points`;
     } else if (badge.type === 'profile-pioneer') {
         tooltip = 'Profile Pioneer: Created a profile on the site';
-    } else if (badge.type === 'consistent-contributor') {
-        tooltip = 'Consistent Contributor: Participated in 10+ events';
+    } else if (badge.type === 'consistent-player') {
+        tooltip = 'Consistent Player: Participated in 10+ events';
     } else if (badge.type === 'core-contributor') {
         tooltip = 'Core Contributor: Special recognition for exceptional commitment';
+    } else if (badge.type === 'cold-blooded-shiller') {
+        tooltip = 'Cold Blooded Shiller: Consistently shills the project on social media';
+    } else if (badge.type === 'shiller-of-the-week-winner') {
+        tooltip = 'Shiller of the Week Winner: Has won Shiller of the Week';
+    } else if (badge.type === 'whale-alert') {
+        tooltip = 'Whale Alert: Holds 1%+ of token supply';
     }
     
     badgeEl.setAttribute('title', tooltip);
@@ -593,6 +759,7 @@ function calculateScores(data) {
 
 /**
  * Renders the leaderboard table with calculated scores
+ * Handles ties by showing same rank and skipping next ranks appropriately
  * @param {Array} scores - Array of {username, points}
  */
 function renderLeaderboard(scores) {
@@ -609,18 +776,42 @@ function renderLeaderboard(scores) {
     
     loadingEl.style.display = 'none';
     
+    let currentRank = 1;
+    let previousPoints = null;
+    let tiedCount = 0;
+    
     scores.forEach((score, index) => {
-        const rank = index + 1;
+        // Check if this is a tie
+        if (previousPoints !== null && score.points === previousPoints) {
+            // Same rank as previous
+            tiedCount++;
+        } else {
+            // New rank - jump by number of tied players
+            if (tiedCount > 0) {
+                currentRank += tiedCount + 1;
+                tiedCount = 0;
+            } else if (index > 0) {
+                currentRank++;
+            }
+        }
+        
         const row = document.createElement('tr');
         
-        if (rank === 1) row.classList.add('rank-1');
-        else if (rank === 2) row.classList.add('rank-2');
-        else if (rank === 3) row.classList.add('rank-3');
+        // Apply ranking classes for top 3 (including all tied members)
+        if (currentRank === 1) row.classList.add('rank-1');
+        else if (currentRank === 2) row.classList.add('rank-2');
+        else if (currentRank === 3) row.classList.add('rank-3');
         
-        let rankContent = rank;
-        if (rank === 1) rankContent = '🥇 ' + rank;
-        else if (rank === 2) rankContent = '🥈 ' + rank;
-        else if (rank === 3) rankContent = '🥉 ' + rank;
+        // Display rank with tie indicator if applicable
+        let rankContent = currentRank;
+        if (previousPoints !== null && score.points === previousPoints) {
+            rankContent = 'T' + currentRank;
+        }
+        
+        // Add medal emojis for top 3
+        if (currentRank === 1) rankContent = '🥇 ' + rankContent;
+        else if (currentRank === 2) rankContent = '🥈 ' + rankContent;
+        else if (currentRank === 3) rankContent = '🥉 ' + rankContent;
         
         row.innerHTML = `
             <td class="rank-cell">${rankContent}</td>
@@ -629,6 +820,7 @@ function renderLeaderboard(scores) {
         `;
         
         tbody.appendChild(row);
+        previousPoints = score.points;
     });
 }
 
