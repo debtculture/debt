@@ -1,6 +1,6 @@
 /* =============================================================================
    INDEX PAGE STYLES
-   Version: 2.3 (10px Spacing, Smaller Resource Container on Desktop)
+   Version: 3.0 - Updated Schedule Grid (4 columns desktop, stacked mobile)
    
    Table of Contents:
    1. Page Layout
@@ -34,7 +34,7 @@
 
 .hero-section {
     text-align: center;
-    padding: 10px 20px 10px; /* Reduced from 30px to 10px */
+    padding: 10px 20px 10px;
 }
 
 .hero-section h1 {
@@ -55,7 +55,7 @@
 
 .video-container {
     max-width: 900px;
-    margin: 0 auto 10px; /* Reduced from 30px to 10px */
+    margin: 0 auto 10px;
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid var(--main-red);
@@ -75,7 +75,7 @@
     border: 1px solid rgba(255, 85, 85, 0.3);
     border-radius: 10px;
     padding: 20px 30px;
-    margin: 20px auto 10px; /* Reduced bottom from 30px to 10px */
+    margin: 20px auto 10px;
     max-width: 800px;
 }
 
@@ -85,9 +85,9 @@
 
 .contract-section {
     text-align: center;
-    padding: 10px 20px; /* Reduced from 30px to 10px */
+    padding: 10px 20px;
     max-width: 800px;
-    margin: 0 auto 10px; /* Reduced from 30px to 10px */
+    margin: 0 auto 10px;
 }
 
 .contract-section h2 {
@@ -158,7 +158,7 @@
    ============================================================================= */
 
 .tokenomics-section {
-    padding: 10px 20px; /* Reduced from 30px to 10px */
+    padding: 10px 20px;
     text-align: center;
 }
 
@@ -233,7 +233,7 @@
    ============================================================================= */
 
 .manifesto-section {
-    padding: 10px 20px; /* Reduced from 30px to 10px */
+    padding: 10px 20px;
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
@@ -290,7 +290,7 @@
    ============================================================================= */
 
 .schedule-section {
-    padding: 10px 20px; /* Reduced from 30px to 10px */
+    padding: 10px 20px;
     text-align: center;
 }
 
@@ -309,21 +309,21 @@
 
 .schedule-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    max-width: 1100px;
-    margin: 0 auto 10px; /* Reduced from 30px to 10px */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    gap: 18px;
+    max-width: 1150px;
+    margin: 0 auto 10px;
 }
 
 .schedule-item {
     background: rgba(26, 26, 26, 0.8);
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    padding: 20px;
+    padding: 18px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     transition: all 0.3s ease;
 }
 
@@ -335,46 +335,50 @@
 
 .schedule-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 0.95rem;
+    gap: 4px;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .schedule-day {
     font-weight: 700;
     color: var(--main-red);
+    font-size: 1rem;
 }
 
 .schedule-dot {
     color: var(--text-secondary);
+    font-size: 0.8rem;
 }
 
 .schedule-time {
     color: var(--text-secondary);
+    font-size: 0.85rem;
 }
 
 .schedule-event-line {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 1.05rem;
-    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.95rem;
+    text-align: center;
 }
 
 .schedule-emoji {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
 }
 
 .schedule-event {
+    font-weight: 700;
     color: var(--text-primary);
-    font-weight: 600;
 }
 
 .schedule-host {
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
 }
 
 .schedule-host a {
@@ -387,14 +391,42 @@
     color: var(--hover-red);
 }
 
-.schedule-note {
+/* Coming Soon Card Styling */
+.schedule-coming-soon {
+    border: 2px dashed var(--border-color);
+    background: rgba(26, 26, 26, 0.5);
+    opacity: 0.8;
+}
+
+.schedule-coming-soon:hover {
+    border-color: var(--text-secondary);
+    opacity: 1;
+}
+
+.schedule-coming-soon .schedule-day {
+    color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+.schedule-coming-soon .schedule-emoji {
+    font-size: 2rem;
+}
+
+.schedule-coming-soon .schedule-event {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.schedule-note {
+    margin-top: 30px;
+    font-size: 1rem;
     color: var(--text-secondary);
 }
 
 .schedule-note a {
     color: var(--main-red);
     text-decoration: none;
+    font-weight: 700;
     transition: color 0.2s ease;
 }
 
@@ -407,7 +439,7 @@
    ============================================================================= */
 
 .social-section {
-    padding: 10px 20px; /* Reduced from 30px to 10px */
+    padding: 10px 20px;
     text-align: center;
 }
 
@@ -484,7 +516,7 @@
    ============================================================================= */
 
 .resources-section {
-    padding: 10px 20px; /* Reduced from 30px to 10px */
+    padding: 10px 20px;
     text-align: center;
     max-width: 1000px;
     margin: 0 auto;
@@ -501,7 +533,7 @@
     background: rgba(26, 26, 26, 0.8);
     border: 2px solid var(--border-color);
     border-radius: 10px;
-    padding: 20px 15px; /* Reduced from 30px 20px to 20px 15px */
+    padding: 20px 15px;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -511,7 +543,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 25px; /* Reduced from 30px to 25px */
+    gap: 25px;
 }
 
 .resource-logo {
@@ -724,7 +756,7 @@
     }
 
     .hero-section {
-        padding: 10px 15px 10px; /* Keep 10px on mobile too */
+        padding: 10px 15px 10px;
     }
 
     .hero-subtitle {
@@ -757,6 +789,7 @@
         width: 100%;
     }
 
+    /* --- Schedule Grid: Stack on Mobile --- */
     .schedule-grid {
         grid-template-columns: 1fr;
         gap: 15px;
@@ -764,6 +797,17 @@
 
     .schedule-item {
         padding: 15px;
+    }
+
+    .schedule-header {
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .schedule-event-line {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .social-grid {
