@@ -635,7 +635,7 @@ const members = [
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
         xLink: 'https://x.com/biskinmello23',
-        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766004288/Add_k1hpls.jpg',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766005746/Isla_hiauko.jpg',
         coreContributor: false,
         coldBloodedShiller: false,
         whaleAlert: false,
