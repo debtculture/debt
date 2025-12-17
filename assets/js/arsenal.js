@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     const filterButtons = document.querySelectorAll('.filter-btn');
     const mediaGrid = document.querySelector('.media-grid');
-    const shillContainer = document.querySelector('.shill-posts-container');
     const mediaItems = mediaGrid.querySelectorAll('.media-item');
 
     // --- Sort Grid Items Alphabetically on Load ---
@@ -30,8 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (filter === 'all') {
             count = mediaItems.length;
-        } else if (filter === 'shill') {
-            count = shillContainer.querySelectorAll('.copy-btn').length;
         } else {
             count = document.querySelectorAll(`.media-item[data-category="${filter}"]`).length;
         }
@@ -47,21 +44,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     
             const clickedFilter = button.dataset.filter;
     
-            if (clickedFilter === 'shill') {
-                mediaGrid.style.display = 'none';
-                shillContainer.style.display = 'block';
-            } else {
-                shillContainer.style.display = 'none';
-                mediaGrid.style.display = 'grid';
-        
-                sortedItems.forEach(item => {
-                    if (clickedFilter === 'all' || item.dataset.category === clickedFilter) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            }
+            sortedItems.forEach(item => {
+                if (clickedFilter === 'all' || item.dataset.category === clickedFilter) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         });
     });
 
