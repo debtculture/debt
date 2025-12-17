@@ -80,6 +80,26 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    border: 2px solid var(--border-medium);
+    border-radius: 15px;
+    padding: 20px 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    border-color: var(--main-red);
+    box-shadow: 0 5px 20px rgba(255, 59, 59, 0.3);
+}
+
+.team-member.founder {
+    border: 3px solid var(--main-red);
+    box-shadow: 0 0 20px rgba(255, 59, 59, 0.4);
+}
+
+.team-member.founder:hover {
+    box-shadow: 0 0 30px rgba(255, 59, 59, 0.6);
 }
 
 .team-pfp-link {
@@ -1647,16 +1667,25 @@
 
     /* Team Section Mobile */
     .team-container {
-        gap: 20px 25px;
+        gap: 20px;
         max-width: 400px;
+        align-items: stretch;
     }
     
     /* Reorder team members for mobile: Autopsy top, Lou+Cat middle, Ambient+Cory bottom */
-    .team-member:nth-child(1) { order: 4; } /* Ambient - bottom left */
-    .team-member:nth-child(2) { order: 2; } /* Catavina - middle right */
-    .team-member:nth-child(3) { order: 1; width: 100%; } /* Autopsy - top center, full width */
-    .team-member:nth-child(4) { order: 3; } /* Lou - middle left */
-    .team-member:nth-child(5) { order: 5; } /* Cory - bottom right */
+    .team-member:nth-child(1) { order: 4; flex: 0 0 calc(50% - 10px); } /* Ambient - bottom left */
+    .team-member:nth-child(2) { order: 2; flex: 0 0 calc(50% - 10px); } /* Catavina - middle right */
+    .team-member:nth-child(3) { order: 1; flex: 0 0 100%; } /* Autopsy - top center, full width */
+    .team-member:nth-child(4) { order: 3; flex: 0 0 calc(50% - 10px); } /* Lou - middle left */
+    .team-member:nth-child(5) { order: 5; flex: 0 0 calc(50% - 10px); } /* Cory - bottom right */
+    
+    .team-member {
+        padding: 15px 10px;
+    }
+    
+    .team-member.founder {
+        padding: 20px 15px;
+    }
 
     .team-pfp {
         width: 100px;
@@ -1752,4 +1781,4 @@
     .glitch::after {
         animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important;
     }
-}
+   }
