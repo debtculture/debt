@@ -104,7 +104,6 @@
     font-size: 1.8rem;
     color: var(--main-red);
     margin: 0;
-    text-shadow: 0 0 10px rgba(255, 85, 85, 0.4);
 }
 
 .tool-description {
