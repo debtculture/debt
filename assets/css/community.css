@@ -171,7 +171,11 @@
 
 .sotw-content {
     flex-grow: 1;
-    text-align: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 30px 0 0;
 }
 
 .sotw-header {
@@ -194,6 +198,7 @@
     display: flex;
     gap: 20px;
     margin-bottom: 15px;
+    justify-content: center;
 }
 
 .sotw-stat {
@@ -211,6 +216,7 @@
     flex-wrap: wrap;
     gap: 5px;
     margin-top: 10px;
+    justify-content: center;
 }
 
 .sotw-badges .badge {
@@ -1641,8 +1647,16 @@
 
     /* Team Section Mobile */
     .team-container {
-        gap: 25px;
+        gap: 20px 25px;
+        max-width: 400px;
     }
+    
+    /* Reorder team members for mobile: Autopsy top, Lou+Cat middle, Ambient+Cory bottom */
+    .team-member:nth-child(1) { order: 4; } /* Ambient - bottom left */
+    .team-member:nth-child(2) { order: 2; } /* Catavina - middle right */
+    .team-member:nth-child(3) { order: 1; width: 100%; } /* Autopsy - top center, full width */
+    .team-member:nth-child(4) { order: 3; } /* Lou - middle left */
+    .team-member:nth-child(5) { order: 5; } /* Cory - bottom right */
 
     .team-pfp {
         width: 100px;
@@ -1650,8 +1664,8 @@
     }
 
     .team-member.founder .team-pfp {
-        width: 120px;
-        height: 120px;
+        width: 130px;
+        height: 130px;
     }
 
     .team-name {
@@ -1659,16 +1673,20 @@
     }
 
     .team-member.founder .team-name {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     .team-title {
         font-size: 0.8rem;
     }
 
+    .team-badges {
+        max-width: 140px;
+    }
+
     .team-badges .badge {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
     }
 
     /* Shiller of the Week Mobile */
@@ -1686,6 +1704,7 @@
 
     .sotw-content {
         text-align: center;
+        padding: 0;
     }
 
     .sotw-header {
@@ -1733,4 +1752,4 @@
     .glitch::after {
         animation: glitch-anim-2 2.5s infinite linear alternate-reverse !important;
     }
-   }
+}
