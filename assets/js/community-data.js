@@ -532,6 +532,61 @@ const members = [
         shillerOfTheWeekWins: 0
     },
     {
+        name: 'pawn',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/pawnhq',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766003987/pawn_quoaot.jpg',
+        coreContributor: false,
+        coldBloodedShiller: true,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'CreatorX',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/CreatorXGang',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766004108/CX_izhd2g.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Troll King',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/TrollKingXPX',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766004198/TK_ebmonq.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Groklet',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/GrokletFanClub',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766004392/groklet_ln0eki.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
+        name: 'Addiction',
+        walletAddress: 'WALLET_ADDRESS_HERE',
+        holderSince: 'TBD',
+        xLink: 'https://x.com/addiction_sol',
+        img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1766004288/Add_k1hpls.jpg',
+        coreContributor: false,
+        coldBloodedShiller: false,
+        whaleAlert: false,
+        shillerOfTheWeekWins: 0
+    },
+    {
         name: 'Numbaz',
         walletAddress: 'WALLET_ADDRESS_HERE',
         holderSince: 'TBD',
