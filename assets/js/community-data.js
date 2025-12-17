@@ -164,7 +164,7 @@ const members = [
         xLink: 'https://x.com/xXiBeToKeNXx',
         img: 'https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1764027327/token_ena0yf.jpg',
         coreContributor: false,
-        coldBloodedShiller: false,
+        coldBloodedShiller: true,
         whaleAlert: false,
         shillerOfTheWeekWins: 0
     },
