@@ -58,13 +58,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateCommunityCarousel();
             resetCommunityAutoRotate();
             
-            // Scroll to featured card on mobile
-            if (window.innerWidth <= 768) {
-                document.querySelector('.hof-carousel').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }
+            // Scroll to featured card on all screen sizes
+            document.querySelector('.hof-carousel').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
         });
     });
 });
@@ -353,21 +351,58 @@ function getLevel(points) {
 }
 
 /**
- * Sorts members by total points (highest first)
+ * Sorts members by total points (highest first), then by badge count, with randomization for 0/0 members
+ * Sorting logic:
+ * 1. Primary: Total points (highest to lowest)
+ * 2. Secondary (if tied points): Badge count (most to least)
+ * 3. Special case (0 points AND 0 badges): Randomized on page load
  * Updates the sortedMembers array
  */
 function sortMembersByPoints() {
     // Filter out team members from the HOF sorting
     const hofMembers = members.filter(m => !m.teamMember);
     
-    sortedMembers = hofMembers.sort((a, b) => {
-        const aPoints = memberStats[a.name]?.totalPoints || 0;
-        const bPoints = memberStats[b.name]?.totalPoints || 0;
-        return bPoints - aPoints;
+    // Separate members with 0 points and 0 badges for randomization
+    const zeroZeroMembers = hofMembers.filter(m => {
+        const points = memberStats[m.name]?.totalPoints || 0;
+        const badges = memberStats[m.name]?.badges?.length || 0;
+        return points === 0 && badges === 0;
     });
     
-    console.log('Members sorted by points. Top 5:', 
-        sortedMembers.slice(0, 5).map(m => `${m.name}: ${memberStats[m.name]?.totalPoints || 0}pts`)
+    // All other members (with points or badges)
+    const activeMembers = hofMembers.filter(m => {
+        const points = memberStats[m.name]?.totalPoints || 0;
+        const badges = memberStats[m.name]?.badges?.length || 0;
+        return points > 0 || badges > 0;
+    });
+    
+    // Sort active members by points (primary) then badges (secondary)
+    activeMembers.sort((a, b) => {
+        const aPoints = memberStats[a.name]?.totalPoints || 0;
+        const bPoints = memberStats[b.name]?.totalPoints || 0;
+        const aBadges = memberStats[a.name]?.badges?.length || 0;
+        const bBadges = memberStats[b.name]?.badges?.length || 0;
+        
+        // Primary sort: points (highest first)
+        if (bPoints !== aPoints) {
+            return bPoints - aPoints;
+        }
+        
+        // Secondary sort: badges (most first)
+        return bBadges - aBadges;
+    });
+    
+    // Randomize 0/0 members using Fisher-Yates shuffle
+    for (let i = zeroZeroMembers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [zeroZeroMembers[i], zeroZeroMembers[j]] = [zeroZeroMembers[j], zeroZeroMembers[i]];
+    }
+    
+    // Combine: active members first, then randomized 0/0 members
+    sortedMembers = [...activeMembers, ...zeroZeroMembers];
+    
+    console.log('Members sorted by points and badges. Top 5:', 
+        sortedMembers.slice(0, 5).map(m => `${m.name}: ${memberStats[m.name]?.totalPoints || 0}pts, ${memberStats[m.name]?.badges?.length || 0} badges`)
     );
 }
 
