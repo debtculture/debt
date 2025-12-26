@@ -193,3 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+/* =============================================================================
+   FEATURE TOGGLES - Hide elements based on feature-config.js settings
+   ============================================================================= */
+
+// Hide forums links if feature is disabled
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof FEATURES !== 'undefined' && !FEATURES.forums) {
+        const forumsMobile = document.getElementById('forums-link-mobile');
+        const forumsDesktop = document.getElementById('forums-link-desktop');
+        if (forumsMobile) forumsMobile.style.display = 'none';
+        if (forumsDesktop) forumsDesktop.style.display = 'none';
+    }
+});
