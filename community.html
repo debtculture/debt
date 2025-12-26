@@ -299,14 +299,5 @@
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/community-data.js"></script>
     <script defer src="assets/js/community.js"></script>
-    <script>
-    // Hide forums links if disabled
-    if (typeof FEATURES !== 'undefined' && !FEATURES.forums) {
-        const forumsMobile = document.getElementById('forums-link-mobile');
-        const forumsDesktop = document.getElementById('forums-link-desktop');
-        if (forumsMobile) forumsMobile.style.display = 'none';
-        if (forumsDesktop) forumsDesktop.style.display = 'none';
-    }
-</script>
 </body>
 </html>
