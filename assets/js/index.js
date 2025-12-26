@@ -292,37 +292,3 @@ function copyAddress() {
             alert('Failed to copy address. Please copy manually: ' + contractAddress);
         });
 }
-
-// =================================================================================
-// --- MOBILE NAVIGATION ---
-// =================================================================================
-
-/**
- * Toggles mobile hamburger menu
- */
-window.toggleMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu || !hamburger) return;
-    
-    const isOpen = menu.style.display === 'block';
-    
-    menu.style.display = isOpen ? 'none' : 'block';
-    hamburger.classList.toggle('active', !isOpen);
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-/**
- * Closes mobile hamburger menu
- */
-window.closeMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu || !hamburger) return;
-    
-    menu.style.display = 'none';
-    hamburger.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
-};
