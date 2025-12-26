@@ -15,9 +15,7 @@ const TRADABLE_SUPPLY = 940000000;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize wallet manager
-    if (typeof initializeWalletManager !== 'undefined') {
-        await initializeWalletManager();
-    }
+    await initWallet();
     
     // Generate initial tweet
     generateTweet();
