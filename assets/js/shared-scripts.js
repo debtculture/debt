@@ -207,3 +207,88 @@ document.addEventListener('DOMContentLoaded', () => {
         if (forumsDesktop) forumsDesktop.style.display = 'none';
     }
 });
+
+/* =============================================================================
+   MOBILE NAVIGATION - Shared hamburger menu functions
+   ============================================================================= */
+
+/**
+ * Toggles mobile hamburger menu open/closed
+ */
+window.toggleMenu = function() {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.querySelector('.hamburger');
+    
+    if (!menu || !hamburger) {
+        console.warn('Mobile menu elements not found');
+        return;
+    }
+    
+    const isOpen = menu.style.display === 'block';
+    
+    menu.style.display = isOpen ? 'none' : 'block';
+    hamburger.classList.toggle('active', !isOpen);
+    hamburger.setAttribute('aria-expanded', !isOpen);
+};
+
+/**
+ * Closes mobile hamburger menu
+ */
+window.closeMenu = function() {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.querySelector('.hamburger');
+    
+    if (!menu || !hamburger) {
+        console.warn('Mobile menu elements not found');
+        return;
+    }
+    
+    menu.style.display = 'none';
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+};
+
+/* =============================================================================
+   WALLET INITIALIZATION - Shared wallet manager setup
+   ============================================================================= */
+
+/**
+ * Initializes wallet manager if available
+ * Call this at the start of DOMContentLoaded in each page
+ */
+async function initWallet() {
+    if (typeof initializeWalletManager !== 'undefined') {
+        await initializeWalletManager();
+    } else {
+        console.error('Wallet manager not loaded');
+    }
+}
+
+// Make it globally available
+window.initWallet = initWallet;
+
+/* =============================================================================
+   HTML UTILITIES - Shared helper functions
+   ============================================================================= */
+
+/**
+ * Escapes HTML special characters to prevent XSS attacks
+ * @param {string} str - String to escape
+ * @returns {string} Escaped string safe for HTML insertion
+ */
+function escapeHTML(str) {
+    if (!str) return '';
+
+    const escapeMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return str.replace(/[&<>"']/g, char => escapeMap[char]);
+}
+
+// Make it globally available
+window.escapeHTML = escapeHTML;
