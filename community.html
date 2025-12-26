@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/shared-styles.css">
     <link rel="stylesheet" href="assets/css/community.css">
+    <script src="assets/js/feature-config.js"></script>
 </head>
 <body>
     <!-- Matrix Background Canvases -->
@@ -30,7 +31,7 @@
         <a href="index.html" onclick="closeMenu()">Home</a>
         <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
         <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
-        <a href="forums.html" onclick="closeMenu()">Forums</a>
+        <a href="forums.html" onclick="closeMenu()" id="forums-link-mobile">Forums</a>
         <a href="tools.html" onclick="closeMenu()">Tools</a>
         <a href="merch.html" onclick="closeMenu()">Merch</a>
     </div>
@@ -45,7 +46,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="litepaper.html">Litepaper</a></li>
                 <li><a href="arsenal.html">Arsenal</a></li>
-                <li><a href="forums.html">Forums</a></li>
+                <li id="forums-link-desktop"><a href="forums.html">Forums</a></li>
                 <li><a href="tools.html">Tools</a></li>
                 <li><a href="merch.html">Merch</a></li>
             </ul>
@@ -298,5 +299,14 @@
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/community-data.js"></script>
     <script defer src="assets/js/community.js"></script>
+    <script>
+    // Hide forums links if disabled
+    if (typeof FEATURES !== 'undefined' && !FEATURES.forums) {
+        const forumsMobile = document.getElementById('forums-link-mobile');
+        const forumsDesktop = document.getElementById('forums-link-desktop');
+        if (forumsMobile) forumsMobile.style.display = 'none';
+        if (forumsDesktop) forumsDesktop.style.display = 'none';
+    }
+</script>
 </body>
 </html>
