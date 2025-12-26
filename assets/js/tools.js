@@ -160,31 +160,3 @@ function formatMarketCap(mcap) {
     }
     return `$${mcap}`;
 }
-
-// =================================================================================
-// --- MOBILE NAVIGATION ---
-// =================================================================================
-
-window.toggleMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu || !hamburger) return;
-    
-    const isOpen = menu.style.display === 'block';
-    
-    menu.style.display = isOpen ? 'none' : 'block';
-    hamburger.classList.toggle('active', !isOpen);
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-window.closeMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu || !hamburger) return;
-    
-    menu.style.display = 'none';
-    hamburger.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
-};
