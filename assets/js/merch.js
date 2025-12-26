@@ -129,37 +129,3 @@ function setupCarousel(carousel) {
         carousel.setAttribute('tabindex', '0');
     }
 }
-
-// =================================================================================
-// --- MOBILE MENU FUNCTIONS ---
-// =================================================================================
-
-/**
- * Toggles mobile menu visibility
- */
-window.toggleMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu || !hamburger) return;
-
-    const isOpen = menu.style.display === 'block';
-    
-    menu.style.display = isOpen ? 'none' : 'block';
-    hamburger.classList.toggle('active', !isOpen);
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-/**
- * Closes mobile menu
- */
-window.closeMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    if (!menu || !hamburger) return;
-
-    menu.style.display = 'none';
-    hamburger.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
-};
