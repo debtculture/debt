@@ -956,32 +956,3 @@ function toggleBadgeGlossary() {
         content.style.padding = '0 15px';
     }
 }
-
-/* =============================================================================
-   MOBILE MENU FUNCTIONS
-   ============================================================================= */
-
-/**
- * Toggles the mobile navigation menu
- */
-window.toggleMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    const isOpen = menu.style.display === 'block';
-    
-    menu.style.display = isOpen ? 'none' : 'block';
-    hamburger.classList.toggle('active', !isOpen);
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-/**
- * Closes the mobile navigation menu
- */
-window.closeMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    menu.style.display = 'none';
-    hamburger.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', false);
-};
