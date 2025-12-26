@@ -40,6 +40,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/shared-styles.css">
     <link rel="stylesheet" href="assets/css/merch.css">
+    <script src="assets/js/feature-config.js"></script>
 </head>
 <body>
     <!-- Matrix Background Effects -->
@@ -74,7 +75,7 @@
         <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
         <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
         <a href="community.html" onclick="closeMenu()">Community</a>
-        <a href="forums.html" onclick="closeMenu()">Forums</a>
+        <a href="forums.html" onclick="closeMenu()" id="forums-link-mobile">Forums</a>
         <a href="tools.html" onclick="closeMenu()">Tools</a>
         <a href="profile.html" id="profile-nav-link-mobile" style="display: none;" onclick="closeMenu()">Profile</a>
     </nav>
@@ -95,7 +96,7 @@
                 <a href="litepaper.html">Litepaper</a>
                 <a href="arsenal.html">Arsenal</a>
                 <a href="community.html">Community</a>
-                <a href="forums.html">Forums</a>
+                <a href="forums.html" id="forums-link-desktop">Forums</a>
                 <a href="tools.html">Tools</a>
             </div>
             <div class="nav-actions">
@@ -255,5 +256,14 @@
     <script src="assets/js/wallet-manager.js"></script>
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/merch.js"></script>
+    <script>
+    // Hide forums links if disabled
+    if (typeof FEATURES !== 'undefined' && !FEATURES.forums) {
+        const forumsMobile = document.getElementById('forums-link-mobile');
+        const forumsDesktop = document.getElementById('forums-link-desktop');
+        if (forumsMobile) forumsMobile.style.display = 'none';
+        if (forumsDesktop) forumsDesktop.style.display = 'none';
+    }
+</script>
 </body>
 </html>
