@@ -36,6 +36,11 @@ let walletProvider = null;
  * Call this from DOMContentLoaded on every page
  */
 async function initializeWalletManager() {
+    // Check if wallet features are enabled
+    if (typeof FEATURES !== 'undefined' && !FEATURES.walletConnect) {
+        console.log('Wallet features disabled via feature-config.js');
+        return; // Exit early, don't initialize anything
+    }
     // Initialize Supabase client
     if (typeof supabase !== 'undefined') {
         supabaseClient = supabase.createClient(WALLET_CONFIG.supabaseUrl, WALLET_CONFIG.supabaseAnonKey);
