@@ -449,25 +449,6 @@ function parseUserTags(text) {
 }
 
 /**
- * Escapes HTML special characters
- * @param {string} str - String to escape
- * @returns {string} Escaped string
- */
-function escapeHTML(str) {
-    if (!str) return '';
-
-    const escapeMap = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-
-    return str.replace(/[&<>"']/g, char => escapeMap[char]);
-}
-
-/**
  * Parses BBCode-style formatting tags
  * @param {string} text - Text to parse
  * @returns {string} Text with HTML formatting
