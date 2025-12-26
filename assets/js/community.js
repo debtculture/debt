@@ -21,11 +21,7 @@ let communityAutoRotateInterval;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize wallet manager first
-    if (typeof initializeWalletManager !== 'undefined') {
-        await initializeWalletManager();
-    } else {
-        console.error('Wallet manager not loaded');
-    }
+    await initWallet();
     
     // Fetch and calculate all leaderboard data
     await fetchLeaderboardData();
