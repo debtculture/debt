@@ -322,32 +322,3 @@ function escapeHTML(str) {
 
     return str.replace(/[&<>"']/g, char => escapeMap[char]);
 }
-
-// =================================================================================
-// --- MOBILE NAVIGATION (HAMBURGER MENU) ---
-// =================================================================================
-
-/**
- * Toggles mobile hamburger menu
- */
-window.toggleMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    const isOpen = menu.style.display === 'block';
-
-    menu.style.display = isOpen ? 'none' : 'block';
-    hamburger.classList.toggle('active', !isOpen);
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-/**
- * Closes mobile hamburger menu
- */
-window.closeMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-
-    menu.style.display = 'none';
-    hamburger.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
-};
