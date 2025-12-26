@@ -38,6 +38,7 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/shared-styles.css">
     <link rel="stylesheet" href="assets/css/forums.css">
+    <script src="assets/js/feature-config.js"></script>
     
     <!-- External Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -160,5 +161,14 @@
     <script src="assets/js/wallet-manager.js"></script>
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="assets/js/forums.js"></script>
+    <script>
+    // Hide forums links if disabled
+    if (typeof FEATURES !== 'undefined' && !FEATURES.forums) {
+        const forumsMobile = document.getElementById('forums-link-mobile');
+        const forumsDesktop = document.getElementById('forums-link-desktop');
+        if (forumsMobile) forumsMobile.style.display = 'none';
+        if (forumsDesktop) forumsDesktop.style.display = 'none';
+    }
+</script>
 </body>
 </html>
