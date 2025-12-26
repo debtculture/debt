@@ -1249,37 +1249,6 @@ function toggleProfileAudio() {
 }
 
 // =================================================================================
-// --- MOBILE NAVIGATION (HAMBURGER MENU) ---
-// =================================================================================
-
-/**
- * Toggles mobile hamburger menu
- * CRITICAL: Do not modify - this function works correctly
- */
-window.toggleMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-    const isOpen = menu.style.display === 'block';
-
-    menu.style.display = isOpen ? 'none' : 'block';
-    hamburger.classList.toggle('active', !isOpen);
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-/**
- * Closes mobile hamburger menu
- * CRITICAL: Do not modify - this function works correctly
- */
-window.closeMenu = function() {
-    const menu = document.getElementById('mobileMenu');
-    const hamburger = document.querySelector('.hamburger');
-
-    menu.style.display = 'none';
-    hamburger.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
-};
-
-// =================================================================================
 // --- TEXT FORMATTING UTILITIES ---
 // =================================================================================
 
@@ -1303,23 +1272,4 @@ function formatText(tag, textareaId) {
     textarea.focus();
     textarea.selectionStart = start + `[${tag}]`.length;
     textarea.selectionEnd = textarea.selectionStart + selectedText.length;
-}
-
-/**
- * Escapes HTML special characters to prevent XSS
- * @param {string} str - String to escape
- * @returns {string} Escaped string
- */
-function escapeHTML(str) {
-    if (!str) return '';
-
-    const escapeMap = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-
-    return str.replace(/[&<>"']/g, char => escapeMap[char]);
 }
