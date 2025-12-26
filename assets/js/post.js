@@ -305,20 +305,3 @@ function renderCommentForm(post) {
         </div>
     `;
 }
-
-/**
- * Escapes HTML special characters
- */
-function escapeHTML(str) {
-    if (!str) return '';
-
-    const escapeMap = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-
-    return str.replace(/[&<>"']/g, char => escapeMap[char]);
-}
