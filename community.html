@@ -21,11 +21,17 @@
     <canvas id="matrix-rain"></canvas>
 
     <!-- Mobile Navigation -->
-    <div class="hamburger" onclick="toggleMenu()" role="button" aria-label="Toggle mobile menu" aria-controls="mobileMenu" aria-expanded="false" tabindex="0">
+    <button 
+        class="hamburger" 
+        onclick="toggleMenu()" 
+        aria-label="Toggle mobile menu" 
+        aria-controls="mobileMenu" 
+        aria-expanded="false"
+    >
         <div></div>
         <div></div>
         <div></div>
-    </div>
+    </button>
     <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="buy-btn-mobile">Buy $DEBT</a>
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" onclick="closeMenu()">Home</a>
@@ -42,14 +48,14 @@
             <a href="index.html" class="nav-logo">
                 <img src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png" alt="$DEBT Logo">
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="litepaper.html">Litepaper</a></li>
-                <li><a href="arsenal.html">Arsenal</a></li>
-                <li id="forums-link-desktop"><a href="forums.html">Forums</a></li>
-                <li><a href="tools.html">Tools</a></li>
-                <li><a href="merch.html">Merch</a></li>
-            </ul>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="litepaper.html">Litepaper</a>
+                <a href="arsenal.html">Arsenal</a>
+                <a href="forums.html" id="forums-link-desktop">Forums</a>
+                <a href="tools.html">Tools</a>
+                <a href="merch.html">Merch</a>
+            </div>
             <div class="nav-actions">
                 <a href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump" target="_blank" rel="noopener noreferrer" class="cta-button">Buy $DEBT</a>
             </div>
