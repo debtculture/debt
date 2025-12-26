@@ -18,64 +18,6 @@ const MOBILE_MENU_CONFIG = {
 };
 
 // =================================================================================
-// --- MOBILE NAVIGATION FUNCTIONS ---
-// =================================================================================
-
-/**
- * Toggles the mobile hamburger menu visibility
- * Updates aria-expanded attribute for accessibility
- * 
- * @function toggleMenu
- * @global
- */
-window.toggleMenu = function() {
-    const menu = document.getElementById(MOBILE_MENU_CONFIG.menuId);
-    const hamburger = document.querySelector(`.${MOBILE_MENU_CONFIG.hamburgerClass}`);
-    
-    if (!menu || !hamburger) {
-        console.warn('Mobile menu or hamburger element not found');
-        return;
-    }
-
-    const isOpen = menu.style.display === 'block';
-    
-    // Toggle menu visibility
-    menu.style.display = isOpen ? 'none' : 'block';
-    
-    // Toggle hamburger animation
-    hamburger.classList.toggle(MOBILE_MENU_CONFIG.activeClass, !isOpen);
-    
-    // Update ARIA attribute for accessibility
-    hamburger.setAttribute('aria-expanded', !isOpen);
-};
-
-/**
- * Closes the mobile hamburger menu
- * Called when clicking on menu links
- * 
- * @function closeMenu
- * @global
- */
-window.closeMenu = function() {
-    const menu = document.getElementById(MOBILE_MENU_CONFIG.menuId);
-    const hamburger = document.querySelector(`.${MOBILE_MENU_CONFIG.hamburgerClass}`);
-    
-    if (!menu || !hamburger) {
-        console.warn('Mobile menu or hamburger element not found');
-        return;
-    }
-
-    // Close menu
-    menu.style.display = 'none';
-    
-    // Remove hamburger animation
-    hamburger.classList.remove(MOBILE_MENU_CONFIG.activeClass);
-    
-    // Update ARIA attribute for accessibility
-    hamburger.setAttribute('aria-expanded', 'false');
-};
-
-// =================================================================================
 // --- INITIALIZATION ---
 // =================================================================================
 
