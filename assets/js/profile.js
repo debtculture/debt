@@ -35,11 +35,7 @@ let profileYouTubePlayer = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize wallet manager first
-    if (typeof initializeWalletManager !== 'undefined') {
-        await initializeWalletManager();
-    } else {
-        console.error('Wallet manager not loaded');
-    }
+   await initWallet();
     
     fetchAllUsers(); // From social-helpers.js
     loadPageData();
