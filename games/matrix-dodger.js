@@ -294,27 +294,24 @@ function showNotification(text, type = 'level') {
         popup.classList.add('life-lost');
     }
     
-    // Only pause for level up and life lost, not for manual pause
-    if (type !== 'pause') {
+    // Only pause for life lost, NOT for level up (prevents freeze bug)
+    if (type === 'life-lost') {
         gamePaused = true;
         
-        if (type === 'level') {
-            fallingObjects = [];
-        }
-        
-        // CRITICAL: Always unpause after notification, even if something goes wrong
-        const unpauseTimeout = setTimeout(() => {
-            if (popup) {
-                popup.classList.remove('active', 'life-lost');
-            }
-            if (gameRunning) { // Only unpause if game is still running
+        setTimeout(() => {
+            popup.classList.remove('active', 'life-lost');
+            if (gameRunning) {
                 gamePaused = false;
             }
         }, 1500);
-        
-        // Store timeout ID in case we need to clear it
-        popup.dataset.timeoutId = unpauseTimeout;
+    } else if (type === 'level') {
+        // Level up: just show notification, don't pause
+        fallingObjects = []; // Still clear the board
+        setTimeout(() => {
+            popup.classList.remove('active');
+        }, 1500);
     }
+    // Pause type stays on screen until manually dismissed
 }
 
 // =================================================================================
