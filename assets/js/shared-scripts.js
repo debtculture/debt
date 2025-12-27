@@ -198,13 +198,24 @@ document.addEventListener('DOMContentLoaded', () => {
    FEATURE TOGGLES - Hide elements based on feature-config.js settings
    ============================================================================= */
 
-// Hide forums links if feature is disabled
+// Hide forums and games links if features are disabled
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof FEATURES !== 'undefined' && !FEATURES.forums) {
-        const forumsMobile = document.getElementById('forums-link-mobile');
-        const forumsDesktop = document.getElementById('forums-link-desktop');
-        if (forumsMobile) forumsMobile.style.display = 'none';
-        if (forumsDesktop) forumsDesktop.style.display = 'none';
+    if (typeof FEATURES !== 'undefined') {
+        // Hide forums links if feature is disabled
+        if (!FEATURES.forums) {
+            const forumsMobile = document.getElementById('forums-link-mobile');
+            const forumsDesktop = document.getElementById('forums-link-desktop');
+            if (forumsMobile) forumsMobile.style.display = 'none';
+            if (forumsDesktop) forumsDesktop.style.display = 'none';
+        }
+        
+        // Hide games links if feature is disabled
+        if (!FEATURES.games) {
+            const gamesMobile = document.getElementById('games-link-mobile');
+            const gamesDesktop = document.getElementById('games-link-desktop');
+            if (gamesMobile) gamesMobile.style.display = 'none';
+            if (gamesDesktop) gamesDesktop.style.display = 'none';
+        }
     }
 });
 
