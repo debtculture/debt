@@ -97,8 +97,9 @@ let player = {
 let fallingObjects = [];
 let keys = {};
 let frameCount = 0;
-let heartDropSchedule = [250, 500, 1000, 2000, 4000, 7000, 10000]; // Hearts drop at these scores
-let nextHeartIndex = 0; // Track which heart is next
+let nextHeartLevel = 3; // First heart at level 3
+let heartDroppedThisLevel = false;
+let heartDropFrame = 0; // Random frame when heart will drop
 
 let mobileControls = {
     left: false,
@@ -218,7 +219,9 @@ function startGame() {
     lives = 3;
     fallingObjects = [];
     hearts = [];
-    nextHeartIndex = 0;
+    nextHeartLevel = 3; // First heart at level 3
+    heartDroppedThisLevel = false;
+    heartDropFrame = 0;
     frameCount = 0;
     updatePauseButton();
     updateUI();
@@ -463,6 +466,12 @@ function updateFallingObjects() {
                 // Just clear board and animate level number - NO POPUP!
                 fallingObjects = [];
                 animateLevelUp();
+                heartDroppedThisLevel = false; // Reset for new level
+                
+                // If this is a heart level, set random frame when it will drop (between 200-800 frames into level)
+                if (level === nextHeartLevel) {
+                    heartDropFrame = frameCount + Math.floor(Math.random() * 600) + 200;
+                }
             }
         }
     }
@@ -564,11 +573,8 @@ function updateUI() {
 // =================================================================================
 
 function spawnHeart() {
-    // Check if we've reached the next heart score threshold
-    if (nextHeartIndex < heartDropSchedule.length && 
-        score >= heartDropSchedule[nextHeartIndex] && 
-        hearts.length === 0) {
-        
+    // Drop heart at random frame during designated heart levels (every 2 levels)
+    if (level === nextHeartLevel && !heartDroppedThisLevel && hearts.length === 0 && frameCount >= heartDropFrame) {
         const x = Math.random() * (canvas.width - 30);
         hearts.push({
             x: x,
@@ -577,7 +583,8 @@ function spawnHeart() {
             height: 30,
             speed: 2
         });
-        nextHeartIndex++; // Move to next heart in schedule
+        heartDroppedThisLevel = true;
+        nextHeartLevel += 2; // Next heart in 2 levels (e.g., 3, 5, 7, 9...)
     }
 }
 
