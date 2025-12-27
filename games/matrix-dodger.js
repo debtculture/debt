@@ -48,7 +48,7 @@ const CONFIG = {
         level9: { baseSpeed: 6, spawnRate: 50, minColumns: 3, maxColumns: 5 },
         level10: { baseSpeed: 7, spawnRate: 45, minColumns: 3, maxColumns: 5 }
     },
-    pointsPerLevel: 50
+    levelThresholds: [0, 100, 250, 500, 1000, 2000, 3500, 5500, 8000, 11000] // Score needed for each level
 };
 
 // =================================================================================
@@ -458,14 +458,25 @@ function updateFallingObjects() {
             // Award points per character in the strand!
             score += obj.column.length;
             
+            // Calculate new level based on score thresholds
             const oldLevel = level;
-            level = Math.floor(score / CONFIG.pointsPerLevel) + 1;
+            level = getLevelFromScore(score);
             
             if (level > oldLevel) {
                 showNotification(`LEVEL ${level}!`, 'level');
             }
         }
     }
+}
+
+function getLevelFromScore(currentScore) {
+    const thresholds = CONFIG.levelThresholds;
+    for (let i = thresholds.length - 1; i >= 0; i--) {
+        if (currentScore >= thresholds[i]) {
+            return i + 1; // Levels are 1-indexed
+        }
+    }
+    return 1;
 }
 
 function drawFallingObjects() {
