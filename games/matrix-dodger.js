@@ -1,6 +1,6 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic v1.3
-   VERTICAL CODE COLUMNS - Characters fall in vertical stacks!
+   MATRIX DODGER - Game Logic v1.4
+   VISUAL DIAGONAL OFFSET - Characters staggered for Matrix effect!
    ============================================================================= */
 
 // =================================================================================
@@ -19,34 +19,34 @@ const CONFIG = {
         speed: 6,
         jumpPower: 13,
         gravity: 0.6,
-        // Custom sprite image (set via Cloudinary URL)
         customImage: null,
         imageObj: null
     },
     fallingCode: {
-        charWidth: 25,     // Horizontal spacing for vertical columns
-        charHeight: 28,    // Vertical spacing between characters in column
+        charWidth: 25,
+        charHeight: 28,
         fontSize: 24,
         characters: ['0', '1'],
         color: '#ff5555',
+        offsetIncrement: 15,  // How much to offset each character horizontally
         columnLengths: {
-            level1: [1, 3],      // 1-3 characters in vertical column
-            level3: [3, 5],      // 3-5 characters
-            level5: [5, 7],      // 5-7 characters
-            level7: [7, 10]      // 7-10 characters
+            level1: [1, 3],
+            level3: [3, 5],
+            level5: [5, 7],
+            level7: [7, 10]
         }
     },
     difficulty: {
-        level1: { speed: 2, spawnRate: 100, diagonalChance: 0 },
-        level2: { speed: 2.5, spawnRate: 95, diagonalChance: 0 },
-        level3: { speed: 3, spawnRate: 85, diagonalChance: 0.15 },
-        level4: { speed: 3.5, spawnRate: 80, diagonalChance: 0.2 },
-        level5: { speed: 4, spawnRate: 75, diagonalChance: 0.3 },
-        level6: { speed: 4.5, spawnRate: 70, diagonalChance: 0.35 },
-        level7: { speed: 5, spawnRate: 65, diagonalChance: 0.45 },
-        level8: { speed: 5.5, spawnRate: 60, diagonalChance: 0.5 },
-        level9: { speed: 6, spawnRate: 55, diagonalChance: 0.6 },
-        level10: { speed: 7, spawnRate: 50, diagonalChance: 0.7 }
+        level1: { speed: 2, spawnRate: 100, offsetChance: 0 },      // No offset
+        level2: { speed: 2.5, spawnRate: 95, offsetChance: 0 },     // No offset
+        level3: { speed: 3, spawnRate: 85, offsetChance: 0.2 },     // 20% offset
+        level4: { speed: 3.5, spawnRate: 80, offsetChance: 0.25 },  // 25% offset
+        level5: { speed: 4, spawnRate: 75, offsetChance: 0.35 },    // 35% offset
+        level6: { speed: 4.5, spawnRate: 70, offsetChance: 0.4 },   // 40% offset
+        level7: { speed: 5, spawnRate: 65, offsetChance: 0.5 },     // 50% offset
+        level8: { speed: 5.5, spawnRate: 60, offsetChance: 0.55 },  // 55% offset
+        level9: { speed: 6, spawnRate: 55, offsetChance: 0.65 },    // 65% offset
+        level10: { speed: 7, spawnRate: 50, offsetChance: 0.75 }    // 75% offset
     },
     pointsPerLevel: 50
 };
@@ -252,6 +252,11 @@ function showNotification(text, type = 'level') {
     
     gamePaused = true;
     
+    // Clear board on level up
+    if (type === 'level') {
+        fallingObjects = [];
+    }
+    
     setTimeout(() => {
         popup.classList.remove('active', 'life-lost');
         gamePaused = false;
@@ -353,14 +358,14 @@ function drawPlayer() {
 }
 
 // =================================================================================
-// --- FALLING OBJECTS - VERTICAL COLUMNS! ---
+// --- FALLING OBJECTS - VISUAL DIAGONAL OFFSET! ---
 // =================================================================================
 
 function getColumnLength() {
-    if (level >= 7) return Math.floor(Math.random() * 4) + 7;  // 7-10
-    if (level >= 5) return Math.floor(Math.random() * 3) + 5;  // 5-7
-    if (level >= 3) return Math.floor(Math.random() * 3) + 3;  // 3-5
-    return Math.floor(Math.random() * 3) + 1;  // 1-3
+    if (level >= 7) return Math.floor(Math.random() * 4) + 7;
+    if (level >= 5) return Math.floor(Math.random() * 3) + 5;
+    if (level >= 3) return Math.floor(Math.random() * 3) + 3;
+    return Math.floor(Math.random() * 3) + 1;
 }
 
 function spawnFallingObjects() {
@@ -368,32 +373,36 @@ function spawnFallingObjects() {
     
     if (frameCount % difficulty.spawnRate !== 0) return;
     
-    // Generate vertical column of characters
+    // Generate vertical column
     const columnLength = getColumnLength();
     const column = [];
     for (let i = 0; i < columnLength; i++) {
         column.push(CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)]);
     }
     
-    // Calculate column dimensions
+    // Determine if this column should have visual offset (diagonal appearance)
+    const hasOffset = Math.random() < difficulty.offsetChance;
+    const offsetDirection = hasOffset ? (Math.random() < 0.5 ? 1 : -1) : 0;
+    
+    // Calculate total width needed (base + offsets)
+    const totalOffset = hasOffset ? (columnLength - 1) * CONFIG.fallingCode.offsetIncrement : 0;
+    const totalWidth = CONFIG.fallingCode.charWidth + Math.abs(totalOffset);
+    
+    // Random X position (make sure entire offset column fits)
+    const maxX = canvas.width - totalWidth;
+    const x = Math.random() * Math.max(50, maxX);
+    
     const columnHeight = CONFIG.fallingCode.charHeight * columnLength;
-    
-    // Random X position
-    const x = Math.random() * (canvas.width - CONFIG.fallingCode.charWidth);
-    
-    // Determine if diagonal
-    const isDiagonal = Math.random() < difficulty.diagonalChance;
-    const direction = isDiagonal ? (Math.random() < 0.5 ? -1 : 1) : 0;
     
     fallingObjects.push({
         x: x,
-        y: -columnHeight,  // Start above screen
-        column: column,    // Array of characters
-        width: CONFIG.fallingCode.charWidth,
+        y: -columnHeight,
+        column: column,
+        width: totalWidth,
         height: columnHeight,
         speed: difficulty.speed,
-        direction: direction,
-        horizontalSpeed: isDiagonal ? 1 : 0
+        hasOffset: hasOffset,
+        offsetDirection: offsetDirection  // 1 = right, -1 = left, 0 = none
     });
 }
 
@@ -401,16 +410,11 @@ function updateFallingObjects() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Move down
+        // Only move down (NO horizontal movement)
         obj.y += obj.speed;
         
-        // Move horizontally if diagonal
-        if (obj.direction !== 0) {
-            obj.x += obj.direction * obj.horizontalSpeed;
-        }
-        
         // Remove if off screen
-        if (obj.y > canvas.height || obj.x < -obj.width || obj.x > canvas.width) {
+        if (obj.y > canvas.height) {
             fallingObjects.splice(i, 1);
             score++;
             
@@ -431,14 +435,17 @@ function drawFallingObjects() {
     ctx.textBaseline = 'top';
     
     fallingObjects.forEach(obj => {
-        // Draw each character in the vertical column
+        // Draw each character with optional horizontal offset
         obj.column.forEach((char, index) => {
             const charY = obj.y + (index * CONFIG.fallingCode.charHeight);
-            ctx.fillText(
-                char, 
-                obj.x + CONFIG.fallingCode.charWidth / 2, 
-                charY
-            );
+            
+            // Calculate X position with visual offset
+            let charX = obj.x + CONFIG.fallingCode.charWidth / 2;
+            if (obj.hasOffset) {
+                charX += (index * CONFIG.fallingCode.offsetIncrement * obj.offsetDirection);
+            }
+            
+            ctx.fillText(char, charX, charY);
         });
     });
 }
@@ -454,7 +461,7 @@ function checkCollisions() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Check collision with entire vertical column
+        // Check collision with entire column area (including offset width)
         if (
             player.x < obj.x + obj.width &&
             player.x + CONFIG.player.width > obj.x &&
