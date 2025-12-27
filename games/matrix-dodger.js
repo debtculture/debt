@@ -1,6 +1,7 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic v1.4
-   VISUAL DIAGONAL OFFSET - Characters staggered for Matrix effect!
+   MATRIX DODGER - Game Logic v1.5
+   PER-CHARACTER COLLISION - Hit only individual digits, not whole column!
+   VARIED OFFSETS - Each character can have different offset for variety
    ============================================================================= */
 
 // =================================================================================
@@ -23,12 +24,12 @@ const CONFIG = {
         imageObj: null
     },
     fallingCode: {
-        charWidth: 25,
+        charWidth: 20,     // Collision width per character
         charHeight: 28,
         fontSize: 24,
         characters: ['0', '1'],
         color: '#ff5555',
-        offsetIncrement: 15,  // How much to offset each character horizontally
+        maxOffset: 60,     // Maximum horizontal offset
         columnLengths: {
             level1: [1, 3],
             level3: [3, 5],
@@ -37,16 +38,16 @@ const CONFIG = {
         }
     },
     difficulty: {
-        level1: { speed: 2, spawnRate: 100, offsetChance: 0 },      // No offset
-        level2: { speed: 2.5, spawnRate: 95, offsetChance: 0 },     // No offset
-        level3: { speed: 3, spawnRate: 85, offsetChance: 0.2 },     // 20% offset
-        level4: { speed: 3.5, spawnRate: 80, offsetChance: 0.25 },  // 25% offset
-        level5: { speed: 4, spawnRate: 75, offsetChance: 0.35 },    // 35% offset
-        level6: { speed: 4.5, spawnRate: 70, offsetChance: 0.4 },   // 40% offset
-        level7: { speed: 5, spawnRate: 65, offsetChance: 0.5 },     // 50% offset
-        level8: { speed: 5.5, spawnRate: 60, offsetChance: 0.55 },  // 55% offset
-        level9: { speed: 6, spawnRate: 55, offsetChance: 0.65 },    // 65% offset
-        level10: { speed: 7, spawnRate: 50, offsetChance: 0.75 }    // 75% offset
+        level1: { speed: 2, spawnRate: 100, offsetChance: 0 },
+        level2: { speed: 2.5, spawnRate: 95, offsetChance: 0 },
+        level3: { speed: 3, spawnRate: 85, offsetChance: 0.2 },
+        level4: { speed: 3.5, spawnRate: 80, offsetChance: 0.3 },
+        level5: { speed: 4, spawnRate: 75, offsetChance: 0.4 },
+        level6: { speed: 4.5, spawnRate: 70, offsetChance: 0.5 },
+        level7: { speed: 5, spawnRate: 65, offsetChance: 0.6 },
+        level8: { speed: 5.5, spawnRate: 60, offsetChance: 0.65 },
+        level9: { speed: 6, spawnRate: 55, offsetChance: 0.75 },
+        level10: { speed: 7, spawnRate: 50, offsetChance: 0.85 }
     },
     pointsPerLevel: 50
 };
@@ -358,7 +359,7 @@ function drawPlayer() {
 }
 
 // =================================================================================
-// --- FALLING OBJECTS - VISUAL DIAGONAL OFFSET! ---
+// --- FALLING OBJECTS - VARIED OFFSETS PER CHARACTER! ---
 // =================================================================================
 
 function getColumnLength() {
@@ -373,36 +374,42 @@ function spawnFallingObjects() {
     
     if (frameCount % difficulty.spawnRate !== 0) return;
     
-    // Generate vertical column
     const columnLength = getColumnLength();
-    const column = [];
+    const hasOffset = Math.random() < difficulty.offsetChance;
+    
+    // Generate column with individual character data
+    const characters = [];
+    let currentOffset = 0;
+    
     for (let i = 0; i < columnLength; i++) {
-        column.push(CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)]);
+        const char = CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)];
+        
+        // Each character can have varied offset for more variety
+        if (hasOffset) {
+            // Sometimes increment smoothly, sometimes jump randomly
+            if (Math.random() < 0.7) {
+                // Smooth increment (classic diagonal)
+                currentOffset += Math.random() * 20 + 10;
+            } else {
+                // Random jump (creates varied patterns)
+                currentOffset = Math.random() * CONFIG.fallingCode.maxOffset;
+            }
+        }
+        
+        characters.push({
+            char: char,
+            offsetX: Math.min(currentOffset, CONFIG.fallingCode.maxOffset)
+        });
     }
     
-    // Determine if this column should have visual offset (diagonal appearance)
-    const hasOffset = Math.random() < difficulty.offsetChance;
-    const offsetDirection = hasOffset ? (Math.random() < 0.5 ? 1 : -1) : 0;
-    
-    // Calculate total width needed (base + offsets)
-    const totalOffset = hasOffset ? (columnLength - 1) * CONFIG.fallingCode.offsetIncrement : 0;
-    const totalWidth = CONFIG.fallingCode.charWidth + Math.abs(totalOffset);
-    
-    // Random X position (make sure entire offset column fits)
-    const maxX = canvas.width - totalWidth;
-    const x = Math.random() * Math.max(50, maxX);
-    
-    const columnHeight = CONFIG.fallingCode.charHeight * columnLength;
+    // Random starting X position
+    const x = Math.random() * (canvas.width - CONFIG.fallingCode.maxOffset - CONFIG.fallingCode.charWidth);
     
     fallingObjects.push({
         x: x,
-        y: -columnHeight,
-        column: column,
-        width: totalWidth,
-        height: columnHeight,
-        speed: difficulty.speed,
-        hasOffset: hasOffset,
-        offsetDirection: offsetDirection  // 1 = right, -1 = left, 0 = none
+        y: -columnLength * CONFIG.fallingCode.charHeight,
+        characters: characters,  // Array of {char, offsetX}
+        speed: difficulty.speed
     });
 }
 
@@ -410,7 +417,6 @@ function updateFallingObjects() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Only move down (NO horizontal movement)
         obj.y += obj.speed;
         
         // Remove if off screen
@@ -435,23 +441,17 @@ function drawFallingObjects() {
     ctx.textBaseline = 'top';
     
     fallingObjects.forEach(obj => {
-        // Draw each character with optional horizontal offset
-        obj.column.forEach((char, index) => {
+        obj.characters.forEach((charData, index) => {
             const charY = obj.y + (index * CONFIG.fallingCode.charHeight);
+            const charX = obj.x + charData.offsetX + CONFIG.fallingCode.charWidth / 2;
             
-            // Calculate X position with visual offset
-            let charX = obj.x + CONFIG.fallingCode.charWidth / 2;
-            if (obj.hasOffset) {
-                charX += (index * CONFIG.fallingCode.offsetIncrement * obj.offsetDirection);
-            }
-            
-            ctx.fillText(char, charX, charY);
+            ctx.fillText(charData.char, charX, charY);
         });
     });
 }
 
 // =================================================================================
-// --- COLLISION DETECTION ---
+// --- COLLISION DETECTION - PER CHARACTER! ---
 // =================================================================================
 
 function checkCollisions() {
@@ -461,26 +461,35 @@ function checkCollisions() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Check collision with entire column area (including offset width)
-        if (
-            player.x < obj.x + obj.width &&
-            player.x + CONFIG.player.width > obj.x &&
-            playerY < obj.y + obj.height &&
-            playerY + playerHeight > obj.y
-        ) {
-            // Hit!
-            fallingObjects.splice(i, 1);
-            lives--;
+        // Check collision with EACH INDIVIDUAL CHARACTER
+        for (let j = 0; j < obj.characters.length; j++) {
+            const charData = obj.characters[j];
+            const charY = obj.y + (j * CONFIG.fallingCode.charHeight);
+            const charX = obj.x + charData.offsetX;
             
-            showNotification(`LIFE LOST! ${lives} LEFT`, 'life-lost');
-            
-            canvas.style.border = '5px solid red';
-            setTimeout(() => {
-                canvas.style.border = '3px solid #ff5555';
-            }, 200);
-            
-            if (lives <= 0) {
-                endGame();
+            // Collision with this specific character
+            if (
+                player.x < charX + CONFIG.fallingCode.charWidth &&
+                player.x + CONFIG.player.width > charX &&
+                playerY < charY + CONFIG.fallingCode.charHeight &&
+                playerY + playerHeight > charY
+            ) {
+                // Hit this character!
+                fallingObjects.splice(i, 1);
+                lives--;
+                
+                showNotification(`LIFE LOST! ${lives} LEFT`, 'life-lost');
+                
+                canvas.style.border = '5px solid red';
+                setTimeout(() => {
+                    canvas.style.border = '3px solid #ff5555';
+                }, 200);
+                
+                if (lives <= 0) {
+                    endGame();
+                }
+                
+                break; // Stop checking other characters in this column
             }
         }
     }
