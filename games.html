@@ -6,12 +6,13 @@
     <meta name="description" content="Play mini-games in the Debt Culture rebellion. Test your skills with Matrix Dodger and more.">
     <title>Games - Debt Culture</title>
     
-    <!-- Preconnect for Performance -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://res.cloudinary.com">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/shared-styles.css">
@@ -19,54 +20,82 @@
     
     <!-- Feature Configuration -->
     <script src="assets/js/feature-config.js"></script>
-    
-    <!-- Supabase Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="assets/js/supabase-client.js"></script>
 </head>
 <body>
-    <!-- Matrix Background Canvas -->
-    <canvas id="matrix-bg"></canvas>
-    <canvas id="matrix-rain"></canvas>
-
-    <!-- Desktop Navigation -->
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="litepaper.html" class="nav-link">Litepaper</a>
-            <a href="arsenal.html" class="nav-link">Arsenal</a>
-            <a href="community.html" class="nav-link">Community</a>>
-            <a href="merch.html" class="nav-link">Merch</a>
-            <a href="tools.html" class="nav-link">Tools</a>
-            <a href="forums.html" class="nav-link" id="forums-link-desktop">Forums</a>
-        </div>
-        <div class="nav-right">
-            <button class="buy-btn" id="walletButton">Connect Wallet</button>
-        </div>
-    </nav>
-
-    <!-- Mobile Navigation -->
-    <nav class="mobile-nav">
-        <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <button class="buy-btn-mobile" id="walletButtonMobile">Connect</button>
-    </nav>
-
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" onclick="closeMenu()">Home</a>
+    <!-- Matrix Background Effects -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+    
+    <!-- Mobile Navigation (Hidden on Desktop) -->
+    <div
+        class="hamburger"
+        onclick="toggleMenu()"
+        role="button"
+        aria-label="Toggle mobile menu"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+        tabindex="0"
+    >
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    
+    <a
+        href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="buy-btn-mobile"
+        aria-label="Buy DEBT token"
+    >
+        Buy $DEBT
+    </a>
+    
+    <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
         <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
         <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
         <a href="community.html" onclick="closeMenu()">Community</a>
-        <a href="merch.html" onclick="closeMenu()">Merch</a>
-        <a href="tools.html" onclick="closeMenu()">Tools</a>
         <a href="forums.html" onclick="closeMenu()" id="forums-link-mobile">Forums</a>
+        <a href="games.html" onclick="closeMenu()" id="games-link-mobile">Games</a>
+        <a href="tools.html" onclick="closeMenu()">Tools</a>
+        <a href="merch.html" onclick="closeMenu()">Merch</a>
     </div>
+    
+    <!-- Main Header (Desktop) -->
+    <header class="main-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="index.html" class="nav-logo" aria-label="Debt Culture home">
+                <img
+                    src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1748445162/d53de7cc-4e1a-4f44-99c0-4442b755faed_oylcn6.png"
+                    alt="Debt Culture Logo"
+                    width="50"
+                    height="50"
+                >
+            </a>
+            <div class="nav-links">
+                <a href="litepaper.html">Litepaper</a>
+                <a href="arsenal.html">Arsenal</a>
+                <a href="community.html">Community</a>
+                <a href="forums.html" id="forums-link-desktop">Forums</a>
+                <a href="games.html" id="games-link-desktop">Games</a>
+                <a href="tools.html">Tools</a>
+                <a href="merch.html">Merch</a>
+            </div>
+            <div class="nav-actions">
+                <a
+                    href="https://raydium.io/swap/?inputMint=So11111111111111111111111111111111111111112&outputMint=9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cta-button"
+                >
+                    Buy $DEBT
+                </a>
+            </div>
+        </nav>
+    </header>
 
     <!-- Main Content -->
-    <div class="content-wrapper">
+    <main class="content-wrapper">
         <!-- Page Header -->
         <div class="page-header">
             <h1 class="glitch" data-text="MINI GAMES">MINI GAMES</h1>
@@ -178,23 +207,29 @@
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer" class="footer-link">X / Twitter</a>
-                <a href="https://t.me/DebtCulture" target="_blank" rel="noopener noreferrer" class="footer-link">Telegram</a>
-                <a href="https://discord.gg/nGx6Tjvn9M" target="_blank" rel="noopener noreferrer" class="footer-link">Discord</a>
-            </div>
-            <p class="footer-text">© 2025 Debt Culture. Don't Ever Believe Them.</p>
-        </div>
+        <p>
+            © 2025 by
+            <a
+                href="https://x.com/AutopsyT2"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-link"
+            >
+                Autopsy
+            </a>.
+            All rights reserved.
+        </p>
     </footer>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
     <script src="assets/js/wallet-manager.js"></script>
-    <script src="assets/js/shared-scripts.js"></script>
-    <script src="assets/js/games.js"></script>
+    <script defer src="assets/js/shared-scripts.js"></script>
+    <script defer src="assets/js/games.js"></script>
 </body>
 </html>
