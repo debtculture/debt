@@ -97,7 +97,8 @@ let player = {
 let fallingObjects = [];
 let keys = {};
 let frameCount = 0;
-let nextHeartScore = 200; // First heart at 200 points
+let heartDropSchedule = [250, 500, 1000, 2000, 4000, 7000, 10000]; // Hearts drop at these scores
+let nextHeartIndex = 0; // Track which heart is next
 
 let mobileControls = {
     left: false,
@@ -215,7 +216,7 @@ function startGame() {
     lives = 3;
     fallingObjects = [];
     hearts = [];
-    nextHeartScore = 200;
+    nextHeartIndex = 0;
     frameCount = 0;
     updatePauseButton();
     updateUI();
@@ -553,8 +554,11 @@ function updateUI() {
 // =================================================================================
 
 function spawnHeart() {
-    // Spawn heart at predictable score intervals
-    if (score >= nextHeartScore && hearts.length === 0) {
+    // Check if we've reached the next heart score threshold
+    if (nextHeartIndex < heartDropSchedule.length && 
+        score >= heartDropSchedule[nextHeartIndex] && 
+        hearts.length === 0) {
+        
         const x = Math.random() * (canvas.width - 30);
         hearts.push({
             x: x,
@@ -563,7 +567,7 @@ function spawnHeart() {
             height: 30,
             speed: 2
         });
-        nextHeartScore += 200; // Next heart at +200 points
+        nextHeartIndex++; // Move to next heart in schedule
     }
 }
 
