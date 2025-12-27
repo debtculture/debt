@@ -1,6 +1,5 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic
-   Version: 1.0
+   MATRIX DODGER - Game Logic v1.1
    ============================================================================= */
 
 // =================================================================================
@@ -13,31 +12,37 @@ const CONFIG = {
         height: 600
     },
     player: {
-        width: 40,
-        height: 50,
+        width: 35,
+        height: 45,
         color: '#ff5555',
-        speed: 5,
-        jumpPower: 12,
+        speed: 6,
+        jumpPower: 13,
         gravity: 0.6
     },
     fallingCode: {
         width: 30,
-        height: 40,
-        fontSize: 30,
+        height: 30,
+        fontSize: 24,
         characters: ['0', '1'],
-        color: '#ff5555'
+        color: '#ff5555',
+        strandLengths: {
+            level1: [1, 3],      // Min 1, Max 3 chars
+            level3: [3, 5],      // 3-5 chars
+            level5: [5, 7],      // 5-7 chars
+            level7: [7, 11]      // 7-11 chars
+        }
     },
     difficulty: {
-        level1: { speed: 2, spawnRate: 80, diagonalChance: 0 },
-        level2: { speed: 2.5, spawnRate: 75, diagonalChance: 0 },
-        level3: { speed: 3, spawnRate: 70, diagonalChance: 0.2 },
-        level4: { speed: 3.5, spawnRate: 65, diagonalChance: 0.2 },
-        level5: { speed: 4, spawnRate: 60, diagonalChance: 0.4 },
-        level6: { speed: 4.5, spawnRate: 55, diagonalChance: 0.4 },
-        level7: { speed: 5, spawnRate: 50, diagonalChance: 0.6 },
-        level8: { speed: 5.5, spawnRate: 45, diagonalChance: 0.6 },
-        level9: { speed: 6, spawnRate: 40, diagonalChance: 0.8 },
-        level10: { speed: 7, spawnRate: 35, diagonalChance: 0.8 }
+        level1: { speed: 2, spawnRate: 90, diagonalChance: 0 },
+        level2: { speed: 2.5, spawnRate: 85, diagonalChance: 0 },
+        level3: { speed: 3, spawnRate: 75, diagonalChance: 0.2 },
+        level4: { speed: 3.5, spawnRate: 70, diagonalChance: 0.2 },
+        level5: { speed: 4, spawnRate: 65, diagonalChance: 0.4 },
+        level6: { speed: 4.5, spawnRate: 60, diagonalChance: 0.4 },
+        level7: { speed: 5, spawnRate: 55, diagonalChance: 0.6 },
+        level8: { speed: 5.5, spawnRate: 50, diagonalChance: 0.6 },
+        level9: { speed: 6, spawnRate: 45, diagonalChance: 0.75 },
+        level10: { speed: 7, spawnRate: 40, diagonalChance: 0.8 }
     },
     levelsForProgression: 10 // Score needed to level up
 };
@@ -48,6 +53,7 @@ const CONFIG = {
 
 let canvas, ctx;
 let gameRunning = false;
+let gamePaused = false;
 let score = 0;
 let level = 1;
 let lives = 3;
@@ -112,13 +118,13 @@ function setupEventListeners() {
         keys[e.key.toLowerCase()] = true;
         
         // Jump on spacebar or up arrow
-        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') && !player.isJumping && gameRunning) {
+        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') && !player.isJumping && gameRunning && !gamePaused) {
             player.isJumping = true;
             player.velocityY = -CONFIG.player.jumpPower;
         }
         
         // Crouch
-        if ((e.key === 'Shift' || e.key === 'ArrowDown' || e.key === 's') && gameRunning) {
+        if ((e.key === 'Shift' || e.key === 'ArrowDown' || e.key === 's') && gameRunning && !gamePaused) {
             player.isCrouching = true;
         }
     });
@@ -143,7 +149,7 @@ function setupEventListeners() {
     rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); mobileControls.right = true; });
     jumpBtn.addEventListener('touchstart', (e) => { 
         e.preventDefault(); 
-        if (!player.isJumping && gameRunning) {
+        if (!player.isJumping && gameRunning && !gamePaused) {
             player.isJumping = true;
             player.velocityY = -CONFIG.player.jumpPower;
         }
@@ -161,7 +167,7 @@ function setupEventListeners() {
     rightBtn.addEventListener('mousedown', () => mobileControls.right = true);
     rightBtn.addEventListener('mouseup', () => mobileControls.right = false);
     jumpBtn.addEventListener('mousedown', () => {
-        if (!player.isJumping && gameRunning) {
+        if (!player.isJumping && gameRunning && !gamePaused) {
             player.isJumping = true;
             player.velocityY = -CONFIG.player.jumpPower;
         }
@@ -177,6 +183,7 @@ function setupEventListeners() {
 function startGame() {
     document.getElementById('startScreen').style.display = 'none';
     gameRunning = true;
+    gamePaused = false;
     score = 0;
     level = 1;
     lives = 3;
@@ -208,6 +215,48 @@ function endGame() {
     document.getElementById('finalScore').textContent = score;
     document.getElementById('finalLevel').textContent = level;
     document.getElementById('gameOverScreen').classList.add('active');
+    
+    // Try to submit score (if Supabase table exists)
+    trySubmitScore();
+}
+
+// =================================================================================
+// --- SCORE SUBMISSION ---
+// =================================================================================
+
+async function trySubmitScore() {
+    // Only try if window.submitScore exists (from games.js)
+    if (typeof window.submitScore === 'function') {
+        try {
+            await window.submitScore('matrix-dodger', score);
+            console.log('Score submitted successfully!');
+        } catch (error) {
+            console.log('Score submission not available (no database table)');
+        }
+    }
+}
+
+// =================================================================================
+// --- NOTIFICATIONS ---
+// =================================================================================
+
+function showNotification(text, type = 'level') {
+    const popup = document.getElementById('notificationPopup');
+    const textEl = document.getElementById('notificationText');
+    
+    textEl.textContent = text;
+    popup.className = 'notification-popup active';
+    
+    if (type === 'life-lost') {
+        popup.classList.add('life-lost');
+    }
+    
+    gamePaused = true;
+    
+    setTimeout(() => {
+        popup.classList.remove('active', 'life-lost');
+        gamePaused = false;
+    }, 1500);
 }
 
 // =================================================================================
@@ -217,26 +266,28 @@ function endGame() {
 function gameLoop() {
     if (!gameRunning) return;
     
-    frameCount++;
-    
-    // Clear canvas
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Update game state
-    updatePlayer();
-    updateFallingObjects();
-    spawnFallingObjects();
-    
-    // Draw everything
-    drawPlayer();
-    drawFallingObjects();
-    
-    // Check collisions
-    checkCollisions();
-    
-    // Update UI
-    updateUI();
+    if (!gamePaused) {
+        frameCount++;
+        
+        // Clear canvas
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Update game state
+        updatePlayer();
+        updateFallingObjects();
+        spawnFallingObjects();
+        
+        // Draw everything
+        drawPlayer();
+        drawFallingObjects();
+        
+        // Check collisions
+        checkCollisions();
+        
+        // Update UI
+        updateUI();
+    }
     
     // Continue loop
     requestAnimationFrame(gameLoop);
@@ -276,23 +327,45 @@ function updatePlayer() {
 }
 
 function drawPlayer() {
-    ctx.fillStyle = CONFIG.player.color;
-    
-    // Adjust height when crouching
     const playerHeight = player.isCrouching ? CONFIG.player.height / 2 : CONFIG.player.height;
     const playerY = player.isCrouching ? player.y + CONFIG.player.height / 2 : player.y;
     
-    ctx.fillRect(player.x, playerY, CONFIG.player.width, playerHeight);
+    // Draw hooded figure
+    ctx.fillStyle = CONFIG.player.color;
     
-    // Player outline
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(player.x, playerY, CONFIG.player.width, playerHeight);
+    // Hood/head (triangle)
+    ctx.beginPath();
+    ctx.moveTo(player.x + CONFIG.player.width / 2, playerY); // Top center
+    ctx.lineTo(player.x, playerY + playerHeight * 0.4); // Left
+    ctx.lineTo(player.x + CONFIG.player.width, playerY + playerHeight * 0.4); // Right
+    ctx.closePath();
+    ctx.fill();
+    
+    // Body (rectangle)
+    ctx.fillRect(
+        player.x + CONFIG.player.width * 0.2, 
+        playerY + playerHeight * 0.35, 
+        CONFIG.player.width * 0.6, 
+        playerHeight * 0.65
+    );
+    
+    // Eyes (white dots)
+    ctx.fillStyle = '#fff';
+    const eyeY = playerY + playerHeight * 0.25;
+    ctx.fillRect(player.x + CONFIG.player.width * 0.35, eyeY, 3, 3);
+    ctx.fillRect(player.x + CONFIG.player.width * 0.62, eyeY, 3, 3);
 }
 
 // =================================================================================
 // --- FALLING OBJECTS LOGIC ---
 // =================================================================================
+
+function getStrandLength() {
+    if (level >= 7) return Math.floor(Math.random() * 5) + 7; // 7-11
+    if (level >= 5) return Math.floor(Math.random() * 3) + 5; // 5-7
+    if (level >= 3) return Math.floor(Math.random() * 3) + 3; // 3-5
+    return Math.floor(Math.random() * 3) + 1; // 1-3
+}
 
 function spawnFallingObjects() {
     const difficulty = getDifficultySettings();
@@ -300,20 +373,24 @@ function spawnFallingObjects() {
     // Spawn rate check
     if (frameCount % difficulty.spawnRate !== 0) return;
     
-    // Random character
-    const char = CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)];
+    // Generate code strand
+    const strandLength = getStrandLength();
+    let strand = '';
+    for (let i = 0; i < strandLength; i++) {
+        strand += CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)];
+    }
     
     // Random X position
-    const x = Math.random() * (canvas.width - CONFIG.fallingCode.width);
+    const x = Math.random() * (canvas.width - CONFIG.fallingCode.width * strandLength);
     
     // Determine if diagonal
     const isDiagonal = Math.random() < difficulty.diagonalChance;
-    const direction = isDiagonal ? (Math.random() < 0.5 ? -1 : 1) : 0; // -1 left, 0 straight, 1 right
+    const direction = isDiagonal ? (Math.random() < 0.5 ? -1 : 1) : 0;
     
     fallingObjects.push({
         x: x,
         y: -CONFIG.fallingCode.height,
-        char: char,
+        strand: strand,
         speed: difficulty.speed,
         direction: direction,
         horizontalSpeed: isDiagonal ? 1.5 : 0
@@ -333,13 +410,17 @@ function updateFallingObjects() {
         }
         
         // Remove if off screen
-        if (obj.y > canvas.height || obj.x < -CONFIG.fallingCode.width || obj.x > canvas.width) {
+        const strandWidth = CONFIG.fallingCode.width * obj.strand.length;
+        if (obj.y > canvas.height || obj.x < -strandWidth || obj.x > canvas.width) {
             fallingObjects.splice(i, 1);
             score++; // Successfully dodged
             
             // Level up check
-            if (score > 0 && score % CONFIG.levelsForProgression === 0) {
-                level++;
+            const oldLevel = level;
+            level = Math.floor(score / CONFIG.levelsForProgression) + 1;
+            
+            if (level > oldLevel) {
+                showNotification(`LEVEL ${level}!`, 'level');
             }
         }
     }
@@ -348,11 +429,11 @@ function updateFallingObjects() {
 function drawFallingObjects() {
     ctx.font = `${CONFIG.fallingCode.fontSize}px monospace`;
     ctx.fillStyle = CONFIG.fallingCode.color;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
     
     fallingObjects.forEach(obj => {
-        ctx.fillText(obj.char, obj.x + CONFIG.fallingCode.width / 2, obj.y + CONFIG.fallingCode.height / 2);
+        ctx.fillText(obj.strand, obj.x, obj.y);
     });
 }
 
@@ -366,10 +447,11 @@ function checkCollisions() {
     
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
+        const strandWidth = CONFIG.fallingCode.width * obj.strand.length;
         
-        // Simple rectangle collision
+        // Rectangle collision
         if (
-            player.x < obj.x + CONFIG.fallingCode.width &&
+            player.x < obj.x + strandWidth &&
             player.x + CONFIG.player.width > obj.x &&
             playerY < obj.y + CONFIG.fallingCode.height &&
             playerY + playerHeight > obj.y
@@ -377,6 +459,9 @@ function checkCollisions() {
             // Hit!
             fallingObjects.splice(i, 1);
             lives--;
+            
+            // Show life lost notification
+            showNotification(`LIFE LOST! ${lives} LEFT`, 'life-lost');
             
             // Flash effect
             canvas.style.border = '5px solid red';
