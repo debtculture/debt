@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('startBtn').addEventListener('click', startGame);
     document.getElementById('restartBtn').addEventListener('click', restartGame);
     document.getElementById('pauseBtn').addEventListener('click', togglePause);
+    document.getElementById('pauseBtnMobile').addEventListener('click', togglePause);
 });
 
 // =================================================================================
@@ -209,6 +210,7 @@ function setupEventListeners() {
 function startGame() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('pauseBtn').style.display = 'block';
+    document.getElementById('pauseBtnMobile').style.display = 'block';
     gameRunning = true;
     gamePaused = false;
     score = 0;
@@ -243,16 +245,16 @@ function togglePause() {
 
 function updatePauseButton() {
     const pauseBtn = document.getElementById('pauseBtn');
-    if (gamePaused) {
-        pauseBtn.textContent = '▶ RESUME';
-    } else {
-        pauseBtn.textContent = '⏸ PAUSE';
-    }
+    const pauseBtnMobile = document.getElementById('pauseBtnMobile');
+    const text = gamePaused ? '▶ RESUME' : '⏸ PAUSE';
+    pauseBtn.textContent = text;
+    pauseBtnMobile.textContent = text;
 }
 
 function endGame() {
     gameRunning = false;
     document.getElementById('pauseBtn').style.display = 'none';
+    document.getElementById('pauseBtnMobile').style.display = 'none';
     
     if (score > highScore) {
         highScore = score;
@@ -300,11 +302,18 @@ function showNotification(text, type = 'level') {
             fallingObjects = [];
         }
         
-        // CRITICAL FIX: Make sure to unpause after notification
-        setTimeout(() => {
-            popup.classList.remove('active', 'life-lost');
-            gamePaused = false;  // Resume game!
+        // CRITICAL: Always unpause after notification, even if something goes wrong
+        const unpauseTimeout = setTimeout(() => {
+            if (popup) {
+                popup.classList.remove('active', 'life-lost');
+            }
+            if (gameRunning) { // Only unpause if game is still running
+                gamePaused = false;
+            }
         }, 1500);
+        
+        // Store timeout ID in case we need to clear it
+        popup.dataset.timeoutId = unpauseTimeout;
     }
 }
 
