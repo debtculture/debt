@@ -199,6 +199,27 @@ body {
     transform: scale(0.95);
 }
 
+.pause-btn-mobile {
+    display: none;
+    background: rgba(255, 85, 85, 0.3);
+    border: 2px solid #ff5555;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 8px auto;
+    width: 100%;
+    max-width: 200px;
+}
+
+.pause-btn-mobile:active {
+    background: rgba(255, 85, 85, 0.6);
+    transform: scale(0.95);
+}
+
 /* --- START SCREEN --- */
 .start-screen {
     position: fixed;
@@ -350,55 +371,73 @@ body {
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
     .game-container {
-        padding: 5px;
+        padding: 0;
+        padding-top: 10px;
     }
 
     .game-header {
-        margin-bottom: 3px;
-        min-height: 45px;
+        margin-bottom: 5px;
+        min-height: 50px;
         flex-direction: column;
         align-items: flex-start;
+        padding: 0 10px;
     }
 
     .back-btn {
-        font-size: 0.65rem;
-        padding: 6px 10px;
+        font-size: 0.7rem;
+        padding: 6px 12px;
         position: absolute;
-        margin-bottom: 0;
-        margin-top: 5px;
-        left: 5px;
-        top: 5px;
+        margin: 0;
+        left: 10px;
+        top: 15px;
     }
 
     .pause-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        padding: 6px 12px;
-        font-size: 0.75rem;
+        display: none; /* Hide desktop pause button on mobile */
+    }
+
+    .pause-btn-mobile {
+        display: block; /* Show mobile pause button */
     }
 
     .game-title {
-        font-size: 1.3rem;
-        margin-top: 45px;
+        font-size: 1.2rem;
+        margin-top: 35px;
         padding-top: 0;
         width: 100%;
     }
 
     .game-stats {
         gap: 8px;
-        padding: 6px 12px;
-        font-size: 0.85rem;
-        margin: 5px auto 5px auto;
-        max-width: 350px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        margin: 3px auto 5px auto;
+        max-width: 100%;
+    }
+
+    .stat-value {
+        font-size: 0.95rem;
     }
 
     #gameCanvas {
-        margin-bottom: 3px;
+        margin-bottom: 5px;
+        max-width: 100%;
+        height: auto;
     }
 
     .mobile-controls {
-        margin-top: 5px;
+        margin-top: 0;
+        padding-bottom: 10px;
+    }
+
+    .control-btn {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+        min-width: 85px;
+    }
+
+    .desktop-instructions {
+        display: none;
     }
 
     .stat-value {
