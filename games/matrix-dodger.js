@@ -292,10 +292,6 @@ function showNotification(text, type = 'level') {
     
     if (type === 'life-lost') {
         popup.classList.add('life-lost');
-    }
-    
-    // Only pause for life lost, NOT for level up (prevents freeze bug)
-    if (type === 'life-lost') {
         gamePaused = true;
         
         setTimeout(() => {
@@ -303,12 +299,6 @@ function showNotification(text, type = 'level') {
             if (gameRunning) {
                 gamePaused = false;
             }
-        }, 1500);
-    } else if (type === 'level') {
-        // Level up: just show notification, don't pause
-        fallingObjects = []; // Still clear the board
-        setTimeout(() => {
-            popup.classList.remove('active');
         }, 1500);
     }
     // Pause type stays on screen until manually dismissed
@@ -470,10 +460,24 @@ function updateFallingObjects() {
             level = getLevelFromScore(score);
             
             if (level > oldLevel) {
-                showNotification(`LEVEL ${level}!`, 'level');
+                // Just clear board and animate level number - NO POPUP!
+                fallingObjects = [];
+                animateLevelUp();
             }
         }
     }
+}
+
+function animateLevelUp() {
+    const levelEl = document.getElementById('level');
+    // Flash animation
+    levelEl.style.transform = 'scale(1.5)';
+    levelEl.style.color = '#ffff00'; // Yellow flash
+    
+    setTimeout(() => {
+        levelEl.style.transform = 'scale(1)';
+        levelEl.style.color = '#ff5555';
+    }, 500);
 }
 
 function getLevelFromScore(currentScore) {
