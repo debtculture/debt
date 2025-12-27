@@ -1,8 +1,8 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic v1.6
-   COLLISION FIX - Only check characters that have reached player's Y position!
-   PAUSE FEATURE - Press P or ESC to pause
-   MULTIPLE COLUMNS - 2-3 columns can spawn at once at higher levels
+   MATRIX DODGER - Game Logic v1.7
+   SIMPLE VERTICAL COLUMNS - No diagonal offsets!
+   MULTIPLE SPAWNS - 2-5 columns can fall at once
+   CLEAN COLLISION - Simple rectangle checks per character
    ============================================================================= */
 
 // =================================================================================
@@ -25,30 +25,29 @@ const CONFIG = {
         imageObj: null
     },
     fallingCode: {
-        charWidth: 20,
-        charHeight: 28,
+        charWidth: 25,
+        charHeight: 30,
         fontSize: 24,
         characters: ['0', '1'],
         color: '#ff5555',
-        maxOffset: 60,
         columnLengths: {
-            level1: [1, 3],
-            level3: [3, 5],
-            level5: [5, 7],
-            level7: [7, 10]
+            level1: [2, 4],      // 2-4 characters tall
+            level3: [3, 6],      // 3-6 characters
+            level5: [4, 8],      // 4-8 characters
+            level7: [5, 10]      // 5-10 characters
         }
     },
     difficulty: {
-        level1: { speed: 2, spawnRate: 100, offsetChance: 0, multiSpawnChance: 0 },
-        level2: { speed: 2.5, spawnRate: 95, offsetChance: 0, multiSpawnChance: 0 },
-        level3: { speed: 3, spawnRate: 85, offsetChance: 0.2, multiSpawnChance: 0.1 },
-        level4: { speed: 3.5, spawnRate: 80, offsetChance: 0.3, multiSpawnChance: 0.15 },
-        level5: { speed: 4, spawnRate: 75, offsetChance: 0.4, multiSpawnChance: 0.2 },
-        level6: { speed: 4.5, spawnRate: 70, offsetChance: 0.5, multiSpawnChance: 0.25 },
-        level7: { speed: 5, spawnRate: 65, offsetChance: 0.6, multiSpawnChance: 0.3 },
-        level8: { speed: 5.5, spawnRate: 60, offsetChance: 0.65, multiSpawnChance: 0.35 },
-        level9: { speed: 6, spawnRate: 55, offsetChance: 0.75, multiSpawnChance: 0.4 },
-        level10: { speed: 7, spawnRate: 50, offsetChance: 0.85, multiSpawnChance: 0.5 }
+        level1: { speed: 2, spawnRate: 100, minColumns: 1, maxColumns: 1 },
+        level2: { speed: 2.5, spawnRate: 90, minColumns: 1, maxColumns: 2 },
+        level3: { speed: 3, spawnRate: 85, minColumns: 1, maxColumns: 2 },
+        level4: { speed: 3.5, spawnRate: 75, minColumns: 2, maxColumns: 3 },
+        level5: { speed: 4, spawnRate: 70, minColumns: 2, maxColumns: 3 },
+        level6: { speed: 4.5, spawnRate: 65, minColumns: 2, maxColumns: 4 },
+        level7: { speed: 5, spawnRate: 60, minColumns: 2, maxColumns: 4 },
+        level8: { speed: 5.5, spawnRate: 55, minColumns: 3, maxColumns: 5 },
+        level9: { speed: 6, spawnRate: 50, minColumns: 3, maxColumns: 5 },
+        level10: { speed: 7, spawnRate: 45, minColumns: 3, maxColumns: 5 }
     },
     pointsPerLevel: 50
 };
@@ -384,14 +383,14 @@ function drawPlayer() {
 }
 
 // =================================================================================
-// --- FALLING OBJECTS - MULTIPLE COLUMNS! ---
+// --- FALLING OBJECTS - SIMPLE VERTICAL COLUMNS ---
 // =================================================================================
 
 function getColumnLength() {
-    if (level >= 7) return Math.floor(Math.random() * 4) + 7;
-    if (level >= 5) return Math.floor(Math.random() * 3) + 5;
-    if (level >= 3) return Math.floor(Math.random() * 3) + 3;
-    return Math.floor(Math.random() * 3) + 1;
+    if (level >= 7) return Math.floor(Math.random() * 6) + 5;   // 5-10
+    if (level >= 5) return Math.floor(Math.random() * 5) + 4;   // 4-8
+    if (level >= 3) return Math.floor(Math.random() * 4) + 3;   // 3-6
+    return Math.floor(Math.random() * 3) + 2;  // 2-4
 }
 
 function spawnFallingObjects() {
@@ -399,43 +398,30 @@ function spawnFallingObjects() {
     
     if (frameCount % difficulty.spawnRate !== 0) return;
     
-    // Chance to spawn multiple columns at once
-    const spawnMultiple = Math.random() < difficulty.multiSpawnChance;
-    const numColumns = spawnMultiple ? (Math.random() < 0.5 ? 2 : 3) : 1;
+    // Spawn multiple columns
+    const numColumns = Math.floor(Math.random() * (difficulty.maxColumns - difficulty.minColumns + 1)) + difficulty.minColumns;
     
-    for (let col = 0; col < numColumns; col++) {
+    // Divide screen into sections to avoid overlap
+    const sectionWidth = canvas.width / numColumns;
+    
+    for (let i = 0; i < numColumns; i++) {
         const columnLength = getColumnLength();
-        const hasOffset = Math.random() < difficulty.offsetChance;
         
-        const characters = [];
-        let currentOffset = 0;
-        
-        for (let i = 0; i < columnLength; i++) {
-            const char = CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)];
-            
-            if (hasOffset) {
-                if (Math.random() < 0.7) {
-                    currentOffset += Math.random() * 20 + 10;
-                } else {
-                    currentOffset = Math.random() * CONFIG.fallingCode.maxOffset;
-                }
-            }
-            
-            characters.push({
-                char: char,
-                offsetX: Math.min(currentOffset, CONFIG.fallingCode.maxOffset)
-            });
+        // Generate column characters
+        const column = [];
+        for (let j = 0; j < columnLength; j++) {
+            column.push(CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)]);
         }
         
-        // Random starting X position (ensure columns don't overlap)
-        const minX = col * (canvas.width / numColumns);
-        const maxX = (col + 1) * (canvas.width / numColumns) - CONFIG.fallingCode.maxOffset - CONFIG.fallingCode.charWidth;
-        const x = minX + Math.random() * (maxX - minX);
+        // Position within this section
+        const sectionStart = i * sectionWidth;
+        const sectionEnd = (i + 1) * sectionWidth - CONFIG.fallingCode.charWidth;
+        const x = sectionStart + Math.random() * (sectionEnd - sectionStart);
         
         fallingObjects.push({
             x: x,
             y: -columnLength * CONFIG.fallingCode.charHeight,
-            characters: characters,
+            column: column,
             speed: difficulty.speed
         });
     }
@@ -468,44 +454,36 @@ function drawFallingObjects() {
     ctx.textBaseline = 'top';
     
     fallingObjects.forEach(obj => {
-        obj.characters.forEach((charData, index) => {
+        obj.column.forEach((char, index) => {
             const charY = obj.y + (index * CONFIG.fallingCode.charHeight);
-            const charX = obj.x + charData.offsetX + CONFIG.fallingCode.charWidth / 2;
+            const charX = obj.x + CONFIG.fallingCode.charWidth / 2;
             
-            ctx.fillText(charData.char, charX, charY);
+            ctx.fillText(char, charX, charY);
         });
     });
 }
 
 // =================================================================================
-// --- COLLISION DETECTION - FIXED! Only check chars at player Y level ---
+// --- COLLISION DETECTION - SIMPLE & CLEAN ---
 // =================================================================================
 
 function checkCollisions() {
     const playerHeight = player.isCrouching ? CONFIG.player.height / 2 : CONFIG.player.height;
     const playerY = player.isCrouching ? player.y + CONFIG.player.height / 2 : player.y;
-    const playerBottom = playerY + playerHeight;
     
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Check EACH character
-        for (let j = 0; j < obj.characters.length; j++) {
-            const charData = obj.characters[j];
+        // Check each character in the column
+        for (let j = 0; j < obj.column.length; j++) {
             const charY = obj.y + (j * CONFIG.fallingCode.charHeight);
-            const charBottom = charY + CONFIG.fallingCode.charHeight;
-            const charX = obj.x + charData.offsetX;
             
-            // CRITICAL FIX: Only check if character has reached player's Y level
-            // Character must be at or below player's top position AND above player's bottom
-            if (charY > playerBottom || charBottom < playerY) {
-                continue; // Character not at player's vertical level yet
-            }
-            
-            // Now check horizontal collision
+            // Simple rectangle collision
             if (
-                player.x < charX + CONFIG.fallingCode.charWidth &&
-                player.x + CONFIG.player.width > charX
+                player.x < obj.x + CONFIG.fallingCode.charWidth &&
+                player.x + CONFIG.player.width > obj.x &&
+                playerY < charY + CONFIG.fallingCode.charHeight &&
+                playerY + playerHeight > charY
             ) {
                 // Hit!
                 fallingObjects.splice(i, 1);
