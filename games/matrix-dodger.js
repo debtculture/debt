@@ -83,6 +83,7 @@ let score = 0;
 let level = 1;
 let lives = 3;
 let highScore = 0;
+let hearts = []; // Falling heart powerups
 
 let player = {
     x: 0,
@@ -96,6 +97,7 @@ let player = {
 let fallingObjects = [];
 let keys = {};
 let frameCount = 0;
+let nextHeartScore = 200; // First heart at 200 points
 
 let mobileControls = {
     left: false,
@@ -212,6 +214,8 @@ function startGame() {
     level = 1;
     lives = 3;
     fallingObjects = [];
+    hearts = [];
+    nextHeartScore = 200;
     frameCount = 0;
     updatePauseButton();
     updateUI();
@@ -317,13 +321,17 @@ function gameLoop() {
         frameCount++;
         updatePlayer();
         updateFallingObjects();
+        updateHearts();
         spawnFallingObjects();
+        spawnHeart();
         checkCollisions();
+        checkHeartCollection();
         updateUI();
     }
     
     drawPlayer();
     drawFallingObjects();
+    drawHearts();
     
     requestAnimationFrame(gameLoop);
 }
@@ -447,7 +455,8 @@ function updateFallingObjects() {
         
         if (obj.y > canvas.height) {
             fallingObjects.splice(i, 1);
-            score++;
+            // Award points per character in the strand!
+            score += obj.column.length;
             
             const oldLevel = level;
             level = Math.floor(score / CONFIG.pointsPerLevel) + 1;
@@ -526,4 +535,72 @@ function updateUI() {
     
     const hearts = '❤️'.repeat(lives);
     document.getElementById('lives').textContent = hearts || '💀';
+}
+
+// =================================================================================
+// --- HEART POWERUP SYSTEM ---
+// =================================================================================
+
+function spawnHeart() {
+    // Spawn heart at predictable score intervals
+    if (score >= nextHeartScore && hearts.length === 0) {
+        const x = Math.random() * (canvas.width - 30);
+        hearts.push({
+            x: x,
+            y: -40,
+            width: 30,
+            height: 30,
+            speed: 2
+        });
+        nextHeartScore += 200; // Next heart at +200 points
+    }
+}
+
+function updateHearts() {
+    for (let i = hearts.length - 1; i >= 0; i--) {
+        hearts[i].y += hearts[i].speed;
+        
+        // Remove if off screen
+        if (hearts[i].y > canvas.height) {
+            hearts.splice(i, 1);
+        }
+    }
+}
+
+function drawHearts() {
+    ctx.font = '30px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    
+    hearts.forEach(heart => {
+        ctx.fillText('❤️', heart.x + heart.width / 2, heart.y);
+    });
+}
+
+function checkHeartCollection() {
+    const playerHeight = player.isCrouching ? CONFIG.player.height / 2 : CONFIG.player.height;
+    const playerY = player.isCrouching ? player.y + CONFIG.player.height / 2 : player.y;
+    
+    for (let i = hearts.length - 1; i >= 0; i--) {
+        const heart = hearts[i];
+        
+        if (
+            player.x < heart.x + heart.width &&
+            player.x + CONFIG.player.width > heart.x &&
+            playerY < heart.y + heart.height &&
+            playerY + playerHeight > heart.y
+        ) {
+            // Caught heart!
+            hearts.splice(i, 1);
+            if (lives < 5) { // Cap at 5 lives
+                lives++;
+                
+                // Show notification
+                canvas.style.border = '5px solid gold';
+                setTimeout(() => {
+                    canvas.style.border = '3px solid #ff5555';
+                }, 300);
+            }
+        }
+    }
 }
