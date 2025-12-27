@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play mini-games in the Debt Culture rebellion. Test your skills with Matrix Dodger and more.">
+    <title>Games - Debt Culture</title>
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/shared-styles.css">
+    <link rel="stylesheet" href="assets/css/games.css">
+    
+    <!-- Feature Configuration -->
+    <script src="assets/js/feature-config.js"></script>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+</head>
+<body>
+    <!-- Matrix Background Canvas -->
+    <canvas id="matrix-bg"></canvas>
+    <canvas id="matrix-rain"></canvas>
+
+    <!-- Desktop Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="litepaper.html" class="nav-link">Litepaper</a>
+            <a href="arsenal.html" class="nav-link">Arsenal</a>
+            <a href="community.html" class="nav-link">Community</a>>
+            <a href="merch.html" class="nav-link">Merch</a>
+            <a href="tools.html" class="nav-link">Tools</a>
+            <a href="forums.html" class="nav-link" id="forums-link-desktop">Forums</a>
+        </div>
+        <div class="nav-right">
+            <button class="buy-btn" id="walletButton">Connect Wallet</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <button class="buy-btn-mobile" id="walletButtonMobile">Connect</button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="litepaper.html" onclick="closeMenu()">Litepaper</a>
+        <a href="arsenal.html" onclick="closeMenu()">Arsenal</a>
+        <a href="community.html" onclick="closeMenu()">Community</a>
+        <a href="merch.html" onclick="closeMenu()">Merch</a>
+        <a href="tools.html" onclick="closeMenu()">Tools</a>
+        <a href="forums.html" onclick="closeMenu()" id="forums-link-mobile">Forums</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="glitch" data-text="MINI GAMES">MINI GAMES</h1>
+            <p class="subtitle">Test Your Skills in the Rebellion</p>
+        </div>
+
+        <!-- Games Grid -->
+        <section class="games-section">
+            <h2 class="section-title">Available Games</h2>
+            
+            <div class="games-grid">
+                <!-- Game Card 1: Matrix Dodger -->
+                <div class="game-card available">
+                    <div class="game-icon">🎮</div>
+                    <h3 class="game-title">Matrix Dodger</h3>
+                    <p class="game-description">
+                        Dodge falling matrix code! Move, jump, and crouch to survive. 
+                        Progressive difficulty with diagonal attacks.
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">High Score:</span>
+                            <span class="stat-value" id="matrix-high-score">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Difficulty:</span>
+                            <span class="stat-value">⭐⭐⭐</span>
+                        </div>
+                    </div>
+                    <a href="games/matrix-dodger.html" class="game-btn">Play Now</a>
+                </div>
+
+                <!-- Game Card 2: Coming Soon -->
+                <div class="game-card locked">
+                    <div class="game-icon">🔒</div>
+                    <h3 class="game-title">Coming Soon</h3>
+                    <p class="game-description">
+                        More rebellion-themed games are in development. Stay tuned!
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Status:</span>
+                            <span class="stat-value">In Development</span>
+                        </div>
+                    </div>
+                    <button class="game-btn disabled" disabled>Locked</button>
+                </div>
+
+                <!-- Game Card 3: Coming Soon -->
+                <div class="game-card locked">
+                    <div class="game-icon">🔒</div>
+                    <h3 class="game-title">Coming Soon</h3>
+                    <p class="game-description">
+                        More rebellion-themed games are in development. Stay tuned!
+                    </p>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Status:</span>
+                            <span class="stat-value">In Development</span>
+                        </div>
+                    </div>
+                    <button class="game-btn disabled" disabled>Locked</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section class="leaderboard-section">
+            <h2 class="section-title">🏆 Global Leaderboards</h2>
+            
+            <div class="leaderboard-tabs">
+                <button class="leaderboard-tab active" data-game="matrix-dodger">Matrix Dodger</button>
+                <button class="leaderboard-tab disabled" disabled>Coming Soon</button>
+            </div>
+
+            <div class="leaderboard-container">
+                <div class="leaderboard-header">
+                    <div class="rank-col">Rank</div>
+                    <div class="player-col">Player</div>
+                    <div class="score-col">Score</div>
+                </div>
+                
+                <div class="leaderboard-body" id="leaderboard-content">
+                    <div class="leaderboard-loading">
+                        <p>Loading leaderboard...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Play Section -->
+        <section class="info-section">
+            <h2 class="section-title">How It Works</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">🎯</div>
+                    <h3>Play Games</h3>
+                    <p>Test your skills in rebellion-themed mini-games</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">📊</div>
+                    <h3>Earn High Scores</h3>
+                    <p>Compete for the top spot on the leaderboards</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🏆</div>
+                    <h3>Claim Glory</h3>
+                    <p>Show off your skills to the community</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://x.com/DebtCulture" target="_blank" rel="noopener noreferrer" class="footer-link">X / Twitter</a>
+                <a href="https://t.me/DebtCulture" target="_blank" rel="noopener noreferrer" class="footer-link">Telegram</a>
+                <a href="https://discord.gg/nGx6Tjvn9M" target="_blank" rel="noopener noreferrer" class="footer-link">Discord</a>
+            </div>
+            <p class="footer-text">© 2025 Debt Culture. Don't Ever Believe Them.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/wallet-manager.js"></script>
+    <script src="assets/js/shared-scripts.js"></script>
+    <script src="assets/js/games.js"></script>
+</body>
+</html>
