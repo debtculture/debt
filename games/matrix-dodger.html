@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Matrix Dodger - Dodge falling binary code in this fast-paced game!">
+    <title>Matrix Dodger - Debt Culture</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/shared-styles.css">
+    <link rel="stylesheet" href="matrix-dodger.css">
+</head>
+<body>
+    <!-- Matrix Background Effects -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+    
+    <!-- Game Container -->
+    <div class="game-container">
+        <!-- Game Header -->
+        <div class="game-header">
+            <a href="../games.html" class="back-btn">← Back to Games</a>
+            <h1 class="game-title">MATRIX DODGER</h1>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-label">Score:</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Level:</span>
+                    <span class="stat-value" id="level">1</span>
+                </div>
+                <div class="stat lives-stat">
+                    <span class="stat-label">Lives:</span>
+                    <span class="stat-value" id="lives">❤️❤️❤️</span>
+                </div>
+            </div>
+        </div>
 
+        <!-- Game Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Game Controls (Mobile) -->
+        <div class="mobile-controls" id="mobileControls">
+            <div class="control-row">
+                <button class="control-btn" id="jumpBtn">↑<br>JUMP</button>
+            </div>
+            <div class="control-row">
+                <button class="control-btn" id="leftBtn">← LEFT</button>
+                <button class="control-btn" id="rightBtn">RIGHT →</button>
+            </div>
+            <div class="control-row">
+                <button class="control-btn" id="crouchBtn">↓<br>CROUCH</button>
+            </div>
+        </div>
+
+        <!-- Desktop Instructions -->
+        <div class="desktop-instructions">
+            <p>🎮 Use Arrow Keys or WASD to move • Space to Jump • Shift to Crouch</p>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div class="game-over-screen" id="gameOverScreen">
+            <div class="game-over-content">
+                <h2 class="game-over-title">GAME OVER</h2>
+                <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+                <p class="final-level">Level Reached: <span id="finalLevel">1</span></p>
+                <div class="game-over-buttons">
+                    <button class="game-btn" id="restartBtn">Play Again</button>
+                    <a href="../games.html" class="game-btn secondary">Back to Games</a>
+                </div>
+                <div class="high-score-notice" id="highScoreNotice"></div>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="start-content">
+                <h2 class="start-title">MATRIX DODGER</h2>
+                <p class="start-instructions">
+                    🎯 Dodge falling binary code<br>
+                    ⬅️➡️ Move left and right<br>
+                    ⬆️ Jump over obstacles<br>
+                    ⬇️ Crouch under threats<br>
+                    💀 Don't get hit - you only have 3 lives!
+                </p>
+                <p class="start-tip">Each level gets faster with more diagonal attacks!</p>
+                <button class="game-btn start-btn" id="startBtn">START GAME</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="matrix-dodger.js"></script>
+</body>
+</html>
