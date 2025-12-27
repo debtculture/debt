@@ -173,6 +173,32 @@ body {
     font-size: 0.9rem;
 }
 
+/* --- PAUSE BUTTON --- */
+.pause-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 85, 85, 0.3);
+    border: 2px solid #ff5555;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.pause-btn:hover {
+    background: rgba(255, 85, 85, 0.5);
+    box-shadow: 0 0 15px rgba(255, 85, 85, 0.5);
+}
+
+.pause-btn:active {
+    transform: scale(0.95);
+}
+
 /* --- START SCREEN --- */
 .start-screen {
     position: fixed;
@@ -339,7 +365,7 @@ body {
         padding: 5px 10px;
         position: relative;
         margin-bottom: 5px;
-        margin-top: 20px;
+        margin-top: 35px;
     }
 
     .game-title {
