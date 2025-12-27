@@ -1,8 +1,8 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic v1.7
-   SIMPLE VERTICAL COLUMNS - No diagonal offsets!
-   MULTIPLE SPAWNS - 2-5 columns can fall at once
-   CLEAN COLLISION - Simple rectangle checks per character
+   MATRIX DODGER - Game Logic v1.7 (PROPER)
+   NO DIAGONAL - Pure vertical columns only!
+   VARYING SPEEDS - Each column falls at different speed
+   PAUSE BUTTON - Visible button + P/ESC keys
    ============================================================================= */
 
 // =================================================================================
@@ -31,23 +31,24 @@ const CONFIG = {
         characters: ['0', '1'],
         color: '#ff5555',
         columnLengths: {
-            level1: [2, 4],      // 2-4 characters tall
-            level3: [3, 6],      // 3-6 characters
-            level5: [4, 8],      // 4-8 characters
-            level7: [5, 10]      // 5-10 characters
-        }
+            level1: [2, 4],
+            level3: [3, 6],
+            level5: [4, 8],
+            level7: [5, 10]
+        },
+        speedVariance: 1.5  // Speed can vary by ±1.5x
     },
     difficulty: {
-        level1: { speed: 2, spawnRate: 100, minColumns: 1, maxColumns: 1 },
-        level2: { speed: 2.5, spawnRate: 90, minColumns: 1, maxColumns: 2 },
-        level3: { speed: 3, spawnRate: 85, minColumns: 1, maxColumns: 2 },
-        level4: { speed: 3.5, spawnRate: 75, minColumns: 2, maxColumns: 3 },
-        level5: { speed: 4, spawnRate: 70, minColumns: 2, maxColumns: 3 },
-        level6: { speed: 4.5, spawnRate: 65, minColumns: 2, maxColumns: 4 },
-        level7: { speed: 5, spawnRate: 60, minColumns: 2, maxColumns: 4 },
-        level8: { speed: 5.5, spawnRate: 55, minColumns: 3, maxColumns: 5 },
-        level9: { speed: 6, spawnRate: 50, minColumns: 3, maxColumns: 5 },
-        level10: { speed: 7, spawnRate: 45, minColumns: 3, maxColumns: 5 }
+        level1: { baseSpeed: 2, spawnRate: 100, minColumns: 1, maxColumns: 1 },
+        level2: { baseSpeed: 2.5, spawnRate: 90, minColumns: 1, maxColumns: 2 },
+        level3: { baseSpeed: 3, spawnRate: 85, minColumns: 1, maxColumns: 2 },
+        level4: { baseSpeed: 3.5, spawnRate: 75, minColumns: 2, maxColumns: 3 },
+        level5: { baseSpeed: 4, spawnRate: 70, minColumns: 2, maxColumns: 3 },
+        level6: { baseSpeed: 4.5, spawnRate: 65, minColumns: 2, maxColumns: 4 },
+        level7: { baseSpeed: 5, spawnRate: 60, minColumns: 2, maxColumns: 4 },
+        level8: { baseSpeed: 5.5, spawnRate: 55, minColumns: 3, maxColumns: 5 },
+        level9: { baseSpeed: 6, spawnRate: 50, minColumns: 3, maxColumns: 5 },
+        level10: { baseSpeed: 7, spawnRate: 45, minColumns: 3, maxColumns: 5 }
     },
     pointsPerLevel: 50
 };
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.getElementById('startBtn').addEventListener('click', startGame);
     document.getElementById('restartBtn').addEventListener('click', restartGame);
+    document.getElementById('pauseBtn').addEventListener('click', togglePause);
 });
 
 // =================================================================================
@@ -134,20 +136,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupEventListeners() {
     document.addEventListener('keydown', (e) => {
-        keys[e.key.toLowerCase()] = true;
-        
-        // Pause game
-        if ((e.key === 'p' || e.key === 'P' || e.key === 'Escape') && gameRunning) {
-            togglePause();
+        // Pause game FIRST (before any other key handling)
+        if (e.key.toLowerCase() === 'p' || e.key === 'Escape') {
+            if (gameRunning) {
+                e.preventDefault();
+                togglePause();
+            }
             return;
         }
         
-        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') && !player.isJumping && gameRunning && !gamePaused) {
+        if (gamePaused) return; // Don't process other keys when paused
+        
+        keys[e.key.toLowerCase()] = true;
+        
+        if ((e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') && !player.isJumping && gameRunning) {
+            e.preventDefault();
             player.isJumping = true;
             player.velocityY = -CONFIG.player.jumpPower;
         }
         
-        if ((e.key === 'Shift' || e.key === 'ArrowDown' || e.key === 's') && gameRunning && !gamePaused) {
+        if ((e.key === 'Shift' || e.key === 'ArrowDown' || e.key === 's') && gameRunning) {
             player.isCrouching = true;
         }
     });
@@ -200,6 +208,7 @@ function setupEventListeners() {
 
 function startGame() {
     document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('pauseBtn').style.display = 'block';
     gameRunning = true;
     gamePaused = false;
     score = 0;
@@ -207,6 +216,7 @@ function startGame() {
     lives = 3;
     fallingObjects = [];
     frameCount = 0;
+    updatePauseButton();
     updateUI();
     gameLoop();
 }
@@ -217,17 +227,30 @@ function restartGame() {
 }
 
 function togglePause() {
+    if (!gameRunning) return;
+    
     gamePaused = !gamePaused;
+    updatePauseButton();
     
     if (gamePaused) {
-        showNotification('PAUSED', 'pause');
+        showNotification('PAUSED\nPress P or ⏸ to Resume', 'pause');
     } else {
         document.getElementById('notificationPopup').classList.remove('active');
     }
 }
 
+function updatePauseButton() {
+    const pauseBtn = document.getElementById('pauseBtn');
+    if (gamePaused) {
+        pauseBtn.textContent = '▶ RESUME';
+    } else {
+        pauseBtn.textContent = '⏸ PAUSE';
+    }
+}
+
 function endGame() {
     gameRunning = false;
+    document.getElementById('pauseBtn').style.display = 'none';
     
     if (score > highScore) {
         highScore = score;
@@ -270,7 +293,6 @@ function showNotification(text, type = 'level') {
     if (type !== 'pause') {
         gamePaused = true;
         
-        // Clear board on level up
         if (type === 'level') {
             fallingObjects = [];
         }
@@ -289,29 +311,21 @@ function showNotification(text, type = 'level') {
 function gameLoop() {
     if (!gameRunning) return;
     
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
     if (!gamePaused) {
         frameCount++;
-        
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
         updatePlayer();
         updateFallingObjects();
         spawnFallingObjects();
-        
-        drawPlayer();
-        drawFallingObjects();
-        
         checkCollisions();
-        
         updateUI();
-    } else {
-        // Redraw static scene when paused
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        drawPlayer();
-        drawFallingObjects();
     }
+    
+    // Always draw
+    drawPlayer();
+    drawFallingObjects();
     
     requestAnimationFrame(gameLoop);
 }
@@ -383,14 +397,20 @@ function drawPlayer() {
 }
 
 // =================================================================================
-// --- FALLING OBJECTS - SIMPLE VERTICAL COLUMNS ---
+// --- FALLING OBJECTS - PURE VERTICAL, VARYING SPEEDS ---
 // =================================================================================
 
 function getColumnLength() {
-    if (level >= 7) return Math.floor(Math.random() * 6) + 5;   // 5-10
-    if (level >= 5) return Math.floor(Math.random() * 5) + 4;   // 4-8
-    if (level >= 3) return Math.floor(Math.random() * 4) + 3;   // 3-6
-    return Math.floor(Math.random() * 3) + 2;  // 2-4
+    if (level >= 7) return Math.floor(Math.random() * 6) + 5;
+    if (level >= 5) return Math.floor(Math.random() * 5) + 4;
+    if (level >= 3) return Math.floor(Math.random() * 4) + 3;
+    return Math.floor(Math.random() * 3) + 2;
+}
+
+function getVariedSpeed(baseSpeed) {
+    // Each column gets a random speed variance
+    const variance = (Math.random() - 0.5) * CONFIG.fallingCode.speedVariance;
+    return baseSpeed + variance;
 }
 
 function spawnFallingObjects() {
@@ -398,22 +418,17 @@ function spawnFallingObjects() {
     
     if (frameCount % difficulty.spawnRate !== 0) return;
     
-    // Spawn multiple columns
     const numColumns = Math.floor(Math.random() * (difficulty.maxColumns - difficulty.minColumns + 1)) + difficulty.minColumns;
-    
-    // Divide screen into sections to avoid overlap
     const sectionWidth = canvas.width / numColumns;
     
     for (let i = 0; i < numColumns; i++) {
         const columnLength = getColumnLength();
         
-        // Generate column characters
         const column = [];
         for (let j = 0; j < columnLength; j++) {
             column.push(CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)]);
         }
         
-        // Position within this section
         const sectionStart = i * sectionWidth;
         const sectionEnd = (i + 1) * sectionWidth - CONFIG.fallingCode.charWidth;
         const x = sectionStart + Math.random() * (sectionEnd - sectionStart);
@@ -422,7 +437,7 @@ function spawnFallingObjects() {
             x: x,
             y: -columnLength * CONFIG.fallingCode.charHeight,
             column: column,
-            speed: difficulty.speed
+            speed: getVariedSpeed(difficulty.baseSpeed)  // VARYING SPEED!
         });
     }
 }
@@ -431,7 +446,7 @@ function updateFallingObjects() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        obj.y += obj.speed;
+        obj.y += obj.speed;  // Each column uses its own speed
         
         if (obj.y > canvas.height) {
             fallingObjects.splice(i, 1);
@@ -464,7 +479,7 @@ function drawFallingObjects() {
 }
 
 // =================================================================================
-// --- COLLISION DETECTION - SIMPLE & CLEAN ---
+// --- COLLISION DETECTION ---
 // =================================================================================
 
 function checkCollisions() {
@@ -474,18 +489,15 @@ function checkCollisions() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Check each character in the column
         for (let j = 0; j < obj.column.length; j++) {
             const charY = obj.y + (j * CONFIG.fallingCode.charHeight);
             
-            // Simple rectangle collision
             if (
                 player.x < obj.x + CONFIG.fallingCode.charWidth &&
                 player.x + CONFIG.player.width > obj.x &&
                 playerY < charY + CONFIG.fallingCode.charHeight &&
                 playerY + playerHeight > charY
             ) {
-                // Hit!
                 fallingObjects.splice(i, 1);
                 lives--;
                 
