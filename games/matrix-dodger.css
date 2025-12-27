@@ -87,6 +87,10 @@ body {
     padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #ff5555;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 15px auto;
 }
 
 .stat {
@@ -325,26 +329,31 @@ body {
 
     .game-header {
         margin-bottom: 5px;
-        min-height: 35px;
+        min-height: 60px;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .back-btn {
         font-size: 0.7rem;
         padding: 5px 10px;
+        position: relative;
+        margin-bottom: 5px;
     }
 
     .game-title {
         font-size: 1.3rem;
         margin-top: 0;
-        padding-top: 5px;
+        padding-top: 0;
+        width: 100%;
     }
 
     .game-stats {
         gap: 8px;
         padding: 6px 12px;
         font-size: 0.85rem;
-        margin-top: 0;
-        margin-bottom: 5px;
+        margin: 0 auto 8px auto;
+        max-width: 350px;
     }
 
     .stat-value {
