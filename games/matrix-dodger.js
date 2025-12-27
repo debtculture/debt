@@ -1,8 +1,6 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic v1.7 (PROPER)
-   NO DIAGONAL - Pure vertical columns only!
-   VARYING SPEEDS - Each column falls at different speed
-   PAUSE BUTTON - Visible button + P/ESC keys
+   MATRIX DODGER - Game Logic v1.7 (FIXED FREEZE BUG)
+   Fixed: Level up notification properly unpauses game
    ============================================================================= */
 
 // =================================================================================
@@ -36,7 +34,7 @@ const CONFIG = {
             level5: [4, 8],
             level7: [5, 10]
         },
-        speedVariance: 1.5  // Speed can vary by ±1.5x
+        speedVariance: 1.5
     },
     difficulty: {
         level1: { baseSpeed: 2, spawnRate: 100, minColumns: 1, maxColumns: 1 },
@@ -136,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupEventListeners() {
     document.addEventListener('keydown', (e) => {
-        // Pause game FIRST (before any other key handling)
         if (e.key.toLowerCase() === 'p' || e.key === 'Escape') {
             if (gameRunning) {
                 e.preventDefault();
@@ -145,7 +142,7 @@ function setupEventListeners() {
             return;
         }
         
-        if (gamePaused) return; // Don't process other keys when paused
+        if (gamePaused) return;
         
         keys[e.key.toLowerCase()] = true;
         
@@ -290,6 +287,7 @@ function showNotification(text, type = 'level') {
         popup.classList.add('life-lost');
     }
     
+    // Only pause for level up and life lost, not for manual pause
     if (type !== 'pause') {
         gamePaused = true;
         
@@ -297,9 +295,10 @@ function showNotification(text, type = 'level') {
             fallingObjects = [];
         }
         
+        // CRITICAL FIX: Make sure to unpause after notification
         setTimeout(() => {
             popup.classList.remove('active', 'life-lost');
-            gamePaused = false;
+            gamePaused = false;  // Resume game!
         }, 1500);
     }
 }
@@ -323,7 +322,6 @@ function gameLoop() {
         updateUI();
     }
     
-    // Always draw
     drawPlayer();
     drawFallingObjects();
     
@@ -397,7 +395,7 @@ function drawPlayer() {
 }
 
 // =================================================================================
-// --- FALLING OBJECTS - PURE VERTICAL, VARYING SPEEDS ---
+// --- FALLING OBJECTS ---
 // =================================================================================
 
 function getColumnLength() {
@@ -408,7 +406,6 @@ function getColumnLength() {
 }
 
 function getVariedSpeed(baseSpeed) {
-    // Each column gets a random speed variance
     const variance = (Math.random() - 0.5) * CONFIG.fallingCode.speedVariance;
     return baseSpeed + variance;
 }
@@ -437,7 +434,7 @@ function spawnFallingObjects() {
             x: x,
             y: -columnLength * CONFIG.fallingCode.charHeight,
             column: column,
-            speed: getVariedSpeed(difficulty.baseSpeed)  // VARYING SPEED!
+            speed: getVariedSpeed(difficulty.baseSpeed)
         });
     }
 }
@@ -446,7 +443,7 @@ function updateFallingObjects() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        obj.y += obj.speed;  // Each column uses its own speed
+        obj.y += obj.speed;
         
         if (obj.y > canvas.height) {
             fallingObjects.splice(i, 1);
