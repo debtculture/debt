@@ -448,6 +448,9 @@ function spawnFallingObjects() {
 }
 
 function updateFallingObjects() {
+    let leveledUp = false;
+    let newLevel = level;
+    
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
@@ -459,20 +462,24 @@ function updateFallingObjects() {
             score += obj.column.length;
             
             // Calculate new level based on score thresholds
-            const oldLevel = level;
-            level = getLevelFromScore(score);
+            newLevel = getLevelFromScore(score);
             
-            if (level > oldLevel) {
-                // Just clear board and animate level number - NO POPUP!
-                fallingObjects = [];
-                animateLevelUp();
-                heartDroppedThisLevel = false; // Reset for new level
-                
-                // If this is a heart level, set random frame when it will drop (between 200-800 frames into level)
-                if (level === nextHeartLevel) {
-                    heartDropFrame = frameCount + Math.floor(Math.random() * 600) + 200;
-                }
+            if (newLevel > level && !leveledUp) {
+                leveledUp = true;
             }
+        }
+    }
+    
+    // Handle level up AFTER iteration completes
+    if (leveledUp) {
+        level = newLevel;
+        fallingObjects = []; // Safe to clear now
+        animateLevelUp();
+        heartDroppedThisLevel = false;
+        
+        // If this is a heart level, set random frame when it will drop
+        if (level === nextHeartLevel) {
+            heartDropFrame = frameCount + Math.floor(Math.random() * 600) + 200;
         }
     }
 }
