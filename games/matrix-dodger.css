@@ -354,23 +354,33 @@ body {
     }
 
     .game-header {
-        margin-bottom: 5px;
-        min-height: 60px;
+        margin-bottom: 3px;
+        min-height: 45px;
         flex-direction: column;
         align-items: flex-start;
     }
 
     .back-btn {
-        font-size: 0.7rem;
-        padding: 5px 10px;
-        position: relative;
-        margin-bottom: 5px;
-        margin-top: 35px;
+        font-size: 0.65rem;
+        padding: 6px 10px;
+        position: absolute;
+        margin-bottom: 0;
+        margin-top: 5px;
+        left: 5px;
+        top: 5px;
+    }
+
+    .pause-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
     }
 
     .game-title {
         font-size: 1.3rem;
-        margin-top: 0;
+        margin-top: 45px;
         padding-top: 0;
         width: 100%;
     }
@@ -379,8 +389,16 @@ body {
         gap: 8px;
         padding: 6px 12px;
         font-size: 0.85rem;
-        margin: 0 auto 8px auto;
+        margin: 5px auto 5px auto;
         max-width: 350px;
+    }
+
+    #gameCanvas {
+        margin-bottom: 3px;
+    }
+
+    .mobile-controls {
+        margin-top: 5px;
     }
 
     .stat-value {
