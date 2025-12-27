@@ -1,5 +1,6 @@
 /* =============================================================================
-   MATRIX DODGER - Game Logic v1.1
+   MATRIX DODGER - Game Logic v1.2
+   FIXES: Proper hitbox, slower leveling, no horizontal strands, custom sprite
    ============================================================================= */
 
 // =================================================================================
@@ -17,10 +18,13 @@ const CONFIG = {
         color: '#ff5555',
         speed: 6,
         jumpPower: 13,
-        gravity: 0.6
+        gravity: 0.6,
+        // Custom sprite image (set via Cloudinary URL)
+        customImage: null, // Will be set if image URL provided
+        imageObj: null
     },
     fallingCode: {
-        width: 30,
+        charWidth: 18,  // Width per character
         height: 30,
         fontSize: 24,
         characters: ['0', '1'],
@@ -35,17 +39,43 @@ const CONFIG = {
     difficulty: {
         level1: { speed: 2, spawnRate: 90, diagonalChance: 0 },
         level2: { speed: 2.5, spawnRate: 85, diagonalChance: 0 },
-        level3: { speed: 3, spawnRate: 75, diagonalChance: 0.2 },
+        level3: { speed: 3, spawnRate: 75, diagonalChance: 0.15 },
         level4: { speed: 3.5, spawnRate: 70, diagonalChance: 0.2 },
-        level5: { speed: 4, spawnRate: 65, diagonalChance: 0.4 },
-        level6: { speed: 4.5, spawnRate: 60, diagonalChance: 0.4 },
-        level7: { speed: 5, spawnRate: 55, diagonalChance: 0.6 },
-        level8: { speed: 5.5, spawnRate: 50, diagonalChance: 0.6 },
-        level9: { speed: 6, spawnRate: 45, diagonalChance: 0.75 },
-        level10: { speed: 7, spawnRate: 40, diagonalChance: 0.8 }
+        level5: { speed: 4, spawnRate: 65, diagonalChance: 0.3 },
+        level6: { speed: 4.5, spawnRate: 60, diagonalChance: 0.35 },
+        level7: { speed: 5, spawnRate: 55, diagonalChance: 0.45 },
+        level8: { speed: 5.5, spawnRate: 50, diagonalChance: 0.5 },
+        level9: { speed: 6, spawnRate: 45, diagonalChance: 0.6 },
+        level10: { speed: 7, spawnRate: 40, diagonalChance: 0.7 }
     },
-    levelsForProgression: 10 // Score needed to level up
+    pointsPerLevel: 50 // Score needed to level up (was 10, now 50)
 };
+
+// =================================================================================
+// --- CUSTOM SPRITE LOADER ---
+// =================================================================================
+
+/**
+ * Load custom character sprite from Cloudinary URL
+ * Call this function with your Cloudinary URL to use custom sprite
+ * Example: loadCustomSprite('https://res.cloudinary.com/your-cloud/image/upload/v123/sprite.png')
+ */
+function loadCustomSprite(imageUrl) {
+    const img = new Image();
+    img.onload = () => {
+        CONFIG.player.imageObj = img;
+        CONFIG.player.customImage = imageUrl;
+        console.log('Custom sprite loaded successfully!');
+    };
+    img.onerror = () => {
+        console.error('Failed to load custom sprite, using default');
+        CONFIG.player.imageObj = null;
+    };
+    img.src = imageUrl;
+}
+
+// Uncomment and add your Cloudinary URL here:
+// loadCustomSprite('YOUR_CLOUDINARY_URL_HERE');
 
 // =================================================================================
 // --- GAME STATE ---
@@ -330,7 +360,19 @@ function drawPlayer() {
     const playerHeight = player.isCrouching ? CONFIG.player.height / 2 : CONFIG.player.height;
     const playerY = player.isCrouching ? player.y + CONFIG.player.height / 2 : player.y;
     
-    // Draw hooded figure
+    // If custom image is loaded, draw it
+    if (CONFIG.player.imageObj) {
+        ctx.drawImage(
+            CONFIG.player.imageObj,
+            player.x,
+            playerY,
+            CONFIG.player.width,
+            playerHeight
+        );
+        return;
+    }
+    
+    // Otherwise draw default hooded figure
     ctx.fillStyle = CONFIG.player.color;
     
     // Hood/head (triangle)
@@ -380,10 +422,13 @@ function spawnFallingObjects() {
         strand += CONFIG.fallingCode.characters[Math.floor(Math.random() * CONFIG.fallingCode.characters.length)];
     }
     
-    // Random X position
-    const x = Math.random() * (canvas.width - CONFIG.fallingCode.width * strandLength);
+    // Calculate actual strand width based on character count
+    const strandWidth = CONFIG.fallingCode.charWidth * strandLength;
     
-    // Determine if diagonal
+    // Random X position (make sure strand fits on screen)
+    const x = Math.random() * (canvas.width - strandWidth);
+    
+    // Determine if diagonal (ONLY vertical or diagonal, NO horizontal)
     const isDiagonal = Math.random() < difficulty.diagonalChance;
     const direction = isDiagonal ? (Math.random() < 0.5 ? -1 : 1) : 0;
     
@@ -391,9 +436,10 @@ function spawnFallingObjects() {
         x: x,
         y: -CONFIG.fallingCode.height,
         strand: strand,
+        width: strandWidth,  // Store actual width for collision
         speed: difficulty.speed,
         direction: direction,
-        horizontalSpeed: isDiagonal ? 1.5 : 0
+        horizontalSpeed: isDiagonal ? 1.2 : 0
     });
 }
 
@@ -401,23 +447,22 @@ function updateFallingObjects() {
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
         
-        // Move down
+        // Move down (ALWAYS vertical)
         obj.y += obj.speed;
         
-        // Move horizontally if diagonal
+        // Move horizontally ONLY if diagonal
         if (obj.direction !== 0) {
             obj.x += obj.direction * obj.horizontalSpeed;
         }
         
         // Remove if off screen
-        const strandWidth = CONFIG.fallingCode.width * obj.strand.length;
-        if (obj.y > canvas.height || obj.x < -strandWidth || obj.x > canvas.width) {
+        if (obj.y > canvas.height || obj.x < -obj.width || obj.x > canvas.width) {
             fallingObjects.splice(i, 1);
             score++; // Successfully dodged
             
-            // Level up check
+            // Level up check (every 50 points now)
             const oldLevel = level;
-            level = Math.floor(score / CONFIG.levelsForProgression) + 1;
+            level = Math.floor(score / CONFIG.pointsPerLevel) + 1;
             
             if (level > oldLevel) {
                 showNotification(`LEVEL ${level}!`, 'level');
@@ -438,7 +483,7 @@ function drawFallingObjects() {
 }
 
 // =================================================================================
-// --- COLLISION DETECTION ---
+// --- COLLISION DETECTION (FIXED) ---
 // =================================================================================
 
 function checkCollisions() {
@@ -447,11 +492,10 @@ function checkCollisions() {
     
     for (let i = fallingObjects.length - 1; i >= 0; i--) {
         const obj = fallingObjects[i];
-        const strandWidth = CONFIG.fallingCode.width * obj.strand.length;
         
-        // Rectangle collision
+        // Use actual strand width for collision (CRITICAL FIX)
         if (
-            player.x < obj.x + strandWidth &&
+            player.x < obj.x + obj.width &&
             player.x + CONFIG.player.width > obj.x &&
             playerY < obj.y + CONFIG.fallingCode.height &&
             playerY + playerHeight > obj.y
