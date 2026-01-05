@@ -48,6 +48,7 @@ const CONFIG = {
         level9: { baseSpeed: 6, spawnRate: 50, minColumns: 3, maxColumns: 5 },
         level10: { baseSpeed: 7, spawnRate: 45, minColumns: 3, maxColumns: 5 }
     },
+    mobileDifficultyMultiplier: 1.3, // Make mobile 30% harder
     levelThresholds: [0, 100, 250, 500, 1000, 2000, 3500, 5500, 8000, 11000] // Score needed for each level
 };
 
@@ -599,7 +600,19 @@ function checkCollisions() {
 
 function getDifficultySettings() {
     const difficultyKey = `level${Math.min(level, 10)}`;
-    return CONFIG.difficulty[difficultyKey] || CONFIG.difficulty.level10;
+    const settings = CONFIG.difficulty[difficultyKey] || CONFIG.difficulty.level10;
+    
+    // Make mobile 30% harder (faster speeds, more frequent spawns)
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        return {
+            ...settings,
+            baseSpeed: settings.baseSpeed * CONFIG.mobileDifficultyMultiplier,
+            spawnRate: Math.floor(settings.spawnRate / CONFIG.mobileDifficultyMultiplier)
+        };
+    }
+    
+    return settings;
 }
 
 function updateUI() {
