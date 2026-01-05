@@ -272,18 +272,53 @@ function endGame() {
     document.getElementById('finalLevel').textContent = level;
     document.getElementById('gameOverScreen').classList.add('active');
     
-    trySubmitScore();
+    // Reset submit form
+    document.getElementById('submitStatus').textContent = '';
+    document.getElementById('playerNameInput').value = '';
+    
+    // Setup submit button
+    setupScoreSubmission();
 }
 
-async function trySubmitScore() {
-    if (typeof window.submitScore === 'function') {
+function setupScoreSubmission() {
+    const submitBtn = document.getElementById('submitScoreBtn');
+    const statusEl = document.getElementById('submitStatus');
+    
+    submitBtn.onclick = async () => {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        statusEl.textContent = '';
+        
+        const playerName = document.getElementById('playerNameInput').value.trim() || null;
+        
         try {
-            await window.submitScore('matrix-dodger', score);
-            console.log('Score submitted successfully!');
+            if (typeof window.submitScore === 'function') {
+                const success = await window.submitScore('matrix-dodger', score, playerName);
+                
+                if (success) {
+                    statusEl.textContent = '✅ Score submitted successfully!';
+                    statusEl.className = 'submit-status success';
+                    submitBtn.textContent = '✅ Score Submitted';
+                } else {
+                    statusEl.textContent = '❌ Failed to submit score';
+                    statusEl.className = 'submit-status error';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📊 Try Again';
+                }
+            } else {
+                statusEl.textContent = '❌ Score submission unavailable';
+                statusEl.className = 'submit-status error';
+                submitBtn.disabled = false;
+                submitBtn.textContent = '📊 Submit Score to Leaderboard';
+            }
         } catch (error) {
-            console.log('Score submission not available');
+            console.error('Score submission error:', error);
+            statusEl.textContent = '❌ Error submitting score';
+            statusEl.className = 'submit-status error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = '📊 Try Again';
         }
-    }
+    };
 }
 
 function showNotification(text, type = 'level') {
