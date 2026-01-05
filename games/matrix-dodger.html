@@ -20,12 +20,12 @@
     <!-- Mobile Layout Fix -->
     <style>
     @media (max-width: 768px) {
-        /* Tighten everything up */
+        /* Tighten everything */
         .game-container {
             padding-top: 3px !important;
         }
         
-        /* Back button - top left corner */
+        /* Back button - top left */
         .back-btn {
             position: absolute !important;
             left: 5px !important;
@@ -35,22 +35,18 @@
             font-size: 0.6rem !important;
         }
         
-        /* Desktop pause - hide on mobile */
+        /* Desktop pause - hide */
         .pause-btn {
             display: none !important;
         }
         
-        /* Mobile pause in header - top right corner */
+        /* Mobile pause in header - top right */
         .game-header .pause-btn-mobile {
             position: absolute !important;
             right: 5px !important;
             top: 5px !important;
             padding: 5px 10px !important;
             font-size: 0.6rem !important;
-            left: auto !important;
-            margin: 0 !important;
-            width: auto !important;
-            max-width: none !important;
             z-index: 20 !important;
         }
         
@@ -69,57 +65,49 @@
         
         /* Canvas */
         #gameCanvas {
-            margin-bottom: 3px !important;
+            margin-bottom: 5px !important;
         }
         
-        /* Mobile controls container */
+        /* Mobile controls - flexbox, left-align pause */
         .mobile-controls {
-            display: grid !important;
-            grid-template-columns: auto 1fr !important;
-            gap: 10px !important;
-            align-items: start !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 8px !important;
             margin-top: 3px !important;
-            padding: 0 10px !important;
+            padding: 0 10px 10px 10px !important;
         }
         
-        /* Pause button - left column, small */
+        /* Pause button - LEFT aligned, smaller */
         .mobile-controls #pauseBtnMobile {
-            grid-column: 1 !important;
-            grid-row: 1 / 4 !important;
-            writing-mode: vertical-rl !important;
-            padding: 8px 6px !important;
-            font-size: 0.65rem !important;
-            min-width: auto !important;
-            width: 40px !important;
-            align-self: center !important;
+            align-self: flex-start !important;
+            width: 100px !important;
+            padding: 8px 12px !important;
+            font-size: 0.75rem !important;
         }
         
-        /* Game controls - right column, centered */
+        /* Jump button - centered */
         #jumpBtn {
-            grid-column: 2 !important;
-            grid-row: 1 !important;
-            justify-self: center !important;
-            margin: 0 auto !important;
+            align-self: center !important;
+            margin: 0 !important;
         }
         
+        /* Left/Right row - centered */
         .control-row {
-            grid-column: 2 !important;
-            grid-row: 2 !important;
             display: flex !important;
             justify-content: center !important;
             gap: 10px !important;
         }
         
+        /* Crouch button - centered */
         #crouchBtn {
-            grid-column: 2 !important;
-            grid-row: 3 !important;
-            justify-self: center !important;
-            margin: 0 auto !important;
+            align-self: center !important;
+            margin: 0 !important;
         }
         
         .control-btn {
-            padding: 10px 16px !important;
-            min-width: 75px !important;
+            padding: 12px 18px !important;
+            min-width: 85px !important;
         }
     }
     </style>
