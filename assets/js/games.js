@@ -32,21 +32,65 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // =================================================================================
-// --- HIGH SCORES (LOCAL STORAGE) ---
+// --- HIGH SCORES (FROM SUPABASE) ---
 // =================================================================================
 
 /**
- * Loads high scores from localStorage and displays them
+ * Loads high scores from Supabase and displays them
  */
-function loadHighScores() {
-    // Matrix Dodger high score
-    const matrixHighScore = localStorage.getItem('matrixDodgerHighScore') || 0;
-    const matrixScoreEl = document.getElementById('matrix-high-score');
-    if (matrixScoreEl) {
-        matrixScoreEl.textContent = matrixHighScore;
+async function loadHighScores() {
+    try {
+        // Get wallet address to find user's scores
+        const walletAddress = localStorage.getItem('walletAddress');
+        let userId = null;
+        
+        if (walletAddress) {
+            const { data: profile } = await supabaseClient
+                .from('profiles')
+                .select('id')
+                .eq('wallet_address', walletAddress)
+                .single();
+            
+            if (profile) userId = profile.id;
+        }
+        
+        // Get user's best score for Matrix Dodger
+        let query = supabaseClient
+            .from('game_scores')
+            .select('score')
+            .eq('game_name', 'matrix-dodger')
+            .order('score', { ascending: false })
+            .limit(1);
+        
+        if (userId) {
+            query = query.eq('player_id', userId);
+        } else {
+            // If not logged in, show localStorage score
+            const localScore = localStorage.getItem('matrixDodgerHighScore') || 0;
+            const matrixScoreEl = document.getElementById('matrix-high-score');
+            if (matrixScoreEl) {
+                matrixScoreEl.textContent = localScore;
+            }
+            return;
+        }
+        
+        const { data: scores } = await query;
+        
+        const highScore = scores && scores.length > 0 ? scores[0].score : 0;
+        const matrixScoreEl = document.getElementById('matrix-high-score');
+        if (matrixScoreEl) {
+            matrixScoreEl.textContent = highScore;
+        }
+        
+    } catch (error) {
+        console.error('Error loading high scores:', error);
+        // Fallback to localStorage
+        const matrixHighScore = localStorage.getItem('matrixDodgerHighScore') || 0;
+        const matrixScoreEl = document.getElementById('matrix-high-score');
+        if (matrixScoreEl) {
+            matrixScoreEl.textContent = matrixHighScore;
+        }
     }
-    
-    // Future games can be added here
 }
 
 // =================================================================================
