@@ -230,5 +230,85 @@
     <script src="assets/js/wallet-manager.js"></script>
     <script defer src="assets/js/shared-scripts.js"></script>
     <script defer src="games.js"></script>
+    <script>
+        // Inline leaderboard loader (fallback if games.js doesn't load)
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Wait a bit for games.js to potentially load
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // If loadLeaderboard doesn't exist, create it inline
+            if (typeof loadLeaderboard === 'undefined') {
+                console.log('games.js not loaded, creating inline leaderboard loader');
+                
+                const supabaseClient = supabase.createClient(
+                    'https://pvbguojrkigzvnuwjawy.supabase.co',
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw'
+                );
+                
+                async function loadLeaderboard(gameName) {
+                    const leaderboardContent = document.getElementById('leaderboard-content');
+                    leaderboardContent.innerHTML = '<div class="leaderboard-loading"><p>Loading leaderboard...</p></div>';
+                    
+                    try {
+                        const { data: scores, error } = await supabaseClient
+                            .from('game_scores')
+                            .select('score, player_name, player_id, profiles(username)')
+                            .eq('game_name', gameName)
+                            .order('score', { ascending: false })
+                            .limit(10);
+                        
+                        if (error) throw error;
+                        
+                        if (!scores || scores.length === 0) {
+                            leaderboardContent.innerHTML = '<div class="leaderboard-empty"><p>No scores yet. Be the first!</p></div>';
+                            return;
+                        }
+                        
+                        const html = scores.map((scoreData, index) => {
+                            const rank = index + 1;
+                            const playerName = scoreData.profiles?.username || scoreData.player_name || 'Anonymous';
+                            const score = scoreData.score;
+                            
+                            let rankDisplay = rank;
+                            if (rank === 1) rankDisplay = '🥇 ' + rank;
+                            else if (rank === 2) rankDisplay = '🥈 ' + rank;
+                            else if (rank === 3) rankDisplay = '🥉 ' + rank;
+                            
+                            const rankClass = rank <= 3 ? `rank-${rank}` : '';
+                            
+                            return `
+                                <div class="leaderboard-row ${rankClass}">
+                                    <div class="rank-col">${rankDisplay}</div>
+                                    <div class="player-col">${playerName}</div>
+                                    <div class="score-col">${score.toLocaleString()}</div>
+                                </div>
+                            `;
+                        }).join('');
+                        
+                        leaderboardContent.innerHTML = html;
+                    } catch (error) {
+                        console.error('Failed to load leaderboard:', error);
+                        leaderboardContent.innerHTML = '<div class="leaderboard-empty"><p>Failed to load leaderboard</p></div>';
+                    }
+                }
+                
+                // Load Matrix Dodger leaderboard by default
+                await loadLeaderboard('matrix-dodger');
+                
+                // Setup tab listeners
+                const tabs = document.querySelectorAll('.leaderboard-tab');
+                tabs.forEach(tab => {
+                    if (!tab.classList.contains('disabled')) {
+                        tab.addEventListener('click', () => {
+                            tabs.forEach(t => t.classList.remove('active'));
+                            tab.classList.add('active');
+                            const gameName = tab.dataset.game;
+                            if (gameName) loadLeaderboard(gameName);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
