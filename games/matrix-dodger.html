@@ -127,6 +127,52 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/wallet-manager.js"></script>
     <script src="../games.js"></script>
+    <script>
+        // Fallback: If games.js doesn't load, create submitScore here
+        if (typeof window.submitScore === 'undefined') {
+            console.log('games.js not loaded, creating inline submitScore');
+            window.submitScore = async function(gameName, score, playerName = null) {
+                try {
+                    const supabaseClient = supabase.createClient(
+                        'https://pvbguojrkigzvnuwjawy.supabase.co',
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ0NjM4NzIsImV4cCI6MjA1MDAzOTg3Mn0.BhyWo7T6oqZlmqN_6VzvvH6jGI_kkXLpJgz4FyZ-dJY'
+                    );
+                    
+                    const walletAddress = localStorage.getItem('walletAddress');
+                    let profileId = null;
+                    
+                    if (walletAddress) {
+                        const { data: profile } = await supabaseClient
+                            .from('profiles')
+                            .select('id, username')
+                            .eq('wallet_address', walletAddress)
+                            .single();
+                        
+                        if (profile) {
+                            profileId = profile.id;
+                            playerName = playerName || profile.username;
+                        }
+                    }
+                    
+                    const { error } = await supabaseClient
+                        .from('game_scores')
+                        .insert({
+                            game_name: gameName,
+                            score: score,
+                            player_id: profileId,
+                            player_name: playerName || 'Anonymous'
+                        });
+                    
+                    if (error) throw error;
+                    console.log('Score submitted successfully!');
+                    return true;
+                } catch (err) {
+                    console.error('Score submission error:', err);
+                    return false;
+                }
+            };
+        }
+    </script>
     <script src="matrix-dodger.js"></script>
 </body>
 </html>
