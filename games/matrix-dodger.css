@@ -369,6 +369,58 @@ body {
     display: block;
 }
 
+/* --- SCORE SUBMISSION FORM --- */
+.score-submit-form {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid #ff5555;
+}
+
+.player-name-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid #ff5555;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+}
+
+.player-name-input::placeholder {
+    color: #888;
+}
+
+.player-name-input:focus {
+    outline: none;
+    border-color: #ff7777;
+    box-shadow: 0 0 10px rgba(255, 85, 85, 0.3);
+}
+
+.submit-score-btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.submit-status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #4CAF50;
+    min-height: 20px;
+}
+
+.submit-status.error {
+    color: #ff5555;
+}
+
+.submit-status.success {
+    color: #4CAF50;
+}
+
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
     .game-container {
