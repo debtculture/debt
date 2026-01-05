@@ -294,51 +294,34 @@
                 
                 async function loadHighScores() {
                     try {
-                        // Get wallet address to find user's scores
-                        const walletAddress = localStorage.getItem('walletAddress');
-                        let userId = null;
-                        
-                        if (walletAddress) {
-                            const { data: profile } = await supabaseClient
-                                .from('profiles')
-                                .select('id')
-                                .eq('wallet_address', walletAddress)
-                                .single();
-                            
-                            if (profile) userId = profile.id;
-                        }
-                        
-                        // Get user's best score for Matrix Dodger
-                        let query = supabaseClient
+                        // Get the #1 global high score for Matrix Dodger
+                        const { data: scores } = await supabaseClient
                             .from('game_scores')
-                            .select('score')
+                            .select('score, player_name, profiles(username)')
                             .eq('game_name', 'matrix-dodger')
                             .order('score', { ascending: false })
                             .limit(1);
                         
-                        if (userId) {
-                            query = query.eq('player_id', userId);
-                        } else {
-                            // If not logged in, show localStorage score
-                            const localScore = localStorage.getItem('matrixDodgerHighScore') || 0;
+                        if (scores && scores.length > 0) {
+                            const topScore = scores[0];
+                            const highScore = topScore.score;
+                            const playerName = topScore.profiles?.username || topScore.player_name || 'Anonymous';
+                            
                             const matrixScoreEl = document.getElementById('matrix-high-score');
                             if (matrixScoreEl) {
-                                matrixScoreEl.textContent = localScore;
+                                matrixScoreEl.textContent = `${highScore.toLocaleString()} (${playerName})`;
                             }
-                            return;
-                        }
-                        
-                        const { data: scores } = await query;
-                        
-                        const highScore = scores && scores.length > 0 ? scores[0].score : 0;
-                        const matrixScoreEl = document.getElementById('matrix-high-score');
-                        if (matrixScoreEl) {
-                            matrixScoreEl.textContent = highScore;
+                        } else {
+                            // No scores yet, show 0
+                            const matrixScoreEl = document.getElementById('matrix-high-score');
+                            if (matrixScoreEl) {
+                                matrixScoreEl.textContent = '0';
+                            }
                         }
                         
                     } catch (error) {
                         console.error('Error loading high scores:', error);
-                        // Fallback to localStorage
+                        // Fallback to localStorage if Supabase fails
                         const matrixHighScore = localStorage.getItem('matrixDodgerHighScore') || 0;
                         const matrixScoreEl = document.getElementById('matrix-high-score');
                         if (matrixScoreEl) {
