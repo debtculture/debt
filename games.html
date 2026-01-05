@@ -229,7 +229,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/wallet-manager.js"></script>
     <script defer src="assets/js/shared-scripts.js"></script>
-    <script defer src="games.js"></script>
+    <script defer src="assets/js/games.js"></script>
     <script>
         // Inline leaderboard loader (fallback if games.js doesn't load)
         document.addEventListener('DOMContentLoaded', async () => {
@@ -292,8 +292,66 @@
                     }
                 }
                 
+                async function loadHighScores() {
+                    try {
+                        // Get wallet address to find user's scores
+                        const walletAddress = localStorage.getItem('walletAddress');
+                        let userId = null;
+                        
+                        if (walletAddress) {
+                            const { data: profile } = await supabaseClient
+                                .from('profiles')
+                                .select('id')
+                                .eq('wallet_address', walletAddress)
+                                .single();
+                            
+                            if (profile) userId = profile.id;
+                        }
+                        
+                        // Get user's best score for Matrix Dodger
+                        let query = supabaseClient
+                            .from('game_scores')
+                            .select('score')
+                            .eq('game_name', 'matrix-dodger')
+                            .order('score', { ascending: false })
+                            .limit(1);
+                        
+                        if (userId) {
+                            query = query.eq('player_id', userId);
+                        } else {
+                            // If not logged in, show localStorage score
+                            const localScore = localStorage.getItem('matrixDodgerHighScore') || 0;
+                            const matrixScoreEl = document.getElementById('matrix-high-score');
+                            if (matrixScoreEl) {
+                                matrixScoreEl.textContent = localScore;
+                            }
+                            return;
+                        }
+                        
+                        const { data: scores } = await query;
+                        
+                        const highScore = scores && scores.length > 0 ? scores[0].score : 0;
+                        const matrixScoreEl = document.getElementById('matrix-high-score');
+                        if (matrixScoreEl) {
+                            matrixScoreEl.textContent = highScore;
+                        }
+                        
+                    } catch (error) {
+                        console.error('Error loading high scores:', error);
+                        // Fallback to localStorage
+                        const matrixHighScore = localStorage.getItem('matrixDodgerHighScore') || 0;
+                        const matrixScoreEl = document.getElementById('matrix-high-score');
+                        if (matrixScoreEl) {
+                            matrixScoreEl.textContent = matrixHighScore;
+                        }
+                    }
+                }
+                
                 // Load Matrix Dodger leaderboard by default
                 await loadLeaderboard('matrix-dodger');
+                
+                // Load high scores
+                await loadHighScores();
                 
                 // Setup tab listeners
                 const tabs = document.querySelectorAll('.leaderboard-tab');
