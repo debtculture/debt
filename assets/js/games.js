@@ -4,6 +4,16 @@
    ============================================================================= */
 
 // =================================================================================
+// --- SUPABASE CLIENT INITIALIZATION ---
+// =================================================================================
+
+// Initialize Supabase client (since wallet-manager doesn't export it)
+const supabaseClient = supabase.createClient(
+    'https://pvbguojrkigzvnuwjawy.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ0NjM4NzIsImV4cCI6MjA1MDAzOTg3Mn0.BhyWo7T6oqZlmqN_6VzvvH6jGI_kkXLpJgz4FyZ-dJY'
+);
+
+// =================================================================================
 // --- INITIALIZATION ---
 // =================================================================================
 
