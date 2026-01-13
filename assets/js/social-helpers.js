@@ -93,6 +93,12 @@ async function submitComment(postId, parentCommentId = null) {
         return;
     }
 
+    const balance = await window.fetchTokenBalance();
+    if (balance < 100000) {
+        alert(`You need at least 100,000 $DEBT to comment. Current balance: ${balance.toLocaleString()}`);
+        return;
+    }
+
     const content = input.value.trim();
 
     try {
