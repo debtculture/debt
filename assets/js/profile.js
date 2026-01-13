@@ -995,6 +995,12 @@ async function saveNewPost() {
         return;
     }
 
+    const balance = await window.fetchTokenBalance();
+    if (balance < 250000) {
+        alert(`You need at least 250,000 $DEBT to create posts. Current balance: ${balance.toLocaleString()}`);
+        return;
+    }
+
     try {
         const { error } = await supabaseClient
             .from('posts')
