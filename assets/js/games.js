@@ -244,6 +244,13 @@ async function submitScore(gameName, score, playerName = null) {
             return true;
         }
         
+        // Token gating check for authenticated users with profile
+        const balance = await window.fetchTokenBalance();
+        if (balance < 100000) {
+            alert(`You need at least 100,000 $DEBT to submit scores. Current balance: ${balance.toLocaleString()}`);
+            return false;
+        }
+        
         // Submit score with user profile
         const { error } = await supabaseClient
             .from('game_scores')
