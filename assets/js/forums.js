@@ -52,14 +52,21 @@ function initializeCreatePostButton() {
 /**
  * Navigates user to their profile page to create a post
  */
-window.navigateToCreatePost = function() {
+window.navigateToCreatePost = async function() {
     const userWallet = localStorage.getItem('walletAddress');
-    if (userWallet) {
-        window.location.href = `profile.html?user=${userWallet}`;
-    } else {
+    if (!userWallet) {
         alert('Please connect your wallet first');
         window.location.href = 'index.html';
+        return;
     }
+    
+    const balance = await window.fetchTokenBalance();
+    if (balance < 250000) {
+        alert(`You need at least 250,000 $DEBT to create posts. Current balance: ${balance.toLocaleString()}`);
+        return;
+    }
+    
+    window.location.href = `profile.html?user=${userWallet}`;
 };
 
 // =================================================================================
