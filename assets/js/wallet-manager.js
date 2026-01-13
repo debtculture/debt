@@ -26,6 +26,10 @@ let supabaseClient = null;
 let currentWalletAddress = null;
 let currentProfile = null;
 let walletProvider = null;
+let cachedTokenBalance = null;
+let balanceLastFetched = null;
+
+const TOKEN_MINT = '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
 
 // =================================================================================
 // --- INITIALIZATION ---
@@ -358,6 +362,9 @@ async function connectWallet(walletType) {
         // Check for existing profile
         await checkAndLoadProfile(publicKey);
 
+        // Fetch token balance
+        await fetchTokenBalance();
+
         // Update UI
         updateWalletUI();
         closeWalletModal();
@@ -395,6 +402,8 @@ async function disconnectWallet() {
     currentWalletAddress = null;
     currentProfile = null;
     walletProvider = null;
+    cachedTokenBalance = null;
+    balanceLastFetched = null;
     localStorage.removeItem('walletAddress');
     localStorage.removeItem('walletType');
     
@@ -431,6 +440,9 @@ async function restoreWalletSession() {
                         
                         // Load profile
                         await checkAndLoadProfile(publicKey);
+                        
+                        // Fetch token balance
+                        await fetchTokenBalance();
                         
                         // Update UI to show connected state
                         updateWalletUI();
@@ -714,3 +726,76 @@ window.getWalletAddress = () => currentWalletAddress;
 window.getUserProfile = () => currentProfile;
 window.isWalletConnected = () => !!currentWalletAddress;
 window.disconnectWalletFromModal = disconnectWalletFromModal;
+
+// =================================================================================
+// --- TOKEN BALANCE FUNCTIONS ---
+// =================================================================================
+
+/**
+ * Fetches current $DEBT token balance for connected wallet
+ * Caches result for session to minimize API calls
+ * @returns {Promise<number>} Token balance in full token units (not raw)
+ */
+async function fetchTokenBalance() {
+    if (!currentWalletAddress) {
+        cachedTokenBalance = 0;
+        return 0;
+    }
+
+    // Return cached balance if fetched in last 5 minutes
+    const now = Date.now();
+    if (cachedTokenBalance !== null && balanceLastFetched && (now - balanceLastFetched < 300000)) {
+        return cachedTokenBalance;
+    }
+
+    try {
+        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com');
+        const publicKey = new solanaWeb3.PublicKey(currentWalletAddress);
+        const mintPublicKey = new solanaWeb3.PublicKey(TOKEN_MINT);
+
+        // Get token accounts for this wallet
+        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+            mint: mintPublicKey
+        });
+
+        if (tokenAccounts.value.length === 0) {
+            cachedTokenBalance = 0;
+            balanceLastFetched = now;
+            return 0;
+        }
+
+        // Get balance from first token account (should only be one per mint)
+        const balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+        cachedTokenBalance = balance || 0;
+        balanceLastFetched = now;
+        
+        return cachedTokenBalance;
+
+    } catch (error) {
+        console.error('Error fetching token balance:', error);
+        // Don't update cache on error, return last known balance or 0
+        return cachedTokenBalance || 0;
+    }
+}
+
+/**
+ * Gets cached token balance without refetching
+ * @returns {number|null} Cached balance or null if not yet fetched
+ */
+function getCachedTokenBalance() {
+    return cachedTokenBalance;
+}
+
+/**
+ * Forces a fresh balance fetch
+ * @returns {Promise<number>} Current token balance
+ */
+async function refreshTokenBalance() {
+    balanceLastFetched = null;
+    return await fetchTokenBalance();
+}
+
+// Export balance functions
+window.fetchTokenBalance = fetchTokenBalance;
+window.getCachedTokenBalance = getCachedTokenBalance;
+window.refreshTokenBalance = refreshTokenBalance;
