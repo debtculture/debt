@@ -1,5 +1,5 @@
 const FEATURES = {
-    walletConnect: false,  // Set to true to enable wallet features
-    forums: false,         // Set to true to show forums tab
-    games: false           // Set to true to show games tab
+    walletConnect: true,  // Set to true to enable wallet features
+    forums: true,         // Set to true to show forums tab
+    games: true           // Set to true to show games tab
 };
