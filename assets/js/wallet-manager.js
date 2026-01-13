@@ -584,6 +584,13 @@ async function createProfile() {
         return;
     }
 
+    // Token gating check
+    const balance = await fetchTokenBalance();
+    if (balance < 100000) {
+        alert(`You need at least 100,000 $DEBT to create a profile. Current balance: ${balance.toLocaleString()}`);
+        return;
+    }
+
     try {
         const { data, error } = await supabaseClient
             .from('profiles')
