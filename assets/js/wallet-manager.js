@@ -749,24 +749,27 @@ async function fetchTokenBalance() {
     }
 
     try {
-        const connection = new solanaWeb3.Connection('https://api.mainnet-beta.solana.com');
-        const publicKey = new solanaWeb3.PublicKey(currentWalletAddress);
-        const mintPublicKey = new solanaWeb3.PublicKey(TOKEN_MINT);
+        // Use existing Helius API endpoint
+        const response = await fetch(`/api/token-data?type=balance&publicKey=${currentWalletAddress}`);
+        
+        if (!response.ok) {
+            throw new Error(`Balance API returned status ${response.status}`);
+        }
 
-        // Get token accounts for this wallet
-        const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
-            mint: mintPublicKey
-        });
+        const balanceData = await response.json();
 
-        if (tokenAccounts.value.length === 0) {
+        // Find $DEBT token in the response
+        const debtToken = balanceData.tokens?.find(token => token.mint === TOKEN_MINT);
+
+        if (!debtToken) {
             cachedTokenBalance = 0;
             balanceLastFetched = now;
             return 0;
         }
 
-        // Get balance from first token account (should only be one per mint)
-        const balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-        cachedTokenBalance = balance || 0;
+        // Get balance (already in UI amount format from Helius)
+        const balance = debtToken.amount || 0;
+        cachedTokenBalance = balance;
         balanceLastFetched = now;
         
         return cachedTokenBalance;
