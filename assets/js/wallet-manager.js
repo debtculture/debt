@@ -712,6 +712,7 @@ function promptToInstallWallet(walletId) {
 
 // Make functions globally available
 window.initializeWalletManager = initializeWalletManager;
+window.initWallet = initializeWalletManager; // Alias for compatibility
 window.closeWalletModal = closeWalletModal;
 window.closeProfileModal = closeProfileModal;
 window.createProfile = createProfile;
@@ -730,6 +731,7 @@ function disconnectWalletFromModal() {
 window.getWalletAddress = () => currentWalletAddress;
 window.getUserProfile = () => currentProfile;
 window.isWalletConnected = () => !!currentWalletAddress;
+window.getSupabaseClient = () => supabaseClient;
 window.disconnectWalletFromModal = disconnectWalletFromModal;
 
 // =================================================================================
