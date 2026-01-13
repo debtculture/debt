@@ -4,19 +4,12 @@
    ============================================================================= */
 
 // =================================================================================
-// --- SUPABASE CLIENT INITIALIZATION ---
-// =================================================================================
-
-// Use supabaseClient from wallet-manager.js (initialized globally)
-// Access via window.supabaseClient or use the global supabaseClient variable
-
-// =================================================================================
 // --- INITIALIZATION ---
 // =================================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize wallet manager
-    await initWallet();
+    await window.initializeWalletManager();
     
     // Load high scores from localStorage
     loadHighScores();
@@ -37,6 +30,8 @@ document.addEventListener('DOMContentLoaded', async () => {
  */
 async function loadHighScores() {
     try {
+        const supabaseClient = window.getSupabaseClient();
+        
         // Get the #1 global high score for Matrix Dodger
         const { data: scores } = await supabaseClient
             .from('game_scores')
@@ -88,6 +83,8 @@ async function loadLeaderboard(gameName) {
     leaderboardContent.innerHTML = '<div class="leaderboard-loading"><p>Loading leaderboard...</p></div>';
     
     try {
+        const supabaseClient = window.getSupabaseClient();
+        
         // Fetch top 10 scores for this game
         const { data: scores, error } = await supabaseClient
             .from('game_scores')
@@ -199,6 +196,8 @@ function setupLeaderboardTabs() {
  */
 async function submitScore(gameName, score, playerName = null) {
     try {
+        const supabaseClient = window.getSupabaseClient();
+        
         // Get logged-in user wallet
         const userWallet = localStorage.getItem('walletAddress');
         
