@@ -7,11 +7,8 @@
 // --- SUPABASE CLIENT INITIALIZATION ---
 // =================================================================================
 
-// Initialize Supabase client (since wallet-manager doesn't export it)
-const supabaseClient = supabase.createClient(
-    'https://pvbguojrkigzvnuwjawy.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2Ymd1b2pya2lnenZudXdqYXd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjMwMjIsImV4cCI6MjA3NDk5OTAyMn0.DeUDUPCyPfUifEqRmj6f85qXthbW3rF1qPjNhdRqVlw'
-);
+// Use supabaseClient from wallet-manager.js (initialized globally)
+// Access via window.supabaseClient or use the global supabaseClient variable
 
 // =================================================================================
 // --- INITIALIZATION ---
