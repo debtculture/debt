@@ -29,8 +29,6 @@ let walletProvider = null;
 let cachedTokenBalance = null;
 let balanceLastFetched = null;
 
-const TOKEN_MINT = '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump';
-
 // =================================================================================
 // --- INITIALIZATION ---
 // =================================================================================
@@ -766,7 +764,7 @@ async function fetchTokenBalance() {
         const balanceData = await response.json();
 
         // Find $DEBT token in the response
-        const debtToken = balanceData.tokens?.find(token => token.mint === TOKEN_MINT);
+        const debtToken = balanceData.tokens?.find(token => token.mint === '9NQc7BnhfLbNwVFXrVsymEdqEFRuv5e1k7CuQW82pump');
 
         if (!debtToken) {
             cachedTokenBalance = 0;
