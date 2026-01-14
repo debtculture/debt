@@ -138,7 +138,10 @@
                         <label for="token-amount">Token Amount</label>
                         <div style="display: flex; gap: 8px;">
                             <input type="number" id="token-amount" placeholder="e.g., 1000000" min="0" style="flex: 1;">
-                            <button class="tool-btn secondary import-balance-btn" onclick="importBalance()" style="min-width: auto; padding: 12px 16px; white-space: nowrap;">Import My Balance</button>
+                            <button class="tool-btn secondary import-balance-btn" onclick="importBalance()" style="min-width: auto; padding: 12px 16px; white-space: nowrap;">
+                                <span class="import-btn-text-full">Import My Balance</span>
+                                <span class="import-btn-text-short" style="display: none;">Import</span>
+                            </button>
                         </div>
                     </div>
                     
