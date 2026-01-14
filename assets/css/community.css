@@ -139,7 +139,7 @@
     height: 32px;
 }
 
-/* --- SHILLER OF THE WEEK SECTION --- */
+/* --- SHILLER OF THE MONTH SECTION --- */
 .sotw-section {
     max-width: 800px;
     margin: 40px auto;
@@ -763,7 +763,7 @@
     font-size: 18px;
 }
 
-/* Shiller of the Week Winner Badge */
+/* Shiller of the Month Winner Badge */
 .badge-shiller-of-the-week-winner {
     background: linear-gradient(145deg, #ffcc00, #cc9900);
     border: 1px solid #ffcc00;
@@ -1536,7 +1536,7 @@
         height: 26px;
     }
 
-    /* Shiller of the Week Mobile */
+    /* Shiller of the Month Mobile */
     .sotw-container {
         flex-direction: column;
         text-align: center;
