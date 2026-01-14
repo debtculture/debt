@@ -176,15 +176,8 @@ function createProfileModal() {
                <h2>Create Your Profile</h2>
                <button class="wallet-modal-close" onclick="closeProfileModal()">&times;</button>
            </div>
-           <div class="wallet-modal-body">
-               <p>Choose a username to complete your profile:</p>
-               <input type="text" id="profile-username-input" class="profile-username-input" placeholder="Enter username..." maxlength="20">
-               <p class="username-rules">3-20 characters, lowercase letters and numbers only</p>
-               <div class="profile-modal-actions">
-                   <button class="cta-button" onclick="createProfile()">Create Profile</button>
-                   <button class="cta-button cancel" onclick="closeProfileModal()">Maybe Later</button>
-                   <button class="cta-button disconnect" onclick="disconnectWalletFromModal()">Disconnect Wallet</button>
-               </div>
+           <div class="wallet-modal-body" id="profile-modal-body-content">
+               <p style="text-align: center;">Checking balance...</p>
            </div>
        </div>
    `;
@@ -197,13 +190,53 @@ function createProfileModal() {
             closeProfileModal();
         }
     });
+}
 
-    // Handle Enter key in username input
-    document.getElementById('profile-username-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            createProfile();
-        }
-    });
+/**
+ * Updates profile modal content based on token balance
+ */
+async function updateProfileModalContent() {
+    const modalBody = document.getElementById('profile-modal-body-content');
+    if (!modalBody) return;
+
+    const balance = await fetchTokenBalance();
+    const requiredBalance = 100000;
+
+    if (balance < requiredBalance) {
+        modalBody.innerHTML = `
+            <div style="text-align: center; padding: 20px;">
+                <p style="color: #ff5555; font-size: 1.1rem; margin-bottom: 15px;">⚠️ Insufficient Balance</p>
+                <p style="margin-bottom: 10px;">Profile creation requires at least <strong>100,000 $DEBT</strong>.</p>
+                <p style="color: #888;">Current balance: <strong>${balance.toLocaleString()}</strong> $DEBT</p>
+                <div class="profile-modal-actions" style="margin-top: 25px;">
+                    <button class="cta-button cancel" onclick="closeProfileModal()">Close</button>
+                    <button class="cta-button disconnect" onclick="disconnectWalletFromModal()">Disconnect Wallet</button>
+                </div>
+            </div>
+        `;
+    } else {
+        modalBody.innerHTML = `
+            <p>Choose a username to complete your profile:</p>
+            <input type="text" id="profile-username-input" class="profile-username-input" placeholder="Enter username..." maxlength="20">
+            <p class="username-rules">3-20 characters, lowercase letters and numbers only</p>
+            <div class="profile-modal-actions">
+                <button class="cta-button" onclick="createProfile()">Create Profile</button>
+                <button class="cta-button cancel" onclick="closeProfileModal()">Maybe Later</button>
+                <button class="cta-button disconnect" onclick="disconnectWalletFromModal()">Disconnect Wallet</button>
+            </div>
+        `;
+        
+        setTimeout(() => {
+            const input = document.getElementById('profile-username-input');
+            if (input) {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        createProfile();
+                    }
+                });
+            }
+        }, 100);
+    }
 }
 
 // =================================================================================
@@ -319,8 +352,9 @@ function closeWalletModal() {
 /**
  * Opens the profile creation modal
  */
-function openProfileModal() {
+async function openProfileModal() {
     document.getElementById('profile-creation-modal').style.display = 'flex';
+    await updateProfileModalContent();
 }
 
 /**
@@ -718,6 +752,7 @@ window.closeProfileModal = closeProfileModal;
 window.createProfile = createProfile;
 window.disconnectWallet = disconnectWallet;
 window.closeWalletDropdown = closeWalletDropdown;
+window.updateProfileModalContent = updateProfileModalContent;
 
 /**
  * Disconnects wallet and closes profile modal
