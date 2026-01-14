@@ -201,20 +201,9 @@ async function submitScore(gameName, score, playerName = null) {
         // Get logged-in user wallet
         const userWallet = localStorage.getItem('walletAddress');
         
-        // If no wallet connected, use provided playerName or 'Anonymous'
         if (!userWallet) {
-            const displayName = playerName || 'Anonymous';
-            
-            const { error } = await supabaseClient
-                .from('game_scores')
-                .insert({
-                    game_name: gameName,
-                    score: score,
-                    player_name: displayName
-                });
-            
-            if (error) throw error;
-            return true;
+            alert('Please connect your wallet to submit scores.');
+            return false;
         }
         
         // Get user profile
@@ -225,22 +214,11 @@ async function submitScore(gameName, score, playerName = null) {
             .single();
         
         if (!profile) {
-            console.warn('User profile not found, submitting as anonymous');
-            const displayName = playerName || 'Anonymous';
-            
-            const { error } = await supabaseClient
-                .from('game_scores')
-                .insert({
-                    game_name: gameName,
-                    score: score,
-                    player_name: displayName
-                });
-            
-            if (error) throw error;
-            return true;
+            alert('Please create a profile to submit scores.');
+            return false;
         }
         
-        // Token gating check for authenticated users with profile
+        // Token gating check
         const balance = await window.fetchTokenBalance();
         if (balance < 100000) {
             alert(`You need at least 100,000 $DEBT to submit scores. Current balance: ${balance.toLocaleString()}`);
