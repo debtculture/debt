@@ -451,13 +451,14 @@ body {
 @media (max-width: 768px) {
     .game-container {
         padding: 0;
-        padding-top: 5px;
+        padding-top: 0;
         justify-content: flex-start;
+        min-height: 100vh;
     }
 
     .game-header {
-        margin-bottom: 3px;
-        min-height: 40px;
+        margin-bottom: 2px;
+        min-height: 35px;
         flex-direction: column;
         align-items: flex-start;
         padding: 0 10px;
@@ -469,7 +470,7 @@ body {
         position: absolute;
         margin: 0;
         left: 10px;
-        top: 8px;
+        top: 5px;
     }
 
     .pause-btn {
@@ -482,16 +483,16 @@ body {
 
     .game-title {
         font-size: 1.2rem;
-        margin-top: 8px;
+        margin-top: 5px;
         padding-top: 0;
         width: 100%;
     }
 
     .game-stats {
         gap: 8px;
-        padding: 4px 10px;
+        padding: 3px 10px;
         font-size: 0.8rem;
-        margin: 2px auto 2px auto;
+        margin: 1px auto 1px auto;
         max-width: 100%;
     }
 
@@ -500,15 +501,15 @@ body {
     }
 
     #gameCanvas {
-        margin-bottom: 2px;
+        margin-bottom: 1px;
         max-width: 100%;
         height: auto;
     }
 
     .mobile-controls {
-        margin-top: 3px;
-        padding-bottom: 5px;
-        gap: 7px;
+        margin-top: 2px;
+        padding-bottom: 3px;
+        gap: 6px;
     }
 
     .control-btn {
