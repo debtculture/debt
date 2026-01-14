@@ -2,10 +2,10 @@
    COMMUNITY PAGE LOGIC - Automated Badge System & Dynamic Rankings
    ============================================================================= */
 
-// --- SHILLER OF THE WEEK CONFIGURATION ---
-// Change these values to update the Shiller of the Week display
+// --- SHILLER OF THE MONTH CONFIGURATION ---
+// Change these values to update the Shiller of the Month display
 const SHILLER_OF_THE_WEEK = 'Ambient'; // Name of current shiller
-const SHILLER_CURRENT_STREAK = 1; // Current consecutive weeks
+const SHILLER_CURRENT_STREAK = 1; // Current consecutive months
 
 // --- GLOBAL VARIABLES ---
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQteQaPjXe3IlPsj8KNtr-pY5nZO2WMSNk9jPfMGSMEdmQghWjvXiF0-7Zbi64kHza926Yyg9lhguH-/pub?output=csv';
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Generate Team section
     generateTeamSection();
     
-    // Generate Shiller of the Week section
+    // Generate Shiller of the Month section
     generateShillerOfTheWeek();
     
     // Generate member grid with sorted members (excluding team)
@@ -240,7 +240,7 @@ function calculateCurrentMonthlyRanks() {
  * - Consistent Player (10+ events)
  * - Core Contributor (manually assigned)
  * - Cold Blooded Shiller (manually assigned)
- * - Shiller of the Week Winner (has won SOTW at least once)
+ * - Shiller of the Month Winner (has won SOTM at least once)
  * - Whale Alert (manually assigned)
  */
 function assignBadges() {
@@ -473,16 +473,16 @@ function generateTeamSection() {
 }
 
 /* =============================================================================
-   SHILLER OF THE WEEK GENERATION
+   SHILLER OF THE MONTH GENERATION
    ============================================================================= */
 
 /**
- * Generates the Shiller of the Week spotlight section
+ * Generates the Shiller of the Month spotlight section
  */
 function generateShillerOfTheWeek() {
     const sotwContainer = document.getElementById('sotw-container');
     if (!sotwContainer) {
-        console.error('Shiller of the Week container not found');
+        console.error('Shiller of the Month container not found');
         return;
     }
     
@@ -502,11 +502,11 @@ function generateShillerOfTheWeek() {
             </a>
         </div>
         <div class="sotw-content">
-            <div class="sotw-header">⭐ SHILLER OF THE WEEK ⭐</div>
+            <div class="sotw-header">⭐ SHILLER OF THE MONTH ⭐</div>
             <div class="sotw-name">${shillerMember.name}</div>
             <div class="sotw-stats">
                 <div class="sotw-stat">Has Won: <span>${totalWins}</span> time${totalWins !== 1 ? 's' : ''}</div>
-                <div class="sotw-stat">Current Streak: <span>${SHILLER_CURRENT_STREAK}</span> week${SHILLER_CURRENT_STREAK !== 1 ? 's' : ''}</div>
+                <div class="sotw-stat">Current Streak: <span>${SHILLER_CURRENT_STREAK}</span> month${SHILLER_CURRENT_STREAK !== 1 ? 's' : ''}</div>
             </div>
             <div class="sotw-badges" id="sotw-badges"></div>
         </div>
@@ -725,7 +725,7 @@ function createBadgeElement(badge) {
     } else if (badge.type === 'cold-blooded-shiller') {
         tooltip = 'Cold Blooded Shiller: Consistently shills the project on social media';
     } else if (badge.type === 'shiller-of-the-week-winner') {
-        tooltip = 'Shiller of the Week Winner: Has won Shiller of the Week';
+        tooltip = 'Shiller of the Month Winner: Has won Shiller of the Month';
     } else if (badge.type === 'whale-alert') {
         tooltip = 'Whale Alert: Holds 1%+ of token supply';
     }
