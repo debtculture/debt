@@ -98,6 +98,44 @@ function copyTweet() {
 // --- MARKET CAP CALCULATOR ---
 // =================================================================================
 
+async function importBalance() {
+    const tokenInput = document.getElementById('token-amount');
+    const importBtn = document.querySelector('.import-balance-btn');
+    
+    // Check if wallet is connected
+    const walletAddress = localStorage.getItem('walletAddress');
+    if (!walletAddress) {
+        // Trigger wallet connection
+        const walletBtn = document.getElementById('wallet-connect-btn');
+        if (walletBtn) {
+            walletBtn.click();
+        }
+        return;
+    }
+    
+    // Fetch balance
+    importBtn.textContent = 'Fetching...';
+    importBtn.disabled = true;
+    
+    try {
+        const balance = await window.fetchTokenBalance();
+        tokenInput.value = Math.floor(balance);
+        importBtn.textContent = '✓ Imported';
+        
+        setTimeout(() => {
+            importBtn.textContent = 'Import My Balance';
+            importBtn.disabled = false;
+        }, 2000);
+    } catch (error) {
+        console.error('Error importing balance:', error);
+        importBtn.textContent = 'Error';
+        setTimeout(() => {
+            importBtn.textContent = 'Import My Balance';
+            importBtn.disabled = false;
+        }, 2000);
+    }
+}
+
 function calculateValue() {
     const tokenAmount = parseFloat(document.getElementById('token-amount').value);
     const marketCap = parseFloat(document.getElementById('market-cap').value);
@@ -160,3 +198,5 @@ function formatMarketCap(mcap) {
     }
     return `$${mcap}`;
 }
+
+window.importBalance = importBalance;
