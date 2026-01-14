@@ -285,7 +285,10 @@ async function setupScoreSubmissionUI() {
     if (!walletAddress) {
         container.innerHTML = `
             <div class="score-gate-message">
-                <p style="color: #888; font-size: 0.95rem;">🔒 Connect a wallet to submit scores</p>
+                <p style="color: #888; font-size: 0.95rem; margin-bottom: 10px;">🔒 Connect a wallet to submit scores</p>
+                <button class="game-btn" onclick="document.getElementById('wallet-connect-btn')?.click()" style="padding: 10px 20px; font-size: 0.9rem;">
+                    Connect Wallet
+                </button>
             </div>
         `;
         return;
@@ -303,7 +306,10 @@ async function setupScoreSubmissionUI() {
         if (!profile) {
             container.innerHTML = `
                 <div class="score-gate-message">
-                    <p style="color: #888; font-size: 0.95rem;">📝 Create a profile to submit scores</p>
+                    <p style="color: #888; font-size: 0.95rem; margin-bottom: 10px;">📝 Create a profile to submit scores</p>
+                    <button class="game-btn" onclick="window.location.href='profile.html?user=' + localStorage.getItem('walletAddress')" style="padding: 10px 20px; font-size: 0.9rem;">
+                        Create Profile
+                    </button>
                 </div>
             `;
             return;
