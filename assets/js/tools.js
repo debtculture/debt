@@ -125,7 +125,7 @@ async function importBalance() {
     
     try {
         const balance = await window.fetchTokenBalance();
-        tokenInput.value = Math.floor(balance);
+        tokenInput.value = balance;
         
         if (fullText) fullText.textContent = '✓ Imported';
         if (shortText) shortText.textContent = '✓';
