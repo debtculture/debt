@@ -272,28 +272,76 @@ function endGame() {
     document.getElementById('finalLevel').textContent = level;
     document.getElementById('gameOverScreen').classList.add('active');
     
-    // Reset submit form
-    document.getElementById('submitStatus').textContent = '';
-    document.getElementById('playerNameInput').value = '';
-    
-    // Setup submit button
-    setupScoreSubmission();
+    // Setup gated score submission UI
+    setupScoreSubmissionUI();
 }
 
-function setupScoreSubmission() {
-    const submitBtn = document.getElementById('submitScoreBtn');
-    const statusEl = document.getElementById('submitStatus');
+async function setupScoreSubmissionUI() {
+    const container = document.getElementById('scoreSubmitContainer');
+    if (!container) return;
     
-    submitBtn.onclick = async () => {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-        statusEl.textContent = '';
+    // Check wallet connection
+    const walletAddress = localStorage.getItem('walletAddress');
+    if (!walletAddress) {
+        container.innerHTML = `
+            <div class="score-gate-message">
+                <p style="color: #888; font-size: 0.95rem;">🔒 Connect a wallet to submit scores</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Check for profile
+    try {
+        const supabaseClient = window.getSupabaseClient();
+        const { data: profile } = await supabaseClient
+            .from('profiles')
+            .select('id, username')
+            .eq('wallet_address', walletAddress)
+            .single();
         
-        const playerName = document.getElementById('playerNameInput').value.trim() || null;
+        if (!profile) {
+            container.innerHTML = `
+                <div class="score-gate-message">
+                    <p style="color: #888; font-size: 0.95rem;">📝 Create a profile to submit scores</p>
+                </div>
+            `;
+            return;
+        }
         
-        try {
-            if (typeof window.submitScore === 'function') {
-                const success = await window.submitScore('matrix-dodger', score, playerName);
+        // Check token balance
+        const balance = await window.fetchTokenBalance();
+        if (balance < 100000) {
+            container.innerHTML = `
+                <div class="score-gate-message">
+                    <p style="color: #ff5555; font-size: 0.95rem;">⚠️ Score submission requires 100,000 $DEBT</p>
+                    <p style="color: #666; font-size: 0.85rem;">Current balance: ${balance.toLocaleString()} $DEBT</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Render submit button
+        container.innerHTML = `
+            <div class="score-submit-form">
+                <button class="game-btn submit-score-btn" id="submitScoreBtn">
+                    📊 Submit Score to Leaderboard
+                </button>
+                <p class="submit-status" id="submitStatus"></p>
+            </div>
+        `;
+        
+        // Setup submit handler
+        const submitBtn = document.getElementById('submitScoreBtn');
+        const statusEl = document.getElementById('submitStatus');
+        
+        submitBtn.onclick = async () => {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            statusEl.textContent = '';
+            
+            try {
+                const success = await window.submitScore('matrix-dodger', score);
                 
                 if (success) {
                     statusEl.textContent = '✅ Score submitted successfully!';
@@ -305,20 +353,23 @@ function setupScoreSubmission() {
                     submitBtn.disabled = false;
                     submitBtn.textContent = '📊 Try Again';
                 }
-            } else {
-                statusEl.textContent = '❌ Score submission unavailable';
+            } catch (error) {
+                console.error('Submit error:', error);
+                statusEl.textContent = '❌ Submission error';
                 statusEl.className = 'submit-status error';
                 submitBtn.disabled = false;
-                submitBtn.textContent = '📊 Submit Score to Leaderboard';
+                submitBtn.textContent = '📊 Try Again';
             }
-        } catch (error) {
-            console.error('Score submission error:', error);
-            statusEl.textContent = '❌ Error submitting score';
-            statusEl.className = 'submit-status error';
-            submitBtn.disabled = false;
-            submitBtn.textContent = '📊 Try Again';
-        }
-    };
+        };
+        
+    } catch (error) {
+        console.error('Error setting up score submission:', error);
+        container.innerHTML = `
+            <div class="score-gate-message">
+                <p style="color: #888; font-size: 0.95rem;">Error loading submission UI</p>
+            </div>
+        `;
+    }
 }
 
 function showNotification(text, type = 'level') {
