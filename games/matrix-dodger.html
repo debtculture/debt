@@ -173,20 +173,8 @@
                 <p class="final-score">Final Score: <span id="finalScore">0</span></p>
                 <p class="final-level">Level Reached: <span id="finalLevel">1</span></p>
                 
-                <!-- Score Submission Form -->
-                <div class="score-submit-form" id="scoreSubmitForm">
-                    <input 
-                        type="text" 
-                        id="playerNameInput" 
-                        placeholder="Enter your name (optional)" 
-                        maxlength="20"
-                        class="player-name-input"
-                    />
-                    <button class="game-btn submit-score-btn" id="submitScoreBtn">
-                        📊 Submit Score to Leaderboard
-                    </button>
-                    <p class="submit-status" id="submitStatus"></p>
-                </div>
+                <!-- Score Submission UI (dynamically rendered based on wallet/profile/balance) -->
+                <div class="score-submit-container" id="scoreSubmitContainer"></div>
                 
                 <div class="game-over-buttons">
                     <button class="game-btn" id="restartBtn">Play Again</button>
