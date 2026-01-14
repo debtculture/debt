@@ -44,6 +44,12 @@
     margin: 0;
 }
 
+@media (max-width: 768px) {
+    .tool-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
 .tool-description {
     font-size: 0.95rem;
     color: var(--text-secondary);
@@ -219,5 +225,30 @@
     .tool-btn,
     .preset-btn {
         transition: none !important;
+    }
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    .import-balance-btn {
+        font-size: 0.75rem !important;
+        padding: 10px 12px !important;
+        min-width: auto !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .import-balance-btn {
+        font-size: 0.75rem !important;
+        padding: 10px 12px !important;
+    }
+    
+    .import-btn-text-full {
+        display: none !important;
+    }
+    
+    .import-btn-text-short {
+        display: inline !important;
     }
 }
