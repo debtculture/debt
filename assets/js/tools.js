@@ -101,6 +101,8 @@ function copyTweet() {
 async function importBalance() {
     const tokenInput = document.getElementById('token-amount');
     const importBtn = document.querySelector('.import-balance-btn');
+    const fullText = importBtn.querySelector('.import-btn-text-full');
+    const shortText = importBtn.querySelector('.import-btn-text-short');
     
     // Check if wallet is connected
     const walletAddress = localStorage.getItem('walletAddress');
@@ -114,23 +116,33 @@ async function importBalance() {
     }
     
     // Fetch balance
-    importBtn.textContent = 'Fetching...';
+    const originalFullText = fullText ? fullText.textContent : 'Import My Balance';
+    const originalShortText = shortText ? shortText.textContent : 'Import';
+    
+    if (fullText) fullText.textContent = 'Fetching...';
+    if (shortText) shortText.textContent = '...';
     importBtn.disabled = true;
     
     try {
         const balance = await window.fetchTokenBalance();
         tokenInput.value = Math.floor(balance);
-        importBtn.textContent = '✓ Imported';
+        
+        if (fullText) fullText.textContent = '✓ Imported';
+        if (shortText) shortText.textContent = '✓';
         
         setTimeout(() => {
-            importBtn.textContent = 'Import My Balance';
+            if (fullText) fullText.textContent = originalFullText;
+            if (shortText) shortText.textContent = originalShortText;
             importBtn.disabled = false;
         }, 2000);
     } catch (error) {
         console.error('Error importing balance:', error);
-        importBtn.textContent = 'Error';
+        if (fullText) fullText.textContent = 'Error';
+        if (shortText) shortText.textContent = 'Error';
+        
         setTimeout(() => {
-            importBtn.textContent = 'Import My Balance';
+            if (fullText) fullText.textContent = originalFullText;
+            if (shortText) shortText.textContent = originalShortText;
             importBtn.disabled = false;
         }, 2000);
     }
