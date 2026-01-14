@@ -809,8 +809,9 @@ async function fetchTokenBalance() {
             return 0;
         }
 
-        // Get balance (already in UI amount format from Helius)
-        const balance = debtToken.amount || 0;
+        // Convert raw amount to UI amount (divide by 10^decimals)
+        // $DEBT has 6 decimals
+        const balance = debtToken.amount / 1000000;
         cachedTokenBalance = balance;
         balanceLastFetched = now;
         
