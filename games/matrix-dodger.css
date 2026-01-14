@@ -34,7 +34,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
 }
 
 /* --- GAME HEADER --- */
@@ -472,16 +472,16 @@ body {
     }
 
     .pause-btn {
-        display: none; /* Hide desktop pause button on mobile */
+        display: none;
     }
 
     .pause-btn-mobile {
-        display: block; /* Show mobile pause button */
+        display: none;
     }
 
     .game-title {
         font-size: 1.2rem;
-        margin-top: 35px;
+        margin-top: 15px;
         padding-top: 0;
         width: 100%;
     }
@@ -490,7 +490,7 @@ body {
         gap: 8px;
         padding: 5px 10px;
         font-size: 0.8rem;
-        margin: 3px auto 5px auto;
+        margin: 3px auto 3px auto;
         max-width: 100%;
     }
 
@@ -499,33 +499,33 @@ body {
     }
 
     #gameCanvas {
-        margin-bottom: 5px;
+        margin-bottom: 3px;
         max-width: 100%;
         height: auto;
     }
 
     .mobile-controls {
-        margin-top: 10px;
-        padding-bottom: 15px;
-        gap: 10px;
+        margin-top: 5px;
+        padding-bottom: 10px;
+        gap: 8px;
     }
 
     .control-btn {
-        padding: 12px 20px;
-        font-size: 0.85rem;
-        min-width: 85px;
+        padding: 11px 18px;
+        font-size: 0.8rem;
+        min-width: 80px;
     }
     
     .control-btn.pause-btn {
-        min-width: 60px;
-        padding: 10px 14px;
-        font-size: 0.8rem;
+        min-width: 55px;
+        padding: 9px 12px;
+        font-size: 0.75rem;
     }
     
     .control-btn.jump-btn {
-        min-width: 100px;
-        padding: 14px 24px;
-        font-size: 0.95rem;
+        min-width: 95px;
+        padding: 13px 22px;
+        font-size: 0.9rem;
     }
 
     .desktop-instructions {
