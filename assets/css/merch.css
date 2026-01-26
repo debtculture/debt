@@ -57,11 +57,40 @@
     align-items: center;
     transition: transform var(--transition-speed) ease,
                 box-shadow var(--transition-speed) ease;
+    position: relative;
 }
 
 .merch-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 20px rgba(255, 85, 85, 0.5);
+}
+
+/* --- LIMITED EDITION BADGE --- */
+.limited-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--main-red);
+    color: var(--text-primary);
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 5;
+    animation: pulseBadge 2s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--main-red);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 15px var(--main-red), 0 0 25px var(--main-red);
+        transform: scale(1.05);
+    }
 }
 
 /* --- CAROUSEL --- */
@@ -154,6 +183,25 @@
     margin-bottom: 10px;
 }
 
+.shipping-note {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.inventory-status {
+    font-size: 0.9rem;
+    color: #ff9999;
+    font-weight: 600;
+    margin: 5px 0 10px;
+}
+
+#inventoryCount {
+    color: var(--main-red);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
 .credit-tag {
     font-size: 0.8rem;
     color: var(--text-secondary);
@@ -187,6 +235,17 @@
 .merch-button:disabled:hover {
     background: #333;
     box-shadow: none;
+}
+
+.proceeds-note {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.4;
+    margin-top: 15px;
+    padding: 0 10px;
+    max-width: 280px;
+    font-style: italic;
 }
 
 /* --- RESPONSIVE DESIGN --- */
