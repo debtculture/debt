@@ -138,55 +138,18 @@ function setupCarousel(carousel) {
 // =================================================================================
 
 /**
- * Initializes the purchase modal and button handlers
+ * Initializes the purchase button handler
  */
 function initializePurchaseModal() {
     const buyBtn = document.getElementById('buyMugBtn');
-    const modal = document.getElementById('purchaseModal');
-    const closeBtn = document.getElementById('closeModal');
-    const iframe = document.getElementById('shopifyFrame');
 
-    if (!buyBtn || !modal || !closeBtn || !iframe) {
-        console.error('Purchase modal elements not found');
+    if (!buyBtn) {
+        console.error('Buy button not found');
         return;
     }
 
-    /**
-     * Opens the purchase modal
-     */
-    const openModal = () => {
-        iframe.src = SHOPIFY_PRODUCT_URL;
-        modal.classList.add('active');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-    };
-
-    /**
-     * Closes the purchase modal
-     */
-    const closeModal = () => {
-        modal.classList.remove('active');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        // Clear iframe src to stop any ongoing processes
-        iframe.src = '';
-    };
-
-    // Event listeners
-    buyBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-
-    // Close on background click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
+    // Open Shopify product page in new tab
+    buyBtn.addEventListener('click', () => {
+        window.open(SHOPIFY_PRODUCT_URL, '_blank', 'noopener,noreferrer');
     });
 }
