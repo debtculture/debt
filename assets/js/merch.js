@@ -13,6 +13,11 @@ const CAROUSEL_CONFIG = {
 
 const SHOPIFY_PRODUCT_URL = 'https://debt-merch.myshopify.com/products/debt-logo-mug-anti-system-coffee-mug';
 
+// MANUAL INVENTORY MANAGEMENT
+// Update the number in the HTML (#inventoryCount) as items sell
+// Current inventory is managed in merch.html line ~149
+// Shopify does not provide public inventory API without authentication
+
 // =================================================================================
 // --- UTILITY FUNCTIONS ---
 // =================================================================================
