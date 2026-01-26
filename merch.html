@@ -125,67 +125,7 @@
 
             <!-- Merch Items Grid -->
             <div class="merch-container">
-                <!-- Trucker Hat -->
-                <article class="merch-item">
-                    <div class="merch-carousel" data-product="trucker-hat">
-                        <img 
-                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1749663039/Trucker_kld9rv.jpg" 
-                            alt="Debt Culture Trucker Hat" 
-                            loading="lazy" 
-                            class="active"
-                        >
-                        <img 
-                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/Trucker2_p0gh01.jpg" 
-                            alt="Debt Culture Trucker Hat Side View" 
-                            loading="lazy"
-                        >
-                        <img 
-                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/trucker3_i8wihj.jpg" 
-                            alt="Debt Culture Trucker Hat Back View" 
-                            loading="lazy"
-                        >
-                        <button class="carousel-arrow left" aria-label="Previous image">←</button>
-                        <button class="carousel-arrow right" aria-label="Next image">→</button>
-                    </div>
-                    <h3 class="merch-title">Trucker Hat</h3>
-                    <p class="merch-price">$19.99</p>
-                    <span class="credit-tag">
-                        Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>
-                    </span>
-                    <button class="merch-button" disabled aria-disabled="true">Coming Soon</button>
-                </article>
-
-                <!-- Candle -->
-                <article class="merch-item">
-                    <div class="merch-carousel" data-product="candle">
-                        <img 
-                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752015848/candle1_bc7th0.jpg" 
-                            alt="Debt Culture Candle" 
-                            loading="lazy" 
-                            class="active"
-                        >
-                        <img 
-                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle_l4mhuw.jpg" 
-                            alt="Debt Culture Candle Side View" 
-                            loading="lazy"
-                        >
-                        <img 
-                            src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1752022511/candle2_ln8awc.jpg" 
-                            alt="Debt Culture Candle Top View" 
-                            loading="lazy"
-                        >
-                        <button class="carousel-arrow left" aria-label="Previous image">←</button>
-                        <button class="carousel-arrow right" aria-label="Next image">→</button>
-                    </div>
-                    <h3 class="merch-title">Candle</h3>
-                    <p class="merch-price">$17.99</p>
-                    <span class="credit-tag">
-                        Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>
-                    </span>
-                    <button class="merch-button" disabled aria-disabled="true">Coming Soon</button>
-                </article>
-
-                <!-- Coffee Mug -->
+                <!-- Genesis Coffee Mug -->
                 <article class="merch-item">
                     <div class="merch-carousel" data-product="coffee-mug">
                         <img 
@@ -207,13 +147,26 @@
                         <button class="carousel-arrow left" aria-label="Previous image">←</button>
                         <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
-                    <h3 class="merch-title">Coffee Mug</h3>
+                    <h3 class="merch-title">Genesis Coffee Mug</h3>
                     <p class="merch-price">$13.99</p>
                     <span class="credit-tag">
                         Credit: <a href="https://x.com/AutopsyT2" target="_blank" rel="noopener noreferrer">Autopsy</a>
                     </span>
-                    <button class="merch-button" disabled aria-disabled="true">Coming Soon</button>
+                    <button class="merch-button" id="buyMugBtn">Buy Now</button>
                 </article>
+            </div>
+
+            <!-- Purchase Modal -->
+            <div id="purchaseModal" class="purchase-modal" aria-hidden="true">
+                <div class="modal-content">
+                    <button class="modal-close" id="closeModal" aria-label="Close purchase window">&times;</button>
+                    <iframe 
+                        id="shopifyFrame" 
+                        src="" 
+                        title="Purchase Genesis Coffee Mug"
+                        allow="payment"
+                    ></iframe>
+                </div>
             </div>
 
             <!-- Submission Call-to-Action -->
