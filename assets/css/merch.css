@@ -138,6 +138,15 @@
     color: var(--text-primary);
 }
 
+.merch-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 10px 0 15px;
+    padding: 0 10px;
+    max-width: 280px;
+}
+
 .merch-price {
     font-size: 1.2rem;
     color: var(--main-red);
@@ -150,18 +159,6 @@
     color: var(--text-secondary);
     margin-bottom: 15px;
     display: block;
-}
-
-.credit-tag a {
-    color: var(--main-red);
-    text-decoration: none;
-    transition: color var(--transition-speed) ease,
-                text-shadow var(--transition-speed) ease;
-}
-
-.credit-tag a:hover {
-    color: var(--hover-red);
-    text-shadow: 0 0 8px var(--main-red);
 }
 
 .merch-button {
