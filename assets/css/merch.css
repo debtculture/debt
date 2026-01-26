@@ -165,27 +165,31 @@
 }
 
 .merch-button {
-    background: #333;
+    background: var(--main-red);
     color: var(--text-primary);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    cursor: not-allowed;
+    cursor: pointer;
     font-size: 1rem;
     font-weight: 700;
-    opacity: 0.6;
     transition: all var(--transition-speed) ease;
 }
 
-.merch-button:not(:disabled) {
-    background: var(--main-red);
-    cursor: pointer;
-    opacity: 1;
-}
-
-.merch-button:not(:disabled):hover {
+.merch-button:hover {
     background: var(--hover-red);
     box-shadow: 0 0 15px var(--main-red);
+}
+
+.merch-button:disabled {
+    background: #333;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.merch-button:disabled:hover {
+    background: #333;
+    box-shadow: none;
 }
 
 /* --- CALL-TO-ACTION SECTION --- */
@@ -292,4 +296,78 @@
         width: 100%;
         max-width: 300px;
     }
+
+    .modal-content {
+        width: 95%;
+        height: 90%;
+        max-width: none;
+    }
+
+    .modal-close {
+        top: 5px;
+        right: 5px;
+    }
+}
+
+/* --- PURCHASE MODAL --- */
+.purchase-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.purchase-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    height: 85vh;
+    background: #1e1e1e;
+    border: 2px solid var(--main-red);
+    border-radius: 10px;
+    box-shadow: 0 0 30px var(--main-red);
+    overflow: hidden;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--main-red);
+    color: var(--text-primary);
+    border: 2px solid var(--text-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: var(--hover-red);
+    transform: scale(1.1);
+}
+
+#shopifyFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
 }
