@@ -1,5 +1,5 @@
 /* =============================================================================
-   MERCH PAGE - Product carousel and interactions
+   MERCH PAGE - Updated for sold out status and coming soon features
    ============================================================================= */
 
 // =================================================================================
@@ -10,13 +10,6 @@ const CAROUSEL_CONFIG = {
     throttleDelay: 300,
     transitionDuration: 500
 };
-
-const SHOPIFY_PRODUCT_URL = 'https://debt-merch.myshopify.com/products/debt-logo-mug-anti-system-coffee-mug';
-
-// MANUAL INVENTORY MANAGEMENT
-// Update the number in the HTML (#inventoryCount) as items sell
-// Current inventory is managed in merch.html line ~149
-// Shopify does not provide public inventory API without authentication
 
 // =================================================================================
 // --- UTILITY FUNCTIONS ---
@@ -47,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initWallet();
     
     initializeCarousels();
-    initializePurchaseModal();
+    initializeAnimations();
 });
 
 // =================================================================================
@@ -139,22 +132,62 @@ function setupCarousel(carousel) {
 }
 
 // =================================================================================
-// --- PURCHASE MODAL FUNCTIONALITY ---
+// --- ANIMATIONS ---
 // =================================================================================
 
 /**
- * Initializes the purchase button handler
+ * Initializes page animations and effects
  */
-function initializePurchaseModal() {
-    const buyBtn = document.getElementById('buyMugBtn');
+function initializeAnimations() {
+    // Fade in stats on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
-    if (!buyBtn) {
-        console.error('Buy button not found');
-        return;
-    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
 
-    // Open Shopify product page in new tab
-    buyBtn.addEventListener('click', () => {
-        window.open(SHOPIFY_PRODUCT_URL, '_blank', 'noopener,noreferrer');
+    // Observe stats and timeline items
+    const animatedElements = document.querySelectorAll(
+        '.stat-card, .timeline-item, .collection-status'
+    );
+    
+    animatedElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(el);
     });
+
+    // Progress bar animation
+    const progressFill = document.querySelector('.progress-fill');
+    if (progressFill) {
+        setTimeout(() => {
+            progressFill.style.width = progressFill.getAttribute('style').match(/width:\s*(\d+%)/)[1];
+        }, 500);
+    }
+}
+
+// =================================================================================
+// --- UTILITY: Check if wallet manager is available ---
+// =================================================================================
+
+/**
+ * Initialize wallet if available, otherwise skip
+ */
+async function initWallet() {
+    if (typeof window.initWalletManager === 'function') {
+        try {
+            await window.initWalletManager();
+        } catch (error) {
+            console.log('Wallet manager not available or failed to initialize');
+        }
+    }
 }
