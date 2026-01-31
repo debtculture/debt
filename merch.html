@@ -123,39 +123,134 @@
                 <p class="merch-tagline">Wear the rebellion.</p>
             </header>
 
+            <!-- Success Stats Banner -->
+            <div class="success-banner">
+                <div class="stat-card">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Limited Edition</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-number">24hrs</div>
+                    <div class="stat-label">Sold Out</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Community Funded</div>
+                </div>
+            </div>
+
+            <!-- Collection Status -->
+            <div class="collection-status">
+                <div class="collection-header">
+                    <span class="collection-badge">Genesis Collection</span>
+                    <span class="item-counter">Item #1 of ???</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+                <p class="collection-subtitle">The foundation of the rebellion. Each drop immortalized.</p>
+            </div>
+
             <!-- Merch Items Grid -->
             <div class="merch-container">
-                <!-- Genesis Coffee Mug -->
-                <article class="merch-item">
-                    <div class="limited-badge">Limited Edition</div>
+                <!-- Genesis Coffee Mug - SOLD OUT -->
+                <article class="merch-item sold-out-item">
+                    <div class="sold-out-overlay">
+                        <div class="sold-out-stamp">
+                            <span class="stamp-text" data-text="SOLD OUT">SOLD OUT</span>
+                            <div class="stamp-subtext">Genesis #1 Complete</div>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement-badge">
+                        <svg class="checkmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>CLAIMED</span>
+                    </div>
+
                     <div class="merch-carousel" data-product="coffee-mug">
                         <img 
                             src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1769451002/12_e5d0yk.jpg" 
-                            alt="Debt Culture Coffee Mug" 
+                            alt="Debt Culture Coffee Mug - Sold Out" 
                             loading="lazy" 
                             class="active"
                         >
                         <img 
                             src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1769451002/13_hueluq.jpg" 
-                            alt="Debt Culture Coffee Mug Side View" 
+                            alt="Debt Culture Coffee Mug Side View - Sold Out" 
                             loading="lazy"
                         >
                         <img 
                             src="https://res.cloudinary.com/dpvptjn4t/image/upload/f_auto,q_auto/v1769451002/14_g3vyrj.jpg" 
-                            alt="Debt Culture Coffee Mug Side View" 
+                            alt="Debt Culture Coffee Mug Side View - Sold Out" 
                             loading="lazy"
                         >
                         <button class="carousel-arrow left" aria-label="Previous image">←</button>
                         <button class="carousel-arrow right" aria-label="Next image">→</button>
                     </div>
+                    
                     <h3 class="merch-title">Debt Logo Coffee Mug</h3>
-                    <p class="merch-description">A limited edition Genesis coffee mug for Diamond Hand holders. Featuring the official DEBT logo, perfect for home or office use.</p>
-                    <p class="merch-price">$12.99 <span class="shipping-note">(+ shipping)</span></p>
-                    <p class="inventory-status"><span id="inventoryCount">0</span> remaining</p>
-                    <span class="credit-tag">Collection: Genesis</span>
-                    <button class="merch-button" id="buyMugBtn">Buy Now</button>
-                    <p class="proceeds-note">All proceeds fund project costs (hosting, domain, X Premium) + token buybacks</p>
+                    <p class="merch-description">The first Genesis Collection drop. Limited to 10 units. Claimed by Diamond Hand holders in record time.</p>
+                    <p class="merch-price">$12.99 <span class="original-price">SOLD OUT</span></p>
+                    <div class="sold-stats">
+                        <span class="sold-stat">10/10 Claimed</span>
+                        <span class="sold-stat">•</span>
+                        <span class="sold-stat">24hr Sellout</span>
+                    </div>
+                    <span class="credit-tag">Collection: Genesis #1</span>
+                    <button class="merch-button" disabled>
+                        <span class="button-icon">✓</span> Sold Out
+                    </button>
+                    <p class="proceeds-note">All proceeds funded project costs + token buybacks</p>
                 </article>
+
+                <!-- Coming Soon Teaser -->
+                <article class="merch-item coming-soon-item">
+                    <div class="coming-soon-overlay">
+                        <div class="mystery-icon">?</div>
+                        <h3 class="coming-soon-title">Genesis #2</h3>
+                        <p class="coming-soon-subtitle">Next Drop Incoming...</p>
+                        <div class="coming-soon-hint">
+                            <p>The rebellion grows stronger with each drop.</p>
+                            <p class="hint-detail">Stay tuned to our community channels for the reveal.</p>
+                        </div>
+                    </div>
+                    <div class="notify-section">
+                        <p class="notify-text">Want early access to the next drop?</p>
+                        <a 
+                            href="https://x.com/AutopsyT2" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            class="notify-button"
+                        >
+                            <span class="button-icon">𝕏</span> Follow for Updates
+                        </a>
+                        <p class="notify-subtext">Genesis holders get priority access</p>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Future Collections Teaser -->
+            <div class="future-collections">
+                <h2 class="future-title">The Roadmap</h2>
+                <div class="collections-timeline">
+                    <div class="timeline-item active">
+                        <div class="timeline-icon">✓</div>
+                        <h4>Genesis Collection</h4>
+                        <p>Foundation pieces. Limited runs. Community-first.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">→</div>
+                        <h4>Signature Series</h4>
+                        <p>Prominent holders design their own items. Artist royalties on sales.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">?</div>
+                        <h4>Beyond</h4>
+                        <p>The rebellion expands...</p>
+                    </div>
+                </div>
             </div>
 
         </section>
