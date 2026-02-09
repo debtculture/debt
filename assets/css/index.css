@@ -307,9 +307,9 @@
 
 .schedule-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
     gap: 18px;
-    max-width: 1150px;
+    max-width: 900px;
     margin: 0 auto 10px;
 }
 
