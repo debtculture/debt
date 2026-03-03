@@ -119,6 +119,28 @@
     color: #ccc;
 }
 
+/* List Section Divider */
+.list-divider {
+    list-style: none;
+    margin: 25px 0 15px;
+    padding: 12px 0;
+    text-align: center;
+}
+
+.list-divider::before {
+    content: none;
+}
+
+.list-divider > strong {
+    display: inline-block;
+    color: var(--main-red);
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--main-red);
+}
+
 /* List Item Bullets */
 .paper-section li::before {
     content: '»';
